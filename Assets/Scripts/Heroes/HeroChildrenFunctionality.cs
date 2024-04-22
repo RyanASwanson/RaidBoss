@@ -4,11 +4,14 @@ using UnityEngine;
 
 public abstract class HeroChildrenFunctionality : MonoBehaviour
 {
+    public HeroBase myHeroBase;
     #region Events
+
     public virtual void ChildFuncSetup(HeroBase heroBase)
     {
-        SubscribeToEvents(heroBase);
+        myHeroBase = heroBase;
+        SubscribeToEvents();
     }
-    public abstract void SubscribeToEvents(HeroBase heroBase);
+    public abstract void SubscribeToEvents();
     #endregion
 }
