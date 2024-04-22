@@ -8,7 +8,7 @@ public class PlayerInputGameplayManager : BaseGameplayManager
     [SerializeField] private LayerMask _selectClickLayerMask;
     [SerializeField] private LayerMask _directClickLayerMask;
 
-    private List<HeroBase> _selectedHero;
+    private List<HeroBase> _controlledHeroes;
 
     private UniveralPlayerInputActions UPIA;
 
@@ -39,22 +39,29 @@ public class PlayerInputGameplayManager : BaseGameplayManager
         return false;
     }
 
-    private void NewSelectedHeroes()
+    #region Controlling Heroes
+    private void NewControlledHero(HeroBase newHero)
+    {
+        _controlledHeroes.Add(newHero);
+    }
+
+    private void NewControlledHeroes()
     {
 
     }
 
-    private void ClearSelectedHeroes()
+    private void ClearControlledHeroes()
     {
-
+        _controlledHeroes.Clear();
     }
+    #endregion
 
     #region InputActions
     private void PlayerSelectClicked(InputAction.CallbackContext context)
     {
         if(ClickOnPoint(_selectClickLayerMask, out Vector3 hitPoint))
         {
-
+            
         }
     }
 
