@@ -8,7 +8,7 @@ public class PlayerInputGameplayManager : BaseGameplayManager
     [SerializeField] private LayerMask _selectClickLayerMask;
     [SerializeField] private LayerMask _directClickLayerMask;
 
-    private List<HeroBase> _controlledHeroes;
+    private List<HeroBase> _controlledHeroes = new List<HeroBase>();
 
     private UniveralPlayerInputActions UPIA;
 
@@ -24,18 +24,16 @@ public class PlayerInputGameplayManager : BaseGameplayManager
         UnsubscribeToPlayerInput();
     }
 
-    private bool ClickOnPoint(LayerMask detectionLayerMask, out Vector3 hitPoint)
+    private bool ClickOnPoint(LayerMask detectionLayerMask, out RaycastHit rayHit)
     {
         Camera mainCam = GameplayManagers.Instance.GetCameraManager().GetGameplayCamera();
 
         Ray clickRay = mainCam.ScreenPointToRay(Mouse.current.position.ReadValue());
 
-        if (Physics.Raycast(clickRay, out RaycastHit rayHit, 100,detectionLayerMask))
+        if (Physics.Raycast(clickRay, out rayHit, 100,detectionLayerMask))
         {
-            hitPoint = rayHit.point;
             return true;
         }
-        hitPoint = Vector3.zero;
         return false;
     }
 
@@ -59,7 +57,7 @@ public class PlayerInputGameplayManager : BaseGameplayManager
     {
         foreach(HeroBase currentHero in _controlledHeroes)
         {
-            currentHero.DirectNavigationTo(newDestination);
+            currentHero.GetPathfinding().DirectNavigationTo(newDestination);
         }
     }    
     #endregion
@@ -67,18 +65,18 @@ public class PlayerInputGameplayManager : BaseGameplayManager
     #region InputActions
     private void PlayerSelectClicked(InputAction.CallbackContext context)
     {
-        if(ClickOnPoint(_selectClickLayerMask, out Vector3 hitPoint))
+        if(ClickOnPoint(_selectClickLayerMask, out RaycastHit clickedOn))
         {
-            
+            NewControlledHero(clickedOn.collider.gameObject.GetComponentInParent<HeroBase>());
         }
     }
 
 
     private void PlayerDirectClicked(InputAction.CallbackContext context)
     {
-        if (ClickOnPoint(_directClickLayerMask, out Vector3 hitPoint))
+        if (ClickOnPoint(_directClickLayerMask, out RaycastHit clickedOn))
         {
-            DirectAllHeroesTo(hitPoint);
+            DirectAllHeroesTo(clickedOn.point);
         }
     }
 

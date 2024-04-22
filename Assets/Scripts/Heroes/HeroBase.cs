@@ -1,33 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
+using UnityEngine.Events;
 
 public class HeroBase : MonoBehaviour
 {
-    [SerializeField] private NavMeshAgent _meshAgent;
+    [SerializeField] private HeroPathfinding _heroPathfinding;
+
+    private UnityEvent<HeroSO> _heroSOSetEvent;
+
+    [Header("TEST")]
+    [SerializeField] private HeroSO _testSO;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        SetHeroSO(_testSO);
     }
 
-    #region Navigation
-    public void DirectNavigationTo(Vector3 newDestination)
+    #region Events
+    private void InvokeSetHeroSO(HeroSO heroSO)
     {
-        _meshAgent.SetDestination(newDestination);
+        _heroSOSetEvent?.Invoke(heroSO);
     }
     #endregion
 
     #region Getters
-
+    public HeroPathfinding GetPathfinding() => _heroPathfinding;
+    public UnityEvent<HeroSO> GetSOSetEvent() => _heroSOSetEvent;
     #endregion
 
     #region Setters
     private void SetHeroSO(HeroSO heroSO)
     {
-
+        InvokeSetHeroSO(heroSO);
     }
     #endregion
 }
