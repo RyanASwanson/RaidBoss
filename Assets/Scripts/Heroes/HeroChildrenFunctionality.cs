@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class HeroChildrenFunctionality : MonoBehaviour
 {
-    public HeroBase myHeroBase;
+    internal HeroBase myHeroBase;
     #region Events
 
     public virtual void ChildFuncSetup(HeroBase heroBase)

@@ -314,6 +314,7 @@ GameObject:
   m_Component:
   - component: {fileID: 416362288}
   - component: {fileID: 416362289}
+  - component: {fileID: 416362290}
   m_Layer: 0
   m_Name: Functionality
   m_TagString: Untagged
@@ -350,8 +351,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6299364aa970fdd4d92c9f2fc7619e6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myHeroBase: {fileID: 0}
   _meshAgent: {fileID: 1498438731}
+--- !u!114 &416362290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 416362287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdf934303ddfc3e4aaea6073ddb3bd76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _controlIcon: {fileID: 1754633385}
 --- !u!1 &722819522
 GameObject:
   m_ObjectHideFlags: 0
@@ -540,7 +553,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1754633383}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

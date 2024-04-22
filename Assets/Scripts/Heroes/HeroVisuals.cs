@@ -22,17 +22,19 @@ public class HeroVisuals : HeroChildrenFunctionality
     public override void SubscribeToEvents()
     {
         myHeroBase.GetSOSetEvent().AddListener(HeroSOAssigned);
+        myHeroBase.GetHeroControlledBeginEvent().AddListener(HeroControlStart);
+        myHeroBase.GetHeroControlledEndEvent().AddListener(HeroControlStop);
         myHeroBase.GetPathfinding().HeroStartedMovingEvent().AddListener(HeroStartedMoving);
         myHeroBase.GetPathfinding().HeroStoppedMovingEvent().AddListener(HeroStoppedMoving);
     }
     private void HeroControlStart()
     {
-
+        _controlIcon.enabled = true;
     }
 
     private void HeroControlStop()
     {
-
+        _controlIcon.enabled = false;
     }
 
     private void HeroStartedMoving()
