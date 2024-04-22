@@ -12,7 +12,7 @@ public class PlayerInputGameplayManager : BaseGameplayManager
     // Start is called before the first frame update
     void Start()
     {
-        SubscribeToEvents();
+        //SubscribeToEvents();
         SubscribeToPlayerInput();
     }
 
