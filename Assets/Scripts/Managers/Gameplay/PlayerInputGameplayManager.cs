@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerInputGameplayManager : BaseGameplayManager
 {
+    [SerializeField] private LayerMask _clickLayerMask;
+
     private UniveralPlayerInputActions UPIA;
 
     // Start is called before the first frame update
@@ -21,7 +23,17 @@ public class PlayerInputGameplayManager : BaseGameplayManager
 
     private void ClickOnPoint()
     {
+        Camera mainCam = GameplayManagers.Instance.GetCameraManager.GetGameplayCamera;
 
+        Ray clickRay = mainCam.ScreenPointToRay(Mouse.current.position.ReadValue());
+        RaycastHit rayHit;
+
+        if (Physics.Raycast(clickRay, out rayHit, _clickLayerMask))
+        {
+            Vector3 targetLocation = rayHit.point;
+            Debug.Log(targetLocation);
+        }
+        
     }
 
     #region InputActions

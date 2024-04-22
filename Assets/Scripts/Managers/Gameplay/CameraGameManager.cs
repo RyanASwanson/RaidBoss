@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraGameManager : BaseGameplayManager
 {
-
+    [SerializeField] private Camera _gameplayCamera;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,5 +25,6 @@ public class CameraGameManager : BaseGameplayManager
     #endregion
 
     #region Getters
+    public Camera GetGameplayCamera => _gameplayCamera;
     #endregion
 }
