@@ -11,14 +11,15 @@ public class GameplayManagers : MonoBehaviour
     [SerializeField] private CameraGameManager _cameraManager;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        Instance = this;
     }
 
     #region Getters
-    public PlayerInputGameplayManager GetPlayerInputManager => _playerInputManager;
-    public GameStateManager GetGameStateManager => _gameStateManager;
-    public CameraGameManager GetCameraManager => _cameraManager;
+    public PlayerInputGameplayManager GetPlayerInputManager() => _playerInputManager;
+    public GameStateManager GetGameStateManager() => _gameStateManager;
+    public CameraGameManager GetCameraManager() => _cameraManager;
+        
     #endregion
 }

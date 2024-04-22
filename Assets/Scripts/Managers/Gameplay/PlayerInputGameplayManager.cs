@@ -23,7 +23,7 @@ public class PlayerInputGameplayManager : BaseGameplayManager
 
     private void ClickOnPoint()
     {
-        Camera mainCam = GameplayManagers.Instance.GetCameraManager.GetGameplayCamera;
+        Camera mainCam = GameplayManagers.Instance.GetCameraManager().GetGameplayCamera();
 
         Ray clickRay = mainCam.ScreenPointToRay(Mouse.current.position.ReadValue());
         RaycastHit rayHit;

@@ -25,6 +25,12 @@ public class CameraGameManager : BaseGameplayManager
     #endregion
 
     #region Getters
-    public Camera GetGameplayCamera => _gameplayCamera;
+    public Camera GetGameplayCamera() => _gameplayCamera;
+
+
+    public int GetTest()
+    {
+        return 1;
+    }
     #endregion
 }
