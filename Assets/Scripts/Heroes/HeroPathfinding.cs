@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class HeroPathfinding : MonoBehaviour
+public class HeroPathfinding : HeroChildrenFunctionality
 {
     [SerializeField] private NavMeshAgent _meshAgent;
 
@@ -19,9 +19,9 @@ public class HeroPathfinding : MonoBehaviour
     }
 
     #region Events
-    public void SubscribeToEvents()
+    public override void SubscribeToEvents(HeroBase heroBase)
     {
-        GetComponentInParent<HeroBase>().GetSOSetEvent().AddListener(HeroSOAssigned);
+        heroBase.GetSOSetEvent().AddListener(HeroSOAssigned);
     }
     #endregion
 }

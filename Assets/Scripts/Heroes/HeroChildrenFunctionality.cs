@@ -2,17 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeroChildrenFunctionality : MonoBehaviour
+public abstract class HeroChildrenFunctionality : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    #region Events
+    public virtual void ChildFuncSetup(HeroBase heroBase)
     {
-        
+        SubscribeToEvents(heroBase);
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public abstract void SubscribeToEvents(HeroBase heroBase);
+    #endregion
 }
