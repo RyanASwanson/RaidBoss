@@ -9,6 +9,7 @@ public class GameplayManagers : MonoBehaviour
     [SerializeField] private PlayerInputGameplayManager _playerInputManager;
     [SerializeField] private GameStateManager _gameStateManager;
     [SerializeField] private CameraGameManager _cameraManager;
+    [SerializeField] private HeroesManager _heroesManager;
 
     // Start is called before the first frame update
     void Awake()
@@ -20,6 +21,7 @@ public class GameplayManagers : MonoBehaviour
     public PlayerInputGameplayManager GetPlayerInputManager() => _playerInputManager;
     public GameStateManager GetGameStateManager() => _gameStateManager;
     public CameraGameManager GetCameraManager() => _cameraManager;
+    public HeroesManager GetHeroesManager() => _heroesManager;
         
     #endregion
 }

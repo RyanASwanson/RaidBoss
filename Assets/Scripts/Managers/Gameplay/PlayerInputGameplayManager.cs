@@ -40,6 +40,8 @@ public class PlayerInputGameplayManager : BaseGameplayManager
     #region Controlling Heroes
     private void NewControlledHero(HeroBase newHero)
     {
+        ClearControlledHeroes();
+
         newHero.InvokeHeroControlledBegin();
         _controlledHeroes.Add(newHero);
     }

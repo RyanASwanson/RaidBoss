@@ -11,11 +11,6 @@ public class CameraGameManager : BaseGameplayManager
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     #region BaseManager
     public override void SubscribeToEvents()
