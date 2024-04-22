@@ -23,3 +23,10 @@ public class GameStateManager : BaseGameplayManager
     }
     #endregion
 }
+
+public enum GameplayStates
+{
+    HeroSelection,
+    Battle,
+    PostBattle
+};

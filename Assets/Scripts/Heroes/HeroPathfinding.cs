@@ -9,7 +9,7 @@ public class HeroPathfinding : HeroChildrenFunctionality
 
     private void HeroSOAssigned(HeroSO heroSO)
     {
-        Debug.Log("Hero Assigned SO Event");
+        //Debug.Log("Hero Assigned SO Event");
         _meshAgent.speed = heroSO.GetMoveSpeed();
     }
 
