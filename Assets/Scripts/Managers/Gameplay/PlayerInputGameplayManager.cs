@@ -54,6 +54,14 @@ public class PlayerInputGameplayManager : BaseGameplayManager
     {
         _controlledHeroes.Clear();
     }
+
+    private void DirectAllHeroesTo(Vector3 newDestination)
+    {
+        foreach(HeroBase currentHero in _controlledHeroes)
+        {
+            currentHero.DirectNavigationTo(newDestination);
+        }
+    }    
     #endregion
 
     #region InputActions
@@ -70,7 +78,7 @@ public class PlayerInputGameplayManager : BaseGameplayManager
     {
         if (ClickOnPoint(_directClickLayerMask, out Vector3 hitPoint))
         {
-
+            DirectAllHeroesTo(hitPoint);
         }
     }
 
@@ -80,10 +88,12 @@ public class PlayerInputGameplayManager : BaseGameplayManager
         UPIA.GameplayActions.Enable();
 
         UPIA.GameplayActions.SelectClick.started += PlayerSelectClicked;
+        UPIA.GameplayActions.DirectClick.started += PlayerDirectClicked;
     }
     private void UnsubscribeToPlayerInput()
     {
         UPIA.GameplayActions.SelectClick.started -= PlayerSelectClicked;
+        UPIA.GameplayActions.DirectClick.started -= PlayerDirectClicked;
 
         UPIA.Disable();
     }
