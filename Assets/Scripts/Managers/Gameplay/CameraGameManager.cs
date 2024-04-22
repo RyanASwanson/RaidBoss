@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameStateManager : BaseGameplayManager
+public class CameraGameManager : BaseGameplayManager
 {
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,5 +22,8 @@ public class GameStateManager : BaseGameplayManager
     {
         throw new System.NotImplementedException();
     }
+    #endregion
+
+    #region Getters
     #endregion
 }

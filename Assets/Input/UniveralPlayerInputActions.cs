@@ -24,7 +24,7 @@ public partial class @UniveralPlayerInputActions: IInputActionCollection2, IDisp
     ""name"": ""UniveralPlayerInputActions"",
     ""maps"": [
         {
-            ""name"": ""PlayerClicking"",
+            ""name"": ""GameplayActions"",
             ""id"": ""3ae50ac2-4521-4057-aa4f-006fc48c3e4c"",
             ""actions"": [
                 {
@@ -54,9 +54,9 @@ public partial class @UniveralPlayerInputActions: IInputActionCollection2, IDisp
     ],
     ""controlSchemes"": []
 }");
-        // PlayerClicking
-        m_PlayerClicking = asset.FindActionMap("PlayerClicking", throwIfNotFound: true);
-        m_PlayerClicking_Click = m_PlayerClicking.FindAction("Click", throwIfNotFound: true);
+        // GameplayActions
+        m_GameplayActions = asset.FindActionMap("GameplayActions", throwIfNotFound: true);
+        m_GameplayActions_Click = m_GameplayActions.FindAction("Click", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -115,52 +115,52 @@ public partial class @UniveralPlayerInputActions: IInputActionCollection2, IDisp
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // PlayerClicking
-    private readonly InputActionMap m_PlayerClicking;
-    private List<IPlayerClickingActions> m_PlayerClickingActionsCallbackInterfaces = new List<IPlayerClickingActions>();
-    private readonly InputAction m_PlayerClicking_Click;
-    public struct PlayerClickingActions
+    // GameplayActions
+    private readonly InputActionMap m_GameplayActions;
+    private List<IGameplayActionsActions> m_GameplayActionsActionsCallbackInterfaces = new List<IGameplayActionsActions>();
+    private readonly InputAction m_GameplayActions_Click;
+    public struct GameplayActionsActions
     {
         private @UniveralPlayerInputActions m_Wrapper;
-        public PlayerClickingActions(@UniveralPlayerInputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Click => m_Wrapper.m_PlayerClicking_Click;
-        public InputActionMap Get() { return m_Wrapper.m_PlayerClicking; }
+        public GameplayActionsActions(@UniveralPlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Click => m_Wrapper.m_GameplayActions_Click;
+        public InputActionMap Get() { return m_Wrapper.m_GameplayActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(PlayerClickingActions set) { return set.Get(); }
-        public void AddCallbacks(IPlayerClickingActions instance)
+        public static implicit operator InputActionMap(GameplayActionsActions set) { return set.Get(); }
+        public void AddCallbacks(IGameplayActionsActions instance)
         {
-            if (instance == null || m_Wrapper.m_PlayerClickingActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_PlayerClickingActionsCallbackInterfaces.Add(instance);
+            if (instance == null || m_Wrapper.m_GameplayActionsActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_GameplayActionsActionsCallbackInterfaces.Add(instance);
             @Click.started += instance.OnClick;
             @Click.performed += instance.OnClick;
             @Click.canceled += instance.OnClick;
         }
 
-        private void UnregisterCallbacks(IPlayerClickingActions instance)
+        private void UnregisterCallbacks(IGameplayActionsActions instance)
         {
             @Click.started -= instance.OnClick;
             @Click.performed -= instance.OnClick;
             @Click.canceled -= instance.OnClick;
         }
 
-        public void RemoveCallbacks(IPlayerClickingActions instance)
+        public void RemoveCallbacks(IGameplayActionsActions instance)
         {
-            if (m_Wrapper.m_PlayerClickingActionsCallbackInterfaces.Remove(instance))
+            if (m_Wrapper.m_GameplayActionsActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
 
-        public void SetCallbacks(IPlayerClickingActions instance)
+        public void SetCallbacks(IGameplayActionsActions instance)
         {
-            foreach (var item in m_Wrapper.m_PlayerClickingActionsCallbackInterfaces)
+            foreach (var item in m_Wrapper.m_GameplayActionsActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
-            m_Wrapper.m_PlayerClickingActionsCallbackInterfaces.Clear();
+            m_Wrapper.m_GameplayActionsActionsCallbackInterfaces.Clear();
             AddCallbacks(instance);
         }
     }
-    public PlayerClickingActions @PlayerClicking => new PlayerClickingActions(this);
-    public interface IPlayerClickingActions
+    public GameplayActionsActions @GameplayActions => new GameplayActionsActions(this);
+    public interface IGameplayActionsActions
     {
         void OnClick(InputAction.CallbackContext context);
     }
