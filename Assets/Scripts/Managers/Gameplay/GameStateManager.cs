@@ -30,7 +30,7 @@ public class GameStateManager : BaseGameplayManager
     #region BaseManager
     public override void SubscribeToEvents()
     {
-        throw new System.NotImplementedException();
+        
     }
     #endregion
 }
