@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameStateManager : BaseGameplayManager
 {
+    private GameplayStates _currentGameplayState = GameplayStates.HeroSelection;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,6 +15,16 @@ public class GameStateManager : BaseGameplayManager
     void Update()
     {
         
+    }
+
+    private void IncrementGameplayState()
+    {
+        _currentGameplayState++;
+        switch(_currentGameplayState)
+        {
+            case (GameplayStates.Battle):
+                return;
+        }
     }
 
     #region BaseManager

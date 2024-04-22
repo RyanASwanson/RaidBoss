@@ -8,6 +8,8 @@ public class HeroBase : MonoBehaviour
     [SerializeField] private HeroPathfinding _heroPathfinding;
 
     private UnityEvent<HeroSO> _heroSOSetEvent = new UnityEvent<HeroSO>();
+    private UnityEvent _heroControlledStartEvent = new UnityEvent();
+    private UnityEvent _heroControlledEndEvent = new UnityEvent();
 
     [Header("TEST")]
     [SerializeField] private HeroSO _testSO;
@@ -30,11 +32,23 @@ public class HeroBase : MonoBehaviour
     {
         _heroSOSetEvent?.Invoke(heroSO);
     }
+
+    public void InvokeHeroControlledBegin()
+    {
+        _heroControlledStartEvent?.Invoke();
+    }
+
+    public void InvokeHeroControlledEnd()
+    {
+        _heroControlledEndEvent?.Invoke();
+    }
     #endregion
 
     #region Getters
     public HeroPathfinding GetPathfinding() => _heroPathfinding;
     public UnityEvent<HeroSO> GetSOSetEvent() => _heroSOSetEvent;
+    public UnityEvent GetHeroControlledBeginEvent() => _heroControlledStartEvent;
+    public UnityEvent GetHeroControlledEndEvent() => _heroControlledEndEvent;
     #endregion
 
     #region Setters
