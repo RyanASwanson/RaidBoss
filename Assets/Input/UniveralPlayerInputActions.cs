@@ -28,9 +28,18 @@ public partial class @UniveralPlayerInputActions: IInputActionCollection2, IDisp
             ""id"": ""3ae50ac2-4521-4057-aa4f-006fc48c3e4c"",
             ""actions"": [
                 {
-                    ""name"": ""Click"",
+                    ""name"": ""SelectClick"",
                     ""type"": ""Button"",
                     ""id"": ""01c42468-c092-4759-8f6f-c6c28ad79dac"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DirectClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""cc85b0e9-97ac-4eed-94a4-d954cb339d4a"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -45,7 +54,18 @@ public partial class @UniveralPlayerInputActions: IInputActionCollection2, IDisp
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Click"",
+                    ""action"": ""SelectClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4b115e33-bce1-4eb0-b76d-2ed961cf178a"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DirectClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -56,7 +76,8 @@ public partial class @UniveralPlayerInputActions: IInputActionCollection2, IDisp
 }");
         // GameplayActions
         m_GameplayActions = asset.FindActionMap("GameplayActions", throwIfNotFound: true);
-        m_GameplayActions_Click = m_GameplayActions.FindAction("Click", throwIfNotFound: true);
+        m_GameplayActions_SelectClick = m_GameplayActions.FindAction("SelectClick", throwIfNotFound: true);
+        m_GameplayActions_DirectClick = m_GameplayActions.FindAction("DirectClick", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -118,12 +139,14 @@ public partial class @UniveralPlayerInputActions: IInputActionCollection2, IDisp
     // GameplayActions
     private readonly InputActionMap m_GameplayActions;
     private List<IGameplayActionsActions> m_GameplayActionsActionsCallbackInterfaces = new List<IGameplayActionsActions>();
-    private readonly InputAction m_GameplayActions_Click;
+    private readonly InputAction m_GameplayActions_SelectClick;
+    private readonly InputAction m_GameplayActions_DirectClick;
     public struct GameplayActionsActions
     {
         private @UniveralPlayerInputActions m_Wrapper;
         public GameplayActionsActions(@UniveralPlayerInputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Click => m_Wrapper.m_GameplayActions_Click;
+        public InputAction @SelectClick => m_Wrapper.m_GameplayActions_SelectClick;
+        public InputAction @DirectClick => m_Wrapper.m_GameplayActions_DirectClick;
         public InputActionMap Get() { return m_Wrapper.m_GameplayActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -133,16 +156,22 @@ public partial class @UniveralPlayerInputActions: IInputActionCollection2, IDisp
         {
             if (instance == null || m_Wrapper.m_GameplayActionsActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_GameplayActionsActionsCallbackInterfaces.Add(instance);
-            @Click.started += instance.OnClick;
-            @Click.performed += instance.OnClick;
-            @Click.canceled += instance.OnClick;
+            @SelectClick.started += instance.OnSelectClick;
+            @SelectClick.performed += instance.OnSelectClick;
+            @SelectClick.canceled += instance.OnSelectClick;
+            @DirectClick.started += instance.OnDirectClick;
+            @DirectClick.performed += instance.OnDirectClick;
+            @DirectClick.canceled += instance.OnDirectClick;
         }
 
         private void UnregisterCallbacks(IGameplayActionsActions instance)
         {
-            @Click.started -= instance.OnClick;
-            @Click.performed -= instance.OnClick;
-            @Click.canceled -= instance.OnClick;
+            @SelectClick.started -= instance.OnSelectClick;
+            @SelectClick.performed -= instance.OnSelectClick;
+            @SelectClick.canceled -= instance.OnSelectClick;
+            @DirectClick.started -= instance.OnDirectClick;
+            @DirectClick.performed -= instance.OnDirectClick;
+            @DirectClick.canceled -= instance.OnDirectClick;
         }
 
         public void RemoveCallbacks(IGameplayActionsActions instance)
@@ -162,6 +191,7 @@ public partial class @UniveralPlayerInputActions: IInputActionCollection2, IDisp
     public GameplayActionsActions @GameplayActions => new GameplayActionsActions(this);
     public interface IGameplayActionsActions
     {
-        void OnClick(InputAction.CallbackContext context);
+        void OnSelectClick(InputAction.CallbackContext context);
+        void OnDirectClick(InputAction.CallbackContext context);
     }
 }

@@ -5,7 +5,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerInputGameplayManager : BaseGameplayManager
 {
-    [SerializeField] private LayerMask _clickLayerMask;
+    [SerializeField] private LayerMask _selectClickLayerMask;
+    [SerializeField] private LayerMask _directClickLayerMask;
+
+    private List<HeroBase> _selectedHero;
 
     private UniveralPlayerInputActions UPIA;
 
@@ -21,25 +24,47 @@ public class PlayerInputGameplayManager : BaseGameplayManager
         UnsubscribeToPlayerInput();
     }
 
-    private void ClickOnPoint()
+    private bool ClickOnPoint(LayerMask detectionLayerMask, out Vector3 hitPoint)
     {
         Camera mainCam = GameplayManagers.Instance.GetCameraManager().GetGameplayCamera();
 
         Ray clickRay = mainCam.ScreenPointToRay(Mouse.current.position.ReadValue());
-        RaycastHit rayHit;
 
-        if (Physics.Raycast(clickRay, out rayHit, _clickLayerMask))
+        if (Physics.Raycast(clickRay, out RaycastHit rayHit, 100,detectionLayerMask))
         {
-            Vector3 targetLocation = rayHit.point;
-            Debug.Log(targetLocation);
+            hitPoint = rayHit.point;
+            return true;
         }
-        
+        hitPoint = Vector3.zero;
+        return false;
+    }
+
+    private void NewSelectedHeroes()
+    {
+
+    }
+
+    private void ClearSelectedHeroes()
+    {
+
     }
 
     #region InputActions
-    public void PlayerClicked(InputAction.CallbackContext context)
+    private void PlayerSelectClicked(InputAction.CallbackContext context)
     {
-        ClickOnPoint();
+        if(ClickOnPoint(_selectClickLayerMask, out Vector3 hitPoint))
+        {
+
+        }
+    }
+
+
+    private void PlayerDirectClicked(InputAction.CallbackContext context)
+    {
+        if (ClickOnPoint(_directClickLayerMask, out Vector3 hitPoint))
+        {
+
+        }
     }
 
     private void SubscribeToPlayerInput()
@@ -47,11 +72,11 @@ public class PlayerInputGameplayManager : BaseGameplayManager
         UPIA = new UniveralPlayerInputActions();
         UPIA.GameplayActions.Enable();
 
-        UPIA.GameplayActions.Click.started += PlayerClicked;
+        UPIA.GameplayActions.SelectClick.started += PlayerSelectClicked;
     }
     private void UnsubscribeToPlayerInput()
     {
-        UPIA.GameplayActions.Click.started -= PlayerClicked;
+        UPIA.GameplayActions.SelectClick.started -= PlayerSelectClicked;
 
         UPIA.Disable();
     }

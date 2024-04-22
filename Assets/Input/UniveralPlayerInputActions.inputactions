@@ -6,9 +6,18 @@
             "id": "3ae50ac2-4521-4057-aa4f-006fc48c3e4c",
             "actions": [
                 {
-                    "name": "Click",
+                    "name": "SelectClick",
                     "type": "Button",
                     "id": "01c42468-c092-4759-8f6f-c6c28ad79dac",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DirectClick",
+                    "type": "Button",
+                    "id": "cc85b0e9-97ac-4eed-94a4-d954cb339d4a",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -23,7 +32,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Click",
+                    "action": "SelectClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4b115e33-bce1-4eb0-b76d-2ed961cf178a",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DirectClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
