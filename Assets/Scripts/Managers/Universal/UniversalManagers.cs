@@ -6,6 +6,7 @@ public class UniversalManagers : MonoBehaviour
 {
     public static UniversalManagers Instance;
 
+    [SerializeField] private SceneLoadManager _sceneLoadManager;
     [SerializeField] private SelectionManager _selectionManager;
 
     private void Awake()
@@ -20,7 +21,8 @@ public class UniversalManagers : MonoBehaviour
     }
 
     #region Get Managers
-
+    public SceneLoadManager GetSceneLoadManager() => _sceneLoadManager;
+    public SelectionManager GetSelectionManager() => _selectionManager;
 
     #endregion
 }
