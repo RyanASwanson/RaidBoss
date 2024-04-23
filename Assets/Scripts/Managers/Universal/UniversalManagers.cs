@@ -6,6 +6,8 @@ public class UniversalManagers : MonoBehaviour
 {
     public static UniversalManagers Instance;
 
+    [SerializeField] private SelectionManager _selectionManager;
+
     private void Awake()
     {
         if(Instance == null)

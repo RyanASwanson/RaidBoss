@@ -11,7 +11,6 @@ public class GameplayManagers : MonoBehaviour
     [SerializeField] private CameraGameManager _cameraManager;
     [SerializeField] private HeroesManager _heroesManager;
     [SerializeField] private EnvironmentManager _environmentManager;
-    [SerializeField] private SelectionManager _selectionManager;
     [SerializeField] private GameUIManager _gameUIManager;
 
     // Start is called before the first frame update
@@ -26,7 +25,6 @@ public class GameplayManagers : MonoBehaviour
     public CameraGameManager GetCameraManager() => _cameraManager;
     public HeroesManager GetHeroesManager() => _heroesManager;
     public EnvironmentManager GetEnvironmentManager() => _environmentManager;
-    public SelectionManager GetSelectionManager() => _selectionManager;
     public GameUIManager GetGameUIManager() => _gameUIManager;
         
     #endregion
