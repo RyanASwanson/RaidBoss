@@ -11,12 +11,7 @@ public class HeroVisuals : HeroChildrenFunctionality
 
     }
 
-    private void HeroSOAssigned(HeroSO heroSO)
-    {
-        //Debug.Log("Hero Assigned SO Event");
-        //_meshAgent.speed = heroSO.GetMoveSpeed();
-
-    }
+    
 
     #region Events
     public override void SubscribeToEvents()
@@ -26,6 +21,12 @@ public class HeroVisuals : HeroChildrenFunctionality
         myHeroBase.GetHeroControlledEndEvent().AddListener(HeroControlStop);
         myHeroBase.GetPathfinding().HeroStartedMovingEvent().AddListener(HeroStartedMoving);
         myHeroBase.GetPathfinding().HeroStoppedMovingEvent().AddListener(HeroStoppedMoving);
+    }
+    private void HeroSOAssigned(HeroSO heroSO)
+    {
+        //Debug.Log("Hero Assigned SO Event");
+        //_meshAgent.speed = heroSO.GetMoveSpeed();
+
     }
     private void HeroControlStart()
     {
