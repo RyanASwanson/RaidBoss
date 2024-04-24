@@ -87,7 +87,7 @@ public class PlayerInputGameplayManager : BaseGameplayManager
 
     private void SubscribeToPlayerInput()
     {
-        UPIA = new UniveralPlayerInputActions();
+        UPIA = new UniversalPlayerInputActions();
         UPIA.GameplayActions.Enable();
 
         UPIA.GameplayActions.SelectClick.started += PlayerSelectClicked;

@@ -12,8 +12,18 @@ public class EnvironmentManager : BaseGameplayManager
         
     }
 
+    #region Events
     public override void SubscribeToEvents()
     {
         
     }
+    #endregion
+
+    #region Getters
+    public List<GameObject> GetSpawnLocations() => _heroSpawnLocations;
+    #endregion
+
+    #region Setters
+
+    #endregion
 }

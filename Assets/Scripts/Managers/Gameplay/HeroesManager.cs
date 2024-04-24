@@ -13,8 +13,20 @@ public class HeroesManager : BaseGameplayManager
         
     }
 
+    void SpawnHeroesAtSpawnPoints()
+    {
+
+    }
+
+    #region Events
     public override void SubscribeToEvents()
     {
         
     }
+    #endregion
+
+    #region Getters
+    public List<HeroSO> GetCurrentHeroes() => _currentHeroes;
+    public List<HeroSO> GetCurrentLivingHeroes() => _currentLivingHeroes;
+    #endregion
 }

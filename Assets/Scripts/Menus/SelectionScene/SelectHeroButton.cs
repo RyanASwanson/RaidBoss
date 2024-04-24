@@ -22,5 +22,6 @@ public class SelectHeroButton : MonoBehaviour
         {
             UniversalManagers.Instance.GetSelectionManager().RemoveSpecificHero(_associatedHero);
         }
+        _buttonHasBeenPressed = !_buttonHasBeenPressed;
     }
 }

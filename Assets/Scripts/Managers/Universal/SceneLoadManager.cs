@@ -11,5 +11,13 @@ public class SceneLoadManager : MonoBehaviour
         
     }
 
-    
+    public void LoadSceneByID(int id)
+    {
+        SceneManager.LoadScene(id);
+    }
+
+    public void LoadSceneByLevelSO(LevelSO levelSO)
+    {
+        LoadSceneByID(levelSO.GetLevelBuildID());
+    }
 }
