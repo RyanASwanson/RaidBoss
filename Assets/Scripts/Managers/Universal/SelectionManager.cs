@@ -4,33 +4,26 @@ using UnityEngine;
 
 public class SelectionManager : BaseUniversalManager
 {
-    private HeroSO[] _selectedHeroes = new HeroSO[_maxHeroes];
-    private int _selectedCount = 0;
+    private List<HeroSO> _selectedHeroes = new List<HeroSO>();
     private const int _maxHeroes = 5;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     public void AddNewSelectedHero(HeroSO newHeroSO)
     {
-        if (_selectedCount < _maxHeroes)
-        {
-            _selectedHeroes[_selectedCount] = newHeroSO;
-            _selectedCount++;
-        }
+        if (_selectedHeroes.Count < _maxHeroes)
+            _selectedHeroes.Add(newHeroSO);
+       
     }
 
     public void RemoveSpecificHero(HeroSO removingHero)
     {
-        
+        if(_selectedHeroes.Contains(removingHero))
+            _selectedHeroes.Remove(removingHero);    
     }
 
 
     #region Getters
-    public HeroSO[] GetAllSelectedHeroes() => _selectedHeroes;
+    public List<HeroSO> GetAllSelectedHeroes() => _selectedHeroes;
     public HeroSO GetHeroAtValue(int val) => _selectedHeroes[val];
-    public int GetSelectedHeroesCount() => _selectedCount;
+    public int GetSelectedHeroesCount() => _selectedHeroes.Count;
     #endregion
 }

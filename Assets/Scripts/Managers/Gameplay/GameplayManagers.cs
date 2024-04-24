@@ -17,6 +17,8 @@ public class GameplayManagers : MonoBehaviour
     void Awake()
     {
         Instance = this;
+
+        //foreach(BaseGameplayManager bgm in GetComponentsInChildren<BaseGameplayManager>())
     }
 
     #region Getters

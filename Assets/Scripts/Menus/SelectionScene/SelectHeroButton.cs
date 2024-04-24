@@ -12,11 +12,15 @@ public class SelectHeroButton : MonoBehaviour
         
     }
 
-    public void ButtonPressed()
+    public void SelectHeroButtonPressed()
     {
-        if(!_buttonHasBeenPressed)
+        if (!_buttonHasBeenPressed)
         {
             UniversalManagers.Instance.GetSelectionManager().AddNewSelectedHero(_associatedHero);
+        }
+        else
+        {
+            UniversalManagers.Instance.GetSelectionManager().RemoveSpecificHero(_associatedHero);
         }
     }
 }

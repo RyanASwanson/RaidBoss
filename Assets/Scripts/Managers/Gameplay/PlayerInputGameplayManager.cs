@@ -10,7 +10,7 @@ public class PlayerInputGameplayManager : BaseGameplayManager
 
     private List<HeroBase> _controlledHeroes = new List<HeroBase>();
 
-    private UniveralPlayerInputActions UPIA;
+    private UniversalPlayerInputActions UPIA;
 
     // Start is called before the first frame update
     void Start()
