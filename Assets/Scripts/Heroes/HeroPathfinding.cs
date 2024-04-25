@@ -15,6 +15,7 @@ public class HeroPathfinding : HeroChildrenFunctionality
     private void HeroSOAssigned(HeroSO heroSO)
     {
         //Debug.Log("Hero Assigned SO Event");
+        Debug.Log("SetMoveSpeed");
         _meshAgent.speed = heroSO.GetMoveSpeed();
     }
 
@@ -44,6 +45,7 @@ public class HeroPathfinding : HeroChildrenFunctionality
     #region Events
     public override void SubscribeToEvents()
     {
+        Debug.Log("Pathfinding Subscription");
         myHeroBase.GetSOSetEvent().AddListener(HeroSOAssigned);
     }
     #endregion

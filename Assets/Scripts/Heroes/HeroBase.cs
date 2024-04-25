@@ -7,24 +7,18 @@ public class HeroBase : MonoBehaviour
 {
     [SerializeField] private HeroPathfinding _heroPathfinding;
 
+    private HeroSO _associatedSO;
+
     private UnityEvent<HeroSO> _heroSOSetEvent = new UnityEvent<HeroSO>();
     private UnityEvent _heroControlledStartEvent = new UnityEvent();
     private UnityEvent _heroControlledEndEvent = new UnityEvent();
 
-    [Header("TEST")]
-    [SerializeField] private HeroSO _testSO;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        Setup();
-        SetHeroSO(_testSO);
-    }
-
-    void Setup()
+    public void Setup(HeroSO newSO)
     {
         foreach (HeroChildrenFunctionality childFunc in GetComponentsInChildren<HeroChildrenFunctionality>())
             childFunc.ChildFuncSetup(this);
+
+        SetHeroSO(newSO);
     }
 
     #region Events
@@ -52,8 +46,9 @@ public class HeroBase : MonoBehaviour
     #endregion
 
     #region Setters
-    private void SetHeroSO(HeroSO heroSO)
+    public void SetHeroSO(HeroSO heroSO)
     {
+        _associatedSO = heroSO;
         InvokeSetHeroSO(heroSO);
     }
     #endregion

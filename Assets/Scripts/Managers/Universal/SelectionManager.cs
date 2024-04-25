@@ -25,5 +25,6 @@ public class SelectionManager : BaseUniversalManager
     public List<HeroSO> GetAllSelectedHeroes() => _selectedHeroes;
     public HeroSO GetHeroAtValue(int val) => _selectedHeroes[val];
     public int GetSelectedHeroesCount() => _selectedHeroes.Count;
+    public int GetMaxHeroesCount() => _maxHeroes;
     #endregion
 }

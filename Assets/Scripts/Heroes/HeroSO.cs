@@ -15,6 +15,7 @@ public class HeroSO : ScriptableObject
 
     [Header("Visuals")]
     [SerializeField] private Sprite _heroIcon;
+    [SerializeField] private MeshFilter _mesh;
 
     #region Getters
     public string GetHeroName() => _name;
