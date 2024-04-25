@@ -21,25 +21,17 @@ public class HeroesManager : BaseGameplayManager
         List<GameObject> spawnLocations = GameplayManagers.Instance.GetEnvironmentManager().GetSpawnLocations();
         List<HeroSO> heroSOs = UniversalManagers.Instance.GetSelectionManager().GetAllSelectedHeroes();
 
-        /*foreach(HeroSO h in heroSOs)
-        {
-            Debug.Log(h.GetHeroName());
-        }*/
-
         for (int i = 0; i < heroSOs.Count; i++)
         {
-            //Debug.Log(heroSOs[i].GetHeroName());
             SpawnHero(spawnLocations[i].transform,heroSOs[i]);
         }
     }
 
     void SpawnHero(Transform spawnLocation, HeroSO heroSO)
     {
-        Debug.Log(heroSO.GetHeroName());
         GameObject newHero = Instantiate(_baseHeroPrefab, 
             spawnLocation.transform.position,spawnLocation.transform.rotation);
         newHero.GetComponent<HeroBase>().Setup(heroSO);
-        //newHero.GetComponent<HeroBase>().SetHeroSO(heroSO);
     }
 
     #region Events
