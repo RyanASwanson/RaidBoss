@@ -12,6 +12,7 @@ public class GameplayManagers : MonoBehaviour
     [SerializeField] private HeroesManager _heroesManager;
     [SerializeField] private EnvironmentManager _environmentManager;
     [SerializeField] private GameUIManager _gameUIManager;
+    [SerializeField] private BossManager _bossManager;
 
     // Start is called before the first frame update
     void Awake()
@@ -29,6 +30,7 @@ public class GameplayManagers : MonoBehaviour
     public HeroesManager GetHeroesManager() => _heroesManager;
     public EnvironmentManager GetEnvironmentManager() => _environmentManager;
     public GameUIManager GetGameUIManager() => _gameUIManager;
+    public BossManager GetBossManager() => _bossManager;
         
     #endregion
 }
