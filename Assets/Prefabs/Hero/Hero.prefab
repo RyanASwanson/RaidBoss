@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4263328483924012269}
   - component: {fileID: 4263328483924012268}
   - component: {fileID: 4263328483924012271}
+  - component: {fileID: 2507807044940824500}
   m_Layer: 0
   m_Name: Functionality
   m_TagString: Untagged
@@ -61,6 +62,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _controlIcon: {fileID: 4263328485807544180}
+--- !u!114 &2507807044940824500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4263328483924012274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6178bf0307f7e7543ba2cd262db0a114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4263328484126842052
 GameObject:
   m_ObjectHideFlags: 0
@@ -224,7 +237,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _heroPathfinding: {fileID: 4263328483924012268}
-  _testSO: {fileID: 11400000, guid: fa900cf8282b2814fb9eb1a8cc860cd0, type: 2}
+  _heroVisuals: {fileID: 4263328483924012271}
+  _heroStats: {fileID: 2507807044940824500}
 --- !u!195 &4263328484989411222
 NavMeshAgent:
   m_ObjectHideFlags: 0

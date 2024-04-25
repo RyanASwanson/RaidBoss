@@ -5,11 +5,12 @@ using UnityEngine;
 public class HeroStats : HeroChildrenFunctionality
 {
     private float _heroMaxHealth;
-    private float _heroDefaultMovespeed;
-    private float _heroDefaultAggro;
-
     private float _currentHealth;
+
+    private float _heroDefaultMovespeed;
     private float _currentMovespeed;
+
+    private float _heroDefaultAggro;
     private float _currentAggro;
 
     public override void ChildFuncSetup(HeroBase heroBase)
