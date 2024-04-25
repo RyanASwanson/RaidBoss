@@ -5,13 +5,6 @@ using UnityEngine;
 public class HeroVisuals : HeroChildrenFunctionality
 {
     [SerializeField] private MeshRenderer _controlIcon;
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    
 
     #region Events
     public override void SubscribeToEvents()

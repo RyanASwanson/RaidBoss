@@ -13,6 +13,9 @@ public class HeroBase : MonoBehaviour
     private UnityEvent _heroControlledStartEvent = new UnityEvent();
     private UnityEvent _heroControlledEndEvent = new UnityEvent();
 
+    private UnityEvent<float> _heroDamaged = new UnityEvent<float>();
+    private UnityEvent<float> _heroHealed = new UnityEvent<float>();
+
     public void Setup(HeroSO newSO)
     {
         foreach (HeroChildrenFunctionality childFunc in GetComponentsInChildren<HeroChildrenFunctionality>())
