@@ -6,6 +6,11 @@ public class HeroVisuals : HeroChildrenFunctionality
 {
     [SerializeField] private MeshRenderer _controlIcon;
 
+    public override void ChildFuncSetup(HeroBase heroBase)
+    {
+        base.ChildFuncSetup(heroBase);
+    }
+
     #region Events
     public override void SubscribeToEvents()
     {

@@ -6,6 +6,8 @@ using UnityEngine.Events;
 public class HeroBase : MonoBehaviour
 {
     [SerializeField] private HeroPathfinding _heroPathfinding;
+    [SerializeField] private HeroVisuals _heroVisuals;
+    [SerializeField] private HeroStats _heroStats;
 
     private HeroSO _associatedSO;
 
@@ -43,6 +45,9 @@ public class HeroBase : MonoBehaviour
 
     #region Getters
     public HeroPathfinding GetPathfinding() => _heroPathfinding;
+    public HeroVisuals GetHeroVisuals() => _heroVisuals;
+    public HeroStats GetHeroStats() => _heroStats;
+
     public UnityEvent<HeroSO> GetSOSetEvent() => _heroSOSetEvent;
     public UnityEvent GetHeroControlledBeginEvent() => _heroControlledStartEvent;
     public UnityEvent GetHeroControlledEndEvent() => _heroControlledEndEvent;

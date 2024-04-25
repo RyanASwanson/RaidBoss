@@ -12,11 +12,9 @@ public class HeroPathfinding : HeroChildrenFunctionality
     private UnityEvent _heroStartedMovingOnMesh = new UnityEvent();
     private UnityEvent _heroStoppedMovingOnMesh = new UnityEvent();
 
-    private void HeroSOAssigned(HeroSO heroSO)
+    public override void ChildFuncSetup(HeroBase heroBase)
     {
-        //Debug.Log("Hero Assigned SO Event");
-        Debug.Log("SetMoveSpeed");
-        _meshAgent.speed = heroSO.GetMoveSpeed();
+        base.ChildFuncSetup(heroBase);
     }
 
     public void DirectNavigationTo(Vector3 newDestination)
@@ -48,9 +46,15 @@ public class HeroPathfinding : HeroChildrenFunctionality
         Debug.Log("Pathfinding Subscription");
         myHeroBase.GetSOSetEvent().AddListener(HeroSOAssigned);
     }
+
+    private void HeroSOAssigned(HeroSO heroSO)
+    {
+        
+    }
     #endregion
 
     #region Getters
+    public NavMeshAgent GetNavMeshAgent() => _meshAgent;
     public UnityEvent HeroStartedMovingEvent() => _heroStartedMovingOnMesh;
     public UnityEvent HeroStoppedMovingEvent() => _heroStoppedMovingOnMesh;
     #endregion
