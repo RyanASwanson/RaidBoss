@@ -9,8 +9,6 @@ public class HeroPathfinding : HeroChildrenFunctionality
     [SerializeField] private NavMeshAgent _meshAgent;
 
     private Coroutine _heroMovementCoroutine = null;
-    private UnityEvent _heroStartedMovingOnMesh = new UnityEvent();
-    private UnityEvent _heroStoppedMovingOnMesh = new UnityEvent();
 
     public override void ChildFuncSetup(HeroBase heroBase)
     {
@@ -55,7 +53,5 @@ public class HeroPathfinding : HeroChildrenFunctionality
 
     #region Getters
     public NavMeshAgent GetNavMeshAgent() => _meshAgent;
-    public UnityEvent HeroStartedMovingEvent() => _heroStartedMovingOnMesh;
-    public UnityEvent HeroStoppedMovingEvent() => _heroStoppedMovingOnMesh;
     #endregion
 }

@@ -12,8 +12,12 @@ public class HeroBase : MonoBehaviour
     private HeroSO _associatedSO;
 
     private UnityEvent<HeroSO> _heroSOSetEvent = new UnityEvent<HeroSO>();
+
     private UnityEvent _heroControlledStartEvent = new UnityEvent();
     private UnityEvent _heroControlledEndEvent = new UnityEvent();
+
+    private UnityEvent _heroStartedMovingOnMesh = new UnityEvent();
+    private UnityEvent _heroStoppedMovingOnMesh = new UnityEvent();
 
     private UnityEvent<float> _heroDamaged = new UnityEvent<float>();
     private UnityEvent<float> _heroHealed = new UnityEvent<float>();
@@ -41,12 +45,25 @@ public class HeroBase : MonoBehaviour
     {
         _heroControlledEndEvent?.Invoke();
     }
+
+    public void InvokeHeroStartedMoving()
+    {
+        _heroStartedMovingOnMesh?.Invoke();
+    }
+
+    public void InvokeHeroStoppedMoving()
+    {
+        _heroStoppedMovingOnMesh?.Invoke();
+    }
     #endregion
 
     #region Getters
     public HeroPathfinding GetPathfinding() => _heroPathfinding;
     public HeroVisuals GetHeroVisuals() => _heroVisuals;
     public HeroStats GetHeroStats() => _heroStats;
+
+    public UnityEvent HeroStartedMovingEvent() => _heroStartedMovingOnMesh;
+    public UnityEvent HeroStoppedMovingEvent() => _heroStoppedMovingOnMesh;
 
     public UnityEvent<HeroSO> GetSOSetEvent() => _heroSOSetEvent;
     public UnityEvent GetHeroControlledBeginEvent() => _heroControlledStartEvent;

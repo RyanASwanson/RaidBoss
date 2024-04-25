@@ -10,4 +10,5 @@ public class BossSO : ScriptableObject
 
     [Header("Stats")]
     [SerializeField] private float _maxHP;
+    [SerializeField] private float _baseStaggerCounter;
 }

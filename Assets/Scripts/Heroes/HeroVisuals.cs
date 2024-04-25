@@ -17,8 +17,8 @@ public class HeroVisuals : HeroChildrenFunctionality
         myHeroBase.GetSOSetEvent().AddListener(HeroSOAssigned);
         myHeroBase.GetHeroControlledBeginEvent().AddListener(HeroControlStart);
         myHeroBase.GetHeroControlledEndEvent().AddListener(HeroControlStop);
-        myHeroBase.GetPathfinding().HeroStartedMovingEvent().AddListener(HeroStartedMoving);
-        myHeroBase.GetPathfinding().HeroStoppedMovingEvent().AddListener(HeroStoppedMoving);
+        myHeroBase.HeroStartedMovingEvent().AddListener(HeroStartedMoving);
+        myHeroBase.HeroStoppedMovingEvent().AddListener(HeroStoppedMoving);
     }
     private void HeroSOAssigned(HeroSO heroSO)
     {
