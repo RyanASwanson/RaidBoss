@@ -7,10 +7,9 @@ public class HeroesManager : BaseGameplayManager
     private List<HeroSO> _currentHeroes = new List<HeroSO>();
     private List<HeroSO> _currentLivingHeroes = new List<HeroSO>();
 
-    // Start is called before the first frame update
-    void Start()
+    public override void SetupGameplayManager()
     {
-        
+        base.SetupGameplayManager();
     }
 
     void SpawnHeroesAtSpawnPoints()

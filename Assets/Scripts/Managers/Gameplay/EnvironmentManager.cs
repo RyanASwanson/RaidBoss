@@ -6,10 +6,9 @@ public class EnvironmentManager : BaseGameplayManager
 {
     [SerializeField] private List<GameObject> _heroSpawnLocations;
 
-    // Start is called before the first frame update
-    void Start()
+    public override void SetupGameplayManager()
     {
-        
+        base.SetupGameplayManager();
     }
 
     #region Events

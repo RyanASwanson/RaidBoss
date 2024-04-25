@@ -18,7 +18,8 @@ public class GameplayManagers : MonoBehaviour
     {
         Instance = this;
 
-        //foreach(BaseGameplayManager bgm in GetComponentsInChildren<BaseGameplayManager>())
+        foreach (BaseGameplayManager bgm in GetComponentsInChildren<BaseGameplayManager>())
+            bgm.SetupGameplayManager();
     }
 
     #region Getters

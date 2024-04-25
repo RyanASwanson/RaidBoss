@@ -12,10 +12,9 @@ public class PlayerInputGameplayManager : BaseGameplayManager
 
     private UniversalPlayerInputActions UPIA;
 
-    // Start is called before the first frame update
-    void Start()
+    public override void SetupGameplayManager()
     {
-        //SubscribeToEvents();
+        base.SetupGameplayManager();
         SubscribeToPlayerInput();
     }
 
@@ -105,7 +104,7 @@ public class PlayerInputGameplayManager : BaseGameplayManager
     #region BaseManager
     public override void SubscribeToEvents()
     {
-        throw new System.NotImplementedException();
+        
     }
     #endregion
 }

@@ -5,10 +5,9 @@ using UnityEngine;
 public class GameStateManager : BaseGameplayManager
 {
     private GameplayStates _currentGameplayState = GameplayStates.HeroSelection;
-    // Start is called before the first frame update
-    void Start()
+    public override void SetupGameplayManager()
     {
-        
+        base.SetupGameplayManager();
     }
 
     // Update is called once per frame
@@ -32,6 +31,7 @@ public class GameStateManager : BaseGameplayManager
     {
         
     }
+
     #endregion
 }
 

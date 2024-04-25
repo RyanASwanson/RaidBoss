@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class GameUIManager : BaseGameplayManager
 {
-    
 
-    // Start is called before the first frame update
-    void Start()
+    public override void SetupGameplayManager()
     {
-        
+        base.SetupGameplayManager();
     }
 
     // Update is called once per frame
@@ -20,6 +18,6 @@ public class GameUIManager : BaseGameplayManager
 
     public override void SubscribeToEvents()
     {
-        throw new System.NotImplementedException();
+        
     }
 }
