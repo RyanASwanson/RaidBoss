@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GameStateManager : BaseGameplayManager
 {
     private GameplayStates _currentGameplayState = GameplayStates.HeroSelection;
+
+    private UnityEvent _startOfFightEvent = new UnityEvent();
+    private UnityEvent _
     public override void SetupGameplayManager()
     {
         base.SetupGameplayManager();
@@ -16,13 +20,16 @@ public class GameStateManager : BaseGameplayManager
         
     }
 
-    private void IncrementGameplayState()
+    private void SetGameplayState(GameplayStates newGameplayState)
     {
-        _currentGameplayState++;
+        if (_currentGameplayState == newGameplayState) return;
+
+        _currentGameplayState = newGameplayState;
+
         switch(_currentGameplayState)
         {
             case (GameplayStates.Battle):
-                return;
+                break;
         }
     }
 
@@ -31,6 +38,8 @@ public class GameStateManager : BaseGameplayManager
     {
         
     }
+
+    public 
 
     #endregion
 }

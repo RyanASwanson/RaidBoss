@@ -5,11 +5,18 @@ using UnityEngine.Events;
 
 public class HeroBase : MonoBehaviour
 {
+    [Header("ChildFunctionality")]
     [SerializeField] private HeroPathfinding _heroPathfinding;
     [SerializeField] private HeroVisuals _heroVisuals;
     [SerializeField] private HeroStats _heroStats;
+    [Space]
+
+    [Header("Child GameObjects")]
+    [SerializeField] private GameObject _heroSpecificsGO;
 
     private HeroSO _associatedSO;
+    private GameObject _associatedHeroGameObject;
+    private SpecificHeroFramework _associatedHeroScript;
 
     private UnityEvent<HeroSO> _heroSOSetEvent = new UnityEvent<HeroSO>();
 
@@ -24,9 +31,19 @@ public class HeroBase : MonoBehaviour
 
     public void Setup(HeroSO newSO)
     {
+        CreateHeroPrefab(newSO);
+
         SetupChildren();
 
         SetHeroSO(newSO);
+    }
+
+    private void CreateHeroPrefab(HeroSO newSO)
+    {
+        _associatedHeroGameObject = Instantiate(newSO.GetHeroPrefab(), _heroSpecificsGO.transform);
+        _associatedHeroScript = _associatedHeroGameObject.GetComponent<SpecificHeroFramework>();
+
+        _associatedHeroScript.SubscribeToEvents();
     }
 
     private void SetupChildren()
@@ -67,6 +84,8 @@ public class HeroBase : MonoBehaviour
     public HeroPathfinding GetPathfinding() => _heroPathfinding;
     public HeroVisuals GetHeroVisuals() => _heroVisuals;
     public HeroStats GetHeroStats() => _heroStats;
+
+    public GameObject GetAssociatedHeroObject() => _associatedHeroGameObject;
 
     public UnityEvent HeroStartedMovingEvent() => _heroStartedMovingOnMesh;
     public UnityEvent HeroStoppedMovingEvent() => _heroStoppedMovingOnMesh;

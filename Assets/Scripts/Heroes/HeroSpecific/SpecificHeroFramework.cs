@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public abstract class SpecificHeroFramework : HeroChildrenFunctionality
+public abstract class SpecificHeroFramework : MonoBehaviour
 {
     private UnityEvent _basicAttackAbilities = new UnityEvent();
     private UnityEvent _manualAbilities = new UnityEvent();
     private UnityEvent _passiveAbilities = new UnityEvent();
 
 
-    public override abstract void SubscribeToEvents();
+    public virtual void SubscribeToEvents()
+    {
+        
+    }
 }
