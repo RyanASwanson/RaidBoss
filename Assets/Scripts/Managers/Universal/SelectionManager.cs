@@ -9,6 +9,8 @@ public class SelectionManager : BaseUniversalManager
 
     private BossSO _selectedBoss;
 
+    private GameDifficulty _currentGameDifficulty;
+
     public void AddNewSelectedHero(HeroSO newHeroSO)
     {
         if (_selectedHeroes.Count < _maxHeroes)
@@ -37,3 +39,10 @@ public class SelectionManager : BaseUniversalManager
     }
     #endregion
 }
+
+public enum GameDifficulty
+{
+    Easy,
+    Medium,
+    Hard
+};

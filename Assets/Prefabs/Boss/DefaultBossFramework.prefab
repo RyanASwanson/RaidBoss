@@ -76,6 +76,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba9b1cbb637c1f845bf2fe42f1866ecf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bossVisuals: {fileID: 1175115581027467578}
   _bossStats: {fileID: 2371686325024405816}
 --- !u!1 &9071958956832463331
 GameObject:
@@ -86,6 +87,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4786260085232277357}
+  - component: {fileID: 1175115581027467578}
   - component: {fileID: 2371686325024405816}
   m_Layer: 0
   m_Name: Functionality
@@ -110,6 +112,18 @@ Transform:
   m_Father: {fileID: 962502863651315723}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1175115581027467578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9071958956832463331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7f8e4727b1a67e4e856e953671f90b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2371686325024405816
 MonoBehaviour:
   m_ObjectHideFlags: 0

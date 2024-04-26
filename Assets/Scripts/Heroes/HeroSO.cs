@@ -13,6 +13,7 @@ public class HeroSO : ScriptableObject
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _aggro;
     [SerializeField] private float _basicAttackInterval;
+    [Range(.5f,1.5f)][SerializeField] private float _damageResistance;
 
     [Header("Visuals")]
     [SerializeField] private Sprite _heroIcon;
@@ -24,6 +25,7 @@ public class HeroSO : ScriptableObject
     public float GetMoveSpeed() => _moveSpeed;
     public float GetAggro() => _aggro;
     public float GetBasicAttackInterval() => _basicAttackInterval;
+    public float GetDamageResistance() => _damageResistance;
     public Sprite GetHeroIcon() => _heroIcon;
     public GameObject GetHeroModel() => _model;
     #endregion

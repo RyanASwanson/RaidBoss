@@ -16,6 +16,9 @@ public class HeroStats : HeroChildrenFunctionality
     private float _heroDefaultAttackInterval;
     private float _currentAttackInterval;
 
+    private float _heroDefaultDamageResistance;
+    private float _currentDamageResistance;
+
     public override void ChildFuncSetup(HeroBase heroBase)
     {
         base.ChildFuncSetup(heroBase);
@@ -27,11 +30,13 @@ public class HeroStats : HeroChildrenFunctionality
         _heroDefaultMovespeed = heroSO.GetMoveSpeed();
         _heroDefaultAggro = heroSO.GetAggro();
         _heroDefaultAttackInterval = heroSO.GetBasicAttackInterval();
+        _heroDefaultDamageResistance = heroSO.GetDamageResistance();
 
         _currentHealth = _heroMaxHealth;
         _currentMovespeed = _heroDefaultMovespeed;
         _currentAggro = _heroDefaultAggro;
         _currentAttackInterval = _heroDefaultAttackInterval;
+        _currentDamageResistance = _heroDefaultDamageResistance;
 
         myHeroBase.GetPathfinding().GetNavMeshAgent().speed = _heroDefaultMovespeed;
     }
