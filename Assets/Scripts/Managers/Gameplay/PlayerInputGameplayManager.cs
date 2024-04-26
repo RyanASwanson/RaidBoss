@@ -8,6 +8,8 @@ public class PlayerInputGameplayManager : BaseGameplayManager
     [SerializeField] private LayerMask _selectClickLayerMask;
     [SerializeField] private LayerMask _directClickLayerMask;
 
+    private const float _playerClickRange = 50;
+
     private List<HeroBase> _controlledHeroes = new List<HeroBase>();
 
     private UniversalPlayerInputActions UPIA;
@@ -29,7 +31,7 @@ public class PlayerInputGameplayManager : BaseGameplayManager
 
         Ray clickRay = mainCam.ScreenPointToRay(Mouse.current.position.ReadValue());
 
-        if (Physics.Raycast(clickRay, out rayHit, 100,detectionLayerMask))
+        if (Physics.Raycast(clickRay, out rayHit, _playerClickRange,detectionLayerMask))
         {
             return true;
         }
