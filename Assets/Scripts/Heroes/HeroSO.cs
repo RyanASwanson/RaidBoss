@@ -17,7 +17,7 @@ public class HeroSO : ScriptableObject
 
     [Header("Visuals")]
     [SerializeField] private Sprite _heroIcon;
-    [SerializeField] private GameObject _model;
+    [SerializeField] private GameObject _heroPrefab;
 
     #region Getters
     public string GetHeroName() => _name;
@@ -27,6 +27,6 @@ public class HeroSO : ScriptableObject
     public float GetBasicAttackInterval() => _basicAttackInterval;
     public float GetDamageResistance() => _damageResistance;
     public Sprite GetHeroIcon() => _heroIcon;
-    public GameObject GetHeroModel() => _model;
+    public GameObject GetHeroPrefab() => _heroPrefab;
     #endregion
 }

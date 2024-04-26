@@ -59,11 +59,13 @@ public class HeroStats : HeroChildrenFunctionality
     public float GetDefaultSpeed() => _heroMaxHealth;
     public float GetDefaultAggro() => _heroMaxHealth;
     public float GetDefaultAttackInterval() => _heroDefaultAttackInterval;
+    public float GetDefaultDamageResistance() => _heroDefaultDamageResistance;
 
     public float GetCurrentHealth() => _currentHealth;
     public float GetCurrentSpeed() => _currentMovespeed;
     public float GetCurrentAggro() => _currentAggro;
     public float GetCurrentAttackInterval() => _currentAttackInterval;
+    public float GetCurrentDamageResistance() => _currentDamageResistance;
     #endregion
 
     #region Setters
