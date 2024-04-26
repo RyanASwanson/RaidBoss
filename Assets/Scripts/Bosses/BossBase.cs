@@ -13,11 +13,22 @@ public class BossBase : MonoBehaviour
 
     public void Setup(BossSO bossSO)
     {
+        SetupChildren();
 
+        SetBossSO(bossSO);
+    }
+
+    private void SetupChildren()
+    {
+        foreach (BossChildrenFunctionality childFunc in GetComponentsInChildren<BossChildrenFunctionality>())
+            childFunc.ChildFuncSetup(this);
     }
 
     #region Events
-
+    public void InvokeSetBossSO(BossSO bossSO)
+    {
+        _bossSOSetEvent?.Invoke(bossSO);
+    }
     #endregion
 
     #region Getters

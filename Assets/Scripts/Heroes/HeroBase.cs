@@ -24,11 +24,17 @@ public class HeroBase : MonoBehaviour
 
     public void Setup(HeroSO newSO)
     {
-        foreach (HeroChildrenFunctionality childFunc in GetComponentsInChildren<HeroChildrenFunctionality>())
-            childFunc.ChildFuncSetup(this);
+        SetupChildren();
 
         SetHeroSO(newSO);
     }
+
+    private void SetupChildren()
+    {
+        foreach (HeroChildrenFunctionality childFunc in GetComponentsInChildren<HeroChildrenFunctionality>())
+            childFunc.ChildFuncSetup(this);
+    }
+
 
     #region Events
     private void InvokeSetHeroSO(HeroSO heroSO)
