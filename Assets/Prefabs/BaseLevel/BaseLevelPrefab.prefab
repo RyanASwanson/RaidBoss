@@ -268,6 +268,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 962502863651315723, guid: ce5cfafa617ca9b41b50f99d58cf5281, type: 3}
   m_PrefabInstance: {fileID: 1273139393253068206}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7906938581143126383 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8939661990464965825, guid: ce5cfafa617ca9b41b50f99d58cf5281, type: 3}
+  m_PrefabInstance: {fileID: 1273139393253068206}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba9b1cbb637c1f845bf2fe42f1866ecf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5065556587512431369
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -303,6 +314,10 @@ PrefabInstance:
       propertyPath: _heroSpawnLocations.Array.data[4]
       value: 
       objectReference: {fileID: 7601624410652441175}
+    - target: {fileID: 4808913854118388562, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
+      propertyPath: _bossBase
+      value: 
+      objectReference: {fileID: 7906938581143126383}
     - target: {fileID: 8272634563732586759, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
       propertyPath: m_Name
       value: GameplayManagers

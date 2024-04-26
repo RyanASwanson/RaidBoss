@@ -33,15 +33,14 @@ public class HeroPathfinding : HeroChildrenFunctionality
         yield return new WaitForEndOfFrame();
         while(_meshAgent.hasPath )
         {
-            Debug.Log("Moving");
             yield return null;
         }
+        myHeroBase.InvokeHeroStoppedMoving();
     }
 
     #region Events
     public override void SubscribeToEvents()
     {
-        Debug.Log("Pathfinding Subscription");
         myHeroBase.GetSOSetEvent().AddListener(HeroSOAssigned);
     }
 
