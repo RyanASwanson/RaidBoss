@@ -5,7 +5,6 @@ using UnityEngine;
 public abstract class HeroChildrenFunctionality : MonoBehaviour
 {
     internal HeroBase myHeroBase;
-    #region Events
 
     public virtual void ChildFuncSetup(HeroBase heroBase)
     {
@@ -13,5 +12,4 @@ public abstract class HeroChildrenFunctionality : MonoBehaviour
         SubscribeToEvents();
     }
     public abstract void SubscribeToEvents();
-    #endregion
 }

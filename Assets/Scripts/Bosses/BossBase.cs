@@ -5,6 +5,8 @@ using UnityEngine.Events;
 
 public class BossBase : MonoBehaviour
 {
+    [SerializeField] private BossStats _bossStats;
+
     private BossSO _associatedBoss;
 
     private UnityEvent<BossSO> _bossSOSetEvent = new UnityEvent<BossSO>();
@@ -19,10 +21,13 @@ public class BossBase : MonoBehaviour
     #endregion
 
     #region Getters
-
+    public BossStats GetBossStats() => _bossStats;
     #endregion
 
     #region Setters
-
+    public void SetBossSO(BossSO bossSO)
+    {
+        _associatedBoss = bossSO;
+    }
     #endregion
 }
