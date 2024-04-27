@@ -5,8 +5,12 @@ using UnityEngine.Events;
 
 public class BossBase : MonoBehaviour
 {
+    [Header("Child Functionality")]
     [SerializeField] private BossVisuals _bossVisuals;
     [SerializeField] private BossStats _bossStats;
+
+    [Header("Child GameObjects")]
+    [SerializeField] private GameObject _bossSpecificsGO;
 
     private BossSO _associatedBoss;
 

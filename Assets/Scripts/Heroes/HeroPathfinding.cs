@@ -15,12 +15,19 @@ public class HeroPathfinding : HeroChildrenFunctionality
         base.ChildFuncSetup(heroBase);
     }
 
+    /// <summary>
+    /// Makes a player walk to a destination
+    /// </summary>
+    /// <param name="newDestination"></param>
     public void DirectNavigationTo(Vector3 newDestination)
     {
         _meshAgent.SetDestination(newDestination);
         StartMovingCoroutine();
     }
 
+    /// <summary>
+    /// Starts the coroutine for moving on the nav mesh
+    /// </summary>
     private void StartMovingCoroutine()
     {
         if (_heroMovementCoroutine != null)
@@ -28,6 +35,10 @@ public class HeroPathfinding : HeroChildrenFunctionality
         _heroMovementCoroutine = StartCoroutine(MovingOnNavMesh());
     }
 
+    /// <summary>
+    /// This coroutine remains active as the player is moving on the nav mesh
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator MovingOnNavMesh()
     {
         yield return new WaitForEndOfFrame();

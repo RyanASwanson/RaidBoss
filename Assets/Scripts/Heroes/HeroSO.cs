@@ -17,6 +17,8 @@ public class HeroSO : ScriptableObject
 
     [Header("Visuals")]
     [SerializeField] private Sprite _heroIcon;
+
+    [Header("Prefabs")]
     [SerializeField] private GameObject _heroPrefab;
 
     #region Getters
