@@ -5,19 +5,16 @@ using UnityEngine.Events;
 
 public class GameStateManager : BaseGameplayManager
 {
-    private GameplayStates _currentGameplayState = GameplayStates.HeroSelection;
+    private GameplayStates _currentGameplayState = GameplayStates.PreBattle;
 
-    private UnityEvent _startOfFightEvent = new UnityEvent();
-    private UnityEvent _
+    private UnityEvent _startOfBattleEvent = new UnityEvent();
+
+    private UnityEvent _battleLostEvent = new UnityEvent();
+    private UnityEvent _battleWonEvent = new UnityEvent();
+
     public override void SetupGameplayManager()
     {
         base.SetupGameplayManager();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void SetGameplayState(GameplayStates newGameplayState)
@@ -29,6 +26,7 @@ public class GameStateManager : BaseGameplayManager
         switch(_currentGameplayState)
         {
             case (GameplayStates.Battle):
+                InvokeStartOfBattleEvent();
                 break;
         }
     }
@@ -38,15 +36,32 @@ public class GameStateManager : BaseGameplayManager
     {
         
     }
+    
+    public void InvokeStartOfBattleEvent()
+    {
+        _startOfBattleEvent?.Invoke();
+    }
+    public void InvokeBattleLostEvent()
+    {
+        _battleLostEvent?.Invoke();
+    }
+    public void InvokeBattleWonEvent()
+    {
+        _battleWonEvent?.Invoke();
+    }
 
-    public 
+    #endregion
 
+    #region Getters
+    public UnityEvent GetStartOfBattleEvent() => _startOfBattleEvent;
+    public UnityEvent GetBattleLostEvent() => _battleLostEvent;
+    public UnityEvent GetBattleWonEvent() => _battleWonEvent;
     #endregion
 }
 
 public enum GameplayStates
 {
-    HeroSelection,
+    PreBattle,
     Battle,
     PostBattle
 };

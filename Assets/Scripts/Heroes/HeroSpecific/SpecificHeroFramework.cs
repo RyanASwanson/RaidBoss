@@ -5,11 +5,12 @@ using UnityEngine.Events;
 
 public abstract class SpecificHeroFramework : MonoBehaviour
 {
-    private UnityEvent _basicAttackAbilities = new UnityEvent();
-    private UnityEvent _manualAbilities = new UnityEvent();
-    private UnityEvent _passiveAbilities = new UnityEvent();
+    public int _basicAbilityChargeTime;
+    public int _manualAbilityChargeTime;
 
-
+    public abstract void ActivateBasicAbilities();
+    public abstract void ActivateManualAttack(Vector3 attackLocation);
+    public abstract void ActivatePassiveAbilities();
     public virtual void SubscribeToEvents()
     {
         
