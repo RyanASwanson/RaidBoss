@@ -7,8 +7,8 @@ public class HeroesManager : BaseGameplayManager
     [SerializeField] private GameObject _baseHeroPrefab;
 
 
-    private List<HeroSO> _currentHeroes = new List<HeroSO>();
-    private List<HeroSO> _currentLivingHeroes = new List<HeroSO>();
+    private List<HeroBase> _currentHeroes = new List<HeroBase>();
+    private List<HeroBase> _currentLivingHeroes = new List<HeroBase>();
 
     public override void SetupGameplayManager()
     {
@@ -42,7 +42,7 @@ public class HeroesManager : BaseGameplayManager
     #endregion
 
     #region Getters
-    public List<HeroSO> GetCurrentHeroes() => _currentHeroes;
-    public List<HeroSO> GetCurrentLivingHeroes() => _currentLivingHeroes;
+    public List<HeroBase> GetCurrentHeroes() => _currentHeroes;
+    public List<HeroBase> GetCurrentLivingHeroes() => _currentLivingHeroes;
     #endregion
 }
