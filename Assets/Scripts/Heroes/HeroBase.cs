@@ -38,6 +38,10 @@ public class HeroBase : MonoBehaviour
         SetHeroSO(newSO);
     }
 
+    /// <summary>
+    /// Creates the gameobject for the specific hero and saves needed data
+    /// </summary>
+    /// <param name="newSO"></param>
     private void CreateHeroPrefab(HeroSO newSO)
     {
         _associatedHeroGameObject = Instantiate(newSO.GetHeroPrefab(), _heroSpecificsGO.transform);
@@ -46,6 +50,9 @@ public class HeroBase : MonoBehaviour
         _associatedHeroScript.SubscribeToEvents();
     }
 
+    /// <summary>
+    /// Sets up all scripts that inherit from HeroChildrenFunctionality
+    /// </summary>
     private void SetupChildren()
     {
         foreach (HeroChildrenFunctionality childFunc in GetComponentsInChildren<HeroChildrenFunctionality>())

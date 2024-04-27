@@ -27,6 +27,10 @@ public class BossBase : MonoBehaviour
         SetBossSO(newSO);
     }
 
+    /// <summary>
+    /// Creates the gameobject for the specific boss and saves needed data
+    /// </summary>
+    /// <param name="newSO"></param>
     private void CreateBossPrefab(BossSO newSO)
     {
         _associatedBossGameObject = Instantiate(newSO.GetBossPrefab(), _bossSpecificsGO.transform);
@@ -35,6 +39,9 @@ public class BossBase : MonoBehaviour
         _associatedBossScript.SubscribeToEvents();
     }
 
+    /// <summary>
+    /// Sets up all scripts that inherit from BossChildrenFunctionality
+    /// </summary>
     private void SetupChildren()
     {
         foreach (BossChildrenFunctionality childFunc in GetComponentsInChildren<BossChildrenFunctionality>())

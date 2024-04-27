@@ -17,6 +17,10 @@ public class GameStateManager : BaseGameplayManager
         base.SetupGameplayManager();
     }
 
+    /// <summary>
+    /// Changes which state the gameplay is to another one and invokes events for that state
+    /// </summary>
+    /// <param name="newGameplayState"></param>
     private void SetGameplayState(GameplayStates newGameplayState)
     {
         if (_currentGameplayState == newGameplayState) return;

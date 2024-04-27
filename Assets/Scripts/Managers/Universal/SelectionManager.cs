@@ -11,13 +11,23 @@ public class SelectionManager : BaseUniversalManager
 
     private GameDifficulty _currentGameDifficulty;
 
+    /// <summary>
+    /// Adds a new hero to the list of selected heroes
+    /// To be used for the selection scene
+    /// </summary>
+    /// <param name="newHeroSO"></param>
     public void AddNewSelectedHero(HeroSO newHeroSO)
     {
         if (_selectedHeroes.Count < _maxHeroes)
             _selectedHeroes.Add(newHeroSO);
-       
     }
 
+
+    /// <summary>
+    /// Removes a hero from the list of selected heroes
+    /// To be used for the selection scene
+    /// </summary>
+    /// <param name="removingHero"></param>
     public void RemoveSpecificHero(HeroSO removingHero)
     {
         if(_selectedHeroes.Contains(removingHero))
@@ -36,6 +46,10 @@ public class SelectionManager : BaseUniversalManager
     public void SetSelectedBoss(BossSO bossSO)
     {
         _selectedBoss = bossSO;
+    }
+    public void SetSelectedDifficulty(GameDifficulty gameDifficulty)
+    {
+        _currentGameDifficulty = gameDifficulty;
     }
     #endregion
 }

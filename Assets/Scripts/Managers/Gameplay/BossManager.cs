@@ -8,6 +8,9 @@ public class BossManager : BaseGameplayManager
 
     [SerializeField] BossSO TESTINGBOSSSO;
 
+    /// <summary>
+    /// Sets up the manager then sets up the specific boss
+    /// </summary>
     public override void SetupGameplayManager()
     {
         base.SetupGameplayManager();
