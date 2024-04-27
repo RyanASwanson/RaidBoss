@@ -5,28 +5,48 @@ using UnityEngine.Events;
 
 public abstract class SpecificHeroFramework : MonoBehaviour
 {
-    internal float _basicAbilityChargeTime;
-    internal float _manualAbilityChargeTime;
-
+    protected float _basicAbilityChargeTime;
     internal float _basicAbilityCurrentCharge = 0;
+
+    protected float _manualAbilityChargeTime;
     internal float _manualAbilityCurrentCharge = 0;
+
+    internal float _basicAbilityRange;
 
     internal HeroBase myHeroBase;
 
-    internal Coroutine basicAbilityCooldownCoroutine;
-    internal Coroutine manualAbilityCooldownCoroutine;
+    protected Coroutine _attemptingBasicAbilitiesCoroutine;
+    internal Coroutine _basicAbilityCooldownCoroutine;
+    internal Coroutine _manualAbilityCooldownCoroutine;
 
     #region Basic Abilities
+    public virtual void StartCheckingToAttemptBasicAbilities()
+    {
+        _attemptingBasicAbilitiesCoroutine = StartCoroutine(CheckingToAttemptBasicAbilities());
+    }
+    public abstract IEnumerator CheckingToAttemptBasicAbilities();
+    public abstract bool AttemptBasicAbilities();
     public abstract void ActivateBasicAbilities();
+
+    protected virtual void StartCooldownBasicAbility()
+    {
+        _basicAbilityCooldownCoroutine = StartCoroutine(CooldownBasicAbility());
+    }
+
+    protected virtual void StopCooldownBasicAbility()
+    {
+        StopCoroutine(_basicAbilityCooldownCoroutine);
+    }
 
     public virtual IEnumerator CooldownBasicAbility()
     {
-        while(_basicAbilityChargeTime < _basicAbilityCurrentCharge)
+        _basicAbilityCurrentCharge = 0;
+        while (_basicAbilityCurrentCharge < _basicAbilityChargeTime)
         {
             AddToBasicAbilityChargeTime(Time.deltaTime * myHeroBase.GetHeroStats().GetCurrentAttackSpeedMultiplier());
             yield return null;
         }
-        _basicAbilityChargeTime = 0;
+        StartCheckingToAttemptBasicAbilities();
     }
 
     public virtual void AddToBasicAbilityChargeTime(float addedAmount)
@@ -37,7 +57,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     #endregion
 
     #region Manual Abilities
-    public abstract void ActivateManualAttack(Vector3 attackLocation);
+    public abstract void ActivateManualAbilities(Vector3 attackLocation);
 
     public virtual IEnumerator CooldownManualAbility()
     {
@@ -59,14 +79,49 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     public abstract void ActivatePassiveAbilities();
 
     #endregion
-    public virtual void SetupSpecificHero(HeroBase heroBase)
+
+    #region GeneralAbilityFunctionality
+    protected virtual bool InAttackRangeOfBoss(float attackRange)
+    {
+        Vector2 heroPos = new Vector2(myHeroBase.gameObject.transform.position.x, 
+            myHeroBase.gameObject.transform.position.z);
+        Vector2 bossPos = new Vector2(GameplayManagers.Instance.GetBossManager().GetBossBase().transform.position.x,
+            GameplayManagers.Instance.GetBossManager().GetBossBase().transform.position.z);
+
+        return Vector2.Distance(heroPos, bossPos) < attackRange;
+    }
+    #endregion
+
+    public virtual void SetupSpecificHero(HeroBase heroBase, HeroSO heroSO)
     {
         myHeroBase = heroBase;
+        SetDefaultValues(heroSO);
         SubscribeToEvents();
     }
 
+    public virtual void BattleStarted()
+    {
+        SubscribeToHeroSpecificEvents();
+    }
+
+    public virtual void SubscribeToHeroSpecificEvents()
+    {
+
+    }
+    public virtual void UnsubscribeToHeroSpecificEvents()
+    {
+
+    }
+
+    public void SetDefaultValues(HeroSO heroSO)
+    {
+        _basicAbilityChargeTime = heroSO.GetBasicAbilityChargeTime();
+    }
     public virtual void SubscribeToEvents()
     {
-        
+        GameplayManagers.Instance.GetGameStateManager().GetStartOfBattleEvent().AddListener(BattleStarted);
+
+        SubscribeToHeroSpecificEvents();
     }
+
 }

@@ -17,6 +17,15 @@ public class GameStateManager : BaseGameplayManager
         base.SetupGameplayManager();
     }
 
+    //TESTING REMOVE PLEASE
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            SetGameplayState(GameplayStates.Battle);
+        }
+    }
+
     /// <summary>
     /// Changes which state the gameplay is to another one and invokes events for that state
     /// </summary>
@@ -31,6 +40,12 @@ public class GameStateManager : BaseGameplayManager
         {
             case (GameplayStates.Battle):
                 InvokeStartOfBattleEvent();
+                break;
+            case (GameplayStates.PostBattleLost):
+                InvokeBattleLostEvent();
+                break;
+            case (GameplayStates.PostBattleWon):
+                InvokeBattleWonEvent();
                 break;
         }
     }
@@ -67,5 +82,6 @@ public enum GameplayStates
 {
     PreBattle,
     Battle,
-    PostBattle
+    PostBattleLost,
+    PostBattleWon
 };

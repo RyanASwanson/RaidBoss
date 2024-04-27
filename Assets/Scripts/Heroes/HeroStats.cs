@@ -13,7 +13,7 @@ public class HeroStats : HeroChildrenFunctionality
     private float _heroDefaultAggro;
     private float _currentAggro;
 
-    private float _heroDefaultAttackSpeedMultiplier;
+    private const float _heroDefaultAttackSpeedMultiplier = 1;
     private float _currentAttackSpeedMultiplier;
 
     private float _heroDefaultDamageResistance;
@@ -29,7 +29,6 @@ public class HeroStats : HeroChildrenFunctionality
         _heroMaxHealth = heroSO.GetMaxHP();
         _heroDefaultMovespeed = heroSO.GetMoveSpeed();
         _heroDefaultAggro = heroSO.GetAggro();
-        _heroDefaultAttackSpeedMultiplier = heroSO.GetBasicAttackSpeedMultiplier();
         _heroDefaultDamageResistance = heroSO.GetDamageResistance();
 
         _currentHealth = _heroMaxHealth;

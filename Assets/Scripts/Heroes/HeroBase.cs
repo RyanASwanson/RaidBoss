@@ -47,7 +47,7 @@ public class HeroBase : MonoBehaviour
         _associatedHeroGameObject = Instantiate(newSO.GetHeroPrefab(), _heroSpecificsGO.transform);
         _associatedHeroScript = _associatedHeroGameObject.GetComponent<SpecificHeroFramework>();
 
-        _associatedHeroScript.SubscribeToEvents();
+        _associatedHeroScript.SetupSpecificHero(this, newSO);
     }
 
     /// <summary>

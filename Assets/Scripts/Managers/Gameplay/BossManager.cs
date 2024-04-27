@@ -8,12 +8,15 @@ public class BossManager : BaseGameplayManager
 
     [SerializeField] BossSO TESTINGBOSSSO;
 
+    private GameObject _bossGameObject;
+
     /// <summary>
     /// Sets up the manager then sets up the specific boss
     /// </summary>
     public override void SetupGameplayManager()
     {
         base.SetupGameplayManager();
+        _bossGameObject = _bossBase.gameObject;
         _bossBase.Setup(TESTINGBOSSSO);
     }
 
@@ -26,6 +29,7 @@ public class BossManager : BaseGameplayManager
 
     #region Getters
     public BossBase GetBossBase() => _bossBase;
+    public GameObject GetBossBaseGameObject() => _bossGameObject;
     #endregion
 
     #region Setters
