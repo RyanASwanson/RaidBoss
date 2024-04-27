@@ -13,14 +13,26 @@ public class BossBase : MonoBehaviour
     [SerializeField] private GameObject _bossSpecificsGO;
 
     private BossSO _associatedBoss;
+    private GameObject _associatedBossGameObject;
+    private SpecificBossFramework _associatedBossScript;
 
     private UnityEvent<BossSO> _bossSOSetEvent = new UnityEvent<BossSO>();
 
-    public void Setup(BossSO bossSO)
+    public void Setup(BossSO newSO)
     {
+        CreateBossPrefab(newSO);
+
         SetupChildren();
 
-        SetBossSO(bossSO);
+        SetBossSO(newSO);
+    }
+
+    private void CreateBossPrefab(BossSO newSO)
+    {
+        _associatedBossGameObject = Instantiate(newSO.GetBossPrefab(), _bossSpecificsGO.transform);
+        _associatedBossScript = _associatedBossGameObject.GetComponent<SpecificBossFramework>();
+
+        _associatedBossScript.SubscribeToEvents();
     }
 
     private void SetupChildren()

@@ -16,10 +16,14 @@ public class HeroesManager : BaseGameplayManager
         SpawnHeroesAtSpawnPoints();
     }
 
+    /// <summary>
+    /// Spawns all selected heroes from the selection manager
+    /// Uses the spawn points from the environment manager
+    /// </summary>
     void SpawnHeroesAtSpawnPoints()
     {
-        List<GameObject> spawnLocations = GameplayManagers.Instance.GetEnvironmentManager().GetSpawnLocations();
         List<HeroSO> heroSOs = UniversalManagers.Instance.GetSelectionManager().GetAllSelectedHeroes();
+        List<GameObject> spawnLocations = GameplayManagers.Instance.GetEnvironmentManager().GetSpawnLocations();
 
         for (int i = 0; i < heroSOs.Count; i++)
         {
@@ -27,6 +31,11 @@ public class HeroesManager : BaseGameplayManager
         }
     }
 
+    /// <summary>
+    /// Spawns a specific hero and starts their setup
+    /// </summary>
+    /// <param name="spawnLocation"></param>
+    /// <param name="heroSO"></param>
     void SpawnHero(Transform spawnLocation, HeroSO heroSO)
     {
         GameObject newHero = Instantiate(_baseHeroPrefab, 

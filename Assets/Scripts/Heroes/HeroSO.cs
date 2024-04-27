@@ -9,7 +9,7 @@ public class HeroSO : ScriptableObject
     [SerializeField] private string _name;
 
     [Header("Stats")]
-    [SerializeField] private float _maxHp;
+    [SerializeField] private float _maxHP;
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _aggro;
     [SerializeField] private float _basicAttackSpeedMultiplier;
@@ -23,7 +23,7 @@ public class HeroSO : ScriptableObject
 
     #region Getters
     public string GetHeroName() => _name;
-    public float GetMaxHP() => _maxHp;
+    public float GetMaxHP() => _maxHP;
     public float GetMoveSpeed() => _moveSpeed;
     public float GetAggro() => _aggro;
     public float GetBasicAttackSpeedMultiplier() => _basicAttackSpeedMultiplier;

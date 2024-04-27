@@ -22,7 +22,7 @@ public class BossManager : BaseGameplayManager
     #endregion
 
     #region Getters
-
+    public BossBase GetBossBase() => _bossBase;
     #endregion
 
     #region Setters

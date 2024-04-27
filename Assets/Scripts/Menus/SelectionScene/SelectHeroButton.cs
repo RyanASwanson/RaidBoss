@@ -11,17 +11,27 @@ public class SelectHeroButton : MonoBehaviour
     {
         
     }
-
+    
+    /// <summary>
+    /// The button to select and deselect heroes is pressed
+    /// </summary>
     public void SelectHeroButtonPressed()
     {
         if (!_buttonHasBeenPressed)
-        {
-            UniversalManagers.Instance.GetSelectionManager().AddNewSelectedHero(_associatedHero);
-        }
+            HeroSelect();
         else
-        {
-            UniversalManagers.Instance.GetSelectionManager().RemoveSpecificHero(_associatedHero);
-        }
+            HeroDeselect();
+
         _buttonHasBeenPressed = !_buttonHasBeenPressed;
+    }
+
+    private void HeroSelect()
+    {
+        UniversalManagers.Instance.GetSelectionManager().AddNewSelectedHero(_associatedHero);
+    }
+
+    private void HeroDeselect()
+    {
+        UniversalManagers.Instance.GetSelectionManager().RemoveSpecificHero(_associatedHero);
     }
 }
