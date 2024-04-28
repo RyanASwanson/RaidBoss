@@ -201,6 +201,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b30be74494dc02f429e331376638e4ad, type: 3}
+--- !u!114 &1445002623669010693 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1363145599428096748, guid: b30be74494dc02f429e331376638e4ad, type: 3}
+  m_PrefabInstance: {fileID: 497493319253816297}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5765502013225399064 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6261232740446339313, guid: b30be74494dc02f429e331376638e4ad, type: 3}
+  m_PrefabInstance: {fileID: 497493319253816297}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &7790108466079458086 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7708884834892714191, guid: b30be74494dc02f429e331376638e4ad, type: 3}
@@ -314,6 +336,14 @@ PrefabInstance:
       propertyPath: _heroSpawnLocations.Array.data[4]
       value: 
       objectReference: {fileID: 7601624410652441175}
+    - target: {fileID: 4510363601482703036, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
+      propertyPath: _healthBar
+      value: 
+      objectReference: {fileID: 5765502013225399064}
+    - target: {fileID: 4510363601482703036, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
+      propertyPath: _healthRecentBar
+      value: 
+      objectReference: {fileID: 1445002623669010693}
     - target: {fileID: 4808913854118388562, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
       propertyPath: _bossBase
       value: 

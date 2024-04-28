@@ -49,19 +49,27 @@ public class BossStats : BossChildrenFunctionality
     #endregion
 
     #region Getters
+    public float GetBossMaxHealth() => _bossMaxHealth;
+    public float GetBossCurrentHealth() => _currentHealth;
+    public float GetBossHealthPercentage() => _currentHealth / _bossMaxHealth;
 
+    public float GetBossMaxStagger() => _bossDefaultStaggerMax;
+    public float GetBossCurrentStaggerAmount() => _currentStaggerCounter;
+    public float GetBossStaggerPercentage() => _currentStaggerCounter / _bossDefaultStaggerMax;
     #endregion
 
     #region Setters
     public void DealDamageToBoss(float damage)
     {
         _currentHealth -= damage;
+        myBossBase.InvokeBossDamagedEvent(damage);
         CheckIfBossIsDead();
     }
 
     public void DealStaggerToBoss(float stagger)
     {
         _currentStaggerCounter += stagger;
+        myBossBase.InvokeBossStaggerDealt(stagger);
         CheckIfBossIsStaggered();
     }
     #endregion

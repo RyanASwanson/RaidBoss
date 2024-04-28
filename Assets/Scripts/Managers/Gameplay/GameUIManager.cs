@@ -9,6 +9,14 @@ public class GameUIManager : BaseGameplayManager
     public override void SetupGameplayManager()
     {
         base.SetupGameplayManager();
+        SetupChildrenUIManagers();
+    }
+
+    private void SetupChildrenUIManagers()
+    {
+        foreach (GameUIChildrenFunctionality gameUIChildrenFunctionality
+            in GetComponentsInChildren<GameUIChildrenFunctionality>())
+            gameUIChildrenFunctionality.ChildFuncSetup() ;
     }
 
     public override void SubscribeToEvents()

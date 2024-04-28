@@ -10,13 +10,23 @@ public class BossUIManager : GameUIChildrenFunctionality
     [SerializeField] private Image _healthRecentBar;
     [SerializeField] private Image _healthBar;
 
-    private void BossTookDamage()
-    {
+    [SerializeField] private float _timeForRecentBarDrainStart;
 
+    private Coroutine _startBarDrainCoroutine;
+
+    private void BossTookDamage(float damage)
+    {
+        SetHealthBarPercentage(damage);
+    }
+
+    private void SetHealthBarPercentage(float damage)
+    {
+        _healthBar.fillAmount = GameplayManagers.Instance.
+            GetBossManager().GetBossBase().GetBossStats().GetBossHealthPercentage();
     }
 
     public override void SubscribeToEvents()
     {
-        
+        GameplayManagers.Instance.GetBossManager().GetBossBase().GetBossDamagedEvent().AddListener(BossTookDamage);
     }
 }

@@ -18,6 +18,11 @@ public class BossBase : MonoBehaviour
 
     private UnityEvent<BossSO> _bossSOSetEvent = new UnityEvent<BossSO>();
 
+    private UnityEvent<float> _bossDamagedEvent = new UnityEvent<float>();
+    private UnityEvent<float> _bossStaggerDealtEvent = new UnityEvent<float>();
+
+    private UnityEvent _bossDiedEvent = new UnityEvent();
+
     public void Setup(BossSO newSO)
     {
         CreateBossPrefab(newSO);
@@ -53,6 +58,15 @@ public class BossBase : MonoBehaviour
     {
         _bossSOSetEvent?.Invoke(bossSO);
     }
+
+    public void InvokeBossDamagedEvent(float damage)
+    {
+        _bossDamagedEvent?.Invoke(damage);
+    }
+    public void InvokeBossStaggerDealt(float stagger)
+    {
+        _bossStaggerDealtEvent?.Invoke(stagger);
+    }
     #endregion
 
     #region Getters
@@ -60,6 +74,11 @@ public class BossBase : MonoBehaviour
     public BossStats GetBossStats() => _bossStats;
 
     public UnityEvent<BossSO> GetSOSetEvent() => _bossSOSetEvent;
+
+    public UnityEvent<float> GetBossDamagedEvent() => _bossDamagedEvent;
+    public UnityEvent<float> GetBossStaggerDealtEvent() => _bossStaggerDealtEvent;
+
+    public UnityEvent GetBossDiedEvent() => _bossDiedEvent;
     #endregion
 
     #region Setters
