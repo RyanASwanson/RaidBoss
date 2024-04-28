@@ -56,8 +56,12 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     {
         _attemptingBasicAbilitiesCoroutine = StartCoroutine(CheckingToAttemptBasicAbilities());
     }
-    public abstract IEnumerator CheckingToAttemptBasicAbilities();
-    public abstract bool AttemptBasicAbilities();
+    public virtual IEnumerator CheckingToAttemptBasicAbilities()
+    {
+        while (!ConditionsToActivateBasicAbilities())
+            yield return new WaitForFixedUpdate();
+    }
+    public abstract bool ConditionsToActivateBasicAbilities();
     public virtual void ActivateBasicAbilities()
     {
         StartCooldownBasicAbility();
@@ -123,14 +127,14 @@ public abstract class SpecificHeroFramework : MonoBehaviour
 
     public virtual void BattleStarted()
     {
-        ActivateToHeroSpecificActivity();
+        ActivateHeroSpecificActivity();
     }
 
-    public virtual void ActivateToHeroSpecificActivity()
+    public virtual void ActivateHeroSpecificActivity()
     {
         StartCooldownBasicAbility();
     }
-    public virtual void DeactivateToHeroSpecificActivity()
+    public virtual void DeactivateHeroSpecificActivity()
     {
         StopCooldownBasicAbility();
     }

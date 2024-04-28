@@ -2,42 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SH_Guardian : SpecificHeroFramework
+public class SH_Chronomancer : SpecificHeroFramework
 {
     #region Basic Abilities
+
     public override bool ConditionsToActivateBasicAbilities()
     {
-        if (InAttackRangeOfBoss(myHeroBase.GetHeroStats().GetBasicAbilityRangeWithMultipliers()))
-        {
-            ActivateBasicAbilities();
-            return true;
-        }
-        return false;  
+        return true;
     }
+
     public override void ActivateBasicAbilities()
     {
         base.ActivateBasicAbilities();
-        Debug.Log("Activate Basic Abilities");
+        Debug.Log("Activate Chrono Basic Abilities");
 
         DamageBoss(myHeroBase.GetHeroStats().GetDefaultBasicAbilityStrength());
         StaggerBoss(myHeroBase.GetHeroStats().GetDefaultBasicAbilityStagger());
     }
 
-    #endregion
 
-    #region Manual Abilities
+    #endregion
     public override void ActivateManualAbilities(Vector3 attackLocation)
     {
-        
+        throw new System.NotImplementedException();
     }
-    #endregion
 
-    #region Passive Abilities
     public override void ActivatePassiveAbilities()
     {
-        
+        throw new System.NotImplementedException();
     }
-    #endregion
+
+    
 
     public override void ActivateHeroSpecificActivity()
     {
@@ -53,6 +48,4 @@ public class SH_Guardian : SpecificHeroFramework
     {
         base.SubscribeToEvents();
     }
-
-    
 }

@@ -83,6 +83,9 @@ public class HeroStats : HeroChildrenFunctionality
     public float GetDefaultBasicAbilityStrength() => _heroDefaultBasicAbilityStrength;
     public float GetDefaultBasicAbilityStagger() => _heroDefaultBasicAbilityStagger;
 
+    //UPDATE WITH MULTIPLIER LATER
+    public float GetBasicAbilityRangeWithMultipliers() => _heroDefaultBasicAbilityRange;
+
     public float GetCurrentHealth() => _currentHealth;
     public float GetCurrentSpeed() => _currentMovespeed;
     public float GetCurrentAggro() => _currentAggro;
