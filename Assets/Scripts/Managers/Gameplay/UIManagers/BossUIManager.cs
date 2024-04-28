@@ -10,9 +10,17 @@ public class BossUIManager : GameUIChildrenFunctionality
     [SerializeField] private Image _healthRecentBar;
     [SerializeField] private Image _healthBar;
 
-    [SerializeField] private float _timeForRecentBarDrainStart;
+    [SerializeField] private float _timeForRecentHealthDrainStart;
 
-    private Coroutine _startBarDrainCoroutine;
+    private Coroutine _startHealthBarDrainCoroutine;
+
+    [Header("BossStaggerBar")]
+    [SerializeField] private Image _staggerRecentBar;
+    [SerializeField] private Image _staggerBar;
+
+    [SerializeField] private float _timeForRecentStaminaDrainStart;
+
+    private Coroutine _startStaminaBarDrainCoroutine;
 
     private void BossTookDamage(float damage)
     {
@@ -25,8 +33,20 @@ public class BossUIManager : GameUIChildrenFunctionality
             GetBossManager().GetBossBase().GetBossStats().GetBossHealthPercentage();
     }
 
+    private void BossTookStagger(float stagger)
+    {
+        SetStaggerBarPercentage(stagger);
+    }
+
+    private void SetStaggerBarPercentage(float stagger)
+    {
+        _staggerBar.fillAmount = GameplayManagers.Instance.
+            GetBossManager().GetBossBase().GetBossStats().GetBossStaggerPercentage();
+    }
+
     public override void SubscribeToEvents()
     {
         GameplayManagers.Instance.GetBossManager().GetBossBase().GetBossDamagedEvent().AddListener(BossTookDamage);
+        GameplayManagers.Instance.GetBossManager().GetBossBase().GetBossStaggerDealtEvent().AddListener(BossTookStagger);
     }
 }
