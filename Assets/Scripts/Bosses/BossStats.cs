@@ -46,6 +46,7 @@ public class BossStats : BossChildrenFunctionality
     public void DealDamageToBoss(float damage)
     {
         _currentHealth -= damage;
+        CheckIfBossIsDead();
     }
     #endregion
 }

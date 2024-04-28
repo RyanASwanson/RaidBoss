@@ -48,6 +48,14 @@ public class HeroStats : HeroChildrenFunctionality
         myHeroBase.GetPathfinding().GetNavMeshAgent().speed = _heroDefaultMovespeed;
     }
 
+    private void CheckIfHeroIsDead()
+    {
+        if (_currentHealth <= 0)
+        {
+            GameplayManagers.Instance.GetHeroesManager().HeroDied(myHeroBase);
+        }
+    }
+
     #region Events
     public override void SubscribeToEvents()
     {
@@ -80,6 +88,10 @@ public class HeroStats : HeroChildrenFunctionality
     #endregion
 
     #region Setters
-
+    public void DealDamageToHero(float damage)
+    {
+        _currentHealth -= damage;
+        CheckIfBossIsDead();
+    }
     #endregion
 }

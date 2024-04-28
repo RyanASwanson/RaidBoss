@@ -40,7 +40,16 @@ public class HeroesManager : BaseGameplayManager
     {
         GameObject newHero = Instantiate(_baseHeroPrefab, 
             spawnLocation.transform.position,spawnLocation.transform.rotation);
-        newHero.GetComponent<HeroBase>().Setup(heroSO);
+        HeroBase heroBase = newHero.GetComponent<HeroBase>();
+        heroBase.Setup(heroSO);
+
+        _currentHeroes.Add(heroBase);
+        _currentLivingHeroes.Add(heroBase);
+    }
+
+    public void HeroDied(HeroBase deadHero)
+    {
+        _currentLivingHeroes.Remove(deadHero);
     }
 
     #region Events

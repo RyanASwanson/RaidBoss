@@ -15,7 +15,7 @@ public class HeroBase : MonoBehaviour
     [SerializeField] private GameObject _heroSpecificsGO;
 
     private HeroSO _associatedSO;
-    private GameObject _associatedHeroGameObject;
+    private GameObject _associatedHeroGameObjectEvent;
     private SpecificHeroFramework _associatedHeroScript;
 
     private UnityEvent<HeroSO> _heroSOSetEvent = new UnityEvent<HeroSO>();
@@ -23,11 +23,13 @@ public class HeroBase : MonoBehaviour
     private UnityEvent _heroControlledStartEvent = new UnityEvent();
     private UnityEvent _heroControlledEndEvent = new UnityEvent();
 
-    private UnityEvent _heroStartedMovingOnMesh = new UnityEvent();
-    private UnityEvent _heroStoppedMovingOnMesh = new UnityEvent();
+    private UnityEvent _heroStartedMovingOnMeshEvent = new UnityEvent();
+    private UnityEvent _heroStoppedMovingOnMeshEvent = new UnityEvent();
 
-    private UnityEvent<float> _heroDamaged = new UnityEvent<float>();
-    private UnityEvent<float> _heroHealed = new UnityEvent<float>();
+    private UnityEvent<float> _heroDamagedEvent = new UnityEvent<float>();
+    private UnityEvent<float> _heroHealedEvent = new UnityEvent<float>();
+
+    private UnityEvent _heroDiedEvent = new UnityEvent();
 
     public void Setup(HeroSO newSO)
     {
@@ -44,8 +46,8 @@ public class HeroBase : MonoBehaviour
     /// <param name="newSO"></param>
     private void CreateHeroPrefab(HeroSO newSO)
     {
-        _associatedHeroGameObject = Instantiate(newSO.GetHeroPrefab(), _heroSpecificsGO.transform);
-        _associatedHeroScript = _associatedHeroGameObject.GetComponent<SpecificHeroFramework>();
+        _associatedHeroGameObjectEvent = Instantiate(newSO.GetHeroPrefab(), _heroSpecificsGO.transform);
+        _associatedHeroScript = _associatedHeroGameObjectEvent.GetComponent<SpecificHeroFramework>();
 
         _associatedHeroScript.SetupSpecificHero(this, newSO);
     }
@@ -65,25 +67,33 @@ public class HeroBase : MonoBehaviour
     {
         _heroSOSetEvent?.Invoke(heroSO);
     }
-
     public void InvokeHeroControlledBegin()
     {
         _heroControlledStartEvent?.Invoke();
     }
-
     public void InvokeHeroControlledEnd()
     {
         _heroControlledEndEvent?.Invoke();
     }
-
     public void InvokeHeroStartedMoving()
     {
-        _heroStartedMovingOnMesh?.Invoke();
+        _heroStartedMovingOnMeshEvent?.Invoke();
     }
-
     public void InvokeHeroStoppedMoving()
     {
-        _heroStoppedMovingOnMesh?.Invoke();
+        _heroStoppedMovingOnMeshEvent?.Invoke();
+    }
+    public void InvokeHeroDamagedEvent(float damageAmount)
+    {
+        _heroDamagedEvent?.Invoke(damageAmount);
+    }
+    public void InvokeHeroHealedEvent(float healAmount)
+    {
+        _heroHealedEvent?.Invoke(healAmount);
+    }
+    public void InvokeHeroDiedEvent()
+    {
+        _heroDiedEvent?.Invoke();
     }
     #endregion
 
@@ -92,14 +102,19 @@ public class HeroBase : MonoBehaviour
     public HeroVisuals GetHeroVisuals() => _heroVisuals;
     public HeroStats GetHeroStats() => _heroStats;
 
-    public GameObject GetAssociatedHeroObject() => _associatedHeroGameObject;
-
-    public UnityEvent HeroStartedMovingEvent() => _heroStartedMovingOnMesh;
-    public UnityEvent HeroStoppedMovingEvent() => _heroStoppedMovingOnMesh;
+    public GameObject GetAssociatedHeroObject() => _associatedHeroGameObjectEvent;
 
     public UnityEvent<HeroSO> GetSOSetEvent() => _heroSOSetEvent;
     public UnityEvent GetHeroControlledBeginEvent() => _heroControlledStartEvent;
     public UnityEvent GetHeroControlledEndEvent() => _heroControlledEndEvent;
+
+    public UnityEvent GetHeroStartedMovingEvent() => _heroStartedMovingOnMeshEvent;
+    public UnityEvent GetHeroStoppedMovingEvent() => _heroStoppedMovingOnMeshEvent;
+
+    public UnityEvent<float> GetHeroDamagedEvent() => _heroDamagedEvent;
+    public UnityEvent<float> GetHeroHealedEvent() => _heroHealedEvent;
+
+    public UnityEvent GetHeroDiedEvent() => _heroDiedEvent;
     #endregion
 
     #region Setters

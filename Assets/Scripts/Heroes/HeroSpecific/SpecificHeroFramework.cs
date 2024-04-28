@@ -132,6 +132,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     {
 
     }
+
     public virtual void SubscribeToEvents()
     {
         GameplayManagers.Instance.GetGameStateManager().GetStartOfBattleEvent().AddListener(BattleStarted);
