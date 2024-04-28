@@ -18,18 +18,6 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     internal Coroutine _manualAbilityCooldownCoroutine;
 
     #region Basic Abilities
-    public virtual void StartCheckingToAttemptBasicAbilities()
-    {
-        _attemptingBasicAbilitiesCoroutine = StartCoroutine(CheckingToAttemptBasicAbilities());
-    }
-    public abstract IEnumerator CheckingToAttemptBasicAbilities();
-    public abstract bool AttemptBasicAbilities();
-    public virtual void ActivateBasicAbilities()
-    {
-        StartCooldownBasicAbility();
-    }
-
-
     protected virtual void StartCooldownBasicAbility()
     {
         _basicAbilityCooldownCoroutine = StartCoroutine(CooldownBasicAbility());
@@ -50,10 +38,10 @@ public abstract class SpecificHeroFramework : MonoBehaviour
             yield return null;
         }
 
-        BasicAbilityCooldownMax();   
+        BasicAbilityCooldownReady();
     }
 
-    protected virtual void BasicAbilityCooldownMax()
+    protected virtual void BasicAbilityCooldownReady()
     {
         _basicAbilityCooldownCoroutine = null;
         StartCheckingToAttemptBasicAbilities();
@@ -63,6 +51,20 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     {
         _basicAbilityCurrentCharge += addedAmount;
     }
+
+    public virtual void StartCheckingToAttemptBasicAbilities()
+    {
+        _attemptingBasicAbilitiesCoroutine = StartCoroutine(CheckingToAttemptBasicAbilities());
+    }
+    public abstract IEnumerator CheckingToAttemptBasicAbilities();
+    public abstract bool AttemptBasicAbilities();
+    public virtual void ActivateBasicAbilities()
+    {
+        StartCooldownBasicAbility();
+    }
+
+
+    
 
     #endregion
 

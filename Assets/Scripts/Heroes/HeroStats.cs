@@ -22,6 +22,7 @@ public class HeroStats : HeroChildrenFunctionality
     private float _heroDefaultBasicAbilityChargeTime;
     private float _heroDefaultBasicAbilityRange;
     private float _heroDefaultBasicAbilityStrength;
+    private float _heroDefaultBasicAbilityStagger;
 
     public override void ChildFuncSetup(HeroBase heroBase)
     {

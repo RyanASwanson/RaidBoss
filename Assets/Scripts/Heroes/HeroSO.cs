@@ -17,6 +17,7 @@ public class HeroSO : ScriptableObject
     [SerializeField] private float _basicAbilityChargeTime;
     [SerializeField] private float _basicAbilityRange;
     [SerializeField] private float _basicAbilityStrength;
+    [SerializeField] private float _basicAbilityStagger;
     
 
     [Header("Visuals")]
@@ -35,6 +36,7 @@ public class HeroSO : ScriptableObject
     public float GetBasicAbilityChargeTime() => _basicAbilityChargeTime;
     public float GetBasicAbilityRange() => _basicAbilityRange;
     public float GetBasicAbilityStrength() => _basicAbilityStrength;
+    public float GetBasicAbilityStagger() => _basicAbilityStagger;
 
     public Sprite GetHeroIcon() => _heroIcon;
     public GameObject GetHeroPrefab() => _heroPrefab;
