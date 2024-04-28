@@ -107,14 +107,21 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         return Vector2.Distance(heroPos, bossPos) < attackRange;
     }
 
-    protected virtual void DamageBoss(float damage)
+    public virtual void DamageBoss(float damage)
     {
         GameplayManagers.Instance.GetBossManager().GetBossBase().GetBossStats().DealDamageToBoss(damage);
     }
 
-    protected virtual void StaggerBoss(float stagger)
+    public virtual void StaggerBoss(float stagger)
     {
         GameplayManagers.Instance.GetBossManager().GetBossBase().GetBossStats().DealStaggerToBoss(stagger);
+    }
+
+    protected virtual void CreateProjectileFromFramework(GameObject projectileToSpawn, 
+        Vector3 spawnLocation, Quaternion spawnQuaternion)
+    {
+        GameObject spawnedProjectile = Instantiate(projectileToSpawn, spawnLocation, spawnQuaternion);
+        spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(myHeroBase);
     }
     #endregion
 

@@ -102,7 +102,10 @@ public class HeroBase : MonoBehaviour
     public HeroVisuals GetHeroVisuals() => _heroVisuals;
     public HeroStats GetHeroStats() => _heroStats;
 
+    public HeroSO GetHeroSO() => _associatedSO;
+
     public GameObject GetAssociatedHeroObject() => _associatedHeroGameObjectEvent;
+    public SpecificHeroFramework GetSpecificHeroScript() => _associatedHeroScript;
 
     public UnityEvent<HeroSO> GetSOSetEvent() => _heroSOSetEvent;
     public UnityEvent GetHeroControlledBeginEvent() => _heroControlledStartEvent;

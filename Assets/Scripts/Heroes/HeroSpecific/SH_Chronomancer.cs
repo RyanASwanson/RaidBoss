@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SH_Chronomancer : SpecificHeroFramework
 {
+    [SerializeField] private GameObject _damageProjectile;
+
     #region Basic Abilities
 
     public override bool ConditionsToActivateBasicAbilities()
