@@ -12,8 +12,12 @@ public class HeroSO : ScriptableObject
     [SerializeField] private float _maxHP;
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _aggro;
+    [Range(.5f, 1.5f)] [SerializeField] private float _damageResistance;
+    [Header("Basic Abilitiy")]
     [SerializeField] private float _basicAbilityChargeTime;
-    [Range(.5f,1.5f)][SerializeField] private float _damageResistance;
+    [SerializeField] private float _basicAbilityRange;
+    [SerializeField] private float _basicAbilityStrength;
+    
 
     [Header("Visuals")]
     [SerializeField] private Sprite _heroIcon;
@@ -26,8 +30,12 @@ public class HeroSO : ScriptableObject
     public float GetMaxHP() => _maxHP;
     public float GetMoveSpeed() => _moveSpeed;
     public float GetAggro() => _aggro;
-    public float GetBasicAbilityChargeTime() => _basicAbilityChargeTime;
     public float GetDamageResistance() => _damageResistance;
+
+    public float GetBasicAbilityChargeTime() => _basicAbilityChargeTime;
+    public float GetBasicAbilityRange() => _basicAbilityRange;
+    public float GetBasicAbilityStrength() => _basicAbilityStrength;
+
     public Sprite GetHeroIcon() => _heroIcon;
     public GameObject GetHeroPrefab() => _heroPrefab;
     #endregion

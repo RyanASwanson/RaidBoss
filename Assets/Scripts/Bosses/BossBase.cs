@@ -58,12 +58,15 @@ public class BossBase : MonoBehaviour
     #region Getters
     public BossVisuals GetBossVisuals() => _bossVisuals;
     public BossStats GetBossStats() => _bossStats;
+
+    public UnityEvent<BossSO> GetSOSetEvent() => _bossSOSetEvent;
     #endregion
 
     #region Setters
     public void SetBossSO(BossSO bossSO)
     {
         _associatedBoss = bossSO;
+        InvokeSetBossSO(bossSO);
     }
     #endregion
 }

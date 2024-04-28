@@ -13,7 +13,8 @@ public class SH_Guardian : SpecificHeroFramework
 
     public override bool AttemptBasicAbilities()
     {
-        if (InAttackRangeOfBoss(_basicAbilityRange))
+        //TESTING - UPDATE TO CURRENT ABILITY RANGE
+        if (InAttackRangeOfBoss(myHeroBase.GetHeroStats().GetDefaultBasicAbilityRange()))
         {
             ActivateBasicAbilities();
             return true;
@@ -22,7 +23,10 @@ public class SH_Guardian : SpecificHeroFramework
     }
     public override void ActivateBasicAbilities()
     {
+        base.ActivateBasicAbilities();
         Debug.Log("Activate Basic Abilities");
+
+        DamageBoss(myHeroBase.GetHeroStats().GetDefaultBasicAbilityStrength());
     }
 
     #endregion
@@ -41,14 +45,14 @@ public class SH_Guardian : SpecificHeroFramework
     }
     #endregion
 
-    public override void SubscribeToHeroSpecificEvents()
+    public override void ActivateToHeroSpecificActivity()
     {
-        
+        base.ActivateToHeroSpecificActivity();
     }
 
-    public override void UnsubscribeToHeroSpecificEvents()
+    public override void DeactivateToHeroSpecificActivity()
     {
-        
+        base.DeactivateToHeroSpecificActivity();
     }
 
     public override void SubscribeToEvents()
