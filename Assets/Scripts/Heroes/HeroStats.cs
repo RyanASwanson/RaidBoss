@@ -39,6 +39,7 @@ public class HeroStats : HeroChildrenFunctionality
         _heroDefaultBasicAbilityChargeTime = heroSO.GetBasicAbilityChargeTime();
         _heroDefaultBasicAbilityRange = heroSO.GetBasicAbilityRange();
         _heroDefaultBasicAbilityStrength = heroSO.GetBasicAbilityStrength();
+        _heroDefaultBasicAbilityStagger = heroSO.GetBasicAbilityStagger();
 
         _currentHealth = _heroMaxHealth;
         _currentMovespeed = _heroDefaultMovespeed;
@@ -80,6 +81,7 @@ public class HeroStats : HeroChildrenFunctionality
     public float GetDefaultBasicAbilityChargeTime() => _heroDefaultBasicAbilityChargeTime;
     public float GetDefaultBasicAbilityRange() => _heroDefaultBasicAbilityRange;
     public float GetDefaultBasicAbilityStrength() => _heroDefaultBasicAbilityStrength;
+    public float GetDefaultBasicAbilityStagger() => _heroDefaultBasicAbilityStagger;
 
     public float GetCurrentHealth() => _currentHealth;
     public float GetCurrentSpeed() => _currentMovespeed;
@@ -92,7 +94,7 @@ public class HeroStats : HeroChildrenFunctionality
     public void DealDamageToHero(float damage)
     {
         _currentHealth -= damage;
-        CheckIfBossIsDead();
+        CheckIfHeroIsDead();
     }
     #endregion
 }

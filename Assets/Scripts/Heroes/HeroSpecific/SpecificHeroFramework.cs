@@ -107,6 +107,11 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     {
         GameplayManagers.Instance.GetBossManager().GetBossBase().GetBossStats().DealDamageToBoss(damage);
     }
+
+    protected virtual void StaggerBoss(float stagger)
+    {
+        GameplayManagers.Instance.GetBossManager().GetBossBase().GetBossStats().DealStaggerToBoss(stagger);
+    }
     #endregion
 
     public virtual void SetupSpecificHero(HeroBase heroBase, HeroSO heroSO)
