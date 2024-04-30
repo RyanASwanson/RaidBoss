@@ -5,14 +5,16 @@ using UnityEngine;
 public abstract class HeroProjectileFramework : MonoBehaviour
 {
     protected HeroBase _ownerHeroBase;
+    protected SpecificHeroFramework mySpecificHero;
 
     public virtual void SetUpProjectile(HeroBase heroBase)
     {
         _ownerHeroBase = heroBase;
+        mySpecificHero = heroBase.GetSpecificHeroScript();
     }
 
     protected virtual void OnTriggerEnter(Collider collision)
     {
-        Debug.Log("OnTriggerProjectile");
+        
     }
 }

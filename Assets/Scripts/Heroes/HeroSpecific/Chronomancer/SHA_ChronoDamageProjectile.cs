@@ -6,8 +6,7 @@ public class SHA_ChronoDamageProjectile : HeroProjectileFramework
 {
     public override void SetUpProjectile(HeroBase heroBase)
     {
-        _ownerHeroBase = heroBase;
-        Debug.Log("ProjectileSetup");
+        base.SetUpProjectile(heroBase);
     }
 
     public void AdditionalSetup(float lifeTime, Vector3 direction)
@@ -34,12 +33,12 @@ public class SHA_ChronoDamageProjectile : HeroProjectileFramework
 
     protected override void OnTriggerEnter(Collider collision)
     {
-        Debug.Log("Trigger");
         if (collision.gameObject.CompareTag(TagStringData.GetBossHitboxTagName()))
         {
-            Debug.Log("Debug");
-            _ownerHeroBase.GetSpecificHeroScript().DamageBoss(_ownerHeroBase.GetHeroSO().GetBasicAbilityStrength());
-            _ownerHeroBase.GetSpecificHeroScript().StaggerBoss(_ownerHeroBase.GetHeroSO().GetBasicAbilityStagger());
+            if (mySpecificHero == null)
+                Debug.Log("NoSpecificHero");
+            _ownerHeroBase.GetSpecificHeroScript().DamageBoss(mySpecificHero.GetAbilityStrength());
+            _ownerHeroBase.GetSpecificHeroScript().StaggerBoss(mySpecificHero.GetAbilityStagger());
         }
     }
 }

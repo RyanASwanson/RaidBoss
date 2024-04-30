@@ -15,7 +15,7 @@ public class HeroBase : MonoBehaviour
     [SerializeField] private GameObject _heroSpecificsGO;
 
     private HeroSO _associatedSO;
-    private GameObject _associatedHeroGameObjectEvent;
+    private GameObject _associatedHeroGameObject;
     private SpecificHeroFramework _associatedHeroScript;
 
     private UnityEvent<HeroSO> _heroSOSetEvent = new UnityEvent<HeroSO>();
@@ -46,8 +46,8 @@ public class HeroBase : MonoBehaviour
     /// <param name="newSO"></param>
     private void CreateHeroPrefab(HeroSO newSO)
     {
-        _associatedHeroGameObjectEvent = Instantiate(newSO.GetHeroPrefab(), _heroSpecificsGO.transform);
-        _associatedHeroScript = _associatedHeroGameObjectEvent.GetComponent<SpecificHeroFramework>();
+        _associatedHeroGameObject = Instantiate(newSO.GetHeroPrefab(), _heroSpecificsGO.transform);
+        _associatedHeroScript = _associatedHeroGameObject.GetComponentInChildren<SpecificHeroFramework>();
 
         _associatedHeroScript.SetupSpecificHero(this, newSO);
     }
@@ -104,7 +104,7 @@ public class HeroBase : MonoBehaviour
 
     public HeroSO GetHeroSO() => _associatedSO;
 
-    public GameObject GetAssociatedHeroObject() => _associatedHeroGameObjectEvent;
+    public GameObject GetAssociatedHeroObject() => _associatedHeroGameObject;
     public SpecificHeroFramework GetSpecificHeroScript() => _associatedHeroScript;
 
     public UnityEvent<HeroSO> GetSOSetEvent() => _heroSOSetEvent;

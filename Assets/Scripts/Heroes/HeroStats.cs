@@ -19,11 +19,6 @@ public class HeroStats : HeroChildrenFunctionality
     private float _heroDefaultDamageResistance;
     private float _currentDamageResistance;
 
-    private float _heroDefaultBasicAbilityChargeTime;
-    private float _heroDefaultBasicAbilityRange;
-    private float _heroDefaultBasicAbilityStrength;
-    private float _heroDefaultBasicAbilityStagger;
-
     public override void ChildFuncSetup(HeroBase heroBase)
     {
         base.ChildFuncSetup(heroBase);
@@ -36,10 +31,6 @@ public class HeroStats : HeroChildrenFunctionality
         _heroDefaultAggro = heroSO.GetAggro();
         _heroDefaultDamageResistance = heroSO.GetDamageResistance();
 
-        _heroDefaultBasicAbilityChargeTime = heroSO.GetBasicAbilityChargeTime();
-        _heroDefaultBasicAbilityRange = heroSO.GetBasicAbilityRange();
-        _heroDefaultBasicAbilityStrength = heroSO.GetBasicAbilityStrength();
-        _heroDefaultBasicAbilityStagger = heroSO.GetBasicAbilityStagger();
 
         _currentHealth = _heroMaxHealth;
         _currentMovespeed = _heroDefaultMovespeed;
@@ -78,13 +69,6 @@ public class HeroStats : HeroChildrenFunctionality
     public float GetDefaultAttackSpeedMultiplier() => _heroDefaultAttackSpeedMultiplier;
     public float GetDefaultDamageResistance() => _heroDefaultDamageResistance;
 
-    public float GetDefaultBasicAbilityChargeTime() => _heroDefaultBasicAbilityChargeTime;
-    public float GetDefaultBasicAbilityRange() => _heroDefaultBasicAbilityRange;
-    public float GetDefaultBasicAbilityStrength() => _heroDefaultBasicAbilityStrength;
-    public float GetDefaultBasicAbilityStagger() => _heroDefaultBasicAbilityStagger;
-
-    //UPDATE WITH MULTIPLIER LATER
-    public float GetBasicAbilityRangeWithMultipliers() => _heroDefaultBasicAbilityRange;
 
     public float GetCurrentHealth() => _currentHealth;
     public bool IsHeroMaxHealth() => _currentHealth >= _heroMaxHealth;

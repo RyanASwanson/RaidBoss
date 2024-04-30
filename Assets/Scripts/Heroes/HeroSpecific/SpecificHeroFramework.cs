@@ -5,6 +5,10 @@ using UnityEngine.Events;
 
 public abstract class SpecificHeroFramework : MonoBehaviour
 {
+    [SerializeField] protected float _heroBasicAbilityChargeTime;
+    [SerializeField] protected float _heroBasicAbilityStrength;
+    [SerializeField] protected float _heroBasicAbilityStagger;
+
     internal float _basicAbilityCurrentCharge = 0;
 
     /*
@@ -32,7 +36,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     public virtual IEnumerator CooldownBasicAbility()
     {
         _basicAbilityCurrentCharge = 0;
-        while (_basicAbilityCurrentCharge < myHeroBase.GetHeroStats().GetDefaultBasicAbilityChargeTime())
+        while (_basicAbilityCurrentCharge < _heroBasicAbilityChargeTime)
         {
             AddToBasicAbilityChargeTime(Time.deltaTime * myHeroBase.GetHeroStats().GetCurrentAttackSpeedMultiplier());
             yield return null;
@@ -149,5 +153,11 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     {
         GameplayManagers.Instance.GetGameStateManager().GetStartOfBattleEvent().AddListener(BattleStarted);
     }
+
+    #region Getters
+    public float GetAbilityChargeTime() => _heroBasicAbilityChargeTime;
+    public float GetAbilityStrength() => _heroBasicAbilityStrength;
+    public float GetAbilityStagger() => _heroBasicAbilityStagger;
+    #endregion
 
 }

@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class SH_Guardian : SpecificHeroFramework
 {
+    [SerializeField] private float _heroDefaultBasicAbilityRange;
+
     #region Basic Abilities
     public override bool ConditionsToActivateBasicAbilities()
     {
-        if (InAttackRangeOfBoss(myHeroBase.GetHeroStats().GetBasicAbilityRangeWithMultipliers()))
+        if (InAttackRangeOfBoss(_heroDefaultBasicAbilityRange))
         {
             return true;
         }
@@ -18,8 +20,8 @@ public class SH_Guardian : SpecificHeroFramework
         base.ActivateBasicAbilities();
         Debug.Log("Activate Basic Abilities");
 
-        DamageBoss(myHeroBase.GetHeroStats().GetDefaultBasicAbilityStrength());
-        StaggerBoss(myHeroBase.GetHeroStats().GetDefaultBasicAbilityStagger());
+        DamageBoss(_heroBasicAbilityStrength);
+        StaggerBoss(_heroBasicAbilityStagger);
     }
 
     #endregion
