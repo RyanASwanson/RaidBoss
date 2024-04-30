@@ -5,11 +5,16 @@ using UnityEngine;
 public class SH_Chronomancer : SpecificHeroFramework
 {
     [SerializeField] private GameObject _damageProjectile;
+    [SerializeField] private Vector3 _attackRotationIncrease;
+    [SerializeField] protected float _basicProjectileLifetime;
+
+    private Vector3 _currentAttackDirection = new Vector3(0, 0, 1);
 
     #region Basic Abilities
 
     public override bool ConditionsToActivateBasicAbilities()
     {
+        Debug.Log("Conditions Met");
         return true;
     }
 
@@ -18,8 +23,22 @@ public class SH_Chronomancer : SpecificHeroFramework
         base.ActivateBasicAbilities();
         Debug.Log("Activate Chrono Basic Abilities");
 
-        DamageBoss(myHeroBase.GetHeroStats().GetDefaultBasicAbilityStrength());
-        StaggerBoss(myHeroBase.GetHeroStats().GetDefaultBasicAbilityStagger());
+        CreateBasicAttackProjectiles();
+        IncreaseCurrentAttackRotation();
+    }
+
+    protected void CreateBasicAttackProjectiles()
+    {
+        GameObject spawnedProjectile = Instantiate(_damageProjectile, myHeroBase.transform.position, Quaternion.identity);
+        spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(myHeroBase);
+
+        spawnedProjectile.GetComponent<SHA_ChronoDamageProjectile>().AdditionalSetup
+            (_basicProjectileLifetime, _currentAttackDirection);
+    }
+
+    private void IncreaseCurrentAttackRotation()
+    {
+        _currentAttackDirection = Quaternion.Euler(_attackRotationIncrease) * _currentAttackDirection;
     }
 
 

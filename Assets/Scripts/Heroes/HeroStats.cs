@@ -87,6 +87,7 @@ public class HeroStats : HeroChildrenFunctionality
     public float GetBasicAbilityRangeWithMultipliers() => _heroDefaultBasicAbilityRange;
 
     public float GetCurrentHealth() => _currentHealth;
+    public bool IsHeroMaxHealth() => _currentHealth >= _heroMaxHealth;
     public float GetCurrentSpeed() => _currentMovespeed;
     public float GetCurrentAggro() => _currentAggro;
     public float GetCurrentAttackSpeedMultiplier() => _currentAttackSpeedMultiplier;
@@ -98,6 +99,11 @@ public class HeroStats : HeroChildrenFunctionality
     {
         _currentHealth -= damage;
         CheckIfHeroIsDead();
+    }
+
+    public void HealHero(float healing)
+    {
+        _currentHealth += healing;
     }
     #endregion
 }

@@ -13,6 +13,6 @@ public abstract class HeroProjectileFramework : MonoBehaviour
 
     protected virtual void OnTriggerEnter(Collider collision)
     {
-
+        Debug.Log("OnTriggerProjectile");
     }
 }

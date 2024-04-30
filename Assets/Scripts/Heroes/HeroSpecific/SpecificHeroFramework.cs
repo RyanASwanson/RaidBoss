@@ -60,6 +60,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     {
         while (!ConditionsToActivateBasicAbilities())
             yield return new WaitForFixedUpdate();
+        ActivateBasicAbilities();
     }
     public abstract bool ConditionsToActivateBasicAbilities();
     public virtual void ActivateBasicAbilities()
@@ -115,13 +116,6 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     public virtual void StaggerBoss(float stagger)
     {
         GameplayManagers.Instance.GetBossManager().GetBossBase().GetBossStats().DealStaggerToBoss(stagger);
-    }
-
-    protected virtual void CreateProjectileFromFramework(GameObject projectileToSpawn, 
-        Vector3 spawnLocation, Quaternion spawnQuaternion)
-    {
-        GameObject spawnedProjectile = Instantiate(projectileToSpawn, spawnLocation, spawnQuaternion);
-        spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(myHeroBase);
     }
     #endregion
 

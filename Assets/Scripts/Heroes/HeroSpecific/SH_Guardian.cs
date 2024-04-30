@@ -9,7 +9,6 @@ public class SH_Guardian : SpecificHeroFramework
     {
         if (InAttackRangeOfBoss(myHeroBase.GetHeroStats().GetBasicAbilityRangeWithMultipliers()))
         {
-            ActivateBasicAbilities();
             return true;
         }
         return false;  
