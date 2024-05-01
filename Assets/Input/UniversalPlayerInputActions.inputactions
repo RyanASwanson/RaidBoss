@@ -1,5 +1,5 @@
 {
-    "name": "UniveralPlayerInputActions",
+    "name": "UniversalPlayerInputActions",
     "maps": [
         {
             "name": "GameplayActions",
@@ -18,6 +18,15 @@
                     "name": "DirectClick",
                     "type": "Button",
                     "id": "cc85b0e9-97ac-4eed-94a4-d954cb339d4a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ActiveAbility",
+                    "type": "Button",
+                    "id": "696ed6af-6859-48fe-8e6f-bd9f9fcd19b3",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -44,6 +53,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "DirectClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "62765004-a9a1-416f-8313-600031bffbe3",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ActiveAbility",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

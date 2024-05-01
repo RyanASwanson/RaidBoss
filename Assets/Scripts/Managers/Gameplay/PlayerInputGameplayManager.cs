@@ -9,6 +9,7 @@ public class PlayerInputGameplayManager : BaseGameplayManager
     [SerializeField] private LayerMask _directClickLayerMask;
 
     private const float _playerClickRange = 50;
+    private bool _heroActiveReadied;
 
     private List<HeroBase> _controlledHeroes = new List<HeroBase>();
 
@@ -86,6 +87,11 @@ public class PlayerInputGameplayManager : BaseGameplayManager
         }
     }
 
+    private void HeroActiveButton(InputAction.CallbackContext context)
+    {
+
+    }
+
     private void SubscribeToPlayerInput()
     {
         UPIA = new UniversalPlayerInputActions();
@@ -93,11 +99,13 @@ public class PlayerInputGameplayManager : BaseGameplayManager
 
         UPIA.GameplayActions.SelectClick.started += PlayerSelectClicked;
         UPIA.GameplayActions.DirectClick.started += PlayerDirectClicked;
+        UPIA.GameplayActions.ActiveAbility.started += HeroActiveButton;
     }
     private void UnsubscribeToPlayerInput()
     {
         UPIA.GameplayActions.SelectClick.started -= PlayerSelectClicked;
         UPIA.GameplayActions.DirectClick.started -= PlayerDirectClicked;
+        UPIA.GameplayActions.ActiveAbility.started -= HeroActiveButton;
 
         UPIA.Disable();
     }

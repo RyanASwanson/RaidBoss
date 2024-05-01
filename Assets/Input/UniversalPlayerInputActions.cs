@@ -44,6 +44,15 @@ public partial class @UniversalPlayerInputActions: IInputActionCollection2, IDis
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ActiveAbility"",
+                    ""type"": ""Button"",
+                    ""id"": ""696ed6af-6859-48fe-8e6f-bd9f9fcd19b3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -68,6 +77,17 @@ public partial class @UniversalPlayerInputActions: IInputActionCollection2, IDis
                     ""action"": ""DirectClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""62765004-a9a1-416f-8313-600031bffbe3"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ActiveAbility"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -78,6 +98,7 @@ public partial class @UniversalPlayerInputActions: IInputActionCollection2, IDis
         m_GameplayActions = asset.FindActionMap("GameplayActions", throwIfNotFound: true);
         m_GameplayActions_SelectClick = m_GameplayActions.FindAction("SelectClick", throwIfNotFound: true);
         m_GameplayActions_DirectClick = m_GameplayActions.FindAction("DirectClick", throwIfNotFound: true);
+        m_GameplayActions_ActiveAbility = m_GameplayActions.FindAction("ActiveAbility", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -141,12 +162,14 @@ public partial class @UniversalPlayerInputActions: IInputActionCollection2, IDis
     private List<IGameplayActionsActions> m_GameplayActionsActionsCallbackInterfaces = new List<IGameplayActionsActions>();
     private readonly InputAction m_GameplayActions_SelectClick;
     private readonly InputAction m_GameplayActions_DirectClick;
+    private readonly InputAction m_GameplayActions_ActiveAbility;
     public struct GameplayActionsActions
     {
         private @UniversalPlayerInputActions m_Wrapper;
         public GameplayActionsActions(@UniversalPlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @SelectClick => m_Wrapper.m_GameplayActions_SelectClick;
         public InputAction @DirectClick => m_Wrapper.m_GameplayActions_DirectClick;
+        public InputAction @ActiveAbility => m_Wrapper.m_GameplayActions_ActiveAbility;
         public InputActionMap Get() { return m_Wrapper.m_GameplayActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -162,6 +185,9 @@ public partial class @UniversalPlayerInputActions: IInputActionCollection2, IDis
             @DirectClick.started += instance.OnDirectClick;
             @DirectClick.performed += instance.OnDirectClick;
             @DirectClick.canceled += instance.OnDirectClick;
+            @ActiveAbility.started += instance.OnActiveAbility;
+            @ActiveAbility.performed += instance.OnActiveAbility;
+            @ActiveAbility.canceled += instance.OnActiveAbility;
         }
 
         private void UnregisterCallbacks(IGameplayActionsActions instance)
@@ -172,6 +198,9 @@ public partial class @UniversalPlayerInputActions: IInputActionCollection2, IDis
             @DirectClick.started -= instance.OnDirectClick;
             @DirectClick.performed -= instance.OnDirectClick;
             @DirectClick.canceled -= instance.OnDirectClick;
+            @ActiveAbility.started -= instance.OnActiveAbility;
+            @ActiveAbility.performed -= instance.OnActiveAbility;
+            @ActiveAbility.canceled -= instance.OnActiveAbility;
         }
 
         public void RemoveCallbacks(IGameplayActionsActions instance)
@@ -193,5 +222,6 @@ public partial class @UniversalPlayerInputActions: IInputActionCollection2, IDis
     {
         void OnSelectClick(InputAction.CallbackContext context);
         void OnDirectClick(InputAction.CallbackContext context);
+        void OnActiveAbility(InputAction.CallbackContext context);
     }
 }
