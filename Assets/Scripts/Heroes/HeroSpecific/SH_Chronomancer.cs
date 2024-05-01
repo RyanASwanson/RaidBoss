@@ -14,8 +14,7 @@ public class SH_Chronomancer : SpecificHeroFramework
 
     public override bool ConditionsToActivateBasicAbilities()
     {
-        Debug.Log("Conditions Met");
-        return true;
+        return !myHeroBase.GetPathfinding().IsHeroMoving();
     }
 
     public override void ActivateBasicAbilities()

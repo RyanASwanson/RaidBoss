@@ -32,6 +32,7 @@ public class HeroPathfinding : HeroChildrenFunctionality
     {
         if (_heroMovementCoroutine != null)
             StopCoroutine(_heroMovementCoroutine);
+
         _heroMovementCoroutine = StartCoroutine(MovingOnNavMesh());
     }
 
@@ -47,6 +48,7 @@ public class HeroPathfinding : HeroChildrenFunctionality
             yield return null;
         }
         myHeroBase.InvokeHeroStoppedMoving();
+        _heroMovementCoroutine = null;
     }
 
     #region Events
@@ -63,5 +65,7 @@ public class HeroPathfinding : HeroChildrenFunctionality
 
     #region Getters
     public NavMeshAgent GetNavMeshAgent() => _meshAgent;
+
+    public bool IsHeroMoving() => _heroMovementCoroutine != null;
     #endregion
 }

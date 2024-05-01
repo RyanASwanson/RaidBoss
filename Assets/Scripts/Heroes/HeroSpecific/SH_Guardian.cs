@@ -9,11 +9,9 @@ public class SH_Guardian : SpecificHeroFramework
     #region Basic Abilities
     public override bool ConditionsToActivateBasicAbilities()
     {
-        if (InAttackRangeOfBoss(_heroDefaultBasicAbilityRange))
-        {
-            return true;
-        }
-        return false;  
+
+        return InAttackRangeOfBoss(_heroDefaultBasicAbilityRange) && 
+            !myHeroBase.GetPathfinding().IsHeroMoving();  
     }
     public override void ActivateBasicAbilities()
     {
