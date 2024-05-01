@@ -11,9 +11,8 @@ public abstract class SpecificHeroFramework : MonoBehaviour
 
     internal float _basicAbilityCurrentCharge = 0;
 
-    /*
     protected float _manualAbilityChargeTime;
-    internal float _manualAbilityCurrentCharge = 0;*/
+    internal float _manualAbilityCurrentCharge = 0;
 
     internal HeroBase myHeroBase;
 
@@ -94,6 +93,11 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     {
         _manualAbilityCurrentCharge += addedAmount;
     }*/
+
+    public virtual void AttemptActivationOfManualAbility(Vector3 activateLocation)
+    {
+        Debug.Log("Attempt Activate at " + activateLocation);
+    }
     #endregion
 
     #region Passive Abilities
@@ -152,6 +156,8 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     public virtual void SubscribeToEvents()
     {
         GameplayManagers.Instance.GetGameStateManager().GetStartOfBattleEvent().AddListener(BattleStarted);
+
+        myHeroBase.GetHeroManualAbilityAttemptEvent().AddListener(AttemptActivationOfManualAbility);
     }
 
     #region Getters

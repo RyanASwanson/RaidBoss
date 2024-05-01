@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
 
 public class PlayerInputGameplayManager : BaseGameplayManager
 {
@@ -9,11 +10,12 @@ public class PlayerInputGameplayManager : BaseGameplayManager
     [SerializeField] private LayerMask _directClickLayerMask;
 
     private const float _playerClickRange = 50;
-    private bool _heroActiveReadied;
 
     private List<HeroBase> _controlledHeroes = new List<HeroBase>();
 
     private UniversalPlayerInputActions UPIA;
+
+
 
     public override void SetupGameplayManager()
     {
@@ -66,7 +68,19 @@ public class PlayerInputGameplayManager : BaseGameplayManager
         {
             currentHero.GetPathfinding().DirectNavigationTo(newDestination);
         }
-    }    
+    }
+
+    private void ActivateAllManualAbilities()
+    {
+        if(ClickOnPoint(_directClickLayerMask, out RaycastHit clickedOn))
+        {
+            foreach (HeroBase currentHero in _controlledHeroes)
+            {
+                currentHero.InvokeHeroManualAbilityAttempt(clickedOn.point);
+            }
+        }
+        
+    }
     #endregion
 
     #region InputActions
@@ -89,7 +103,7 @@ public class PlayerInputGameplayManager : BaseGameplayManager
 
     private void HeroActiveButton(InputAction.CallbackContext context)
     {
-
+        ActivateAllManualAbilities();
     }
 
     private void SubscribeToPlayerInput()
@@ -111,10 +125,15 @@ public class PlayerInputGameplayManager : BaseGameplayManager
     }
     #endregion
 
+
+
     #region BaseManager
     public override void SubscribeToEvents()
     {
         
     }
+    #endregion
+
+    #region Getters
     #endregion
 }
