@@ -72,6 +72,7 @@ public class HeroStats : HeroChildrenFunctionality
 
     public float GetCurrentHealth() => _currentHealth;
     public bool IsHeroMaxHealth() => _currentHealth >= _heroMaxHealth;
+    public float GetHeroHealthPercentage() => _currentHealth / _heroMaxHealth;
     public float GetCurrentSpeed() => _currentMovespeed;
     public float GetCurrentAggro() => _currentAggro;
     public float GetCurrentAttackSpeedMultiplier() => _currentAttackSpeedMultiplier;
