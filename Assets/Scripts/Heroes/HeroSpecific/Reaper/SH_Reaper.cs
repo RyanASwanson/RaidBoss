@@ -27,7 +27,7 @@ public class SH_Reaper : SpecificHeroFramework
         GameObject spawnedProjectile = Instantiate(_manualAbilityProjectile, attackLocation, Quaternion.identity);
         spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(myHeroBase);
 
-        spawnedProjectile.GetComponent<SHA_ReaperActiveProjectile>().AdditionalSetup
+        spawnedProjectile.GetComponent<SHA_ReaperManualProjectile>().AdditionalSetup
             (_manualProjectileLifetime,_manualProjectileSpeed);
     
     }

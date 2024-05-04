@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SHA_ReaperActiveProjectile : HeroProjectileFramework
+public class SHA_ReaperManualProjectile : HeroProjectileFramework
 {
     public override void SetUpProjectile(HeroBase heroBase)
     {
