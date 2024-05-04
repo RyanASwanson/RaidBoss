@@ -85,7 +85,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
 
     protected virtual void StartCooldownManualAbility()
     {
-        _manualAbilityCooldownCoroutine = StartCoroutine(CooldownBasicAbility());
+        _manualAbilityCooldownCoroutine = StartCoroutine(CooldownManualAbility());
     }
 
     protected virtual void StopCooldownManualAbility()
@@ -183,9 +183,9 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     }
 
     #region Getters
-    public float GetAbilityChargeTime() => _heroBasicAbilityChargeTime;
-    public float GetAbilityStrength() => _heroBasicAbilityStrength;
-    public float GetAbilityStagger() => _heroBasicAbilityStagger;
+    public float GetBasicAbilityChargeTime() => _heroBasicAbilityChargeTime;
+    public float GetBasicAbilityStrength() => _heroBasicAbilityStrength;
+    public float GetBasicAbilityStagger() => _heroBasicAbilityStagger;
     #endregion
 
 }

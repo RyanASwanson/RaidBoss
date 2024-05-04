@@ -4,17 +4,31 @@ using UnityEngine;
 
 public class SH_Reaper : SpecificHeroFramework
 {
+    [SerializeField] private GameObject _manualAbilityProjectile;
+    [SerializeField] protected float _manualProjectileLifetime;
+    [SerializeField] protected float _manualProjectileSpeed;
+
     #region Basic Abilities
     public override bool ConditionsToActivateBasicAbilities()
     {
-        throw new System.NotImplementedException();
+        return true;
     }
     #endregion
 
     #region Manual Abilities
     public override void ActivateManualAbilities(Vector3 attackLocation)
     {
-        throw new System.NotImplementedException();
+        CreateManualAbilityProjectile(attackLocation);
+    }
+
+    private void CreateManualAbilityProjectile(Vector3 attackLocation)
+    {
+        GameObject spawnedProjectile = Instantiate(_manualAbilityProjectile, attackLocation, Quaternion.identity);
+        spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(myHeroBase);
+
+        spawnedProjectile.GetComponent<SHA_ReaperActiveProjectile>().AdditionalSetup
+            (_manualProjectileLifetime,_manualProjectileSpeed);
+    
     }
     #endregion
 

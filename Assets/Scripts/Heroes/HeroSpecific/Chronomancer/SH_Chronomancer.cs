@@ -7,6 +7,7 @@ public class SH_Chronomancer : SpecificHeroFramework
     [SerializeField] private GameObject _damageProjectile;
     [SerializeField] private Vector3 _attackRotationIncrease;
     [SerializeField] protected float _basicProjectileLifetime;
+    [SerializeField] protected float _basicProjectileSpeed;
 
     private Vector3 _currentAttackDirection = new Vector3(0, 0, 1);
 
@@ -32,7 +33,7 @@ public class SH_Chronomancer : SpecificHeroFramework
         spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(myHeroBase);
 
         spawnedProjectile.GetComponent<SHA_ChronoDamageProjectile>().AdditionalSetup
-            (_basicProjectileLifetime, _currentAttackDirection);
+            (_basicProjectileLifetime, _currentAttackDirection, _basicProjectileSpeed);
     }
 
     private void IncreaseCurrentAttackRotation()

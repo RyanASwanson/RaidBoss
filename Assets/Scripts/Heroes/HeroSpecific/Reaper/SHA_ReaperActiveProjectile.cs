@@ -2,24 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SHA_ChronoDamageProjectile : HeroProjectileFramework
+public class SHA_ReaperActiveProjectile : HeroProjectileFramework
 {
     public override void SetUpProjectile(HeroBase heroBase)
     {
         base.SetUpProjectile(heroBase);
     }
 
-    public void AdditionalSetup(float lifeTime, Vector3 direction, float projectileSpeed)
+    public void AdditionalSetup(float lifeTime, float projectileSpeed)
     {
-        StartCoroutine(MoveProjectile(direction,projectileSpeed));
+        StartCoroutine(MoveProjectile(projectileSpeed));
         Destroy(gameObject, lifeTime);
     }
 
-    private IEnumerator MoveProjectile(Vector3 direction, float projectileSpeed)
+    private IEnumerator MoveProjectile(float projectileSpeed)
     {
-        while(true)
+        while (true)
         {
-            transform.position += direction * projectileSpeed* Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position,
+                _ownerHeroBase.gameObject.transform.position, projectileSpeed * Time.deltaTime);
+            //transform.position +=  * Time.deltaTime;
             yield return null;
         }
     }
