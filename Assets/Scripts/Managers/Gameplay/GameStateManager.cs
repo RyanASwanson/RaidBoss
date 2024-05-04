@@ -5,6 +5,8 @@ using UnityEngine.Events;
 
 public class GameStateManager : BaseGameplayManager
 {
+    [SerializeField] private float _timeToStart;
+
     private GameplayStates _currentGameplayState = GameplayStates.PreBattle;
 
     private UnityEvent _startOfBattleEvent = new UnityEvent();
@@ -15,15 +17,13 @@ public class GameStateManager : BaseGameplayManager
     public override void SetupGameplayManager()
     {
         base.SetupGameplayManager();
+        StartCoroutine(ProgressToStart());
     }
 
-    //TESTING REMOVE PLEASE
-    private void Update()
+    private IEnumerator ProgressToStart()
     {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            SetGameplayState(GameplayStates.Battle);
-        }
+        yield return new WaitForSeconds(_timeToStart);
+        SetGameplayState(GameplayStates.Battle);
     }
 
     /// <summary>

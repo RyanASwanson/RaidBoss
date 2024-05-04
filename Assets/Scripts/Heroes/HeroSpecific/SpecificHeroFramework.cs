@@ -96,7 +96,10 @@ public abstract class SpecificHeroFramework : MonoBehaviour
 
     public virtual void AttemptActivationOfManualAbility(Vector3 activateLocation)
     {
-        Debug.Log("Attempt Activate at " + activateLocation);
+        if(_manualAbilityCurrentCharge >= _manualAbilityChargeTime)
+        {
+
+        }
     }
     #endregion
 

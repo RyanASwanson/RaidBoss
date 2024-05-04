@@ -6,6 +6,10 @@ public class GameUIManager : BaseGameplayManager
 {
     [SerializeField] private BossUIManager _bossUIManager;
 
+    [SerializeField] private List<HeroUIManager> _heroUIManagers;
+
+    private int _heroUIManagersAssigned = 0;
+
     public override void SetupGameplayManager()
     {
         base.SetupGameplayManager();
@@ -26,9 +30,13 @@ public class GameUIManager : BaseGameplayManager
 
     #region Getters
     public BossUIManager GetBossUIManager() => _bossUIManager;
+    public HeroUIManager GetHeroUIManagerAt(int pos) => _heroUIManagers[pos];
     #endregion
 
     #region Setters
-
+    public void SetAssociatedHeroUIManager(HeroBase heroBase)
+    {
+        _heroUIManagers[_heroUIManagersAssigned++].AssignSpecificHero(heroBase);
+    }    
     #endregion
 }

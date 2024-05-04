@@ -39,6 +39,8 @@ public class HeroBase : MonoBehaviour
 
         SetupChildren();
 
+        AssignSelfToUI();
+
         SetHeroSO(newSO);
     }
 
@@ -61,6 +63,11 @@ public class HeroBase : MonoBehaviour
     {
         foreach (HeroChildrenFunctionality childFunc in GetComponentsInChildren<HeroChildrenFunctionality>())
             childFunc.ChildFuncSetup(this);
+    }
+
+    private void AssignSelfToUI()
+    {
+        GameplayManagers.Instance.GetGameUIManager().SetAssociatedHeroUIManager(this);
     }
 
 
