@@ -2,14 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SH_Samurai : SpecificHeroFramework
+public class SH_Shaman : SpecificHeroFramework
 {
     [Space]
+    [SerializeField] private GameObject _basicProjectile;
+    [SerializeField] private float _basicProjectileLifetime;
+
     [SerializeField] int _manualAbilityDuration;
-
-    private bool _isParrying;
-
-    private Coroutine _parryCoroutine;
 
     #region Basic Abilities
     public override bool ConditionsToActivateBasicAbilities()
@@ -19,7 +18,7 @@ public class SH_Samurai : SpecificHeroFramework
 
     public override void ActivateBasicAbilities()
     {
-        
+
     }
 
     #endregion
@@ -29,22 +28,7 @@ public class SH_Samurai : SpecificHeroFramework
     {
         base.ActivateManualAbilities(attackLocation);
 
-        _parryCoroutine = StartCoroutine(ParryCoroutine());
     }
-
-    private IEnumerator ParryCoroutine()
-    {
-        _isParrying = true;
-        yield return new WaitForSeconds(_manualAbilityDuration);
-        _isParrying = false;
-
-        _parryCoroutine = null;
-
-        //JUST TO REMOVE WARNING, DELETE LATER
-        if (_isParrying)
-            Debug.Log("Test");
-    }
-
 
     #endregion
 
@@ -70,6 +54,4 @@ public class SH_Samurai : SpecificHeroFramework
     {
         base.SubscribeToEvents();
     }
-
-    
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class SH_Chronomancer : SpecificHeroFramework
 {
     [Space]
-    [SerializeField] private GameObject _damageProjectile;
+    [SerializeField] private GameObject _basicProjectile;
     [SerializeField] private Vector3 _attackRotationIncrease;
     [SerializeField] protected float _basicProjectileLifetime;
     [SerializeField] protected float _basicProjectileSpeed;
@@ -30,7 +30,7 @@ public class SH_Chronomancer : SpecificHeroFramework
 
     protected void CreateBasicAttackProjectiles()
     {
-        GameObject spawnedProjectile = Instantiate(_damageProjectile, myHeroBase.transform.position, Quaternion.identity);
+        GameObject spawnedProjectile = Instantiate(_basicProjectile, myHeroBase.transform.position, Quaternion.identity);
         spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(myHeroBase);
 
         spawnedProjectile.GetComponent<SHA_ChronoDamageProjectile>().AdditionalSetup
