@@ -27,11 +27,13 @@ public class SH_Reaper : SpecificHeroFramework
 
     private void CreateBasicAbilityProjectile()
     {
+        //Creates the projectile at the hero location
         GameObject spawnedProjectile = Instantiate(_basicAbilityProjectile, transform.position, Quaternion.identity);
-        //spawnedProjectile.transform.parent = gameObject.transform;
 
+        //Does the universal projectile setup
         spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(myHeroBase);
 
+        //Does the projectile specific setup
         spawnedProjectile.GetComponent<SHA_ReaperBasicProjectile>().AdditionalSetup
             (_basicProjectileSpeed,_basicProjectileVariability);
     }
@@ -47,9 +49,13 @@ public class SH_Reaper : SpecificHeroFramework
 
     private void CreateManualAbilityProjectile(Vector3 attackLocation)
     {
+        //Creates the projectile where the mouse is
         GameObject spawnedProjectile = Instantiate(_manualAbilityProjectile, attackLocation, Quaternion.identity);
+
+        //Does the universal projectile setup
         spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(myHeroBase);
 
+        //Does the projectile specific setup
         spawnedProjectile.GetComponent<SHA_ReaperManualProjectile>().AdditionalSetup
             (_manualProjectileLifetime,_manualProjectileSpeed, _manualProjectileDamageCooldown);
     

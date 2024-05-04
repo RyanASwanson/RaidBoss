@@ -132,7 +132,10 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     #endregion
 
     #region Passive Abilities
-    public abstract void ActivatePassiveAbilities();
+    public virtual void ActivatePassiveAbilities()
+    {
+
+    }
 
     #endregion
 

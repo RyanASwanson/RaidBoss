@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SH_Chronomancer : SpecificHeroFramework
 {
+    [Space]
     [SerializeField] private GameObject _damageProjectile;
     [SerializeField] private Vector3 _attackRotationIncrease;
     [SerializeField] protected float _basicProjectileLifetime;
