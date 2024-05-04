@@ -39,9 +39,9 @@ public class HeroBase : MonoBehaviour
 
         SetupChildren();
 
-        AssignSelfToUI();
-
         SetHeroSO(newSO);
+
+        AssignSelfToUI();
     }
 
     /// <summary>

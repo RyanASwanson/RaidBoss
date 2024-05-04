@@ -10,6 +10,7 @@ public class HeroUIManager : GameUIChildrenFunctionality
     [SerializeField] private GameObject _associatedHeroIcon;
     [SerializeField] private GameObject _associatedHeroHealthBar;
     [SerializeField] private GameObject _associatedHeroManualAbilityChargeBar;
+    [SerializeField] private GameObject _associatedHeroManualAbilityIcon;
 
     private HeroBase _associatedHeroBase;
 
@@ -17,6 +18,8 @@ public class HeroUIManager : GameUIChildrenFunctionality
     public void AssignSpecificHero(HeroBase heroBase)
     {
         _associatedHeroBase = heroBase;
+        if (_associatedHeroBase == null)
+            Debug.Log("Confused");
 
         SubscribeToEvents();
     }
@@ -36,8 +39,15 @@ public class HeroUIManager : GameUIChildrenFunctionality
 
     }
 
+    public override void ChildFuncSetup()
+    {
+        
+    }
+
     public override void SubscribeToEvents()
     {
+        if (_associatedHeroBase == null)
+            Debug.Log("Cannot find associated hero base");
         _associatedHeroBase.GetHeroDamagedEvent().AddListener(AssociatedHeroTookDamage);
     }
 }

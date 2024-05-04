@@ -11,8 +11,12 @@ public abstract class SpecificHeroFramework : MonoBehaviour
 
     internal float _basicAbilityCurrentCharge = 0;
 
-    protected float _manualAbilityChargeTime;
+    [Space]
+
+    [SerializeField] protected float _manualAbilityChargeTime;
     internal float _manualAbilityCurrentCharge = 0;
+
+    [Space] 
 
     internal HeroBase myHeroBase;
 
@@ -77,13 +81,24 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     #endregion
 
     #region Manual Abilities
-    public abstract void ActivateManualAbilities(Vector3 attackLocation);
+    
 
-    /*public virtual IEnumerator CooldownManualAbility()
+    protected virtual void StartCooldownManualAbility()
+    {
+        _manualAbilityCooldownCoroutine = StartCoroutine(CooldownBasicAbility());
+    }
+
+    protected virtual void StopCooldownManualAbility()
+    {
+        StopCoroutine(_manualAbilityCooldownCoroutine);
+        _manualAbilityCooldownCoroutine = null;
+    }
+
+    public virtual IEnumerator CooldownManualAbility()
     {
         while (_manualAbilityCurrentCharge < _manualAbilityChargeTime)
         {
-            AddToBasicAbilityChargeTime(Time.deltaTime);
+            AddToManualAbilityChargeTime(Time.deltaTime);
             yield return null;
         }
         _manualAbilityChargeTime = 0;
@@ -92,15 +107,17 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     public virtual void AddToManualAbilityChargeTime(float addedAmount)
     {
         _manualAbilityCurrentCharge += addedAmount;
-    }*/
+    }
 
     public virtual void AttemptActivationOfManualAbility(Vector3 activateLocation)
     {
         if(_manualAbilityCurrentCharge >= _manualAbilityChargeTime)
         {
-
+            ActivateManualAbilities(activateLocation);
         }
     }
+
+    public abstract void ActivateManualAbilities(Vector3 attackLocation);
     #endregion
 
     #region Passive Abilities
@@ -145,10 +162,12 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     public virtual void ActivateHeroSpecificActivity()
     {
         StartCooldownBasicAbility();
+        StartCooldownManualAbility();
     }
     public virtual void DeactivateHeroSpecificActivity()
     {
         StopCooldownBasicAbility();
+        StopCooldownManualAbility();
     }
 
     public void SetDefaultValues(HeroSO heroSO)
