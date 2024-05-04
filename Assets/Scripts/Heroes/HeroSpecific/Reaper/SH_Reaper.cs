@@ -18,6 +18,7 @@ public class SH_Reaper : SpecificHeroFramework
     #region Manual Abilities
     public override void ActivateManualAbilities(Vector3 attackLocation)
     {
+        base.ActivateManualAbilities(attackLocation);
         CreateManualAbilityProjectile(attackLocation);
     }
 

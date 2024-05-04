@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
+//using UnityEngine.UIElements;
 using TMPro;
 
 public class HeroUIManager : GameUIChildrenFunctionality
@@ -11,6 +11,7 @@ public class HeroUIManager : GameUIChildrenFunctionality
     [SerializeField] private GameObject _associatedHeroHealthBar;
     [SerializeField] private GameObject _associatedHeroManualAbilityChargeBar;
     [SerializeField] private GameObject _associatedHeroManualAbilityIcon;
+    private Image _manualChargeImage;
 
     private HeroBase _associatedHeroBase;
 
@@ -18,10 +19,14 @@ public class HeroUIManager : GameUIChildrenFunctionality
     public void AssignSpecificHero(HeroBase heroBase)
     {
         _associatedHeroBase = heroBase;
-        if (_associatedHeroBase == null)
-            Debug.Log("Confused");
 
+        GeneralSetup();
         SubscribeToEvents();
+    }
+
+    private void GeneralSetup()
+    {
+        _manualChargeImage = _associatedHeroManualAbilityChargeBar.GetComponent<Image>();
     }
 
     private void AssociatedHeroTookDamage(float damageTaken)
@@ -34,9 +39,14 @@ public class HeroUIManager : GameUIChildrenFunctionality
         
     }
 
-    private void SetHeroManualAbilityCharge()
+    private void AssociatedHeroManualCharging()
     {
+        SetHeroManualAbilityCharge(_associatedHeroBase.GetSpecificHeroScript().GetManualAbilityChargePercent());
+    }
 
+    private void SetHeroManualAbilityCharge(float percent)
+    {
+        _manualChargeImage.fillAmount = percent;
     }
 
     public override void ChildFuncSetup()
@@ -46,8 +56,9 @@ public class HeroUIManager : GameUIChildrenFunctionality
 
     public override void SubscribeToEvents()
     {
-        if (_associatedHeroBase == null)
-            Debug.Log("Cannot find associated hero base");
+        //Update health bar when hero takes damage
         _associatedHeroBase.GetHeroDamagedEvent().AddListener(AssociatedHeroTookDamage);
+        //Update manual charge bar when cooling down
+        _associatedHeroBase.GetHeroManualAbilityChargingEvent().AddListener(AssociatedHeroManualCharging);
     }
 }

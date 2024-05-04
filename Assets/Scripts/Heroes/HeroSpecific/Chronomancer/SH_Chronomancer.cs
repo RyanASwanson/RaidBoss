@@ -45,7 +45,7 @@ public class SH_Chronomancer : SpecificHeroFramework
     #endregion
     public override void ActivateManualAbilities(Vector3 attackLocation)
     {
-        throw new System.NotImplementedException();
+        base.ActivateManualAbilities(attackLocation);
     }
 
     public override void ActivatePassiveAbilities()

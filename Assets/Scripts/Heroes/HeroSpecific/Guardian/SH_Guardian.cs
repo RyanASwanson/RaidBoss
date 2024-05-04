@@ -27,7 +27,7 @@ public class SH_Guardian : SpecificHeroFramework
     #region Manual Abilities
     public override void ActivateManualAbilities(Vector3 attackLocation)
     {
-        
+        base.ActivateManualAbilities(attackLocation);
     }
     #endregion
 

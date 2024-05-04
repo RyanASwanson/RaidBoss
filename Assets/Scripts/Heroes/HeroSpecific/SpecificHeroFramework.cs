@@ -99,9 +99,9 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         while (_manualAbilityCurrentCharge < _manualAbilityChargeTime)
         {
             AddToManualAbilityChargeTime(Time.deltaTime);
+            myHeroBase.InvokeHeroManualAbilityCharging();
             yield return null;
         }
-        _manualAbilityChargeTime = 0;
     }
 
     public virtual void AddToManualAbilityChargeTime(float addedAmount)
@@ -117,7 +117,13 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         }
     }
 
-    public abstract void ActivateManualAbilities(Vector3 attackLocation);
+    public virtual void ActivateManualAbilities(Vector3 attackLocation)
+    {
+        _manualAbilityCurrentCharge = 0;
+
+        _manualAbilityCooldownCoroutine = null;
+        StartCooldownManualAbility();
+    }
     #endregion
 
     #region Passive Abilities
@@ -186,6 +192,8 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     public float GetBasicAbilityChargeTime() => _heroBasicAbilityChargeTime;
     public float GetBasicAbilityStrength() => _heroBasicAbilityStrength;
     public float GetBasicAbilityStagger() => _heroBasicAbilityStagger;
+
+    public float GetManualAbilityChargePercent() => _manualAbilityCurrentCharge / _manualAbilityChargeTime;
     #endregion
 
 }
