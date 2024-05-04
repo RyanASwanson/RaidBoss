@@ -69,7 +69,12 @@ public abstract class SpecificHeroFramework : MonoBehaviour
             yield return new WaitForFixedUpdate();
         ActivateBasicAbilities();
     }
-    public abstract bool ConditionsToActivateBasicAbilities();
+
+    public virtual bool ConditionsToActivateBasicAbilities()
+    {
+        return false;
+    }
+
     public virtual void ActivateBasicAbilities()
     {
         StartCooldownBasicAbility();

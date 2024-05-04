@@ -4,15 +4,38 @@ using UnityEngine;
 
 public class SH_Reaper : SpecificHeroFramework
 {
+    [Space]
+    [SerializeField] private GameObject _basicAbilityProjectile;
+    [SerializeField] private float _basicProjectileSpeed;
+    [SerializeField] private Vector2 _basicProjectileVariability;
+
     [SerializeField] private GameObject _manualAbilityProjectile;
     [SerializeField] protected float _manualProjectileLifetime;
     [SerializeField] protected float _manualProjectileSpeed;
+    [SerializeField] protected float _manualProjectileDamageCooldown;
 
     #region Basic Abilities
-    public override bool ConditionsToActivateBasicAbilities()
+    protected override void StartCooldownBasicAbility()
     {
-        return true;
+        ActivateBasicAbilities();
     }
+
+    public override void ActivateBasicAbilities()
+    {
+        CreateBasicAbilityProjectile();
+    }
+
+    private void CreateBasicAbilityProjectile()
+    {
+        GameObject spawnedProjectile = Instantiate(_basicAbilityProjectile, transform.position, Quaternion.identity);
+        //spawnedProjectile.transform.parent = gameObject.transform;
+
+        spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(myHeroBase);
+
+        spawnedProjectile.GetComponent<SHA_ReaperBasicProjectile>().AdditionalSetup
+            (_basicProjectileSpeed,_basicProjectileVariability);
+    }
+
     #endregion
 
     #region Manual Abilities
@@ -28,7 +51,7 @@ public class SH_Reaper : SpecificHeroFramework
         spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(myHeroBase);
 
         spawnedProjectile.GetComponent<SHA_ReaperManualProjectile>().AdditionalSetup
-            (_manualProjectileLifetime,_manualProjectileSpeed);
+            (_manualProjectileLifetime,_manualProjectileSpeed, _manualProjectileDamageCooldown);
     
     }
     #endregion
