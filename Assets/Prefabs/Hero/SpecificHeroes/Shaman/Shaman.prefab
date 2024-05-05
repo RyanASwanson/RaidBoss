@@ -45,11 +45,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13859bb7d223ecb48a7842a40cb7f09d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _heroBasicAbilityChargeTime: 0
-  _heroBasicAbilityStrength: 0
-  _heroBasicAbilityStagger: 0
+  _heroBasicAbilityChargeTime: 5
+  _heroBasicAbilityStrength: 2
+  _heroBasicAbilityStagger: 1
   _manualAbilityChargeTime: 0
-  _basicProjectile: {fileID: 0}
+  _basicProjectile: {fileID: 3036980777955802489, guid: cf4ee9c4b0a55c347806e22596cfff09, type: 3}
+  _basicProjectileLifetime: 3
+  _basicProjectileDamageCooldown: 0.2
   _manualAbilityDuration: 0
 --- !u!1 &8488318070708479503
 GameObject:
