@@ -1,15 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SelectHeroButton : MonoBehaviour
 {
     [SerializeField] private HeroSO _associatedHero;
     private bool _buttonHasBeenPressed = false;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        SetButtonHeroIconVisuals();
+    }
+
+    private void SetButtonHeroIconVisuals()
+    {
+        GetComponent<Image>().sprite = _associatedHero.GetHeroIcon();
     }
     
     /// <summary>
