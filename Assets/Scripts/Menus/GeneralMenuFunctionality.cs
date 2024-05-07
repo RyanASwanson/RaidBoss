@@ -14,9 +14,4 @@ public class GeneralMenuFunctionality : MonoBehaviour
     {
         UniversalManagers.Instance.GetSceneLoadManager().LoadSceneByID(sceneID);
     }
-
-    public void LoadSceneButtonBySO(LevelSO levelSO)
-    {
-        UniversalManagers.Instance.GetSceneLoadManager().LoadSceneByLevelSO(levelSO);
-    }
 }

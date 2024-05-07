@@ -7,6 +7,7 @@ public class SelectionManager : BaseUniversalManager
     private List<HeroSO> _selectedHeroes = new List<HeroSO>();
     private const int _maxHeroes = 5;
 
+    private LevelSO _selectedLevel;
     private BossSO _selectedBoss;
 
     private GameDifficulty _currentGameDifficulty;
@@ -40,12 +41,20 @@ public class SelectionManager : BaseUniversalManager
     public HeroSO GetHeroAtValue(int val) => _selectedHeroes[val];
     public int GetSelectedHeroesCount() => _selectedHeroes.Count;
     public int GetMaxHeroesCount() => _maxHeroes;
+
+    public BossSO GetSelectedBoss() => _selectedBoss;
+    public LevelSO GetSelectedLevel() => _selectedLevel;
     #endregion
 
     #region Setters
     public void SetSelectedBoss(BossSO bossSO)
     {
         _selectedBoss = bossSO;
+    }
+
+    public void SetSelectedLevel(LevelSO levelSO)
+    {
+        _selectedLevel = levelSO;
     }
     public void SetSelectedDifficulty(GameDifficulty gameDifficulty)
     {

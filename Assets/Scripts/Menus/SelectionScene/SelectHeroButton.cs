@@ -6,6 +6,9 @@ using UnityEngine.UI;
 public class SelectHeroButton : MonoBehaviour
 {
     [SerializeField] private HeroSO _associatedHero;
+    [Space]
+
+    [SerializeField] private Image _iconVisuals;
     private bool _buttonHasBeenPressed = false;
 
     // Start is called before the first frame update
@@ -16,7 +19,7 @@ public class SelectHeroButton : MonoBehaviour
 
     private void SetButtonHeroIconVisuals()
     {
-        GetComponent<Image>().sprite = _associatedHero.GetHeroIcon();
+        _iconVisuals.sprite = _associatedHero.GetHeroIcon();
     }
     
     /// <summary>

@@ -12,6 +12,9 @@ public class BossSO : ScriptableObject
     [SerializeField] private float _maxHP;
     [SerializeField] private float _baseStaggerMax;
 
+    [Header("Visuals")]
+    [SerializeField] private Sprite _bossIcon;
+
     [Header("Prefabs")]
     [SerializeField] private GameObject _bossPrefab;
 
@@ -19,6 +22,8 @@ public class BossSO : ScriptableObject
     public string GetHeroName() => _name;
     public float GetMaxHP() => _maxHP;
     public float GetBaseStaggerMax() => _baseStaggerMax;
+
+    public Sprite GetBossIcon() => _bossIcon;
 
     public GameObject GetBossPrefab() => _bossPrefab;
     #endregion
