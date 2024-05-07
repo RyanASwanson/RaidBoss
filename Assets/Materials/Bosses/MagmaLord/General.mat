@@ -7,9 +7,10 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: TESTBOSS
+  m_Name: General
   m_Shader: {fileID: 4800000, guid: 9ae8f489f636c6e41b65a5ed4a974b30, type: 3}
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _HEIGHTFOG_ON
   m_InvalidKeywords:
   - _DESATURATELIGHTCOLOR_ON
   - _FRONTGRADIENTCHANGEDIRECTION_ON
@@ -77,7 +78,7 @@ Material:
     - _DistanceFogStartPosition: 10
     - _DstBlend: 0
     - _Exposure: 0.79
-    - _FogHeight: 0.6
+    - _FogHeight: 0.54
     - _FrontGradient: 0
     - _FrontGradientCenter: 0.5
     - _FrontGradientChangeDirection: 1
@@ -94,9 +95,9 @@ Material:
     - _GradientRevert: 0
     - _GradientRotation: 0
     - _GradientWidth: 0.5
-    - _HeightFog: 0
-    - _HeightFogDensity: 1
-    - _HeightFogStartPosition: 0
+    - _HeightFog: 1
+    - _HeightFogDensity: 0.277
+    - _HeightFogStartPosition: -0.16
     - _Intensity: 1.09
     - _Light: 0
     - _Lightmap: 0
@@ -154,17 +155,17 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DistanceFogColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
     - _ExternalColor: {r: 1, g: 0, b: 0, a: 1}
-    - _FrontColor: {r: 0.9490196, g: 0.4039215, b: 0.4250486, a: 1}
+    - _FrontColor: {r: 0.9490196, g: 0.7680158, b: 0.4039215, a: 1}
     - _FrontTopColor: {r: 0, g: 0, b: 0, a: 1}
     - _GradientTopColor: {r: 0, g: 0, b: 0, a: 1}
-    - _HeightFogColor: {r: 1, g: 0, b: 0, a: 1}
+    - _HeightFogColor: {r: 1, g: 0, b: 0, a: 0.03529412}
     - _LightmapColor: {r: 0, g: 0, b: 0, a: 1}
-    - _RightColor: {r: 0.8773585, g: 0.3186632, b: 0.34123212, a: 1}
+    - _RightColor: {r: 0.42352942, g: 0.3976946, b: 0.17254904, a: 1}
     - _RightTopColor: {r: 0, g: 0, b: 0, a: 1}
-    - _RimColor: {r: 1, g: 0.25206706, b: 0, a: 1}
+    - _RimColor: {r: 1, g: 0.59836286, b: 0, a: 1}
     - _RimTopColor: {r: 0, g: 0, b: 0, a: 1}
     - _SimulatedLightPosition: {r: 0, g: 0, b: 0, a: 0}
-    - _TopColor: {r: 1, g: 1, b: 1, a: 1}
+    - _TopColor: {r: 0.990566, g: 0.82010376, b: 0.36912602, a: 1}
     - _TopTopColor: {r: 0, g: 0, b: 0, a: 1}
     - _WorldDistanceFogPosition: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
