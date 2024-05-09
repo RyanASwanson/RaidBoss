@@ -2,22 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class SpecificBossAbility : MonoBehaviour
+public abstract class SpecificBossAbilityFramework : MonoBehaviour
 {
     [SerializeField] private bool _isTargeted;
     [Space]
 
     [SerializeField] private float _abilityWindUpTime;
 
+    protected BossBase _ownerBossBase;
+    protected SpecificBossFramework _mySpecificBoss;
 
 
-    public virtual void AbilityPrep()
+    public virtual void AbilitySetup(BossBase bossBase)
     {
-        ShowTargetZone();
+        _ownerBossBase = bossBase;
+        _mySpecificBoss = bossBase.GetSpecificBossScript();
+    }
+
+    public virtual void AbilityPrep(Vector3 targetLocation)
+    {
+        ShowTargetZone(targetLocation);
         StartCoroutine(AbilityWindUp());
     }
 
-    public virtual void ShowTargetZone()
+    public virtual void ShowTargetZone(Vector3 targetLocation)
     {
 
     }

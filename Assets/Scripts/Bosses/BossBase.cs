@@ -29,6 +29,8 @@ public class BossBase : MonoBehaviour
 
         SetupChildren();
 
+        SetUpAbilities();
+
         SetBossSO(newSO);
     }
 
@@ -53,6 +55,14 @@ public class BossBase : MonoBehaviour
             childFunc.ChildFuncSetup(this);
     }
 
+    private void SetUpAbilities()
+    {
+        foreach(SpecificBossAbilityFramework bossAbility in GetComponentsInChildren<SpecificBossAbilityFramework>())
+        {
+            bossAbility.AbilitySetup(this);
+        }
+    }
+
     #region Events
     public void InvokeSetBossSO(BossSO bossSO)
     {
@@ -72,6 +82,13 @@ public class BossBase : MonoBehaviour
     #region Getters
     public BossVisuals GetBossVisuals() => _bossVisuals;
     public BossStats GetBossStats() => _bossStats;
+
+    public BossSO GetBossSO() => _associatedBoss;
+
+    public GameObject GetAssociatedBossObjected() => _bossSpecificsGO;
+    public SpecificBossFramework GetSpecificBossScript() => _associatedBossScript;
+
+
 
     public UnityEvent<BossSO> GetSOSetEvent() => _bossSOSetEvent;
 

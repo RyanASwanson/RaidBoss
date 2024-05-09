@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class SpecificBossFramework : MonoBehaviour
 {
-    [SerializeField] protected List<SpecificBossAbility> _specificBossAbilities;
+    [SerializeField] protected List<SpecificBossAbilityFramework> _specificBossAbilities;
 
     internal BossBase myBossBase;
 
