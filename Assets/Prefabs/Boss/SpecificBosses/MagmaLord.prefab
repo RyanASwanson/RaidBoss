@@ -127,7 +127,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7107661797792204568}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &1714732486991850976
 CapsuleCollider:
@@ -143,6 +143,37 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &959668226937862454
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6104892033974841705}
+  m_Layer: 0
+  m_Name: AttackFunctionality
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6104892033974841705
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 959668226937862454}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7107661797792204568}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1110342691837631870
 GameObject:
   m_ObjectHideFlags: 0
@@ -5663,6 +5694,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 6104892033974841705}
   - {fileID: 7107661798084011461}
   - {fileID: 77253200343473588}
   m_Father: {fileID: 0}
@@ -5680,6 +5712,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5adb70122b25474479b95f8379a9fdfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _specificBossAbilities: []
 --- !u!1 &7107661798084011450
 GameObject:
   m_ObjectHideFlags: 0
@@ -5722,7 +5755,7 @@ Transform:
   - {fileID: 4079376684625832505}
   - {fileID: 8867524256650849872}
   m_Father: {fileID: 7107661797792204568}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7223828217324691442
 GameObject:

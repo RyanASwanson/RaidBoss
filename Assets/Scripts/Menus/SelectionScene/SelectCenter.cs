@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Menu in the middle of the selection screen
+/// Handles starting the level and difficulty
+/// </summary>
 public class SelectCenter : MonoBehaviour
 {
 
