@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// Contains the basic functionality that all heroes will use
+/// </summary>
 public abstract class SpecificHeroFramework : MonoBehaviour
 {
     [SerializeField] protected float _heroBasicAbilityChargeTime;

@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Contains the functionality for the chronomancers basic attack
+/// </summary>
 public class SHA_ChronoDamageProjectile : HeroProjectileFramework
 {
     [SerializeField] private float _projectileLifetime;
@@ -18,6 +21,11 @@ public class SHA_ChronoDamageProjectile : HeroProjectileFramework
         Destroy(gameObject, _projectileLifetime);
     }
 
+    /// <summary>
+    /// Sends the projectile moving in a direction until it is destroyed
+    /// </summary>
+    /// <param name="direction"></param>
+    /// <returns></returns>
     private IEnumerator MoveProjectile(Vector3 direction)
     {
         while(true)

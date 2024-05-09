@@ -4,6 +4,10 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
 
+/// <summary>
+/// Controls the movement of the heroes and how they pathfind
+/// Allows for heroes to be directed to a location 
+/// </summary>
 public class HeroPathfinding : HeroChildrenFunctionality
 {
     [SerializeField] private NavMeshAgent _meshAgent;

@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
 
+/// <summary>
+/// Handles player input while in a gameplay scene
+/// </summary>
 public class PlayerInputGameplayManager : BaseGameplayManager
 {
     [SerializeField] private LayerMask _selectClickLayerMask;

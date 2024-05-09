@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Contains all managers used in gameplay scenes
+/// </summary>
 public class GameplayManagers : MonoBehaviour
 {
     public static GameplayManagers Instance;

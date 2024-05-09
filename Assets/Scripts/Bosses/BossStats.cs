@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Holds all general stats that bosses have as well as the functionality for
+///     affecting those stats
+/// Holds health and stagger
+/// </summary>
 public class BossStats : BossChildrenFunctionality
 {
     private float _bossMaxHealth;

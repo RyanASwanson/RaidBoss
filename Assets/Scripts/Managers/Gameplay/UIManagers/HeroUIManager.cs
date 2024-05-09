@@ -5,6 +5,9 @@ using UnityEngine.UI;
 //using UnityEngine.UIElements;
 using TMPro;
 
+/// <summary>
+/// Shows the ui for all heroes that is used while in a combat scene
+/// </summary>
 public class HeroUIManager : GameUIChildrenFunctionality
 {
     [SerializeField] private GameObject _associatedHeroIcon;

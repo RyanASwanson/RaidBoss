@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Performs general management of the boss
+/// </summary>
 public class BossManager : BaseGameplayManager
 {
     [SerializeField] private BossBase _bossBase;

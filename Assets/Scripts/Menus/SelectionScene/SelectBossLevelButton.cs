@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// The button that is pressed in order to selected which boss
+///     that you are going to fight
+/// </summary>
 public class SelectBossLevelButton : MonoBehaviour
 {
     [SerializeField] private LevelSO _associatedLevel;

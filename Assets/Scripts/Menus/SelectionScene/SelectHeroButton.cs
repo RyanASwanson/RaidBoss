@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// The button that is pressed in order to selected a specific hero
+///     to add them to your team
+/// </summary>
 public class SelectHeroButton : MonoBehaviour
 {
     [SerializeField] private HeroSO _associatedHero;
