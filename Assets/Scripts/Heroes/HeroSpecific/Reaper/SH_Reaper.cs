@@ -6,13 +6,8 @@ public class SH_Reaper : SpecificHeroFramework
 {
     [Space]
     [SerializeField] private GameObject _basicAbilityProjectile;
-    [SerializeField] private float _basicProjectileSpeed;
-    [SerializeField] private Vector2 _basicProjectileVariability;
 
     [SerializeField] private GameObject _manualAbilityProjectile;
-    [SerializeField] protected float _manualProjectileLifetime;
-    [SerializeField] protected float _manualProjectileSpeed;
-    [SerializeField] protected float _manualProjectileDamageCooldown;
 
     #region Basic Abilities
     protected override void StartCooldownBasicAbility()
@@ -34,8 +29,7 @@ public class SH_Reaper : SpecificHeroFramework
         spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(myHeroBase);
 
         //Does the projectile specific setup
-        spawnedProjectile.GetComponent<SHA_ReaperBasicProjectile>().AdditionalSetup
-            (_basicProjectileSpeed,_basicProjectileVariability);
+        spawnedProjectile.GetComponent<SHA_ReaperBasicProjectile>().AdditionalSetup();
     }
 
     #endregion
@@ -56,8 +50,7 @@ public class SH_Reaper : SpecificHeroFramework
         spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(myHeroBase);
 
         //Does the projectile specific setup
-        spawnedProjectile.GetComponent<SHA_ReaperManualProjectile>().AdditionalSetup
-            (_manualProjectileLifetime,_manualProjectileSpeed, _manualProjectileDamageCooldown);
+        spawnedProjectile.GetComponent<SHA_ReaperManualProjectile>().AdditionalSetup();
     
     }
     #endregion

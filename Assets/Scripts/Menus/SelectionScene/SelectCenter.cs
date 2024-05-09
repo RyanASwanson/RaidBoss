@@ -21,7 +21,7 @@ public class SelectCenter : MonoBehaviour
 
     public void SetDifficulty(GameDifficulty newDifficulty)
     {
-
+        UniversalManagers.Instance.GetSelectionManager().SetSelectedDifficulty(newDifficulty);
     }
     
 }

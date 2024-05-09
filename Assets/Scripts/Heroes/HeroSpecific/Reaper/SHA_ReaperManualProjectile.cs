@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class SHA_ReaperManualProjectile : HeroProjectileFramework
 {
+    [SerializeField] private float _projectileLifetime;
+    [SerializeField] private float _projectileSpeed;
+    [SerializeField] private float _attackDamageCooldown;
+
     private Collider _projCollider;
-    private float _attackDamageCooldown;
+    
 
     public override void SetUpProjectile(HeroBase heroBase)
     {
@@ -13,19 +17,19 @@ public class SHA_ReaperManualProjectile : HeroProjectileFramework
         _projCollider = GetComponentInChildren<Collider>();
     }
 
-    public void AdditionalSetup(float lifeTime, float projectileSpeed, float damageCooldown)
+    public void AdditionalSetup()
     {
-        StartCoroutine(MoveProjectile(projectileSpeed));
-        _attackDamageCooldown = damageCooldown;
-        Destroy(gameObject, lifeTime);
+        StartCoroutine(MoveProjectile());
+
+        Destroy(gameObject, _projectileLifetime);
     }
 
-    private IEnumerator MoveProjectile(float projectileSpeed)
+    private IEnumerator MoveProjectile()
     {
         while (true)
         {
             transform.position = Vector3.MoveTowards(transform.position,
-                _ownerHeroBase.gameObject.transform.position, projectileSpeed * Time.deltaTime);
+                _ownerHeroBase.gameObject.transform.position, _projectileSpeed * Time.deltaTime);
             //transform.position +=  * Time.deltaTime;
             yield return null;
         }

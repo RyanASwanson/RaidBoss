@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class SHA_ReaperBasicProjectile : HeroProjectileFramework 
 {
+    [SerializeField] private float _projectileSpeed;
+    [SerializeField] private Vector2 _movementVariability;
+    [Space]
     [SerializeField] private GameObject _childObject;
     public override void SetUpProjectile(HeroBase heroBase)
     {
         base.SetUpProjectile(heroBase);
     }
 
-    public void AdditionalSetup(float projectileSpeed, Vector2 movementVariability)
+    public void AdditionalSetup()
     {
-        StartCoroutine(MoveProjectile(projectileSpeed, movementVariability));
+        StartCoroutine(MoveProjectile(_projectileSpeed,_movementVariability));
     }
 
     private IEnumerator MoveProjectile(float projectileSpeed, Vector2 movementVariability)

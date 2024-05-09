@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class SHA_ShamanManualProjectile : HeroProjectileFramework
 {
+    [SerializeField] private float _projectileSpeed;
+    [SerializeField] private float _attackDamageCooldown;
+
     private Queue<GameObject> _heroesNotGoneTo = new Queue<GameObject>();
 
     private Collider _projCollider;
-    private float _attackDamageCooldown;
+    
 
     public override void SetUpProjectile(HeroBase heroBase)
     {
@@ -15,13 +18,11 @@ public class SHA_ShamanManualProjectile : HeroProjectileFramework
         _projCollider = GetComponentInChildren<Collider>();
     }
 
-    public void AdditionalSetup(float projectileSpeed, float damageCooldown, Vector3 initialTargetLocation)
+    public void AdditionalSetup(Vector3 initialTargetLocation)
     {
-        _attackDamageCooldown = damageCooldown;
-
         DetermineTargetOrder();
 
-        StartCoroutine(MoveProjectile(projectileSpeed));
+        StartCoroutine(MoveProjectile());
     }
 
     private void DetermineTargetOrder()
@@ -59,7 +60,7 @@ public class SHA_ShamanManualProjectile : HeroProjectileFramework
         _heroesNotGoneTo.Enqueue(_mySpecificHero.gameObject);
     }
 
-    private IEnumerator MoveProjectile(float projectileSpeed)
+    private IEnumerator MoveProjectile()
     {
         while(_heroesNotGoneTo.Count > 0)
         {
@@ -68,7 +69,7 @@ public class SHA_ShamanManualProjectile : HeroProjectileFramework
                 if(Vector3.Distance(gameObject.transform.position,_heroesNotGoneTo.Peek().transform.position) > .2f)
                 {
                     transform.position = Vector3.MoveTowards(transform.position,
-                        _heroesNotGoneTo.Peek().transform.position, projectileSpeed * Time.deltaTime);
+                        _heroesNotGoneTo.Peek().transform.position, _projectileSpeed * Time.deltaTime);
 
                     yield return null;
                 }

@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class SHA_ShamanBasicAbility : HeroProjectileFramework
 {
+    [SerializeField] private float _projectileLifetime;
+    [SerializeField] private float _attackDamageCooldown;
+
     private Collider _projCollider;
-    private float _attackDamageCooldown;
 
     public override void SetUpProjectile(HeroBase heroBase)
     {
@@ -13,10 +15,9 @@ public class SHA_ShamanBasicAbility : HeroProjectileFramework
         _projCollider = GetComponentInChildren<Collider>();
     }
 
-    public void AdditionalSetup(float lifeTime, float damageCooldown)
+    public void AdditionalSetup()
     {
-        _attackDamageCooldown = damageCooldown;
-        Destroy(gameObject, lifeTime);
+        Destroy(gameObject, _projectileLifetime);
     }
 
     private void StartDamageCooldown()

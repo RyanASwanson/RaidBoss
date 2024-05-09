@@ -4,22 +4,25 @@ using UnityEngine;
 
 public class SHA_ChronoDamageProjectile : HeroProjectileFramework
 {
+    [SerializeField] private float _projectileLifetime;
+    [SerializeField] private float _projectileSpeed;
+
     public override void SetUpProjectile(HeroBase heroBase)
     {
         base.SetUpProjectile(heroBase);
     }
 
-    public void AdditionalSetup(float lifeTime, Vector3 direction, float projectileSpeed)
+    public void AdditionalSetup(Vector3 direction)
     {
-        StartCoroutine(MoveProjectile(direction,projectileSpeed));
-        Destroy(gameObject, lifeTime);
+        StartCoroutine(MoveProjectile(direction));
+        Destroy(gameObject, _projectileLifetime);
     }
 
-    private IEnumerator MoveProjectile(Vector3 direction, float projectileSpeed)
+    private IEnumerator MoveProjectile(Vector3 direction)
     {
         while(true)
         {
-            transform.position += direction * projectileSpeed* Time.deltaTime;
+            transform.position += direction * _projectileSpeed * Time.deltaTime;
             yield return null;
         }
     }

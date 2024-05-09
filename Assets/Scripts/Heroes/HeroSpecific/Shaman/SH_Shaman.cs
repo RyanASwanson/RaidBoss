@@ -6,12 +6,8 @@ public class SH_Shaman : SpecificHeroFramework
 {
     [Space]
     [SerializeField] private GameObject _basicProjectile;
-    [SerializeField] private float _basicProjectileLifetime;
-    [SerializeField] protected float _basicProjectileDamageCooldown;
 
     [SerializeField] private GameObject _manualProjectile;
-    [SerializeField] private float _manualProjectileSpeed;
-    [SerializeField] private float _manualProjectileDamageCooldown;
 
     #region Basic Abilities
     public override bool ConditionsToActivateBasicAbilities()
@@ -31,8 +27,7 @@ public class SH_Shaman : SpecificHeroFramework
         GameObject spawnedProjectile = Instantiate(_basicProjectile, myHeroBase.transform.position, Quaternion.identity);
         spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(myHeroBase);
 
-        spawnedProjectile.GetComponent<SHA_ShamanBasicAbility>().AdditionalSetup
-            (_basicProjectileLifetime, _basicProjectileDamageCooldown);
+        spawnedProjectile.GetComponent<SHA_ShamanBasicAbility>().AdditionalSetup();
     }
 
     #endregion
@@ -51,8 +46,7 @@ public class SH_Shaman : SpecificHeroFramework
             myHeroBase.transform.position, Quaternion.identity);
         spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(myHeroBase);
 
-        spawnedProjectile.GetComponent<SHA_ShamanManualProjectile>().AdditionalSetup
-            (_manualProjectileSpeed, _basicProjectileDamageCooldown, attackLocation);
+        spawnedProjectile.GetComponent<SHA_ShamanManualProjectile>().AdditionalSetup(attackLocation);
     }
 
     #endregion
