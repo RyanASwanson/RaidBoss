@@ -15,7 +15,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
             totalAggroWeight += hb.GetHeroStats().GetCurrentAggro();
         }
 
-        float randomWeightValue = Random.Range(0, totalAggroWeight);
+        int randomWeightValue = (int)Random.Range(1, totalAggroWeight + 1);
 
         float currentWeightProgress = 0;
         foreach (HeroBase hb in GameplayManagers.Instance.GetHeroesManager().GetCurrentLivingHeroes())
@@ -23,7 +23,11 @@ public abstract class SpecificBossFramework : MonoBehaviour
             currentWeightProgress += hb.GetHeroStats().GetCurrentAggro();
 
             if (randomWeightValue <= currentWeightProgress)
+            {
+                //Debug.Log("Random " + randomWeightValue + " current " + currentWeightProgress + " total " + totalAggroWeight);
                 return hb;
+            }
+                
         }
 
         return null;
