@@ -2,7 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SHA_ShamanBasicAbility : HeroProjectileFramework
+
+/// <summary>
+/// Contains the functionality for the shamans basic attack
+/// </summary>
+public class SHP_ShamanBasicAbility : HeroProjectileFramework
 {
     [SerializeField] private float _projectileLifetime;
     [SerializeField] private float _attackDamageCooldown;

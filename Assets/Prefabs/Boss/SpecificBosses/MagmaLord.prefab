@@ -152,6 +152,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6104892033974841705}
+  - component: {fileID: 8608038032403180089}
   m_Layer: 0
   m_Name: AttackFunctionality
   m_TagString: Untagged
@@ -174,6 +175,22 @@ Transform:
   m_Father: {fileID: 7107661797792204568}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8608038032403180089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 959668226937862454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd801e819b281f9469c7a37e07610830, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isTargeted: 1
+  _abilityWindUpTime: 3
+  _meteor: {fileID: 0}
+  _targetZone: {fileID: 0}
 --- !u!1 &1110342691837631870
 GameObject:
   m_ObjectHideFlags: 0

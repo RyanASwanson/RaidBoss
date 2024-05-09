@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SHA_ReaperBasicProjectile : HeroProjectileFramework 
+public class SHP_ReaperBasicProjectile : HeroProjectileFramework 
 {
     [SerializeField] private float _projectileSpeed;
     [SerializeField] private Vector2 _movementVariability;

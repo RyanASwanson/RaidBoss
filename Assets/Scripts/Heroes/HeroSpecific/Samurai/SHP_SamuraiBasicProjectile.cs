@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SHA_SamuraiBasicProjectile : HeroProjectileFramework
+public class SHP_SamuraiBasicProjectile : HeroProjectileFramework
 {
     private Collider _projCollider;
 

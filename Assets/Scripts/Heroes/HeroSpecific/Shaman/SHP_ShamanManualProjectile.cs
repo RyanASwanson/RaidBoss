@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SHA_ShamanManualProjectile : HeroProjectileFramework
+public class SHP_ShamanManualProjectile : HeroProjectileFramework
 {
     [SerializeField] private float _projectileSpeed;
     [SerializeField] private float _attackDamageCooldown;

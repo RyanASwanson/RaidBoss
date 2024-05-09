@@ -2,7 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SHA_ReaperManualProjectile : HeroProjectileFramework
+/// <summary>
+/// Contains the functionality for the reapers manual attack
+/// After the projectile is created it will move towards the reaper
+///     dealing damage along its path
+///     The initial location is done by the reaper script
+/// </summary>
+public class SHP_ReaperManualProjectile : HeroProjectileFramework
 {
     [SerializeField] private float _projectileLifetime;
     [SerializeField] private float _projectileSpeed;

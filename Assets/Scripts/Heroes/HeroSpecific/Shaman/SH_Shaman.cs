@@ -27,7 +27,7 @@ public class SH_Shaman : SpecificHeroFramework
         GameObject spawnedProjectile = Instantiate(_basicProjectile, myHeroBase.transform.position, Quaternion.identity);
         spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(myHeroBase);
 
-        spawnedProjectile.GetComponent<SHA_ShamanBasicAbility>().AdditionalSetup();
+        spawnedProjectile.GetComponent<SHP_ShamanBasicAbility>().AdditionalSetup();
     }
 
     #endregion
@@ -46,7 +46,7 @@ public class SH_Shaman : SpecificHeroFramework
             myHeroBase.transform.position, Quaternion.identity);
         spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(myHeroBase);
 
-        spawnedProjectile.GetComponent<SHA_ShamanManualProjectile>().AdditionalSetup(attackLocation);
+        spawnedProjectile.GetComponent<SHP_ShamanManualProjectile>().AdditionalSetup(attackLocation);
     }
 
     #endregion

@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Contains the functionality for the chronomancers basic attack
 /// </summary>
-public class SHA_ChronoDamageProjectile : HeroProjectileFramework
+public class SHP_ChronoDamageProjectile : HeroProjectileFramework
 {
     [SerializeField] private float _projectileLifetime;
     [SerializeField] private float _projectileSpeed;
