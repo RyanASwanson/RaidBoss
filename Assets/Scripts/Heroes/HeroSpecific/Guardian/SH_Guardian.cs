@@ -7,6 +7,8 @@ public class SH_Guardian : SpecificHeroFramework
     [Space]
     [SerializeField] private float _heroDefaultBasicAbilityRange;
 
+    [SerializeField] private float _heroManualAbilityDuration;
+
     #region Basic Abilities
     public override bool ConditionsToActivateBasicAbilities()
     {
@@ -28,6 +30,8 @@ public class SH_Guardian : SpecificHeroFramework
     #region Manual Abilities
     public override void ActivateManualAbilities(Vector3 attackLocation)
     {
+        GameplayManagers.Instance.GetBossManager().GetBossBase().GetSpecificBossScript()
+            .HeroOverrideAggro(myHeroBase, _heroManualAbilityDuration);
         base.ActivateManualAbilities(attackLocation);
     }
     #endregion

@@ -85,7 +85,7 @@ public class BossBase : MonoBehaviour
 
     public BossSO GetBossSO() => _associatedBoss;
 
-    public GameObject GetAssociatedBossObjected() => _bossSpecificsGO;
+    public GameObject GetAssociatedBossObject() => _bossSpecificsGO;
     public SpecificBossFramework GetSpecificBossScript() => _associatedBossScript;
 
 
