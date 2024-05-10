@@ -6,11 +6,17 @@ public class SHP_ReaperBasicProjectile : HeroProjectileFramework
 {
     [SerializeField] private float _projectileSpeed;
     [SerializeField] private Vector2 _movementVariability;
+    [SerializeField] private float _attackDamageCooldown;
+
+    private Collider _projCollider;
     [Space]
     [SerializeField] private GameObject _childObject;
+
+
     public override void SetUpProjectile(HeroBase heroBase)
     {
         base.SetUpProjectile(heroBase);
+        _projCollider = GetComponentInChildren<Collider>();
     }
 
     public void AdditionalSetup()
@@ -33,6 +39,29 @@ public class SHP_ReaperBasicProjectile : HeroProjectileFramework
             _childObject.transform.localPosition = new Vector3((xPos * movementVariability.x),
                 _ownerHeroBase.transform.position.y, (zPos * movementVariability.y));
             yield return null;
+        }
+    }
+
+    private void StartDamageCooldown()
+    {
+        StartCoroutine(DamageCooldown());
+    }
+
+    private IEnumerator DamageCooldown()
+    {
+        _projCollider.enabled = false;
+        yield return new WaitForSeconds(_attackDamageCooldown);
+        _projCollider.enabled = true;
+    }
+
+    protected void OnTriggerStay(Collider collision)
+    {
+        if (collision.gameObject.CompareTag(TagStringData.GetBossHitboxTagName()))
+        {
+            StartDamageCooldown();
+
+            _ownerHeroBase.GetSpecificHeroScript().DamageBoss(_mySpecificHero.GetBasicAbilityStrength());
+            _ownerHeroBase.GetSpecificHeroScript().StaggerBoss(_mySpecificHero.GetBasicAbilityStagger());
         }
     }
 }

@@ -8,15 +8,17 @@ using UnityEngine.Events;
 /// </summary>
 public abstract class SpecificHeroFramework : MonoBehaviour
 {
-    [SerializeField] protected float _heroBasicAbilityChargeTime;
-    [SerializeField] protected float _heroBasicAbilityStrength;
-    [SerializeField] protected float _heroBasicAbilityStagger;
+    [SerializeField] protected float _basicAbilityChargeTime;
+    [SerializeField] protected float _basicAbilityStrength;
+    [SerializeField] protected float _basicAbilityStagger;
 
     internal float _basicAbilityCurrentCharge = 0;
 
     [Space]
 
     [SerializeField] protected float _manualAbilityChargeTime;
+    [SerializeField] protected float _manualAbilityStrength;
+    [SerializeField] protected float _manualAbilityStagger;
     internal float _manualAbilityCurrentCharge = 0;
 
     [Space] 
@@ -42,7 +44,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     public virtual IEnumerator CooldownBasicAbility()
     {
         _basicAbilityCurrentCharge = 0;
-        while (_basicAbilityCurrentCharge < _heroBasicAbilityChargeTime)
+        while (_basicAbilityCurrentCharge < _basicAbilityChargeTime)
         {
             AddToBasicAbilityChargeTime(Time.deltaTime * myHeroBase.GetHeroStats().GetCurrentAttackSpeedMultiplier());
             yield return null;
@@ -200,11 +202,13 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     }
 
     #region Getters
-    public float GetBasicAbilityChargeTime() => _heroBasicAbilityChargeTime;
-    public float GetBasicAbilityStrength() => _heroBasicAbilityStrength;
-    public float GetBasicAbilityStagger() => _heroBasicAbilityStagger;
+    public float GetBasicAbilityChargeTime() => _basicAbilityChargeTime;
+    public float GetBasicAbilityStrength() => _basicAbilityStrength;
+    public float GetBasicAbilityStagger() => _basicAbilityStagger;
 
     public float GetManualAbilityChargePercent() => _manualAbilityCurrentCharge / _manualAbilityChargeTime;
+    public float GetManualAbilityStrength() => _manualAbilityStrength;
+    public float GetManualAbilityStagger() => _manualAbilityStagger;
     #endregion
 
 }

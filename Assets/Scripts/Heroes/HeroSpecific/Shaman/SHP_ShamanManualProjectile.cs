@@ -5,7 +5,7 @@ using UnityEngine;
 public class SHP_ShamanManualProjectile : HeroProjectileFramework
 {
     [SerializeField] private float _projectileSpeed;
-    [SerializeField] private float _attackDamageCooldown;
+
 
     private Queue<GameObject> _heroesNotGoneTo = new Queue<GameObject>();
 
@@ -75,7 +75,7 @@ public class SHP_ShamanManualProjectile : HeroProjectileFramework
                 }
                 else
                 {
-                    _heroesNotGoneTo.Dequeue();
+                    ProjectileReachedTargetHero();
                 }
                 
             }
@@ -84,26 +84,22 @@ public class SHP_ShamanManualProjectile : HeroProjectileFramework
         Destroy(gameObject);
     }
 
-    private void StartDamageCooldown()
+    private void ProjectileReachedTargetHero()
     {
-        StartCoroutine(DamageCooldown());
+        _projCollider.enabled = true;
+
+        _heroesNotGoneTo.Dequeue();
     }
 
-    private IEnumerator DamageCooldown()
-    {
-        _projCollider.enabled = false;
-        yield return new WaitForSeconds(_attackDamageCooldown);
-        _projCollider.enabled = true;
-    }
 
     protected override void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.CompareTag(TagStringData.GetBossHitboxTagName()))
         {
-            StartDamageCooldown();
+            _projCollider.enabled = false;
 
-            _ownerHeroBase.GetSpecificHeroScript().DamageBoss(_mySpecificHero.GetBasicAbilityStrength());
-            _ownerHeroBase.GetSpecificHeroScript().StaggerBoss(_mySpecificHero.GetBasicAbilityStagger());
+            _ownerHeroBase.GetSpecificHeroScript().DamageBoss(_mySpecificHero.GetManualAbilityStrength());
+            _ownerHeroBase.GetSpecificHeroScript().StaggerBoss(_mySpecificHero.GetManualAbilityStagger());
         }
     }
 }

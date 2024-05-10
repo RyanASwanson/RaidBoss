@@ -21,8 +21,8 @@ public class SH_Guardian : SpecificHeroFramework
         base.ActivateBasicAbilities();
         Debug.Log("Activate Basic Abilities");
 
-        DamageBoss(_heroBasicAbilityStrength);
-        StaggerBoss(_heroBasicAbilityStagger);
+        DamageBoss(_basicAbilityStrength);
+        StaggerBoss(_basicAbilityStagger);
     }
 
     #endregion
