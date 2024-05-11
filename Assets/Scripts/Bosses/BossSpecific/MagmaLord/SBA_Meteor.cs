@@ -14,7 +14,7 @@ public class SBA_Meteor : SpecificBossAbilityFramework
 
     public override void StartShowTargetZone(Vector3 targetLocation)
     {
-        _currentTargetZones = Instantiate(_targetZone, targetLocation, Quaternion.identity);
+        _currentTargetZones.Add(Instantiate(_targetZone, targetLocation, Quaternion.identity));
         base.StartShowTargetZone(targetLocation);
     }
 
