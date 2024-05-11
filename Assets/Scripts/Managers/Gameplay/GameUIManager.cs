@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Handles the ui for the gameplay
+/// </summary>
 public class GameUIManager : BaseGameplayManager
 {
     [SerializeField] private BossUIManager _bossUIManager;
@@ -16,6 +19,9 @@ public class GameUIManager : BaseGameplayManager
         SetupChildrenUIManagers();
     }
 
+    /// <summary>
+    /// Sets up all scripts that inherit from GameUIChildrenFunctionality
+    /// </summary>
     private void SetupChildrenUIManagers()
     {
         foreach (GameUIChildrenFunctionality gameUIChildrenFunctionality

@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Provides the framework for boss abilities
+/// </summary>
 public abstract class SpecificBossAbilityFramework : MonoBehaviour
 {
     [SerializeField] private bool _isTargeted;
@@ -10,18 +13,35 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     [SerializeField] private float _targetZoneDuration;
     [SerializeField] private float _abilityWindUpTime;
 
-    protected GameObject _currentTargetZone;
+    protected List<GameObject> _currentTargetZones;
 
     protected BossBase _ownerBossBase;
     protected SpecificBossFramework _mySpecificBoss;
 
-
+    /// <summary>
+    /// Sets up the ability with the boss base and specific boss framework
+    /// </summary>
+    /// <param name="bossBase"></param>
     public virtual void AbilitySetup(BossBase bossBase)
     {
         _ownerBossBase = bossBase;
         _mySpecificBoss = bossBase.GetSpecificBossScript();
     }
 
+    /// <summary>
+    /// Function that is called to activate the boss ability
+    /// </summary>
+    /// <param name="targetLocation"></param>
+    public virtual void ActivateAbility(Vector3 targetLocation)
+    {
+        AbilityPrep(targetLocation);
+    }
+
+    /// <summary>
+    /// Does the initial prep for the ability
+    /// Shows the target zone if it has one
+    /// </summary>
+    /// <param name="targetLocation"></param>
     public virtual void AbilityPrep(Vector3 targetLocation)
     {
         StartShowTargetZone(targetLocation);
@@ -29,25 +49,45 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     }
 
     #region Target Zone
+    /// <summary>
+    /// Starts the process of visualizing the target zone
+    /// </summary>
+    /// <param name="targetLocation"></param>
     public virtual void StartShowTargetZone(Vector3 targetLocation)
     {
-        StartCoroutine(ShowTargetZone());
+        StartCoroutine(TargetZonesProcess());
     }
 
-    public virtual IEnumerator ShowTargetZone()
+    /// <summary>
+    /// Wait for the target zone duration
+    /// </summary>
+    /// <returns></returns>
+    public virtual IEnumerator TargetZonesProcess()
     {
         yield return new WaitForSeconds(_targetZoneDuration);
         RemoveTargetZone();
     }
 
+    /// <summary>
+    /// Removes all target zones
+    /// </summary>
     public virtual void RemoveTargetZone()
     {
-        if (_currentTargetZone == null) return;
+        if (_currentTargetZones.Count == 0) return;
 
-        Destroy(_currentTargetZone);
+        foreach(GameObject currentZone in _currentTargetZones)
+        {
+            Destroy(currentZone.gameObject);
+        }
     }
 
     #endregion
+
+    /// <summary>
+    /// Starts the actual activation of the ability
+    /// Happens after any prep that is needed such as targeting zones
+    /// </summary>
+    /// <param name="targetLocation"></param>
     public virtual void StartAbilityWindUp(Vector3 targetLocation)
     {
         StartCoroutine(AbilityWindUp());

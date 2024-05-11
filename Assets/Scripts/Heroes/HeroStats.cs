@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Holds the general stats for the hero
+/// </summary>
 public class HeroStats : HeroChildrenFunctionality
 {
     private float _heroMaxHealth;
@@ -24,6 +27,10 @@ public class HeroStats : HeroChildrenFunctionality
         base.ChildFuncSetup(heroBase);
     }
 
+    /// <summary>
+    /// Assigns the values of the stats after the heroSO is assigned
+    /// </summary>
+    /// <param name="heroSO"></param>
     private void StatsSetup(HeroSO heroSO)
     {
         _heroMaxHealth = heroSO.GetMaxHP();
@@ -38,9 +45,11 @@ public class HeroStats : HeroChildrenFunctionality
         _currentAttackSpeedMultiplier = _heroDefaultAttackSpeedMultiplier;
         _currentDamageResistance = _heroDefaultDamageResistance;
 
+        //Sets up the movement speed
         myHeroBase.GetPathfinding().GetNavMeshAgent().speed = _heroDefaultMovespeed;
     }
 
+    //Checks if the hero has died after taking damage
     private void CheckIfHeroIsDead()
     {
         if (_currentHealth <= 0)

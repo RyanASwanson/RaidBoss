@@ -4,6 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+/// <summary>
+/// Handles all ui relating to the boss
+/// Used in combat scenes
+/// Visualizes the health bar
+/// Visualizes the stamina bar
+/// </summary>
 public class BossUIManager : GameUIChildrenFunctionality
 {
     [Header("BossHealthBar")]

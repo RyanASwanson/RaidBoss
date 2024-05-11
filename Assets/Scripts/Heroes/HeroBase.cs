@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// Holds the base functionality for the hero
+/// Holds the children functionality scripts
+/// Holds the specific hero framework
+/// Holds all events relating to the hero
+/// </summary>
 public class HeroBase : MonoBehaviour
 {
     [Header("ChildFunctionality")]

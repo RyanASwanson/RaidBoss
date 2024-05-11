@@ -24,6 +24,12 @@ public class SHP_ReaperBasicProjectile : HeroProjectileFramework
         StartCoroutine(MoveProjectile(_projectileSpeed,_movementVariability));
     }
 
+    /// <summary>
+    /// Moves the projectile in a figure eight pattern around the player
+    /// </summary>
+    /// <param name="projectileSpeed"></param>
+    /// <param name="movementVariability"></param>
+    /// <returns></returns>
     private IEnumerator MoveProjectile(float projectileSpeed, Vector2 movementVariability)
     {
         float time = 4.75f;
@@ -47,6 +53,10 @@ public class SHP_ReaperBasicProjectile : HeroProjectileFramework
         StartCoroutine(DamageCooldown());
     }
 
+    /// <summary>
+    /// Disables the collider for a short period of time
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator DamageCooldown()
     {
         _projCollider.enabled = false;
