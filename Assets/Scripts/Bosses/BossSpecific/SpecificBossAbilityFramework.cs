@@ -16,6 +16,9 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
 
     protected List<GameObject> _currentTargetZones = new List<GameObject>();
 
+    protected Vector3 _storedTargetLocation;
+    protected HeroBase _storedTarget;
+
     protected BossBase _ownerBossBase;
     protected SpecificBossFramework _mySpecificBoss;
 
@@ -33,9 +36,12 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     /// Function that is called to activate the boss ability
     /// </summary>
     /// <param name="targetLocation"></param>
-    public virtual void ActivateAbility(Vector3 targetLocation)
+    public virtual void ActivateAbility(Vector3 targetLocation, HeroBase targetHeroBase)
     {
-        AbilityPrep(targetLocation);
+        _storedTargetLocation = targetLocation;
+        _storedTarget = targetHeroBase;
+
+        AbilityPrep();
     }
 
     /// <summary>
@@ -43,10 +49,10 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     /// Shows the target zone if it has one
     /// </summary>
     /// <param name="targetLocation"></param>
-    public virtual void AbilityPrep(Vector3 targetLocation)
+    public virtual void AbilityPrep()
     {
-        StartShowTargetZone(targetLocation);
-        StartAbilityWindUp(targetLocation);
+        StartShowTargetZone();
+        StartAbilityWindUp();
     }
 
     #region Target Zone
@@ -54,7 +60,7 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     /// Starts the process of visualizing the target zone
     /// </summary>
     /// <param name="targetLocation"></param>
-    public virtual void StartShowTargetZone(Vector3 targetLocation)
+    public virtual void StartShowTargetZone()
     {
         StartCoroutine(TargetZonesProcess());
     }
@@ -89,7 +95,7 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     /// Happens after any prep that is needed such as targeting zones
     /// </summary>
     /// <param name="targetLocation"></param>
-    public virtual void StartAbilityWindUp(Vector3 targetLocation)
+    public virtual void StartAbilityWindUp()
     {
         StartCoroutine(AbilityWindUp());
     }

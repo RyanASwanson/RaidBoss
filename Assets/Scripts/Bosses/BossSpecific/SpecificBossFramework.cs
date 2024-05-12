@@ -104,6 +104,8 @@ public abstract class SpecificBossFramework : MonoBehaviour
     #endregion
 
     #region Getters
-
+    public Vector3 ClosestFloorSpaceOfHeroTarget(HeroBase heroBase) =>
+        GameplayManagers.Instance.GetEnvironmentManager().
+        GetClosestPointToFloor(heroBase.gameObject.transform.position);
     #endregion
 }

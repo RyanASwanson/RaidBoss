@@ -13,32 +13,31 @@ public class SBA_Meteor : SpecificBossAbilityFramework
     [SerializeField] private GameObject _movingMeteor;
     [SerializeField] private GameObject _targetZone;
 
-    private Vector3 _storedTargetLocation;
+    [SerializeField] private Vector3 _fallingMeteorAngleVariance;
+
     private GameObject _storedFallingMeteor;
 
-    public override void AbilityPrep(Vector3 targetLocation)
+    public override void AbilityPrep()
     {
-        Debug.Log("SpawnMeteor");
-        _storedTargetLocation = targetLocation;
-
-        Instantiate(_fallingMeteor, targetLocation, Quaternion.identity);
-        base.AbilityPrep(targetLocation);
+        base.AbilityPrep();
     }
 
-    public override void StartShowTargetZone(Vector3 targetLocation)
+    public override void StartShowTargetZone()
     {
-        _currentTargetZones.Add(Instantiate(_targetZone, targetLocation, Quaternion.identity));
-        base.StartShowTargetZone(targetLocation);
+        _currentTargetZones.Add(Instantiate(_targetZone, _storedTargetLocation, Quaternion.identity));
+        base.StartShowTargetZone();
     }
 
-    public override void StartAbilityWindUp(Vector3 targetLocation)
+    public override void StartAbilityWindUp()
     {
-        _storedFallingMeteor = Instantiate(_fallingMeteor, targetLocation, Quaternion.identity);
-        base.StartAbilityWindUp(targetLocation);
+        _storedFallingMeteor = Instantiate(_fallingMeteor, _storedTargetLocation, Quaternion.identity);
+        base.StartAbilityWindUp();
     }
 
     public override void AbilityStart()
     {
+        Destroy(_storedFallingMeteor);
+
         Instantiate(_movingMeteor, _storedTargetLocation, Quaternion.identity);
         base.AbilityStart();
     }
