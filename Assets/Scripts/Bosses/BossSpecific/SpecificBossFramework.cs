@@ -10,6 +10,8 @@ public abstract class SpecificBossFramework : MonoBehaviour
 
     private List<HeroBase> _aggroOverrides = new List<HeroBase>();
 
+    private Coroutine _nextAttackProcess;
+
     /// <summary>
     /// Determine which hero should be targeted
     /// </summary>
@@ -24,16 +26,24 @@ public abstract class SpecificBossFramework : MonoBehaviour
         return DetermineAggroFromList(_aggroOverrides);
     }
 
+    /// <summary>
+    /// Checks
+    /// </summary>
+    /// <param name="aggroTargetBases"></param>
+    /// <returns></returns>
     public virtual HeroBase DetermineAggroFromList(List<HeroBase> aggroTargetBases)
     {
+        //Adds the aggro of all living heroes to a total value
         float totalAggroWeight = 0;
         foreach (HeroBase hb in aggroTargetBases)
         {
             totalAggroWeight += hb.GetHeroStats().GetCurrentAggro();
         }
 
+        //Creates a random value somewhere between 1 and the aggro total plus 1
         int randomWeightValue = (int)Random.Range(1, totalAggroWeight + 1);
 
+        //Goes through all living heroes to find where the random value resides
         float currentWeightProgress = 0;
         foreach (HeroBase hb in aggroTargetBases)
         {
@@ -62,7 +72,23 @@ public abstract class SpecificBossFramework : MonoBehaviour
         _aggroOverrides.Remove(heroBase);
     }
 
-    
+    /// <summary>
+    /// Activates the next ability for the boss to use
+    /// </summary>
+    /// <param name="nextAbility"></param>
+    protected virtual void StartNextAbility(SpecificBossAbilityFramework nextAbility)
+    {
+        _nextAttackProcess = StartCoroutine(UseNextAttackProcess(nextAbility));
+    }
+
+    protected virtual IEnumerator UseNextAttackProcess(SpecificBossAbilityFramework currentAbility)
+    {
+        yield return new WaitForSeconds(currentAbility.GetTimeUntilNextAbility());
+
+        _nextAttackProcess = null;
+    }
+
+
     public virtual void SetupSpecificBoss(BossBase bossBase)
     {
         myBossBase = bossBase;
@@ -74,6 +100,10 @@ public abstract class SpecificBossFramework : MonoBehaviour
     {
         
     }
+
+    #endregion
+
+    #region Getters
 
     #endregion
 }

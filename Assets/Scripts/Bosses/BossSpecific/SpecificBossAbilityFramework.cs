@@ -10,6 +10,7 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     [SerializeField] private bool _isTargeted;
     [Space]
 
+    [SerializeField] private float _timeUntilNextAbility;
     [SerializeField] private float _targetZoneDuration;
     [SerializeField] private float _abilityWindUpTime;
 
@@ -116,6 +117,7 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     #region Getters
     public bool GetIsTargeted() => _isTargeted;
 
+    public float GetTimeUntilNextAbility() => _timeUntilNextAbility;
     public float GetAbilityWindUpTime() => _abilityWindUpTime;
 
     #endregion
