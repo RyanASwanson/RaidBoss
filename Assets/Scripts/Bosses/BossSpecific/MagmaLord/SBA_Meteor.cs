@@ -9,8 +9,15 @@ using UnityEngine;
 /// </summary>
 public class SBA_Meteor : SpecificBossAbilityFramework
 {
-    [SerializeField] private GameObject _meteor;
+    [SerializeField] private GameObject _fallingMeteor;
     [SerializeField] private GameObject _targetZone;
+
+    public override void AbilityPrep(Vector3 targetLocation)
+    {
+        Debug.Log("SpawnMeteor");
+        Instantiate(_fallingMeteor, targetLocation, Quaternion.identity);
+        base.AbilityPrep(targetLocation);
+    }
 
     public override void StartShowTargetZone(Vector3 targetLocation)
     {
@@ -20,7 +27,7 @@ public class SBA_Meteor : SpecificBossAbilityFramework
 
     public override void StartAbilityWindUp(Vector3 targetLocation)
     {
-        Instantiate(_meteor, targetLocation, Quaternion.identity);
+        Instantiate(_fallingMeteor, targetLocation, Quaternion.identity);
         base.StartAbilityWindUp(targetLocation);
     }
 }
