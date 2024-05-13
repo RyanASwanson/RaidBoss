@@ -18,7 +18,6 @@ public abstract class SpecificBossFramework : MonoBehaviour
     /// <returns></returns>
     public virtual HeroBase DetermineAggroTarget()
     {
-        Debug.Log(_aggroOverrides.Count);
         //If there is no aggro override just check the current living heroes
         if (_aggroOverrides.Count < 1)
             return DetermineAggroFromList(GameplayManagers.Instance.GetHeroesManager().GetCurrentLivingHeroes());
