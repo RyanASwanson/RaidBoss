@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1680895796166459898}
   - component: {fileID: 5639287205825355308}
+  - component: {fileID: 2876240380485525677}
   m_Layer: 0
   m_Name: MovingMeteor
   m_TagString: Untagged
@@ -59,6 +60,21 @@ MonoBehaviour:
   _exitEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2876240380485525677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9559560874134544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e14d17908acb9054fa833916075e74f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _projectileLifetime: 4
+  _projectileSpeed: 0.5
+  _randomDirectionThreshold: 0.2
 --- !u!1 &41717239410482861
 GameObject:
   m_ObjectHideFlags: 0

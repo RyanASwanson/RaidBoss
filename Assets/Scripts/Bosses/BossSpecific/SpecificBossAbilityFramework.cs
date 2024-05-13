@@ -34,6 +34,7 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
 
     /// <summary>
     /// Function that is called to activate the boss ability
+    /// Stores the target location / target hero
     /// </summary>
     /// <param name="targetLocation"></param>
     public virtual void ActivateAbility(Vector3 targetLocation, HeroBase targetHeroBase)
