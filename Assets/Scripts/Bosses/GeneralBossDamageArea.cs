@@ -15,7 +15,7 @@ public class GeneralBossDamageArea : MonoBehaviour
     [SerializeField] private UnityEvent<Collider> _enterEvent;
 
     [Header("Stay")]
-    [SerializeField] private float _stayDamage;
+    [SerializeField] private float _stayDamagePerSecond;
     [SerializeField] private UnityEvent<Collider> _stayEvent;
 
     [Header("Exit")]
@@ -24,7 +24,7 @@ public class GeneralBossDamageArea : MonoBehaviour
 
     private bool DoesColliderBelongToHero(Collider collision)
     {
-        return collision.gameObject.CompareTag(TagStringData.GetHeroHitboxTagName();
+        return collision.gameObject.CompareTag(TagStringData.GetHeroHitboxTagName());
     }
 
     private void OnTriggerEnter(Collider collision)
@@ -44,8 +44,9 @@ public class GeneralBossDamageArea : MonoBehaviour
         {
             _stayEvent?.Invoke(collision);
 
-            if (_stayDamage <= 0) return;
-            collision.GetComponentInParent<HeroBase>().GetHeroStats().DealDamageToHero(_stayDamage);
+            if (_stayDamagePerSecond <= 0) return;
+            collision.GetComponentInParent<HeroBase>().GetHeroStats().DealDamageToHero
+                (_stayDamagePerSecond * Time.deltaTime);
         }
     }
 
