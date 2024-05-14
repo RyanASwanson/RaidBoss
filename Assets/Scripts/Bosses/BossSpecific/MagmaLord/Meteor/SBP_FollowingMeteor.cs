@@ -21,7 +21,6 @@ public class SBP_FollowingMeteor : BossProjectileFramework
     /// <param name="heroBase"></param>
     public void AdditionalSetup(HeroBase heroBase)
     {
-
         StartProjectileMovement(heroBase);
     }
 
@@ -65,7 +64,7 @@ public class SBP_FollowingMeteor : BossProjectileFramework
         float lifeTimeCountdown = _projectileLifetime;
         while(lifeTimeCountdown > 0)
         {
-            transform.position += moveDirection * Time.deltaTime;
+            transform.position += moveDirection * _projectileSpeed * Time.deltaTime;
 
             lifeTimeCountdown -= Time.deltaTime;
 

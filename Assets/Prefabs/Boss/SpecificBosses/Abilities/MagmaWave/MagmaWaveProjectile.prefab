@@ -42,6 +42,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1694177004724123762}
   - component: {fileID: 5662033008369362852}
+  - component: {fileID: 8301264482093360685}
   - component: {fileID: 2068762610859340736}
   m_Layer: 0
   m_Name: MagmaWaveProjectile
@@ -92,6 +93,19 @@ MonoBehaviour:
   _exitEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &8301264482093360685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 67737127216543128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 872fc3c30b831c043985ccb07b414cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _projectileSpeed: 2
 --- !u!54 &2068762610859340736
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -107,7 +121,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 126
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!1 &3227484868127611931
 GameObject:
   m_ObjectHideFlags: 0

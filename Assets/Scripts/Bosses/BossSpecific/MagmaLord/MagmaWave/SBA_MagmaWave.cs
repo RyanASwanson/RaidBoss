@@ -54,7 +54,9 @@ public class SBA_MagmaWave : SpecificBossAbilityFramework
     protected override void AbilityStart()
     {
         _storedMagmaWave = Instantiate(_magmaWave, _edgeOfMap, Quaternion.identity);
-        //_storedMovingMeteor.GetComponent<SBP_FollowingMeteor>().AdditionalSetup(_storedTarget);
+        SBP_MagmaWave mwScript = _storedMagmaWave.GetComponent<SBP_MagmaWave>();
+        mwScript.SetUpProjectile(_ownerBossBase);
+        mwScript.AdditionalSetup();
         base.AbilityStart();
     }
 }
