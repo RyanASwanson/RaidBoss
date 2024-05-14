@@ -50,7 +50,7 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     /// Shows the target zone if it has one
     /// </summary>
     /// <param name="targetLocation"></param>
-    public virtual void AbilityPrep()
+    protected virtual void AbilityPrep()
     {
         StartShowTargetZone();
         StartAbilityWindUp();
@@ -61,7 +61,7 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     /// Starts the process of visualizing the target zone
     /// </summary>
     /// <param name="targetLocation"></param>
-    public virtual void StartShowTargetZone()
+    protected virtual void StartShowTargetZone()
     {
         StartCoroutine(TargetZonesProcess());
     }
@@ -70,7 +70,7 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     /// Wait for the target zone duration
     /// </summary>
     /// <returns></returns>
-    public virtual IEnumerator TargetZonesProcess()
+    protected virtual IEnumerator TargetZonesProcess()
     {
         yield return new WaitForSeconds(_targetZoneDuration);
         RemoveTargetZone();
@@ -79,7 +79,7 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     /// <summary>
     /// Removes all target zones
     /// </summary>
-    public virtual void RemoveTargetZone()
+    protected virtual void RemoveTargetZone()
     {
         if (_currentTargetZones.Count == 0) return;
 
@@ -96,27 +96,27 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     /// Happens after any prep that is needed such as targeting zones
     /// </summary>
     /// <param name="targetLocation"></param>
-    public virtual void StartAbilityWindUp()
+    protected virtual void StartAbilityWindUp()
     {
         StartCoroutine(AbilityWindUp());
     }
 
 
-    public virtual IEnumerator AbilityWindUp()
+    protected virtual IEnumerator AbilityWindUp()
     {
         yield return new WaitForSeconds(_abilityWindUpTime);
 
         AbilityStart();
     }
 
-    public virtual void AbilityStart()
+    protected virtual void AbilityStart()
     {
         
     }
 
     
 
-    public virtual void ProgressToNextBossAttack()
+    protected virtual void ProgressToNextBossAttack()
     {
 
     }

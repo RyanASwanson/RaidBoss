@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class EnvironmentManager : BaseGameplayManager
 {
+    [SerializeField] private LayerMask _mapBorderLayer;
+
     [SerializeField] private List<GameObject> _heroSpawnLocations;
 
     [SerializeField] private Collider _floorCollider;
+
+    private const float _distanceToEdgeOfMap = 25;
 
     public override void SetupGameplayManager()
     {
@@ -21,10 +25,26 @@ public class EnvironmentManager : BaseGameplayManager
     #endregion
 
     #region Getters
+    public LayerMask GetMapBorderLayer() => _mapBorderLayer;
+
     public List<GameObject> GetSpawnLocations() => _heroSpawnLocations;
 
     public Vector3 GetClosestPointToFloor(Vector3 startPoint) => Physics.ClosestPoint(startPoint, 
         _floorCollider, _floorCollider.gameObject.transform.position, _floorCollider.gameObject.transform.rotation);
+
+    public Vector3 GetEdgeOfMapWithDirection(Vector3 startPoint, Vector3 direction)
+    {
+        startPoint = new Vector3(startPoint.x, 0, startPoint.z);
+        direction = new Vector3(direction.x, 0, direction.z);
+
+        //Debug.DrawRay(startPoint, direction, Color.blue, 3);
+        if(Physics.Raycast(startPoint, direction, out RaycastHit rayHit, _distanceToEdgeOfMap, _mapBorderLayer))
+            return rayHit.point;
+
+        Debug.LogError("Couldn't find edge of map");
+        return Vector3.zero;
+    }
+        
     #endregion
 
     #region Setters

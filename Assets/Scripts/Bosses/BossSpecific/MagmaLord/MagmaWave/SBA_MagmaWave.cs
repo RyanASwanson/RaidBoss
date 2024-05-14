@@ -13,28 +13,47 @@ public class SBA_MagmaWave : SpecificBossAbilityFramework
     [SerializeField] private GameObject _targetZone;
 
     private GameObject _storedMagmaWave;
+    private Vector3 _edgeOfMap;
 
-    public override void AbilityPrep()
+    protected override void AbilityPrep()
     {
+        _edgeOfMap = GameplayManagers.Instance.GetEnvironmentManager().
+            GetEdgeOfMapWithDirection(transform.position,
+            (_storedTarget.transform.position - Vector3.zero).normalized);
+
         base.AbilityPrep();
     }
 
-    public override void StartShowTargetZone()
+    protected override void StartShowTargetZone()
     {
-        GameObject newTargetZone = Instantiate(_targetZone, _storedTargetLocation, Quaternion.identity);
-        newTargetZone.transform.LookAt(_ownerBossBase.transform);
+        //Find the point in between the boss and edge of map
+        Vector3 midpoint = (transform.position + _edgeOfMap) / 2;
+        midpoint = GameplayManagers.Instance.GetEnvironmentManager().GetClosestPointToFloor(midpoint);
+
+        GameObject newTargetZone = Instantiate(_targetZone, midpoint, Quaternion.identity);
+
+        //Set the scale of the target zone to be the length of the distance from boss to edge of map
+        newTargetZone.transform.localScale = new (newTargetZone.transform.localScale.x,
+            newTargetZone.transform.localScale.y, Vector3.Distance(transform.position, _edgeOfMap)/2);
+
+        //Make the target zone be pointed towards the boss
+        newTargetZone.transform.LookAt(transform.position);
+        newTargetZone.transform.eulerAngles = new Vector3(0, newTargetZone.transform.eulerAngles.y, 0);
+
         _currentTargetZones.Add(newTargetZone);
+
         base.StartShowTargetZone();
     }
 
-    public override void StartAbilityWindUp()
+
+    protected override void StartAbilityWindUp()
     {
         base.StartAbilityWindUp();
     }
 
-    public override void AbilityStart()
+    protected override void AbilityStart()
     {
-        //_storedMovingMeteor = Instantiate(_movingMeteor, _storedTargetLocation, Quaternion.identity);
+        _storedMagmaWave = Instantiate(_magmaWave, _edgeOfMap, Quaternion.identity);
         //_storedMovingMeteor.GetComponent<SBP_FollowingMeteor>().AdditionalSetup(_storedTarget);
         base.AbilityStart();
     }

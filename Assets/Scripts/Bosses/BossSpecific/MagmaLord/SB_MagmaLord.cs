@@ -16,6 +16,13 @@ public class SB_MagmaLord : SpecificBossFramework
             _currentBossAbilities[0].ActivateAbility(
                 ClosestFloorSpaceOfHeroTarget(newTarget),newTarget);
         }
+
+        if(Input.GetKeyDown(KeyCode.I))
+        {
+            HeroBase newTarget = DetermineAggroTarget();
+
+            _currentBossAbilities[1].ActivateAbility(Vector3.zero, newTarget);
+        }
     }
 
     public override void SubscribeToEvents()

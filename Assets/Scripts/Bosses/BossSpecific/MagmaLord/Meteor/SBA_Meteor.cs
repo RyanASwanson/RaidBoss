@@ -18,24 +18,24 @@ public class SBA_Meteor : SpecificBossAbilityFramework
     private GameObject _storedFallingMeteor;
     private GameObject _storedMovingMeteor;
 
-    public override void AbilityPrep()
+    protected override void AbilityPrep()
     {
         base.AbilityPrep();
     }
 
-    public override void StartShowTargetZone()
+    protected override void StartShowTargetZone()
     {
         _currentTargetZones.Add(Instantiate(_targetZone, _storedTargetLocation, Quaternion.identity));
         base.StartShowTargetZone();
     }
 
-    public override void StartAbilityWindUp()
+    protected override void StartAbilityWindUp()
     {
         _storedFallingMeteor = Instantiate(_fallingMeteor, _storedTargetLocation, _fallingMeteor.transform.rotation);
         base.StartAbilityWindUp();
     }
 
-    public override void AbilityStart()
+    protected override void AbilityStart()
     {
         Destroy(_storedFallingMeteor);
 
