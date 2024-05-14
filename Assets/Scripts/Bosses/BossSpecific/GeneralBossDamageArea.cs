@@ -24,7 +24,6 @@ public class GeneralBossDamageArea : MonoBehaviour
 
     private bool DoesColliderBelongToHero(Collider collision)
     {
-        Debug.Log("ColliderBelongsToHero");
         return collision.gameObject.CompareTag(TagStringData.GetHeroHitboxTagName());
     }
 
@@ -41,11 +40,9 @@ public class GeneralBossDamageArea : MonoBehaviour
 
     private void OnTriggerStay(Collider collision)
     {
-        Debug.Log("TriggerStay");
         if (DoesColliderBelongToHero(collision))
         {
             _stayEvent?.Invoke(collision);
-            Debug.Log("DamageHero");
 
             if (_stayDamagePerSecond <= 0) return;
             collision.GetComponentInParent<HeroBase>().GetHeroStats().DealDamageToHero
