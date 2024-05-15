@@ -4,8 +4,7 @@ using UnityEngine;
 
 /// <summary>
 /// Magma lord attack
-/// Create a damage target zone then a meteor falls on that location
-///     does initial damage and creates a damaging zone
+/// Deals damage in an area around the boss
 /// </summary>
 public class SBA_Scorch : SpecificBossAbilityFramework
 {

@@ -156,6 +156,7 @@ GameObject:
   - component: {fileID: 2262732033750232322}
   - component: {fileID: 8104344608364409530}
   - component: {fileID: 8533920720578803924}
+  - component: {fileID: 4065764590218907969}
   m_Layer: 0
   m_Name: AttackFunctionality
   m_TagString: Untagged
@@ -254,6 +255,25 @@ MonoBehaviour:
   _targetLocation: {x: 0, y: 0, z: 0}
   _scorch: {fileID: 258438868437321791, guid: 26efc0bc94ce70b45862102c75d83a4e, type: 3}
   _targetZone: {fileID: 2799529881703815393, guid: f90289cd0f8e9c744955fdad85fb3c34, type: 3}
+--- !u!114 &4065764590218907969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 959668226937862454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a998c50a55e167345b34b75c8f2b9427, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isTargeted: 0
+  _timeUntilNextAbility: 5
+  _targetZoneDuration: 3
+  _abilityWindUpTime: 3
+  _projectileCount: 5
+  _volcanoDamageZone: {fileID: 7816546349087960188, guid: d0d5519e062e34a41ba90cec54478c08, type: 3}
+  _targetZone: {fileID: 1953041730564889602, guid: c854f73f9135c2f439013660c2afab98, type: 3}
 --- !u!1 &1110342691837631870
 GameObject:
   m_ObjectHideFlags: 0
@@ -5797,6 +5817,7 @@ MonoBehaviour:
   - {fileID: 2262732033750232322}
   - {fileID: 8104344608364409530}
   - {fileID: 8533920720578803924}
+  - {fileID: 4065764590218907969}
 --- !u!1 &7107661798084011450
 GameObject:
   m_ObjectHideFlags: 0

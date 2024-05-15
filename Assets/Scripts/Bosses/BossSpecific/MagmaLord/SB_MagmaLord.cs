@@ -33,6 +33,10 @@ public class SB_MagmaLord : SpecificBossFramework
         {
             _currentBossAbilities[3].ActivateAbility(Vector3.zero, null);
         }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            _currentBossAbilities[4].ActivateAbility(Vector3.zero, null);
+        }
     }
 
     public override void SubscribeToEvents()

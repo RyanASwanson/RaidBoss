@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnvironmentManager : BaseGameplayManager
 {
+    [SerializeField] private float _mapRadius;
+
     [SerializeField] private LayerMask _mapBorderLayer;
 
     [SerializeField] private List<GameObject> _heroSpawnLocations;
@@ -25,6 +27,7 @@ public class EnvironmentManager : BaseGameplayManager
     #endregion
 
     #region Getters
+    public float GetMapRadius() => _mapRadius;
     public LayerMask GetMapBorderLayer() => _mapBorderLayer;
 
     public List<GameObject> GetSpawnLocations() => _heroSpawnLocations;
