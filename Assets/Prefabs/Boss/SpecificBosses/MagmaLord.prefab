@@ -154,6 +154,7 @@ GameObject:
   - component: {fileID: 6104892033974841705}
   - component: {fileID: 8608038032403180089}
   - component: {fileID: 2262732033750232322}
+  - component: {fileID: 8104344608364409530}
   m_Layer: 0
   m_Name: AttackFunctionality
   m_TagString: Untagged
@@ -214,6 +215,25 @@ MonoBehaviour:
   _abilityWindUpTime: 3
   _magmaWave: {fileID: 67737127216543128, guid: 5b14ca24520b4e94eaa40d3eeed68f39, type: 3}
   _targetZone: {fileID: 1434915122738560515, guid: 10c4e99070375d64b9c383ff6679711c, type: 3}
+--- !u!114 &8104344608364409530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 959668226937862454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd43f85232f7360429a752b231728aae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isTargeted: 0
+  _timeUntilNextAbility: 5
+  _targetZoneDuration: 3
+  _abilityWindUpTime: 3
+  _targetLocation: {x: 0, y: 0, z: 0}
+  _magmaBlast: {fileID: 8404173106920906590, guid: f6f5c4b3853e51f499d7730b805b7c20, type: 3}
+  _targetZone: {fileID: 169363956474427008, guid: e270951fa36051a4382b71d47853c6b5, type: 3}
 --- !u!1 &1110342691837631870
 GameObject:
   m_ObjectHideFlags: 0
@@ -5755,6 +5775,7 @@ MonoBehaviour:
   _currentBossAbilities:
   - {fileID: 8608038032403180089}
   - {fileID: 2262732033750232322}
+  - {fileID: 8104344608364409530}
 --- !u!1 &7107661798084011450
 GameObject:
   m_ObjectHideFlags: 0

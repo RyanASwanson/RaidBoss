@@ -40,7 +40,8 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     public virtual void ActivateAbility(Vector3 targetLocation, HeroBase targetHeroBase)
     {
         _storedTargetLocation = targetLocation;
-        _storedTarget = targetHeroBase;
+        if (targetHeroBase != null)
+            _storedTarget = targetHeroBase;
 
         AbilityPrep();
     }

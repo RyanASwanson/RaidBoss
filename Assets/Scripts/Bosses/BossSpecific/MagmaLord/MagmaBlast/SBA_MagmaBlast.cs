@@ -15,6 +15,7 @@ public class SBA_MagmaBlast : SpecificBossAbilityFramework
     [SerializeField] private GameObject _targetZone;
 
     private GameObject _storedBlast;
+    private Queue<GameObject> _storedSafeZones = new Queue<GameObject>();
 
     protected override void AbilityPrep()
     {
@@ -25,6 +26,8 @@ public class SBA_MagmaBlast : SpecificBossAbilityFramework
     protected override void StartShowTargetZone()
     {
         GameObject newTargetZone = Instantiate(_targetZone, _targetLocation, Quaternion.identity);
+
+        _storedSafeZones.Enqueue(newTargetZone);
 
         _currentTargetZones.Add(newTargetZone);
 
@@ -39,9 +42,12 @@ public class SBA_MagmaBlast : SpecificBossAbilityFramework
 
     protected override void AbilityStart()
     {
-        
+        if (_storedSafeZones.Dequeue().GetComponent<SBP_MagmaBlastSafeZone>().DoesSafeZoneContainHero())
+            return;
 
         _storedBlast = Instantiate(_magmaBlast, _targetLocation, Quaternion.identity);
+
+        Destroy(_storedBlast, 1f);
         //SBP_MagmaWave mwScript = _storedMagmaWave.GetComponent<SBP_MagmaWave>();
         //mwScript.SetUpProjectile(_ownerBossBase);
         //mwScript.AdditionalSetup();

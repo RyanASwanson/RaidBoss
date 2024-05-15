@@ -20,7 +20,6 @@ public class SH_Chronomancer : SpecificHeroFramework
     public override void ActivateBasicAbilities()
     {
         base.ActivateBasicAbilities();
-        Debug.Log("Activate Chrono Basic Abilities");
 
         CreateBasicAttackProjectiles();
         IncreaseCurrentAttackRotation();

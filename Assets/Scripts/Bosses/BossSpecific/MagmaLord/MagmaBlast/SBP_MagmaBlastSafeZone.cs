@@ -20,7 +20,7 @@ public class SBP_MagmaBlastSafeZone : BossProjectileFramework
 
     public void AddHeroInRange(HeroBase enterHero)
     {
-        _heroesInRange.Add(enterHero);
+        _heroesInRange.Add(enterHero.gameObject.GetComponent<HeroBase>());
     }
 
     public void RemoveHeroInRange(HeroBase exitHero)
@@ -32,5 +32,19 @@ public class SBP_MagmaBlastSafeZone : BossProjectileFramework
     public bool DoesSafeZoneContainHero()
     {
         return (_heroesInRange.Count > 0);
+    }
+
+    private void OnTriggerEnter(Collider collision)
+    {
+        HeroBase tempHero = collision.GetComponentInParent<HeroBase>();
+        if (tempHero != null)
+            AddHeroInRange(tempHero);
+    }
+
+    private void OnTriggerExit(Collider collision)
+    {
+        HeroBase tempHero = collision.GetComponentInParent<HeroBase>();
+        if (tempHero != null)
+            RemoveHeroInRange(tempHero);
     }
 }
