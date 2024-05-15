@@ -5,6 +5,8 @@ using UnityEngine;
 public class SBA_Volcano : SpecificBossAbilityFramework
 {
     [SerializeField] private int _projectileCount;
+    [SerializeField] private float _minimumProjectileDistance;
+    [SerializeField] private float _mapRadiusOffset;
 
     [SerializeField] private GameObject _volcanoDamageZone;
     [SerializeField] private GameObject _targetZone;
@@ -33,13 +35,29 @@ public class SBA_Volcano : SpecificBossAbilityFramework
 
         for(int i = 0; i < _projectileCount; i++)
         {
-            float mapRadius = GameplayManagers.Instance.GetEnvironmentManager().GetMapRadius();
-            float tempX = Random.Range(-mapRadius, mapRadius);
-            float tempZ = Random.Range(-mapRadius, mapRadius);
-
-            _targetLocations.Add(GameplayManagers.Instance.GetEnvironmentManager().
-                GetClosestPointToFloor(new Vector3(tempX, transform.position.y, tempZ)));
+            _targetLocations.Add(GenerateNewAttackLocation());
         }
+    }
+
+    private Vector3 GenerateNewAttackLocation()
+    {
+        Vector3 currentTestLocation;
+        float mapRadius = GameplayManagers.Instance.GetEnvironmentManager().GetMapRadius() - _mapRadiusOffset;
+
+        
+        currentTestLocation = new Vector3(Random.Range(-mapRadius, mapRadius), 
+            transform.position.y, Random.Range(-mapRadius, mapRadius));
+
+        currentTestLocation = GameplayManagers.Instance.GetEnvironmentManager().
+                GetClosestPointToFloor(currentTestLocation);
+
+        foreach(Vector3 target in _targetLocations)
+        {
+            if (Vector3.Distance(target, currentTestLocation) < _minimumProjectileDistance)
+                return GenerateNewAttackLocation();
+        }
+
+        return currentTestLocation;
     }
 
     protected override void StartAbilityWindUp()
@@ -52,7 +70,10 @@ public class SBA_Volcano : SpecificBossAbilityFramework
     {
         foreach (Vector3 attackLoc in _targetLocations)
         {
-            _storedDamageZones.Add(Instantiate(_volcanoDamageZone, attackLoc, Quaternion.identity));
+            GameObject newestDamageZone = Instantiate(_volcanoDamageZone, attackLoc, Quaternion.identity);
+            _storedDamageZones.Add(newestDamageZone);
+
+            Destroy(newestDamageZone, 2);
         }
 
 
