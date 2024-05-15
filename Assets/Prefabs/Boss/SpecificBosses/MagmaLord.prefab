@@ -155,6 +155,7 @@ GameObject:
   - component: {fileID: 8608038032403180089}
   - component: {fileID: 2262732033750232322}
   - component: {fileID: 8104344608364409530}
+  - component: {fileID: 8533920720578803924}
   m_Layer: 0
   m_Name: AttackFunctionality
   m_TagString: Untagged
@@ -234,6 +235,25 @@ MonoBehaviour:
   _targetLocation: {x: 0, y: 0, z: 0}
   _magmaBlast: {fileID: 8404173106920906590, guid: f6f5c4b3853e51f499d7730b805b7c20, type: 3}
   _targetZone: {fileID: 169363956474427008, guid: e270951fa36051a4382b71d47853c6b5, type: 3}
+--- !u!114 &8533920720578803924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 959668226937862454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f072c9eb47c8cac4ba8205fda5d98e11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isTargeted: 0
+  _timeUntilNextAbility: 5
+  _targetZoneDuration: 3
+  _abilityWindUpTime: 3
+  _targetLocation: {x: 0, y: 0, z: 0}
+  _scorch: {fileID: 258438868437321791, guid: 26efc0bc94ce70b45862102c75d83a4e, type: 3}
+  _targetZone: {fileID: 2799529881703815393, guid: f90289cd0f8e9c744955fdad85fb3c34, type: 3}
 --- !u!1 &1110342691837631870
 GameObject:
   m_ObjectHideFlags: 0
@@ -5776,6 +5796,7 @@ MonoBehaviour:
   - {fileID: 8608038032403180089}
   - {fileID: 2262732033750232322}
   - {fileID: 8104344608364409530}
+  - {fileID: 8533920720578803924}
 --- !u!1 &7107661798084011450
 GameObject:
   m_ObjectHideFlags: 0
