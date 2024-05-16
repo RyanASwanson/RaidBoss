@@ -35,11 +35,11 @@ public class SBA_Volcano : SpecificBossAbilityFramework
 
         for(int i = 0; i < _projectileCount; i++)
         {
-            _targetLocations.Add(GenerateNewAttackLocation());
+            _targetLocations.Add(GenerateNewAttackLocation(0));
         }
     }
 
-    private Vector3 GenerateNewAttackLocation()
+    private Vector3 GenerateNewAttackLocation(int attempt)
     {
         Vector3 currentTestLocation;
         float mapRadius = GameplayManagers.Instance.GetEnvironmentManager().GetMapRadius() - _mapRadiusOffset;
@@ -51,10 +51,10 @@ public class SBA_Volcano : SpecificBossAbilityFramework
         currentTestLocation = GameplayManagers.Instance.GetEnvironmentManager().
                 GetClosestPointToFloor(currentTestLocation);
 
-        foreach(Vector3 target in _targetLocations)
+        foreach (Vector3 target in _targetLocations)
         {
-            if (Vector3.Distance(target, currentTestLocation) < _minimumProjectileDistance)
-                return GenerateNewAttackLocation();
+            if (Vector3.Distance(target, currentTestLocation) < _minimumProjectileDistance && attempt < 5)
+                return GenerateNewAttackLocation(attempt++);
         }
 
         return currentTestLocation;

@@ -19,7 +19,6 @@ public class SH_Guardian : SpecificHeroFramework
     public override void ActivateBasicAbilities()
     {
         base.ActivateBasicAbilities();
-        Debug.Log("Activate Basic Abilities");
 
         DamageBoss(_basicAbilityStrength);
         StaggerBoss(_basicAbilityStagger);

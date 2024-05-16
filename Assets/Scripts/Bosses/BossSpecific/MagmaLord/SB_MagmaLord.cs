@@ -13,7 +13,7 @@ public class SB_MagmaLord : SpecificBossFramework
         {
             HeroBase newTarget = DetermineAggroTarget();
 
-            _currentBossAbilities[0].ActivateAbility(
+            _startingBossAbilities[0].ActivateAbility(
                 ClosestFloorSpaceOfHeroTarget(newTarget),newTarget);
         }
 
@@ -21,26 +21,26 @@ public class SB_MagmaLord : SpecificBossFramework
         {
             HeroBase newTarget = DetermineAggroTarget();
 
-            _currentBossAbilities[1].ActivateAbility(Vector3.zero, newTarget);
+            _startingBossAbilities[1].ActivateAbility(Vector3.zero, newTarget);
         }
 
         if (Input.GetKeyDown(KeyCode.O))
         {
-            _currentBossAbilities[2].ActivateAbility(Vector3.zero, null);
+            _startingBossAbilities[2].ActivateAbility(Vector3.zero, null);
         }
 
         if (Input.GetKeyDown(KeyCode.P))
         {
-            _currentBossAbilities[3].ActivateAbility(Vector3.zero, null);
+            _startingBossAbilities[3].ActivateAbility(Vector3.zero, null);
         }
         if (Input.GetKeyDown(KeyCode.L))
         {
-            _currentBossAbilities[4].ActivateAbility(Vector3.zero, null);
+            _startingBossAbilities[4].ActivateAbility(Vector3.zero, null);
         }
     }
 
     public override void SubscribeToEvents()
     {
-
+        base.SubscribeToEvents();
     }
 }

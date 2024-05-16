@@ -4,7 +4,12 @@ using UnityEngine;
 
 public abstract class SpecificBossFramework : MonoBehaviour
 {
-    [SerializeField] protected List<SpecificBossAbilityFramework> _currentBossAbilities;
+    [SerializeField] protected List<SpecificBossAbilityFramework> _startingBossAbilities;
+    [SerializeField] protected int _attackRepititionProtection;
+    protected int _attackRepitionCounter = 0;
+
+    protected List<SpecificBossAbilityFramework> _readyBossAttacks = new List<SpecificBossAbilityFramework>();
+    protected Queue<SpecificBossAbilityFramework> _bossCooldownQueue = new Queue<SpecificBossAbilityFramework>();
 
     internal BossBase myBossBase;
 
@@ -12,6 +17,30 @@ public abstract class SpecificBossFramework : MonoBehaviour
 
     private Coroutine _nextAttackProcess;
 
+    #region Fight Start
+    private void StartFight()
+    {
+        SetupReadyBossAbilities();
+
+        StartNextAbility();
+    }
+
+    /// <summary>
+    /// Adds the starting abilities into the list of ready attacks
+    /// </summary>
+    private void SetupReadyBossAbilities()
+    {
+        foreach(SpecificBossAbilityFramework sbaf in _startingBossAbilities)
+        {
+            AddAbilityToBossReadyAttacks(sbaf);
+        }
+    }
+
+    
+
+    #endregion
+
+    #region Aggro
     /// <summary>
     /// Determine which hero should be targeted
     /// </summary>
@@ -64,28 +93,96 @@ public abstract class SpecificBossFramework : MonoBehaviour
         StartCoroutine(AggroOverride(heroBase, duration));
     }
 
+    /// <summary>
+    /// Lets a hero override the bosses aggro for a short period of time
+    /// </summary>
+    /// <param name="heroBase"></param>
+    /// <param name="duration"></param>
+    /// <returns></returns>
     public virtual IEnumerator AggroOverride(HeroBase heroBase, float duration)
     {
         _aggroOverrides.Add(heroBase);
         yield return new WaitForSeconds(duration);
         _aggroOverrides.Remove(heroBase);
     }
+    #endregion
+
+    #region Ability Functionality
+
+    private void AddAbilityToBossReadyAttacks(SpecificBossAbilityFramework newAbility)
+    {
+        _readyBossAttacks.Add(newAbility);
+    }
+
+    private void TakeAbilityFromQueueToReady()
+    {
+        AddAbilityToBossReadyAttacks(_bossCooldownQueue.Dequeue());
+    }
+
+    private void AddAbilityToEndOfCooldownQueue(SpecificBossAbilityFramework newAbility)
+    {
+        _readyBossAttacks?.Remove(newAbility);
+
+
+        _bossCooldownQueue.Enqueue(newAbility);
+    }
+
+    protected void IterateRepitionCounter()
+    {
+        _attackRepitionCounter++;
+        if (_attackRepitionCounter >= _attackRepititionProtection)
+            RepitionCounterAtMax();
+    }
+
+    protected void RepitionCounterAtMax()
+    {
+        myBossBase.GetBossAbilityUsedEvent().RemoveListener(IterateRepitionCounter);
+        myBossBase.GetBossAbilityUsedEvent().AddListener(TakeAbilityFromQueueToReady);
+    }
+
 
     /// <summary>
     /// Activates the next ability for the boss to use
     /// </summary>
     /// <param name="nextAbility"></param>
-    protected virtual void StartNextAbility(SpecificBossAbilityFramework nextAbility)
+    protected virtual void StartNextAbility()
     {
+        SpecificBossAbilityFramework nextAbility = SelectNextAbility();
+        AddAbilityToEndOfCooldownQueue(nextAbility);
+
         _nextAttackProcess = StartCoroutine(UseNextAttackProcess(nextAbility));
+    }
+
+    /// <summary>
+    /// Randomly selected an ability from the list of readied abilities
+    /// </summary>
+    /// <returns></returns>
+    protected SpecificBossAbilityFramework SelectNextAbility()
+    {
+        int randomAbility = Random.Range(0, _readyBossAttacks.Count);
+
+        return _readyBossAttacks[randomAbility];
     }
 
     protected virtual IEnumerator UseNextAttackProcess(SpecificBossAbilityFramework currentAbility)
     {
+        HeroBase newTarget = DetermineAggroTarget();
+
+        currentAbility.ActivateAbility(
+            ClosestFloorSpaceOfHeroTarget(newTarget), newTarget);
+
+        myBossBase.InvokeBossAbilityUsedEvent();
+
         yield return new WaitForSeconds(currentAbility.GetTimeUntilNextAbility());
 
         _nextAttackProcess = null;
+
+        StartNextAbility();
     }
+
+
+
+    #endregion
 
 
     public virtual void SetupSpecificBoss(BossBase bossBase)
@@ -97,7 +194,9 @@ public abstract class SpecificBossFramework : MonoBehaviour
     #region Events
     public virtual void SubscribeToEvents()
     {
-        
+        GameplayManagers.Instance.GetGameStateManager().GetStartOfBattleEvent().AddListener(StartFight);
+
+        myBossBase.GetBossAbilityUsedEvent().AddListener(IterateRepitionCounter);
     }
 
     #endregion

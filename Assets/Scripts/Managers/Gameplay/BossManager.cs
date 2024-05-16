@@ -9,8 +9,6 @@ public class BossManager : BaseGameplayManager
 {
     [SerializeField] private BossBase _bossBase;
 
-    [SerializeField] BossSO TESTINGBOSSSO;
-
     private GameObject _bossGameObject;
 
     /// <summary>
@@ -20,7 +18,7 @@ public class BossManager : BaseGameplayManager
     {
         base.SetupGameplayManager();
         _bossGameObject = _bossBase.gameObject;
-        _bossBase.Setup(TESTINGBOSSSO);
+        _bossBase.Setup(UniversalManagers.Instance.GetSelectionManager().GetSelectedBoss());
     }
 
     #region Events
