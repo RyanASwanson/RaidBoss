@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class BossVisuals : BossChildrenFunctionality
 {
-    [Header("Rotation")]
-    [SerializeField] private float _rotateSpeed;
+    private float _rotateSpeed;
 
     private GameObject _visualObjectBase;
 
@@ -18,17 +17,42 @@ public class BossVisuals : BossChildrenFunctionality
 
     private IEnumerator LookAtProcess(Vector3 lookLocation)
     {
-        Vector3 lookDir = lookLocation - _visualObjectBase.transform.position;
+        float progress = 0;
+        while (progress < 1)
+        {
+            progress += Time.deltaTime * _rotateSpeed ;
 
-        Quaternion toRotation = Quaternion.FromToRotation(_visualObjectBase.transform.forward, lookDir);
-        _visualObjectBase.transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, _rotateSpeed * Time.time);
-        yield return null;
+            Vector3 lookDir = lookLocation - _visualObjectBase.transform.position;
+
+            //Quaternion toRotation = Quaternion.FromToRotation(_visualObjectBase.transform.forward, lookDir);
+            Quaternion toRotation = Quaternion.LookRotation(lookDir);
+
+            _visualObjectBase.transform.rotation = Quaternion.Lerp
+                (_visualObjectBase.transform.rotation, toRotation, progress);
+
+            _visualObjectBase.transform.eulerAngles = new Vector3(0, _visualObjectBase.transform.eulerAngles.y, 0);
+            yield return null;
+        }
+        
     }
 
 
+    public override void ChildFuncSetup(BossBase bossBase)
+    {
+        base.ChildFuncSetup(bossBase);
+
+        SetVisualObjectBase(bossBase.GetSpecificBossScript().GetBossVisualBase());
+        _visualObjectBase.transform.eulerAngles = new Vector3(0, 180, 0);
+    }
+
+    private void SetFromSO(BossSO bossSO)
+    {
+        _rotateSpeed = myBossBase.GetBossSO().GetBossRotationSpeed();
+    }
+
     public override void SubscribeToEvents()
     {
-        
+        myBossBase.GetSOSetEvent().AddListener(SetFromSO);
     }
 
     #region Getters
@@ -36,6 +60,11 @@ public class BossVisuals : BossChildrenFunctionality
     #endregion
 
     #region Setters
+
+    public void SetVisualObjectBase(GameObject newBase)
+    {
+        _visualObjectBase = newBase;
+    }
 
     #endregion
 }

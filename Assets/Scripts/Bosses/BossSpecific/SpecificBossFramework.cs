@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class SpecificBossFramework : MonoBehaviour
 {
+    [Header("Attacks")]
     [SerializeField] protected List<SpecificBossAbilityFramework> _startingBossAbilities;
     [SerializeField] protected int _attackRepititionProtection;
     protected int _attackRepitionCounter = 0;
@@ -12,6 +13,9 @@ public abstract class SpecificBossFramework : MonoBehaviour
     protected Queue<SpecificBossAbilityFramework> _bossCooldownQueue = new Queue<SpecificBossAbilityFramework>();
 
     internal BossBase myBossBase;
+
+    [Header("GameObjects")]
+    [SerializeField] private GameObject _bossVisualsBase;
 
     private List<HeroBase> _aggroOverrides = new List<HeroBase>();
 
@@ -168,6 +172,8 @@ public abstract class SpecificBossFramework : MonoBehaviour
     {
         HeroBase newTarget = DetermineAggroTarget();
 
+        myBossBase.GetBossVisuals().BossLookAt(newTarget.transform.position);
+
         currentAbility.ActivateAbility(
             ClosestFloorSpaceOfHeroTarget(newTarget), newTarget);
 
@@ -205,5 +211,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
     public Vector3 ClosestFloorSpaceOfHeroTarget(HeroBase heroBase) =>
         GameplayManagers.Instance.GetEnvironmentManager().
         GetClosestPointToFloor(heroBase.gameObject.transform.position);
+
+    public GameObject GetBossVisualBase() => _bossVisualsBase;
     #endregion
 }
