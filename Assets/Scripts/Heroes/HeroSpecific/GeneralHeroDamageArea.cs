@@ -72,7 +72,7 @@ public class GeneralHeroDamageArea : MonoBehaviour
             bossBase.GetBossStats().DealDamageToBoss(abilityDamage);
 
         if (abilityStagger >= 0)
-            bossBase.GetBossStats().DealStaggerToBoss(abilityDamage);
+            bossBase.GetBossStats().DealStaggerToBoss(abilityStagger);
     }
 
     public void ToggleProjectileCollider(bool colliderEnabled)

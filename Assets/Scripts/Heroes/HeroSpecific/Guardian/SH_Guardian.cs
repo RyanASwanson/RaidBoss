@@ -5,25 +5,22 @@ using UnityEngine;
 public class SH_Guardian : SpecificHeroFramework
 {
     [Space]
-    [SerializeField] private float _heroDefaultBasicAbilityRange;
     [SerializeField] private float _heroBasicAbilityDamage;
     [SerializeField] private float _heroBasicAbilityStagger;
+    [SerializeField] private GameObject _basicProjectile;
 
     [SerializeField] private float _heroManualAbilityDuration;
 
     #region Basic Abilities
     public override bool ConditionsToActivateBasicAbilities()
     {
-
-        return InAttackRangeOfBoss(_heroDefaultBasicAbilityRange) && 
-            !myHeroBase.GetPathfinding().IsHeroMoving();  
+        return !myHeroBase.GetPathfinding().IsHeroMoving();  
     }
     public override void ActivateBasicAbilities()
     {
         base.ActivateBasicAbilities();
 
-        DamageBoss(_heroBasicAbilityDamage);
-        StaggerBoss(_heroBasicAbilityStagger);
+        Instantiate(_basicProjectile, myHeroBase.transform.position, Quaternion.identity);
     }
 
     #endregion
