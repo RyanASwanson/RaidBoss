@@ -24,10 +24,11 @@ public class SH_Shaman : SpecificHeroFramework
 
     protected void CreateBasicAttackProjectiles()
     {
-        GameObject spawnedProjectile = Instantiate(_basicProjectile, myHeroBase.transform.position, Quaternion.identity);
-        spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(myHeroBase);
+        //GameObject spawnedProjectile = 
+        Instantiate(_basicProjectile, myHeroBase.transform.position, Quaternion.identity);
+        //spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(myHeroBase);
 
-        spawnedProjectile.GetComponent<SHP_ShamanBasicAbility>().AdditionalSetup();
+        //spawnedProjectile.GetComponent<SHP_ShamanBasicAbility>().AdditionalSetup();
     }
 
     #endregion

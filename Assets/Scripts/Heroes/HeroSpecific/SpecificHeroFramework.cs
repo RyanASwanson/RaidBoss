@@ -9,17 +9,13 @@ using UnityEngine.Events;
 public abstract class SpecificHeroFramework : MonoBehaviour
 {
     [SerializeField] protected float _basicAbilityChargeTime;
-    [SerializeField] protected float _basicAbilityStrength;
-    [SerializeField] protected float _basicAbilityStagger;
 
-    internal float _basicAbilityCurrentCharge = 0;
+    protected float _basicAbilityCurrentCharge = 0;
 
     [Space]
 
     [SerializeField] protected float _manualAbilityChargeTime;
-    [SerializeField] protected float _manualAbilityStrength;
-    [SerializeField] protected float _manualAbilityStagger;
-    internal float _manualAbilityCurrentCharge = 0;
+    protected float _manualAbilityCurrentCharge = 0;
 
     [Space] 
 
@@ -164,6 +160,11 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     {
         GameplayManagers.Instance.GetBossManager().GetBossBase().GetBossStats().DealStaggerToBoss(stagger);
     }
+
+    public virtual void HeroTakeDamageOverride(float damage)
+    {
+
+    }
     #endregion
 
     public virtual void SetupSpecificHero(HeroBase heroBase, HeroSO heroSO)
@@ -203,12 +204,8 @@ public abstract class SpecificHeroFramework : MonoBehaviour
 
     #region Getters
     public float GetBasicAbilityChargeTime() => _basicAbilityChargeTime;
-    public float GetBasicAbilityStrength() => _basicAbilityStrength;
-    public float GetBasicAbilityStagger() => _basicAbilityStagger;
 
     public float GetManualAbilityChargePercent() => _manualAbilityCurrentCharge / _manualAbilityChargeTime;
-    public float GetManualAbilityStrength() => _manualAbilityStrength;
-    public float GetManualAbilityStagger() => _manualAbilityStagger;
     #endregion
 
 }

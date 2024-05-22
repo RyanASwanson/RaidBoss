@@ -22,6 +22,8 @@ public class HeroStats : HeroChildrenFunctionality
     private float _heroDefaultDamageResistance;
     private float _currentDamageResistance;
 
+    private int _damageTakenOverridesCounter = 0;
+
     public override void ChildFuncSetup(HeroBase heroBase)
     {
         base.ChildFuncSetup(heroBase);
@@ -49,6 +51,24 @@ public class HeroStats : HeroChildrenFunctionality
         myHeroBase.GetPathfinding().GetNavMeshAgent().speed = _heroDefaultMovespeed;
     }
 
+    public void DealDamageToHero(float damage)
+    {
+        //Checks for a damage override before dealing damage
+        if (ShouldOverrideDamage())
+        {
+            myHeroBase.InvokeHeroDamageOverrideEvent(damage);
+            return;
+        }
+        
+        _currentHealth -= damage;
+        CheckIfHeroIsDead();
+    }
+
+    public void HealHero(float healing)
+    {
+        _currentHealth += healing;
+    }
+
     //Checks if the hero has died after taking damage
     private void CheckIfHeroIsDead()
     {
@@ -56,6 +76,22 @@ public class HeroStats : HeroChildrenFunctionality
         {
             GameplayManagers.Instance.GetHeroesManager().HeroDied(myHeroBase);
         }
+    }
+
+    private bool ShouldOverrideDamage()
+    {
+        return _damageTakenOverridesCounter > 0;
+    }
+
+    public void AddDamageTakenOverrideCounter()
+    {
+        _damageTakenOverridesCounter++;
+    }
+    
+
+    public void RemoveDamageTakenOverrideCounter()
+    {
+        _damageTakenOverridesCounter--;
     }
 
     #region Events
@@ -89,15 +125,6 @@ public class HeroStats : HeroChildrenFunctionality
     #endregion
 
     #region Setters
-    public void DealDamageToHero(float damage)
-    {
-        _currentHealth -= damage;
-        CheckIfHeroIsDead();
-    }
-
-    public void HealHero(float healing)
-    {
-        _currentHealth += healing;
-    }
+    
     #endregion
 }

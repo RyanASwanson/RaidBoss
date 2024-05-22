@@ -36,6 +36,7 @@ public class HeroBase : MonoBehaviour
     private UnityEvent _heroStoppedMovingOnMeshEvent = new UnityEvent();
 
     private UnityEvent<float> _heroDamagedEvent = new UnityEvent<float>();
+    private UnityEvent<float> _heroDamagedOverrideEvent = new UnityEvent<float>();
     private UnityEvent<float> _heroHealedEvent = new UnityEvent<float>();
 
     private UnityEvent _heroDiedEvent = new UnityEvent();
@@ -112,6 +113,10 @@ public class HeroBase : MonoBehaviour
     {
         _heroDamagedEvent?.Invoke(damageAmount);
     }
+    public void InvokeHeroDamageOverrideEvent(float damageAmount)
+    {
+        _heroDamagedOverrideEvent?.Invoke(damageAmount);
+    }
     public void InvokeHeroHealedEvent(float healAmount)
     {
         _heroHealedEvent?.Invoke(healAmount);
@@ -143,6 +148,7 @@ public class HeroBase : MonoBehaviour
     public UnityEvent GetHeroStoppedMovingEvent() => _heroStoppedMovingOnMeshEvent;
 
     public UnityEvent<float> GetHeroDamagedEvent() => _heroDamagedEvent;
+    public UnityEvent<float> GetHeroDamagedOverrideEvent() => _heroDamagedOverrideEvent;
     public UnityEvent<float> GetHeroHealedEvent() => _heroHealedEvent;
 
     public UnityEvent GetHeroDiedEvent() => _heroDiedEvent;

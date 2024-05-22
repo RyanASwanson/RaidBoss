@@ -8,7 +8,10 @@ using UnityEngine.Events;
 /// </summary>
 public class GeneralHeroDamageArea : MonoBehaviour
 {
+    [Header("General")]
     [SerializeField] private Collider _damageCollider;
+    [SerializeField] private bool _hasLifeTime;
+    [SerializeField] private float _lifeTime;
 
     [Header("Enter")]
     [SerializeField] private float _enterDamage;
@@ -25,6 +28,11 @@ public class GeneralHeroDamageArea : MonoBehaviour
     [SerializeField] private float _exitStagger;
     [SerializeField] private UnityEvent<Collider> _exitEvent;
 
+    private void Start()
+    {
+        if (_hasLifeTime)
+            Destroy(gameObject, _lifeTime);
+    }
 
     #region Collision
     private bool DoesColliderBelongToBoss(Collider collision)

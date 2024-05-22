@@ -93,7 +93,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3036980777955802487}
   - component: {fileID: 8707996497148491200}
-  - component: {fileID: 2499250401161780686}
   - component: {fileID: 5210636693036678854}
   m_Layer: 0
   m_Name: ShamanBasicProjectile
@@ -132,6 +131,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damageCollider: {fileID: 7511552934580160234}
+  _hasLifeTime: 1
+  _lifeTime: 3
   _enterDamage: 0
   _enterStagger: 0
   _enterEvent:
@@ -147,19 +148,6 @@ MonoBehaviour:
   _exitEvent:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &2499250401161780686
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3036980777955802489}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c86f970a52169e740a282c0deab3c231, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _projectileLifetime: 3
 --- !u!54 &5210636693036678854
 Rigidbody:
   m_ObjectHideFlags: 0

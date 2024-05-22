@@ -6,6 +6,8 @@ public class SH_Guardian : SpecificHeroFramework
 {
     [Space]
     [SerializeField] private float _heroDefaultBasicAbilityRange;
+    [SerializeField] private float _heroBasicAbilityDamage;
+    [SerializeField] private float _heroBasicAbilityStagger;
 
     [SerializeField] private float _heroManualAbilityDuration;
 
@@ -20,8 +22,8 @@ public class SH_Guardian : SpecificHeroFramework
     {
         base.ActivateBasicAbilities();
 
-        DamageBoss(_basicAbilityStrength);
-        StaggerBoss(_basicAbilityStagger);
+        DamageBoss(_heroBasicAbilityDamage);
+        StaggerBoss(_heroBasicAbilityStagger);
     }
 
     #endregion

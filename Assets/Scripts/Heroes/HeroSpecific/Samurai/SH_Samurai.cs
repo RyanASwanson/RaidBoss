@@ -8,7 +8,10 @@ public class SH_Samurai : SpecificHeroFramework
     [SerializeField] private GameObject _basicProjectile;
 
     [Space]
-    [SerializeField] int _manualAbilityDuration;
+    [SerializeField] float _manualAbilityDuration;
+    [SerializeField] float _manualAbilityParryDamage;
+    [SerializeField] float _manualAbilityParryStagger;
+    [SerializeField] float _parryBonusIFrames;
 
     private bool _isParrying;
 
@@ -58,17 +61,59 @@ public class SH_Samurai : SpecificHeroFramework
 
     private IEnumerator ParryCoroutine()
     {
-        _isParrying = true;
+        StartParry();
+
         yield return new WaitForSeconds(_manualAbilityDuration);
-        _isParrying = false;
 
+        EndParry();
         _parryCoroutine = null;
-
-        //JUST TO REMOVE WARNING, DELETE LATER
-        if (_isParrying)
-            Debug.Log("Test");
     }
 
+    private void StartParry()
+    {
+        _isParrying = true;
+        myHeroBase.GetHeroStats().AddDamageTakenOverrideCounter();
+        myHeroBase.GetHeroDamagedOverrideEvent().AddListener(ParryAttack);
+    }
+
+    private void EndParry()
+    {
+        _isParrying = false;
+        myHeroBase.GetHeroStats().RemoveDamageTakenOverrideCounter();
+        myHeroBase.GetHeroDamagedOverrideEvent().RemoveListener(ParryAttack);
+    }
+
+    private void StopParryEarly()
+    {
+        StopCoroutine(_parryCoroutine);
+        _parryCoroutine = null;
+        _isParrying = false;
+        myHeroBase.GetHeroStats().RemoveDamageTakenOverrideCounter();
+        myHeroBase.GetHeroDamagedOverrideEvent().RemoveListener(ParryAttack);
+    }
+
+    public void ParryAttack(float damagePrevented)
+    {
+        DamageBoss(_manualAbilityParryDamage);
+        StaggerBoss(_manualAbilityParryStagger);
+        StopParryEarly();
+
+        StartSuccessfulParryIFrames();
+    }
+
+    private void StartSuccessfulParryIFrames()
+    {
+        StartCoroutine(SuccessfulParryIFrames());
+    }
+
+    private IEnumerator SuccessfulParryIFrames()
+    {
+        myHeroBase.GetHeroStats().AddDamageTakenOverrideCounter();
+
+        yield return new WaitForSeconds(_parryBonusIFrames);
+
+        myHeroBase.GetHeroStats().RemoveDamageTakenOverrideCounter();
+    }
 
     #endregion
 
