@@ -5,6 +5,9 @@ using UnityEngine;
 public class SH_Samurai : SpecificHeroFramework
 {
     [Space]
+    [SerializeField] private GameObject _basicProjectile;
+
+    [Space]
     [SerializeField] int _manualAbilityDuration;
 
     private bool _isParrying;
@@ -27,7 +30,20 @@ public class SH_Samurai : SpecificHeroFramework
     /// </summary>
     public override void ActivateBasicAbilities()
     {
-        
+        base.ActivateBasicAbilities();
+
+        CreateBasicAttackProjectiles();
+    }
+
+    /// <summary>
+    /// Creates the projectile of the horizontal slash
+    /// </summary>
+    protected void CreateBasicAttackProjectiles()
+    {
+        GameObject spawnedProjectile = Instantiate(_basicProjectile, myHeroBase.transform.position, Quaternion.identity);
+        spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(myHeroBase);
+
+        spawnedProjectile.GetComponent<SHP_SamuraiBasicProjectile>().AdditionalSetup(1);
     }
 
     #endregion

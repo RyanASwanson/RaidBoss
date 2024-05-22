@@ -34,13 +34,4 @@ public class SHP_ChronoDamageProjectile : HeroProjectileFramework
             yield return null;
         }
     }
-
-    protected override void OnTriggerEnter(Collider collision)
-    {
-        if (collision.gameObject.CompareTag(TagStringData.GetBossHitboxTagName()))
-        {
-            _ownerHeroBase.GetSpecificHeroScript().DamageBoss(_mySpecificHero.GetBasicAbilityStrength());
-            _ownerHeroBase.GetSpecificHeroScript().StaggerBoss(_mySpecificHero.GetBasicAbilityStagger());
-        }
-    }
 }

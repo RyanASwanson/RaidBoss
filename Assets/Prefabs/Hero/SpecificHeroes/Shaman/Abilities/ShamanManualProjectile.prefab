@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1061180217337404318}
+  - component: {fileID: 2882350973108663330}
   - component: {fileID: 1756516184126294178}
   - component: {fileID: 7840892653481678895}
   m_Layer: 0
@@ -35,6 +36,46 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2882350973108663330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1061180217337404304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b527e9b5780366e439a119526137a69d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damageCollider: {fileID: 1061180217903511035}
+  _enterDamage: 11
+  _enterStagger: 5
+  _enterEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2882350973108663330}
+        m_TargetAssemblyTypeName: GeneralHeroDamageArea, Assembly-CSharp
+        m_MethodName: ToggleProjectileCollider
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _stayDamagePerSecond: 0
+  _stayStaggerPerSecond: 0
+  _stayEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _exitDamage: 0
+  _exitStagger: 0
+  _exitEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1756516184126294178
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48,7 +89,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _projectileSpeed: 13
-  _attackDamageCooldown: 0.2
 --- !u!54 &7840892653481678895
 Rigidbody:
   m_ObjectHideFlags: 0

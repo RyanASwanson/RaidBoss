@@ -54,6 +54,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5596939873398294403}
+  - component: {fileID: 5172227844950162802}
   - component: {fileID: 5596939873398294412}
   - component: {fileID: 3442492512316392498}
   m_Layer: 0
@@ -80,6 +81,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5172227844950162802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5596939873398294413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b527e9b5780366e439a119526137a69d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damageCollider: {fileID: 5596939872825649638}
+  _enterDamage: 4
+  _enterStagger: 3
+  _enterEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _stayDamagePerSecond: 0
+  _stayStaggerPerSecond: 0
+  _stayEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _exitDamage: 0
+  _exitStagger: 0
+  _exitEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &5596939873398294412
 MonoBehaviour:
   m_ObjectHideFlags: 0

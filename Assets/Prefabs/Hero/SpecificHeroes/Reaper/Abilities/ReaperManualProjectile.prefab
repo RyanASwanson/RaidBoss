@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7623930384297987922}
+  - component: {fileID: 2836036742074683973}
   - component: {fileID: 7623930384297987923}
   - component: {fileID: 839859555214822627}
   m_Layer: 0
@@ -35,6 +36,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2836036742074683973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7623930384297987932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b527e9b5780366e439a119526137a69d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damageCollider: {fileID: 7623930384891093303}
+  _enterDamage: 0
+  _enterStagger: 0
+  _enterEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _stayDamagePerSecond: 8
+  _stayStaggerPerSecond: 3
+  _stayEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _exitDamage: 0
+  _exitStagger: 0
+  _exitEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &7623930384297987923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49,7 +78,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _projectileLifetime: 8
   _projectileSpeed: 0.75
-  _attackDamageCooldown: 0.2
 --- !u!54 &839859555214822627
 Rigidbody:
   m_ObjectHideFlags: 0

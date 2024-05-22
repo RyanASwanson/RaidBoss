@@ -12,9 +12,4 @@ public abstract class HeroProjectileFramework : MonoBehaviour
         _ownerHeroBase = heroBase;
         _mySpecificHero = heroBase.GetSpecificHeroScript();
     }
-
-    protected virtual void OnTriggerEnter(Collider collision)
-    {
-        
-    }
 }

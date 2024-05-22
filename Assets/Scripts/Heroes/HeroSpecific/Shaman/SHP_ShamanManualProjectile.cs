@@ -9,13 +9,11 @@ public class SHP_ShamanManualProjectile : HeroProjectileFramework
 
     private Queue<GameObject> _heroesNotGoneTo = new Queue<GameObject>();
 
-    private Collider _projCollider;
     
 
     public override void SetUpProjectile(HeroBase heroBase)
     {
         base.SetUpProjectile(heroBase);
-        _projCollider = GetComponentInChildren<Collider>();
     }
 
     public void AdditionalSetup(Vector3 initialTargetLocation)
@@ -106,24 +104,8 @@ public class SHP_ShamanManualProjectile : HeroProjectileFramework
     /// </summary>
     private void ProjectileReachedTargetHero()
     {
-        _projCollider.enabled = true;
+        GetComponent<GeneralHeroDamageArea>().ToggleProjectileCollider(true);
 
         _heroesNotGoneTo.Dequeue();
-    }
-
-    /// <summary>
-    /// Handles collision with the boss
-    /// Disables its collider on contact
-    /// </summary>
-    /// <param name="collision"></param>
-    protected override void OnTriggerEnter(Collider collision)
-    {
-        if (collision.gameObject.CompareTag(TagStringData.GetBossHitboxTagName()))
-        {
-            _projCollider.enabled = false;
-
-            _ownerHeroBase.GetSpecificHeroScript().DamageBoss(_mySpecificHero.GetManualAbilityStrength());
-            _ownerHeroBase.GetSpecificHeroScript().StaggerBoss(_mySpecificHero.GetManualAbilityStagger());
-        }
     }
 }

@@ -12,15 +12,11 @@ public class SHP_ReaperManualProjectile : HeroProjectileFramework
 {
     [SerializeField] private float _projectileLifetime;
     [SerializeField] private float _projectileSpeed;
-    [SerializeField] private float _attackDamageCooldown;
-
-    private Collider _projCollider;
     
 
     public override void SetUpProjectile(HeroBase heroBase)
     {
         base.SetUpProjectile(heroBase);
-        _projCollider = GetComponentInChildren<Collider>();
     }
 
     public void AdditionalSetup()
@@ -41,7 +37,7 @@ public class SHP_ReaperManualProjectile : HeroProjectileFramework
         }
     }
 
-    private void StartDamageCooldown()
+    /*private void StartDamageCooldown()
     {
         StartCoroutine(DamageCooldown());
     }
@@ -62,5 +58,5 @@ public class SHP_ReaperManualProjectile : HeroProjectileFramework
             _ownerHeroBase.GetSpecificHeroScript().DamageBoss(_mySpecificHero.GetBasicAbilityStrength());
             _ownerHeroBase.GetSpecificHeroScript().StaggerBoss(_mySpecificHero.GetBasicAbilityStagger());
         }
-    }
+    }*/
 }
