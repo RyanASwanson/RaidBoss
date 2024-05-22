@@ -24,6 +24,7 @@ public class SH_Shaman : SpecificHeroFramework
 
     protected void CreateBasicAttackProjectiles()
     {
+        //Shaman Projectile Script Not Currently in use
         //GameObject spawnedProjectile = 
         Instantiate(_basicProjectile, myHeroBase.transform.position, Quaternion.identity);
         //spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(myHeroBase);

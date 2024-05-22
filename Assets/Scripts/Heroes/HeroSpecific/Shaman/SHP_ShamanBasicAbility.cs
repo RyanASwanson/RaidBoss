@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//NOT CURRENTLY IN USE
 
 /// <summary>
 /// Contains the functionality for the shamans basic attack

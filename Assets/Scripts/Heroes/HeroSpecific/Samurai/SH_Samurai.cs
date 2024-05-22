@@ -43,10 +43,12 @@ public class SH_Samurai : SpecificHeroFramework
     /// </summary>
     protected void CreateBasicAttackProjectiles()
     {
-        GameObject spawnedProjectile = Instantiate(_basicProjectile, myHeroBase.transform.position, Quaternion.identity);
-        spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(myHeroBase);
+        //Samurai Projectile Script Not Currently in use
+        //GameObject spawnedProjectile = 
+        Instantiate(_basicProjectile, myHeroBase.transform.position, Quaternion.identity);
+        //spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(myHeroBase);
 
-        spawnedProjectile.GetComponent<SHP_SamuraiBasicProjectile>().AdditionalSetup(1);
+        //spawnedProjectile.GetComponent<SHP_SamuraiBasicProjectile>().AdditionalSetup(1);
     }
 
     #endregion

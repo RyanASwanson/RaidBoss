@@ -138,7 +138,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5625124809019392842}
   - component: {fileID: 2084309515150920701}
-  - component: {fileID: 5625124809019392843}
   - component: {fileID: 3204899028780777723}
   m_Layer: 0
   m_Name: SamuraiBasicProjectile
@@ -177,6 +176,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damageCollider: {fileID: 867951456254802135}
+  _hasLifeTime: 1
+  _lifeTime: 0.5
   _enterDamage: 9
   _enterStagger: 5
   _enterEvent:
@@ -192,18 +193,6 @@ MonoBehaviour:
   _exitEvent:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &5625124809019392843
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5625124809019392836}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd3d6a675267a5245b6fc8757cf8471a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!54 &3204899028780777723
 Rigidbody:
   m_ObjectHideFlags: 0
