@@ -6,7 +6,7 @@ public class SB_MagmaLord : SpecificBossFramework
 {
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Y))
+        /*if (Input.GetKeyDown(KeyCode.Y))
             Debug.Log(DetermineAggroTarget().GetHeroSO().GetHeroName());
 
         if(Input.GetKeyDown(KeyCode.U))
@@ -36,7 +36,7 @@ public class SB_MagmaLord : SpecificBossFramework
         if (Input.GetKeyDown(KeyCode.L))
         {
             _startingBossAbilities[4].ActivateAbility(Vector3.zero, null);
-        }
+        }*/
     }
 
     public override void SubscribeToEvents()
