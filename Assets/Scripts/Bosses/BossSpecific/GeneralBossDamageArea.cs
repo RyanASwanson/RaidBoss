@@ -29,35 +29,32 @@ public class GeneralBossDamageArea : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        if(DoesColliderBelongToHero(collision))
-        {
-            _enterEvent?.Invoke(collision);
-
-            if (_enterDamage <= 0) return;
-            collision.GetComponentInParent<HeroBase>().GetHeroStats().DealDamageToHero(_enterDamage);
-        }
+        HitHero(collision, _enterEvent, _enterDamage);
     }
 
     private void OnTriggerStay(Collider collision)
     {
-        if (DoesColliderBelongToHero(collision))
-        {
-            _stayEvent?.Invoke(collision);
-
-            if (_stayDamagePerSecond <= 0) return;
-            collision.GetComponentInParent<HeroBase>().GetHeroStats().DealDamageToHero
-                (_stayDamagePerSecond * Time.deltaTime);
-        }
+        HitHero(collision, _stayEvent, _stayDamagePerSecond * Time.deltaTime);
     }
 
     private void OnTriggerExit(Collider collision)
     {
+        HitHero(collision, _exitEvent, _exitDamage);
+    }
+
+    private void HitHero(Collider collision, UnityEvent<Collider> hitEvent, float abilityDamage)
+    {
         if (DoesColliderBelongToHero(collision))
         {
-            _exitEvent?.Invoke(collision);
+            hitEvent?.Invoke(collision);
 
-            if (_exitDamage <= 0) return;
-            collision.GetComponentInParent<HeroBase>().GetHeroStats().DealDamageToHero(_exitDamage);
+            DealDamage(collision.GetComponentInParent<HeroBase>(), abilityDamage);
         }
+    }
+
+    private void DealDamage(HeroBase heroBase, float abilityDamage)
+    {
+        if (abilityDamage >= 0)
+            heroBase.GetHeroStats().DealDamageToHero(abilityDamage);
     }
 }
