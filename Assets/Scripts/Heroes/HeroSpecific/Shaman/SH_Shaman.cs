@@ -9,6 +9,9 @@ public class SH_Shaman : SpecificHeroFramework
 
     [SerializeField] private GameObject _manualProjectile;
 
+    [SerializeField] private GameObject _totem;
+    private GameObject _currentTotem;
+
     #region Basic Abilities
     public override bool ConditionsToActivateBasicAbilities()
     {
@@ -39,24 +42,27 @@ public class SH_Shaman : SpecificHeroFramework
     {
         base.ActivateManualAbilities(attackLocation);
 
-        CreateMnaualAttackProjectiles(attackLocation);
+        CreateManualAttackProjectiles();
     }
 
-    protected void CreateMnaualAttackProjectiles(Vector3 attackLocation)
+    protected void CreateManualAttackProjectiles()
     {
         GameObject spawnedProjectile = Instantiate(_manualProjectile, 
             myHeroBase.transform.position, Quaternion.identity);
         spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(myHeroBase);
 
-        spawnedProjectile.GetComponent<SHP_ShamanManualProjectile>().AdditionalSetup(attackLocation);
+        spawnedProjectile.GetComponent<SHP_ShamanManualProjectile>().AdditionalSetup(_currentTotem);
     }
 
     #endregion
 
     #region Passive Abilities
-    public void ActivatePassiveAbilities(float cooldownAmount)
+    public override void ActivatePassiveAbilities()
     {
-        AddToManualAbilityChargeTime(cooldownAmount);
+        if (_currentTotem != null)
+            Destroy(_currentTotem);
+
+        _currentTotem = Instantiate(_totem, transform.position, Quaternion.identity);
     }
     #endregion
 
