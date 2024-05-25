@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SelectionManager : BaseUniversalManager
 {
@@ -11,6 +12,12 @@ public class SelectionManager : BaseUniversalManager
     private BossSO _selectedBoss;
 
     private GameDifficulty _currentGameDifficulty;
+
+
+    private UnityEvent<BossSO> _bossSelectionEvent = new UnityEvent<BossSO>();
+    private UnityEvent<GameDifficulty> _difficultySelectionEvent = new UnityEvent<GameDifficulty>();
+    private UnityEvent<HeroSO> _heroSelectionEvent = new UnityEvent<HeroSO>();
+    private UnityEvent<HeroSO> _heroDeselectionEvent = new UnityEvent<HeroSO>();
 
     /// <summary>
     /// Adds a new hero to the list of selected heroes
@@ -35,6 +42,28 @@ public class SelectionManager : BaseUniversalManager
             _selectedHeroes.Remove(removingHero);    
     }
 
+
+    #region Events
+    public void InvokeBossSelectionEvent(BossSO bossSO)
+    {
+        _bossSelectionEvent?.Invoke(bossSO);
+    }
+
+    public void InvokeDifficultySelectionEvent(GameDifficulty gameDifficulty)
+    {
+        _difficultySelectionEvent?.Invoke(gameDifficulty);
+    }
+
+    public void InvokeHeroSelectionEvent(HeroSO heroSO)
+    {
+        _heroSelectionEvent?.Invoke(heroSO);
+    }
+
+    public void InvokeHeroDeselectionEvent(HeroSO heroSO)
+    {
+        _heroDeselectionEvent?.Invoke(heroSO);
+    }
+    #endregion
 
     #region Getters
     public List<HeroSO> GetAllSelectedHeroes() => _selectedHeroes;
