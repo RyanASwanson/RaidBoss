@@ -61,6 +61,7 @@ public class HeroStats : HeroChildrenFunctionality
         }
         
         _currentHealth -= damage;
+        myHeroBase.InvokeHeroDamagedEvent(damage);
         CheckIfHeroIsDead();
     }
 

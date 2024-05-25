@@ -10,11 +10,16 @@ using TMPro;
 /// </summary>
 public class HeroUIManager : GameUIChildrenFunctionality
 {
-    [SerializeField] private GameObject _associatedHeroIcon;
-    [SerializeField] private GameObject _associatedHeroHealthBar;
-    [SerializeField] private GameObject _associatedHeroManualAbilityChargeBar;
-    [SerializeField] private GameObject _associatedHeroManualAbilityIcon;
-    private Image _manualChargeImage;
+    [Header("Bottom UI")]
+    [Header("Left Side")]
+    [SerializeField] private Image _associatedHeroIcon;
+    
+    [SerializeField] private Image _associatedHeroManualAbilityChargeBar;
+    [SerializeField] private Image _associatedHeroManualAbilityIcon;
+
+    [Header("RightSide")]
+    [SerializeField] private Image _associatedHeroRecentHealthBar;
+    [SerializeField] private Image _associatedHeroCurrentHealthBar;
 
     private HeroBase _associatedHeroBase;
 
@@ -29,7 +34,7 @@ public class HeroUIManager : GameUIChildrenFunctionality
 
     private void GeneralSetup()
     {
-        _manualChargeImage = _associatedHeroManualAbilityChargeBar.GetComponent<Image>();
+
     }
 
     private void AssociatedHeroTookDamage(float damageTaken)
@@ -39,7 +44,7 @@ public class HeroUIManager : GameUIChildrenFunctionality
 
     private void SetHealthBarPercent(float percent)
     {
-        
+        _associatedHeroCurrentHealthBar.fillAmount = percent;
     }
 
     private void AssociatedHeroManualCharging()
@@ -49,7 +54,7 @@ public class HeroUIManager : GameUIChildrenFunctionality
 
     private void SetHeroManualAbilityCharge(float percent)
     {
-        _manualChargeImage.fillAmount = percent;
+        _associatedHeroManualAbilityChargeBar.fillAmount = percent;
     }
 
     public override void ChildFuncSetup()
