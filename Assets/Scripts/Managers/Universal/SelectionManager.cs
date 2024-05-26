@@ -73,6 +73,11 @@ public class SelectionManager : BaseUniversalManager
 
     public BossSO GetSelectedBoss() => _selectedBoss;
     public LevelSO GetSelectedLevel() => _selectedLevel;
+
+    public UnityEvent<BossSO> GetBossSelectionEvent() => _bossSelectionEvent;
+    public UnityEvent<GameDifficulty> GetDifficultySelectionEvent() => _difficultySelectionEvent;
+    public UnityEvent<HeroSO> GetHeroSelectionEvent() => _heroSelectionEvent;
+    public UnityEvent<HeroSO> GetHeroDeselectionEvent() => _heroDeselectionEvent;
     #endregion
 
     #region Setters

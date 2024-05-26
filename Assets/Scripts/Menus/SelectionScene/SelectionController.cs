@@ -19,8 +19,15 @@ public class SelectionController : MonoBehaviour
         SubscribeToEvents();
     }
 
+    private void NewHeroAdded(HeroSO heroSO)
+    {
+
+    }
+
     private void SubscribeToEvents()
     {
-        UniversalManagers.Instance.GetSelectionManager();
+        //UniversalManagers.Instance.GetSelectionManager().GetBossSelectionEvent().AddListener
+
+        //Univers
     }
 }
