@@ -26,8 +26,11 @@ public class SelectionManager : BaseUniversalManager
     /// <param name="newHeroSO"></param>
     public void AddNewSelectedHero(HeroSO newHeroSO)
     {
-        if (_selectedHeroes.Count < _maxHeroes)
-            _selectedHeroes.Add(newHeroSO);
+        if (_selectedHeroes.Count > _maxHeroes)
+            return;
+
+        _selectedHeroes.Add(newHeroSO);
+        InvokeHeroSelectionEvent(newHeroSO);
     }
 
 
@@ -38,8 +41,11 @@ public class SelectionManager : BaseUniversalManager
     /// <param name="removingHero"></param>
     public void RemoveSpecificHero(HeroSO removingHero)
     {
-        if(_selectedHeroes.Contains(removingHero))
-            _selectedHeroes.Remove(removingHero);    
+        if (!_selectedHeroes.Contains(removingHero))
+            return;
+
+        _selectedHeroes.Remove(removingHero);
+        InvokeHeroDeselectionEvent(removingHero);
     }
 
 
@@ -84,6 +90,8 @@ public class SelectionManager : BaseUniversalManager
     public void SetSelectedBoss(BossSO bossSO)
     {
         _selectedBoss = bossSO;
+
+        InvokeBossSelectionEvent(bossSO);
     }
 
     public void SetSelectedLevel(LevelSO levelSO)
@@ -93,6 +101,8 @@ public class SelectionManager : BaseUniversalManager
     public void SetSelectedDifficulty(GameDifficulty gameDifficulty)
     {
         _currentGameDifficulty = gameDifficulty;
+
+        InvokeDifficultySelectionEvent(gameDifficulty);
     }
     #endregion
 }
