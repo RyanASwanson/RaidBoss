@@ -4,7 +4,7 @@ using UnityEngine;
 public class SelectionController : MonoBehaviour
 {
     [Header("Boss")]
-    [SerializeField] private GameObject _bossPillar;
+    [SerializeField] private BossPillar _bossPillar;
 
     [Header("Center")]
 
@@ -23,6 +23,11 @@ public class SelectionController : MonoBehaviour
     private void BossSideStart()
     {
 
+    }
+
+    private void NewBossAdded(BossSO bossSO)
+    {
+        _bossPillar.ShowBossOnPillar(bossSO);
     }
     #endregion
 
@@ -106,7 +111,7 @@ public class SelectionController : MonoBehaviour
 
     private void SubscribeToEvents()
     {
-        //UniversalManagers.Instance.GetSelectionManager().GetBossSelectionEvent().AddListener
+        UniversalManagers.Instance.GetSelectionManager().GetBossSelectionEvent().AddListener(NewBossAdded);
 
         UniversalManagers.Instance.GetSelectionManager().GetHeroSelectionEvent().AddListener(NewHeroAdded);
         UniversalManagers.Instance.GetSelectionManager().GetHeroDeselectionEvent().AddListener(HeroRemoved);
