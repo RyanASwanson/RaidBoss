@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,9 +9,7 @@ public class SelectionController : MonoBehaviour
     [Header("Center")]
 
     [Header("Hero")]
-    [SerializeField] private List<GameObject> _heroPillars = new List<GameObject>();
-
-    private const string _heroPillarMoveAnimBool = "PillarUp";
+    [SerializeField] private List<HeroPillar> _heroPillars = new List<HeroPillar>();
 
     // Start is called before the first frame update
     void Start()
@@ -41,22 +38,66 @@ public class SelectionController : MonoBehaviour
 
     private void NewHeroAdded(HeroSO heroSO)
     {
-        int heroPillarToMove = UniversalManagers.Instance.GetSelectionManager().GetSelectedHeroesCount();
-        if (heroPillarToMove < UniversalManagers.Instance.GetSelectionManager().GetMaxHeroesCount())
-            MoveHeroPillar(heroPillarToMove, true);
+        int heroPillarNum = UniversalManagers.Instance.GetSelectionManager().GetSelectedHeroesCount();
+
+        _heroPillars[heroPillarNum - 1].ShowHeroOnPillar(heroSO);
+
+        if (heroPillarNum < UniversalManagers.Instance.GetSelectionManager().GetMaxHeroesCount())
+        {
+            MoveHeroPillar(heroPillarNum, true);
+
+        }
+
     }
 
     private void HeroRemoved(HeroSO heroSO)
     {
-        int heroPillarToMove = UniversalManagers.Instance.GetSelectionManager().GetSelectedHeroesCount() +1;
-        if (heroPillarToMove > 0 && 
-            heroPillarToMove < UniversalManagers.Instance.GetSelectionManager().GetMaxHeroesCount())
-            MoveHeroPillar(heroPillarToMove, false);
+        int heroPillarNum = UniversalManagers.Instance.GetSelectionManager().GetSelectedHeroesCount() + 1;
+
+        if (heroPillarNum > 0 &&
+            heroPillarNum < UniversalManagers.Instance.GetSelectionManager().GetMaxHeroesCount())
+        {
+            MoveHeroPillar(heroPillarNum, false);
+        }
+
+        FindHeroPillarWithHero(heroSO).RemoveHeroOnPillar();
+        RearrangeHeroesOnPillars();
+    }
+
+    private HeroPillar FindHeroPillarWithHero(HeroSO searchHero)
+    {
+        foreach (HeroPillar heroPillar in _heroPillars)
+        {
+            if (heroPillar.GetStoredHero() == searchHero)
+                return heroPillar;
+        }
+        return null;
+    }
+
+    private void RearrangeHeroesOnPillars()
+    {
+        MoveNextHeroBackToCurrentPillar(0);
+    }
+
+    private void MoveNextHeroBackToCurrentPillar(int pillarNum)
+    {
+        Debug.Log("pillar num" + pillarNum);
+        if (pillarNum + 1 >= UniversalManagers.Instance.GetSelectionManager().GetMaxHeroesCount()) return;
+
+        if(!_heroPillars[pillarNum].HasStoredHero() && _heroPillars[pillarNum+1].HasStoredHero())
+        {
+            //Debug.Log("True at " + pillarNum);
+            _heroPillars[pillarNum].ShowHeroOnPillar(_heroPillars[pillarNum + 1].GetStoredHero());
+            _heroPillars[pillarNum + 1].RemoveHeroOnPillar();
+        }
+        //Debug.Log("Move back " + pillarNum);
+        MoveNextHeroBackToCurrentPillar(pillarNum + 1);
+        
     }
 
     private void MoveHeroPillar(int pillarNum, bool moveUp)
     {
-        _heroPillars[pillarNum].GetComponent<Animator>().SetBool(_heroPillarMoveAnimBool, moveUp);
+        _heroPillars[pillarNum].MovePillar(moveUp);
     }
 
     #endregion
