@@ -19,22 +19,27 @@ public class HeroPillar : MonoBehaviour
         _animator.SetBool(_heroPillarMoveAnimBool, moveUp);
     }
 
+    /// <summary>
+    /// Displays a hero on the pillar
+    /// </summary>
+    /// <param name="heroSO"></param>
     public void ShowHeroOnPillar(HeroSO heroSO)
     {
-        
-
+        //If there is a hero on the pillar remove them
         if (_currentHeroVisual != null)
             RemoveHeroOnPillar();
 
-        if (heroSO == null)
-            Debug.Log("Failed to find hero prefab");
-        if (_heroSpawnPoint == null)
-            Debug.Log("failed to find hero spawn point");
+        //Spawn the hero onto the pillar
         _currentHeroVisual = Instantiate(heroSO.GetHeroPrefab(), _heroSpawnPoint.transform);
+        //Rotates the hero
         _currentHeroVisual.transform.eulerAngles += new Vector3(0,180,0);
+        //Sets the stored hero
         _storedHero = heroSO;
     }
 
+    /// <summary>
+    /// Removes the current hero from the pillar
+    /// </summary>
     public void RemoveHeroOnPillar()
     {
         _storedHero = null;

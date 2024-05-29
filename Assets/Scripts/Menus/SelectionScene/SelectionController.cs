@@ -50,6 +50,11 @@ public class SelectionController : MonoBehaviour
 
     }
 
+
+    /// <summary>
+    /// Removes a hero from the pillar and makes a pillar move down
+    /// </summary>
+    /// <param name="heroSO"></param>
     private void HeroRemoved(HeroSO heroSO)
     {
         int heroPillarNum = UniversalManagers.Instance.GetSelectionManager().GetSelectedHeroesCount() + 1;
@@ -81,16 +86,13 @@ public class SelectionController : MonoBehaviour
 
     private void MoveNextHeroBackToCurrentPillar(int pillarNum)
     {
-        Debug.Log("pillar num" + pillarNum);
         if (pillarNum + 1 >= UniversalManagers.Instance.GetSelectionManager().GetMaxHeroesCount()) return;
 
         if(!_heroPillars[pillarNum].HasStoredHero() && _heroPillars[pillarNum+1].HasStoredHero())
         {
-            //Debug.Log("True at " + pillarNum);
             _heroPillars[pillarNum].ShowHeroOnPillar(_heroPillars[pillarNum + 1].GetStoredHero());
             _heroPillars[pillarNum + 1].RemoveHeroOnPillar();
         }
-        //Debug.Log("Move back " + pillarNum);
         MoveNextHeroBackToCurrentPillar(pillarNum + 1);
         
     }
