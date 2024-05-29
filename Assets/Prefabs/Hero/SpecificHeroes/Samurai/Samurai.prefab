@@ -29,7 +29,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1475726165602655294}
+  - {fileID: 2989001938757471895}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -50,66 +50,67 @@ MonoBehaviour:
   _basicProjectile: {fileID: 5625124809019392836, guid: de7156d0f762a6e4d9414d853c7e7058, type: 3}
   _manualAbilityDuration: 2
   _manualAbilityParryDamage: 60
+  _manualAbilityParryStagger: 0
   _parryBonusIFrames: 3
---- !u!1001 &1983503331838748990
+--- !u!1001 &3199649369657559844
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 3073542927443306918}
     m_Modifications:
-    - target: {fileID: 339973707252625338, guid: 03a1ad8fdf6a464499839823b663af84, type: 3}
-      propertyPath: m_Name
-      value: SamuraiModel
-      objectReference: {fileID: 0}
-    - target: {fileID: 1151800988700751104, guid: 03a1ad8fdf6a464499839823b663af84, type: 3}
+    - target: {fileID: 368276246379496883, guid: 03a1ad8fdf6a464499839823b663af84, type: 3}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1151800988700751104, guid: 03a1ad8fdf6a464499839823b663af84, type: 3}
+    - target: {fileID: 368276246379496883, guid: 03a1ad8fdf6a464499839823b663af84, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1151800988700751104, guid: 03a1ad8fdf6a464499839823b663af84, type: 3}
+    - target: {fileID: 368276246379496883, guid: 03a1ad8fdf6a464499839823b663af84, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1151800988700751104, guid: 03a1ad8fdf6a464499839823b663af84, type: 3}
+    - target: {fileID: 368276246379496883, guid: 03a1ad8fdf6a464499839823b663af84, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1151800988700751104, guid: 03a1ad8fdf6a464499839823b663af84, type: 3}
+    - target: {fileID: 368276246379496883, guid: 03a1ad8fdf6a464499839823b663af84, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1151800988700751104, guid: 03a1ad8fdf6a464499839823b663af84, type: 3}
+    - target: {fileID: 368276246379496883, guid: 03a1ad8fdf6a464499839823b663af84, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1151800988700751104, guid: 03a1ad8fdf6a464499839823b663af84, type: 3}
+    - target: {fileID: 368276246379496883, guid: 03a1ad8fdf6a464499839823b663af84, type: 3}
       propertyPath: m_LocalRotation.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1151800988700751104, guid: 03a1ad8fdf6a464499839823b663af84, type: 3}
+    - target: {fileID: 368276246379496883, guid: 03a1ad8fdf6a464499839823b663af84, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1151800988700751104, guid: 03a1ad8fdf6a464499839823b663af84, type: 3}
+    - target: {fileID: 368276246379496883, guid: 03a1ad8fdf6a464499839823b663af84, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1151800988700751104, guid: 03a1ad8fdf6a464499839823b663af84, type: 3}
+    - target: {fileID: 368276246379496883, guid: 03a1ad8fdf6a464499839823b663af84, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 180
       objectReference: {fileID: 0}
-    - target: {fileID: 1151800988700751104, guid: 03a1ad8fdf6a464499839823b663af84, type: 3}
+    - target: {fileID: 368276246379496883, guid: 03a1ad8fdf6a464499839823b663af84, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6847575176247007638, guid: 03a1ad8fdf6a464499839823b663af84, type: 3}
+      propertyPath: m_Name
+      value: SamuraiModel
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03a1ad8fdf6a464499839823b663af84, type: 3}
---- !u!4 &1475726165602655294 stripped
+--- !u!4 &2989001938757471895 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 1151800988700751104, guid: 03a1ad8fdf6a464499839823b663af84, type: 3}
-  m_PrefabInstance: {fileID: 1983503331838748990}
+  m_CorrespondingSourceObject: {fileID: 368276246379496883, guid: 03a1ad8fdf6a464499839823b663af84, type: 3}
+  m_PrefabInstance: {fileID: 3199649369657559844}
   m_PrefabAsset: {fileID: 0}
