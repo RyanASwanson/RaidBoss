@@ -36,6 +36,11 @@ public class BossVisuals : BossChildrenFunctionality
         
     }
 
+    private void BossTookDamage(float damageTaken)
+    {
+
+    }
+
 
     public override void ChildFuncSetup(BossBase bossBase)
     {
@@ -53,7 +58,10 @@ public class BossVisuals : BossChildrenFunctionality
     public override void SubscribeToEvents()
     {
         myBossBase.GetSOSetEvent().AddListener(SetFromSO);
+
+        myBossBase.GetBossDamagedEvent().AddListener(BossTookDamage);
     }
+
 
     #region Getters
 

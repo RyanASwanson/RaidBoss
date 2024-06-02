@@ -19,8 +19,9 @@ public class GeneralHeroDamageArea : MonoBehaviour
     [SerializeField] private UnityEvent<Collider> _enterEvent;
 
     [Header("Stay")]
-    [SerializeField] private float _stayDamagePerSecond;
-    [SerializeField] private float _stayStaggerPerSecond;
+    [SerializeField] private float _stayDamagePerTick;
+    [SerializeField] private float _stayStaggerPerTick;
+    [SerializeField] private float _stayDamageTickRate;
     [SerializeField] private UnityEvent<Collider> _stayEvent;
 
     [Header("Exit")]
@@ -48,7 +49,9 @@ public class GeneralHeroDamageArea : MonoBehaviour
     private void OnTriggerStay(Collider collision)
     {
         HitBoss(collision, _stayEvent, 
-            _stayDamagePerSecond * Time.deltaTime, _stayStaggerPerSecond * Time.deltaTime);
+            _stayDamagePerTick * Time.deltaTime, _stayStaggerPerTick * Time.deltaTime);
+
+        DisableColliderForDuration(_stayDamageTickRate);
     }
 
     private void OnTriggerExit(Collider collision)
@@ -68,16 +71,23 @@ public class GeneralHeroDamageArea : MonoBehaviour
 
     private void DealDamageAndStagger(BossBase bossBase, float abilityDamage, float abilityStagger)
     {
-        if (abilityDamage >= 0)
+        if (abilityDamage > 0)
             bossBase.GetBossStats().DealDamageToBoss(abilityDamage);
 
-        if (abilityStagger >= 0)
+        if (abilityStagger > 0)
             bossBase.GetBossStats().DealStaggerToBoss(abilityStagger);
     }
 
     public void ToggleProjectileCollider(bool colliderEnabled)
     {
         _damageCollider.enabled = colliderEnabled;
+    }
+
+    private IEnumerator DisableColliderForDuration(float duration)
+    {
+        ToggleProjectileCollider(false);
+        yield return new WaitForSeconds(duration);
+        ToggleProjectileCollider(true);
     }
     #endregion
 

@@ -28,9 +28,17 @@ public class BossUIManager : GameUIChildrenFunctionality
 
     private Coroutine _startStaminaBarDrainCoroutine;
 
+    [Header("BossWorldCanvas")]
+    [SerializeField] private RectTransform _damageStaggerOrigin;
+    [SerializeField] private GameObject _damageNumber;
+    [SerializeField] private GameObject _staggerNumber;
+
+    private const string _damageStaggerWeakAnimTrigger = "WeakDamage";
+
     private void BossTookDamage(float damage)
     {
         SetHealthBarPercentage(damage);
+        CreateDamageNumbers(damage);
     }
 
     private void SetHealthBarPercentage(float damage)
@@ -48,6 +56,19 @@ public class BossUIManager : GameUIChildrenFunctionality
     {
         _staggerBar.fillAmount = GameplayManagers.Instance.
             GetBossManager().GetBossBase().GetBossStats().GetBossStaggerPercentage();
+    }
+
+    private void CreateDamageNumbers(float damage)
+    {
+        /*Vector3 damageNumberSpawnLocation = new Vector3(_damageStaggerOrigin.transform.localPosition.x,
+            _damageStaggerOrigin.transform.localPosition.y, _damageStaggerOrigin.transform.localPosition.z);*/
+
+        GameObject newDamageNumber = Instantiate(_damageNumber, _damageStaggerOrigin);
+
+        newDamageNumber.GetComponentInChildren<Text>().text = damage.ToString();
+        newDamageNumber.GetComponentInChildren<TMP_Text>().text = damage.ToString();
+
+        newDamageNumber.GetComponent<Animator>().SetTrigger(_damageStaggerWeakAnimTrigger);
     }
 
     public override void SubscribeToEvents()
