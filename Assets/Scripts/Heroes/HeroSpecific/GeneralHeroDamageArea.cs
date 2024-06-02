@@ -48,10 +48,11 @@ public class GeneralHeroDamageArea : MonoBehaviour
 
     private void OnTriggerStay(Collider collision)
     {
-        HitBoss(collision, _stayEvent, 
-            _stayDamagePerTick * Time.deltaTime, _stayStaggerPerTick * Time.deltaTime);
-
-        DisableColliderForDuration(_stayDamageTickRate);
+        if (HitBoss(collision, _stayEvent,
+            _stayDamagePerTick, _stayStaggerPerTick * Time.deltaTime))
+        {
+            StartCoroutine(DisableColliderForDuration(_stayDamageTickRate));
+        }
     }
 
     private void OnTriggerExit(Collider collision)
@@ -59,14 +60,17 @@ public class GeneralHeroDamageArea : MonoBehaviour
         HitBoss(collision, _exitEvent, _exitDamage, _exitStagger);
     }
 
-    private void HitBoss(Collider collision, UnityEvent<Collider> hitEvent, float abilityDamage, float abilityStagger)
+    private bool HitBoss(Collider collision, UnityEvent<Collider> hitEvent, float abilityDamage, float abilityStagger)
     {
         if(DoesColliderBelongToBoss(collision))
         {
             hitEvent?.Invoke(collision);
 
             DealDamageAndStagger(collision.GetComponentInParent<BossBase>(),abilityDamage, abilityStagger);
+
+            return true;
         }
+        return false;
     }
 
     private void DealDamageAndStagger(BossBase bossBase, float abilityDamage, float abilityStagger)

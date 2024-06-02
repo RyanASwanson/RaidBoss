@@ -28,10 +28,16 @@ public class BossUIManager : GameUIChildrenFunctionality
 
     private Coroutine _startStaminaBarDrainCoroutine;
 
+    [Space]
     [Header("BossWorldCanvas")]
     [SerializeField] private RectTransform _damageStaggerOrigin;
     [SerializeField] private GameObject _damageNumber;
+    [SerializeField] private int _averageDamage;
+    [SerializeField] private int _strongDamage;
+    [Space]
     [SerializeField] private GameObject _staggerNumber;
+    [SerializeField] private int _averageStagger;
+    [SerializeField] private int _strongStagger;
 
     private const string _damageStaggerWeakAnimTrigger = "WeakDamage";
 
