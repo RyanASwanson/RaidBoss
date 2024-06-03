@@ -18,6 +18,8 @@ public class SelectionManager : BaseUniversalManager
     private UnityEvent<GameDifficulty> _difficultySelectionEvent = new UnityEvent<GameDifficulty>();
     private UnityEvent<HeroSO> _heroSelectionEvent = new UnityEvent<HeroSO>();
     private UnityEvent<HeroSO> _heroDeselectionEvent = new UnityEvent<HeroSO>();
+    private UnityEvent<HeroSO> _heroHoveredOverEvent = new UnityEvent<HeroSO>();
+    private UnityEvent<HeroSO> _heroNotHoveredOverEvent = new UnityEvent<HeroSO>();
 
     /// <summary>
     /// Adds a new hero to the list of selected heroes
@@ -48,6 +50,11 @@ public class SelectionManager : BaseUniversalManager
         InvokeHeroDeselectionEvent(removingHero);
     }
 
+    public void HeroHoveredOver(HeroSO heroSO)
+    {
+        InvokeHeroHoveredOverEvent(heroSO);
+    }
+
 
     #region Events
     public void InvokeBossSelectionEvent(BossSO bossSO)
@@ -69,6 +76,15 @@ public class SelectionManager : BaseUniversalManager
     {
         _heroDeselectionEvent?.Invoke(heroSO);
     }
+
+    public void InvokeHeroHoveredOverEvent(HeroSO heroSO)
+    {
+        _heroHoveredOverEvent?.Invoke(heroSO);
+    }
+    public void InvokeHeroNotHoveredOverEvent(HeroSO heroSO)
+    {
+        _heroNotHoveredOverEvent?.Invoke(heroSO);
+    }
     #endregion
 
     #region Getters
@@ -84,6 +100,8 @@ public class SelectionManager : BaseUniversalManager
     public UnityEvent<GameDifficulty> GetDifficultySelectionEvent() => _difficultySelectionEvent;
     public UnityEvent<HeroSO> GetHeroSelectionEvent() => _heroSelectionEvent;
     public UnityEvent<HeroSO> GetHeroDeselectionEvent() => _heroDeselectionEvent;
+    public UnityEvent<HeroSO> GetHeroHoveredOverEvent() => _heroHoveredOverEvent;
+    public UnityEvent<HeroSO> GetHeroNotHoveredOverEvent() => _heroNotHoveredOverEvent;
     #endregion
 
     #region Setters

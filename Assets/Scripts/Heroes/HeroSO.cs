@@ -14,11 +14,13 @@ public class HeroSO : ScriptableObject
     [SerializeField] private float _aggro;
     [Range(.5f, 1.5f)] [SerializeField] private float _damageResistance;
 
-    [Header("Visuals")]
-    [SerializeField] private Sprite _heroIcon;
-
     [Header("Prefabs")]
     [SerializeField] private GameObject _heroPrefab;
+
+    [Header("Visuals")]
+    [SerializeField] private Sprite _heroIcon;
+    [SerializeField] private Color _heroHighlightedColor;
+    [SerializeField] private Color _heroSelectedColor;
 
     #region Getters
     public string GetHeroName() => _name;
@@ -27,7 +29,7 @@ public class HeroSO : ScriptableObject
     public float GetAggro() => _aggro;
     public float GetDamageResistance() => _damageResistance;
 
-    public Sprite GetHeroIcon() => _heroIcon;
     public GameObject GetHeroPrefab() => _heroPrefab;
+    public Sprite GetHeroIcon() => _heroIcon;
     #endregion
 }

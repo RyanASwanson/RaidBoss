@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class SelectionController : MonoBehaviour
 {
@@ -7,6 +9,10 @@ public class SelectionController : MonoBehaviour
     [SerializeField] private BossPillar _bossPillar;
 
     [Header("Center")]
+    [SerializeField] private TMP_Text _heroNameText;
+    [SerializeField] private Text _heroNameBorder;
+
+    private HeroSO _lastHeroHoveredOver;
 
     [Header("Hero")]
     [SerializeField] private List<HeroPillar> _heroPillars = new List<HeroPillar>();
@@ -32,6 +38,25 @@ public class SelectionController : MonoBehaviour
     #endregion
 
     #region Center
+
+    private void CenterStart()
+    {
+
+    }
+
+    private void HeroHoveredOver(HeroSO heroSO)
+    {
+        if (heroSO == _lastHeroHoveredOver) return;
+
+        _lastHeroHoveredOver = heroSO;
+        NewHeroHoveredOver(heroSO);
+    }
+
+    private void NewHeroHoveredOver(HeroSO heroSO)
+    {
+        _heroNameText.text = heroSO.GetHeroName();
+        _heroNameBorder.text = heroSO.GetHeroName();
+    }
 
     #endregion
 
@@ -115,5 +140,7 @@ public class SelectionController : MonoBehaviour
 
         UniversalManagers.Instance.GetSelectionManager().GetHeroSelectionEvent().AddListener(NewHeroAdded);
         UniversalManagers.Instance.GetSelectionManager().GetHeroDeselectionEvent().AddListener(HeroRemoved);
+
+        UniversalManagers.Instance.GetSelectionManager().GetHeroHoveredOverEvent().AddListener(HeroHoveredOver);
     }
 }

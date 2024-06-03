@@ -68,7 +68,6 @@ public class GeneralHeroDamageArea : MonoBehaviour
 
             DealDamageAndStagger(collision.GetComponentInParent<BossBase>(),abilityDamage, abilityStagger);
 
-            Debug.Log("Hit boss for" + abilityDamage + " and " + abilityStagger);
             return true;
         }
         return false;

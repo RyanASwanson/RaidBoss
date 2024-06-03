@@ -41,6 +41,8 @@ public class BossUIManager : GameUIChildrenFunctionality
     [SerializeField] private int _strongStagger;
 
     private const string _damageStaggerWeakAnimTrigger = "WeakDamage";
+    private const string _damageAverageAnimTrigger = "AverageDamage";
+    private const string _damageStrongAnimTrigger = "StrongDamage";
 
     private void BossTookDamage(float damage)
     {
@@ -57,6 +59,7 @@ public class BossUIManager : GameUIChildrenFunctionality
     private void BossTookStagger(float stagger)
     {
         SetStaggerBarPercentage(stagger);
+        CreateStaggerNumbers(stagger);
     }
 
     private void SetStaggerBarPercentage(float stagger)
@@ -75,7 +78,12 @@ public class BossUIManager : GameUIChildrenFunctionality
         newDamageNumber.GetComponentInChildren<Text>().text = damage.ToString();
         newDamageNumber.GetComponentInChildren<TMP_Text>().text = damage.ToString();
 
-        newDamageNumber.GetComponent<Animator>().SetTrigger(_damageStaggerWeakAnimTrigger);
+        if(damage >= _strongDamage)
+            newDamageNumber.GetComponent<Animator>().SetTrigger(_damageStrongAnimTrigger);
+        else if (damage >= _averageDamage)
+            newDamageNumber.GetComponent<Animator>().SetTrigger(_damageAverageAnimTrigger);
+        else
+            newDamageNumber.GetComponent<Animator>().SetTrigger(_damageStaggerWeakAnimTrigger);
     }
 
     private void CreateStaggerNumbers(float stagger)
@@ -85,6 +93,7 @@ public class BossUIManager : GameUIChildrenFunctionality
         newDamageNumber.GetComponentInChildren<Text>().text = stagger.ToString();
         newDamageNumber.GetComponentInChildren<TMP_Text>().text = stagger.ToString();
 
+        
         newDamageNumber.GetComponent<Animator>().SetTrigger(_damageStaggerWeakAnimTrigger);
     }
 

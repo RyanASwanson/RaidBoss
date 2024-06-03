@@ -15,6 +15,8 @@ public class SelectHeroButton : MonoBehaviour
     [SerializeField] private Image _iconVisuals;
     private bool _buttonHasBeenPressed = false;
 
+    private Color _defaultColor;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +25,7 @@ public class SelectHeroButton : MonoBehaviour
 
     private void SetButtonHeroIconVisuals()
     {
+        _defaultColor = _iconVisuals.color;
         _iconVisuals.sprite = _associatedHero.GetHeroIcon();
     }
     
@@ -37,6 +40,21 @@ public class SelectHeroButton : MonoBehaviour
             HeroDeselect();
 
         _buttonHasBeenPressed = !_buttonHasBeenPressed;
+    }
+
+    public void SelectHeroButtonHoverBegin()
+    {
+        UniversalManagers.Instance.GetSelectionManager().HeroHoveredOver(_associatedHero);
+    }
+
+    public void SelectHeroButtonHoverEnd()
+    {
+        Debug.Log("HoverEnd");
+    }
+
+    private void UpdateHeroIconColor(Color newColor)
+    {
+        _iconVisuals.color = newColor;
     }
 
     private void HeroSelect()
