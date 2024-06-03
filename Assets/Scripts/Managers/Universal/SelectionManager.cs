@@ -55,6 +55,11 @@ public class SelectionManager : BaseUniversalManager
         InvokeHeroHoveredOverEvent(heroSO);
     }
 
+    public void HeroNotHoveredOver(HeroSO heroSO)
+    {
+        InvokeHeroNotHoveredOverEvent(heroSO);
+    }
+
 
     #region Events
     public void InvokeBossSelectionEvent(BossSO bossSO)

@@ -8,12 +8,20 @@ public class SelectionController : MonoBehaviour
     [Header("Boss")]
     [SerializeField] private BossPillar _bossPillar;
 
+    [Space]
     [Header("Center")]
     [SerializeField] private TMP_Text _heroNameText;
     [SerializeField] private Text _heroNameBorder;
 
+    [SerializeField] private List<Image> _survivalCounters;
+    [SerializeField] private List<Image> _damageCounters;
+    [SerializeField] private List<Image> _staggerCounters;
+    [SerializeField] private List<Image> _speedCounters;
+    [SerializeField] private List<Image> _utilityCounters;
+
     private HeroSO _lastHeroHoveredOver;
 
+    [Space]
     [Header("Hero")]
     [SerializeField] private List<HeroPillar> _heroPillars = new List<HeroPillar>();
 
@@ -46,7 +54,11 @@ public class SelectionController : MonoBehaviour
 
     private void HeroHoveredOver(HeroSO heroSO)
     {
+        //Stop if it is the same hero as the previous
         if (heroSO == _lastHeroHoveredOver) return;
+        //Stop if the hero is selected already
+        if (UniversalManagers.Instance.GetSelectionManager().GetAllSelectedHeroes().Contains(heroSO)) return;
+        //bool a= (UniversalManagers.Instance.GetSelectionManager().GetAllSelectedHeroes().Contains(heroSO))
 
         _lastHeroHoveredOver = heroSO;
         NewHeroHoveredOver(heroSO);
@@ -54,8 +66,33 @@ public class SelectionController : MonoBehaviour
 
     private void NewHeroHoveredOver(HeroSO heroSO)
     {
+        //Updates the text to display the heroes name
         _heroNameText.text = heroSO.GetHeroName();
         _heroNameBorder.text = heroSO.GetHeroName();
+
+        //Displays all stats associated for the hero on the counters
+        DisplayStatsForHero(heroSO);
+
+        int heroPillarNum = UniversalManagers.Instance.GetSelectionManager().GetSelectedHeroesCount();
+
+        _heroPillars[heroPillarNum ].ShowHeroOnPillar(heroSO);
+    }
+
+    private void DisplayStatsForHero(HeroSO heroSO)
+    {
+        ShowStatCounter(_survivalCounters, heroSO.GetSurvivalStat());
+        ShowStatCounter(_damageCounters, heroSO.GetDamageStat());
+        ShowStatCounter(_staggerCounters, heroSO.GetStaggerStat());
+        ShowStatCounter(_speedCounters, heroSO.GetSpeedStat());
+        ShowStatCounter(_utilityCounters, heroSO.GetUtilityStat());
+    }
+    
+    private void ShowStatCounter(List<Image> statCounters, int statNumber)
+    {
+        for(int i = 0; i < statCounters.Count; i++)
+        {
+            statCounters[i].enabled = (i<statNumber);
+        }
     }
 
     #endregion

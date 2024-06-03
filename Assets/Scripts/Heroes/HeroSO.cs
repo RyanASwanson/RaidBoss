@@ -19,17 +19,39 @@ public class HeroSO : ScriptableObject
 
     [Header("Visuals")]
     [SerializeField] private Sprite _heroIcon;
+    [SerializeField] private Sprite _heroBasicAbilityIcon;
+    [SerializeField] private Sprite _heroManualAbilityIcon;
+    [SerializeField] private Sprite _heroPassiveAbilityIcon;
+
+    [Header("Selection")]
+    [Range(0,5)][SerializeField] private int _surivalStat;
+    [Range(0,5)][SerializeField] private int _damageStat;
+    [Range(0,5)][SerializeField] private int _staggerStat;
+    [Range(0,5)][SerializeField] private int _speedStat;
+    [Range(0,5)][SerializeField] private int _utilityStat;
+
     [SerializeField] private Color _heroHighlightedColor;
     [SerializeField] private Color _heroSelectedColor;
 
     #region Getters
     public string GetHeroName() => _name;
+
     public float GetMaxHP() => _maxHP;
     public float GetMoveSpeed() => _moveSpeed;
     public float GetAggro() => _aggro;
     public float GetDamageResistance() => _damageResistance;
 
     public GameObject GetHeroPrefab() => _heroPrefab;
+
     public Sprite GetHeroIcon() => _heroIcon;
+    public Sprite GetHeroBasicAbilityIcon() => _heroBasicAbilityIcon;
+    public Sprite GetHeroManualAbilityIcon() => _heroManualAbilityIcon;
+    public Sprite GetHeroPassiveAbilityIcon() => _heroManualAbilityIcon;
+
+    public int GetSurvivalStat() => _surivalStat;
+    public int GetDamageStat() => _damageStat;
+    public int GetStaggerStat() => _staggerStat;
+    public int GetSpeedStat() => _speedStat;
+    public int GetUtilityStat() => _utilityStat;
     #endregion
 }
