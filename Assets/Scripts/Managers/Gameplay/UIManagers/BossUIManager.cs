@@ -39,6 +39,8 @@ public class BossUIManager : GameUIChildrenFunctionality
     [SerializeField] private GameObject _staggerNumber;
     [SerializeField] private int _averageStagger;
     [SerializeField] private int _strongStagger;
+    [Space]
+    [SerializeField] private float _damageNumbersXVariance;
 
     private const string _damageStaggerWeakAnimTrigger = "WeakDamage";
     private const string _damageAverageAnimTrigger = "AverageDamage";
@@ -80,6 +82,8 @@ public class BossUIManager : GameUIChildrenFunctionality
         newDamageNumber.GetComponentInChildren<Text>().text = damage.ToString();
         newDamageNumber.GetComponentInChildren<TMP_Text>().text = damage.ToString();
 
+        AddSpawnVarianceToDamageStaggerNumber(newDamageNumber);
+
         if(damage >= _strongDamage)
             newDamageNumber.GetComponent<Animator>().SetTrigger(_damageStrongAnimTrigger);
         else if (damage >= _averageDamage)
@@ -90,18 +94,24 @@ public class BossUIManager : GameUIChildrenFunctionality
 
     private void CreateStaggerNumbers(float stagger)
     {
-        GameObject newDamageNumber = Instantiate(_staggerNumber, _staggerNumbersOrigin);
+        GameObject newStaggerNumber = Instantiate(_staggerNumber, _staggerNumbersOrigin);
 
-        newDamageNumber.GetComponentInChildren<Text>().text = stagger.ToString();
-        newDamageNumber.GetComponentInChildren<TMP_Text>().text = stagger.ToString();
+        newStaggerNumber.GetComponentInChildren<Text>().text = stagger.ToString();
+        newStaggerNumber.GetComponentInChildren<TMP_Text>().text = stagger.ToString();
 
-        
+        AddSpawnVarianceToDamageStaggerNumber(newStaggerNumber);
+
         if (stagger >= _strongStagger)
-            newDamageNumber.GetComponent<Animator>().SetTrigger(_staggerStrongAnimTrigger);
+            newStaggerNumber.GetComponent<Animator>().SetTrigger(_staggerStrongAnimTrigger);
         else if (stagger >= _averageStagger)
-            newDamageNumber.GetComponent<Animator>().SetTrigger(_staggerAverageAnimTrigger);
+            newStaggerNumber.GetComponent<Animator>().SetTrigger(_staggerAverageAnimTrigger);
         else
-            newDamageNumber.GetComponent<Animator>().SetTrigger(_damageStaggerWeakAnimTrigger);
+            newStaggerNumber.GetComponent<Animator>().SetTrigger(_damageStaggerWeakAnimTrigger);
+    }
+
+    private void AddSpawnVarianceToDamageStaggerNumber(GameObject number)
+    {
+        number.transform.position += new Vector3(Random.Range(-_damageNumbersXVariance, _damageNumbersXVariance), 0, 0);
     }
 
     public override void SubscribeToEvents()
