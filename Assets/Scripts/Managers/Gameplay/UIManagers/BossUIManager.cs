@@ -42,7 +42,9 @@ public class BossUIManager : GameUIChildrenFunctionality
 
     private const string _damageStaggerWeakAnimTrigger = "WeakDamage";
     private const string _damageAverageAnimTrigger = "AverageDamage";
+    private const string _staggerAverageAnimTrigger = "AverageStagger";
     private const string _damageStrongAnimTrigger = "StrongDamage";
+    private const string _staggerStrongAnimTrigger = "StrongStagger";
 
     private void BossTookDamage(float damage)
     {
@@ -94,7 +96,12 @@ public class BossUIManager : GameUIChildrenFunctionality
         newDamageNumber.GetComponentInChildren<TMP_Text>().text = stagger.ToString();
 
         
-        newDamageNumber.GetComponent<Animator>().SetTrigger(_damageStaggerWeakAnimTrigger);
+        if (stagger >= _strongStagger)
+            newDamageNumber.GetComponent<Animator>().SetTrigger(_staggerStrongAnimTrigger);
+        else if (stagger >= _averageStagger)
+            newDamageNumber.GetComponent<Animator>().SetTrigger(_staggerAverageAnimTrigger);
+        else
+            newDamageNumber.GetComponent<Animator>().SetTrigger(_damageStaggerWeakAnimTrigger);
     }
 
     public override void SubscribeToEvents()

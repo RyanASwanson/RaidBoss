@@ -32,7 +32,7 @@ public class GeneralHeroHealArea : MonoBehaviour
 
     private void OnTriggerStay(Collider collision)
     {
-        if (HitHero(collision, _stayEvent, _stayHealingPerTick * Time.deltaTime) && _stayHealingTickRate > 0)
+        if (HitHero(collision, _stayEvent, _stayHealingPerTick) && _stayHealingTickRate > 0)
         {
             StartCoroutine(DisableColliderForDuration(_stayHealingTickRate));
         }

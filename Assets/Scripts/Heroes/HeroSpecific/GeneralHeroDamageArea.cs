@@ -49,7 +49,7 @@ public class GeneralHeroDamageArea : MonoBehaviour
     private void OnTriggerStay(Collider collision)
     {
         if (HitBoss(collision, _stayEvent,
-            _stayDamagePerTick, _stayStaggerPerTick * Time.deltaTime) && (_stayDamageTickRate > 0))
+            _stayDamagePerTick, _stayStaggerPerTick) && (_stayDamageTickRate > 0))
         {
             StartCoroutine(DisableColliderForDuration(_stayDamageTickRate));
         }
