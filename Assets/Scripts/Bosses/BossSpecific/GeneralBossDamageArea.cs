@@ -15,7 +15,8 @@ public class GeneralBossDamageArea : MonoBehaviour
     [SerializeField] private UnityEvent<Collider> _enterEvent;
 
     [Header("Stay")]
-    [SerializeField] private float _stayDamagePerSecond;
+    [SerializeField] private float _stayDamagePerTick;
+    [SerializeField] private float _stayDamageTickRate;
     [SerializeField] private UnityEvent<Collider> _stayEvent;
 
     [Header("Exit")]
@@ -34,7 +35,10 @@ public class GeneralBossDamageArea : MonoBehaviour
 
     private void OnTriggerStay(Collider collision)
     {
-        HitHero(collision, _stayEvent, _stayDamagePerSecond * Time.deltaTime);
+        if(HitHero(collision, _stayEvent, _stayDamagePerTick * Time.deltaTime) && (_stayDamageTickRate > 0))
+        {
+            StartCoroutine(DisableColliderForDuration(_stayDamageTickRate));
+        }
     }
 
     private void OnTriggerExit(Collider collision)
@@ -42,19 +46,34 @@ public class GeneralBossDamageArea : MonoBehaviour
         HitHero(collision, _exitEvent, _exitDamage);
     }
 
-    private void HitHero(Collider collision, UnityEvent<Collider> hitEvent, float abilityDamage)
+    private bool HitHero(Collider collision, UnityEvent<Collider> hitEvent, float abilityDamage)
     {
         if (DoesColliderBelongToHero(collision))
         {
             hitEvent?.Invoke(collision);
 
             DealDamage(collision.GetComponentInParent<HeroBase>(), abilityDamage);
+
+            return true;
         }
+        return false;
     }
 
     private void DealDamage(HeroBase heroBase, float abilityDamage)
     {
         if (abilityDamage >= 0)
             heroBase.GetHeroStats().DealDamageToHero(abilityDamage);
+    }
+
+    public void ToggleProjectileCollider(bool colliderEnabled)
+    {
+        _damageCollider.enabled = colliderEnabled;
+    }
+
+    private IEnumerator DisableColliderForDuration(float duration)
+    {
+        ToggleProjectileCollider(false);
+        yield return new WaitForSeconds(duration);
+        ToggleProjectileCollider(true);
     }
 }

@@ -67,7 +67,15 @@ public class HeroStats : HeroChildrenFunctionality
 
     public void HealHero(float healing)
     {
+        float healthDifference = _currentHealth;
+
         _currentHealth += healing;
+
+        _currentHealth = Mathf.Clamp(_currentHealth, 0, _heroMaxHealth);
+
+        healthDifference = _currentHealth - healthDifference;
+        myHeroBase.InvokeHeroHealedEvent(healthDifference);
+        
     }
 
     //Checks if the hero has died after taking damage

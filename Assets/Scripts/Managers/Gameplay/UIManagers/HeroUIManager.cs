@@ -42,6 +42,11 @@ public class HeroUIManager : GameUIChildrenFunctionality
         SetHealthBarPercent(_associatedHeroBase.GetHeroStats().GetHeroHealthPercentage());
     }
 
+    private void AssociatedHeroTookHealing(float healingTaken)
+    {
+        SetHealthBarPercent(_associatedHeroBase.GetHeroStats().GetHeroHealthPercentage());
+    }
+
     private void SetHealthBarPercent(float percent)
     {
         _associatedHeroCurrentHealthBar.fillAmount = percent;
@@ -66,6 +71,8 @@ public class HeroUIManager : GameUIChildrenFunctionality
     {
         //Update health bar when hero takes damage
         _associatedHeroBase.GetHeroDamagedEvent().AddListener(AssociatedHeroTookDamage);
+        //Update health bar when hero is healed
+        _associatedHeroBase.GetHeroHealedEvent().AddListener(AssociatedHeroTookHealing);
         //Update manual charge bar when cooling down
         _associatedHeroBase.GetHeroManualAbilityChargingEvent().AddListener(AssociatedHeroManualCharging);
     }

@@ -55,6 +55,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5596939873398294403}
   - component: {fileID: 5172227844950162802}
+  - component: {fileID: -4950492976760284114}
   - component: {fileID: 5596939873398294412}
   - component: {fileID: 3442492512316392498}
   m_Layer: 0
@@ -94,18 +95,71 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damageCollider: {fileID: 5596939872825649638}
-  _enterDamage: 4
+  _hasLifeTime: 0
+  _lifeTime: 0
+  _enterDamage: 2
   _enterStagger: 3
   _enterEvent:
     m_PersistentCalls:
-      m_Calls: []
-  _stayDamagePerSecond: 0
-  _stayStaggerPerSecond: 0
+      m_Calls:
+      - m_Target: {fileID: 5172227844950162802}
+        m_TargetAssemblyTypeName: GeneralHeroDamageArea, Assembly-CSharp
+        m_MethodName: DestroyProjectile
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _stayDamagePerTick: 0
+  _stayStaggerPerTick: 0
+  _stayDamageTickRate: 0
   _stayEvent:
     m_PersistentCalls:
       m_Calls: []
   _exitDamage: 0
   _exitStagger: 0
+  _exitEvent:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &-4950492976760284114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5596939873398294413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c367aa1a00f259d4c99948524ab26ba4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healingCollider: {fileID: 5596939872825649638}
+  _enterHealing: 6
+  _enterEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -4950492976760284114}
+        m_TargetAssemblyTypeName: GeneralHeroHealArea, Assembly-CSharp
+        m_MethodName: DestroyProjectile
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _stayHealingPerTick: 0
+  _stayHealingTickRate: 0
+  _stayEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _exitHealing: 0
   _exitEvent:
     m_PersistentCalls:
       m_Calls: []

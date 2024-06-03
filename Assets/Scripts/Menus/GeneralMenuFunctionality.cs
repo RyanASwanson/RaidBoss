@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GeneralMenuFunctionality : MonoBehaviour
 {
+
     // Start is called before the first frame update
     void Start()
     {
@@ -14,4 +15,6 @@ public class GeneralMenuFunctionality : MonoBehaviour
     {
         UniversalManagers.Instance.GetSceneLoadManager().LoadSceneByID(sceneID);
     }
+
+    
 }

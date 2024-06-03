@@ -95,4 +95,8 @@ public class GeneralHeroDamageArea : MonoBehaviour
     }
     #endregion
 
+    public void DestroyProjectile()
+    {
+        Destroy(gameObject);
+    }
 }
