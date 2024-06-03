@@ -617,6 +617,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 962502863651315723, guid: ce5cfafa617ca9b41b50f99d58cf5281, type: 3}
   m_PrefabInstance: {fileID: 1273139393253068206}
   m_PrefabAsset: {fileID: 0}
+--- !u!224 &6397879587298586945 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5288013342525390063, guid: ce5cfafa617ca9b41b50f99d58cf5281, type: 3}
+  m_PrefabInstance: {fileID: 1273139393253068206}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &7906938581143126383 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8939661990464965825, guid: ce5cfafa617ca9b41b50f99d58cf5281, type: 3}
@@ -676,6 +681,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6106737738984299987}
     - target: {fileID: 4510363601482703036, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
+      propertyPath: _staggerNumber
+      value: 
+      objectReference: {fileID: 6326443314085953860, guid: e2cddd5eb00343144aaf2899bb94504a, type: 3}
+    - target: {fileID: 4510363601482703036, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
       propertyPath: _healthRecentBar
       value: 
       objectReference: {fileID: 1445002623669010693}
@@ -684,9 +693,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4104571164505670021}
     - target: {fileID: 4510363601482703036, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
+      propertyPath: _damageNumbersOrigin
+      value: 
+      objectReference: {fileID: 751706027441386050}
+    - target: {fileID: 4510363601482703036, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
       propertyPath: _damageStaggerOrigin
       value: 
       objectReference: {fileID: 751706027441386050}
+    - target: {fileID: 4510363601482703036, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
+      propertyPath: _staggerNumbersOrigin
+      value: 
+      objectReference: {fileID: 6397879587298586945}
     - target: {fileID: 4808913854118388562, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
       propertyPath: _bossBase
       value: 

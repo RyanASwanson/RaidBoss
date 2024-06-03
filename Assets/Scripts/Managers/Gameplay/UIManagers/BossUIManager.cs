@@ -30,11 +30,12 @@ public class BossUIManager : GameUIChildrenFunctionality
 
     [Space]
     [Header("BossWorldCanvas")]
-    [SerializeField] private RectTransform _damageStaggerOrigin;
+    [SerializeField] private RectTransform _damageNumbersOrigin;
     [SerializeField] private GameObject _damageNumber;
     [SerializeField] private int _averageDamage;
     [SerializeField] private int _strongDamage;
     [Space]
+    [SerializeField] private RectTransform _staggerNumbersOrigin;
     [SerializeField] private GameObject _staggerNumber;
     [SerializeField] private int _averageStagger;
     [SerializeField] private int _strongStagger;
@@ -69,10 +70,20 @@ public class BossUIManager : GameUIChildrenFunctionality
         /*Vector3 damageNumberSpawnLocation = new Vector3(_damageStaggerOrigin.transform.localPosition.x,
             _damageStaggerOrigin.transform.localPosition.y, _damageStaggerOrigin.transform.localPosition.z);*/
 
-        GameObject newDamageNumber = Instantiate(_damageNumber, _damageStaggerOrigin);
+        GameObject newDamageNumber = Instantiate(_damageNumber, _damageNumbersOrigin);
 
         newDamageNumber.GetComponentInChildren<Text>().text = damage.ToString();
         newDamageNumber.GetComponentInChildren<TMP_Text>().text = damage.ToString();
+
+        newDamageNumber.GetComponent<Animator>().SetTrigger(_damageStaggerWeakAnimTrigger);
+    }
+
+    private void CreateStaggerNumbers(float stagger)
+    {
+        GameObject newDamageNumber = Instantiate(_staggerNumber, _staggerNumbersOrigin);
+
+        newDamageNumber.GetComponentInChildren<Text>().text = stagger.ToString();
+        newDamageNumber.GetComponentInChildren<TMP_Text>().text = stagger.ToString();
 
         newDamageNumber.GetComponent<Animator>().SetTrigger(_damageStaggerWeakAnimTrigger);
     }
