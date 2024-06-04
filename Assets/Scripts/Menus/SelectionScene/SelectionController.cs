@@ -10,6 +10,15 @@ public class SelectionController : MonoBehaviour
 
     [Space]
     [Header("Center")]
+    [SerializeField] private GameObject _bossDescription;
+
+    [SerializeField] private TMP_Text _bossNameText;
+    [SerializeField] private Text _bossNameBorder;
+
+
+    [Space]
+    [SerializeField] private GameObject _heroDescription;
+
     [SerializeField] private TMP_Text _heroNameText;
     [SerializeField] private Text _heroNameBorder;
 
@@ -19,6 +28,7 @@ public class SelectionController : MonoBehaviour
     [SerializeField] private List<Image> _speedCounters;
     [SerializeField] private List<Image> _utilityCounters;
 
+    private BossSO _lastBossHoveredOver;
     private HeroSO _lastHeroHoveredOver;
 
     [Space]
@@ -52,6 +62,24 @@ public class SelectionController : MonoBehaviour
 
     }
 
+    private void BossHoveredOver(BossSO bossSO)
+    {
+        if (bossSO == _lastBossHoveredOver) return;
+
+        _lastHeroHoveredOver = null;
+        _lastBossHoveredOver = bossSO;
+    }
+
+    private void NewBossHoveredOver(BossSO bossSO)
+    {
+        //Show boss description and hide hero description
+        _bossDescription.SetActive(true);
+        _bossDescription.SetActive(false);
+
+        _bossNameText.text = bossSO.GetBossName();
+        _bossNameBorder.text = bossSO.GetBossName();
+    }
+
     private void HeroHoveredOver(HeroSO heroSO)
     {
         //Stop if it is the same hero as the previous
@@ -60,12 +88,17 @@ public class SelectionController : MonoBehaviour
         if (UniversalManagers.Instance.GetSelectionManager().GetAllSelectedHeroes().Contains(heroSO)) return;
         //bool a= (UniversalManagers.Instance.GetSelectionManager().GetAllSelectedHeroes().Contains(heroSO))
 
+        _lastBossHoveredOver = null;
         _lastHeroHoveredOver = heroSO;
         NewHeroHoveredOver(heroSO);
     }
 
     private void NewHeroHoveredOver(HeroSO heroSO)
     {
+        //Show hero description and hide boss description
+        _bossDescription.SetActive(false);
+        _heroDescription.SetActive(true);
+
         //Updates the text to display the heroes name
         _heroNameText.text = heroSO.GetHeroName();
         _heroNameBorder.text = heroSO.GetHeroName();

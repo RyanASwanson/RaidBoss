@@ -50,6 +50,14 @@ public class SelectionManager : BaseUniversalManager
         InvokeHeroDeselectionEvent(removingHero);
     }
 
+    public void BossHoveredOver(BossSO bossSO)
+    {
+
+    }
+    public void BossNotHoveredOver(BossSO bossSO)
+    {
+
+    }
     public void HeroHoveredOver(HeroSO heroSO)
     {
         InvokeHeroHoveredOverEvent(heroSO);

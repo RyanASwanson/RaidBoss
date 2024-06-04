@@ -49,7 +49,7 @@ public class SelectHeroButton : MonoBehaviour
 
     public void SelectHeroButtonHoverEnd()
     {
-        UniversalManagers.Instance.GetSelectionManager().HeroHoveredOver(_associatedHero);
+        UniversalManagers.Instance.GetSelectionManager().HeroNotHoveredOver(_associatedHero);
     }
 
     private void UpdateHeroIconColor(Color newColor)

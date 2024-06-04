@@ -39,6 +39,21 @@ public class SelectBossLevelButton : MonoBehaviour
         _buttonHasBeenPressed = !_buttonHasBeenPressed;
     }
 
+    public void SelectBossButtonHoverBegin()
+    {
+        UniversalManagers.Instance.GetSelectionManager().BossHoveredOver(_associatedLevel.GetLevelBoss());
+    }
+
+    public void SelectBossButtonHoverEnd()
+    {
+        UniversalManagers.Instance.GetSelectionManager().BossNotHoveredOver(_associatedLevel.GetLevelBoss());
+    }
+
+    private void UpdateHeroIconColor(Color newColor)
+    {
+        _iconVisuals.color = newColor;
+    }
+
     private void BossLevelSelect()
     {
         UniversalManagers.Instance.GetSelectionManager().SetSelectedLevel(_associatedLevel);

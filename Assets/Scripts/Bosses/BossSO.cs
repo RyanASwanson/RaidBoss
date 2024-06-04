@@ -21,7 +21,7 @@ public class BossSO : ScriptableObject
     [SerializeField] private GameObject _bossPrefab;
 
     #region Getters
-    public string GetHeroName() => _name;
+    public string GetBossName() => _name;
     public float GetMaxHP() => _maxHP;
     public float GetBaseStaggerMax() => _baseStaggerMax;
 
