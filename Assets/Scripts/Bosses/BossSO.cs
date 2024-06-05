@@ -37,7 +37,7 @@ public class BossSO : ScriptableObject
     public Sprite GetBossIcon() => _bossIcon;
 
     public Color GetBossHighlightedColor() => _bossHighlightedColor;
-    public Color GetBossPressedColor() => _bossHighlightedColor;
+    public Color GetBossPressedColor() => _bossPressedColor;
     public Color GetBossSelectedColor() => _bossSelectedColor;
     #endregion
 }

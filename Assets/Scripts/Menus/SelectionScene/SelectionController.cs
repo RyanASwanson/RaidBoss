@@ -53,6 +53,11 @@ public class SelectionController : MonoBehaviour
     {
         _bossPillar.ShowBossOnPillar(bossSO);
     }
+
+    private void BossRemoved(BossSO bossSO)
+    {
+        _bossPillar.RemoveBossOnPillar();
+    }
     #endregion
 
     #region Center
@@ -64,7 +69,6 @@ public class SelectionController : MonoBehaviour
 
     private void BossHoveredOver(BossSO bossSO)
     {
-        Debug.Log("BossHoveredOver");
         if (bossSO == _lastBossHoveredOver) return;
 
         _lastHeroHoveredOver = null;
@@ -81,6 +85,8 @@ public class SelectionController : MonoBehaviour
 
         _bossNameText.text = bossSO.GetBossName();
         _bossNameBorder.text = bossSO.GetBossName();
+
+        _bossPillar.ShowBossOnPillar(bossSO);
     }
 
     private void HeroHoveredOver(HeroSO heroSO)
@@ -210,6 +216,7 @@ public class SelectionController : MonoBehaviour
     private void SubscribeToEvents()
     {
         UniversalManagers.Instance.GetSelectionManager().GetBossSelectionEvent().AddListener(NewBossAdded);
+        UniversalManagers.Instance.GetSelectionManager().GetBossDeselectionEvent().AddListener(BossRemoved);
 
         UniversalManagers.Instance.GetSelectionManager().GetBossHoveredOverEvent().AddListener(BossHoveredOver);
 

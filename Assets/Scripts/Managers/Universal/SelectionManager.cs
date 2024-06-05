@@ -5,16 +5,17 @@ using UnityEngine.Events;
 
 public class SelectionManager : BaseUniversalManager
 {
-    private List<HeroSO> _selectedHeroes = new List<HeroSO>();
-    private const int _maxHeroes = 5;
-
     private LevelSO _selectedLevel;
     private BossSO _selectedBoss;
+
+    private List<HeroSO> _selectedHeroes = new List<HeroSO>();
+    private const int _maxHeroes = 5;
 
     private GameDifficulty _currentGameDifficulty;
 
 
     private UnityEvent<BossSO> _bossSelectionEvent = new UnityEvent<BossSO>();
+    private UnityEvent<BossSO> _bossDeselectionEvent = new UnityEvent<BossSO>();
     private UnityEvent<BossSO> _bossHoveredOverEvent = new UnityEvent<BossSO>();
     private UnityEvent<BossSO> _bossNotHoveredOverEvent = new UnityEvent<BossSO>();
 
@@ -24,6 +25,18 @@ public class SelectionManager : BaseUniversalManager
     private UnityEvent<HeroSO> _heroDeselectionEvent = new UnityEvent<HeroSO>();
     private UnityEvent<HeroSO> _heroHoveredOverEvent = new UnityEvent<HeroSO>();
     private UnityEvent<HeroSO> _heroNotHoveredOverEvent = new UnityEvent<HeroSO>();
+
+
+    public void RemoveSelectedLevel()
+    {
+        _selectedLevel = null;
+    }
+
+    public void RemoveSelectedBoss()
+    {
+        InvokeBossDeselectionEvent(_selectedBoss);
+        _selectedBoss = null;
+    }
 
     /// <summary>
     /// Adds a new hero to the list of selected heroes
@@ -78,6 +91,10 @@ public class SelectionManager : BaseUniversalManager
     {
         _bossSelectionEvent?.Invoke(bossSO);
     }
+    public void InvokeBossDeselectionEvent(BossSO bossSO)
+    {
+        _bossDeselectionEvent?.Invoke(bossSO);
+    }
     public void InvokeBossHoveredOverEvent(BossSO bossSO)
     {
         _bossHoveredOverEvent?.Invoke(bossSO);
@@ -122,6 +139,7 @@ public class SelectionManager : BaseUniversalManager
     public LevelSO GetSelectedLevel() => _selectedLevel;
 
     public UnityEvent<BossSO> GetBossSelectionEvent() => _bossSelectionEvent;
+    public UnityEvent<BossSO> GetBossDeselectionEvent() => _bossDeselectionEvent;
     public UnityEvent<BossSO> GetBossHoveredOverEvent() => _bossHoveredOverEvent;
     public UnityEvent<BossSO> GetBossNotHoveredOverEvent() => _bossNotHoveredOverEvent;
 
@@ -148,7 +166,6 @@ public class SelectionManager : BaseUniversalManager
     public void SetSelectedDifficulty(GameDifficulty gameDifficulty)
     {
         _currentGameDifficulty = gameDifficulty;
-
         InvokeDifficultySelectionEvent(gameDifficulty);
     }
     #endregion
@@ -156,7 +173,7 @@ public class SelectionManager : BaseUniversalManager
 
 public enum GameDifficulty
 {
-    Easy,
-    Medium,
-    Hard
+    Normal,
+    Heroic,
+    Mythic
 };
