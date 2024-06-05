@@ -30,6 +30,8 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     {
         _ownerBossBase = bossBase;
         _mySpecificBoss = bossBase.GetSpecificBossScript();
+
+        _timeUntilNextAbility /= UniversalManagers.Instance.GetSelectionManager().GetSpeedMultiplierFromDifficulty();
     }
 
     /// <summary>

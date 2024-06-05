@@ -24,6 +24,7 @@ public class BossBase : MonoBehaviour
     protected UnityEvent _bossAbilityUsedEvent = new UnityEvent();
 
     private UnityEvent _bossDiedEvent = new UnityEvent();
+    private UnityEvent _bossStaggeredEvent = new UnityEvent();
 
     public void Setup(BossSO newSO)
     {
@@ -90,6 +91,11 @@ public class BossBase : MonoBehaviour
     {
         _bossDiedEvent?.Invoke();
     }
+    
+    public void InvokeBossStaggeredEvent()
+    {
+        _bossStaggeredEvent?.Invoke();
+    }
     #endregion
 
     #region Getters
@@ -111,6 +117,7 @@ public class BossBase : MonoBehaviour
     public UnityEvent GetBossAbilityUsedEvent() => _bossAbilityUsedEvent;
 
     public UnityEvent GetBossDiedEvent() => _bossDiedEvent;
+    public UnityEvent GetBossStaggeredEvent() => _bossStaggeredEvent;
     #endregion
 
     #region Setters

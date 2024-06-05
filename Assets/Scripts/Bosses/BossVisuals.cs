@@ -18,6 +18,7 @@ public class BossVisuals : BossChildrenFunctionality
     private IEnumerator LookAtProcess(Vector3 lookLocation)
     {
         float progress = 0;
+        Quaternion startingRotation = _visualObjectBase.transform.rotation;
         while (progress < 1)
         {
             progress += Time.deltaTime * _rotateSpeed ;
@@ -28,9 +29,12 @@ public class BossVisuals : BossChildrenFunctionality
             Quaternion toRotation = Quaternion.LookRotation(lookDir);
 
             _visualObjectBase.transform.rotation = Quaternion.Lerp
-                (_visualObjectBase.transform.rotation, toRotation, progress);
+                (startingRotation, toRotation, progress);
+            /*_visualObjectBase.transform.eulerAngles = new Vector3(0, 
+                Mathf.Lerp(_visualObjectBase.transform.eulerAngles.y,toRotation.eulerAngles.y,progress), 0);*/
 
             _visualObjectBase.transform.eulerAngles = new Vector3(0, _visualObjectBase.transform.eulerAngles.y, 0);
+
             yield return null;
         }
         

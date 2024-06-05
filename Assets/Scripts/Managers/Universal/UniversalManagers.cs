@@ -14,10 +14,17 @@ public class UniversalManagers : MonoBehaviour
         if(Instance == null)
         {
             Instance = this;
+            ConfirmedUniversalManager();
             return;
         }
 
         Destroy(gameObject);
+    }
+
+    private void ConfirmedUniversalManager()
+    {
+        foreach (BaseUniversalManager bgm in GetComponentsInChildren<BaseUniversalManager>())
+            bgm.SetupUniversalManager();
     }
 
     #region Get Managers

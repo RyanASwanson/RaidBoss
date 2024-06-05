@@ -5,13 +5,26 @@ using UnityEngine.Events;
 
 public class SelectionManager : BaseUniversalManager
 {
+    [Header("Difficulty")]
+    [Range(1, 2)] [SerializeField] private float _normalDamageMultiplier;
+    [Range(1, 2)] [SerializeField] private float _normalSpeedMultiplier;
+    [Space]
+    [Range(1, 2)] [SerializeField] private float _heroicDamageMultiplier;
+    [Range(1, 2)] [SerializeField] private float _heroicSpeedMultiplier;
+    [Space]
+    [Range(1, 2)] [SerializeField] private float _mythicDamageMultiplier;
+    [Range(1, 2)] [SerializeField] private float _mythicSpeedMultiplier;
+
+    private Dictionary<GameDifficulty, float> _difficultyDamageMultiplierDictionary = new();
+    private Dictionary<GameDifficulty, float> _difficultyAttackSpeedMultiplierDictionary = new();
+
     private LevelSO _selectedLevel;
     private BossSO _selectedBoss;
 
     private List<HeroSO> _selectedHeroes = new List<HeroSO>();
     private const int _maxHeroes = 5;
 
-    private GameDifficulty _currentGameDifficulty;
+    private GameDifficulty _currentGameDifficulty = GameDifficulty.Normal;
 
 
     private UnityEvent<BossSO> _bossSelectionEvent = new UnityEvent<BossSO>();
@@ -26,6 +39,23 @@ public class SelectionManager : BaseUniversalManager
     private UnityEvent<HeroSO> _heroHoveredOverEvent = new UnityEvent<HeroSO>();
     private UnityEvent<HeroSO> _heroNotHoveredOverEvent = new UnityEvent<HeroSO>();
 
+
+    public override void SetupUniversalManager()
+    {
+        SetupDifficultyDictionaries();
+    }
+
+    private void SetupDifficultyDictionaries()
+    {
+        _difficultyDamageMultiplierDictionary.Add(GameDifficulty.Normal, _normalDamageMultiplier);
+        _difficultyAttackSpeedMultiplierDictionary.Add(GameDifficulty.Normal, _normalSpeedMultiplier);
+
+        _difficultyDamageMultiplierDictionary.Add(GameDifficulty.Heroic, _heroicDamageMultiplier);
+        _difficultyAttackSpeedMultiplierDictionary.Add(GameDifficulty.Heroic, _heroicSpeedMultiplier);
+
+        _difficultyDamageMultiplierDictionary.Add(GameDifficulty.Mythic, _mythicDamageMultiplier);
+        _difficultyAttackSpeedMultiplierDictionary.Add(GameDifficulty.Mythic, _mythicSpeedMultiplier);
+    }
 
     public void RemoveSelectedLevel()
     {
@@ -130,6 +160,9 @@ public class SelectionManager : BaseUniversalManager
     #endregion
 
     #region Getters
+    public float GetDamageMultiplierFromDifficulty() => _difficultyDamageMultiplierDictionary[_currentGameDifficulty];
+    public float GetSpeedMultiplierFromDifficulty() => _difficultyAttackSpeedMultiplierDictionary[_currentGameDifficulty];
+
     public List<HeroSO> GetAllSelectedHeroes() => _selectedHeroes;
     public HeroSO GetHeroAtValue(int val) => _selectedHeroes[val];
     public int GetSelectedHeroesCount() => _selectedHeroes.Count;

@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneLoadManager : MonoBehaviour
+public class SceneLoadManager : BaseUniversalManager
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void SetupUniversalManager()
     {
-        
+
     }
 
     /// <summary>
