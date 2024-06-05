@@ -12,6 +12,8 @@ public class BossSO : ScriptableObject
     [SerializeField] private float _maxHP;
     [SerializeField] private float _baseStaggerMax;
 
+    [SerializeField] private float _staggerDuration;
+
     [SerializeField] private float _rotationSpeed;
 
     [Header("Prefabs")]
@@ -29,6 +31,8 @@ public class BossSO : ScriptableObject
     public string GetBossName() => _name;
     public float GetMaxHP() => _maxHP;
     public float GetBaseStaggerMax() => _baseStaggerMax;
+
+    public float GetStaggerDuration() => _staggerDuration;
 
     public float GetBossRotationSpeed() => _rotationSpeed;
 

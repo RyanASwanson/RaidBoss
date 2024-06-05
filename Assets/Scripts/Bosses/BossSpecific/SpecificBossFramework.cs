@@ -21,6 +21,8 @@ public abstract class SpecificBossFramework : MonoBehaviour
 
     private Coroutine _nextAttackProcess;
 
+    private Coroutine _preventAttacksCoroutine;
+
     #region Fight Start
     private void StartFight()
     {
@@ -186,10 +188,29 @@ public abstract class SpecificBossFramework : MonoBehaviour
         StartNextAbility();
     }
 
+    protected virtual void StopNextAttackProcess()
+    {
+        StopCoroutine(_nextAttackProcess);
+        _nextAttackProcess = null;
+    }
+
+    protected virtual IEnumerator StopBossAttackingForDuration(float stopDuration)
+    {
+        StopNextAttackProcess();
+        Debug.Log("stopbefore");
+        yield return new WaitForSeconds(stopDuration);
+        Debug.Log("stopafter");
+        StartNextAbility();
+    }
 
 
     #endregion
 
+    protected virtual void BossStaggerOccured()
+    {
+        _preventAttacksCoroutine = StartCoroutine(StopBossAttackingForDuration
+            (myBossBase.GetBossStats().GetStaggerDuration()));
+    }
 
     public virtual void SetupSpecificBoss(BossBase bossBase)
     {
@@ -203,6 +224,8 @@ public abstract class SpecificBossFramework : MonoBehaviour
         GameplayManagers.Instance.GetGameStateManager().GetStartOfBattleEvent().AddListener(StartFight);
 
         myBossBase.GetBossAbilityUsedEvent().AddListener(IterateRepitionCounter);
+
+        myBossBase.GetBossStaggeredEvent().AddListener(BossStaggerOccured);
     }
 
     #endregion

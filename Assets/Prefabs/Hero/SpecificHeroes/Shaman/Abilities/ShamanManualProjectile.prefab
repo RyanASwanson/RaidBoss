@@ -49,8 +49,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damageCollider: {fileID: 1061180217903511035}
+  _hasLifeTime: 0
+  _lifeTime: 0
   _enterDamage: 11
-  _enterStagger: 5
+  _enterStagger: 275
   _enterEvent:
     m_PersistentCalls:
       m_Calls:
@@ -66,8 +68,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  _stayDamagePerSecond: 0
-  _stayStaggerPerSecond: 0
+  _stayDamagePerTick: 0
+  _stayStaggerPerTick: 0
+  _stayDamageTickRate: 0
   _stayEvent:
     m_PersistentCalls:
       m_Calls: []

@@ -25,6 +25,7 @@ public class BossBase : MonoBehaviour
 
     private UnityEvent _bossDiedEvent = new UnityEvent();
     private UnityEvent _bossStaggeredEvent = new UnityEvent();
+    private UnityEvent _bossNoLongerStaggeredEvent = new UnityEvent();
 
     public void Setup(BossSO newSO)
     {
