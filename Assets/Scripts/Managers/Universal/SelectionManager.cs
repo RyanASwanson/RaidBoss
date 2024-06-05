@@ -15,7 +15,11 @@ public class SelectionManager : BaseUniversalManager
 
 
     private UnityEvent<BossSO> _bossSelectionEvent = new UnityEvent<BossSO>();
+    private UnityEvent<BossSO> _bossHoveredOverEvent = new UnityEvent<BossSO>();
+    private UnityEvent<BossSO> _bossNotHoveredOverEvent = new UnityEvent<BossSO>();
+
     private UnityEvent<GameDifficulty> _difficultySelectionEvent = new UnityEvent<GameDifficulty>();
+
     private UnityEvent<HeroSO> _heroSelectionEvent = new UnityEvent<HeroSO>();
     private UnityEvent<HeroSO> _heroDeselectionEvent = new UnityEvent<HeroSO>();
     private UnityEvent<HeroSO> _heroHoveredOverEvent = new UnityEvent<HeroSO>();
@@ -52,11 +56,11 @@ public class SelectionManager : BaseUniversalManager
 
     public void BossHoveredOver(BossSO bossSO)
     {
-
+        InvokeBossHoveredOverEvent(bossSO);
     }
     public void BossNotHoveredOver(BossSO bossSO)
     {
-
+        InvokeBossNotHoveredOverEvent(bossSO);
     }
     public void HeroHoveredOver(HeroSO heroSO)
     {
@@ -73,6 +77,14 @@ public class SelectionManager : BaseUniversalManager
     public void InvokeBossSelectionEvent(BossSO bossSO)
     {
         _bossSelectionEvent?.Invoke(bossSO);
+    }
+    public void InvokeBossHoveredOverEvent(BossSO bossSO)
+    {
+        _bossHoveredOverEvent?.Invoke(bossSO);
+    }
+    public void InvokeBossNotHoveredOverEvent(BossSO bossSO)
+    {
+        _bossNotHoveredOverEvent?.Invoke(bossSO);
     }
 
     public void InvokeDifficultySelectionEvent(GameDifficulty gameDifficulty)
@@ -110,7 +122,11 @@ public class SelectionManager : BaseUniversalManager
     public LevelSO GetSelectedLevel() => _selectedLevel;
 
     public UnityEvent<BossSO> GetBossSelectionEvent() => _bossSelectionEvent;
+    public UnityEvent<BossSO> GetBossHoveredOverEvent() => _bossHoveredOverEvent;
+    public UnityEvent<BossSO> GetBossNotHoveredOverEvent() => _bossNotHoveredOverEvent;
+
     public UnityEvent<GameDifficulty> GetDifficultySelectionEvent() => _difficultySelectionEvent;
+
     public UnityEvent<HeroSO> GetHeroSelectionEvent() => _heroSelectionEvent;
     public UnityEvent<HeroSO> GetHeroDeselectionEvent() => _heroDeselectionEvent;
     public UnityEvent<HeroSO> GetHeroHoveredOverEvent() => _heroHoveredOverEvent;

@@ -263,6 +263,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _associatedLevel: {fileID: 0}
   _iconVisuals: {fileID: 2565375756812779665}
+  _levelBossButton: {fileID: 2565375756812779678}
 --- !u!114 &7643825443177631905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -279,8 +280,32 @@ MonoBehaviour:
   - eventID: 0
     callback:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 2565375756812779667}
+          m_TargetAssemblyTypeName: SelectBossLevelButton, Assembly-CSharp
+          m_MethodName: SelectBossButtonHoverBegin
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   - eventID: 1
     callback:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 2565375756812779667}
+          m_TargetAssemblyTypeName: SelectBossLevelButton, Assembly-CSharp
+          m_MethodName: SelectBossButtonHoverEnd
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2

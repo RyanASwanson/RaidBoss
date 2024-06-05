@@ -31,6 +31,7 @@ public class HeroSO : ScriptableObject
     [Range(0,5)][SerializeField] private int _utilityStat;
 
     [SerializeField] private Color _heroHighlightedColor;
+    [SerializeField] private Color _heroPressedColor;
     [SerializeField] private Color _heroSelectedColor;
 
     #region Getters
@@ -53,5 +54,9 @@ public class HeroSO : ScriptableObject
     public int GetStaggerStat() => _staggerStat;
     public int GetSpeedStat() => _speedStat;
     public int GetUtilityStat() => _utilityStat;
+
+    public Color GetHeroHighlightedColor() => _heroHighlightedColor;
+    public Color GetHeroPressedColor() => _heroPressedColor;
+    public Color GetHeroSelectedColor() => _heroSelectedColor;
     #endregion
 }

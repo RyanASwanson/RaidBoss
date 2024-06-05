@@ -13,6 +13,7 @@ public class SelectHeroButton : MonoBehaviour
     [Space]
 
     [SerializeField] private Image _iconVisuals;
+    [SerializeField] private Button _heroButton;
     private bool _buttonHasBeenPressed = false;
 
     private Color _defaultColor;
@@ -27,6 +28,15 @@ public class SelectHeroButton : MonoBehaviour
     {
         _defaultColor = _iconVisuals.color;
         _iconVisuals.sprite = _associatedHero.GetHeroIcon();
+
+        //Get the colorblock for the button
+        ColorBlock colorVar = _heroButton.colors;
+        //Set the highlighted color for the button to be the hero highlighted color
+        colorVar.highlightedColor = _associatedHero.GetHeroHighlightedColor();
+        //Set the pressed color for the button to be the hero highlighted color
+        colorVar.pressedColor = _associatedHero.GetHeroPressedColor();
+        //Sets the colorblock for the button
+        _heroButton.colors = colorVar;
     }
     
     /// <summary>
@@ -60,10 +70,12 @@ public class SelectHeroButton : MonoBehaviour
     private void HeroSelect()
     {
         UniversalManagers.Instance.GetSelectionManager().AddNewSelectedHero(_associatedHero);
+        UpdateHeroIconColor(_associatedHero.GetHeroSelectedColor());
     }
 
     private void HeroDeselect()
     {
         UniversalManagers.Instance.GetSelectionManager().RemoveSpecificHero(_associatedHero);
+        UpdateHeroIconColor(_defaultColor);
     }
 }

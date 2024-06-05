@@ -13,7 +13,10 @@ public class SelectBossLevelButton : MonoBehaviour
     [Space]
 
     [SerializeField] private Image _iconVisuals;
+    [SerializeField] private Button _levelBossButton;
     private bool _buttonHasBeenPressed = false;
+
+    private Color _defaultColor;
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +26,17 @@ public class SelectBossLevelButton : MonoBehaviour
 
     private void SetButtonBossIconVisuals()
     {
+        _defaultColor = _iconVisuals.color;
         _iconVisuals.sprite = _associatedLevel.GetLevelBoss().GetBossIcon();
+
+        //Get the colorblock for the button
+        ColorBlock colorVar = _levelBossButton.colors;
+        //Set the highlighted color for the button to be the boss highlighted color
+        colorVar.highlightedColor = _associatedLevel.GetLevelBoss().GetBossHighlightedColor();
+        //Set the pressed color for the button to be the boss highlighted color
+        colorVar.pressedColor = _associatedLevel.GetLevelBoss().GetBossPressedColor();
+        //Sets the colorblock for the button
+        _levelBossButton.colors = colorVar;
     }
 
     /// <summary>

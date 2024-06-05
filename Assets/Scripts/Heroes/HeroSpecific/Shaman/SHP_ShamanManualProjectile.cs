@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Contains the functionality for the shaman manual projectile
+/// </summary>
 public class SHP_ShamanManualProjectile : HeroProjectileFramework
 {
     [SerializeField] private float _projectileSpeed;

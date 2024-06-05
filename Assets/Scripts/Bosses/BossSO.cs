@@ -14,11 +14,16 @@ public class BossSO : ScriptableObject
 
     [SerializeField] private float _rotationSpeed;
 
+    [Header("Prefabs")]
+    [SerializeField] private GameObject _bossPrefab;
+
     [Header("Visuals")]
     [SerializeField] private Sprite _bossIcon;
 
-    [Header("Prefabs")]
-    [SerializeField] private GameObject _bossPrefab;
+    [Header("Selection")]
+    [SerializeField] private Color _bossHighlightedColor;
+    [SerializeField] private Color _bossPressedColor;
+    [SerializeField] private Color _bossSelectedColor;
 
     #region Getters
     public string GetBossName() => _name;
@@ -27,8 +32,12 @@ public class BossSO : ScriptableObject
 
     public float GetBossRotationSpeed() => _rotationSpeed;
 
+    public GameObject GetBossPrefab() => _bossPrefab;
+
     public Sprite GetBossIcon() => _bossIcon;
 
-    public GameObject GetBossPrefab() => _bossPrefab;
+    public Color GetBossHighlightedColor() => _bossHighlightedColor;
+    public Color GetBossPressedColor() => _bossHighlightedColor;
+    public Color GetBossSelectedColor() => _bossSelectedColor;
     #endregion
 }

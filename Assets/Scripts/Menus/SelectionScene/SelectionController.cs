@@ -64,17 +64,20 @@ public class SelectionController : MonoBehaviour
 
     private void BossHoveredOver(BossSO bossSO)
     {
+        Debug.Log("BossHoveredOver");
         if (bossSO == _lastBossHoveredOver) return;
 
         _lastHeroHoveredOver = null;
         _lastBossHoveredOver = bossSO;
+
+        NewBossHoveredOver(bossSO);
     }
 
     private void NewBossHoveredOver(BossSO bossSO)
     {
         //Show boss description and hide hero description
         _bossDescription.SetActive(true);
-        _bossDescription.SetActive(false);
+        _heroDescription.SetActive(false);
 
         _bossNameText.text = bossSO.GetBossName();
         _bossNameBorder.text = bossSO.GetBossName();
@@ -207,6 +210,8 @@ public class SelectionController : MonoBehaviour
     private void SubscribeToEvents()
     {
         UniversalManagers.Instance.GetSelectionManager().GetBossSelectionEvent().AddListener(NewBossAdded);
+
+        UniversalManagers.Instance.GetSelectionManager().GetBossHoveredOverEvent().AddListener(BossHoveredOver);
 
         UniversalManagers.Instance.GetSelectionManager().GetHeroSelectionEvent().AddListener(NewHeroAdded);
         UniversalManagers.Instance.GetSelectionManager().GetHeroDeselectionEvent().AddListener(HeroRemoved);
