@@ -21,8 +21,11 @@ public class BossStats : BossChildrenFunctionality
 
     private void StatsSetup(BossSO bossSO)
     {
-        _bossMaxHealth = bossSO.GetMaxHP();
-        _bossDefaultStaggerMax = bossSO.GetBaseStaggerMax();
+        //Set the boss max health to be the max hp from the SO and multiplied by the difficulty modifier
+        _bossMaxHealth = bossSO.GetMaxHP() * 
+            UniversalManagers.Instance.GetSelectionManager().GetHealthMultiplierFromDifficulty();
+        _bossDefaultStaggerMax = bossSO.GetBaseStaggerMax() *
+            UniversalManagers.Instance.GetSelectionManager().GetStaggerMultiplierFromDifficulty();
 
         _currentHealth = _bossMaxHealth;
         _currentStaggerCounter = 0;
@@ -38,20 +41,44 @@ public class BossStats : BossChildrenFunctionality
             myBossBase.InvokeBossDiedEvent();
         }
     }
-
+    
+    /// <summary>
+    /// Checks if the boss is above their stagger cap
+    /// If they are the boss becomes staggered
+    /// </summary>
     private void CheckIfBossIsStaggered()
     {
         if (_currentStaggerCounter >= _bossDefaultStaggerMax)
         {
-            myBossBase.InvokeBossStaggeredEvent();
-            _bossStaggered = true;
+            BossStaggered();
         }
+    }
+
+    /// <summary>
+    /// Staggers the boss and shoots out the event
+    /// </summary>
+    private void BossStaggered()
+    {
+        _bossStaggered = true;
+        myBossBase.InvokeBossStaggeredEvent();
+    }
+
+    /// <summary>
+    /// Activated by event
+    /// Occurs when the boss stagger has run out
+    /// </summary>
+    private void BossNoLongerStaggered()
+    {
+        _bossStaggered = false;
+        _currentStaggerCounter = 0;
     }
     
     #region Events
     public override void SubscribeToEvents()
     {
         myBossBase.GetSOSetEvent().AddListener(BossSOAssigned);
+
+        myBossBase.GetBossNoLongerStaggeredEvent().AddListener(BossNoLongerStaggered);
     }
 
     private void BossSOAssigned(BossSO bossSO)

@@ -97,6 +97,10 @@ public class BossBase : MonoBehaviour
     {
         _bossStaggeredEvent?.Invoke();
     }
+    public void InvokeBossNoLongerStaggeredEvent()
+    {
+        _bossNoLongerStaggeredEvent.Invoke();
+    }
     #endregion
 
     #region Getters
@@ -119,6 +123,7 @@ public class BossBase : MonoBehaviour
 
     public UnityEvent GetBossDiedEvent() => _bossDiedEvent;
     public UnityEvent GetBossStaggeredEvent() => _bossStaggeredEvent;
+    public UnityEvent GetBossNoLongerStaggeredEvent() => _bossNoLongerStaggeredEvent;
     #endregion
 
     #region Setters

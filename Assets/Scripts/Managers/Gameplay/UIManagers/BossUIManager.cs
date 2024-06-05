@@ -66,6 +66,11 @@ public class BossUIManager : GameUIChildrenFunctionality
         CreateStaggerNumbers(stagger);
     }
 
+    private void ResetStaggerBar()
+    {
+        _staggerBar.fillAmount = 0;
+    }
+
     private void SetStaggerBarPercentage(float stagger)
     {
         _staggerBar.fillAmount = GameplayManagers.Instance.
@@ -118,5 +123,7 @@ public class BossUIManager : GameUIChildrenFunctionality
     {
         GameplayManagers.Instance.GetBossManager().GetBossBase().GetBossDamagedEvent().AddListener(BossTookDamage);
         GameplayManagers.Instance.GetBossManager().GetBossBase().GetBossStaggerDealtEvent().AddListener(BossTookStagger);
+        GameplayManagers.Instance.GetBossManager().GetBossBase().GetBossNoLongerStaggeredEvent()
+            .AddListener(ResetStaggerBar);
     }
 }

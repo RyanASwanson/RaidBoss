@@ -6,17 +6,25 @@ using UnityEngine.Events;
 public class SelectionManager : BaseUniversalManager
 {
     [Header("Difficulty")]
-    [Range(1, 2)] [SerializeField] private float _normalDamageMultiplier;
-    [Range(1, 2)] [SerializeField] private float _normalSpeedMultiplier;
+    [Range(1, 2.5f)] [SerializeField] private float _normalDamageMultiplier;
+    [Range(1, 2.5f)] [SerializeField] private float _normalSpeedMultiplier;
+    [Range(1, 2.5f)] [SerializeField] private float _normalHealthMultiplier;
+    [Range(1, 2.5f)] [SerializeField] private float _normalStaggerMultiplier;
     [Space]
-    [Range(1, 2)] [SerializeField] private float _heroicDamageMultiplier;
-    [Range(1, 2)] [SerializeField] private float _heroicSpeedMultiplier;
+    [Range(1, 2.5f)] [SerializeField] private float _heroicDamageMultiplier;
+    [Range(1, 2.5f)] [SerializeField] private float _heroicSpeedMultiplier;
+    [Range(1, 2.5f)] [SerializeField] private float _heroicHealthMultiplier;
+    [Range(1, 2.5f)] [SerializeField] private float _heroicStaggerMultiplier;
     [Space]
-    [Range(1, 2)] [SerializeField] private float _mythicDamageMultiplier;
-    [Range(1, 2)] [SerializeField] private float _mythicSpeedMultiplier;
+    [Range(1, 2.5f)] [SerializeField] private float _mythicDamageMultiplier;
+    [Range(1, 2.5f)] [SerializeField] private float _mythicSpeedMultiplier;
+    [Range(1, 2.5f)] [SerializeField] private float _mythicHealthMultiplier;
+    [Range(1, 2.5f)] [SerializeField] private float _mythicStaggerMultiplier;
 
     private Dictionary<GameDifficulty, float> _difficultyDamageMultiplierDictionary = new();
     private Dictionary<GameDifficulty, float> _difficultyAttackSpeedMultiplierDictionary = new();
+    private Dictionary<GameDifficulty, float> _difficultyHealthMultiplierDictionary = new();
+    private Dictionary<GameDifficulty, float> _difficultyStaggerMultiplierDictionary = new();
 
     private LevelSO _selectedLevel;
     private BossSO _selectedBoss;
@@ -49,12 +57,18 @@ public class SelectionManager : BaseUniversalManager
     {
         _difficultyDamageMultiplierDictionary.Add(GameDifficulty.Normal, _normalDamageMultiplier);
         _difficultyAttackSpeedMultiplierDictionary.Add(GameDifficulty.Normal, _normalSpeedMultiplier);
+        _difficultyHealthMultiplierDictionary.Add(GameDifficulty.Normal, _normalHealthMultiplier);
+        _difficultyStaggerMultiplierDictionary.Add(GameDifficulty.Normal, _normalStaggerMultiplier);
 
         _difficultyDamageMultiplierDictionary.Add(GameDifficulty.Heroic, _heroicDamageMultiplier);
         _difficultyAttackSpeedMultiplierDictionary.Add(GameDifficulty.Heroic, _heroicSpeedMultiplier);
+        _difficultyHealthMultiplierDictionary.Add(GameDifficulty.Heroic, _heroicHealthMultiplier);
+        _difficultyStaggerMultiplierDictionary.Add(GameDifficulty.Heroic, _heroicStaggerMultiplier);
 
         _difficultyDamageMultiplierDictionary.Add(GameDifficulty.Mythic, _mythicDamageMultiplier);
         _difficultyAttackSpeedMultiplierDictionary.Add(GameDifficulty.Mythic, _mythicSpeedMultiplier);
+        _difficultyHealthMultiplierDictionary.Add(GameDifficulty.Mythic, _mythicHealthMultiplier);
+        _difficultyStaggerMultiplierDictionary.Add(GameDifficulty.Mythic, _mythicStaggerMultiplier);
     }
 
     public void RemoveSelectedLevel()
@@ -162,6 +176,8 @@ public class SelectionManager : BaseUniversalManager
     #region Getters
     public float GetDamageMultiplierFromDifficulty() => _difficultyDamageMultiplierDictionary[_currentGameDifficulty];
     public float GetSpeedMultiplierFromDifficulty() => _difficultyAttackSpeedMultiplierDictionary[_currentGameDifficulty];
+    public float GetHealthMultiplierFromDifficulty() => _difficultyHealthMultiplierDictionary[_currentGameDifficulty];
+    public float GetStaggerMultiplierFromDifficulty() => _difficultyHealthMultiplierDictionary[_currentGameDifficulty];
 
     public List<HeroSO> GetAllSelectedHeroes() => _selectedHeroes;
     public HeroSO GetHeroAtValue(int val) => _selectedHeroes[val];

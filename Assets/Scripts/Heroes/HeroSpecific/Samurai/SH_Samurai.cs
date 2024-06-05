@@ -13,8 +13,6 @@ public class SH_Samurai : SpecificHeroFramework
     [SerializeField] float _manualAbilityParryStagger;
     [SerializeField] float _parryBonusIFrames;
 
-    private bool _isParrying;
-
     private Coroutine _parryCoroutine;
 
     #region Basic Abilities
@@ -73,14 +71,12 @@ public class SH_Samurai : SpecificHeroFramework
 
     private void StartParry()
     {
-        _isParrying = true;
         myHeroBase.GetHeroStats().AddDamageTakenOverrideCounter();
         myHeroBase.GetHeroDamagedOverrideEvent().AddListener(ParryAttack);
     }
 
     private void EndParry()
     {
-        _isParrying = false;
         myHeroBase.GetHeroStats().RemoveDamageTakenOverrideCounter();
         myHeroBase.GetHeroDamagedOverrideEvent().RemoveListener(ParryAttack);
     }
@@ -89,7 +85,6 @@ public class SH_Samurai : SpecificHeroFramework
     {
         StopCoroutine(_parryCoroutine);
         _parryCoroutine = null;
-        _isParrying = false;
         myHeroBase.GetHeroStats().RemoveDamageTakenOverrideCounter();
         myHeroBase.GetHeroDamagedOverrideEvent().RemoveListener(ParryAttack);
     }

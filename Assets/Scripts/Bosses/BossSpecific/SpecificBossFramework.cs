@@ -194,13 +194,13 @@ public abstract class SpecificBossFramework : MonoBehaviour
         _nextAttackProcess = null;
     }
 
-    protected virtual IEnumerator StopBossAttackingForDuration(float stopDuration)
+    protected virtual IEnumerator StaggerBossForDuration(float stopDuration)
     {
         StopNextAttackProcess();
-        Debug.Log("stopbefore");
         yield return new WaitForSeconds(stopDuration);
-        Debug.Log("stopafter");
         StartNextAbility();
+
+        myBossBase.InvokeBossNoLongerStaggeredEvent();
     }
 
 
@@ -208,7 +208,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
 
     protected virtual void BossStaggerOccured()
     {
-        _preventAttacksCoroutine = StartCoroutine(StopBossAttackingForDuration
+        _preventAttacksCoroutine = StartCoroutine(StaggerBossForDuration
             (myBossBase.GetBossStats().GetStaggerDuration()));
     }
 
