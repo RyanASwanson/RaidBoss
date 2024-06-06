@@ -6,6 +6,9 @@ public class HeroVisuals : HeroChildrenFunctionality
 {
     [SerializeField] private MeshRenderer _controlIcon;
 
+    [SerializeField] private RectTransform _damageNumbersOrigin;
+    [SerializeField] private RectTransform _healingNumbersOrigin;
+
     public override void ChildFuncSetup(HeroBase heroBase)
     {
         base.ChildFuncSetup(heroBase);
@@ -47,4 +50,8 @@ public class HeroVisuals : HeroChildrenFunctionality
     }
     #endregion
 
+    #region Getters
+    public RectTransform GetDamageNumbersOrigin() => _damageNumbersOrigin;
+    public RectTransform GetHealingNumbersOrigin() => _healingNumbersOrigin;
+    #endregion
 }

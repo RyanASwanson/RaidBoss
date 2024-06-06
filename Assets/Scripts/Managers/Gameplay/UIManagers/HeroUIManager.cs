@@ -23,6 +23,16 @@ public class HeroUIManager : GameUIChildrenFunctionality
 
     private HeroBase _associatedHeroBase;
 
+    [Header("HeroWorldCanvas")]
+    [SerializeField] private GameObject _damageNumber;
+    [Space]
+    [SerializeField] private float _damageNumbersXVariance;
+
+    private RectTransform _damageNumbersOrigin;
+    private RectTransform _healingNumbersOrigin;
+
+    private const string _damageHealingWeakAnimTrigger = "WeakDamage";
+
 
     public void AssignSpecificHero(HeroBase heroBase)
     {
@@ -34,12 +44,13 @@ public class HeroUIManager : GameUIChildrenFunctionality
 
     private void GeneralSetup()
     {
-
+        _damageNumbersOrigin = _associatedHeroBase.GetHeroVisuals().GetDamageNumbersOrigin();
     }
 
     private void AssociatedHeroTookDamage(float damageTaken)
     {
         SetHealthBarPercent(_associatedHeroBase.GetHeroStats().GetHeroHealthPercentage());
+        CreateDamageNumbers(damageTaken);
     }
 
     private void AssociatedHeroTookHealing(float healingTaken)
@@ -60,6 +71,28 @@ public class HeroUIManager : GameUIChildrenFunctionality
     private void SetHeroManualAbilityCharge(float percent)
     {
         _associatedHeroManualAbilityChargeBar.fillAmount = percent;
+    }
+
+    private void CreateDamageNumbers(float damage)
+    {
+        GameObject newDamageNumber = Instantiate(_damageNumber, _damageNumbersOrigin);
+
+        newDamageNumber.GetComponentInChildren<Text>().text = damage.ToString();
+        newDamageNumber.GetComponentInChildren<TMP_Text>().text = damage.ToString();
+
+        AddSpawnVarianceToDamageHealingNumber(newDamageNumber);
+
+        /*if (damage >= _strongDamage)
+            newDamageNumber.GetComponent<Animator>().SetTrigger(_damageStrongAnimTrigger);
+        else if (damage >= _averageDamage)
+            newDamageNumber.GetComponent<Animator>().SetTrigger(_damageAverageAnimTrigger);
+        else*/
+        newDamageNumber.GetComponent<Animator>().SetTrigger(_damageHealingWeakAnimTrigger);
+    }
+
+    private void AddSpawnVarianceToDamageHealingNumber(GameObject number)
+    {
+        number.transform.position += new Vector3(Random.Range(-_damageNumbersXVariance, _damageNumbersXVariance), 0, 0);
     }
 
     public override void ChildFuncSetup()
