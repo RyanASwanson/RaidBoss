@@ -28,6 +28,10 @@ public class SelectionController : MonoBehaviour
     [SerializeField] private List<Image> _speedCounters;
     [SerializeField] private List<Image> _utilityCounters;
 
+    [SerializeField] private Image _heroBasicIcon;
+    [SerializeField] private Image _heroManualIcon;
+    [SerializeField] private Image _heroPassiveIcon;
+
     private BossSO _lastBossHoveredOver;
     private HeroSO _lastHeroHoveredOver;
 
@@ -104,6 +108,7 @@ public class SelectionController : MonoBehaviour
 
     private void NewHeroHoveredOver(HeroSO heroSO)
     {
+        
         //Show hero description and hide boss description
         _bossDescription.SetActive(false);
         _heroDescription.SetActive(true);
@@ -114,6 +119,8 @@ public class SelectionController : MonoBehaviour
 
         //Displays all stats associated for the hero on the counters
         DisplayStatsForHero(heroSO);
+
+        DisplayAbilityIconsForHero(heroSO);
 
         int heroPillarNum = UniversalManagers.Instance.GetSelectionManager().GetSelectedHeroesCount();
 
@@ -127,6 +134,13 @@ public class SelectionController : MonoBehaviour
         ShowStatCounter(_staggerCounters, heroSO.GetStaggerStat());
         ShowStatCounter(_speedCounters, heroSO.GetSpeedStat());
         ShowStatCounter(_utilityCounters, heroSO.GetUtilityStat());
+    }
+
+    private void DisplayAbilityIconsForHero(HeroSO heroSO)
+    {
+        _heroBasicIcon.sprite = heroSO.GetHeroBasicAbilityIcon();
+        _heroManualIcon.sprite = heroSO.GetHeroManualAbilityIcon();
+        _heroPassiveIcon.sprite = heroSO.GetHeroPassiveAbilityIcon();
     }
     
     private void ShowStatCounter(List<Image> statCounters, int statNumber)
