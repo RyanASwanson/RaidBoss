@@ -13,16 +13,16 @@ using TMPro;
 public class BossUIManager : GameUIChildrenFunctionality
 {
     [Header("BossHealthBar")]
-    [SerializeField] private Image _healthRecentBar;
-    [SerializeField] private Image _healthBar;
+    [SerializeField] private List<Image> _healthRecentBar;
+    [SerializeField] private List<Image> _healthBars;
 
     [SerializeField] private float _timeForRecentHealthDrainStart;
 
     private Coroutine _startHealthBarDrainCoroutine;
 
     [Header("BossStaggerBar")]
-    [SerializeField] private Image _staggerRecentBar;
-    [SerializeField] private Image _staggerBar;
+    [SerializeField] private List<Image> _staggerRecentBar;
+    [SerializeField] private List<Image> _staggerBars;
 
     [SerializeField] private float _timeForRecentStaminaDrainStart;
 
@@ -56,8 +56,13 @@ public class BossUIManager : GameUIChildrenFunctionality
 
     private void SetHealthBarPercentage(float damage)
     {
-        _healthBar.fillAmount = GameplayManagers.Instance.
-            GetBossManager().GetBossBase().GetBossStats().GetBossHealthPercentage();
+        float fillPercent = GameplayManagers.Instance.
+                GetBossManager().GetBossBase().GetBossStats().GetBossHealthPercentage();
+
+        foreach (Image bar in _healthBars)
+        {
+            bar.fillAmount = fillPercent;
+        }
     }
 
     private void BossTookStagger(float stagger)
@@ -68,13 +73,18 @@ public class BossUIManager : GameUIChildrenFunctionality
 
     private void ResetStaggerBar()
     {
-        _staggerBar.fillAmount = 0;
+        foreach (Image bar in _staggerBars)
+            bar.fillAmount = 0;
     }
 
     private void SetStaggerBarPercentage(float stagger)
     {
-        _staggerBar.fillAmount = GameplayManagers.Instance.
-            GetBossManager().GetBossBase().GetBossStats().GetBossStaggerPercentage();
+        float fillPercent = GameplayManagers.Instance.
+                GetBossManager().GetBossBase().GetBossStats().GetBossStaggerPercentage();
+        foreach (Image bar in _staggerBars)
+        {
+            bar.fillAmount = fillPercent;
+        }
     }
 
     private void CreateDamageNumbers(float damage)
