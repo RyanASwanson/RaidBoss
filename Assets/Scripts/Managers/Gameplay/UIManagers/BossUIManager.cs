@@ -22,12 +22,13 @@ public class BossUIManager : GameUIChildrenFunctionality
     private Coroutine _startHealthBarDrainCoroutine;
 
     [Header("BossStaggerBar")]
-    [SerializeField] private List<Image> _staggerRecentBar;
+    [SerializeField] private List<Image> _staggerRecentBars;
     [SerializeField] private List<Image> _staggerBars;
 
-    [SerializeField] private float _timeForRecentStaminaDrainStart;
+    [SerializeField] private float _timeForRecentStaggerDrainStart;
+    [SerializeField] private float _recentStaggerDrainPercentPerSecond;
 
-    private Coroutine _startStaminaBarDrainCoroutine;
+    private Coroutine _startStaggerBarDrainCoroutine;
 
     [Space]
     [Header("BossWorldCanvas")]
@@ -105,6 +106,7 @@ public class BossUIManager : GameUIChildrenFunctionality
     private void BossTookStagger(float stagger)
     {
         SetStaggerBarPercentage(stagger);
+        StartRecentStaggerBarDrain();
         CreateStaggerNumbers(stagger);
     }
 
@@ -121,6 +123,39 @@ public class BossUIManager : GameUIChildrenFunctionality
         foreach (Image bar in _staggerBars)
         {
             bar.fillAmount = fillPercent;
+        }
+    }
+
+    private void StartRecentStaggerBarDrain()
+    {
+        if (_startStaggerBarDrainCoroutine != null)
+            StopCoroutine(_startStaggerBarDrainCoroutine);
+
+        _startStaggerBarDrainCoroutine = StartCoroutine(RecentStaggerBarDrain());
+    }
+
+    private IEnumerator RecentStaggerBarDrain()
+    {
+        yield return new WaitForSeconds(_timeForRecentStaggerDrainStart);
+
+        float currentFill = _staggerRecentBars[0].fillAmount;
+        float targetFill = _staggerBars[0].fillAmount;
+
+        while (currentFill < targetFill)
+        {
+            currentFill += _recentStaggerDrainPercentPerSecond * Time.deltaTime;
+            SetRecentStaggerBarPercentage(currentFill);
+            yield return null;
+        }
+
+        _startStaggerBarDrainCoroutine = null;
+    }
+
+    private void SetRecentStaggerBarPercentage(float newFillAmount)
+    {
+        foreach (Image bar in _staggerRecentBars)
+        {
+            bar.fillAmount = newFillAmount;
         }
     }
 
