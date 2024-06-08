@@ -44,11 +44,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33a4b5d4a7885ba4db9098912fb56cb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healthRecentBar: {fileID: 0}
-  _healthBar: {fileID: 0}
+  _healthRecentBar:
+  - {fileID: 0}
+  - {fileID: 0}
+  _healthBars:
+  - {fileID: 0}
+  - {fileID: 0}
   _timeForRecentHealthDrainStart: 2
-  _staggerRecentBar: {fileID: 0}
-  _staggerBar: {fileID: 0}
+  _staggerRecentBar:
+  - {fileID: 0}
+  - {fileID: 0}
+  _staggerBars:
+  - {fileID: 0}
+  - {fileID: 0}
   _timeForRecentStaminaDrainStart: 2
   _damageNumbersOrigin: {fileID: 0}
   _damageNumber: {fileID: 6326443314085953860, guid: 25457b0b01ddcfb49a04782df07d0888, type: 3}
