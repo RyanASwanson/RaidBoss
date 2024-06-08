@@ -27,6 +27,10 @@ public class BossBase : MonoBehaviour
     private UnityEvent _bossStaggeredEvent = new UnityEvent();
     private UnityEvent _bossNoLongerStaggeredEvent = new UnityEvent();
 
+    protected UnityEvent _bossReachedHalfHealthEvent = new UnityEvent();
+    protected UnityEvent _bossReachedQuarterHealthEvent = new UnityEvent();
+    protected UnityEvent _bossReachedTenthHealthEvent = new UnityEvent();
+
     public void Setup(BossSO newSO)
     {
         CreateBossPrefab(newSO);
@@ -101,6 +105,19 @@ public class BossBase : MonoBehaviour
     {
         _bossNoLongerStaggeredEvent.Invoke();
     }
+
+    public void InvokeBossHalfHealthEvent()
+    {
+        _bossReachedHalfHealthEvent?.Invoke();
+    }
+    public void InvokeBossQuarterHealthEvent()
+    {
+        _bossReachedQuarterHealthEvent?.Invoke();
+    }
+    public void InvokeBossTenthHealthEvent()
+    {
+        _bossReachedTenthHealthEvent?.Invoke();
+    }
     #endregion
 
     #region Getters
@@ -124,6 +141,10 @@ public class BossBase : MonoBehaviour
     public UnityEvent GetBossDiedEvent() => _bossDiedEvent;
     public UnityEvent GetBossStaggeredEvent() => _bossStaggeredEvent;
     public UnityEvent GetBossNoLongerStaggeredEvent() => _bossNoLongerStaggeredEvent;
+
+    public UnityEvent GetBossHalfHealthEvent() => _bossReachedHalfHealthEvent;
+    public UnityEvent GetBossQuarterHealthEvent() => _bossReachedQuarterHealthEvent;
+    public UnityEvent GetBossTenthHealthEvent() => _bossReachedTenthHealthEvent;
     #endregion
 
     #region Setters

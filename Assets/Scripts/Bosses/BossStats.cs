@@ -72,13 +72,44 @@ public class BossStats : BossChildrenFunctionality
         _bossStaggered = false;
         _currentStaggerCounter = 0;
     }
-    
+
+    private void CheckBossIsUnderHalf(float damage)
+    {
+        if(GetBossHealthPercentage() < .5f)
+        {
+            myBossBase.InvokeBossHalfHealthEvent();
+            myBossBase.GetBossDamagedEvent().RemoveListener(CheckBossIsUnderHalf);
+            myBossBase.GetBossDamagedEvent().AddListener(CheckBossIsUnderQuarter);
+        }
+    }
+
+    private void CheckBossIsUnderQuarter(float damage)
+    {
+        if (GetBossHealthPercentage() < .25f)
+        {
+            myBossBase.InvokeBossQuarterHealthEvent();
+            myBossBase.GetBossDamagedEvent().RemoveListener(CheckBossIsUnderQuarter);
+            myBossBase.GetBossDamagedEvent().AddListener(CheckBossIsUnderTenth);
+        }
+    }
+
+    private void CheckBossIsUnderTenth(float damage)
+    {
+        if (GetBossHealthPercentage() < .1f)
+        {
+            myBossBase.InvokeBossTenthHealthEvent();
+            myBossBase.GetBossDamagedEvent().RemoveListener(CheckBossIsUnderTenth);
+        }
+    }
+
     #region Events
     public override void SubscribeToEvents()
     {
         myBossBase.GetSOSetEvent().AddListener(BossSOAssigned);
 
         myBossBase.GetBossNoLongerStaggeredEvent().AddListener(BossNoLongerStaggered);
+
+        myBossBase.GetBossDamagedEvent().AddListener(CheckBossIsUnderHalf);
     }
 
     private void BossSOAssigned(BossSO bossSO)
