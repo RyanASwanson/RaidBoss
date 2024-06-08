@@ -13,10 +13,11 @@ using TMPro;
 public class BossUIManager : GameUIChildrenFunctionality
 {
     [Header("BossHealthBar")]
-    [SerializeField] private List<Image> _healthRecentBar;
+    [SerializeField] private List<Image> _healthRecentBars;
     [SerializeField] private List<Image> _healthBars;
 
     [SerializeField] private float _timeForRecentHealthDrainStart;
+    [SerializeField] private float _recentHealthDrainPercentPerSecond;
 
     private Coroutine _startHealthBarDrainCoroutine;
 
@@ -50,7 +51,10 @@ public class BossUIManager : GameUIChildrenFunctionality
 
     private void BossTookDamage(float damage)
     {
+
         SetHealthBarPercentage(damage);
+        StartRecentHealthBarDrain();
+
         CreateDamageNumbers(damage);
     }
 
@@ -62,6 +66,39 @@ public class BossUIManager : GameUIChildrenFunctionality
         foreach (Image bar in _healthBars)
         {
             bar.fillAmount = fillPercent;
+        }
+    }
+
+    private void StartRecentHealthBarDrain()
+    {
+        if (_startHealthBarDrainCoroutine != null)
+            StopCoroutine(_startHealthBarDrainCoroutine);
+
+        _startHealthBarDrainCoroutine = StartCoroutine(RecentHealthBarDrain());
+    }
+
+    private IEnumerator RecentHealthBarDrain()
+    {
+        yield return new WaitForSeconds(_timeForRecentHealthDrainStart);
+
+        float currentFill = _healthRecentBars[0].fillAmount;
+        float targetFill = _healthBars[0].fillAmount;
+
+        while (currentFill > targetFill)
+        {
+            currentFill -= _recentHealthDrainPercentPerSecond * Time.deltaTime;
+            SetRecentHealthBarPercentage(currentFill);
+            yield return null;
+        }
+
+        _startHealthBarDrainCoroutine = null;
+    }
+
+    private void SetRecentHealthBarPercentage(float newFillAmount)
+    {
+        foreach (Image bar in _healthRecentBars)
+        {
+            bar.fillAmount = newFillAmount;
         }
     }
 
