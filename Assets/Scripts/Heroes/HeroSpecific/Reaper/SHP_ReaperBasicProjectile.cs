@@ -5,6 +5,7 @@ using UnityEngine;
 public class SHP_ReaperBasicProjectile : HeroProjectileFramework 
 {
     [SerializeField] private float _projectileSpeed;
+    [SerializeField] private float _projectileYSpinSpeed;
     [SerializeField] private Vector2 _movementVariability;
 
     [Space]
@@ -19,6 +20,7 @@ public class SHP_ReaperBasicProjectile : HeroProjectileFramework
     public void AdditionalSetup()
     {
         StartCoroutine(MoveProjectile(_projectileSpeed,_movementVariability));
+        StartCoroutine(RotateProjectile(_projectileYSpinSpeed));
     }
 
     /// <summary>
@@ -41,6 +43,15 @@ public class SHP_ReaperBasicProjectile : HeroProjectileFramework
             zPos = Mathf.Sin(2 * time) / 2;
             _childObject.transform.localPosition = new Vector3((xPos * movementVariability.x),
                 _ownerHeroBase.transform.position.y, (zPos * movementVariability.y));
+            yield return null;
+        }
+    }
+
+    private IEnumerator RotateProjectile(float rotateSpeed)
+    {
+        while(true)
+        {
+            _childObject.transform.eulerAngles += new Vector3(0, rotateSpeed, 0) * Time.deltaTime;
             yield return null;
         }
     }
