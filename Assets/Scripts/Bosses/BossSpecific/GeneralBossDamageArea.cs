@@ -61,7 +61,7 @@ public class GeneralBossDamageArea : MonoBehaviour
 
     private void DealDamage(HeroBase heroBase, float abilityDamage)
     {
-        if (abilityDamage >= 0)
+        if (abilityDamage > 0)
             heroBase.GetHeroStats().DealDamageToHero(abilityDamage * UniversalManagers.Instance.
                 GetSelectionManager().GetSpeedMultiplierFromDifficulty());
     }
