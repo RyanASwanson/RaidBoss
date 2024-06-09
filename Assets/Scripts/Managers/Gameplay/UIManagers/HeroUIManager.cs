@@ -78,7 +78,7 @@ public class HeroUIManager : GameUIChildrenFunctionality
 
     private void SetHeroManualAbilityCharge(float percent)
     {
-        _associatedHeroManualAbilityChargeBar.fillAmount = percent;
+        _associatedHeroManualAbilityChargeBar.fillAmount = 1- percent;
     }
 
     private void CreateDamageNumbers(float damage)
