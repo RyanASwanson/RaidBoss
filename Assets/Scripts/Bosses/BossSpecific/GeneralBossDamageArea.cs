@@ -62,8 +62,8 @@ public class GeneralBossDamageArea : MonoBehaviour
     private void DealDamage(HeroBase heroBase, float abilityDamage)
     {
         if (abilityDamage > 0)
-            heroBase.GetHeroStats().DealDamageToHero(abilityDamage * UniversalManagers.Instance.
-                GetSelectionManager().GetSpeedMultiplierFromDifficulty());
+            heroBase.GetHeroStats().DealDamageToHero(abilityDamage * GameplayManagers.Instance.
+                GetBossManager().GetBossBase().GetBossStats().GetBossDamageMultiplier());
     }
 
     public void ToggleProjectileCollider(bool colliderEnabled)

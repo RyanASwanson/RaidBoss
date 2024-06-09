@@ -212,6 +212,11 @@ public abstract class SpecificBossFramework : MonoBehaviour
             (myBossBase.GetBossStats().GetStaggerDuration()));
     }
 
+    protected virtual void UnlockNewAbility()
+    {
+
+    }
+
     public virtual void SetupSpecificBoss(BossBase bossBase)
     {
         myBossBase = bossBase;

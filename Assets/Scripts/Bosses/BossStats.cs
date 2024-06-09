@@ -17,7 +17,13 @@ public class BossStats : BossChildrenFunctionality
 
     private float _bossStaggerDuration;
 
+    private float _bossDamageIncrementMultiplier;
+
     private bool _bossStaggered = false;
+
+    private float _bossDamageMultiplier = 1;
+
+   
 
     private void StatsSetup(BossSO bossSO)
     {
@@ -31,6 +37,11 @@ public class BossStats : BossChildrenFunctionality
         _currentStaggerCounter = 0;
 
         _bossStaggerDuration = bossSO.GetStaggerDuration();
+
+        _bossDamageIncrementMultiplier = bossSO.GetBossDamageIncrementMultiplier();
+
+        _bossDamageMultiplier = UniversalManagers.Instance.
+                GetSelectionManager().GetDamageMultiplierFromDifficulty();
     }
 
     private void CheckIfBossIsDead()
@@ -78,6 +89,8 @@ public class BossStats : BossChildrenFunctionality
         if(GetBossHealthPercentage() < .5f)
         {
             myBossBase.InvokeBossHalfHealthEvent();
+            IncreaseBossStatsAtHealthThreshholds();
+
             myBossBase.GetBossDamagedEvent().RemoveListener(CheckBossIsUnderHalf);
             myBossBase.GetBossDamagedEvent().AddListener(CheckBossIsUnderQuarter);
         }
@@ -88,6 +101,8 @@ public class BossStats : BossChildrenFunctionality
         if (GetBossHealthPercentage() < .25f)
         {
             myBossBase.InvokeBossQuarterHealthEvent();
+            IncreaseBossStatsAtHealthThreshholds();
+
             myBossBase.GetBossDamagedEvent().RemoveListener(CheckBossIsUnderQuarter);
             myBossBase.GetBossDamagedEvent().AddListener(CheckBossIsUnderTenth);
         }
@@ -98,8 +113,15 @@ public class BossStats : BossChildrenFunctionality
         if (GetBossHealthPercentage() < .1f)
         {
             myBossBase.InvokeBossTenthHealthEvent();
+            IncreaseBossStatsAtHealthThreshholds();
+
             myBossBase.GetBossDamagedEvent().RemoveListener(CheckBossIsUnderTenth);
         }
+    }
+
+    protected virtual void IncreaseBossStatsAtHealthThreshholds()
+    {
+        myBossBase.GetBossStats().MultiplyBossDamageMultiplier(_bossDamageIncrementMultiplier);
     }
 
     #region Events
@@ -128,6 +150,8 @@ public class BossStats : BossChildrenFunctionality
     public float GetBossStaggerPercentage() => _currentStaggerCounter / _bossDefaultStaggerMax;
 
     public float GetStaggerDuration() => _bossStaggerDuration;
+
+    public float GetBossDamageMultiplier() => _bossDamageMultiplier;
     #endregion
 
     #region Setters
@@ -145,6 +169,11 @@ public class BossStats : BossChildrenFunctionality
         _currentStaggerCounter += stagger;
         myBossBase.InvokeBossStaggerDealt(stagger);
         CheckIfBossIsStaggered();
+    }
+
+    public void MultiplyBossDamageMultiplier(float amount)
+    {
+        _bossDamageMultiplier *= amount;
     }
     #endregion
 }
