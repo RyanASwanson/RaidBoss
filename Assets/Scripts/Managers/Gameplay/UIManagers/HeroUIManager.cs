@@ -39,12 +39,20 @@ public class HeroUIManager : GameUIChildrenFunctionality
         _associatedHeroBase = heroBase;
 
         GeneralSetup();
+        SetUpHeroIcons();
         SubscribeToEvents();
     }
 
     private void GeneralSetup()
     {
         _damageNumbersOrigin = _associatedHeroBase.GetHeroVisuals().GetDamageNumbersOrigin();
+    }
+
+    private void SetUpHeroIcons()
+    {
+        HeroSO heroSO = _associatedHeroBase.GetHeroSO();
+        _associatedHeroIcon.sprite = heroSO.GetHeroIcon();
+        _associatedHeroManualAbilityIcon.sprite = heroSO.GetHeroManualAbilityIcon();
     }
 
     private void AssociatedHeroTookDamage(float damageTaken)
