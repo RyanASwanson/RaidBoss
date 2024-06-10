@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 3036980777064200824}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5664164488150799725}
@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 3036980777955802487}
   - component: {fileID: 8707996497148491200}
   - component: {fileID: 5210636693036678854}
+  - component: {fileID: 4592040662282795275}
   m_Layer: 0
   m_Name: ShamanBasicProjectile
   m_TagString: Untagged
@@ -114,6 +115,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!95 &4592040662282795275
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3036980777955802489}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3cb52f9033412894aafead1140caa4ca, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3036980778436170516
 GameObject:
   m_ObjectHideFlags: 0
@@ -157,7 +179,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.5, z: 8.2}
+  m_Size: {x: 1, y: 1, z: 8.3}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &5066274259774258205
 PrefabInstance:
