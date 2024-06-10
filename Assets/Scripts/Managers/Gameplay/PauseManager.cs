@@ -23,11 +23,13 @@ public class PauseManager : BaseGameplayManager
     private void PauseGame()
     {
         InvokeGamePausedEvent();
+        Time.timeScale = 0;
     }
 
     private void UnpauseGame()
     {
         InvokeGameUnpausedEvent();
+        Time.timeScale = 1;
     }
 
     private void InvokeGamePausedEvent()
@@ -48,8 +50,8 @@ public class PauseManager : BaseGameplayManager
     #region Getters
     public bool GetGamePaused() => _gamePaused;
 
-    public UnityEvent GetGamePausedEvent = new UnityEvent();
-    public UnityEvent GetgameUnpausedEvent = new UnityEvent();
+    public UnityEvent GetGamePausedEvent() => _gamePausedEvent;
+    public UnityEvent GetGameUnpausedEvent() => _gameUnpausedEvent;
     #endregion
 
     #region Setters

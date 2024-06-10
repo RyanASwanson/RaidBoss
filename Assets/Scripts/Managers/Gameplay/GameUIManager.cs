@@ -11,6 +11,8 @@ public class GameUIManager : BaseGameplayManager
 
     [SerializeField] private List<HeroUIManager> _heroUIManagers;
 
+    //[SerializeField] private
+
     private int _heroUIManagersAssigned = 0;
 
     public override void SetupGameplayManager()

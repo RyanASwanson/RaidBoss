@@ -105,7 +105,6 @@ public class HeroUIManager : GameUIChildrenFunctionality
 
     private void CreateHealingNumbers(float healing)
     {
-        Debug.Log("log");
         GameObject newHealingNumber = Instantiate(_healingNumber, _healingNumbersOrigin);
 
         healing = Mathf.RoundToInt(healing);
@@ -129,7 +128,7 @@ public class HeroUIManager : GameUIChildrenFunctionality
 
     public override void ChildFuncSetup()
     {
-        
+        //base.ChildFuncSetup();
     }
 
     public override void SubscribeToEvents()
