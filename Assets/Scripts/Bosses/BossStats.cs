@@ -48,8 +48,7 @@ public class BossStats : BossChildrenFunctionality
     {
         if(_currentHealth <= 0)
         {
-            Debug.Log("BossDead");
-            myBossBase.InvokeBossDiedEvent();
+            GameplayManagers.Instance.GetGameStateManager().SetGameplayState(GameplayStates.PostBattleWon);
         }
     }
     

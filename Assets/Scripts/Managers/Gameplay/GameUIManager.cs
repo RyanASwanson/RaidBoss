@@ -11,7 +11,9 @@ public class GameUIManager : BaseGameplayManager
 
     [SerializeField] private List<HeroUIManager> _heroUIManagers;
 
-    //[SerializeField] private
+    [SerializeField] private PauseUIManager _pauseUIManager;
+
+    [SerializeField] private GameStateUIManager _gameStateUIManager;
 
     private int _heroUIManagersAssigned = 0;
 
@@ -39,6 +41,8 @@ public class GameUIManager : BaseGameplayManager
     #region Getters
     public BossUIManager GetBossUIManager() => _bossUIManager;
     public HeroUIManager GetHeroUIManagerAt(int pos) => _heroUIManagers[pos];
+    public PauseUIManager GetPauseManager() => _pauseUIManager;
+    public GameStateUIManager GetGameStateUIManager() => _gameStateUIManager;
     #endregion
 
     #region Setters

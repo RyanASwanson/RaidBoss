@@ -23,7 +23,6 @@ public class BossBase : MonoBehaviour
 
     protected UnityEvent _bossAbilityUsedEvent = new UnityEvent();
 
-    private UnityEvent _bossDiedEvent = new UnityEvent();
     private UnityEvent _bossStaggeredEvent = new UnityEvent();
     private UnityEvent _bossNoLongerStaggeredEvent = new UnityEvent();
 
@@ -91,11 +90,6 @@ public class BossBase : MonoBehaviour
     {
         _bossAbilityUsedEvent?.Invoke();
     }
-
-    public void InvokeBossDiedEvent()
-    {
-        _bossDiedEvent?.Invoke();
-    }
     
     public void InvokeBossStaggeredEvent()
     {
@@ -138,7 +132,6 @@ public class BossBase : MonoBehaviour
 
     public UnityEvent GetBossAbilityUsedEvent() => _bossAbilityUsedEvent;
 
-    public UnityEvent GetBossDiedEvent() => _bossDiedEvent;
     public UnityEvent GetBossStaggeredEvent() => _bossStaggeredEvent;
     public UnityEvent GetBossNoLongerStaggeredEvent() => _bossNoLongerStaggeredEvent;
 

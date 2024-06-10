@@ -50,6 +50,14 @@ public class HeroesManager : BaseGameplayManager
     public void HeroDied(HeroBase deadHero)
     {
         _currentLivingHeroes.Remove(deadHero);
+        CheckIfAllHeroesDead();
+    }
+
+    private void CheckIfAllHeroesDead()
+    {
+        Debug.Log(_currentLivingHeroes.Count);
+        if (_currentLivingHeroes.Count == 0)
+            GameplayManagers.Instance.GetGameStateManager().SetGameplayState(GameplayStates.PostBattleLost);
     }
 
     #region Events

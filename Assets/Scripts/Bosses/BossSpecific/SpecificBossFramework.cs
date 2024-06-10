@@ -168,6 +168,8 @@ public abstract class SpecificBossFramework : MonoBehaviour
     /// <param name="nextAbility"></param>
     protected virtual void StartNextAbility()
     {
+        if (GameplayManagers.Instance.GetGameStateManager().GetIsFightOver()) return;
+
         SpecificBossAbilityFramework nextAbility = SelectNextAbility();
         AddAbilityToEndOfCooldownQueue(nextAbility);
 

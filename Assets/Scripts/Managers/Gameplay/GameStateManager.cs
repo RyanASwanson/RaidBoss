@@ -30,9 +30,10 @@ public class GameStateManager : BaseGameplayManager
     /// Changes which state the gameplay is to another one and invokes events for that state
     /// </summary>
     /// <param name="newGameplayState"></param>
-    private void SetGameplayState(GameplayStates newGameplayState)
+    public void SetGameplayState(GameplayStates newGameplayState)
     {
-        if (_currentGameplayState == newGameplayState) return;
+        if (_currentGameplayState == newGameplayState || _currentGameplayState == GameplayStates.PostBattleLost ||
+            _currentGameplayState == GameplayStates.PostBattleWon) return;
 
         _currentGameplayState = newGameplayState;
 
@@ -72,6 +73,9 @@ public class GameStateManager : BaseGameplayManager
     #endregion
 
     #region Getters
+    public bool GetIsFightOver() => (_currentGameplayState == GameplayStates.PostBattleLost
+        || _currentGameplayState == GameplayStates.PostBattleWon);
+
     public UnityEvent GetStartOfBattleEvent() => _startOfBattleEvent;
     public UnityEvent GetBattleLostEvent() => _battleLostEvent;
     public UnityEvent GetBattleWonEvent() => _battleWonEvent;
