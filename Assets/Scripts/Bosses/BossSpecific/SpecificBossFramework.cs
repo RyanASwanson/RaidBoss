@@ -9,6 +9,9 @@ public abstract class SpecificBossFramework : MonoBehaviour
     [SerializeField] protected int _attackRepititionProtection;
     protected int _attackRepitionCounter = 0;
 
+    [Space]
+    [SerializeField] protected SpecificBossAbilityFramework _abilityLocked;
+
     protected List<SpecificBossAbilityFramework> _readyBossAttacks = new List<SpecificBossAbilityFramework>();
     protected Queue<SpecificBossAbilityFramework> _bossCooldownQueue = new Queue<SpecificBossAbilityFramework>();
 
@@ -120,6 +123,10 @@ public abstract class SpecificBossFramework : MonoBehaviour
         _readyBossAttacks.Add(newAbility);
     }
 
+    /// <summary>
+    /// Removes the next ability from the queue and adds it back into the list of
+    /// available abilities that the boss can use
+    /// </summary>
     private void TakeAbilityFromQueueToReady()
     {
         AddAbilityToBossReadyAttacks(_bossCooldownQueue.Dequeue());
@@ -133,6 +140,10 @@ public abstract class SpecificBossFramework : MonoBehaviour
         _bossCooldownQueue.Enqueue(newAbility);
     }
 
+    /// <summary>
+    /// For the first few abilities used iterate a counter
+    /// When the counter is at max call RepitionCounterAtMax
+    /// </summary>
     protected void IterateRepitionCounter()
     {
         _attackRepitionCounter++;
@@ -140,6 +151,10 @@ public abstract class SpecificBossFramework : MonoBehaviour
             RepitionCounterAtMax();
     }
 
+    /// <summary>
+    /// Removes the iteration repition counter
+    /// Replaces it with TakeAbilityFromQueueToReady
+    /// </summary>
     protected void RepitionCounterAtMax()
     {
         myBossBase.GetBossAbilityUsedEvent().RemoveListener(IterateRepitionCounter);
@@ -188,6 +203,9 @@ public abstract class SpecificBossFramework : MonoBehaviour
         StartNextAbility();
     }
 
+    /// <summary>
+    /// Stops the boss from attacking
+    /// </summary>
     protected virtual void StopNextAttackProcess()
     {
         StopCoroutine(_nextAttackProcess);
@@ -214,7 +232,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
 
     protected virtual void UnlockNewAbility()
     {
-
+        AddAbilityToBossReadyAttacks(_abilityLocked);
     }
 
     public virtual void SetupSpecificBoss(BossBase bossBase)
@@ -228,9 +246,13 @@ public abstract class SpecificBossFramework : MonoBehaviour
     {
         GameplayManagers.Instance.GetGameStateManager().GetStartOfBattleEvent().AddListener(StartFight);
 
+        //Listens for when the boss uses an ability
         myBossBase.GetBossAbilityUsedEvent().AddListener(IterateRepitionCounter);
 
+        //Listens for when the boss is staggered
         myBossBase.GetBossStaggeredEvent().AddListener(BossStaggerOccured);
+
+        myBossBase.GetBossHalfHealthEvent().AddListener(UnlockNewAbility);
     }
 
     #endregion
