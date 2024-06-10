@@ -20,6 +20,9 @@ public class HeroBase : MonoBehaviour
     [Header("Child GameObjects")]
     [SerializeField] private GameObject _heroSpecificsGO;
 
+    [Header("Colliders")]
+    [SerializeField] private Collider _damageCollider;
+
     private HeroSO _associatedSO;
     private GameObject _associatedHeroGameObject;
     private SpecificHeroFramework _associatedHeroScript;
@@ -131,6 +134,8 @@ public class HeroBase : MonoBehaviour
     public HeroPathfinding GetPathfinding() => _heroPathfinding;
     public HeroVisuals GetHeroVisuals() => _heroVisuals;
     public HeroStats GetHeroStats() => _heroStats;
+
+    public Collider GetHeroDamageCollider() => _damageCollider;
 
     public HeroSO GetHeroSO() => _associatedSO;
 

@@ -166,6 +166,7 @@ public class BossUIManager : GameUIChildrenFunctionality
 
         GameObject newDamageNumber = Instantiate(_damageNumber, _damageNumbersOrigin);
 
+        damage = Mathf.RoundToInt(damage);
         newDamageNumber.GetComponentInChildren<Text>().text = damage.ToString();
         newDamageNumber.GetComponentInChildren<TMP_Text>().text = damage.ToString();
 
@@ -183,6 +184,7 @@ public class BossUIManager : GameUIChildrenFunctionality
     {
         GameObject newStaggerNumber = Instantiate(_staggerNumber, _staggerNumbersOrigin);
 
+        stagger = Mathf.RoundToInt(stagger);
         newStaggerNumber.GetComponentInChildren<Text>().text = stagger.ToString();
         newStaggerNumber.GetComponentInChildren<TMP_Text>().text = stagger.ToString();
 

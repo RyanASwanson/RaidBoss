@@ -59,7 +59,7 @@ public class GeneralHeroHealArea : MonoBehaviour
 
     private void DealHealing(HeroBase heroBase, float abilityHealing)
     {
-        if (abilityHealing >= 0)
+        if (abilityHealing > 0)
             heroBase.GetHeroStats().HealHero(abilityHealing);
     }
 

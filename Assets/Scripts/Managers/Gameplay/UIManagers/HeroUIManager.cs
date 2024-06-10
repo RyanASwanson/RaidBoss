@@ -26,6 +26,8 @@ public class HeroUIManager : GameUIChildrenFunctionality
     [Header("HeroWorldCanvas")]
     [SerializeField] private GameObject _damageNumber;
     [Space]
+    [SerializeField] private GameObject _healingNumber;
+    [Space]
     [SerializeField] private float _damageNumbersXVariance;
 
     private RectTransform _damageNumbersOrigin;
@@ -46,6 +48,7 @@ public class HeroUIManager : GameUIChildrenFunctionality
     private void GeneralSetup()
     {
         _damageNumbersOrigin = _associatedHeroBase.GetHeroVisuals().GetDamageNumbersOrigin();
+        _healingNumbersOrigin = _associatedHeroBase.GetHeroVisuals().GetHealingNumbersOrigin();
     }
 
     private void SetUpHeroIcons()
@@ -64,6 +67,7 @@ public class HeroUIManager : GameUIChildrenFunctionality
     private void AssociatedHeroTookHealing(float healingTaken)
     {
         SetHealthBarPercent(_associatedHeroBase.GetHeroStats().GetHeroHealthPercentage());
+        CreateHealingNumbers(healingTaken);
     }
 
     private void SetHealthBarPercent(float percent)
@@ -85,6 +89,7 @@ public class HeroUIManager : GameUIChildrenFunctionality
     {
         GameObject newDamageNumber = Instantiate(_damageNumber, _damageNumbersOrigin);
 
+        damage = Mathf.RoundToInt(damage);
         newDamageNumber.GetComponentInChildren<Text>().text = damage.ToString();
         newDamageNumber.GetComponentInChildren<TMP_Text>().text = damage.ToString();
 
@@ -96,6 +101,25 @@ public class HeroUIManager : GameUIChildrenFunctionality
             newDamageNumber.GetComponent<Animator>().SetTrigger(_damageAverageAnimTrigger);
         else*/
         newDamageNumber.GetComponent<Animator>().SetTrigger(_damageHealingWeakAnimTrigger);
+    }
+
+    private void CreateHealingNumbers(float healing)
+    {
+        Debug.Log("log");
+        GameObject newHealingNumber = Instantiate(_healingNumber, _healingNumbersOrigin);
+
+        healing = Mathf.RoundToInt(healing);
+        newHealingNumber.GetComponentInChildren<Text>().text = healing.ToString();
+        newHealingNumber.GetComponentInChildren<TMP_Text>().text = healing.ToString();
+
+        AddSpawnVarianceToDamageHealingNumber(newHealingNumber);
+
+        /*if (damage >= _strongDamage)
+            newDamageNumber.GetComponent<Animator>().SetTrigger(_damageStrongAnimTrigger);
+        else if (damage >= _averageDamage)
+            newDamageNumber.GetComponent<Animator>().SetTrigger(_damageAverageAnimTrigger);
+        else*/
+        newHealingNumber.GetComponent<Animator>().SetTrigger(_damageHealingWeakAnimTrigger);
     }
 
     private void AddSpawnVarianceToDamageHealingNumber(GameObject number)

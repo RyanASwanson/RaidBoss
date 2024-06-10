@@ -30,6 +30,8 @@ public class SH_Chronomancer : SpecificHeroFramework
         GameObject spawnedProjectile = Instantiate(_basicProjectile, myHeroBase.transform.position, Quaternion.identity);
         spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(myHeroBase);
 
+        Physics.IgnoreCollision(myHeroBase.GetHeroDamageCollider(), 
+            spawnedProjectile.GetComponentInChildren<Collider>(), true);
         spawnedProjectile.GetComponent<SHP_ChronoDamageProjectile>().AdditionalSetup(_currentAttackDirection);
     }
 

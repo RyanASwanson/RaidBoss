@@ -149,8 +149,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.25}
-  m_SizeDelta: {x: 0, y: -0.5}
+  m_AnchoredPosition: {x: 0, y: 0.25}
+  m_SizeDelta: {x: 0, y: 0.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4263328483924012274
 GameObject:
@@ -309,6 +309,7 @@ MonoBehaviour:
   _heroVisuals: {fileID: 4263328483924012271}
   _heroStats: {fileID: 2507807044940824500}
   _heroSpecificsGO: {fileID: 4263328484758919711}
+  _damageCollider: {fileID: 8288659533933419998}
 --- !u!195 &4263328484989411222
 NavMeshAgent:
   m_ObjectHideFlags: 0
