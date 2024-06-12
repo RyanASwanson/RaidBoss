@@ -47,7 +47,7 @@ public class HeroSO : ScriptableObject
     public Sprite GetHeroIcon() => _heroIcon;
     public Sprite GetHeroBasicAbilityIcon() => _heroBasicAbilityIcon;
     public Sprite GetHeroManualAbilityIcon() => _heroManualAbilityIcon;
-    public Sprite GetHeroPassiveAbilityIcon() => _heroManualAbilityIcon;
+    public Sprite GetHeroPassiveAbilityIcon() => _heroPassiveAbilityIcon;
 
     public int GetSurvivalStat() => _surivalStat;
     public int GetDamageStat() => _damageStat;
