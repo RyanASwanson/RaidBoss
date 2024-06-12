@@ -291,8 +291,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a6eae13ad763bd42aa217b42865574d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectileLifetime: 3
-  _projectileSpeed: 1
+  _projectileLifetime: 2.5
+  _projectileSpeed: 1.5
 --- !u!54 &3442492512316392498
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -318,6 +318,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5596939874252308611}
+  - component: {fileID: 8503013511638998420}
   m_Layer: 0
   m_Name: ProjectileVisuals
   m_TagString: Untagged
@@ -341,6 +342,27 @@ Transform:
   m_Father: {fileID: 5596939873398294403}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &8503013511638998420
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5596939874252308620}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ddc6c19a66a467a4991dd07108196601, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7690234571517808407
 GameObject:
   m_ObjectHideFlags: 0
