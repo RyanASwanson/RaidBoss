@@ -10,9 +10,7 @@ using UnityEngine;
 /// </summary>
 public class SHP_ReaperManualProjectile : HeroProjectileFramework
 {
-    [SerializeField] private float _projectileLifetime;
     [SerializeField] private float _projectileSpeed;
-    
 
     public override void SetUpProjectile(HeroBase heroBase)
     {
@@ -22,8 +20,6 @@ public class SHP_ReaperManualProjectile : HeroProjectileFramework
     public void AdditionalSetup()
     {
         StartCoroutine(MoveProjectile());
-
-        Destroy(gameObject, _projectileLifetime);
     }
 
     private IEnumerator MoveProjectile()
@@ -32,6 +28,9 @@ public class SHP_ReaperManualProjectile : HeroProjectileFramework
         {
             transform.position = Vector3.MoveTowards(transform.position,
                 _ownerHeroBase.gameObject.transform.position, _projectileSpeed * Time.deltaTime);
+
+            transform.LookAt(_ownerHeroBase.gameObject.transform.position);
+            transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
             //transform.position +=  * Time.deltaTime;
             yield return null;
         }

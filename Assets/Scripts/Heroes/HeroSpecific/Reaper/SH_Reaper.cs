@@ -43,6 +43,8 @@ public class SH_Reaper : SpecificHeroFramework
 
     private void CreateManualAbilityProjectile(Vector3 attackLocation)
     {
+        attackLocation = new Vector3(attackLocation.x, transform.position.y, attackLocation.z);
+
         //Creates the projectile where the mouse is
         GameObject spawnedProjectile = Instantiate(_manualAbilityProjectile, attackLocation, Quaternion.identity);
 
