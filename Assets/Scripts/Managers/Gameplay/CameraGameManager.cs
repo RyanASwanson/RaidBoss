@@ -15,19 +15,21 @@ public class CameraGameManager : BaseGameplayManager
 
     private Coroutine _cameraShakeCoroutine;
 
-    public void StartCameraShake(float intensity, float duration)
+    public void StartCameraShake(float intensity, float frequency, float duration)
     {
         if (_cameraShakeCoroutine != null)
             StopCoroutine(_cameraShakeCoroutine);
 
-        _cameraShakeCoroutine = StartCoroutine(CameraShake(intensity,duration));
+        _cameraShakeCoroutine = StartCoroutine(CameraShake(intensity, frequency,duration));
     }
 
-    private IEnumerator CameraShake(float intensity, float duration)
+    private IEnumerator CameraShake(float intensity, float frequency, float duration)
     {
         _multiChannelPerlin.m_AmplitudeGain += intensity;
+        _multiChannelPerlin.m_FrequencyGain += frequency;
         yield return new WaitForSeconds(duration);
         _multiChannelPerlin.m_AmplitudeGain -= intensity;
+        _multiChannelPerlin.m_FrequencyGain -= frequency;
     }
 
     public override void SetupGameplayManager()
@@ -36,7 +38,7 @@ public class CameraGameManager : BaseGameplayManager
 
         _multiChannelPerlin = _virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
 
-        //StartCameraShake(10, 3);
+        //StartCameraShake(2, 2, 3);
     }
 
 
