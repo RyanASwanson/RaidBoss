@@ -103,27 +103,59 @@ public class HeroStats : HeroChildrenFunctionality
         _damageTakenOverridesCounter--;
     }
 
-    private void CheckBossIsUnderHalf(float damage)
+    private void CheckHeroDamagedUnderHalf(float damage)
     {
         if (GetHeroHealthPercentage() < .5f)
         {
-            myBossBase.InvokeBossHalfHealthEvent();
-            IncreaseBossStatsAtHealthThreshholds();
+            myHeroBase.InvokeHeroDamagedUnderHalfEvent();
 
-            myBossBase.GetBossDamagedEvent().RemoveListener(CheckBossIsUnderHalf);
-            myBossBase.GetBossDamagedEvent().AddListener(CheckBossIsUnderQuarter);
+            myHeroBase.GetHeroDamagedEvent()?.RemoveListener(CheckHeroDamagedUnderHalf);
+            myHeroBase.GetHeroDamagedEvent().AddListener(CheckHeroDamagedUnderQuarter);
+
+            myHeroBase.GetHeroHealedEvent().AddListener(CheckHeroHealedAboveHalf);
+
+            CheckHeroDamagedUnderQuarter(damage);
         }
     }
 
-    private void CheckBossIsUnderQuarter(float damage)
+    private void CheckHeroDamagedUnderQuarter(float damage)
     {
-        if (GetBossHealthPercentage() < .25f)
+        if (GetHeroHealthPercentage() < .25f)
         {
-            myBossBase.InvokeBossQuarterHealthEvent();
-            IncreaseBossStatsAtHealthThreshholds();
+            myHeroBase.InvokeHeroDamagedUnderQuarterEvent();
 
-            myBossBase.GetBossDamagedEvent().RemoveListener(CheckBossIsUnderQuarter);
-            myBossBase.GetBossDamagedEvent().AddListener(CheckBossIsUnderTenth);
+            myHeroBase.GetHeroDamagedEvent()?.RemoveListener(CheckHeroDamagedUnderQuarter);
+
+            myHeroBase.GetHeroHealedEvent().RemoveListener(CheckHeroHealedAboveHalf);
+            myHeroBase.GetHeroHealedEvent().AddListener(CheckHeroHealedAboveQuarter);
+        }
+    }
+
+    private void CheckHeroHealedAboveHalf(float healing)
+    {
+        if (GetHeroHealthPercentage() > .5f)
+        {
+            myHeroBase.InvokeHeroHealedAboveHalfEvent();
+
+            myHeroBase.GetHeroHealedEvent()?.RemoveListener(CheckHeroHealedAboveHalf);
+
+            myHeroBase.GetHeroDamagedEvent()?.RemoveListener(CheckHeroDamagedUnderQuarter);
+            myHeroBase.GetHeroDamagedEvent().AddListener(CheckHeroDamagedUnderHalf);
+        }
+    }
+
+    private void CheckHeroHealedAboveQuarter(float healing)
+    {
+        if (GetHeroHealthPercentage() > .25f)
+        {
+            myHeroBase.InvokeHeroHealedAboveQuarterEvent();
+
+            myHeroBase.GetHeroHealedEvent()?.RemoveListener(CheckHeroHealedAboveQuarter);
+            myHeroBase.GetHeroHealedEvent()?.AddListener(CheckHeroHealedAboveHalf);
+
+            myHeroBase.GetHeroDamagedEvent().AddListener(CheckHeroDamagedUnderQuarter);
+
+            CheckHeroHealedAboveHalf(healing);
         }
     }
 
@@ -132,6 +164,8 @@ public class HeroStats : HeroChildrenFunctionality
     public override void SubscribeToEvents()
     {
         myHeroBase.GetSOSetEvent().AddListener(HeroSOAssigned);
+
+        myHeroBase.GetHeroDamagedEvent().AddListener(CheckHeroDamagedUnderHalf);
     }
 
     private void HeroSOAssigned(HeroSO heroSO)

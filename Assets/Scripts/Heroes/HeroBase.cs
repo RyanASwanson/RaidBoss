@@ -130,6 +130,27 @@ public class HeroBase : MonoBehaviour
     {
         _heroHealedEvent?.Invoke(healAmount);
     }
+
+    public void InvokeHeroDamagedUnderHalfEvent()
+    {
+        _heroDamagedUnderHalfEvent?.Invoke();
+    }
+
+    public void InvokeHeroDamagedUnderQuarterEvent()
+    {
+        _heroDamagedUnderQuarterEvent?.Invoke();
+    }
+
+    public void InvokeHeroHealedAboveHalfEvent()
+    {
+        _heroHealedAboveHalfEvent?.Invoke();
+    }
+
+    public void InvokeHeroHealedAboveQuarterEvent()
+    {
+        _heroDamagedUnderQuarterEvent?.Invoke();
+    }
+
     public void InvokeHeroDiedEvent()
     {
         _heroDiedEvent?.Invoke();
@@ -162,7 +183,10 @@ public class HeroBase : MonoBehaviour
     public UnityEvent<float> GetHeroDamagedOverrideEvent() => _heroDamagedOverrideEvent;
     public UnityEvent<float> GetHeroHealedEvent() => _heroHealedEvent;
 
-    
+    public UnityEvent GetHeroDamagedUnderHalfEvent() => _heroDamagedUnderHalfEvent;
+    public UnityEvent GetHeroDamagedUnderQuarterEvent() => _heroDamagedUnderQuarterEvent;
+    public UnityEvent GetHeroHealedAboveHalfEvent() => _heroHealedAboveHalfEvent;
+    public UnityEvent GetHeroHealedAboveQuarterEvent() => _heroHealedAboveQuarterEvent;
 
     public UnityEvent GetHeroDiedEvent() => _heroDiedEvent;
     #endregion
