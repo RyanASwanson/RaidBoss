@@ -110,9 +110,18 @@ public class BossUIManager : GameUIChildrenFunctionality
         CreateStaggerNumbers(stagger);
     }
 
+    private void BossFullyStaggered()
+    {
+        StopCoroutine(_startStaggerBarDrainCoroutine);
+
+        SetRecentStaggerBarPercentage(1);
+    }
+
     private void ResetStaggerBar()
     {
         foreach (Image bar in _staggerBars)
+            bar.fillAmount = 0;
+        foreach (Image bar in _staggerRecentBars)
             bar.fillAmount = 0;
     }
 
@@ -207,6 +216,7 @@ public class BossUIManager : GameUIChildrenFunctionality
     {
         GameplayManagers.Instance.GetBossManager().GetBossBase().GetBossDamagedEvent().AddListener(BossTookDamage);
         GameplayManagers.Instance.GetBossManager().GetBossBase().GetBossStaggerDealtEvent().AddListener(BossTookStagger);
+        GameplayManagers.Instance.GetBossManager().GetBossBase().GetBossStaggeredEvent().AddListener(BossFullyStaggered);
         GameplayManagers.Instance.GetBossManager().GetBossBase().GetBossNoLongerStaggeredEvent()
             .AddListener(ResetStaggerBar);
     }

@@ -103,6 +103,31 @@ public class HeroStats : HeroChildrenFunctionality
         _damageTakenOverridesCounter--;
     }
 
+    private void CheckBossIsUnderHalf(float damage)
+    {
+        if (GetHeroHealthPercentage() < .5f)
+        {
+            myBossBase.InvokeBossHalfHealthEvent();
+            IncreaseBossStatsAtHealthThreshholds();
+
+            myBossBase.GetBossDamagedEvent().RemoveListener(CheckBossIsUnderHalf);
+            myBossBase.GetBossDamagedEvent().AddListener(CheckBossIsUnderQuarter);
+        }
+    }
+
+    private void CheckBossIsUnderQuarter(float damage)
+    {
+        if (GetBossHealthPercentage() < .25f)
+        {
+            myBossBase.InvokeBossQuarterHealthEvent();
+            IncreaseBossStatsAtHealthThreshholds();
+
+            myBossBase.GetBossDamagedEvent().RemoveListener(CheckBossIsUnderQuarter);
+            myBossBase.GetBossDamagedEvent().AddListener(CheckBossIsUnderTenth);
+        }
+    }
+
+
     #region Events
     public override void SubscribeToEvents()
     {

@@ -227,6 +227,15 @@ public class SelectionController : MonoBehaviour
 
     #endregion
 
+    #region General
+
+    public void BackToMainMenu()
+    {
+        UniversalManagers.Instance.GetSceneLoadManager().LoadMainMenuScene();
+    }
+
+    #endregion
+
     private void SubscribeToEvents()
     {
         UniversalManagers.Instance.GetSelectionManager().GetBossSelectionEvent().AddListener(NewBossAdded);

@@ -14,15 +14,15 @@ public class MainMenuController : MonoBehaviour
 
     [Space]
     [Header("HowToPlay")]
-    private int a;
+    [SerializeField] private GameObject _howToPlayCanvas;
 
     [Space]
     [Header("Controls")]
-    private int b;
+    [SerializeField] private GameObject _controlsCanvas;
 
     [Space]
     [Header("Credits")]
-    private int c;
+    [SerializeField] private GameObject _creditsCanvas;
 
     // Start is called before the first frame update
     void Start()
@@ -38,17 +38,32 @@ public class MainMenuController : MonoBehaviour
 
     public void HowToPlayButtonPressed()
     {
+        _howToPlayCanvas.SetActive(true);
+    }
 
+    public void HideHowToPlayButton()
+    {
+        _howToPlayCanvas.SetActive(false);
     }
 
     public void ControlsButtonPressed()
     {
+        _controlsCanvas.SetActive(true);
+    }
 
+    public void HideControlsButton()
+    {
+        _controlsCanvas.SetActive(false);
     }
 
     public void CreditsButtonPressed()
     {
+        _creditsCanvas.SetActive(true);
+    }
 
+    public void HideCreditsButton()
+    {
+        _creditsCanvas.SetActive(false);
     }
 
     public void QuitButtonPressed()

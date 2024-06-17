@@ -42,6 +42,12 @@ public class HeroBase : MonoBehaviour
     private UnityEvent<float> _heroDamagedOverrideEvent = new UnityEvent<float>();
     private UnityEvent<float> _heroHealedEvent = new UnityEvent<float>();
 
+    private UnityEvent _heroDamagedUnderHalfEvent = new UnityEvent();
+    private UnityEvent _heroDamagedUnderQuarterEvent = new UnityEvent();
+
+    private UnityEvent _heroHealedAboveHalfEvent = new UnityEvent();
+    private UnityEvent _heroHealedAboveQuarterEvent = new UnityEvent();
+
     private UnityEvent _heroDiedEvent = new UnityEvent();
 
     public void Setup(HeroSO newSO)
@@ -155,6 +161,8 @@ public class HeroBase : MonoBehaviour
     public UnityEvent<float> GetHeroDamagedEvent() => _heroDamagedEvent;
     public UnityEvent<float> GetHeroDamagedOverrideEvent() => _heroDamagedOverrideEvent;
     public UnityEvent<float> GetHeroHealedEvent() => _heroHealedEvent;
+
+    
 
     public UnityEvent GetHeroDiedEvent() => _heroDiedEvent;
     #endregion
