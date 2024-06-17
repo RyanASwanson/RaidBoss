@@ -5,6 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoadManager : BaseUniversalManager
 {
+
+    private const int _mainMenuSceneID = 0;
+    private const int _selectionSceneID = 1;
+
     public override void SetupUniversalManager()
     {
 
@@ -26,5 +30,15 @@ public class SceneLoadManager : BaseUniversalManager
     public void LoadSceneByLevelSO(LevelSO levelSO)
     {
         LoadSceneByID(levelSO.GetLevelBuildID());
+    }
+
+    public void LoadMainMenuScene()
+    {
+        LoadSceneByID(_mainMenuSceneID);
+    }
+
+    public void LoadSelectionScene()
+    {
+        LoadSceneByID(_selectionSceneID);
     }
 }
