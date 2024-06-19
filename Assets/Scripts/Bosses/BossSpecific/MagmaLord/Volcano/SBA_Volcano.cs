@@ -72,8 +72,6 @@ public class SBA_Volcano : SpecificBossAbilityFramework
         {
             GameObject newestDamageZone = Instantiate(_volcanoDamageZone, attackLoc, Quaternion.identity);
             _storedDamageZones.Add(newestDamageZone);
-
-            Destroy(newestDamageZone, 2);
         }
 
 

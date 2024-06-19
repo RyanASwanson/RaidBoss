@@ -13,8 +13,6 @@ public class SBA_Scorch : SpecificBossAbilityFramework
     [SerializeField] private GameObject _scorch;
     [SerializeField] private GameObject _targetZone;
 
-    private GameObject _storedScorch;
-
     protected override void AbilityPrep()
     {
         base.AbilityPrep();
@@ -33,7 +31,7 @@ public class SBA_Scorch : SpecificBossAbilityFramework
 
     protected override void AbilityStart()
     {
-        _storedScorch = Instantiate(_scorch, _targetLocation, Quaternion.identity);
+        Instantiate(_scorch, _targetLocation, Quaternion.identity);
 
         base.AbilityStart();
     }
