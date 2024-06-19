@@ -17,11 +17,15 @@ public class HeroUIManager : GameUIChildrenFunctionality
     [SerializeField] private Image _associatedHeroManualAbilityChargeBar;
     [SerializeField] private Image _associatedHeroManualAbilityIcon;
 
+    [SerializeField] private Animator _heroFullyChargedIconAnimator;
+
+    private const string _heroFullyChargedIconTrigger = "Flash";
+
     [Header("RightSide")]
     [SerializeField] private Image _associatedHeroRecentHealthBar;
     [SerializeField] private Image _associatedHeroCurrentHealthBar;
 
-    [SerializeField] private GameObject _associatedHeroHealthBarCombined;
+    [SerializeField] private Animator _associatedHeroHealthBarCombined;
 
     private const string _combinedHealthBarStatusIntAnim = "HealthStatus";
 
@@ -64,6 +68,8 @@ public class HeroUIManager : GameUIChildrenFunctionality
         HeroSO heroSO = _associatedHeroBase.GetHeroSO();
         _associatedHeroIcon.sprite = heroSO.GetHeroIcon();
         _associatedHeroManualAbilityIcon.sprite = heroSO.GetHeroManualAbilityIcon();
+        _heroFullyChargedIconAnimator.gameObject.GetComponent<Image>().sprite =
+            heroSO.GetHeroManualAbilityIcon();
     }
 
     #region Health
@@ -101,11 +107,13 @@ public class HeroUIManager : GameUIChildrenFunctionality
 
     private void SetCombinedHealthBarAnim(int animID)
     {
-        _associatedHeroHealthBarCombined.GetComponent<Animator>().SetInteger(_combinedHealthBarStatusIntAnim, animID);
+        _associatedHeroHealthBarCombined.SetInteger(_combinedHealthBarStatusIntAnim, animID);
     }
 
     #endregion
-
+    /// <summary>
+    /// Is called as the progress of the heroes manual ability charges
+    /// </summary>
     private void AssociatedHeroManualCharging()
     {
         SetHeroManualAbilityCharge(_associatedHeroBase.GetSpecificHeroScript().GetManualAbilityChargePercent());
@@ -160,14 +168,23 @@ public class HeroUIManager : GameUIChildrenFunctionality
     private void ManualFullyCharged()
     {
         CreateAbilityChargedIconAboveHero();
+        HeroIconOnUIFlash();
     }
 
+    /// <summary>
+    /// Causes the icon of the heroes manual ability to appear when the ability is charged
+    /// </summary>
     private void CreateAbilityChargedIconAboveHero()
     {
         GameObject newAbilityChargedIcon = Instantiate(_abilityChargedIcon, _abilityChargedOrigin);
 
         newAbilityChargedIcon.GetComponentInChildren<Image>().sprite =
             _associatedHeroBase.GetHeroSO().GetHeroManualAbilityIcon();
+    }
+
+    private void HeroIconOnUIFlash()
+    {
+        _heroFullyChargedIconAnimator.SetTrigger(_heroFullyChargedIconTrigger);
     }
 
     public override void ChildFuncSetup()

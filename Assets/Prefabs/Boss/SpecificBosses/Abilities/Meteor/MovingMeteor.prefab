@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5639287205825355308}
   - component: {fileID: 2876240380485525677}
   - component: {fileID: 2046015707512375880}
+  - component: {fileID: 5979386353810043219}
   m_Layer: 0
   m_Name: MovingMeteor
   m_TagString: Untagged
@@ -93,6 +94,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!95 &5979386353810043219
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9559560874134544}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d63452f21d833ab4a8787b3706942aa6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &41717239410482861
 GameObject:
   m_ObjectHideFlags: 0
