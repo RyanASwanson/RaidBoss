@@ -16,9 +16,6 @@ public class HeroStats : HeroChildrenFunctionality
     private float _heroDefaultAggro;
     private float _currentAggro;
 
-    private const float _heroDefaultAttackSpeedMultiplier = 1;
-    private float _currentAttackSpeedMultiplier;
-
     private float _heroDefaultDamageResistance;
     private float _currentDamageResistance;
 
@@ -44,7 +41,6 @@ public class HeroStats : HeroChildrenFunctionality
         _currentHealth = _heroMaxHealth;
         _currentMovespeed = _heroDefaultMovespeed;
         _currentAggro = _heroDefaultAggro;
-        _currentAttackSpeedMultiplier = _heroDefaultAttackSpeedMultiplier;
         _currentDamageResistance = _heroDefaultDamageResistance;
 
         //Sets up the movement speed
@@ -179,7 +175,6 @@ public class HeroStats : HeroChildrenFunctionality
     public float GetMaxHealth() => _heroMaxHealth;
     public float GetDefaultSpeed() => _heroMaxHealth;
     public float GetDefaultAggro() => _heroMaxHealth;
-    public float GetDefaultAttackSpeedMultiplier() => _heroDefaultAttackSpeedMultiplier;
     public float GetDefaultDamageResistance() => _heroDefaultDamageResistance;
 
 
@@ -188,7 +183,6 @@ public class HeroStats : HeroChildrenFunctionality
     public float GetHeroHealthPercentage() => _currentHealth / _heroMaxHealth;
     public float GetCurrentSpeed() => _currentMovespeed;
     public float GetCurrentAggro() => _currentAggro;
-    public float GetCurrentAttackSpeedMultiplier() => _currentAttackSpeedMultiplier;
     public float GetCurrentDamageResistance() => _currentDamageResistance;
     #endregion
 

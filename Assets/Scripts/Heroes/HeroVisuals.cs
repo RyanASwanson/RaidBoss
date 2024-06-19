@@ -11,6 +11,8 @@ public class HeroVisuals : HeroChildrenFunctionality
     [SerializeField] private RectTransform _healingNumbersOrigin;
     [SerializeField] private RectTransform _abilityChargedIconOrigin;
 
+    private const string _healthStatusIntAnim = "HealthStatus";
+
     public override void ChildFuncSetup(HeroBase heroBase)
     {
         base.ChildFuncSetup(heroBase);
@@ -19,17 +21,17 @@ public class HeroVisuals : HeroChildrenFunctionality
 
     private void HeroHealthAboveHalf()
     {
-        _healthStatusIcon.GetComponent<Animator>().SetInteger("HealthStatus", 0);
+        _healthStatusIcon.GetComponent<Animator>().SetInteger(_healthStatusIntAnim, 0);
     }
 
     private void HeroInjured()
     {
-        _healthStatusIcon.GetComponent<Animator>().SetInteger("HealthStatus", 1);
+        _healthStatusIcon.GetComponent<Animator>().SetInteger(_healthStatusIntAnim, 1);
     }
 
     private void HeroCritical()
     {
-        _healthStatusIcon.GetComponent<Animator>().SetInteger("HealthStatus", 2);
+        _healthStatusIcon.GetComponent<Animator>().SetInteger(_healthStatusIntAnim, 2);
     }
 
     #region Events

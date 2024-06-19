@@ -42,7 +42,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         _basicAbilityCurrentCharge = 0;
         while (_basicAbilityCurrentCharge < _basicAbilityChargeTime)
         {
-            AddToBasicAbilityChargeTime(Time.deltaTime * myHeroBase.GetHeroStats().GetCurrentAttackSpeedMultiplier());
+            AddToBasicAbilityChargeTime(Time.deltaTime);
             yield return null;
         }
 

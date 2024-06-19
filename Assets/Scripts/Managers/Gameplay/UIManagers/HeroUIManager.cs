@@ -21,6 +21,10 @@ public class HeroUIManager : GameUIChildrenFunctionality
     [SerializeField] private Image _associatedHeroRecentHealthBar;
     [SerializeField] private Image _associatedHeroCurrentHealthBar;
 
+    [SerializeField] private GameObject _associatedHeroHealthBarCombined;
+
+    private const string _combinedHealthBarStatusIntAnim = "HealthStatus";
+
     private HeroBase _associatedHeroBase;
 
     [Header("HeroWorldCanvas")]
@@ -62,6 +66,7 @@ public class HeroUIManager : GameUIChildrenFunctionality
         _associatedHeroManualAbilityIcon.sprite = heroSO.GetHeroManualAbilityIcon();
     }
 
+    #region Health
     private void AssociatedHeroTookDamage(float damageTaken)
     {
         SetHealthBarPercent(_associatedHeroBase.GetHeroStats().GetHeroHealthPercentage());
@@ -78,6 +83,28 @@ public class HeroUIManager : GameUIChildrenFunctionality
     {
         _associatedHeroCurrentHealthBar.fillAmount = percent;
     }
+
+    private void HeroHealthAboveHalf()
+    {
+        SetCombinedHealthBarAnim(0);
+    }
+
+    private void HeroInjured()
+    {
+        SetCombinedHealthBarAnim(1);
+    }
+
+    private void HeroCritical()
+    {
+        SetCombinedHealthBarAnim(2);
+    }
+
+    private void SetCombinedHealthBarAnim(int animID)
+    {
+        _associatedHeroHealthBarCombined.GetComponent<Animator>().SetInteger(_combinedHealthBarStatusIntAnim, animID);
+    }
+
+    #endregion
 
     private void AssociatedHeroManualCharging()
     {
@@ -154,9 +181,15 @@ public class HeroUIManager : GameUIChildrenFunctionality
         _associatedHeroBase.GetHeroDamagedEvent().AddListener(AssociatedHeroTookDamage);
         //Update health bar when hero is healed
         _associatedHeroBase.GetHeroHealedEvent().AddListener(AssociatedHeroTookHealing);
+
+        _associatedHeroBase.GetHeroHealedAboveHalfEvent().AddListener(HeroHealthAboveHalf);
+        _associatedHeroBase.GetHeroHealedAboveQuarterEvent().AddListener(HeroInjured);
+        _associatedHeroBase.GetHeroDamagedUnderHalfEvent().AddListener(HeroInjured);
+        _associatedHeroBase.GetHeroDamagedUnderQuarterEvent().AddListener(HeroCritical);
+
         //Update manual charge bar when cooling down
         _associatedHeroBase.GetHeroManualAbilityChargingEvent().AddListener(AssociatedHeroManualCharging);
-        //Creates 
+        //Creates an icon to show the player that the ability is charged
         _associatedHeroBase.GetHeroManualAbilityFullyChargedEvent().AddListener(ManualFullyCharged);
     }
 }
