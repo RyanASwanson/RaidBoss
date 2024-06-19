@@ -39,6 +39,7 @@ public class SBA_Meteor : SpecificBossAbilityFramework
     {
         Destroy(_storedFallingMeteor);
 
+        _storedTargetLocation = new Vector3(_storedTargetLocation.x, -.3f, _storedTargetLocation.z);
         _storedMovingMeteor = Instantiate(_movingMeteor, _storedTargetLocation, Quaternion.identity);
         _storedMovingMeteor.GetComponent<SBP_FollowingMeteor>().AdditionalSetup(_storedTarget);
         base.AbilityStart();
