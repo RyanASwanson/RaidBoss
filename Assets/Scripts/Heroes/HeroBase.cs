@@ -39,9 +39,13 @@ public class HeroBase : MonoBehaviour
     private UnityEvent _heroStartedMovingOnMeshEvent = new UnityEvent();
     private UnityEvent _heroStoppedMovingOnMeshEvent = new UnityEvent();
 
+    //Event called when hero takes damage. Damage taken stored as float
     private UnityEvent<float> _heroDamagedEvent = new UnityEvent<float>();
     private UnityEvent<float> _heroDamagedOverrideEvent = new UnityEvent<float>();
     private UnityEvent<float> _heroHealedEvent = new UnityEvent<float>();
+
+    //Event called when hero health changes. Current health stored as float
+    private UnityEvent<float> _heroHealthChanged = new UnityEvent<float>();
 
     private UnityEvent _heroDamagedUnderHalfEvent = new UnityEvent();
     private UnityEvent _heroDamagedUnderQuarterEvent = new UnityEvent();
@@ -126,6 +130,8 @@ public class HeroBase : MonoBehaviour
     public void InvokeHeroDamagedEvent(float damageAmount)
     {
         _heroDamagedEvent?.Invoke(damageAmount);
+
+        InvokeHeroHealthChangedEvent();
     }
     public void InvokeHeroDamageOverrideEvent(float damageAmount)
     {
@@ -134,6 +140,13 @@ public class HeroBase : MonoBehaviour
     public void InvokeHeroHealedEvent(float healAmount)
     {
         _heroHealedEvent?.Invoke(healAmount);
+
+        InvokeHeroHealthChangedEvent();
+    }
+
+    public void InvokeHeroHealthChangedEvent()
+    {
+        _heroHealthChanged?.Invoke(GetHeroStats().GetCurrentHealth());
     }
 
     public void InvokeHeroDamagedUnderHalfEvent()
@@ -188,6 +201,8 @@ public class HeroBase : MonoBehaviour
     public UnityEvent<float> GetHeroDamagedEvent() => _heroDamagedEvent;
     public UnityEvent<float> GetHeroDamagedOverrideEvent() => _heroDamagedOverrideEvent;
     public UnityEvent<float> GetHeroHealedEvent() => _heroHealedEvent;
+
+    public UnityEvent<float> GetHeroHealthChangedEvent() => _heroHealthChanged;
 
     public UnityEvent GetHeroDamagedUnderHalfEvent() => _heroDamagedUnderHalfEvent;
     public UnityEvent GetHeroDamagedUnderQuarterEvent() => _heroDamagedUnderQuarterEvent;

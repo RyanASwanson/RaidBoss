@@ -81,9 +81,6 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         StartCooldownBasicAbility();
     }
 
-
-    
-
     #endregion
 
     #region Manual Abilities
@@ -176,7 +173,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         SubscribeToEvents();
     }
 
-    public virtual void BattleStarted()
+    protected virtual void BattleStarted()
     {
         ActivateHeroSpecificActivity();
     }

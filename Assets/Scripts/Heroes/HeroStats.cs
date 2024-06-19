@@ -9,6 +9,7 @@ public class HeroStats : HeroChildrenFunctionality
 {
     private float _heroMaxHealth;
     private float _currentHealth;
+    private float _previousHealthValue;
 
     private float _heroDefaultMovespeed;
     private float _currentMovespeed;
@@ -55,6 +56,8 @@ public class HeroStats : HeroChildrenFunctionality
             myHeroBase.InvokeHeroDamageOverrideEvent(damage);
             return;
         }
+
+        SetPreviousHealthValue();
         
         _currentHealth -= damage;
         myHeroBase.InvokeHeroDamagedEvent(damage);
@@ -63,6 +66,8 @@ public class HeroStats : HeroChildrenFunctionality
 
     public void HealHero(float healing)
     {
+        SetPreviousHealthValue();
+
         float healthDifference = _currentHealth;
 
         _currentHealth += healing;
@@ -81,6 +86,11 @@ public class HeroStats : HeroChildrenFunctionality
         {
             GameplayManagers.Instance.GetHeroesManager().HeroDied(myHeroBase);
         }
+    }
+
+    private void SetPreviousHealthValue()
+    {
+        _previousHealthValue = _currentHealth;
     }
 
     private bool ShouldOverrideDamage()
@@ -179,6 +189,7 @@ public class HeroStats : HeroChildrenFunctionality
 
 
     public float GetCurrentHealth() => _currentHealth;
+    public float GetPreviousHealth() => _previousHealthValue;
     public bool IsHeroMaxHealth() => _currentHealth >= _heroMaxHealth;
     public float GetHeroHealthPercentage() => _currentHealth / _heroMaxHealth;
     public float GetCurrentSpeed() => _currentMovespeed;
