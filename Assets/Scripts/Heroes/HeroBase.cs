@@ -179,6 +179,7 @@ public class HeroBase : MonoBehaviour
     public UnityEvent GetHeroControlledEndEvent() => _heroControlledEndEvent;
 
     public UnityEvent GetHeroManualAbilityChargingEvent() => _heroManualAbilityCharging;
+    public UnityEvent GetHeroManualAbilityFullyChargedEvent() => _heroManualAbilityFullyCharged;
     public UnityEvent<Vector3> GetHeroManualAbilityAttemptEvent() => _heroManualAbilityAttempt;
 
     public UnityEvent GetHeroStartedMovingEvent() => _heroStartedMovingOnMeshEvent;

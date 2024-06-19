@@ -5,13 +5,31 @@ using UnityEngine;
 public class HeroVisuals : HeroChildrenFunctionality
 {
     [SerializeField] private MeshRenderer _controlIcon;
+    [SerializeField] private GameObject _healthStatusIcon;
 
     [SerializeField] private RectTransform _damageNumbersOrigin;
     [SerializeField] private RectTransform _healingNumbersOrigin;
+    [SerializeField] private RectTransform _abilityChargedIconOrigin;
 
     public override void ChildFuncSetup(HeroBase heroBase)
     {
         base.ChildFuncSetup(heroBase);
+    }
+
+
+    private void HeroHealthAboveHalf()
+    {
+        _healthStatusIcon.GetComponent<Animator>().SetInteger("HealthStatus", 0);
+    }
+
+    private void HeroInjured()
+    {
+        _healthStatusIcon.GetComponent<Animator>().SetInteger("HealthStatus", 1);
+    }
+
+    private void HeroCritical()
+    {
+        _healthStatusIcon.GetComponent<Animator>().SetInteger("HealthStatus", 2);
     }
 
     #region Events
@@ -20,6 +38,13 @@ public class HeroVisuals : HeroChildrenFunctionality
         myHeroBase.GetSOSetEvent().AddListener(HeroSOAssigned);
         myHeroBase.GetHeroControlledBeginEvent().AddListener(HeroControlStart);
         myHeroBase.GetHeroControlledEndEvent().AddListener(HeroControlStop);
+
+        myHeroBase.GetHeroHealedAboveHalfEvent().AddListener(HeroHealthAboveHalf);
+        myHeroBase.GetHeroHealedAboveQuarterEvent().AddListener(HeroInjured);
+        myHeroBase.GetHeroDamagedUnderHalfEvent().AddListener(HeroInjured);
+        myHeroBase.GetHeroDamagedUnderQuarterEvent().AddListener(HeroCritical);
+
+
         myHeroBase.GetHeroStartedMovingEvent().AddListener(HeroStartedMoving);
         myHeroBase.GetHeroStoppedMovingEvent().AddListener(HeroStoppedMoving);
     }
@@ -53,5 +78,6 @@ public class HeroVisuals : HeroChildrenFunctionality
     #region Getters
     public RectTransform GetDamageNumbersOrigin() => _damageNumbersOrigin;
     public RectTransform GetHealingNumbersOrigin() => _healingNumbersOrigin;
+    public RectTransform GetAbilityChargedIconOrigin() => _abilityChargedIconOrigin;
     #endregion
 }

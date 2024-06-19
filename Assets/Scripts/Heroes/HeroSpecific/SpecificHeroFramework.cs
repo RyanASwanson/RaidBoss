@@ -108,6 +108,8 @@ public abstract class SpecificHeroFramework : MonoBehaviour
             myHeroBase.InvokeHeroManualAbilityChargingEvent();
             yield return null;
         }
+
+        myHeroBase.InvokeHeroManualAbilityFullyChargedEvent();
     }
 
     public virtual void AddToManualAbilityChargeTime(float addedAmount)

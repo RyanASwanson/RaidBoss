@@ -29,9 +29,12 @@ public class HeroUIManager : GameUIChildrenFunctionality
     [SerializeField] private GameObject _healingNumber;
     [Space]
     [SerializeField] private float _damageNumbersXVariance;
+    [Space]
+    [SerializeField] private GameObject _abilityChargedIcon;
 
     private RectTransform _damageNumbersOrigin;
     private RectTransform _healingNumbersOrigin;
+    private RectTransform _abilityChargedOrigin;
 
     private const string _damageHealingWeakAnimTrigger = "WeakDamage";
 
@@ -49,6 +52,7 @@ public class HeroUIManager : GameUIChildrenFunctionality
     {
         _damageNumbersOrigin = _associatedHeroBase.GetHeroVisuals().GetDamageNumbersOrigin();
         _healingNumbersOrigin = _associatedHeroBase.GetHeroVisuals().GetHealingNumbersOrigin();
+        _abilityChargedOrigin = _associatedHeroBase.GetHeroVisuals().GetAbilityChargedIconOrigin();
     }
 
     private void SetUpHeroIcons()
@@ -126,6 +130,19 @@ public class HeroUIManager : GameUIChildrenFunctionality
         number.transform.position += new Vector3(Random.Range(-_damageNumbersXVariance, _damageNumbersXVariance), 0, 0);
     }
 
+    private void ManualFullyCharged()
+    {
+        CreateAbilityChargedIconAboveHero();
+    }
+
+    private void CreateAbilityChargedIconAboveHero()
+    {
+        GameObject newAbilityChargedIcon = Instantiate(_abilityChargedIcon, _abilityChargedOrigin);
+
+        newAbilityChargedIcon.GetComponentInChildren<Image>().sprite =
+            _associatedHeroBase.GetHeroSO().GetHeroManualAbilityIcon();
+    }
+
     public override void ChildFuncSetup()
     {
         //base.ChildFuncSetup();
@@ -139,5 +156,7 @@ public class HeroUIManager : GameUIChildrenFunctionality
         _associatedHeroBase.GetHeroHealedEvent().AddListener(AssociatedHeroTookHealing);
         //Update manual charge bar when cooling down
         _associatedHeroBase.GetHeroManualAbilityChargingEvent().AddListener(AssociatedHeroManualCharging);
+        //Creates 
+        _associatedHeroBase.GetHeroManualAbilityFullyChargedEvent().AddListener(ManualFullyCharged);
     }
 }
