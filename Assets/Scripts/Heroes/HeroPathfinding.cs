@@ -51,7 +51,7 @@ public class HeroPathfinding : HeroChildrenFunctionality
         {
             yield return null;
         }
-        myHeroBase.InvokeHeroStoppedMoving();
+        myHeroBase.InvokeHeroStoppedMovingEvent();
         _heroMovementCoroutine = null;
     }
 

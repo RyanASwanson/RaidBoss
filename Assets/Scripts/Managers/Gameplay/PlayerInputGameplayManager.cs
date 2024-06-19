@@ -79,7 +79,7 @@ public class PlayerInputGameplayManager : BaseGameplayManager
         {
             foreach (HeroBase currentHero in _controlledHeroes)
             {
-                currentHero.InvokeHeroManualAbilityAttempt(clickedOn.point);
+                currentHero.InvokeHeroManualAbilityAttemptEvent(clickedOn.point);
             }
         }
         

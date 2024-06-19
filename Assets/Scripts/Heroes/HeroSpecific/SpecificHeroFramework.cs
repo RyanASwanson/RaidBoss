@@ -105,7 +105,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         while (_manualAbilityCurrentCharge < _manualAbilityChargeTime)
         {
             AddToManualAbilityChargeTime(Time.deltaTime);
-            myHeroBase.InvokeHeroManualAbilityCharging();
+            myHeroBase.InvokeHeroManualAbilityChargingEvent();
             yield return null;
         }
     }
