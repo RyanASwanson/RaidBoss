@@ -34,9 +34,6 @@ public class SBA_Scorch : SpecificBossAbilityFramework
     protected override void AbilityStart()
     {
         _storedScorch = Instantiate(_scorch, _targetLocation, Quaternion.identity);
-        //_storedMovingMeteor.GetComponent<SBP_FollowingMeteor>().AdditionalSetup(_storedTarget);
-
-        Destroy(_storedScorch, 2);
 
         base.AbilityStart();
     }

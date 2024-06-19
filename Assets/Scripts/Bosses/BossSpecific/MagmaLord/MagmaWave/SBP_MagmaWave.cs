@@ -41,7 +41,7 @@ public class SBP_MagmaWave : BossProjectileFramework
             yield return null;
         }
 
-        ProjectileReachedEndOfPath();
+        //ProjectileReachedEndOfPath();
     }
 
     private void ProjectileLookAt(Vector3 lookLocation)
@@ -50,8 +50,8 @@ public class SBP_MagmaWave : BossProjectileFramework
         transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
     }
 
-    private void ProjectileReachedEndOfPath()
+    /*private void ProjectileReachedEndOfPath()
     {
         Destroy(gameObject);
-    }
+    }*/
 }

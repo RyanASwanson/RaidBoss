@@ -9,6 +9,8 @@ using UnityEngine.Events;
 public class GeneralBossDamageArea : MonoBehaviour
 {
     [SerializeField] private Collider _damageCollider;
+    [SerializeField] private bool _hasLifeTime;
+    [SerializeField] private float _lifeTime;
 
     [Header("Enter")]
     [SerializeField] private float _enterDamage;
@@ -22,6 +24,12 @@ public class GeneralBossDamageArea : MonoBehaviour
     [Header("Exit")]
     [SerializeField] private float _exitDamage;
     [SerializeField] private UnityEvent<Collider> _exitEvent;
+
+    private void Start()
+    {
+        if (_hasLifeTime)
+            Destroy(gameObject, _lifeTime);
+    }
 
     private bool DoesColliderBelongToHero(Collider collision)
     {

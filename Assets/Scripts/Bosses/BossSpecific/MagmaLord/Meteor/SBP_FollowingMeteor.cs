@@ -8,7 +8,6 @@ using UnityEngine;
 /// </summary>
 public class SBP_FollowingMeteor : BossProjectileFramework
 {
-    [SerializeField] private float _projectileLifetime;
     [SerializeField] private float _projectileSpeed;
 
     [Space]
@@ -61,27 +60,19 @@ public class SBP_FollowingMeteor : BossProjectileFramework
 
     private IEnumerator MoveProjectile(Vector3 moveDirection)
     {
-        float lifeTimeCountdown = _projectileLifetime;
-        while(lifeTimeCountdown > 0)
+        while(true)
         {
             transform.position += moveDirection * _projectileSpeed * Time.deltaTime;
-
-            lifeTimeCountdown -= Time.deltaTime;
 
             yield return null;
         }
 
-        ProjectileReachedEndOfPath();
+        //ProjectileReachedEndOfPath();
     }
 
     private void ProjectileLookAt(Vector3 lookLocation)
     {
         transform.LookAt(lookLocation);
         transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
-    }
-
-    private void ProjectileReachedEndOfPath()
-    {
-        Destroy(gameObject);
     }
 }
