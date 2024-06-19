@@ -11,6 +11,11 @@ public class CameraGameManager : BaseGameplayManager
     [SerializeField] private Camera _gameplayCamera;
     [SerializeField] private CinemachineVirtualCamera _virtualCamera;
 
+    [Header("Boss Stagger")]
+    [SerializeField] private float _staggerIntensity;
+    [SerializeField] private float _staggerFrequency;
+    [SerializeField] private float _staggerDuration;
+
     private CinemachineBasicMultiChannelPerlin _multiChannelPerlin;
 
     private Coroutine _cameraShakeCoroutine;
@@ -32,11 +37,17 @@ public class CameraGameManager : BaseGameplayManager
         _multiChannelPerlin.m_FrequencyGain -= frequency;
     }
 
+    private void CameraShakeOnBossStagger()
+    {
+        StartCameraShake(_staggerIntensity,_staggerFrequency,_staggerDuration);
+    }
+
     public override void SetupGameplayManager()
     {
         base.SetupGameplayManager();
 
         _multiChannelPerlin = _virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+
 
         //StartCameraShake(2, 2, 3);
     }
@@ -45,7 +56,8 @@ public class CameraGameManager : BaseGameplayManager
     #region BaseManager
     public override void SubscribeToEvents()
     {
-        
+        GameplayManagers.Instance.GetBossManager().GetBossBase()
+            .GetBossStaggeredEvent().AddListener(CameraShakeOnBossStagger);
     }
     #endregion
 

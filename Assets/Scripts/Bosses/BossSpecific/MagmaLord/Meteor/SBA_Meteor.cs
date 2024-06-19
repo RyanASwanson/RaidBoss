@@ -42,7 +42,6 @@ public class SBA_Meteor : SpecificBossAbilityFramework
         {
             _storedFallingMeteor.transform.LookAt(_storedTarget.transform.position);
             _storedFallingMeteor.transform.eulerAngles = new Vector3(0, _storedFallingMeteor.transform.eulerAngles.y, 0);
-            Debug.Log("Look at " + _storedTarget.transform.position);
             yield return null;
         }
     }
