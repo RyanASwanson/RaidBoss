@@ -5,6 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoadManager : BaseUniversalManager
 {
+    [Header("SceneTransitions")]
+    [SerializeField] private Animator _sceneTransitionAnimator;
+    private const string _closeInFromSidesAnimTrigger = "CloseInFromSides";
+
+    private const float _sceneTransitionTime = 1;
 
     private const int _mainMenuSceneID = 0;
     private const int _selectionSceneID = 1;
@@ -20,6 +25,13 @@ public class SceneLoadManager : BaseUniversalManager
     /// <param name="id"></param>
     public void LoadSceneByID(int id)
     {
+        StartCoroutine(SceneLoadProcess(id));
+    }
+
+    private IEnumerator SceneLoadProcess(int id)
+    {
+        _sceneTransitionAnimator.SetTrigger(_closeInFromSidesAnimTrigger);
+        yield return new WaitForSeconds(_sceneTransitionTime / 2);
         SceneManager.LoadScene(id);
     }
 
@@ -39,6 +51,7 @@ public class SceneLoadManager : BaseUniversalManager
 
     public void LoadSelectionScene()
     {
+        UniversalManagers.Instance.GetSelectionManager().ResetSelectionData();
         LoadSceneByID(_selectionSceneID);
     }
 

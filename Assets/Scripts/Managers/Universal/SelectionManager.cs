@@ -130,6 +130,15 @@ public class SelectionManager : BaseUniversalManager
     }
 
 
+    public void ResetSelectionData()
+    {
+        _selectedHeroes = new();
+        _selectedBoss = new();
+        _selectedLevel = new();
+        _currentGameDifficulty = new();
+    }
+
+
     #region Events
     public void InvokeBossSelectionEvent(BossSO bossSO)
     {
