@@ -26,6 +26,7 @@ public class HeroBase : MonoBehaviour
     private HeroSO _associatedSO;
     private GameObject _associatedHeroGameObject;
     private SpecificHeroFramework _associatedHeroScript;
+    private int _myHeroID;
 
     private UnityEvent<HeroSO> _heroSOSetEvent = new UnityEvent<HeroSO>();
 
@@ -186,6 +187,8 @@ public class HeroBase : MonoBehaviour
 
     public GameObject GetAssociatedHeroObject() => _associatedHeroGameObject;
     public SpecificHeroFramework GetSpecificHeroScript() => _associatedHeroScript;
+
+    public int GetHeroID() => _myHeroID;
 
     public UnityEvent<HeroSO> GetSOSetEvent() => _heroSOSetEvent;
     public UnityEvent GetHeroControlledBeginEvent() => _heroControlledStartEvent;

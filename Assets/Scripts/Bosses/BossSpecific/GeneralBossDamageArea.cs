@@ -11,6 +11,7 @@ public class GeneralBossDamageArea : MonoBehaviour
     [SerializeField] private Collider _damageCollider;
     [SerializeField] private bool _hasLifeTime;
     [SerializeField] private float _lifeTime;
+    [SerializeField] private float _preventReHitDuration;
 
     [Header("Enter")]
     [SerializeField] private float _enterDamage;
@@ -18,12 +19,13 @@ public class GeneralBossDamageArea : MonoBehaviour
 
     [Header("Stay")]
     [SerializeField] private float _stayDamagePerTick;
-    [SerializeField] private float _stayDamageTickRate;
     [SerializeField] private UnityEvent<Collider> _stayEvent;
 
     [Header("Exit")]
     [SerializeField] private float _exitDamage;
     [SerializeField] private UnityEvent<Collider> _exitEvent;
+
+    private List<HeroBase> _heroesToIgnore = new List<HeroBase>();
 
     private void Start()
     {
@@ -43,9 +45,9 @@ public class GeneralBossDamageArea : MonoBehaviour
 
     private void OnTriggerStay(Collider collision)
     {
-        if(HitHero(collision, _stayEvent, _stayDamagePerTick) && (_stayDamageTickRate > 0))
+        if(HitHero(collision, _stayEvent, _stayDamagePerTick) && (_preventReHitDuration > 0))
         {
-            StartCoroutine(DisableColliderForDuration(_stayDamageTickRate));
+            StartCoroutine(IgnoreHeroForDuration(collision.gameObject.GetComponentInParent<HeroBase>()));
         }
     }
 
@@ -58,9 +60,13 @@ public class GeneralBossDamageArea : MonoBehaviour
     {
         if (DoesColliderBelongToHero(collision))
         {
+            HeroBase heroBase = collision.GetComponentInParent<HeroBase>();
+            if (_heroesToIgnore.Contains(heroBase))
+                return false;
+
             hitEvent?.Invoke(collision);
 
-            DealDamage(collision.GetComponentInParent<HeroBase>(), abilityDamage);
+            DealDamage(heroBase, abilityDamage);
 
             return true;
         }
@@ -74,15 +80,10 @@ public class GeneralBossDamageArea : MonoBehaviour
                 GetBossManager().GetBossBase().GetBossStats().GetBossDamageMultiplier());
     }
 
-    public void ToggleProjectileCollider(bool colliderEnabled)
+    private IEnumerator IgnoreHeroForDuration(HeroBase heroBase)
     {
-        _damageCollider.enabled = colliderEnabled;
-    }
-
-    private IEnumerator DisableColliderForDuration(float duration)
-    {
-        ToggleProjectileCollider(false);
-        yield return new WaitForSeconds(duration);
-        ToggleProjectileCollider(true);
+        _heroesToIgnore.Add(heroBase);
+        yield return new WaitForSeconds(_preventReHitDuration);
+        _heroesToIgnore.Remove(heroBase);
     }
 }

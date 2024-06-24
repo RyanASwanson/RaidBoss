@@ -75,6 +75,7 @@ public class PlayerInputGameplayManager : BaseGameplayManager
 
     private void ActivateAllManualAbilities()
     {
+        Debug.Log("activate");
         if(ClickOnPoint(_directClickLayerMask, out RaycastHit clickedOn))
         {
             foreach (HeroBase currentHero in _controlledHeroes)

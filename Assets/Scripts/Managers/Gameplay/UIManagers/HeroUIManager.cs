@@ -138,8 +138,8 @@ public class HeroUIManager : GameUIChildrenFunctionality
             newDamageNumber.GetComponent<Animator>().SetTrigger(_damageStrongAnimTrigger);
         else if (damage >= _averageDamage)
             newDamageNumber.GetComponent<Animator>().SetTrigger(_damageAverageAnimTrigger);
-        else*/
-        newDamageNumber.GetComponent<Animator>().SetTrigger(_damageHealingWeakAnimTrigger);
+        else
+        newDamageNumber.GetComponent<Animator>().SetTrigger(_damageHealingWeakAnimTrigger);*/
     }
 
     private void CreateHealingNumbers(float healing)
@@ -156,8 +156,8 @@ public class HeroUIManager : GameUIChildrenFunctionality
             newDamageNumber.GetComponent<Animator>().SetTrigger(_damageStrongAnimTrigger);
         else if (damage >= _averageDamage)
             newDamageNumber.GetComponent<Animator>().SetTrigger(_damageAverageAnimTrigger);
-        else*/
-        newHealingNumber.GetComponent<Animator>().SetTrigger(_damageHealingWeakAnimTrigger);
+        else
+        newHealingNumber.GetComponent<Animator>().SetTrigger(_damageHealingWeakAnimTrigger);*/
     }
 
     private void AddSpawnVarianceToDamageHealingNumber(GameObject number)

@@ -15,9 +15,9 @@ public class SH_Chronomancer : SpecificHeroFramework
     private List<Queue<float>> _heroPastHealthValues = new List<Queue<float>>();
     private List<float> _heroPreviousCheckedHealth = new List<float>(5);
 
-/*    private void Update()
+    private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.U))
+        if (Input.GetKeyDown(KeyCode.U))
         {
             print("U");
             foreach (float a in _heroPastHealthValues[0])
@@ -25,8 +25,8 @@ public class SH_Chronomancer : SpecificHeroFramework
                 Debug.Log(a);
             }
         }
-        
-    }*/
+
+    }
 
 
     #region Basic Abilities
@@ -65,7 +65,10 @@ public class SH_Chronomancer : SpecificHeroFramework
     #region Manual Abilities
     public override void ActivateManualAbilities(Vector3 attackLocation)
     {
+        Debug.Log("start manual chrono");
         base.ActivateManualAbilities(attackLocation);
+
+        Debug.Log("Activate manual chrono");
 
         int counter = 0;
         foreach (HeroBase heroBase in GameplayManagers.Instance.GetHeroesManager().GetCurrentHeroes())

@@ -52,12 +52,12 @@ MonoBehaviour:
   _damageCollider: {fileID: 5230195009579388698}
   _hasLifeTime: 1
   _lifeTime: 4
+  _preventReHitDuration: 0.5
   _enterDamage: 0
   _enterEvent:
     m_PersistentCalls:
       m_Calls: []
   _stayDamagePerTick: 2
-  _stayDamageTickRate: 0.5
   _stayEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -77,7 +77,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e14d17908acb9054fa833916075e74f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectileLifetime: 4
   _projectileSpeed: 0.5
   _randomDirectionThreshold: 0.2
 --- !u!54 &2046015707512375880
