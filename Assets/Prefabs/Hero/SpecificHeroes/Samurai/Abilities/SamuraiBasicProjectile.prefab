@@ -225,6 +225,7 @@ GameObject:
   - component: {fileID: 5625124809019392842}
   - component: {fileID: 2084309515150920701}
   - component: {fileID: 3204899028780777723}
+  - component: {fileID: 351931739808393827}
   m_Layer: 0
   m_Name: SamuraiBasicProjectile
   m_TagString: Untagged
@@ -264,11 +265,24 @@ MonoBehaviour:
   _damageCollider: {fileID: 867951456254802135}
   _hasLifeTime: 1
   _lifeTime: 0.5
+  _hitDestructionVFX: {fileID: 0}
   _enterDamage: 9
   _enterStagger: 5
   _enterEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 351931739808393827}
+        m_TargetAssemblyTypeName: SHP_SamuraiBasicProjectile, Assembly-CSharp
+        m_MethodName: DecreaseCooldownOfManual
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _stayDamagePerTick: 0
   _stayStaggerPerTick: 0
   _stayDamageTickRate: 0
@@ -296,3 +310,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!114 &351931739808393827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5625124809019392836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd3d6a675267a5245b6fc8757cf8471a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -2,9 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//NOT CURRENTLY IN USE
 public class SHP_SamuraiBasicProjectile : HeroProjectileFramework
 {
+    public void DecreaseCooldownOfManual()
+    {
+        if (_mySpecificHero == null)
+            Debug.Log("Cannot find specific hero");
+        _mySpecificHero.ActivatePassiveAbilities();
+    }
+
     public override void SetUpProjectile(HeroBase heroBase)
     {
         base.SetUpProjectile(heroBase);

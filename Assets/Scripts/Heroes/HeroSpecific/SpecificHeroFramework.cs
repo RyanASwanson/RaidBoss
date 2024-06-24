@@ -102,7 +102,6 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         while (_manualAbilityCurrentCharge < _manualAbilityChargeTime)
         {
             AddToManualAbilityChargeTime(Time.deltaTime);
-            myHeroBase.InvokeHeroManualAbilityChargingEvent();
             yield return null;
         }
 
@@ -112,6 +111,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     public virtual void AddToManualAbilityChargeTime(float addedAmount)
     {
         _manualAbilityCurrentCharge += addedAmount;
+        myHeroBase.InvokeHeroManualAbilityChargingEvent();
     }
 
     public virtual void AttemptActivationOfManualAbility(Vector3 activateLocation)

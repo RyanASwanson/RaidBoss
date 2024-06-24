@@ -13,6 +13,9 @@ public class SH_Samurai : SpecificHeroFramework
     [SerializeField] float _manualAbilityParryStagger;
     [SerializeField] float _parryBonusIFrames;
 
+    [Space]
+    [SerializeField] float _passiveRechargeManualAmount;
+
     private Coroutine _parryCoroutine;
 
     #region Basic Abilities
@@ -43,8 +46,8 @@ public class SH_Samurai : SpecificHeroFramework
     {
         //Samurai Projectile Script Not Currently in use
         //GameObject spawnedProjectile = 
-        Instantiate(_basicProjectile, myHeroBase.transform.position, Quaternion.identity);
-        //spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(myHeroBase);
+        GameObject spawnedProjectile = Instantiate(_basicProjectile, myHeroBase.transform.position, Quaternion.identity);
+        spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(myHeroBase);
 
         //spawnedProjectile.GetComponent<SHP_SamuraiBasicProjectile>().AdditionalSetup(1);
     }
@@ -119,9 +122,11 @@ public class SH_Samurai : SpecificHeroFramework
     /// On hitting the boss with an attack the samurai charges his manual ability
     /// </summary>
     /// <param name="cooldownAmount"></param>
-    public void ActivatePassiveAbilities(float cooldownAmount)
+
+
+    public override void ActivatePassiveAbilities()
     {
-        AddToManualAbilityChargeTime(cooldownAmount);
+        AddToManualAbilityChargeTime(_passiveRechargeManualAmount);
     }
     #endregion
 
