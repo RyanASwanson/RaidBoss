@@ -97,6 +97,7 @@ public class SH_Samurai : SpecificHeroFramework
         DamageBoss(_manualAbilityParryDamage);
         StaggerBoss(_manualAbilityParryStagger);
         StopParryEarly();
+        ActivatePassiveAbilities();
 
         StartSuccessfulParryIFrames();
     }
