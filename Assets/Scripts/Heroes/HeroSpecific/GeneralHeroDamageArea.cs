@@ -12,6 +12,8 @@ public class GeneralHeroDamageArea : MonoBehaviour
     [SerializeField] private Collider _damageCollider;
     [SerializeField] private bool _hasLifeTime;
     [SerializeField] private float _lifeTime;
+    [Space]
+    [SerializeField] private GameObject _hitDestructionVFX;
 
     [Header("Enter")]
     [SerializeField] private float _enterDamage;
@@ -95,8 +97,15 @@ public class GeneralHeroDamageArea : MonoBehaviour
     }
     #endregion
 
+    public void CreateDestructionParticles()
+    {
+        if (_hitDestructionVFX == null) return;
+        Instantiate(_hitDestructionVFX, transform.position, Quaternion.identity);
+    }
+
     public void DestroyProjectile()
     {
+        CreateDestructionParticles();
         Destroy(gameObject);
     }
 }

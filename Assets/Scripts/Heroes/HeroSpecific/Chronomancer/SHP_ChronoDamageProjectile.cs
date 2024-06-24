@@ -7,8 +7,8 @@ using UnityEngine;
 /// </summary>
 public class SHP_ChronoDamageProjectile : HeroProjectileFramework
 {
-    [SerializeField] private float _projectileLifetime;
     [SerializeField] private float _projectileSpeed;
+
 
     public override void SetUpProjectile(HeroBase heroBase)
     {
@@ -18,7 +18,6 @@ public class SHP_ChronoDamageProjectile : HeroProjectileFramework
     public void AdditionalSetup(Vector3 direction)
     {
         StartCoroutine(MoveProjectile(direction));
-        Destroy(gameObject, _projectileLifetime);
     }
 
     /// <summary>

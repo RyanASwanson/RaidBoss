@@ -41,6 +41,7 @@ public class PlayerInputGameplayManager : BaseGameplayManager
         {
             return true;
         }
+
         return false;
     }
 
@@ -75,15 +76,20 @@ public class PlayerInputGameplayManager : BaseGameplayManager
 
     private void ActivateAllManualAbilities()
     {
-        Debug.Log("activate");
         if(ClickOnPoint(_directClickLayerMask, out RaycastHit clickedOn))
         {
+            Vector3 targetLoc = GameplayManagers.Instance.GetEnvironmentManager()
+                .GetClosestPointToFloor(clickedOn.point);
+
             foreach (HeroBase currentHero in _controlledHeroes)
             {
-                currentHero.InvokeHeroManualAbilityAttemptEvent(clickedOn.point);
+                currentHero.InvokeHeroManualAbilityAttemptEvent(targetLoc);
             }
+            
         }
+
         
+
     }
     #endregion
 

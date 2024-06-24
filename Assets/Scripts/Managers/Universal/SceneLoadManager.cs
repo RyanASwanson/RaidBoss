@@ -41,4 +41,9 @@ public class SceneLoadManager : BaseUniversalManager
     {
         LoadSceneByID(_selectionSceneID);
     }
+
+    public void ReloadCurrentScene()
+    {
+        LoadSceneByID(SceneManager.GetActiveScene().buildIndex);
+    }
 }

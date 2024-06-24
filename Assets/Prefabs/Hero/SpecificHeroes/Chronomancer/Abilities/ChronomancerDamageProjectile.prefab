@@ -211,8 +211,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damageCollider: {fileID: 5596939872825649638}
-  _hasLifeTime: 0
-  _lifeTime: 0
+  _hasLifeTime: 1
+  _lifeTime: 2.5
+  _hitDestructionVFX: {fileID: 6979708019959833186, guid: 9963dce36ff1fca4a84df9778b7b24ef, type: 3}
   _enterDamage: 2
   _enterStagger: 3
   _enterEvent:
@@ -291,7 +292,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a6eae13ad763bd42aa217b42865574d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectileLifetime: 2.5
   _projectileSpeed: 1.5
 --- !u!54 &3442492512316392498
 Rigidbody:

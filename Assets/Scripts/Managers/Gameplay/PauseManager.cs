@@ -10,7 +10,6 @@ public class PauseManager : BaseGameplayManager
     private UnityEvent _gamePausedEvent = new UnityEvent();
     private UnityEvent _gameUnpausedEvent = new UnityEvent();
 
-
     public void PressGamePauseButton()
     {
         _gamePaused = !_gamePaused;
@@ -29,6 +28,11 @@ public class PauseManager : BaseGameplayManager
     private void UnpauseGame()
     {
         InvokeGameUnpausedEvent();
+        ResumeTime();
+    }
+
+    public void ResumeTime()
+    {
         Time.timeScale = 1;
     }
 
