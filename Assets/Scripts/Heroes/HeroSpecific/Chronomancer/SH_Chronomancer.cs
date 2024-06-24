@@ -51,7 +51,7 @@ public class SH_Chronomancer : SpecificHeroFramework
 
         Physics.IgnoreCollision(myHeroBase.GetHeroDamageCollider(), 
             spawnedProjectile.GetComponentInChildren<Collider>(), true);
-        spawnedProjectile.GetComponent<SHP_ChronoDamageProjectile>().AdditionalSetup(_currentAttackDirection);
+        spawnedProjectile.GetComponent<SHP_ChronomancerBasicProjectile>().AdditionalSetup(_currentAttackDirection);
     }
 
     private void IncreaseCurrentAttackRotation()

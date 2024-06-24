@@ -6,8 +6,6 @@ public class SHP_SamuraiBasicProjectile : HeroProjectileFramework
 {
     public void DecreaseCooldownOfManual()
     {
-        if (_mySpecificHero == null)
-            Debug.Log("Cannot find specific hero");
         _mySpecificHero.ActivatePassiveAbilities();
     }
 

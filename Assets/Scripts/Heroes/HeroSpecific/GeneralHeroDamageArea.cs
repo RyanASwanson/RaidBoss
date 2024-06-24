@@ -108,4 +108,10 @@ public class GeneralHeroDamageArea : MonoBehaviour
         CreateDestructionParticles();
         Destroy(gameObject);
     }
+
+    #region Getters
+    public UnityEvent<Collider> GetEnterEvent() => _enterEvent;
+    public UnityEvent<Collider> GetStayEvent() => _stayEvent;
+    public UnityEvent<Collider> GetExitEvent() => _exitEvent;
+    #endregion
 }
