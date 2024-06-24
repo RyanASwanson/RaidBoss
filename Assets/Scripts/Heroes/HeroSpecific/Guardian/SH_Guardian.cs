@@ -8,14 +8,24 @@ public class SH_Guardian : SpecificHeroFramework
     [SerializeField] private float _heroBasicAbilityDamage;
     [SerializeField] private float _heroBasicAbilityStagger;
     [SerializeField] private GameObject _basicProjectile;
-
+    
+    [Space]
     [SerializeField] private float _heroManualAbilityDuration;
+
+    [Space]
+    [SerializeField] private float _heroPassiveAbilityDuration;
+    [SerializeField] private float _heroPassiveDamageResistance;
+    private Coroutine _passiveCoroutine;
 
     #region Basic Abilities
     public override bool ConditionsToActivateBasicAbilities()
     {
         return !myHeroBase.GetPathfinding().IsHeroMoving();  
     }
+
+    /// <summary>
+    /// Spawns the projectile that deals damage
+    /// </summary>
     public override void ActivateBasicAbilities()
     {
         base.ActivateBasicAbilities();
@@ -35,9 +45,24 @@ public class SH_Guardian : SpecificHeroFramework
     #endregion
 
     #region Passive Abilities
-    public override void ActivatePassiveAbilities()
+    public void ActivatePassiveAbilities(float damageTaken)
     {
-        
+        if (_passiveCoroutine != null)
+        {
+            myHeroBase.GetHeroStats().ChangeCurrentHeroDamageResistance(-_heroPassiveDamageResistance);
+            StopCoroutine(_passiveCoroutine);
+        }
+
+        _passiveCoroutine = StartCoroutine(PassiveAbilityProcess());
+    }
+
+    private IEnumerator PassiveAbilityProcess()
+    {
+        myHeroBase.GetHeroStats().ChangeCurrentHeroDamageResistance(_heroPassiveDamageResistance);
+        yield return new WaitForSeconds(_heroPassiveAbilityDuration);
+        myHeroBase.GetHeroStats().ChangeCurrentHeroDamageResistance(-_heroPassiveDamageResistance);
+
+        _passiveCoroutine = null;
     }
     #endregion
 
@@ -54,6 +79,8 @@ public class SH_Guardian : SpecificHeroFramework
     public override void SubscribeToEvents()
     {
         base.SubscribeToEvents();
+
+        myHeroBase.GetHeroDamagedEvent().AddListener(ActivatePassiveAbilities);
     }
 
     

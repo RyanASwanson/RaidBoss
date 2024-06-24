@@ -61,8 +61,8 @@ public class HeroStats : HeroChildrenFunctionality
 
         SetPreviousHealthValue();
         
-        _currentHealth -= damage;
-        myHeroBase.InvokeHeroDamagedEvent(damage);
+        _currentHealth -= damage / _currentDamageResistance;
+        myHeroBase.InvokeHeroDamagedEvent(damage / _currentDamageResistance);
         CheckIfHeroIsDead();
     }
 
@@ -169,6 +169,7 @@ public class HeroStats : HeroChildrenFunctionality
     }
     #endregion
 
+    #region Health Threshholds
     private void CheckHeroDamagedUnderHalf(float damage)
     {
         if (GetHeroHealthPercentage() < .5f)
@@ -225,6 +226,26 @@ public class HeroStats : HeroChildrenFunctionality
         }
     }
 
+    #endregion
+
+    #region Stat Changes
+    public void ChangeCurrentHeroCurrentSpeed(float changeValue)
+    {
+        _currentMovespeed += changeValue;
+
+        myHeroBase.GetPathfinding().GetNavMeshAgent().speed = _currentMovespeed;
+    }
+
+    public void ChangeCurrentHeroAggro(float changeValue)
+    {
+        _currentAggro += changeValue;
+    }
+
+    public void ChangeCurrentHeroDamageResistance(float changeValue)
+    {
+        _currentDamageResistance += changeValue;
+    }
+    #endregion
 
     #region Events
     public override void SubscribeToEvents()
@@ -259,6 +280,5 @@ public class HeroStats : HeroChildrenFunctionality
     #endregion
 
     #region Setters
-    
     #endregion
 }
