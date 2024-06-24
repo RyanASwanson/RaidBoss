@@ -46,7 +46,7 @@ public class GeneralHeroHealArea : MonoBehaviour
     private bool HitHero(Collider collision, UnityEvent<Collider> hitEvent, float abilityHealing)
     {
         if (DoesColliderBelongToHero(collision) && 
-            !collision.GetComponentInParent<HeroBase>().GetHeroStats().IsHeroMaxHealth())
+            collision.GetComponentInParent<HeroBase>().GetHeroStats().CanHeroBeHealed())
         {
             hitEvent?.Invoke(collision);
 

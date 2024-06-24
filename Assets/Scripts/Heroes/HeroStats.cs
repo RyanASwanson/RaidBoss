@@ -21,6 +21,8 @@ public class HeroStats : HeroChildrenFunctionality
     private float _currentDamageResistance;
 
     private int _damageTakenOverridesCounter = 0;
+    private int _healingTakenOverridesCounter = 0;
+    private int _deathOverridesCounter = 0;
 
     public override void ChildFuncSetup(HeroBase heroBase)
     {
@@ -66,6 +68,9 @@ public class HeroStats : HeroChildrenFunctionality
 
     public void HealHero(float healing)
     {
+        //Checks for a healing override before healing
+
+
         SetPreviousHealthValue();
 
         float healthDifference = _currentHealth;
@@ -82,7 +87,7 @@ public class HeroStats : HeroChildrenFunctionality
     //Checks if the hero has died after taking damage
     private void CheckIfHeroIsDead()
     {
-        if (_currentHealth <= 0)
+        if (_currentHealth <= 0 && !ShouldOverrideDeath())
         {
             GameplayManagers.Instance.GetHeroesManager().HeroDied(myHeroBase);
         }
@@ -93,6 +98,7 @@ public class HeroStats : HeroChildrenFunctionality
         _previousHealthValue = _currentHealth;
     }
 
+    #region Damage Override
     private bool ShouldOverrideDamage()
     {
         return _damageTakenOverridesCounter > 0;
@@ -108,6 +114,45 @@ public class HeroStats : HeroChildrenFunctionality
     {
         _damageTakenOverridesCounter--;
     }
+    #endregion
+
+    #region Healing Override
+
+    private bool ShouldOverrideHealing()
+    {
+        return _healingTakenOverridesCounter > 0;
+    }
+
+    public void AddHealingTakenOverrideCounter()
+    {
+        _healingTakenOverridesCounter++;
+    }
+
+
+    public void RemoveHealingTakenOverrideCounter()
+    {
+        _healingTakenOverridesCounter--;
+    }
+
+    #endregion
+
+    #region Death Override
+    private bool ShouldOverrideDeath()
+    {
+        return _deathOverridesCounter > 0;
+    }
+
+    public void AddDeathOverrideCounter()
+    {
+        _deathOverridesCounter++;
+    }
+
+
+    public void RemoveDeathOverrideCounter()
+    {
+        _deathOverridesCounter--;
+    }
+    #endregion
 
     private void CheckHeroDamagedUnderHalf(float damage)
     {
@@ -191,6 +236,7 @@ public class HeroStats : HeroChildrenFunctionality
     public float GetCurrentHealth() => _currentHealth;
     public float GetPreviousHealth() => _previousHealthValue;
     public bool IsHeroMaxHealth() => _currentHealth >= _heroMaxHealth;
+    public bool CanHeroBeHealed() => !IsHeroMaxHealth() && !ShouldOverrideHealing();
     public float GetHeroHealthPercentage() => _currentHealth / _heroMaxHealth;
     public float GetCurrentSpeed() => _currentMovespeed;
     public float GetCurrentAggro() => _currentAggro;
