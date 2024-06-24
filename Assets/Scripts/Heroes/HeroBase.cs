@@ -44,6 +44,7 @@ public class HeroBase : MonoBehaviour
     private UnityEvent<float> _heroDamagedEvent = new UnityEvent<float>();
     private UnityEvent<float> _heroDamagedOverrideEvent = new UnityEvent<float>();
     private UnityEvent<float> _heroHealedEvent = new UnityEvent<float>();
+    private UnityEvent<float> _heroHealingOverrideEvent = new UnityEvent<float>();
 
     //Event called when hero health changes. Current health stored as float
     private UnityEvent<float> _heroHealthChanged = new UnityEvent<float>();
@@ -55,6 +56,7 @@ public class HeroBase : MonoBehaviour
     private UnityEvent _heroHealedAboveQuarterEvent = new UnityEvent();
 
     private UnityEvent _heroDiedEvent = new UnityEvent();
+    private UnityEvent _heroDeathOverrideEvent = new UnityEvent();
 
     public void Setup(HeroSO newSO)
     {
@@ -145,6 +147,11 @@ public class HeroBase : MonoBehaviour
         InvokeHeroHealthChangedEvent();
     }
 
+    public void InvokeHeroHealedOverrideEvent(float healAmount)
+    {
+        _heroHealingOverrideEvent?.Invoke(healAmount);
+    }
+
     public void InvokeHeroHealthChangedEvent()
     {
         _heroHealthChanged?.Invoke(GetHeroStats().GetCurrentHealth());
@@ -173,6 +180,10 @@ public class HeroBase : MonoBehaviour
     public void InvokeHeroDiedEvent()
     {
         _heroDiedEvent?.Invoke();
+    }
+    public void InvokeHeroDeathOverrideEvent()
+    {
+        _heroDeathOverrideEvent?.Invoke();
     }
     #endregion
 
@@ -204,6 +215,7 @@ public class HeroBase : MonoBehaviour
     public UnityEvent<float> GetHeroDamagedEvent() => _heroDamagedEvent;
     public UnityEvent<float> GetHeroDamagedOverrideEvent() => _heroDamagedOverrideEvent;
     public UnityEvent<float> GetHeroHealedEvent() => _heroHealedEvent;
+    public UnityEvent<float> GetHeroHealingOverrideEvent() => _heroHealingOverrideEvent;
 
     public UnityEvent<float> GetHeroHealthChangedEvent() => _heroHealthChanged;
 
@@ -213,6 +225,7 @@ public class HeroBase : MonoBehaviour
     public UnityEvent GetHeroHealedAboveQuarterEvent() => _heroHealedAboveQuarterEvent;
 
     public UnityEvent GetHeroDiedEvent() => _heroDiedEvent;
+    public UnityEvent GetHeroDeathOverrideEvent() => _heroDeathOverrideEvent;
     #endregion
 
     #region Setters

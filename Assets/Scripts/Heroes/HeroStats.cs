@@ -69,7 +69,11 @@ public class HeroStats : HeroChildrenFunctionality
     public void HealHero(float healing)
     {
         //Checks for a healing override before healing
-
+        if(ShouldOverrideHealing())
+        {
+            myHeroBase.InvokeHeroHealedOverrideEvent(healing);
+            return;
+        }
 
         SetPreviousHealthValue();
 
@@ -87,10 +91,21 @@ public class HeroStats : HeroChildrenFunctionality
     //Checks if the hero has died after taking damage
     private void CheckIfHeroIsDead()
     {
-        if (_currentHealth <= 0 && !ShouldOverrideDeath())
+        if (_currentHealth <= 0)
         {
-            GameplayManagers.Instance.GetHeroesManager().HeroDied(myHeroBase);
+            if(ShouldOverrideDeath())
+            {
+                myHeroBase.InvokeHeroDeathOverrideEvent();
+                return;
+            }
+
+            KillHero();
         }
+    }
+
+    public void KillHero()
+    {
+        GameplayManagers.Instance.GetHeroesManager().HeroDied(myHeroBase);
     }
 
     private void SetPreviousHealthValue()

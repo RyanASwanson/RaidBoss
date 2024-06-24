@@ -55,7 +55,6 @@ public class HeroesManager : BaseGameplayManager
 
     private void CheckIfAllHeroesDead()
     {
-        Debug.Log(_currentLivingHeroes.Count);
         if (_currentLivingHeroes.Count == 0)
             GameplayManagers.Instance.GetGameStateManager().SetGameplayState(GameplayStates.PostBattleLost);
     }

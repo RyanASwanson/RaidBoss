@@ -9,6 +9,9 @@ public class SH_Reaper : SpecificHeroFramework
 
     [SerializeField] private GameObject _manualAbilityProjectile;
 
+    [Space]
+    [SerializeField] private float _deathPersistDuration;
+
     #region Basic Abilities
     protected override void StartCooldownBasicAbility()
     {
@@ -60,7 +63,16 @@ public class SH_Reaper : SpecificHeroFramework
     #region Passive Abilities
     public override void ActivatePassiveAbilities()
     {
-        throw new System.NotImplementedException();
+        StartCoroutine(PassiveProcess());
+    }
+
+    private IEnumerator PassiveProcess()
+    {
+        myHeroBase.GetHeroStats().AddDamageTakenOverrideCounter();
+        myHeroBase.GetHeroStats().AddHealingTakenOverrideCounter();
+        yield return new WaitForSeconds(_deathPersistDuration);
+        myHeroBase.GetHeroStats().RemoveDeathOverrideCounter();
+        myHeroBase.GetHeroStats().KillHero();
     }
     #endregion
     
@@ -74,9 +86,18 @@ public class SH_Reaper : SpecificHeroFramework
     {
         base.DeactivateHeroSpecificActivity();
     }
+    
+    protected override void BattleStarted()
+    {
+        base.BattleStarted();
+
+        myHeroBase.GetHeroStats().AddDeathOverrideCounter();
+    }
 
     public override void SubscribeToEvents()
     {
         base.SubscribeToEvents();
+
+        myHeroBase.GetHeroDeathOverrideEvent().AddListener(ActivatePassiveAbilities);
     }
 }
