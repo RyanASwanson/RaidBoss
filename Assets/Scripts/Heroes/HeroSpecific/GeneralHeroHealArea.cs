@@ -6,6 +6,10 @@ using UnityEngine.Events;
 public class GeneralHeroHealArea : MonoBehaviour
 {
     [SerializeField] private Collider _healingCollider;
+    [SerializeField] private bool _hasLifeTime;
+    [SerializeField] private float _lifeTime;
+    [Space]
+    [SerializeField] private GameObject _hitDestructionVFX;
 
     [Header("Enter")]
     [SerializeField] private float _enterHealing;
@@ -19,6 +23,13 @@ public class GeneralHeroHealArea : MonoBehaviour
     [Header("Exit")]
     [SerializeField] private float _exitHealing;
     [SerializeField] private UnityEvent<Collider> _exitEvent;
+
+    private void Start()
+    {
+        if (_hasLifeTime)
+            Destroy(gameObject, _lifeTime);
+    }
+
 
     private bool DoesColliderBelongToHero(Collider collision)
     {
@@ -75,8 +86,16 @@ public class GeneralHeroHealArea : MonoBehaviour
         ToggleProjectileCollider(true);
     }
 
+    public void CreateDestructionVFX()
+    {
+        if (_hitDestructionVFX == null) return;
+
+        Instantiate(_hitDestructionVFX, transform.position, Quaternion.identity);
+    }
+
     public void DestroyProjectile()
     {
+        CreateDestructionVFX();
         Destroy(gameObject);
     }
 

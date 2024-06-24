@@ -97,7 +97,7 @@ public class GeneralHeroDamageArea : MonoBehaviour
     }
     #endregion
 
-    public void CreateDestructionParticles()
+    public void CreateDestructionVFX()
     {
         if (_hitDestructionVFX == null) return;
         Instantiate(_hitDestructionVFX, transform.position, Quaternion.identity);
@@ -105,7 +105,7 @@ public class GeneralHeroDamageArea : MonoBehaviour
 
     public void DestroyProjectile()
     {
-        CreateDestructionParticles();
+        CreateDestructionVFX();
         Destroy(gameObject);
     }
 
