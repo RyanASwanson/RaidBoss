@@ -40,7 +40,7 @@ public class EnvironmentManager : BaseGameplayManager
         startPoint = new Vector3(startPoint.x, 0, startPoint.z);
         direction = new Vector3(direction.x, 0, direction.z);
 
-        //Debug.DrawRay(startPoint, direction, Color.blue, 3);
+        Debug.DrawRay(startPoint, direction, Color.blue, 3);
         if(Physics.Raycast(startPoint, direction, out RaycastHit rayHit, _distanceToEdgeOfMap, _mapBorderLayer))
             return rayHit.point;
 
