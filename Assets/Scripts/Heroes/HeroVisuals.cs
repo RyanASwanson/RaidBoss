@@ -9,6 +9,7 @@ public class HeroVisuals : HeroChildrenFunctionality
     [Space]
 
     [SerializeField] private GameObject _heroDamagedVFX;
+    [SerializeField] private GameObject _heroHealedVFX;
     [Space]
 
     [SerializeField] private RectTransform _damageNumbersOrigin;
@@ -26,6 +27,11 @@ public class HeroVisuals : HeroChildrenFunctionality
     private void HeroDamaged(float damage)
     {
         Instantiate(_heroDamagedVFX, transform.position, Quaternion.identity);
+    }
+
+    private void HeroHealed(float healing)
+    {
+        Instantiate(_heroHealedVFX, transform.position, Quaternion.identity);
     }
 
 
@@ -52,6 +58,7 @@ public class HeroVisuals : HeroChildrenFunctionality
         myHeroBase.GetHeroControlledEndEvent().AddListener(HeroControlStop);
 
         myHeroBase.GetHeroDamagedEvent().AddListener(HeroDamaged);
+        myHeroBase.GetHeroHealedEvent().AddListener(HeroHealed);
 
         myHeroBase.GetHeroHealedAboveHalfEvent().AddListener(HeroHealthAboveHalf);
         myHeroBase.GetHeroHealedAboveQuarterEvent().AddListener(HeroInjured);
