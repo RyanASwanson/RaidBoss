@@ -136,9 +136,9 @@ public class SelectionManager : BaseUniversalManager
     public void ResetSelectionData()
     {
         _selectedHeroes = new();
-        _selectedBoss = new();
-        _selectedLevel = new();
-        _currentGameDifficulty = new();
+        _selectedBoss = null;
+        _selectedLevel = null;
+        _currentGameDifficulty = GameDifficulty.Normal;
     }
 
 
