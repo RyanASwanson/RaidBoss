@@ -122,6 +122,7 @@ GameObject:
   - component: {fileID: 8484584630006278992}
   - component: {fileID: 6178648973560091564}
   - component: {fileID: 4756059996115577347}
+  - component: {fileID: 4224414369238256091}
   m_Layer: 0
   m_Name: ReaperBasicProjectile
   m_TagString: Untagged
@@ -160,6 +161,7 @@ MonoBehaviour:
   _damageCollider: {fileID: 2335829733626578903}
   _hasLifeTime: 0
   _lifeTime: 0
+  _hitDestructionVFX: {fileID: 0}
   _enterDamage: 0
   _enterStagger: 0
   _enterEvent:
@@ -170,7 +172,19 @@ MonoBehaviour:
   _stayDamageTickRate: 0.5
   _stayEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6178648973560091564}
+        m_TargetAssemblyTypeName: SHP_ReaperBasicProjectile, Assembly-CSharp
+        m_MethodName: TriggerHitVFX
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _exitDamage: 0
   _exitStagger: 0
   _exitEvent:
@@ -192,6 +206,7 @@ MonoBehaviour:
   _projectileYSpinSpeed: 270
   _movementVariability: {x: 2, y: 1}
   _childObject: {fileID: 185800091226353918}
+  _hitAnimator: {fileID: 4224414369238256091}
 --- !u!54 &4756059996115577347
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -208,6 +223,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!95 &4224414369238256091
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2335829734208154044}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 908fbd73b2b83e447bf037461d3a1ed0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &5720776219893328029
 PrefabInstance:
   m_ObjectHideFlags: 0

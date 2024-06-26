@@ -11,6 +11,10 @@ public class SHP_ReaperBasicProjectile : HeroProjectileFramework
     [Space]
     [SerializeField] private GameObject _childObject;
 
+    [Space]
+    [SerializeField] private Animator _hitAnimator;
+    private const string _hitAnimTrigger = "HitEnemy";
+
 
     public override void SetUpProjectile(HeroBase heroBase)
     {
@@ -54,5 +58,10 @@ public class SHP_ReaperBasicProjectile : HeroProjectileFramework
             _childObject.transform.eulerAngles += new Vector3(0, rotateSpeed, 0) * Time.deltaTime;
             yield return null;
         }
+    }
+
+    public void TriggerHitVFX()
+    {
+        _hitAnimator.SetTrigger(_hitAnimTrigger);
     }
 }

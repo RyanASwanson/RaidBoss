@@ -72,7 +72,6 @@ public class HeroVisuals : HeroChildrenFunctionality
     private void HeroSOAssigned(HeroSO heroSO)
     {
         //Debug.Log("Hero Assigned SO Event");
-        //_meshAgent.speed = heroSO.GetMoveSpeed();
 
     }
     private void HeroControlStart()
