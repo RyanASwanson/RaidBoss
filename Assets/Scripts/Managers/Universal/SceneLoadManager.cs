@@ -14,6 +14,8 @@ public class SceneLoadManager : BaseUniversalManager
     private const int _mainMenuSceneID = 0;
     private const int _selectionSceneID = 1;
 
+    private Coroutine _sceneTransitionCoroutine;
+
     public override void SetupUniversalManager()
     {
 
@@ -25,7 +27,13 @@ public class SceneLoadManager : BaseUniversalManager
     /// <param name="id"></param>
     public void LoadSceneByID(int id)
     {
-        StartCoroutine(SceneLoadProcess(id));
+        if(CanLoadScene())
+            _sceneTransitionCoroutine = StartCoroutine(SceneLoadProcess(id));
+    }
+
+    private bool CanLoadScene()
+    {
+        return _sceneTransitionCoroutine == null;
     }
 
     private IEnumerator SceneLoadProcess(int id)
@@ -33,6 +41,9 @@ public class SceneLoadManager : BaseUniversalManager
         _sceneTransitionAnimator.SetTrigger(_closeInFromSidesAnimTrigger);
         yield return new WaitForSeconds(_sceneTransitionTime / 2);
         SceneManager.LoadScene(id);
+        yield return new WaitForSeconds(_sceneTransitionTime / 2);
+
+        _sceneTransitionCoroutine = null;
     }
 
     /// <summary>
