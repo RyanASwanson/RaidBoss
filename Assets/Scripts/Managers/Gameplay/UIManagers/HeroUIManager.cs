@@ -23,9 +23,19 @@ public class HeroUIManager : GameUIChildrenFunctionality
 
     [Header("RightSide")]
     [SerializeField] private Image _associatedHeroRecentHealthBar;
+    [SerializeField] private Image _associatedHeroHealingHealthBar;
     [SerializeField] private Image _associatedHeroCurrentHealthBar;
 
     [SerializeField] private Animator _associatedHeroHealthBarCombined;
+
+    [SerializeField] private float _timeForRecentHealthDrainStart;
+    [SerializeField] private float _recentHealthDrainPercentPerSecond;
+
+    [SerializeField] private float _timeForCurrentHealthGainStart;
+    [SerializeField] private float _currentHealthGainPercentPerSecond;
+
+    private Coroutine _startHealthBarDrainCoroutine;
+    private Coroutine _startHealthBarGainCoroutine;
 
     private const string _combinedHealthBarStatusIntAnim = "HealthStatus";
 
@@ -75,20 +85,101 @@ public class HeroUIManager : GameUIChildrenFunctionality
     #region Health
     private void AssociatedHeroTookDamage(float damageTaken)
     {
+        CorrectRecentHealthBar();
         SetHealthBarPercent(_associatedHeroBase.GetHeroStats().GetHeroHealthPercentage());
+        StartRecentHealthBarDrain();
+        ReduceRecentHealingOnDamage(damageTaken);
         CreateDamageNumbers(damageTaken);
     }
 
     private void AssociatedHeroTookHealing(float healingTaken)
     {
-        SetHealthBarPercent(_associatedHeroBase.GetHeroStats().GetHeroHealthPercentage());
+        //SetHealthBarPercent(_associatedHeroBase.GetHeroStats().GetHeroHealthPercentage());
+        SetRecentHealingHealthBarPercent(_associatedHeroBase.GetHeroStats().GetHeroHealthPercentage());
+        StartCurrentHealthBarGain();
+
         CreateHealingNumbers(healingTaken);
     }
 
+    #region Health Bar
     private void SetHealthBarPercent(float percent)
     {
         _associatedHeroCurrentHealthBar.fillAmount = percent;
     }
+
+    private void StartCurrentHealthBarGain()
+    {
+        if (_startHealthBarGainCoroutine != null)
+            StopCoroutine(_startHealthBarGainCoroutine);
+
+        _startHealthBarGainCoroutine = StartCoroutine(CurrentHealthBarGain());
+    }
+
+    private IEnumerator CurrentHealthBarGain()
+    {
+        yield return new WaitForSeconds(_timeForCurrentHealthGainStart);
+
+        float currentFill = _associatedHeroCurrentHealthBar.fillAmount;
+
+        while (currentFill < _associatedHeroHealingHealthBar.fillAmount)
+        {
+            currentFill += _currentHealthGainPercentPerSecond * Time.deltaTime;
+            SetHealthBarPercent(currentFill);
+            yield return null;
+        }
+
+        _startHealthBarGainCoroutine = null;
+    }
+
+    private void StartRecentHealthBarDrain()
+    {
+        if (_startHealthBarDrainCoroutine != null)
+            StopCoroutine(_startHealthBarDrainCoroutine);
+
+        _startHealthBarDrainCoroutine = StartCoroutine(RecentHealthBarDrain());
+    }
+
+    private IEnumerator RecentHealthBarDrain()
+    {
+        yield return new WaitForSeconds(_timeForRecentHealthDrainStart);
+
+        float currentFill = _associatedHeroRecentHealthBar.fillAmount;
+
+        while (currentFill > _associatedHeroCurrentHealthBar.fillAmount)
+        {
+            currentFill -= _recentHealthDrainPercentPerSecond * Time.deltaTime;
+            SetRecentDamageHealthBarPercent(currentFill);
+            yield return null;
+        }
+
+        _startHealthBarDrainCoroutine = null;
+    }
+
+    private void CorrectRecentHealthBar()
+    {
+        if (_associatedHeroRecentHealthBar.fillAmount < _associatedHeroCurrentHealthBar.fillAmount)
+            SetRecentDamageHealthBarPercent(_associatedHeroCurrentHealthBar.fillAmount) ;
+    }
+
+    private void SetRecentDamageHealthBarPercent(float percent)
+    {
+        _associatedHeroRecentHealthBar.fillAmount = percent;
+    }
+
+    private void SetRecentHealingHealthBarPercent(float percent)
+    {
+        _associatedHeroHealingHealthBar.fillAmount = percent;
+    }
+
+    private void ReduceRecentHealingOnDamage(float damage)
+    {
+        if(_associatedHeroHealingHealthBar.fillAmount > _associatedHeroCurrentHealthBar.fillAmount)
+        {
+            _associatedHeroHealingHealthBar.fillAmount -= damage;
+        }
+    }
+
+    #endregion
 
     private void HeroHealthAboveHalf()
     {

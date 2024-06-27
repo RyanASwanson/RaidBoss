@@ -59,6 +59,8 @@ public class BossUIManager : GameUIChildrenFunctionality
         CreateDamageNumbers(damage);
     }
 
+
+    #region Health Bar
     private void SetHealthBarPercentage(float damage)
     {
         float fillPercent = GameplayManagers.Instance.
@@ -103,6 +105,8 @@ public class BossUIManager : GameUIChildrenFunctionality
         }
     }
 
+    #endregion
+
     private void BossTookStagger(float stagger)
     {
         SetStaggerBarPercentage(stagger);
@@ -117,6 +121,7 @@ public class BossUIManager : GameUIChildrenFunctionality
         SetRecentStaggerBarPercentage(1);
     }
 
+    #region Stagger Bar
     private void ResetStaggerBar()
     {
         foreach (Image bar in _staggerBars)
@@ -167,6 +172,8 @@ public class BossUIManager : GameUIChildrenFunctionality
             bar.fillAmount = newFillAmount;
         }
     }
+
+    #endregion
 
     private void CreateDamageNumbers(float damage)
     {
