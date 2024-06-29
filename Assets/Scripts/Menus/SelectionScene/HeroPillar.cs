@@ -5,7 +5,10 @@ using UnityEngine;
 public class HeroPillar : MonoBehaviour
 {
     [SerializeField] private GameObject _heroSpawnPoint;
+    [SerializeField] private Animator _heroSpawnAnimator;
+
     private GameObject _currentHeroVisual;
+    private HeroBase _currentHeroBase;
 
     private HeroSO _storedHero;
     [Space]
@@ -13,6 +16,8 @@ public class HeroPillar : MonoBehaviour
     [SerializeField] private Animator _animator;
 
     private const string _heroPillarMoveAnimBool = "PillarUp";
+
+    private const string _newHeroHoverAnimTrigger = "NewHover";
 
     public void MovePillar(bool moveUp)
     {
@@ -31,6 +36,8 @@ public class HeroPillar : MonoBehaviour
 
         //Spawn the hero onto the pillar
         _currentHeroVisual = Instantiate(heroSO.GetHeroPrefab(), _heroSpawnPoint.transform);
+        //Sets the current hero base
+        _heroSpawnAnimator.SetTrigger(_newHeroHoverAnimTrigger) ;
         //Rotates the hero
         _currentHeroVisual.transform.eulerAngles += new Vector3(0,180,0);
         //Sets the stored hero

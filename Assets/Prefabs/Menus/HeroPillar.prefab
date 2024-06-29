@@ -80,6 +80,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _heroSpawnPoint: {fileID: 5149730385861964458}
+  _heroSpawnAnimator: {fileID: 1664057093650606128}
   _animator: {fileID: 5173866963182090916}
 --- !u!95 &5173866963182090916
 Animator:
@@ -443,8 +444,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 525380840271023455}
+  - component: {fileID: 1664057093650606128}
   m_Layer: 0
-  m_Name: HeroSpawnPoint
+  m_Name: HeroSpawnPointAndSpawnAnimation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -465,6 +467,27 @@ Transform:
   m_Father: {fileID: 8502089547074299184}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1664057093650606128
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5149730385861964458}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c586ec66262908c4ab1179d93a2177a5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7287301445840853974
 GameObject:
   m_ObjectHideFlags: 0
