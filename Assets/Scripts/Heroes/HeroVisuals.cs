@@ -18,9 +18,16 @@ public class HeroVisuals : HeroChildrenFunctionality
 
     private const string _healthStatusIntAnim = "HealthStatus";
 
+    [Space]
+    [SerializeField] private Animator _heroGeneralAnimator;
+
+    private const string _levelIntroTriggerAnim = "LevelIntroTrigger";
+
     public override void ChildFuncSetup(HeroBase heroBase)
     {
         base.ChildFuncSetup(heroBase);
+
+        HeroLevelIntroAnimation();
     }
 
 
@@ -34,7 +41,7 @@ public class HeroVisuals : HeroChildrenFunctionality
         Instantiate(_heroHealedVFX, transform.position, Quaternion.identity);
     }
 
-
+    #region Health Status
     private void HeroHealthAboveHalf()
     {
         _healthStatusIcon.GetComponent<Animator>().SetInteger(_healthStatusIntAnim, 0);
@@ -48,6 +55,12 @@ public class HeroVisuals : HeroChildrenFunctionality
     private void HeroCritical()
     {
         _healthStatusIcon.GetComponent<Animator>().SetInteger(_healthStatusIntAnim, 2);
+    }
+    #endregion
+
+    public void HeroLevelIntroAnimation()
+    {
+        _heroGeneralAnimator.SetTrigger(_levelIntroTriggerAnim);
     }
 
     #region Events

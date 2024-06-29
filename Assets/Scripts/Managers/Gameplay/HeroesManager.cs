@@ -5,7 +5,9 @@ using UnityEngine;
 public class HeroesManager : BaseGameplayManager
 {
     [SerializeField] private GameObject _baseHeroPrefab;
+    [Space]
 
+    [SerializeField] private float _heroSpawnInterval;
 
     private List<HeroBase> _currentHeroes = new List<HeroBase>();
     private List<HeroBase> _currentLivingHeroes = new List<HeroBase>();
@@ -13,14 +15,14 @@ public class HeroesManager : BaseGameplayManager
     public override void SetupGameplayManager()
     {
         base.SetupGameplayManager();
-        SpawnHeroesAtSpawnPoints();
+        StartCoroutine(SpawnHeroesAtSpawnPoints());
     }
 
     /// <summary>
     /// Spawns all selected heroes from the selection manager
     /// Uses the spawn points from the environment manager
     /// </summary>
-    void SpawnHeroesAtSpawnPoints()
+    private IEnumerator SpawnHeroesAtSpawnPoints()
     {
         List<HeroSO> heroSOs = UniversalManagers.Instance.GetSelectionManager().GetAllSelectedHeroes();
         List<GameObject> spawnLocations = GameplayManagers.Instance.GetEnvironmentManager().GetSpawnLocations();
@@ -28,6 +30,8 @@ public class HeroesManager : BaseGameplayManager
         for (int i = 0; i < heroSOs.Count; i++)
         {
             SpawnHero(spawnLocations[i].transform,heroSOs[i]);
+
+            yield return new WaitForSeconds(_heroSpawnInterval);
         }
     }
 
