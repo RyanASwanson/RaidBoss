@@ -13,6 +13,8 @@ public class BossVisuals : BossChildrenFunctionality
 
     private const string _levelIntroTriggerAnim = "LevelIntroTrigger";
 
+    private const string _bossDamagedTriggerAnim = "BossDamaged";
+
     public void BossLookAt(Vector3 lookLocation)
     {
         /*transform.LookAt(lookLocation);
@@ -47,13 +49,18 @@ public class BossVisuals : BossChildrenFunctionality
 
     private void BossTookDamage(float damageTaken)
     {
-
+        BossDamagedAnimation();
     }
 
 
-    public void HeroLevelIntroAnimation()
+    public void BossLevelIntroAnimation()
     {
         _bossGeneralAnimator.SetTrigger(_levelIntroTriggerAnim);
+    }
+
+    private void BossDamagedAnimation()
+    {
+        _bossGeneralAnimator.SetTrigger(_bossDamagedTriggerAnim);
     }
 
 
@@ -64,7 +71,7 @@ public class BossVisuals : BossChildrenFunctionality
         SetVisualObjectBase(bossBase.GetSpecificBossScript().GetBossVisualBase());
         _visualObjectBase.transform.eulerAngles = new Vector3(0, 180, 0);
 
-        HeroLevelIntroAnimation();
+        BossLevelIntroAnimation();
     }
 
     private void SetFromSO(BossSO bossSO)
