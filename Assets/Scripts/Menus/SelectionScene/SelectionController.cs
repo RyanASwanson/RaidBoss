@@ -124,7 +124,7 @@ public class SelectionController : MonoBehaviour
 
         int heroPillarNum = UniversalManagers.Instance.GetSelectionManager().GetSelectedHeroesCount();
 
-        _heroPillars[heroPillarNum ].ShowHeroOnPillar(heroSO);
+        _heroPillars[heroPillarNum ].ShowHeroOnPillar(heroSO, true);
     }
 
     private void DisplayStatsForHero(HeroSO heroSO)
@@ -163,7 +163,7 @@ public class SelectionController : MonoBehaviour
     {
         int heroPillarNum = UniversalManagers.Instance.GetSelectionManager().GetSelectedHeroesCount();
 
-        _heroPillars[heroPillarNum - 1].ShowHeroOnPillar(heroSO);
+        _heroPillars[heroPillarNum - 1].ShowHeroOnPillar(heroSO,false);
 
         if (heroPillarNum < UniversalManagers.Instance.GetSelectionManager().GetMaxHeroesCount())
         {
@@ -213,7 +213,7 @@ public class SelectionController : MonoBehaviour
 
         if(!_heroPillars[pillarNum].HasStoredHero() && _heroPillars[pillarNum+1].HasStoredHero())
         {
-            _heroPillars[pillarNum].ShowHeroOnPillar(_heroPillars[pillarNum + 1].GetStoredHero());
+            _heroPillars[pillarNum].ShowHeroOnPillar(_heroPillars[pillarNum + 1].GetStoredHero(),true);
             _heroPillars[pillarNum + 1].RemoveHeroOnPillar();
         }
         MoveNextHeroBackToCurrentPillar(pillarNum + 1);

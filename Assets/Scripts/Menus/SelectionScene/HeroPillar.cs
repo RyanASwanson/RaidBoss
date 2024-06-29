@@ -8,7 +8,6 @@ public class HeroPillar : MonoBehaviour
     [SerializeField] private Animator _heroSpawnAnimator;
 
     private GameObject _currentHeroVisual;
-    private HeroBase _currentHeroBase;
 
     private HeroSO _storedHero;
     [Space]
@@ -28,7 +27,7 @@ public class HeroPillar : MonoBehaviour
     /// Displays a hero on the pillar
     /// </summary>
     /// <param name="heroSO"></param>
-    public void ShowHeroOnPillar(HeroSO heroSO)
+    public void ShowHeroOnPillar(HeroSO heroSO, bool newHero)
     {
         //If there is a hero on the pillar remove them
         if (_currentHeroVisual != null)
@@ -36,12 +35,15 @@ public class HeroPillar : MonoBehaviour
 
         //Spawn the hero onto the pillar
         _currentHeroVisual = Instantiate(heroSO.GetHeroPrefab(), _heroSpawnPoint.transform);
-        //Sets the current hero base
-        _heroSpawnAnimator.SetTrigger(_newHeroHoverAnimTrigger) ;
+        
         //Rotates the hero
         _currentHeroVisual.transform.eulerAngles += new Vector3(0,180,0);
         //Sets the stored hero
         _storedHero = heroSO;
+
+        if (!newHero) return;
+        //Sets the current hero base
+        _heroSpawnAnimator.SetTrigger(_newHeroHoverAnimTrigger);
     }
 
     /// <summary>
