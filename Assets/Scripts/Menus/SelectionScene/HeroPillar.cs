@@ -12,7 +12,7 @@ public class HeroPillar : MonoBehaviour
     private HeroSO _storedHero;
     [Space]
 
-    [SerializeField] private Animator _animator;
+    [SerializeField] private Animator _pillarAnimator;
 
     private const string _heroPillarMoveAnimBool = "PillarUp";
 
@@ -20,7 +20,7 @@ public class HeroPillar : MonoBehaviour
 
     public void MovePillar(bool moveUp)
     {
-        _animator.SetBool(_heroPillarMoveAnimBool, moveUp);
+        _pillarAnimator.SetBool(_heroPillarMoveAnimBool, moveUp);
     }
 
     /// <summary>
@@ -42,7 +42,6 @@ public class HeroPillar : MonoBehaviour
         _storedHero = heroSO;
 
         if (!newHero) return;
-        //Sets the current hero base
         _heroSpawnAnimator.SetTrigger(_newHeroHoverAnimTrigger);
     }
 

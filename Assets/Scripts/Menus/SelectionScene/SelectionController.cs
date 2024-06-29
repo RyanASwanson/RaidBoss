@@ -55,7 +55,7 @@ public class SelectionController : MonoBehaviour
 
     private void NewBossAdded(BossSO bossSO)
     {
-        _bossPillar.ShowBossOnPillar(bossSO);
+        _bossPillar.ShowBossOnPillar(bossSO, false);
     }
 
     private void BossRemoved(BossSO bossSO)
@@ -90,7 +90,7 @@ public class SelectionController : MonoBehaviour
         _bossNameText.text = bossSO.GetBossName();
         _bossNameBorder.text = bossSO.GetBossName();
 
-        _bossPillar.ShowBossOnPillar(bossSO);
+        _bossPillar.ShowBossOnPillar(bossSO, true);
     }
 
     private void HeroHoveredOver(HeroSO heroSO)

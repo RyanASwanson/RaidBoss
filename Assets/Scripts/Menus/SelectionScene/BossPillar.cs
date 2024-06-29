@@ -5,21 +5,25 @@ using UnityEngine;
 public class BossPillar : MonoBehaviour
 {
     [SerializeField] private GameObject _bossSpawnPoint;
+    [SerializeField] private Animator _bossSpawnAnimator;
+
     private GameObject _currentBossVisual;
 
     private BossSO _storedBoss;
     [Space]
 
-    [SerializeField] private Animator _animator;
+    [SerializeField] private Animator _pillarAnimator;
 
     private const string _bossPillarMoveAnimBool = "PillarUp";
 
+    private const string _newBossHoverAnimTrigger = "NewHover";
+
     public void MovePillar(bool moveUp)
     {
-        _animator.SetBool(_bossPillarMoveAnimBool, moveUp);
+        _pillarAnimator.SetBool(_bossPillarMoveAnimBool, moveUp);
     }
 
-    public void ShowBossOnPillar(BossSO bossSO)
+    public void ShowBossOnPillar(BossSO bossSO,bool newBoss)
     {
         if (_currentBossVisual != null)
             RemoveBossOnPillar();
@@ -27,6 +31,9 @@ public class BossPillar : MonoBehaviour
         _currentBossVisual = Instantiate(bossSO.GetBossPrefab(), _bossSpawnPoint.transform);
         _currentBossVisual.transform.eulerAngles += new Vector3(0, 315, 0);
         _storedBoss = bossSO;
+
+        if (!newBoss) return;
+        _bossSpawnAnimator.SetTrigger(_newBossHoverAnimTrigger);
     }
 
     public void RemoveBossOnPillar()
