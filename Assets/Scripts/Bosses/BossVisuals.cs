@@ -8,6 +8,11 @@ public class BossVisuals : BossChildrenFunctionality
 
     private GameObject _visualObjectBase;
 
+    [Space]
+    [SerializeField] private Animator _bossGeneralAnimator;
+
+    private const string _levelIntroTriggerAnim = "LevelIntroTrigger";
+
     public void BossLookAt(Vector3 lookLocation)
     {
         /*transform.LookAt(lookLocation);
@@ -46,12 +51,20 @@ public class BossVisuals : BossChildrenFunctionality
     }
 
 
+    public void HeroLevelIntroAnimation()
+    {
+        _bossGeneralAnimator.SetTrigger(_levelIntroTriggerAnim);
+    }
+
+
     public override void ChildFuncSetup(BossBase bossBase)
     {
         base.ChildFuncSetup(bossBase);
 
         SetVisualObjectBase(bossBase.GetSpecificBossScript().GetBossVisualBase());
         _visualObjectBase.transform.eulerAngles = new Vector3(0, 180, 0);
+
+        HeroLevelIntroAnimation();
     }
 
     private void SetFromSO(BossSO bossSO)
