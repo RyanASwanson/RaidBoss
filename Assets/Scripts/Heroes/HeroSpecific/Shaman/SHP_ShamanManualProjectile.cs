@@ -8,6 +8,14 @@ using UnityEngine;
 public class SHP_ShamanManualProjectile : HeroProjectileFramework
 {
     [SerializeField] private float _projectileSpeed;
+    [Space]
+
+    [SerializeField] private float _vfxLightningSpawnRate;
+    [SerializeField] private float _vfxLightningDuration;
+    [SerializeField] private GameObject _vfxLightning;
+    [SerializeField] private Transform _vfxLightningSpawnPoint;
+    //private List<GameObject> _spawnedVFXLightning
+
 
     private Queue<GameObject> _targetsNotGoneTo = new Queue<GameObject>();
 
@@ -23,6 +31,7 @@ public class SHP_ShamanManualProjectile : HeroProjectileFramework
         DetermineTargetOrder(totem);
 
         StartCoroutine(MoveProjectile());
+        StartCoroutine(LightningVFXSpawnProcess());
     }
 
     /// <summary>
@@ -104,6 +113,20 @@ public class SHP_ShamanManualProjectile : HeroProjectileFramework
         _ownerShaman = (SH_Shaman)_mySpecificHero;
         _ownerShaman.ActivatePassiveAbilities();
         Destroy(gameObject);
+    }
+
+    private IEnumerator LightningVFXSpawnProcess()
+    {
+        while(true)
+        {
+            yield return new WaitForSeconds(_vfxLightningSpawnRate);
+
+            GameObject newestLighting = Instantiate(_vfxLightning, _vfxLightningSpawnPoint.transform);
+
+            Destroy(newestLighting,_vfxLightningDuration);
+
+            newestLighting.transform.rotation = Random.rotation;
+        }
     }
 
     /// <summary>

@@ -9,6 +9,7 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private Button _playButton;
     [SerializeField] private Button _howToPlayButton;
     [SerializeField] private Button _controlsButton;
+    [SerializeField] private Button _optionsButton;
     [SerializeField] private Button _creditsButton;
     [SerializeField] private Button _quitButton;
 
@@ -19,6 +20,10 @@ public class MainMenuController : MonoBehaviour
     [Space]
     [Header("Controls")]
     [SerializeField] private GameObject _controlsCanvas;
+
+    [Space]
+    [Header("Options")]
+    [SerializeField] private GameObject _optionsCanvas;
 
     [Space]
     [Header("Credits")]
@@ -54,6 +59,16 @@ public class MainMenuController : MonoBehaviour
     public void HideControlsButton()
     {
         _controlsCanvas.SetActive(false);
+    }
+
+    public void OptionsButtonPressed()
+    {
+        _optionsCanvas.SetActive(true);
+    }
+
+    public void HideOptionsButton()
+    {
+        _optionsCanvas.SetActive(false);
     }
 
     public void CreditsButtonPressed()
