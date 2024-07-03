@@ -32,8 +32,11 @@ public class SaveManager : BaseUniversalManager
     private void StartingValues()
     {
         //Fills the arrays with default values when the file is created
-        GSD.a = 1;
-        GSD.b = true;
+        GSD._bossHeroBestDifficultyComplete = new();
+
+        GSD._masterVolume = 1;
+        GSD._musicVolume = 1;
+        GSD._sfxVolume = 1;
 
         /*System.Array.Fill(GSD.SaveNames, "");
         System.Array.Fill(GSD.SaveScore, 0);*/
@@ -53,7 +56,6 @@ public class SaveManager : BaseUniversalManager
         {
             var json = File.ReadAllText(_path + "Data.json");
             GSD = JsonUtility.FromJson<GameSaveData>(json);
-            print(GSD.b);
         }
         else
         {
@@ -85,8 +87,13 @@ public class SaveManager : BaseUniversalManager
 [System.Serializable]
 public class GameSaveData
 {
-    public int a;
+    public Dictionary<BossSO, Dictionary<GameDifficulty, HeroSO>> _bossHeroBestDifficultyComplete = new();
 
     [Space]
-    public bool b;
+    [Header("Settings")]
+    [Range(0, 1)] public float _screenShakeStrength;
+
+    [Range(0, 1)] public float _masterVolume;
+    [Range(0, 1)] public float _musicVolume;
+    [Range(0, 1)] public float _sfxVolume;
 }
