@@ -6,6 +6,11 @@ public class SettingsManager : BaseUniversalManager
 {
     public override void SetupUniversalManager()
     {
-        throw new System.NotImplementedException();
+        
+    }
+
+    public override void SubscribeToEvents()
+    {
+
     }
 }

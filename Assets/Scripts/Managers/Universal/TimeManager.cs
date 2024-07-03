@@ -7,15 +7,10 @@ using UnityEngine;
 /// </summary>
 public class TimeManager : BaseUniversalManager
 {
-    [SerializeField] private bool _useSlowestTime;
-
-    private List<float> _appliedTimeVariations = new List<float>();
+    private List<float> _appliedSlowedTimeVariations = new List<float>();
 
 
-    public override void SetupUniversalManager()
-    {
-        
-    }
+
 
     /// <summary>
     /// Adds a new value to the appliedTimeVariations
@@ -24,21 +19,60 @@ public class TimeManager : BaseUniversalManager
     /// <param name="duration"></param> duration is relative to the current time scale
     public void AddNewTimeVariationForDuration(float timeVariation, float duration)
     {
-
+        StartCoroutine(AddTimeVariationProcess(timeVariation, duration));
     }
 
-    public void SetTimeToNormalSpeed()
+    private IEnumerator AddTimeVariationProcess(float timeVariation, float duration)
     {
-        Time.timeScale = 1;
+        _appliedSlowedTimeVariations.Add(timeVariation);
+        DetermineCurrentTimeSpeedBasedOnList();
+        yield return new WaitForSeconds(duration);
+        _appliedSlowedTimeVariations.Remove(timeVariation);
+        DetermineCurrentTimeSpeedBasedOnList();
     }
 
-    public void ReturnToPreviousSpeed()
+    private void DetermineCurrentTimeSpeedBasedOnList()
     {
+        float currentLowestTime = 1;
 
+        foreach(float timeVar in _appliedSlowedTimeVariations)
+        {
+            if(timeVar < currentLowestTime)
+            {
+                currentLowestTime = timeVar;
+            }
+        }
+
+        SetTimeScale(currentLowestTime);
+    }
+
+    public void SetTimeToNormalSpeedOverride()
+    {
+        SetTimeScale(1);
+    }
+
+    public void SetTimeScale(float scale)
+    {
+        Time.timeScale = scale;
     }
 
     public void FreezeTime()
     {
-        Time.timeScale = 0;
+        SetTimeScale(0);
+    }
+
+    public void UnfreezeTime()
+    {
+        DetermineCurrentTimeSpeedBasedOnList();
+    }
+
+    public override void SetupUniversalManager()
+    {
+
+    }
+
+    public override void SubscribeToEvents()
+    {
+        throw new System.NotImplementedException();
     }
 }

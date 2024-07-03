@@ -8,6 +8,9 @@ public class UniversalManagers : MonoBehaviour
 
     [SerializeField] private SceneLoadManager _sceneLoadManager;
     [SerializeField] private SelectionManager _selectionManager;
+    [SerializeField] private TimeManager _timeManager;
+    [SerializeField] private SaveManager _saveManager;
+    [SerializeField] private SettingsManager _settingsManager;
 
     private void Awake()
     {
@@ -30,6 +33,9 @@ public class UniversalManagers : MonoBehaviour
     #region Get Managers
     public SceneLoadManager GetSceneLoadManager() => _sceneLoadManager;
     public SelectionManager GetSelectionManager() => _selectionManager;
+    public TimeManager GetTimeManager() => _timeManager;
+    public SaveManager GetSaveManager() => _saveManager;
+    public SettingsManager GetSettingsManager() => _settingsManager;
 
     #endregion
 }

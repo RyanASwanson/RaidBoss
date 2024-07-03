@@ -22,18 +22,13 @@ public class PauseManager : BaseGameplayManager
     private void PauseGame()
     {
         InvokeGamePausedEvent();
-        Time.timeScale = 0;
+        UniversalManagers.Instance.GetTimeManager().FreezeTime();
     }
 
     private void UnpauseGame()
     {
         InvokeGameUnpausedEvent();
-        ResumeTime();
-    }
-
-    public void ResumeTime()
-    {
-        Time.timeScale = 1;
+        UniversalManagers.Instance.GetTimeManager().UnfreezeTime();
     }
 
     private void InvokeGamePausedEvent()

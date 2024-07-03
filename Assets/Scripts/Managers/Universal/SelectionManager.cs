@@ -56,6 +56,11 @@ public class SelectionManager : BaseUniversalManager
         SetupDifficultyDictionaries();
     }
 
+    public override void SubscribeToEvents()
+    {
+
+    }
+
     private void SetupDifficultyDictionaries()
     {
         _difficultyDamageMultiplierDictionary.Add(GameDifficulty.Normal, _normalDamageMultiplier);

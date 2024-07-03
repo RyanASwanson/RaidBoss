@@ -4,5 +4,9 @@ using UnityEngine;
 
 public abstract class BaseUniversalManager : MonoBehaviour
 {
-    public abstract void SetupUniversalManager();
+    public virtual void SetupUniversalManager()
+    {
+        SubscribeToEvents();
+    }
+    public abstract void SubscribeToEvents();
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 public class SceneLoadManager : BaseUniversalManager
 {
@@ -16,7 +17,14 @@ public class SceneLoadManager : BaseUniversalManager
 
     private Coroutine _sceneTransitionCoroutine;
 
+    private UnityEvent _startOfSceneLoadEvent = new UnityEvent();
+
     public override void SetupUniversalManager()
+    {
+
+    }
+
+    public override void SubscribeToEvents()
     {
 
     }
@@ -38,6 +46,8 @@ public class SceneLoadManager : BaseUniversalManager
 
     private IEnumerator SceneLoadProcess(int id)
     {
+        InvokeStartOfSceneLoadEvent();
+
         _sceneTransitionAnimator.SetTrigger(_closeInFromSidesAnimTrigger);
         yield return new WaitForSeconds(_sceneTransitionTime / 2);
         SceneManager.LoadScene(id);
@@ -75,4 +85,15 @@ public class SceneLoadManager : BaseUniversalManager
     {
         LoadSceneByID(SceneManager.GetActiveScene().buildIndex);
     }
+
+    #region Events
+    private void InvokeStartOfSceneLoadEvent()
+    {
+        _startOfSceneLoadEvent?.Invoke();
+    }
+    #endregion
+
+    #region Getters
+    public UnityEvent GetStartOfSceneLoadEvent() => _startOfSceneLoadEvent;
+    #endregion
 }

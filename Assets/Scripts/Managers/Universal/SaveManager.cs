@@ -8,4 +8,9 @@ public class SaveManager : BaseUniversalManager
     {
         
     }
+
+    public override void SubscribeToEvents()
+    {
+
+    }
 }
