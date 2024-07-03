@@ -20,9 +20,6 @@ public class SelectCenter : MonoBehaviour
     public void PlayLevel()
     {
         UniversalManagers.Instance.GetSceneLoadManager().LoadCurrentlySelectedLevelSO();
-        Debug.Log("play level");
-        /*UniversalManagers.Instance.GetSceneLoadManager().LoadSceneByLevelSO(
-            UniversalManagers.Instance.GetSelectionManager().GetSelectedLevel());*/
     }
 
     public void SetDifficulty(GameDifficulty newDifficulty)
