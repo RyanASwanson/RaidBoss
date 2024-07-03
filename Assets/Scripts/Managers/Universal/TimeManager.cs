@@ -11,6 +11,13 @@ public class TimeManager : BaseUniversalManager
 
     private bool _canUpdateTimeVariation = true;
 
+    /*private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.T))
+        {
+            AddNewTimeVariationForDuration(.2f, .5f);
+        }
+    }*/
 
 
     /// <summary>
