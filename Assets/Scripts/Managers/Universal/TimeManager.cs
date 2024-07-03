@@ -11,6 +11,12 @@ public class TimeManager : BaseUniversalManager
 
     private bool _canUpdateTimeVariation = true;
 
+    [SerializeField] private float _bossStaggerTimeSpeed;
+    [SerializeField] private float _bossStaggerDuration;
+
+    [SerializeField] private float _bossDeathTimeSpeed;
+    [SerializeField] private float _bossDeathDuration;
+
     /*private void Update()
     {
         if(Input.GetKeyDown(KeyCode.T))
@@ -54,6 +60,16 @@ public class TimeManager : BaseUniversalManager
         }
 
         SetTimeScale(currentLowestTime);
+    }
+
+    public void BossStaggeredTimeSlow()
+    {
+        AddNewTimeVariationForDuration(_bossStaggerTimeSpeed, _bossStaggerDuration);
+    }
+
+    public void BossDiedTimeSlow()
+    {
+        AddNewTimeVariationForDuration(_bossDeathTimeSpeed, _bossDeathDuration);
     }
 
     public void SetTimeToNormalSpeedOverride()

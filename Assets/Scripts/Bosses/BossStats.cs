@@ -44,13 +44,7 @@ public class BossStats : BossChildrenFunctionality
                 GetSelectionManager().GetDamageMultiplierFromDifficulty();
     }
 
-    private void CheckIfBossIsDead()
-    {
-        if(_currentHealth <= 0)
-        {
-            GameplayManagers.Instance.GetGameStateManager().SetGameplayState(GameplayStates.PostBattleWon);
-        }
-    }
+    
     
     /// <summary>
     /// Checks if the boss is above their stagger cap
@@ -115,6 +109,17 @@ public class BossStats : BossChildrenFunctionality
             IncreaseBossStatsAtHealthThreshholds();
 
             myBossBase.GetBossDamagedEvent().RemoveListener(CheckBossIsUnderTenth);
+            myBossBase.GetBossDamagedEvent().AddListener(CheckIfBossIsDead);
+
+            CheckIfBossIsDead(damage);
+        }
+    }
+
+    private void CheckIfBossIsDead(float damage)
+    {
+        if (_currentHealth <= 0)
+        {
+            GameplayManagers.Instance.GetGameStateManager().SetGameplayState(GameplayStates.PostBattleWon);
         }
     }
 
@@ -158,7 +163,6 @@ public class BossStats : BossChildrenFunctionality
     {
         _currentHealth -= damage;
         myBossBase.InvokeBossDamagedEvent(damage);
-        CheckIfBossIsDead();
     }
 
     public void DealStaggerToBoss(float stagger)

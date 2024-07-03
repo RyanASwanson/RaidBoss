@@ -8,12 +8,6 @@ public class SaveManager : BaseUniversalManager
     public GameSaveData GSD;
     private string _path;
 
-    void Awake()
-    {
-        EstablishPath();
-        Load();
-    }
-
 
     private void EstablishPath()
     {
@@ -33,6 +27,8 @@ public class SaveManager : BaseUniversalManager
     {
         //Fills the arrays with default values when the file is created
         GSD._bossHeroBestDifficultyComplete = new();
+
+        GSD._screenShakeStrength = 1;
 
         GSD._masterVolume = 1;
         GSD._musicVolume = 1;
@@ -76,6 +72,8 @@ public class SaveManager : BaseUniversalManager
     public override void SetupUniversalManager()
     {
         base.SetupUniversalManager();
+        EstablishPath();
+        Load();
     }
 
     public override void SubscribeToEvents()

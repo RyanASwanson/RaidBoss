@@ -63,6 +63,16 @@ public class BossVisuals : BossChildrenFunctionality
         _bossGeneralAnimator.SetTrigger(_bossDamagedTriggerAnim);
     }
 
+    private void BossFullyStaggered()
+    {
+        UniversalManagers.Instance.GetTimeManager().BossStaggeredTimeSlow();
+    }
+
+    private void BattleWon()
+    {
+        UniversalManagers.Instance.GetTimeManager().BossDiedTimeSlow();
+    }
+
 
     public override void ChildFuncSetup(BossBase bossBase)
     {
@@ -84,6 +94,9 @@ public class BossVisuals : BossChildrenFunctionality
         myBossBase.GetSOSetEvent().AddListener(SetFromSO);
 
         myBossBase.GetBossDamagedEvent().AddListener(BossTookDamage);
+
+        myBossBase.GetBossStaggeredEvent().AddListener(BossFullyStaggered);
+        GameplayManagers.Instance.GetGameStateManager().GetBattleWonEvent().AddListener(BattleWon);
     }
 
 
