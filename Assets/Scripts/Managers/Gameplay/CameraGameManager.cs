@@ -20,6 +20,12 @@ public class CameraGameManager : BaseGameplayManager
 
     private Coroutine _cameraShakeCoroutine;
 
+    /// <summary>
+    /// Initiates the camera shake process
+    /// </summary>
+    /// <param name="intensity"></param>
+    /// <param name="frequency"></param>
+    /// <param name="duration"></param>
     public void StartCameraShake(float intensity, float frequency, float duration)
     {
         if (_cameraShakeCoroutine != null)

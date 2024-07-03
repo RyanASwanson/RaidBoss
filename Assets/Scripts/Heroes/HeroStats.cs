@@ -103,6 +103,9 @@ public class HeroStats : HeroChildrenFunctionality
         }
     }
 
+    /// <summary>
+    /// Informs the hero manager of the heroes death
+    /// </summary>
     public void KillHero()
     {
         GameplayManagers.Instance.GetHeroesManager().HeroDied(myHeroBase);
@@ -229,6 +232,10 @@ public class HeroStats : HeroChildrenFunctionality
     #endregion
 
     #region Stat Changes
+    /// <summary>
+    /// Increases or decreases the current speed value and updates how fast the nav mesh agent moves
+    /// </summary>
+    /// <param name="changeValue"></param>
     public void ChangeCurrentHeroCurrentSpeed(float changeValue)
     {
         _currentMovespeed += changeValue;
@@ -236,6 +243,10 @@ public class HeroStats : HeroChildrenFunctionality
         myHeroBase.GetPathfinding().GetNavMeshAgent().speed = _currentMovespeed;
     }
 
+    /// <summary>
+    /// Increases or decreases the current aggro value
+    /// </summary>
+    /// <param name="changeValue"></param>
     public void ChangeCurrentHeroAggro(float changeValue)
     {
         _currentAggro += changeValue;
