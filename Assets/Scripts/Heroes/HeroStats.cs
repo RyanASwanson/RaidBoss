@@ -252,6 +252,10 @@ public class HeroStats : HeroChildrenFunctionality
         _currentAggro += changeValue;
     }
 
+    /// <summary>
+    /// Increases or decreases the current aggro value
+    /// </summary>
+    /// <param name="changeValue"></param>
     public void ChangeCurrentHeroDamageResistance(float changeValue)
     {
         _currentDamageResistance += changeValue;

@@ -55,6 +55,11 @@ public class SceneLoadManager : BaseUniversalManager
         LoadSceneByID(levelSO.GetLevelBuildID());
     }
 
+    public void LoadCurrentlySelectedLevelSO()
+    {
+        LoadSceneByLevelSO(UniversalManagers.Instance.GetSelectionManager().GetSelectedLevel());
+    }
+
     public void LoadMainMenuScene()
     {
         LoadSceneByID(_mainMenuSceneID);
