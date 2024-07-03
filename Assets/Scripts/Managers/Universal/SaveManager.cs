@@ -6,7 +6,7 @@ public class SaveManager : BaseUniversalManager
 {
     public override void SetupUniversalManager()
     {
-        
+        base.SetupUniversalManager();
     }
 
     public override void SubscribeToEvents()

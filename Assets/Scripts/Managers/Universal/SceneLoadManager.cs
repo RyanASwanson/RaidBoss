@@ -18,10 +18,11 @@ public class SceneLoadManager : BaseUniversalManager
     private Coroutine _sceneTransitionCoroutine;
 
     private UnityEvent _startOfSceneLoadEvent = new UnityEvent();
+    private UnityEvent _endOfSceneLoadEvent = new UnityEvent();
 
     public override void SetupUniversalManager()
     {
-
+        base.SetupUniversalManager();
     }
 
     public override void SubscribeToEvents()
@@ -53,6 +54,7 @@ public class SceneLoadManager : BaseUniversalManager
         SceneManager.LoadScene(id);
         yield return new WaitForSeconds(_sceneTransitionTime / 2);
 
+        InvokeEndOfSceneLoadEvent();
         _sceneTransitionCoroutine = null;
     }
 
@@ -91,9 +93,14 @@ public class SceneLoadManager : BaseUniversalManager
     {
         _startOfSceneLoadEvent?.Invoke();
     }
+    private void InvokeEndOfSceneLoadEvent()
+    {
+        _endOfSceneLoadEvent?.Invoke();
+    }
     #endregion
 
     #region Getters
     public UnityEvent GetStartOfSceneLoadEvent() => _startOfSceneLoadEvent;
+    public UnityEvent GetEndOfSceneLoadEvent() => _endOfSceneLoadEvent;
     #endregion
 }

@@ -53,6 +53,7 @@ public class SelectionManager : BaseUniversalManager
 
     public override void SetupUniversalManager()
     {
+        base.SetupUniversalManager();
         SetupDifficultyDictionaries();
     }
 

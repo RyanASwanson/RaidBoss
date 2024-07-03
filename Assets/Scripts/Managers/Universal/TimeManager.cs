@@ -9,6 +9,7 @@ public class TimeManager : BaseUniversalManager
 {
     private List<float> _appliedSlowedTimeVariations = new List<float>();
 
+    private bool _canUpdateTimeVariation = true;
 
 
 
@@ -19,6 +20,8 @@ public class TimeManager : BaseUniversalManager
     /// <param name="duration"></param> duration is relative to the current time scale
     public void AddNewTimeVariationForDuration(float timeVariation, float duration)
     {
+        if (!_canUpdateTimeVariation) return;
+
         StartCoroutine(AddTimeVariationProcess(timeVariation, duration));
     }
 
@@ -66,13 +69,25 @@ public class TimeManager : BaseUniversalManager
         DetermineCurrentTimeSpeedBasedOnList();
     }
 
+    private void SceneLoadStart()
+    {
+        _canUpdateTimeVariation = false;
+        SetTimeToNormalSpeedOverride();
+    }
+
+    private void SceneLoadEnd()
+    {
+        _canUpdateTimeVariation = true;
+    }
+
     public override void SetupUniversalManager()
     {
-
+        base.SetupUniversalManager();
     }
 
     public override void SubscribeToEvents()
     {
-        throw new System.NotImplementedException();
+        UniversalManagers.Instance.GetSceneLoadManager().GetStartOfSceneLoadEvent().AddListener(SceneLoadStart);
+        UniversalManagers.Instance.GetSceneLoadManager().GetEndOfSceneLoadEvent().AddListener(SceneLoadEnd);
     }
 }
