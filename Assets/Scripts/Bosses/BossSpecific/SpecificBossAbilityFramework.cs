@@ -10,9 +10,9 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     [SerializeField] private bool _isTargeted;
     [Space]
 
-    [SerializeField] private float _timeUntilNextAbility;
-    [SerializeField] private float _targetZoneDuration;
-    [SerializeField] private float _abilityWindUpTime;
+    [SerializeField] protected float _timeUntilNextAbility;
+    [SerializeField] protected float _targetZoneDuration;
+    [SerializeField] protected float _abilityWindUpTime;
 
     protected List<GameObject> _currentTargetZones = new List<GameObject>();
 

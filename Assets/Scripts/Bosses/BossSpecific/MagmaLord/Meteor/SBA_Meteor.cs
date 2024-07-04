@@ -13,7 +13,7 @@ public class SBA_Meteor : SpecificBossAbilityFramework
     [SerializeField] private GameObject _movingMeteor;
     [SerializeField] private GameObject _targetZone;
 
-    [SerializeField] private Vector3 _fallingMeteorAngleVariance;
+    //[SerializeField] private Vector3 _fallingMeteorAngleVariance;
 
     private GameObject _storedFallingMeteor;
     private GameObject _storedMovingMeteor;
@@ -32,19 +32,12 @@ public class SBA_Meteor : SpecificBossAbilityFramework
     protected override void StartAbilityWindUp()
     {
         _storedFallingMeteor = Instantiate(_fallingMeteor, _storedTargetLocation, _fallingMeteor.transform.rotation);
-        StartCoroutine(LookAtTarget());
+        _storedFallingMeteor.GetComponent<SBP_FallingMeteor>().AdditionalSetup(
+            _storedTarget.gameObject,_abilityWindUpTime);
+
         base.StartAbilityWindUp();
     }
 
-    private IEnumerator LookAtTarget()
-    {
-        while (_storedTarget != null && _storedFallingMeteor != null)
-        {
-            _storedFallingMeteor.transform.LookAt(_storedTarget.transform.position);
-            _storedFallingMeteor.transform.eulerAngles = new Vector3(0, _storedFallingMeteor.transform.eulerAngles.y, 0);
-            yield return null;
-        }
-    }
 
     protected override void AbilityStart()
     {
