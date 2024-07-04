@@ -38,10 +38,16 @@ public class SBA_Meteor : SpecificBossAbilityFramework
         base.StartAbilityWindUp();
     }
 
+    protected void FallingMeteorContact()
+    {
+        _storedFallingMeteor.GetComponent<SBP_FallingMeteor>().FloorContact();
+        Destroy(_storedFallingMeteor);
+    }
+
 
     protected override void AbilityStart()
     {
-        Destroy(_storedFallingMeteor);
+        FallingMeteorContact();
 
         _storedTargetLocation = new Vector3(_storedTargetLocation.x, -.3f, _storedTargetLocation.z);
         _storedMovingMeteor = Instantiate(_movingMeteor, _storedTargetLocation, Quaternion.identity);

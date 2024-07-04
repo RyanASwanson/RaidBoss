@@ -9,6 +9,7 @@ using UnityEngine;
 public class SBP_FollowingMeteor : BossProjectileFramework
 {
     [SerializeField] private float _projectileSpeed;
+    const float speedScalarMax = 1;
 
     [Space]
     [SerializeField] private float _randomDirectionThreshold;
@@ -60,9 +61,17 @@ public class SBP_FollowingMeteor : BossProjectileFramework
 
     private IEnumerator MoveProjectile(Vector3 moveDirection)
     {
+        float speedScalar = 0;
+
         while(true)
         {
-            transform.position += moveDirection * _projectileSpeed * Time.deltaTime;
+            if(speedScalar < speedScalarMax)
+            {
+                speedScalar += Time.deltaTime;
+                if (speedScalar > speedScalarMax)
+                    speedScalar = speedScalarMax;
+            }
+            transform.position += moveDirection * _projectileSpeed * speedScalar * Time.deltaTime;
 
             yield return null;
         }
