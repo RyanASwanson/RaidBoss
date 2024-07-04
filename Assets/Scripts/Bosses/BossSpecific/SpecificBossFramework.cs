@@ -26,6 +26,9 @@ public abstract class SpecificBossFramework : MonoBehaviour
 
     private Coroutine _preventAttacksCoroutine;
 
+    [Header("Animator")]
+    [SerializeField] private Animator _bossSpecificAnimator;
+
     #region Fight Start
     private void StartFight()
     {
@@ -265,5 +268,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
         GetClosestPointToFloor(heroBase.gameObject.transform.position);
 
     public GameObject GetBossVisualBase() => _bossVisualsBase;
+
+    public Animator GetBossSpecificAnimator() => _bossSpecificAnimator;
     #endregion
 }

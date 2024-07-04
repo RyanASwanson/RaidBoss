@@ -14,6 +14,9 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     [SerializeField] protected float _targetZoneDuration;
     [SerializeField] protected float _abilityWindUpTime;
 
+    [Space]
+    [SerializeField] protected string _animationTriggerName;
+
     protected List<GameObject> _currentTargetZones = new List<GameObject>();
 
     protected Vector3 _storedTargetLocation;
@@ -46,6 +49,8 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
             _storedTarget = targetHeroBase;
 
         AbilityPrep();
+
+        StartBossAbilityAnimation();
     }
 
     /// <summary>
@@ -57,6 +62,11 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     {
         StartShowTargetZone();
         StartAbilityWindUp();
+    }
+
+    protected virtual void StartBossAbilityAnimation()
+    {
+        _ownerBossBase.GetBossVisuals().StartBossSpecificAnimationTrigger(_animationTriggerName);
     }
 
     #region Target Zone

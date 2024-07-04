@@ -15,6 +15,8 @@ public class BossVisuals : BossChildrenFunctionality
 
     private const string _bossDamagedTriggerAnim = "BossDamaged";
 
+    private Animator _bossSpecificAnimator;
+
     public void BossLookAt(Vector3 lookLocation)
     {
         /*transform.LookAt(lookLocation);
@@ -63,6 +65,13 @@ public class BossVisuals : BossChildrenFunctionality
         _bossGeneralAnimator.SetTrigger(_bossDamagedTriggerAnim);
     }
 
+    public void StartBossSpecificAnimationTrigger(string triggerName)
+    {
+        if (triggerName == string.Empty) return;
+
+        _bossSpecificAnimator.SetTrigger(triggerName);
+    }
+
     private void BossFullyStaggered()
     {
         UniversalManagers.Instance.GetTimeManager().BossStaggeredTimeSlow();
@@ -87,6 +96,8 @@ public class BossVisuals : BossChildrenFunctionality
     private void SetFromSO(BossSO bossSO)
     {
         _rotateSpeed = myBossBase.GetBossSO().GetBossRotationSpeed();
+
+        _bossSpecificAnimator = myBossBase.GetSpecificBossScript().GetBossSpecificAnimator();
     }
 
     public override void SubscribeToEvents()
