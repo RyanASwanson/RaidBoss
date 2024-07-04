@@ -32,8 +32,7 @@ public class SBA_Meteor : SpecificBossAbilityFramework
     protected override void StartAbilityWindUp()
     {
         _storedFallingMeteor = Instantiate(_fallingMeteor, _storedTargetLocation, _fallingMeteor.transform.rotation);
-        _storedFallingMeteor.GetComponent<SBP_FallingMeteor>().AdditionalSetup(
-            _storedTarget.gameObject,_abilityWindUpTime);
+        _storedFallingMeteor.GetComponent<SBP_FallingMeteor>().AdditionalSetup(_storedTarget.gameObject);
 
         base.StartAbilityWindUp();
     }

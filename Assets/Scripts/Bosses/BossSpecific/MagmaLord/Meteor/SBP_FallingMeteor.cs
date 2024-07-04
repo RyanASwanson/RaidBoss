@@ -7,10 +7,9 @@ public class SBP_FallingMeteor : BossProjectileFramework
     [SerializeField] private GameObject _particlesToRemove;
     [SerializeField] private GameObject _contactParticles;
 
-    public void AdditionalSetup(GameObject target, float duration)
+    public void AdditionalSetup(GameObject target)
     {
         StartCoroutine(LookAtTarget(target));
-        //StartCoroutine(RemoveParticles(duration));
     }
 
     private IEnumerator LookAtTarget(GameObject target)
@@ -28,11 +27,4 @@ public class SBP_FallingMeteor : BossProjectileFramework
         _particlesToRemove.transform.SetParent(null);
         Instantiate(_contactParticles, transform.position, Quaternion.identity);
     }
-
-    /*private IEnumerator RemoveParticles(float duration)
-    {
-        yield return new WaitForSeconds(duration-.1f);
-
-        
-    }*/
 }
