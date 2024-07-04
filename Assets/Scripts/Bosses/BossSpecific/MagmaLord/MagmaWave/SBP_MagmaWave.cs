@@ -5,9 +5,12 @@ using UnityEngine;
 public class SBP_MagmaWave : BossProjectileFramework
 {
     [SerializeField] private float _projectileSpeed;
+    [SerializeField] private float _distanceThreshold;
 
     [Space]
-    private const float _distanceThreshold = .1f;
+    [SerializeField] private Animator _waveAnimator;
+
+    private const string _waveEndTrigger = "WaveEnd";
 
     /// <summary>
     /// Called when projectile is created
@@ -34,10 +37,10 @@ public class SBP_MagmaWave : BossProjectileFramework
     private IEnumerator MoveProjectile()
     {
         Vector3 moveDirection = (_ownerBossBase.transform.position - transform.position).normalized;
-        while (Vector3.Distance(transform.position, _ownerBossBase.transform.position) > _distanceThreshold)
+        while (true)
         {
             transform.position += moveDirection * _projectileSpeed * Time.deltaTime;
-
+            CheckBossDistance();
             yield return null;
         }
 
@@ -50,8 +53,16 @@ public class SBP_MagmaWave : BossProjectileFramework
         transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
     }
 
-    /*private void ProjectileReachedEndOfPath()
+    private void CheckBossDistance()
     {
-        Destroy(gameObject);
-    }*/
+        if (Vector3.Distance(transform.position, _ownerBossBase.transform.position) < _distanceThreshold)
+        {
+            ProjectileReachedEndOfPath();
+        }
+    }
+
+    private void ProjectileReachedEndOfPath()
+    {
+        _waveAnimator.SetTrigger(_waveEndTrigger);
+    }
 }

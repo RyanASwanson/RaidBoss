@@ -66,6 +66,8 @@ GameObject:
   - component: {fileID: 5662033008369362852}
   - component: {fileID: 8301264482093360685}
   - component: {fileID: 2068762610859340736}
+  - component: {fileID: 6362887561081527478}
+  - component: {fileID: 7555786220524506635}
   m_Layer: 0
   m_Name: MagmaWaveProjectile
   m_TagString: Untagged
@@ -103,8 +105,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damageCollider: {fileID: 5207342555288860306}
-  _hasLifeTime: 1
-  _lifeTime: 2.5
+  _hasLifeTime: 0
+  _lifeTime: 0
   _preventReHitDuration: 0.5
   _enterDamage: 0
   _enterEvent:
@@ -131,6 +133,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _projectileSpeed: 2
+  _distanceThreshold: 1.5
+  _waveAnimator: {fileID: 6362887561081527478}
 --- !u!54 &2068762610859340736
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -147,6 +151,39 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 1
+--- !u!95 &6362887561081527478
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 67737127216543128}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ef97f191275b7844eac03dfd26923e86, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7555786220524506635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 67737127216543128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15b178d837850bd44a6ea78907376d8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3227484868127611931
 GameObject:
   m_ObjectHideFlags: 0
