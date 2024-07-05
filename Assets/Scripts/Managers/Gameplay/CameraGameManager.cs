@@ -11,6 +11,10 @@ public class CameraGameManager : BaseGameplayManager
     [SerializeField] private Camera _gameplayCamera;
     [SerializeField] private CinemachineVirtualCamera _virtualCamera;
 
+    [Header("Screen Shake")]
+    [SerializeField] private float _intensityDecayMultiplier;
+    [SerializeField] private float _frequencyDecayMultiplier;
+
     [Header("Boss Stagger")]
     [SerializeField] private float _staggerIntensity;
     [SerializeField] private float _staggerFrequency;
@@ -19,6 +23,15 @@ public class CameraGameManager : BaseGameplayManager
     private CinemachineBasicMultiChannelPerlin _multiChannelPerlin;
 
     private Coroutine _cameraShakeCoroutine;
+    private Coroutine _cameraShakeDecayCoroutine;
+
+    /*private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            StartCameraShake(1, 1, 1);
+        }
+    }*/
 
     /// <summary>
     /// Initiates the camera shake process
@@ -30,17 +43,43 @@ public class CameraGameManager : BaseGameplayManager
     {
         if (_cameraShakeCoroutine != null)
             StopCoroutine(_cameraShakeCoroutine);
+        if (_cameraShakeDecayCoroutine != null)
+            StopCoroutine(_cameraShakeDecayCoroutine);
 
-        _cameraShakeCoroutine = StartCoroutine(CameraShake(intensity, frequency,duration));
-    }
-
-    private IEnumerator CameraShake(float intensity, float frequency, float duration)
-    {
         _multiChannelPerlin.m_AmplitudeGain += intensity;
         _multiChannelPerlin.m_FrequencyGain += frequency;
+
+        _cameraShakeCoroutine = StartCoroutine(CameraShake(duration));
+    }
+
+    private IEnumerator CameraShake(float duration)
+    {
         yield return new WaitForSeconds(duration);
-        _multiChannelPerlin.m_AmplitudeGain -= intensity;
-        _multiChannelPerlin.m_FrequencyGain -= frequency;
+        /*_multiChannelPerlin.m_AmplitudeGain -= intensity;
+        _multiChannelPerlin.m_FrequencyGain -= frequency;*/
+        _cameraShakeCoroutine = StartCoroutine(CameraShakeDecay());
+    }
+
+    private IEnumerator CameraShakeDecay()
+    {
+        while (_multiChannelPerlin.m_AmplitudeGain > 0 || _multiChannelPerlin.m_FrequencyGain > 0)
+        {
+            if(_multiChannelPerlin.m_AmplitudeGain > 0)
+            {
+                _multiChannelPerlin.m_AmplitudeGain -= Time.deltaTime * _intensityDecayMultiplier;
+                if (_multiChannelPerlin.m_AmplitudeGain < 0)
+                    _multiChannelPerlin.m_AmplitudeGain = 0;
+            }
+            
+            if(_multiChannelPerlin.m_FrequencyGain > 0)
+            {
+                _multiChannelPerlin.m_FrequencyGain -= Time.deltaTime * _frequencyDecayMultiplier;
+                if (_multiChannelPerlin.m_FrequencyGain < 0)
+                    _multiChannelPerlin.m_FrequencyGain = 0;
+            }
+            
+            yield return null;
+        }
     }
 
     private void CameraShakeOnBossStagger()
