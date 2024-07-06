@@ -17,6 +17,8 @@ public class BossVisuals : BossChildrenFunctionality
 
     private Animator _bossSpecificAnimator;
 
+    private const string _bossDeathTriggerAnim = "G_BossDeath";
+
     public void BossLookAt(Vector3 lookLocation)
     {
         /*transform.LookAt(lookLocation);
@@ -72,6 +74,11 @@ public class BossVisuals : BossChildrenFunctionality
         _bossSpecificAnimator.SetTrigger(triggerName);
     }
 
+    private void BossSpecificDeathTrigger()
+    {
+        _bossSpecificAnimator.SetTrigger(_bossDeathTriggerAnim);
+    }
+
     private void BossFullyStaggered()
     {
         UniversalManagers.Instance.GetTimeManager().BossStaggeredTimeSlow();
@@ -80,6 +87,12 @@ public class BossVisuals : BossChildrenFunctionality
     private void BattleWon()
     {
         UniversalManagers.Instance.GetTimeManager().BossDiedTimeSlow();
+        BossSpecificDeathTrigger();
+    }
+
+    private void BattleLost()
+    {
+
     }
 
 

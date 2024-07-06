@@ -86,6 +86,8 @@ public class BossStats : BossChildrenFunctionality
 
             myBossBase.GetBossDamagedEvent().RemoveListener(CheckBossIsUnderHalf);
             myBossBase.GetBossDamagedEvent().AddListener(CheckBossIsUnderQuarter);
+
+            CheckBossIsUnderQuarter(damage);
         }
     }
 
@@ -98,6 +100,8 @@ public class BossStats : BossChildrenFunctionality
 
             myBossBase.GetBossDamagedEvent().RemoveListener(CheckBossIsUnderQuarter);
             myBossBase.GetBossDamagedEvent().AddListener(CheckBossIsUnderTenth);
+
+            CheckBossIsUnderTenth(damage);
         }
     }
 
