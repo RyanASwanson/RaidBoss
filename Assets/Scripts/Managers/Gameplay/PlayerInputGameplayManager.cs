@@ -16,6 +16,9 @@ public class PlayerInputGameplayManager : BaseGameplayManager
 
     private List<HeroBase> _controlledHeroes = new List<HeroBase>();
 
+    [Space]
+    [SerializeField] private GameObject _heroDirectIcon;
+
     private UniversalPlayerInputActions UPIA;
 
 
@@ -108,7 +111,16 @@ public class PlayerInputGameplayManager : BaseGameplayManager
         if (ClickOnPoint(_directClickLayerMask, out RaycastHit clickedOn))
         {
             DirectAllHeroesTo(clickedOn.point);
+            CreateHeroDirectIcon(clickedOn.point);
         }
+    }
+
+    private void CreateHeroDirectIcon(Vector3 location)
+    {
+        location = GameplayManagers.Instance.GetEnvironmentManager().GetClosestPointToFloor(location);
+        location = new Vector3(location.x, -.75f, location.z);
+        Instantiate(_heroDirectIcon, location, Quaternion.identity);
+        
     }
 
     private void HeroActiveButton(InputAction.CallbackContext context)
