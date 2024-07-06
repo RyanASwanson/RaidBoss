@@ -15,11 +15,11 @@ public class HeroCanvasFollow : MonoBehaviour
     }
     private IEnumerator FollowAssociatedHero()
     {
-        while(true)
+        while(_followHero != null)
         {
             transform.position = _followHero.transform.position;
             yield return null;
         }
-        
+        Destroy(gameObject);
     }
 }

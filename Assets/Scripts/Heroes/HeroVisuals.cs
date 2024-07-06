@@ -24,6 +24,7 @@ public class HeroVisuals : HeroChildrenFunctionality
     private const string _levelIntroTriggerAnim = "LevelIntroTrigger";
     private const string _heroDamagedTriggerAnim = "HeroDamaged";
     private const string _heroHealedTriggerAnim = "HeroHealed";
+    private const string _heroDeathTriggerAnim = "HeroDeath";
 
     public override void ChildFuncSetup(HeroBase heroBase)
     {
@@ -43,6 +44,11 @@ public class HeroVisuals : HeroChildrenFunctionality
     {
         Instantiate(_heroHealedVFX, transform.position, Quaternion.identity);
         HeroHealedAnimation();
+    }
+
+    private void HeroDied()
+    {
+        HeroDeathAnimation();
     }
 
     #region Health Status
@@ -77,6 +83,11 @@ public class HeroVisuals : HeroChildrenFunctionality
         _heroGeneralAnimator.SetTrigger(_heroHealedTriggerAnim);
     }
 
+    private void HeroDeathAnimation()
+    {
+        _heroGeneralAnimator.SetTrigger(_heroDeathTriggerAnim);
+    }
+
     #region Events
     public override void SubscribeToEvents()
     {
@@ -86,6 +97,7 @@ public class HeroVisuals : HeroChildrenFunctionality
 
         myHeroBase.GetHeroDamagedEvent().AddListener(HeroDamaged);
         myHeroBase.GetHeroHealedEvent().AddListener(HeroHealed);
+        myHeroBase.GetHeroDiedEvent().AddListener(HeroDied);
 
         myHeroBase.GetHeroHealedAboveHalfEvent().AddListener(HeroHealthAboveHalf);
         myHeroBase.GetHeroHealedAboveQuarterEvent().AddListener(HeroInjured);
