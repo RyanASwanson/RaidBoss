@@ -8,6 +8,9 @@ public class SaveManager : BaseUniversalManager
     public GameSaveData GSD;
     private string _path;
 
+    [SerializeField] private List<BossSO> _bossesInGame = new();
+    [SerializeField] private List<HeroSO> _heroesInGame = new();
+
 
     private void EstablishPath()
     {
@@ -25,8 +28,8 @@ public class SaveManager : BaseUniversalManager
     /// </summary>
     private void StartingValues()
     {
-        //Fills the arrays with default values when the file is created
-        GSD._bossHeroBestDifficultyComplete = new();
+        //Fills the GSD with default values when the file is created
+        PopulateBossHeroDifficultyDictionary();
 
         GSD._screenShakeStrength = 1;
 
@@ -36,6 +39,19 @@ public class SaveManager : BaseUniversalManager
 
         /*System.Array.Fill(GSD.SaveNames, "");
         System.Array.Fill(GSD.SaveScore, 0);*/
+    }
+
+    private void PopulateBossHeroDifficultyDictionary()
+    {
+        GSD._bossHeroBestDifficultyComplete = new();
+
+        foreach(BossSO bossSO in _bossesInGame)
+        {
+            foreach(HeroSO heroSO in _heroesInGame)
+            {
+                GSD._bossHeroBestDifficultyComplete[bossSO][heroSO] = GameDifficulty.Empty;
+            }
+        }
     }
 
     public void SaveText()
@@ -64,7 +80,7 @@ public class SaveManager : BaseUniversalManager
 
     public void ResetSaveData()
     {
-        GSD._bossHeroBestDifficultyComplete = new();
+        PopulateBossHeroDifficultyDictionary();
         
         SaveText();
     }
@@ -88,11 +104,13 @@ public class SaveManager : BaseUniversalManager
 
         foreach (HeroSO currentTempHero in tempHeroes)
         {
-            /*if((int)tempDifficulty < GSD._bossHeroBestDifficultyComplete[tempBoss,[tempDifficulty]])
+            if ((int)tempDifficulty > (int)GSD._bossHeroBestDifficultyComplete[tempBoss][currentTempHero])
             {
-
-            }*/
+                GSD._bossHeroBestDifficultyComplete[tempBoss][currentTempHero] = tempDifficulty;
+            }
         }
+
+        SaveText();
     }
 
     public void SetScreenShakeIntensity(float val)
@@ -130,7 +148,7 @@ public class SaveManager : BaseUniversalManager
 [System.Serializable]
 public class GameSaveData
 {
-    public Dictionary<BossSO, Dictionary<GameDifficulty, HeroSO>> _bossHeroBestDifficultyComplete = new();
+    public Dictionary<BossSO, Dictionary<HeroSO,GameDifficulty>> _bossHeroBestDifficultyComplete = new();
 
     [Space]
     [Header("Settings")]

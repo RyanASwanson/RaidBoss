@@ -46,6 +46,7 @@ public class GameStateManager : BaseGameplayManager
                 InvokeBattleLostEvent();
                 break;
             case (GameplayStates.PostBattleWon):
+                UniversalManagers.Instance.GetSaveManager().SaveBossDifficultyHeroesDictionary();
                 InvokeBattleWonEvent();
                 break;
         }
