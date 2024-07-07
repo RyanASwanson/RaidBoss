@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using Newtonsoft.Json;
 
 public class SaveManager : BaseUniversalManager
 {
@@ -11,6 +12,20 @@ public class SaveManager : BaseUniversalManager
     [SerializeField] private List<BossSO> _bossesInGame = new();
     [SerializeField] private List<HeroSO> _heroesInGame = new();
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            PopulateBossHeroDifficultyDictionary();
+            foreach (BossSO bossSO in _bossesInGame)
+            {
+                foreach (HeroSO heroSO in _heroesInGame)
+                {
+                    print(GSD._bossHeroBestDifficultyComplete[bossSO.GetBossName()][heroSO.GetHeroName()]);
+                }
+            }
+        }
+    }
 
     private void EstablishPath()
     {
@@ -43,13 +58,18 @@ public class SaveManager : BaseUniversalManager
 
     private void PopulateBossHeroDifficultyDictionary()
     {
+        //Reset the dictionary
         GSD._bossHeroBestDifficultyComplete = new();
 
+        //Iterate through the boss scriptable objects
         foreach(BossSO bossSO in _bossesInGame)
         {
+
+            GSD._bossHeroBestDifficultyComplete.Add(bossSO.GetBossName(), new Dictionary<string, GameDifficulty>());
+
             foreach(HeroSO heroSO in _heroesInGame)
             {
-                GSD._bossHeroBestDifficultyComplete[bossSO][heroSO] = GameDifficulty.Empty;
+                GSD._bossHeroBestDifficultyComplete[bossSO.GetBossName()].Add(heroSO.GetHeroName(), GameDifficulty.Empty);
             }
         }
     }
@@ -57,7 +77,8 @@ public class SaveManager : BaseUniversalManager
     public void SaveText()
     {
         //Writes all variables in the Game Save Data class into Json
-        var convertedJson = JsonUtility.ToJson(GSD);
+        var convertedJson = JsonConvert.SerializeObject(GSD);
+        //var convertedJson = JsonUtility.ToJson(GSD);
         File.WriteAllText(_path + "Data.json", convertedJson);
     }
 
@@ -68,6 +89,10 @@ public class SaveManager : BaseUniversalManager
         {
             var json = File.ReadAllText(_path + "Data.json");
             GSD = JsonUtility.FromJson<GameSaveData>(json);
+
+            GSD = JsonConvert.DeserializeObject<GameSaveData>(json);
+            /*var a = JsonConvert.DeserializeObject<GameSaveData>(json);
+            Debug.Log(a._screenShakeStrength);*/
         }
         else
         {
@@ -104,9 +129,9 @@ public class SaveManager : BaseUniversalManager
 
         foreach (HeroSO currentTempHero in tempHeroes)
         {
-            if ((int)tempDifficulty > (int)GSD._bossHeroBestDifficultyComplete[tempBoss][currentTempHero])
+            if ((int)tempDifficulty > (int)GSD._bossHeroBestDifficultyComplete[tempBoss.GetBossName()][currentTempHero.GetHeroName()])
             {
-                GSD._bossHeroBestDifficultyComplete[tempBoss][currentTempHero] = tempDifficulty;
+                GSD._bossHeroBestDifficultyComplete[tempBoss.GetBossName()][currentTempHero.GetHeroName()] = tempDifficulty;
             }
         }
 
@@ -136,6 +161,7 @@ public class SaveManager : BaseUniversalManager
     {
         base.SetupUniversalManager();
         EstablishPath();
+        //PopulateBossHeroDifficultyDictionary();
         Load();
     }
 
@@ -148,7 +174,8 @@ public class SaveManager : BaseUniversalManager
 [System.Serializable]
 public class GameSaveData
 {
-    public Dictionary<BossSO, Dictionary<HeroSO,GameDifficulty>> _bossHeroBestDifficultyComplete = new();
+    //First string is boss name, second string is hero name
+    public Dictionary<string, Dictionary<string,GameDifficulty>> _bossHeroBestDifficultyComplete = new();
 
     [Space]
     [Header("Settings")]
