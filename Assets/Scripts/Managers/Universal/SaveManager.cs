@@ -64,8 +64,8 @@ public class SaveManager : BaseUniversalManager
 
     public void ResetSaveData()
     {
-        GSD = new GameSaveData();
-        StartingValues();
+        GSD._bossHeroBestDifficultyComplete = new();
+        
         SaveText();
     }
 
@@ -76,6 +76,26 @@ public class SaveManager : BaseUniversalManager
     public float GetMusicVolume() => GSD._musicVolume;
     public float GetSFXVolume() => GSD._sfxVolume;
 
+    #endregion
+
+    #region Setters
+    public void SetScreenShakeIntensity(float val)
+    {
+        GSD._screenShakeStrength = val;
+    }
+
+    public void SetMasterAudioVolume(float volume)
+    {
+        GSD._masterVolume = volume;
+    }
+    public void SetMusicAudioVolume(float volume)
+    {
+        GSD._musicVolume = volume;
+    }
+    public void SetSFXAudioVolume(float volume)
+    {
+        GSD._sfxVolume = volume;
+    }
     #endregion
 
     public override void SetupUniversalManager()
