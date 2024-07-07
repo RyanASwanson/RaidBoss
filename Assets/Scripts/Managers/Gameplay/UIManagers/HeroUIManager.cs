@@ -102,21 +102,34 @@ public class HeroUIManager : GameUIChildrenFunctionality
     }
 
     #region Health Bar
+    /// <summary>
+    /// Sets the percentage that the hero health bar is at
+    /// </summary>
+    /// <param name="percent"></param>
     private void SetHealthBarPercent(float percent)
     {
         _associatedHeroCurrentHealthBar.fillAmount = percent;
     }
 
+    /// <summary>
+    /// Starts the process of the current health rising when being healed
+    /// </summary>
     private void StartCurrentHealthBarGain()
     {
+        //Stops the coroutine if its already active
         if (_startHealthBarGainCoroutine != null)
             StopCoroutine(_startHealthBarGainCoroutine);
 
         _startHealthBarGainCoroutine = StartCoroutine(CurrentHealthBarGain());
     }
 
+    /// <summary>
+    /// Waits for a brief period before the health bar rises from being healed
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator CurrentHealthBarGain()
     {
+        //Waits briefly before starting
         yield return new WaitForSeconds(_timeForCurrentHealthGainStart);
 
         float currentFill = _associatedHeroCurrentHealthBar.fillAmount;
@@ -131,23 +144,37 @@ public class HeroUIManager : GameUIChildrenFunctionality
         _startHealthBarGainCoroutine = null;
     }
 
+    /// <summary>
+    /// Causes the recent (white) health bar to go down on taking damage
+    /// </summary>
     private void StartRecentHealthBarDrain()
     {
+        //Stop the coroutine if its already active
         if (_startHealthBarDrainCoroutine != null)
             StopCoroutine(_startHealthBarDrainCoroutine);
 
         _startHealthBarDrainCoroutine = StartCoroutine(RecentHealthBarDrain());
     }
 
+    
+    /// <summary>
+    /// Waits for a brief period before the recent health bar decays from damage
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator RecentHealthBarDrain()
     {
+        //Waits a short period of time
         yield return new WaitForSeconds(_timeForRecentHealthDrainStart);
 
+        //Sets the starting value
         float currentFill = _associatedHeroRecentHealthBar.fillAmount;
 
+        //Continues so long as the recent damage bar is more than the current health bar
         while (currentFill > _associatedHeroCurrentHealthBar.fillAmount)
         {
+            //Decreases the current value independent of framerate
             currentFill -= _recentHealthDrainPercentPerSecond * Time.deltaTime;
+            //Sets the recent health bar value
             SetRecentDamageHealthBarPercent(currentFill);
             yield return null;
         }
@@ -155,8 +182,12 @@ public class HeroUIManager : GameUIChildrenFunctionality
         _startHealthBarDrainCoroutine = null;
     }
 
+    /// <summary>
+    /// Makes sure that recent health bar is equal to the current health bar upon taking damage
+    /// </summary>
     private void CorrectRecentHealthBar()
     {
+        //Checks if the recent health bar is less than the current health bar
         if (_associatedHeroRecentHealthBar.fillAmount < _associatedHeroCurrentHealthBar.fillAmount)
             SetRecentDamageHealthBarPercent(_associatedHeroCurrentHealthBar.fillAmount) ;
     }
@@ -171,6 +202,10 @@ public class HeroUIManager : GameUIChildrenFunctionality
         _associatedHeroHealingHealthBar.fillAmount = percent;
     }
 
+    /// <summary>
+    /// Taking damage reduces the target value of healing based on how much damage is taken
+    /// </summary>
+    /// <param name="damage"></param>
     private void ReduceRecentHealingOnDamage(float damage)
     {
         if(_associatedHeroHealingHealthBar.fillAmount > _associatedHeroCurrentHealthBar.fillAmount)

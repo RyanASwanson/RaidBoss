@@ -122,6 +122,11 @@ public class HeroStats : HeroChildrenFunctionality
     }
 
     #region Damage Override
+
+    /// <summary>
+    /// Determines if damaged should be overridden based on if they have damage overrides
+    /// </summary>
+    /// <returns></returns>
     private bool ShouldOverrideDamage()
     {
         return _damageTakenOverridesCounter > 0;

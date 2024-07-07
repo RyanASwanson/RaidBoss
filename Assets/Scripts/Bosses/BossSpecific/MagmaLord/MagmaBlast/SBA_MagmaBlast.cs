@@ -22,6 +22,9 @@ public class SBA_MagmaBlast : SpecificBossAbilityFramework
         base.AbilityPrep();
     }
 
+    /// <summary>
+    /// Spawns in the safe zone 
+    /// </summary>
     protected override void StartShowTargetZone()
     {
         GameObject newTargetZone = Instantiate(_targetZone, _targetLocation, Quaternion.identity);
@@ -38,6 +41,7 @@ public class SBA_MagmaBlast : SpecificBossAbilityFramework
     {
         base.StartAbilityWindUp();
     }
+
 
     protected override void AbilityStart()
     {

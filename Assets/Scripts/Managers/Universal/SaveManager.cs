@@ -120,6 +120,9 @@ public class SaveManager : BaseUniversalManager
     #endregion
 
     #region Setters
+    /// <summary>
+    /// Saves the heroes best difficulty beaten on a boss
+    /// </summary>
     public void SaveBossDifficultyHeroesDictionary()
     {
         SelectionManager tempSelectionManager = UniversalManagers.Instance.GetSelectionManager();
@@ -127,30 +130,52 @@ public class SaveManager : BaseUniversalManager
         GameDifficulty tempDifficulty = tempSelectionManager.GetSelectedDifficulty();
         List<HeroSO> tempHeroes = tempSelectionManager.GetAllSelectedHeroes();
 
+        //Iterate through the heroes that are in play
         foreach (HeroSO currentTempHero in tempHeroes)
         {
+            //If the current difficulty is more than the current best beaten difficulty against this boss
             if ((int)tempDifficulty > (int)GSD._bossHeroBestDifficultyComplete[tempBoss.GetBossName()][currentTempHero.GetHeroName()])
             {
-                GSD._bossHeroBestDifficultyComplete[tempBoss.GetBossName()][currentTempHero.GetHeroName()] = tempDifficulty;
+                //Save the current difficulty into the best beaten difficulty
+                GSD._bossHeroBestDifficultyComplete[tempBoss.GetBossName()]
+                    [currentTempHero.GetHeroName()] = tempDifficulty;
             }
         }
 
         SaveText();
     }
 
+    /// <summary>
+    /// Saves the current screen shake intensity into the game save data
+    /// </summary>
+    /// <param name="val"></param>
     public void SetScreenShakeIntensity(float val)
     {
         GSD._screenShakeStrength = val;
     }
 
+    /// <summary>
+    /// Saves the current master audio volume into the game save data
+    /// </summary>
+    /// <param name="volume"></param>
     public void SetMasterAudioVolume(float volume)
     {
         GSD._masterVolume = volume;
     }
+
+    /// <summary>
+    /// Saves the current music audio volume into the game save data
+    /// </summary>
+    /// <param name="volume"></param>
     public void SetMusicAudioVolume(float volume)
     {
         GSD._musicVolume = volume;
     }
+
+    /// <summary>
+    /// Saves the current sfx audio volume into the game save data
+    /// </summary>
+    /// <param name="volume"></param>
     public void SetSFXAudioVolume(float volume)
     {
         GSD._sfxVolume = volume;

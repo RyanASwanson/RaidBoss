@@ -57,11 +57,17 @@ public class BossVisuals : BossChildrenFunctionality
     }
 
 
+    /// <summary>
+    /// Starts the general boss level intro animation
+    /// </summary>
     public void BossLevelIntroAnimation()
     {
         _bossGeneralAnimator.SetTrigger(_levelIntroTriggerAnim);
     }
 
+    /// <summary>
+    /// Starts the general boss damaged animation which causes them to briefly shrink
+    /// </summary>
     private void BossDamagedAnimation()
     {
         _bossGeneralAnimator.SetTrigger(_bossDamagedTriggerAnim);
