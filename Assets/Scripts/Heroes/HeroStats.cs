@@ -75,6 +75,8 @@ public class HeroStats : HeroChildrenFunctionality
             return;
         }
 
+        if (healing == 0) return;
+
         SetPreviousHealthValue();
 
         float healthDifference = _currentHealth;

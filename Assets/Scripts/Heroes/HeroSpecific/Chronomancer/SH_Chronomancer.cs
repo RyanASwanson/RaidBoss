@@ -14,6 +14,9 @@ public class SH_Chronomancer : SpecificHeroFramework
     [SerializeField] private float _rewindTimeAmount;
     private List<Queue<float>> _heroPastHealthValues = new List<Queue<float>>();
     private List<float> _heroPreviousCheckedHealth = new List<float>(5);
+    
+    [Space]
+    [SerializeField] private float _passiveAbilityBasicCooldownReduction;
 
     /*private void Update()
     {
@@ -61,7 +64,8 @@ public class SH_Chronomancer : SpecificHeroFramework
 
         Physics.IgnoreCollision(myHeroBase.GetHeroDamageCollider(), 
             spawnedProjectile.GetComponentInChildren<Collider>(), true);
-        spawnedProjectile.GetComponent<SHP_ChronomancerBasicProjectile>().AdditionalSetup(_currentAttackDirection);
+        spawnedProjectile.GetComponent<SHP_ChronomancerBasicProjectile>().
+            AdditionalSetup(_currentAttackDirection, _passiveAbilityBasicCooldownReduction);
     }
 
     private void IncreaseCurrentAttackRotation()
@@ -82,6 +86,7 @@ public class SH_Chronomancer : SpecificHeroFramework
         foreach (HeroBase heroBase in GameplayManagers.Instance.GetHeroesManager().GetCurrentHeroes())
         {
             RevertHeroHealth(counter, heroBase);
+            heroBase.GetSpecificHeroScript().AddToBasicAbilityChargeTime(_passiveAbilityBasicCooldownReduction);
             counter++;
         }
     }
@@ -103,6 +108,8 @@ public class SH_Chronomancer : SpecificHeroFramework
             healthDifference = currentHighestCheckedHealth - heroBase.GetHeroStats().GetCurrentHealth();
         }
 
+        if (healthDifference == 0) return;
+
         heroBase.GetHeroStats().HealHero(healthDifference);
     }
 
@@ -117,22 +124,6 @@ public class SH_Chronomancer : SpecificHeroFramework
         AddPastHealthValue(heroID, GameplayManagers.Instance.GetHeroesManager()
             .GetCurrentHeroes()[heroID].GetHeroStats().GetPreviousHealth());
     }
-/*    private void AddHeroTwoHealthValue(float healthVal)
-    {
-        AddPastHealthValue(1, healthVal);
-    }
-    private void AddHeroThreeHealthValue(float healthVal)
-    {
-        AddPastHealthValue(2, healthVal);
-    }
-    private void AddHeroFourHealthValue(float healthVal)
-    {
-        AddPastHealthValue(3, healthVal);
-    }
-    private void AddHeroFiveHealthValue(float healthVal)
-    {
-        AddPastHealthValue(4, healthVal);
-    }*/
 
     private IEnumerator RemovePastHealthValueProcess(int heroID)
     {

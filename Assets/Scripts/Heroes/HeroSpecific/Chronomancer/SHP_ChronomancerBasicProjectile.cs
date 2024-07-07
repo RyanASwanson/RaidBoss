@@ -9,7 +9,7 @@ public class SHP_ChronomancerBasicProjectile : HeroProjectileFramework
 {
     [SerializeField] private float _projectileSpeed;
 
-    [SerializeField] private float _basicAbilityCooldownReduction;
+    private float _basicAbilityCooldownReduction;
 
     /// <summary>
     /// Sends the projectile moving in a direction until it is destroyed
@@ -40,8 +40,10 @@ public class SHP_ChronomancerBasicProjectile : HeroProjectileFramework
         base.SetUpProjectile(heroBase);
     }
 
-    public void AdditionalSetup(Vector3 direction)
+    public void AdditionalSetup(Vector3 direction, float cooldownReduction)
     {
+        _basicAbilityCooldownReduction = cooldownReduction;
+
         GetComponent<GeneralHeroHealArea>().GetEnterEvent().AddListener(ReduceManualCooldownOfTarget);
         StartCoroutine(MoveProjectile(direction));
     }
