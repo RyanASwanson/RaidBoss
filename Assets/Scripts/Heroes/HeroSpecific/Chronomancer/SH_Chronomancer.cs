@@ -15,18 +15,28 @@ public class SH_Chronomancer : SpecificHeroFramework
     private List<Queue<float>> _heroPastHealthValues = new List<Queue<float>>();
     private List<float> _heroPreviousCheckedHealth = new List<float>(5);
 
-    private void Update()
+    /*private void Update()
     {
         if (Input.GetKeyDown(KeyCode.U))
         {
-            print("U");
-            foreach (float a in _heroPastHealthValues[0])
+            print("Start");
+            int heroID = 0;
+            foreach(HeroBase hb in GameplayManagers.Instance.GetHeroesManager().GetCurrentHeroes())
             {
-                Debug.Log(a);
+                string tempString = "";
+                foreach (float a in _heroPastHealthValues[heroID])
+                {
+                    tempString += a;
+                    tempString += " ";
+                }
+                print(hb.GetHeroSO().GetHeroName() + " " + heroID + " " + tempString);
+                heroID++;
+
             }
+            
         }
 
-    }
+    }*/
 
 
     #region Basic Abilities
@@ -65,10 +75,8 @@ public class SH_Chronomancer : SpecificHeroFramework
     #region Manual Abilities
     public override void ActivateManualAbilities(Vector3 attackLocation)
     {
-        Debug.Log("start manual chrono");
         base.ActivateManualAbilities(attackLocation);
 
-        Debug.Log("Activate manual chrono");
 
         int counter = 0;
         foreach (HeroBase heroBase in GameplayManagers.Instance.GetHeroesManager().GetCurrentHeroes())
@@ -104,11 +112,10 @@ public class SH_Chronomancer : SpecificHeroFramework
         StartCoroutine(RemovePastHealthValueProcess(heroID));
     }
 
-    private void AddHeroHealthValue(float heroID)
+    private void AddHeroHealthValue(int heroID)
     {
-        //print("h ID " + heroID);
-        AddPastHealthValue(0, GameplayManagers.Instance.GetHeroesManager()
-            .GetCurrentHeroes()[(int)heroID].GetHeroStats().GetPreviousHealth());
+        AddPastHealthValue(heroID, GameplayManagers.Instance.GetHeroesManager()
+            .GetCurrentHeroes()[heroID].GetHeroStats().GetPreviousHealth());
     }
 /*    private void AddHeroTwoHealthValue(float healthVal)
     {
