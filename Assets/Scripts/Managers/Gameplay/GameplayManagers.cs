@@ -16,7 +16,6 @@ public class GameplayManagers : MonoBehaviour
     [SerializeField] private EnvironmentManager _environmentManager;
     [SerializeField] private GameUIManager _gameUIManager;
     [SerializeField] private BossManager _bossManager;
-    [SerializeField] private PauseManager _pauseManager;
 
     // Start is called before the first frame update
     void Awake()
@@ -35,7 +34,6 @@ public class GameplayManagers : MonoBehaviour
     public EnvironmentManager GetEnvironmentManager() => _environmentManager;
     public GameUIManager GetGameUIManager() => _gameUIManager;
     public BossManager GetBossManager() => _bossManager;
-    public PauseManager GetPauseManager() => _pauseManager;
         
     #endregion
 }

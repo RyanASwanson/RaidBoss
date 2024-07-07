@@ -137,18 +137,18 @@ PrefabInstance:
     - target: {fileID: 3589545622130707318, guid: b30be74494dc02f429e331376638e4ad, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 4272067838896255934}
+      objectReference: {fileID: 2373392815619502245}
     - target: {fileID: 3589545622130707318, guid: b30be74494dc02f429e331376638e4ad, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3589545622130707318, guid: b30be74494dc02f429e331376638e4ad, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: PressGamePauseButton
+      value: PauseButtonPressed
       objectReference: {fileID: 0}
     - target: {fileID: 3589545622130707318, guid: b30be74494dc02f429e331376638e4ad, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PauseManager, Assembly-CSharp
+      value: PauseUIManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3589545622130707318, guid: b30be74494dc02f429e331376638e4ad, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -1230,22 +1230,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
---- !u!4 &3783645660863513088 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8272634563732586761, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
-  m_PrefabInstance: {fileID: 5065556587512431369}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &4272067838896255934 stripped
+--- !u!114 &2373392815619502245 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9008632949546528951, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7395901043489862572, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
   m_PrefabInstance: {fileID: 5065556587512431369}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bdad772e029901349aefeee46c6ed783, type: 3}
+  m_Script: {fileID: 11500000, guid: ed6b850b55843344584b0c9ba7aaf66b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &3783645660863513088 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8272634563732586761, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
+  m_PrefabInstance: {fileID: 5065556587512431369}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5141268201712199063
 PrefabInstance:
   m_ObjectHideFlags: 0

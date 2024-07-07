@@ -6,7 +6,7 @@ public class PauseScreenFunctionality : MonoBehaviour
 {
     public void ResumeGame()
     {
-        GameplayManagers.Instance.GetPauseManager().PressGamePauseButton();
+        UniversalManagers.Instance.GetTimeManager().PressGamePauseButton();
     }
 
     public void RetryLevel()

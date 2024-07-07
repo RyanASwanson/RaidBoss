@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// Handles the speed at which the game plays
@@ -23,6 +24,11 @@ public class TimeManager : BaseUniversalManager
     [SerializeField] private float _heroDeathTimeSpeed;
     [SerializeField] private float _heroDeathDuration;
 
+    private bool _gamePaused = false;
+
+    private UnityEvent _gamePausedEvent = new UnityEvent();
+    private UnityEvent _gameUnpausedEvent = new UnityEvent();
+
     /*private void Update()
     {
         if(Input.GetKeyDown(KeyCode.T))
@@ -30,6 +36,15 @@ public class TimeManager : BaseUniversalManager
             AddNewTimeVariationForDuration(.2f, .5f);
         }
     }*/
+
+    public void PressGamePauseButton()
+    {
+        _gamePaused = !_gamePaused;
+        if (_gamePaused)
+            FreezeTime();
+        else
+            UnfreezeTime();
+    }
 
 
     /// <summary>
@@ -96,11 +111,13 @@ public class TimeManager : BaseUniversalManager
     public void FreezeTime()
     {
         SetTimeScale(0);
+        InvokeGamePausedEvent();
     }
 
     public void UnfreezeTime()
     {
         DetermineCurrentTimeSpeedBasedOnList();
+        InvokeGameUnpausedEvent();
     }
 
     private void SceneLoadStart()
@@ -119,9 +136,28 @@ public class TimeManager : BaseUniversalManager
         base.SetupUniversalManager();
     }
 
+    #region Events
+    private void InvokeGamePausedEvent()
+    {
+        _gamePausedEvent?.Invoke();
+    }
+
+    private void InvokeGameUnpausedEvent()
+    {
+        _gameUnpausedEvent?.Invoke();
+    }
+    #endregion
+
     public override void SubscribeToEvents()
     {
         UniversalManagers.Instance.GetSceneLoadManager().GetStartOfSceneLoadEvent().AddListener(SceneLoadStart);
         UniversalManagers.Instance.GetSceneLoadManager().GetEndOfSceneLoadEvent().AddListener(SceneLoadEnd);
     }
+
+    #region Getters
+    public bool GetGamePaused() => _gamePaused;
+
+    public UnityEvent GetGamePausedEvent() => _gamePausedEvent;
+    public UnityEvent GetGameUnpausedEvent() => _gameUnpausedEvent;
+    #endregion
 }
