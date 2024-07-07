@@ -55,6 +55,8 @@ public class HeroesManager : BaseGameplayManager
     {
         _currentLivingHeroes.Remove(deadHero);
         CheckIfAllHeroesDead();
+
+        UniversalManagers.Instance.GetTimeManager().HeroDiedTimeSlow();
     }
 
     private void CheckIfAllHeroesDead()

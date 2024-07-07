@@ -38,7 +38,7 @@ public class SHP_ReaperBasicProjectile : HeroProjectileFramework
         float time = 4.75f;
         float xPos, zPos;
 
-        while (true)
+        while (_ownerHeroBase != null)
         {
             transform.position = _ownerHeroBase.transform.position;
 

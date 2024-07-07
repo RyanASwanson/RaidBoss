@@ -110,6 +110,8 @@ public class HeroStats : HeroChildrenFunctionality
     /// </summary>
     public void KillHero()
     {
+        AddDamageTakenOverrideCounter();
+
         myHeroBase.InvokeHeroDiedEvent();
         GameplayManagers.Instance.GetHeroesManager().HeroDied(myHeroBase);
     }

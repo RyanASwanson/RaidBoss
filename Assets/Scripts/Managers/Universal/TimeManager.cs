@@ -11,11 +11,17 @@ public class TimeManager : BaseUniversalManager
 
     private bool _canUpdateTimeVariation = true;
 
+    [Space]
+    [Header("Boss Values")]
     [SerializeField] private float _bossStaggerTimeSpeed;
     [SerializeField] private float _bossStaggerDuration;
 
     [SerializeField] private float _bossDeathTimeSpeed;
     [SerializeField] private float _bossDeathDuration;
+
+    [Space]
+    [SerializeField] private float _heroDeathTimeSpeed;
+    [SerializeField] private float _heroDeathDuration;
 
     /*private void Update()
     {
@@ -70,6 +76,11 @@ public class TimeManager : BaseUniversalManager
     public void BossDiedTimeSlow()
     {
         AddNewTimeVariationForDuration(_bossDeathTimeSpeed, _bossDeathDuration);
+    }
+
+    public void HeroDiedTimeSlow()
+    {
+        AddNewTimeVariationForDuration(_heroDeathTimeSpeed, _heroDeathDuration);
     }
 
     public void SetTimeToNormalSpeedOverride()

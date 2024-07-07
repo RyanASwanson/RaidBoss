@@ -153,7 +153,7 @@ public class SH_Chronomancer : SpecificHeroFramework
 
     public override void ActivatePassiveAbilities()
     {
-        throw new System.NotImplementedException();
+        
     }
 
 
