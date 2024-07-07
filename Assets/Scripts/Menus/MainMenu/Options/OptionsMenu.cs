@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Handles the functionality on the options menu on the main menu
+/// </summary>
 public class OptionsMenu : MonoBehaviour
 {
     [Header("General")]
@@ -22,10 +25,9 @@ public class OptionsMenu : MonoBehaviour
     private float _tempMusicAudioValue;
     private float _tempSFXAudioValue;
 
-    void OnEnable()
+    public void OptionsMenuOpened()
     {
         _saveManager = UniversalManagers.Instance.GetSaveManager();
-
         SetSliderValuesOnOpen();
     }
 
@@ -33,6 +35,10 @@ public class OptionsMenu : MonoBehaviour
     {
         
         _screenShakeSlider.value = _saveManager.GSD._screenShakeStrength;
+
+        _masterAudioSlider.value = _saveManager.GSD._masterVolume;
+        _musicAudioSlider.value = _saveManager.GSD._musicVolume;
+        _sfxAudioSlider.value = _saveManager.GSD._sfxVolume;
     }
 
     public void ScreenShakeSliderUpdated(float val)

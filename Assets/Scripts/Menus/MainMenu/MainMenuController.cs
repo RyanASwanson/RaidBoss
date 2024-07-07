@@ -25,6 +25,8 @@ public class MainMenuController : MonoBehaviour
     [Header("Options")]
     [SerializeField] private GameObject _optionsCanvas;
 
+    [SerializeField] private OptionsMenu _optionsMenu;
+
     [Space]
     [Header("Credits")]
     [SerializeField] private GameObject _creditsCanvas;
@@ -64,6 +66,8 @@ public class MainMenuController : MonoBehaviour
     public void OptionsButtonPressed()
     {
         _optionsCanvas.SetActive(true);
+
+        _optionsMenu.OptionsMenuOpened();
     }
 
     public void HideOptionsButton()
