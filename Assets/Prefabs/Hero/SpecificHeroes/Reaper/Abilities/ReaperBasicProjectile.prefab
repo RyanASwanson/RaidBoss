@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 6178648973560091564}
   - component: {fileID: 4756059996115577347}
   - component: {fileID: 4224414369238256091}
+  - component: {fileID: 623648685643494788}
   m_Layer: 0
   m_Name: ReaperBasicProjectile
   m_TagString: Untagged
@@ -161,7 +162,7 @@ MonoBehaviour:
   _damageCollider: {fileID: 2335829733626578903}
   _hasLifeTime: 0
   _lifeTime: 0
-  _hitDestructionVFX: {fileID: 0}
+  _hitCenteredVFX: {fileID: 0}
   _enterDamage: 0
   _enterStagger: 0
   _enterEvent:
@@ -244,6 +245,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &623648685643494788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2335829734208154044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15b178d837850bd44a6ea78907376d8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5720776219893328029
 PrefabInstance:
   m_ObjectHideFlags: 0

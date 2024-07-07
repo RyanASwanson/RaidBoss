@@ -69,6 +69,15 @@ public class SaveManager : BaseUniversalManager
         SaveText();
     }
 
+    #region Getters
+
+    public float GetScreenShakeIntensity() => GSD._screenShakeStrength;
+    public float GetMasterVolume() => GSD._masterVolume;
+    public float GetMusicVolume() => GSD._musicVolume;
+    public float GetSFXVolume() => GSD._sfxVolume;
+
+    #endregion
+
     public override void SetupUniversalManager()
     {
         base.SetupUniversalManager();
