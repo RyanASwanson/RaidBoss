@@ -32,6 +32,6 @@ public class DifficultyDropdown : MonoBehaviour
 
     public void UpdateDifficulty()
     {
-        UniversalManagers.Instance.GetSelectionManager().SetSelectedDifficulty((GameDifficulty)_dropdown.value);
+        UniversalManagers.Instance.GetSelectionManager().SetSelectedDifficulty((GameDifficulty)_dropdown.value+1);
     }
 }

@@ -212,6 +212,7 @@ public class SelectionManager : BaseUniversalManager
     public UnityEvent<BossSO> GetBossHoveredOverEvent() => _bossHoveredOverEvent;
     public UnityEvent<BossSO> GetBossNotHoveredOverEvent() => _bossNotHoveredOverEvent;
 
+    public GameDifficulty GetSelectedDifficulty() => _currentGameDifficulty;
     public UnityEvent<GameDifficulty> GetDifficultySelectionEvent() => _difficultySelectionEvent;
 
     public UnityEvent<HeroSO> GetHeroSelectionEvent() => _heroSelectionEvent;
@@ -242,6 +243,7 @@ public class SelectionManager : BaseUniversalManager
 
 public enum GameDifficulty
 {
+    Empty,
     Normal,
     Heroic,
     Mythic

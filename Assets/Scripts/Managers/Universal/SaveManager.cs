@@ -79,6 +79,22 @@ public class SaveManager : BaseUniversalManager
     #endregion
 
     #region Setters
+    public void SaveBossDifficultyHeroesDictionary()
+    {
+        SelectionManager tempSelectionManager = UniversalManagers.Instance.GetSelectionManager();
+        BossSO tempBoss = tempSelectionManager.GetSelectedBoss();
+        GameDifficulty tempDifficulty = tempSelectionManager.GetSelectedDifficulty();
+        List<HeroSO> tempHeroes = tempSelectionManager.GetAllSelectedHeroes();
+
+        foreach (HeroSO currentTempHero in tempHeroes)
+        {
+            /*if((int)tempDifficulty < GSD._bossHeroBestDifficultyComplete[tempBoss,[tempDifficulty]])
+            {
+
+            }*/
+        }
+    }
+
     public void SetScreenShakeIntensity(float val)
     {
         GSD._screenShakeStrength = val;
