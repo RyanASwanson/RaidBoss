@@ -35,6 +35,12 @@ public class SelectionController : MonoBehaviour
     private BossSO _lastBossHoveredOver;
     private HeroSO _lastHeroHoveredOver;
 
+    [SerializeField] private Animator _heroAbilityDescriptionAnimator;
+    private const string _showAbilityDescriptionTrigger = "ShowDescription";
+    private const string _hideAbilityDescriptionTrigger = "HideDescription";
+
+    [SerializeField] private Animator _bossAbilityDescriptionAnimator;
+
     [Space]
     [Header("Hero")]
     [SerializeField] private List<HeroPillar> _heroPillars = new List<HeroPillar>();
@@ -44,6 +50,8 @@ public class SelectionController : MonoBehaviour
     {
         SubscribeToEvents();
 
+        BossSideStart();
+        CenterStart();
         HeroSideStart();
     }
 
@@ -149,6 +157,22 @@ public class SelectionController : MonoBehaviour
         {
             statCounters[i].enabled = (i<statNumber);
         }
+    }
+
+
+    public void ShowHeroAbilityDescription()
+    {
+        _heroAbilityDescriptionAnimator.SetTrigger(_showAbilityDescriptionTrigger);
+    }
+
+    public void UpdateHeroDescriptionText()
+    {
+
+    }
+
+    public void HideAbilityDescription()
+    {
+        _heroAbilityDescriptionAnimator.SetTrigger(_hideAbilityDescriptionTrigger);
     }
 
     #endregion
