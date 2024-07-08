@@ -74,7 +74,9 @@ public class SBA_Volcano : SpecificBossAbilityFramework
         foreach (Vector3 attackLoc in _targetLocations)
         {
             GameObject newestDamageZone = Instantiate(_volcanoDamageZone, attackLoc, Quaternion.identity);
-            newestDamageZone.transform.eulerAngles += new Vector3(0, _rotationAmount*  Random.Range(0,_maxRotations), 0);
+
+            newestDamageZone.transform.eulerAngles += new Vector3(0, _rotationAmount*
+                Mathf.RoundToInt(Random.Range(0,_maxRotations)), 0);
             _storedDamageZones.Add(newestDamageZone);
         }
 
