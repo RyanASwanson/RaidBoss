@@ -8,6 +8,9 @@ public class SBA_Volcano : SpecificBossAbilityFramework
     [SerializeField] private float _minimumProjectileDistance;
     [SerializeField] private float _mapRadiusOffset;
 
+    private const float _rotationAmount = 90;
+    private const float _maxRotations = 3;
+
     [SerializeField] private GameObject _volcanoDamageZone;
     [SerializeField] private GameObject _targetZone;
 
@@ -71,6 +74,7 @@ public class SBA_Volcano : SpecificBossAbilityFramework
         foreach (Vector3 attackLoc in _targetLocations)
         {
             GameObject newestDamageZone = Instantiate(_volcanoDamageZone, attackLoc, Quaternion.identity);
+            newestDamageZone.transform.eulerAngles += new Vector3(0, _rotationAmount*  Random.Range(0,_maxRotations), 0);
             _storedDamageZones.Add(newestDamageZone);
         }
 
