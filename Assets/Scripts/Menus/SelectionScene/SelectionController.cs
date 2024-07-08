@@ -37,9 +37,13 @@ public class SelectionController : MonoBehaviour
 
     [Space]
     [SerializeField] private Animator _heroAbilityDescriptionAnimator;
-    private const string _showAbilityDescriptionTrigger = "ShowDescription";
-    private const string _hideAbilityDescriptionTrigger = "HideDescription";
+    private const string _showAbilityDescriptionBool = "ShowDescription";
 
+    [SerializeField] private Text _heroAbilityBackgroundDescriptionText;
+    [SerializeField] private TMP_Text _heroAbilityDescriptionText;
+    private float _currentAbilityID;
+
+    [Space]
     [SerializeField] private Animator _bossAbilityDescriptionAnimator;
 
     [Space]
@@ -161,19 +165,39 @@ public class SelectionController : MonoBehaviour
     }
 
 
-    public void ShowHeroAbilityDescription()
+    public void ShowHeroAbilityDescription(float abilityID)
     {
-        _heroAbilityDescriptionAnimator.SetTrigger(_showAbilityDescriptionTrigger);
+        _currentAbilityID = abilityID;
+        _heroAbilityDescriptionAnimator.SetBool(_showAbilityDescriptionBool, true);
     }
 
-    public void UpdateHeroDescriptionText()
+    public void UpdateHeroDescriptionText(string newText)
     {
+        _heroAbilityBackgroundDescriptionText.text = newText;
+        _heroAbilityDescriptionText.text = newText;
+    }
 
+    public void HeroAbilityDescriptionChanged()
+    {
+        switch(_currentAbilityID)
+        {
+            case (0):
+                UpdateHeroDescriptionText(_lastHeroHoveredOver.GetHeroBasicAbilityDescription());
+                return;
+            case (1):
+                UpdateHeroDescriptionText(_lastHeroHoveredOver.GetHeroManualAbilityDescription());
+                return;
+            case (2):
+                UpdateHeroDescriptionText(_lastHeroHoveredOver.GetHeroPassiveAbilityDescription());
+                return;
+
+        }
+            
     }
 
     public void HideAbilityDescription()
     {
-        _heroAbilityDescriptionAnimator.SetTrigger(_hideAbilityDescriptionTrigger);
+        _heroAbilityDescriptionAnimator.SetBool(_showAbilityDescriptionBool, false);
     }
 
     #endregion
