@@ -128,6 +128,24 @@ public class PlayerInputGameplayManager : BaseGameplayManager
         ActivateAllManualAbilities();
     }
 
+    private void HeroNumberPress(InputAction.CallbackContext context)
+    {
+        int pressNumVal = (int)context.ReadValue<float>();
+
+        HeroesManager heroesManager = GameplayManagers.Instance.GetHeroesManager();
+        if (heroesManager.GetCurrentHeroes().Count <= pressNumVal
+            || heroesManager.GetCurrentHeroes()[pressNumVal] == null)
+            return;
+
+            NewControlledHero(heroesManager.GetCurrentHeroes()[pressNumVal]);
+        
+    }
+
+    private void EscapePress(InputAction.CallbackContext context)
+    {
+        UniversalManagers.Instance.GetTimeManager().PressGamePauseButton();
+    }
+
     private void SubscribeToPlayerInput()
     {
         UPIA = new UniversalPlayerInputActions();
@@ -136,12 +154,16 @@ public class PlayerInputGameplayManager : BaseGameplayManager
         UPIA.GameplayActions.SelectClick.started += PlayerSelectClicked;
         UPIA.GameplayActions.DirectClick.started += PlayerDirectClicked;
         UPIA.GameplayActions.ActiveAbility.started += HeroActiveButton;
+        UPIA.GameplayActions.NumberPress.started += HeroNumberPress;
+        UPIA.GameplayActions.EscapePress.started += EscapePress;
     }
     private void UnsubscribeToPlayerInput()
     {
         UPIA.GameplayActions.SelectClick.started -= PlayerSelectClicked;
         UPIA.GameplayActions.DirectClick.started -= PlayerDirectClicked;
         UPIA.GameplayActions.ActiveAbility.started -= HeroActiveButton;
+        UPIA.GameplayActions.NumberPress.started -= HeroNumberPress;
+        UPIA.GameplayActions.EscapePress.started -= EscapePress;
 
         UPIA.Disable();
     }

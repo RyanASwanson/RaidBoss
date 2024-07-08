@@ -53,6 +53,24 @@ public partial class @UniversalPlayerInputActions: IInputActionCollection2, IDis
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""NumberPress"",
+                    ""type"": ""Button"",
+                    ""id"": ""4e9de618-9d76-403b-a6e3-9b72161e14a1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""EscapePress"",
+                    ""type"": ""Button"",
+                    ""id"": ""01be1bbf-92a0-455d-93da-39b2762a69da"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -88,6 +106,72 @@ public partial class @UniversalPlayerInputActions: IInputActionCollection2, IDis
                     ""action"": ""ActiveAbility"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2d32b115-6bd4-484d-8644-af4226731896"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=0)"",
+                    ""groups"": """",
+                    ""action"": ""NumberPress"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0029bc7e-3744-4f76-978a-921f807d52c2"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale"",
+                    ""groups"": """",
+                    ""action"": ""NumberPress"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8ce6dd19-ad5a-487c-8def-946c6f0ceec9"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=2)"",
+                    ""groups"": """",
+                    ""action"": ""NumberPress"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""33ea0831-8bef-468b-b38e-903183111ef8"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=3)"",
+                    ""groups"": """",
+                    ""action"": ""NumberPress"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2c7f46d9-8846-478a-ac8a-b21ae7fb5566"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=4)"",
+                    ""groups"": """",
+                    ""action"": ""NumberPress"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""39e9ed2e-c5f7-4c43-8337-cb1e5f15ace8"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EscapePress"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -99,6 +183,8 @@ public partial class @UniversalPlayerInputActions: IInputActionCollection2, IDis
         m_GameplayActions_SelectClick = m_GameplayActions.FindAction("SelectClick", throwIfNotFound: true);
         m_GameplayActions_DirectClick = m_GameplayActions.FindAction("DirectClick", throwIfNotFound: true);
         m_GameplayActions_ActiveAbility = m_GameplayActions.FindAction("ActiveAbility", throwIfNotFound: true);
+        m_GameplayActions_NumberPress = m_GameplayActions.FindAction("NumberPress", throwIfNotFound: true);
+        m_GameplayActions_EscapePress = m_GameplayActions.FindAction("EscapePress", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -163,6 +249,8 @@ public partial class @UniversalPlayerInputActions: IInputActionCollection2, IDis
     private readonly InputAction m_GameplayActions_SelectClick;
     private readonly InputAction m_GameplayActions_DirectClick;
     private readonly InputAction m_GameplayActions_ActiveAbility;
+    private readonly InputAction m_GameplayActions_NumberPress;
+    private readonly InputAction m_GameplayActions_EscapePress;
     public struct GameplayActionsActions
     {
         private @UniversalPlayerInputActions m_Wrapper;
@@ -170,6 +258,8 @@ public partial class @UniversalPlayerInputActions: IInputActionCollection2, IDis
         public InputAction @SelectClick => m_Wrapper.m_GameplayActions_SelectClick;
         public InputAction @DirectClick => m_Wrapper.m_GameplayActions_DirectClick;
         public InputAction @ActiveAbility => m_Wrapper.m_GameplayActions_ActiveAbility;
+        public InputAction @NumberPress => m_Wrapper.m_GameplayActions_NumberPress;
+        public InputAction @EscapePress => m_Wrapper.m_GameplayActions_EscapePress;
         public InputActionMap Get() { return m_Wrapper.m_GameplayActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -188,6 +278,12 @@ public partial class @UniversalPlayerInputActions: IInputActionCollection2, IDis
             @ActiveAbility.started += instance.OnActiveAbility;
             @ActiveAbility.performed += instance.OnActiveAbility;
             @ActiveAbility.canceled += instance.OnActiveAbility;
+            @NumberPress.started += instance.OnNumberPress;
+            @NumberPress.performed += instance.OnNumberPress;
+            @NumberPress.canceled += instance.OnNumberPress;
+            @EscapePress.started += instance.OnEscapePress;
+            @EscapePress.performed += instance.OnEscapePress;
+            @EscapePress.canceled += instance.OnEscapePress;
         }
 
         private void UnregisterCallbacks(IGameplayActionsActions instance)
@@ -201,6 +297,12 @@ public partial class @UniversalPlayerInputActions: IInputActionCollection2, IDis
             @ActiveAbility.started -= instance.OnActiveAbility;
             @ActiveAbility.performed -= instance.OnActiveAbility;
             @ActiveAbility.canceled -= instance.OnActiveAbility;
+            @NumberPress.started -= instance.OnNumberPress;
+            @NumberPress.performed -= instance.OnNumberPress;
+            @NumberPress.canceled -= instance.OnNumberPress;
+            @EscapePress.started -= instance.OnEscapePress;
+            @EscapePress.performed -= instance.OnEscapePress;
+            @EscapePress.canceled -= instance.OnEscapePress;
         }
 
         public void RemoveCallbacks(IGameplayActionsActions instance)
@@ -223,5 +325,7 @@ public partial class @UniversalPlayerInputActions: IInputActionCollection2, IDis
         void OnSelectClick(InputAction.CallbackContext context);
         void OnDirectClick(InputAction.CallbackContext context);
         void OnActiveAbility(InputAction.CallbackContext context);
+        void OnNumberPress(InputAction.CallbackContext context);
+        void OnEscapePress(InputAction.CallbackContext context);
     }
 }

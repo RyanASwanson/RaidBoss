@@ -81,6 +81,7 @@ public class BossStats : BossChildrenFunctionality
     {
         if(GetBossHealthPercentage() < .5f)
         {
+            //Invokes any necessary functionality for reaching half health
             myBossBase.InvokeBossHalfHealthEvent();
             IncreaseBossStatsAtHealthThreshholds();
 
@@ -95,10 +96,14 @@ public class BossStats : BossChildrenFunctionality
     {
         if (GetBossHealthPercentage() < .25f)
         {
+            //Invokes any necessary functionality for reaching quarter health
             myBossBase.InvokeBossQuarterHealthEvent();
+            //Increases boss stats
             IncreaseBossStatsAtHealthThreshholds();
 
+            //No longer listens for damage event
             myBossBase.GetBossDamagedEvent().RemoveListener(CheckBossIsUnderQuarter);
+            //Causes the 10 percent health check to listen for the damage event
             myBossBase.GetBossDamagedEvent().AddListener(CheckBossIsUnderTenth);
 
             CheckBossIsUnderTenth(damage);
@@ -109,10 +114,14 @@ public class BossStats : BossChildrenFunctionality
     {
         if (GetBossHealthPercentage() < .1f)
         {
+            //Invokes any necessary functionality for reaching tenth health
             myBossBase.InvokeBossTenthHealthEvent();
+            //Increases boss stats
             IncreaseBossStatsAtHealthThreshholds();
 
+            //No longer listens for damage event
             myBossBase.GetBossDamagedEvent().RemoveListener(CheckBossIsUnderTenth);
+            //Causes the death check to listen for the damage event
             myBossBase.GetBossDamagedEvent().AddListener(CheckIfBossIsDead);
 
             CheckIfBossIsDead(damage);

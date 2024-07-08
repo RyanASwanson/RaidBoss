@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// The framework that boss projectiles inherit from
+/// </summary>
 public abstract class BossProjectileFramework : MonoBehaviour
 {
     protected BossBase _ownerBossBase;
