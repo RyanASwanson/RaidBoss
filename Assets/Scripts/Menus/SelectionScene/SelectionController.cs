@@ -35,6 +35,7 @@ public class SelectionController : MonoBehaviour
     private BossSO _lastBossHoveredOver;
     private HeroSO _lastHeroHoveredOver;
 
+    [Space]
     [SerializeField] private Animator _heroAbilityDescriptionAnimator;
     private const string _showAbilityDescriptionTrigger = "ShowDescription";
     private const string _hideAbilityDescriptionTrigger = "HideDescription";
