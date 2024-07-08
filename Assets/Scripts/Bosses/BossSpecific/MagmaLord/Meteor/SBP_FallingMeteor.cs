@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class SBP_FallingMeteor : BossProjectileFramework
 {
-    [SerializeField] private GameObject _particlesToRemove;
     [SerializeField] private GameObject _contactParticles;
 
     public void AdditionalSetup(GameObject target)
@@ -24,7 +23,6 @@ public class SBP_FallingMeteor : BossProjectileFramework
 
     public void FloorContact()
     {
-        _particlesToRemove.transform.SetParent(null);
         Instantiate(_contactParticles, transform.position, Quaternion.identity);
     }
 }

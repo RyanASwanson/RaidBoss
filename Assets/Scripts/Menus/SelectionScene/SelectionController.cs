@@ -38,10 +38,11 @@ public class SelectionController : MonoBehaviour
     [Space]
     [SerializeField] private Animator _heroAbilityDescriptionAnimator;
     private const string _showAbilityDescriptionBool = "ShowDescription";
+    private const string _swapAbilityDescriptionTrigger = "SwapDescription";
 
     [SerializeField] private Text _heroAbilityBackgroundDescriptionText;
     [SerializeField] private TMP_Text _heroAbilityDescriptionText;
-    private float _currentAbilityID;
+    private float _currentAbilityID = -1;
 
     [Space]
     [SerializeField] private Animator _bossAbilityDescriptionAnimator;
@@ -130,6 +131,8 @@ public class SelectionController : MonoBehaviour
         _heroNameText.text = heroSO.GetHeroName();
         _heroNameBorder.text = heroSO.GetHeroName();
 
+        HideAbilityDescription();
+
         //Displays all stats associated for the hero on the counters
         DisplayStatsForHero(heroSO);
 
@@ -164,11 +167,28 @@ public class SelectionController : MonoBehaviour
         }
     }
 
+    public void HeroAbilityIconPressed(float abilityID)
+    {
+        if(_currentAbilityID == -1)
+        {
+            ShowHeroAbilityDescription(abilityID);
+        }
+        else if(abilityID != _currentAbilityID)
+        {
+            SwapAbilityDescription(abilityID);
+        }
+        else
+        {
+            HideAbilityDescription();
+        }
+    }
+
 
     public void ShowHeroAbilityDescription(float abilityID)
     {
         _currentAbilityID = abilityID;
         _heroAbilityDescriptionAnimator.SetBool(_showAbilityDescriptionBool, true);
+        Debug.Log("CorrectShow");
     }
 
     public void UpdateHeroDescriptionText(string newText)
@@ -195,10 +215,19 @@ public class SelectionController : MonoBehaviour
             
     }
 
+    public void SwapAbilityDescription(float abilityID)
+    {
+        _currentAbilityID = abilityID;
+        _heroAbilityDescriptionAnimator.SetTrigger(_swapAbilityDescriptionTrigger);
+    }
+
     public void HideAbilityDescription()
     {
+        Debug.Log("Hide");
         _heroAbilityDescriptionAnimator.SetBool(_showAbilityDescriptionBool, false);
+        _currentAbilityID = -1;
     }
+
 
     #endregion
 
