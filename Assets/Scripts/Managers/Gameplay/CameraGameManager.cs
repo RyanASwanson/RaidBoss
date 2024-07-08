@@ -11,6 +11,8 @@ public class CameraGameManager : BaseGameplayManager
     [SerializeField] private Camera _gameplayCamera;
     [SerializeField] private CinemachineVirtualCamera _virtualCamera;
 
+    float _screenShakeMultiplier = 1;
+
     [Header("Screen Shake")]
     [SerializeField] private float _intensityDecayMultiplier;
     [SerializeField] private float _frequencyDecayMultiplier;
@@ -19,6 +21,11 @@ public class CameraGameManager : BaseGameplayManager
     [SerializeField] private float _staggerIntensity;
     [SerializeField] private float _staggerFrequency;
     [SerializeField] private float _staggerDuration;
+
+    [Header("Boss Death")]
+    [SerializeField] private float _bossDeathIntensity;
+    [SerializeField] private float _bossDeathFrequency;
+    [SerializeField] private float _bossDeathDuration;
 
     private CinemachineBasicMultiChannelPerlin _multiChannelPerlin;
 
@@ -46,8 +53,10 @@ public class CameraGameManager : BaseGameplayManager
         if (_cameraShakeDecayCoroutine != null)
             StopCoroutine(_cameraShakeDecayCoroutine);
 
-        _multiChannelPerlin.m_AmplitudeGain += intensity;
-        _multiChannelPerlin.m_FrequencyGain += frequency;
+        
+
+        _multiChannelPerlin.m_AmplitudeGain += intensity * _screenShakeMultiplier;
+        _multiChannelPerlin.m_FrequencyGain += frequency * _screenShakeMultiplier;
 
         _cameraShakeCoroutine = StartCoroutine(CameraShake(duration));
     }
@@ -84,7 +93,13 @@ public class CameraGameManager : BaseGameplayManager
 
     private void CameraShakeOnBossStagger()
     {
+        Debug.Log(_staggerIntensity);
         StartCameraShake(_staggerIntensity,_staggerFrequency,_staggerDuration);
+    }
+
+    private void CameraShakeOnBossDeath()
+    {
+        StartCameraShake(_bossDeathIntensity, _bossDeathFrequency, _bossDeathDuration);
     }
 
     public override void SetupGameplayManager()
@@ -93,6 +108,8 @@ public class CameraGameManager : BaseGameplayManager
 
         _multiChannelPerlin = _virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
 
+        _screenShakeMultiplier = UniversalManagers.Instance.GetSaveManager().GSD._screenShakeStrength;
+        Debug.Log(_screenShakeMultiplier);
 
         //StartCameraShake(2, 2, 3);
     }
@@ -103,6 +120,8 @@ public class CameraGameManager : BaseGameplayManager
     {
         GameplayManagers.Instance.GetBossManager().GetBossBase()
             .GetBossStaggeredEvent().AddListener(CameraShakeOnBossStagger);
+        GameplayManagers.Instance.GetGameStateManager().GetBattleWonEvent()
+            .AddListener(CameraShakeOnBossDeath);
     }
     #endregion
 
