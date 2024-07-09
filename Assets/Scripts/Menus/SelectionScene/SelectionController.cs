@@ -188,7 +188,6 @@ public class SelectionController : MonoBehaviour
     {
         _currentAbilityID = abilityID;
         _heroAbilityDescriptionAnimator.SetBool(_showAbilityDescriptionBool, true);
-        Debug.Log("CorrectShow");
     }
 
     public void UpdateHeroDescriptionText(string newText)
@@ -223,7 +222,6 @@ public class SelectionController : MonoBehaviour
 
     public void HideAbilityDescription()
     {
-        Debug.Log("Hide");
         _heroAbilityDescriptionAnimator.SetBool(_showAbilityDescriptionBool, false);
         _currentAbilityID = -1;
     }
