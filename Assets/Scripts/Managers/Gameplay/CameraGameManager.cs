@@ -109,9 +109,7 @@ public class CameraGameManager : BaseGameplayManager
         _multiChannelPerlin = _virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
 
         _screenShakeMultiplier = UniversalManagers.Instance.GetSaveManager().GSD._screenShakeStrength;
-        Debug.Log(_screenShakeMultiplier);
 
-        //StartCameraShake(2, 2, 3);
     }
 
 

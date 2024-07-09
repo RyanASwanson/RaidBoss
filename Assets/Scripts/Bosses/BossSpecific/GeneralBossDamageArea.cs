@@ -45,10 +45,7 @@ public class GeneralBossDamageArea : MonoBehaviour
 
     private void OnTriggerStay(Collider collision)
     {
-        if(HitHero(collision, _stayEvent, _stayDamagePerTick) && (_preventReHitDuration > 0))
-        {
-            StartCoroutine(IgnoreHeroForDuration(collision.gameObject.GetComponentInParent<HeroBase>()));
-        }
+        HitHero(collision, _stayEvent, _stayDamagePerTick);
     }
 
     private void OnTriggerExit(Collider collision)
@@ -65,6 +62,9 @@ public class GeneralBossDamageArea : MonoBehaviour
                 return false;
 
             hitEvent?.Invoke(collision);
+
+            if(_preventReHitDuration > 0)
+                StartCoroutine(IgnoreHeroForDuration(collision.gameObject.GetComponentInParent<HeroBase>()));
 
             DealDamage(heroBase, abilityDamage);
 
