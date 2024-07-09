@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BossVisuals : BossChildrenFunctionality
@@ -17,6 +16,7 @@ public class BossVisuals : BossChildrenFunctionality
 
     private Animator _bossSpecificAnimator;
 
+    private const string _bossStaggerTriggerAnim = "G_BossStagger";
     private const string _bossDeathTriggerAnim = "G_BossDeath";
 
     public void BossLookAt(Vector3 lookLocation)
@@ -80,20 +80,27 @@ public class BossVisuals : BossChildrenFunctionality
         _bossSpecificAnimator.SetTrigger(triggerName);
     }
 
-    private void BossSpecificDeathTrigger()
-    {
-        _bossSpecificAnimator.SetTrigger(_bossDeathTriggerAnim);
-    }
-
     private void BossFullyStaggered()
     {
         UniversalManagers.Instance.GetTimeManager().BossStaggeredTimeSlow();
+        BossSpecificStaggerAnimTrigger();
+    }
+
+    private void BossSpecificStaggerAnimTrigger()
+    {
+        StartBossSpecificAnimationTrigger(_bossStaggerTriggerAnim);
+    }
+
+    private void BossSpecificDeathAnimTrigger()
+    {
+        StartBossSpecificAnimationTrigger(_bossDeathTriggerAnim);
+        //_bossSpecificAnimator.SetTrigger(_bossDeathTriggerAnim);
     }
 
     private void BattleWon()
     {
         UniversalManagers.Instance.GetTimeManager().BossDiedTimeSlow();
-        BossSpecificDeathTrigger();
+        BossSpecificDeathAnimTrigger();
     }
 
     private void BattleLost()

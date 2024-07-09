@@ -93,7 +93,6 @@ public class CameraGameManager : BaseGameplayManager
 
     private void CameraShakeOnBossStagger()
     {
-        Debug.Log(_staggerIntensity);
         StartCameraShake(_staggerIntensity,_staggerFrequency,_staggerDuration);
     }
 

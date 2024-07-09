@@ -227,6 +227,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
     }
 
 
+
     #endregion
 
     protected virtual void BossStaggerOccured()
