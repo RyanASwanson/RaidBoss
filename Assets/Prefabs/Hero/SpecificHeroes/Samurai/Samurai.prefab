@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3073542927443306918}
   - component: {fileID: 6054229843837090619}
+  - component: {fileID: 1969857870274726929}
   m_Layer: 0
   m_Name: Samurai
   m_TagString: Untagged
@@ -53,6 +54,27 @@ MonoBehaviour:
   _manualAbilityParryStagger: 30
   _parryBonusIFrames: 3
   _passiveRechargeManualAmount: 5
+--- !u!95 &1969857870274726929
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3073542927443306904}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e0cef7b9f03f1f04fbdba3464675f06f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &3199649369657559844
 PrefabInstance:
   m_ObjectHideFlags: 0
