@@ -63,7 +63,7 @@ public class GeneralBossDamageArea : MonoBehaviour
 
             hitEvent?.Invoke(collision);
 
-            if(_preventReHitDuration > 0)
+            if (_preventReHitDuration > 0 && abilityDamage > 0)
                 StartCoroutine(IgnoreHeroForDuration(collision.gameObject.GetComponentInParent<HeroBase>()));
 
             DealDamage(heroBase, abilityDamage);

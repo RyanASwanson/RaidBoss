@@ -36,8 +36,18 @@ public class HeroPathfinding : HeroChildrenFunctionality
     {
         if (_heroMovementCoroutine != null)
             StopCoroutine(_heroMovementCoroutine);
+        else
+            myHeroBase.InvokeHeroStartedMovingEvent();
 
         _heroMovementCoroutine = StartCoroutine(MovingOnNavMesh());
+    }
+
+    private void StopAbilityToMove()
+    {
+        Debug.Log("StopMovement");
+        _meshAgent.speed = 0;
+        _meshAgent.angularSpeed = 0;
+        _meshAgent.isStopped = true;
     }
 
     /// <summary>
@@ -59,6 +69,8 @@ public class HeroPathfinding : HeroChildrenFunctionality
     public override void SubscribeToEvents()
     {
         myHeroBase.GetSOSetEvent().AddListener(HeroSOAssigned);
+
+        myHeroBase.GetHeroDiedEvent().AddListener(StopAbilityToMove);
     }
 
     private void HeroSOAssigned(HeroSO heroSO)
