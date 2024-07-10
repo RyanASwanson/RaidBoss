@@ -26,6 +26,16 @@ public class HeroVisuals : HeroChildrenFunctionality
     private const string _heroHealedTriggerAnim = "HeroHealed";
     private const string _heroDeathTriggerAnim = "HeroDeath";
 
+
+    [Space]
+    private Animator _heroSpecificAnimator;
+
+    private const string _heroWalkingAnimBool = "G_HeroWalking";
+
+    private const string _heroBasicAnimTrigger = "G_HeroBasic";
+    private const string _heroManualAnimTrigger = "G_HeroManual";
+    private const string _heroPassiveAnimTrigger = "G_HeroPassive";
+
     public override void ChildFuncSetup(HeroBase heroBase)
     {
         base.ChildFuncSetup(heroBase);
@@ -88,6 +98,42 @@ public class HeroVisuals : HeroChildrenFunctionality
         _heroGeneralAnimator.SetTrigger(_heroDeathTriggerAnim);
     }
 
+    private void HeroSpecificAnimationTrigger(string animationTrigger)
+    {
+        _heroSpecificAnimator.SetTrigger(animationTrigger);
+    }
+
+    private void HeroSpecificAnimationBool(string animationBool, bool boolStatus)
+    {
+        _heroSpecificAnimator.SetBool(animationBool, boolStatus);
+    }
+
+    public void StartHeroWalkingAnimation()
+    {
+        HeroSpecificAnimationBool(_heroWalkingAnimBool, true);
+    }
+
+    public void StopHeroWalkingAnimation()
+    {
+        HeroSpecificAnimationBool(_heroWalkingAnimBool, false);
+    }
+
+    public void TriggerBasicAbilityAnimation()
+    {
+        HeroSpecificAnimationTrigger(_heroBasicAnimTrigger);
+    }
+
+    public void TriggerManualAbilityAnimation()
+    {
+        HeroSpecificAnimationTrigger(_heroManualAnimTrigger);
+    }
+
+    public void TriggerPassiveAbilityAnimation()
+    {
+        HeroSpecificAnimationTrigger(_heroPassiveAnimTrigger);
+    }
+
+
     #region Events
     public override void SubscribeToEvents()
     {
@@ -111,7 +157,7 @@ public class HeroVisuals : HeroChildrenFunctionality
     private void HeroSOAssigned(HeroSO heroSO)
     {
         //Debug.Log("Hero Assigned SO Event");
-
+        AssignHeroSpecificAnimator();
     }
     private void HeroControlStart()
     {
@@ -131,6 +177,11 @@ public class HeroVisuals : HeroChildrenFunctionality
     private void HeroStoppedMoving()
     {
 
+    }
+
+    private void AssignHeroSpecificAnimator()
+    {
+        _heroSpecificAnimator = myHeroBase.GetSpecificHeroScript().GetSpecificHeroAnimator();
     }
     #endregion
 

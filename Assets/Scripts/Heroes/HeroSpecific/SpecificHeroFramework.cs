@@ -25,10 +25,6 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     [SerializeField] protected bool _hasManualAbilityAnimation;
     [SerializeField] protected bool _hasPassiveAbilityAnimation;
 
-    private const string _heroBasicAnimTrigger = "G_HeroBasic";
-    private const string _heroManualAnimTrigger = "G_HeroManual";
-    private const string _heroPassiveAnimTrigger = "G_HeroPassive";
-
     internal HeroBase myHeroBase;
 
     protected Coroutine _attemptingBasicAbilitiesCoroutine;
@@ -90,7 +86,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     {
         if (!_hasBasicAbilityAnimation) return;
 
-        HeroGeneralAnimationTrigger(_heroBasicAnimTrigger);
+        myHeroBase.GetHeroVisuals().TriggerBasicAbilityAnimation();
     }
 
     public virtual void ActivateBasicAbilities()
@@ -145,7 +141,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     {
         if (!_hasManualAbilityAnimation) return;
 
-        HeroGeneralAnimationTrigger(_heroManualAnimTrigger);
+        myHeroBase.GetHeroVisuals().TriggerManualAbilityAnimation();
     }
 
     public virtual void ActivateManualAbilities(Vector3 attackLocation)
@@ -166,7 +162,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     {
         if (!_hasPassiveAbilityAnimation) return;
 
-        HeroGeneralAnimationTrigger(_heroPassiveAnimTrigger);
+        myHeroBase.GetHeroVisuals().TriggerPassiveAbilityAnimation();
     }
 
     public virtual void ActivatePassiveAbilities()
@@ -202,10 +198,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
 
     }
 
-    protected virtual void HeroGeneralAnimationTrigger(string animationTrigger)
-    {
-        _heroSpecificAnimator.SetTrigger(animationTrigger);
-    }
+
     #endregion
 
     public virtual void SetupSpecificHero(HeroBase heroBase, HeroSO heroSO)
@@ -247,6 +240,8 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     public float GetBasicAbilityChargeTime() => _basicAbilityChargeTime;
 
     public float GetManualAbilityChargePercent() => _manualAbilityCurrentCharge / _manualAbilityChargeTime;
+
+    public Animator GetSpecificHeroAnimator() => _heroSpecificAnimator;
     #endregion
 
 }
