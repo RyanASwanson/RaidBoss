@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8488318069239813123}
   - component: {fileID: -3074528242821081722}
+  - component: {fileID: 6637846128462165614}
   m_Layer: 0
   m_Name: Shaman
   m_TagString: Untagged
@@ -50,6 +51,27 @@ MonoBehaviour:
   _basicProjectile: {fileID: 3036980777955802489, guid: cf4ee9c4b0a55c347806e22596cfff09, type: 3}
   _manualProjectile: {fileID: 1061180217337404304, guid: 2fbd07f9966215e4a82548c236453d11, type: 3}
   _totem: {fileID: 351401202049535585, guid: 456792e35ec0d3745ba17dd967eadc2b, type: 3}
+--- !u!95 &6637846128462165614
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8488318069239813181}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 12dd5dacc5a1c6f4b8e9db6ee7bfb35c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &5107112932850719957
 PrefabInstance:
   m_ObjectHideFlags: 0
