@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4141422867130462900}
   - component: {fileID: 8419643614807967953}
+  - component: {fileID: 9030357306950637488}
   m_Layer: 0
   m_Name: Chronomancer
   m_TagString: Untagged
@@ -51,6 +52,27 @@ MonoBehaviour:
   _attackRotationIncrease: {x: 0, y: 30, z: 0}
   _rewindTimeAmount: 5
   _passiveAbilityBasicCooldownReduction: 4
+--- !u!95 &9030357306950637488
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4141422867130462858}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cd5c6b744048934459ebaa7eebb7ef8f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1122745534690962689
 PrefabInstance:
   m_ObjectHideFlags: 0
