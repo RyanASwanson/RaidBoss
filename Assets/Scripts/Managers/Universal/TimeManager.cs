@@ -16,11 +16,17 @@ public class TimeManager : BaseUniversalManager
     [Header("Boss Values")]
     [SerializeField] private float _bossStaggerTimeSpeed;
     [SerializeField] private float _bossStaggerDuration;
+    [Space]
 
     [SerializeField] private float _bossDeathTimeSpeed;
     [SerializeField] private float _bossDeathDuration;
 
     [Space]
+    [Header("Hero Values")]
+    [SerializeField] private float _largeHeroDamageTimeSpeed;
+    [SerializeField] private float _largeHeroDamageDuration;
+    [Space]
+
     [SerializeField] private float _heroDeathTimeSpeed;
     [SerializeField] private float _heroDeathDuration;
 
@@ -91,6 +97,11 @@ public class TimeManager : BaseUniversalManager
     public void BossDiedTimeSlow()
     {
         AddNewTimeVariationForDuration(_bossDeathTimeSpeed, _bossDeathDuration);
+    }
+
+    public void LargeHeroDamageTimeSlow()
+    {
+        AddNewTimeVariationForDuration(_largeHeroDamageTimeSpeed, _largeHeroDamageDuration);
     }
 
     public void HeroDiedTimeSlow()

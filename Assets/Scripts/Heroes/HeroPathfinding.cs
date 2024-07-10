@@ -44,7 +44,6 @@ public class HeroPathfinding : HeroChildrenFunctionality
 
     private void StopAbilityToMove()
     {
-        Debug.Log("StopMovement");
         _meshAgent.speed = 0;
         _meshAgent.angularSpeed = 0;
         _meshAgent.isStopped = true;

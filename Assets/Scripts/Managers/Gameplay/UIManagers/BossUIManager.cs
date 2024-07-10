@@ -189,7 +189,10 @@ public class BossUIManager : GameUIChildrenFunctionality
         AddSpawnVarianceToDamageStaggerNumber(newDamageNumber);
 
         if(damage >= _strongDamage)
+        {
             newDamageNumber.GetComponent<Animator>().SetTrigger(_damageStrongAnimTrigger);
+            UniversalManagers.Instance.GetTimeManager().LargeHeroDamageTimeSlow();
+        }
         else if (damage >= _averageDamage)
             newDamageNumber.GetComponent<Animator>().SetTrigger(_damageAverageAnimTrigger);
         else
@@ -207,7 +210,10 @@ public class BossUIManager : GameUIChildrenFunctionality
         AddSpawnVarianceToDamageStaggerNumber(newStaggerNumber);
 
         if (stagger >= _strongStagger)
+        {
             newStaggerNumber.GetComponent<Animator>().SetTrigger(_staggerStrongAnimTrigger);
+            UniversalManagers.Instance.GetTimeManager().LargeHeroDamageTimeSlow();
+        }
         else if (stagger >= _averageStagger)
             newStaggerNumber.GetComponent<Animator>().SetTrigger(_staggerAverageAnimTrigger);
         else
