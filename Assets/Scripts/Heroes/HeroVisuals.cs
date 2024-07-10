@@ -171,12 +171,12 @@ public class HeroVisuals : HeroChildrenFunctionality
 
     private void HeroStartedMoving()
     {
-        
+        StartHeroWalkingAnimation();
     }
 
     private void HeroStoppedMoving()
     {
-
+        StopHeroWalkingAnimation();
     }
 
     private void AssignHeroSpecificAnimator()
