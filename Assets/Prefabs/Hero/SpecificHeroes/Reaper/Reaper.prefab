@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4428506607697463252}
   - component: {fileID: 3028641610935721140}
+  - component: {fileID: 1402544750709311176}
   m_Layer: 0
   m_Name: Reaper
   m_TagString: Untagged
@@ -50,6 +51,27 @@ MonoBehaviour:
   _basicAbilityProjectile: {fileID: 2335829734208154044, guid: add69f61c2ec1d34c807b8b838eb0f74, type: 3}
   _manualAbilityProjectile: {fileID: 7623930384297987932, guid: 83370a6cd0c31ee4385d6e02b7a61602, type: 3}
   _deathPersistDuration: 10
+--- !u!95 &1402544750709311176
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4428506607697463274}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8b371de8d908c1747b61dc593c9cdcf4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1857902186463797925
 PrefabInstance:
   m_ObjectHideFlags: 0
