@@ -17,7 +17,17 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     [SerializeField] protected float _manualAbilityChargeTime;
     protected float _manualAbilityCurrentCharge = 0;
 
-    [Space] 
+    [Space]
+    [Header("Animations")]
+    [SerializeField] protected Animator _heroSpecificAnimator;
+
+    [SerializeField] protected bool _hasBasicAbilityAnimation;
+    [SerializeField] protected bool _hasManualAbilityAnimation;
+    [SerializeField] protected bool _hasPassiveAbilityAnimation;
+
+    private const string _heroBasicAnimTrigger = "G_HeroBasic";
+    private const string _heroManualAnimTrigger = "G_HeroManual";
+    private const string _heroPassiveAnimTrigger = "G_HeroPassive";
 
     internal HeroBase myHeroBase;
 
@@ -76,8 +86,17 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         return false;
     }
 
+    protected virtual void TriggerBasicAbilityAnimation()
+    {
+        if (!_hasBasicAbilityAnimation) return;
+
+        HeroGeneralAnimationTrigger(_heroBasicAnimTrigger);
+    }
+
     public virtual void ActivateBasicAbilities()
     {
+        TriggerBasicAbilityAnimation();
+
         StartCooldownBasicAbility();
     }
 
@@ -122,19 +141,37 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         }
     }
 
+    protected virtual void TriggerManualAbilityAnimation()
+    {
+        if (!_hasManualAbilityAnimation) return;
+
+        HeroGeneralAnimationTrigger(_heroManualAnimTrigger);
+    }
+
     public virtual void ActivateManualAbilities(Vector3 attackLocation)
     {
         _manualAbilityCurrentCharge = 0;
 
         _manualAbilityCooldownCoroutine = null;
+
+        TriggerManualAbilityAnimation();
+
         StartCooldownManualAbility();
     }
     #endregion
 
     #region Passive Abilities
+
+    protected virtual void TriggerPassiveAbilityAnimation()
+    {
+        if (!_hasPassiveAbilityAnimation) return;
+
+        HeroGeneralAnimationTrigger(_heroPassiveAnimTrigger);
+    }
+
     public virtual void ActivatePassiveAbilities()
     {
-
+        TriggerPassiveAbilityAnimation();
     }
 
     #endregion
@@ -163,6 +200,11 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     public virtual void HeroTakeDamageOverride(float damage)
     {
 
+    }
+
+    protected virtual void HeroGeneralAnimationTrigger(string animationTrigger)
+    {
+        _heroSpecificAnimator.SetTrigger(animationTrigger);
     }
     #endregion
 
