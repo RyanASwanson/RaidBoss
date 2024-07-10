@@ -30,6 +30,7 @@ public class HeroVisuals : HeroChildrenFunctionality
     [Space]
     private Animator _heroSpecificAnimator;
 
+    private const string _heroIdleAnimTrigger = "G_HeroIdle";
     private const string _heroWalkingAnimBool = "G_HeroWalking";
 
     private const string _heroBasicAnimTrigger = "G_HeroBasic";
@@ -108,12 +109,18 @@ public class HeroVisuals : HeroChildrenFunctionality
         _heroSpecificAnimator.SetBool(animationBool, boolStatus);
     }
 
-    public void StartHeroWalkingAnimation()
+    private void StartHeroSpecificIdleAnimation()
+    {
+        HeroSpecificAnimationTrigger(_heroIdleAnimTrigger);
+    }
+
+
+    public void StartHeroSpecificWalkingAnimation()
     {
         HeroSpecificAnimationBool(_heroWalkingAnimBool, true);
     }
 
-    public void StopHeroWalkingAnimation()
+    public void StopHeroSpecificWalkingAnimation()
     {
         HeroSpecificAnimationBool(_heroWalkingAnimBool, false);
     }
@@ -158,6 +165,8 @@ public class HeroVisuals : HeroChildrenFunctionality
     {
         //Debug.Log("Hero Assigned SO Event");
         AssignHeroSpecificAnimator();
+
+        StartHeroSpecificIdleAnimation();
     }
     private void HeroControlStart()
     {
@@ -171,12 +180,12 @@ public class HeroVisuals : HeroChildrenFunctionality
 
     private void HeroStartedMoving()
     {
-        StartHeroWalkingAnimation();
+        StartHeroSpecificWalkingAnimation();
     }
 
     private void HeroStoppedMoving()
     {
-        StopHeroWalkingAnimation();
+        StopHeroSpecificWalkingAnimation();
     }
 
     private void AssignHeroSpecificAnimator()
