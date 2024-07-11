@@ -213,6 +213,11 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         ActivateHeroSpecificActivity();
     }
 
+    protected virtual void HeroDied()
+    {
+
+    }
+
     public virtual void ActivateHeroSpecificActivity()
     {
         StartCooldownBasicAbility();

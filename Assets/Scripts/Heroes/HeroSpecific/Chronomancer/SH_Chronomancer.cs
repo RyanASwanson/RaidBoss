@@ -175,9 +175,17 @@ public class SH_Chronomancer : SpecificHeroFramework
         SubscribeToHeroesDamagedEvents();
     }
 
+    protected override void HeroDied()
+    {
+        base.HeroDied();
+        UnsubscribeToHeroesDamagedEvents();
+    }
+
     public override void SubscribeToEvents()
     {
         base.SubscribeToEvents();
+
+        myHeroBase.GetHeroDiedEvent().AddListener(HeroDied);
     }
 
     public void SubscribeToHeroesDamagedEvents()
@@ -198,5 +206,16 @@ public class SH_Chronomancer : SpecificHeroFramework
         //GameplayManagers.Instance.GetHeroesManager().GetCurrentHeroes()[0].GetHeroHealthChangedEvent().AddListener(delegate { AddHeroHealthValue(7);});
         //if (GameplayManagers.Instance.GetHeroesManager().GetCurrentHeroes()[1] != null) print("A");
         //GameplayManagers.Instance.GetHeroesManager().GetCurrentHeroes()[1].GetHeroHealthChangedEvent().AddListener(delegate { AddHeroHealthValue(2);});
+    }
+
+    private void UnsubscribeToHeroesDamagedEvents()
+    {
+        /*for (int i = 0; i < GameplayManagers.Instance.GetHeroesManager().GetCurrentHeroes().Count; i++)
+        {
+            int tempI = i;
+            GameplayManagers.Instance.GetHeroesManager().GetCurrentHeroes()[i]
+                .GetHeroHealthChangedEvent().RemoveListener(AddHeroHealthValue(1));
+        }*/
+
     }
 }

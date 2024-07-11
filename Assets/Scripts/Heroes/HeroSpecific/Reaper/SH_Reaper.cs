@@ -66,6 +66,11 @@ public class SH_Reaper : SpecificHeroFramework
         StartCoroutine(PassiveProcess());
     }
 
+    /// <summary>
+    /// Upon the death override ocurring the Reaper stops taking damage and healing,
+    /// persists for a set period of time, then has the death override removed and dies
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator PassiveProcess()
     {
         myHeroBase.GetHeroStats().AddDamageTakenOverrideCounter();

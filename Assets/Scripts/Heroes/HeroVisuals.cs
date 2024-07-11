@@ -79,36 +79,60 @@ public class HeroVisuals : HeroChildrenFunctionality
     }
     #endregion
 
+    private void HeroGeneralAnimationTrigger(string animationTrigger)
+    {
+        _heroGeneralAnimator.SetTrigger(animationTrigger);
+    }
+
+    private void HeroGeneralAnimationBool(string animationTrigger, bool boolStatus)
+    {
+        _heroGeneralAnimator.SetBool(animationTrigger, boolStatus);
+    }
+
     public void HeroLevelIntroAnimation()
     {
-        _heroGeneralAnimator.SetTrigger(_levelIntroTriggerAnim);
+        HeroGeneralAnimationTrigger(_levelIntroTriggerAnim);
     }
 
     private void HeroDamagedAnimation()
     {
-        _heroGeneralAnimator.SetTrigger(_heroDamagedTriggerAnim);
+        HeroGeneralAnimationTrigger(_heroDamagedTriggerAnim);
     }
 
     private void HeroHealedAnimation()
     {
-        _heroGeneralAnimator.SetTrigger(_heroHealedTriggerAnim);
+        HeroGeneralAnimationTrigger(_heroHealedTriggerAnim);
     }
 
     private void HeroDeathAnimation()
     {
-        _heroGeneralAnimator.SetTrigger(_heroDeathTriggerAnim);
+        HeroGeneralAnimationTrigger(_heroDeathTriggerAnim);
     }
 
+
+    /// <summary>
+    /// Activates a trigger on the hero specific animator
+    /// </summary>
+    /// <param name="animationTrigger"></param>
     private void HeroSpecificAnimationTrigger(string animationTrigger)
     {
         _heroSpecificAnimator.SetTrigger(animationTrigger);
     }
 
+    /// <summary>
+    /// Sets a bool on the hero specific animator
+    /// </summary>
+    /// <param name="animationBool"></param>
+    /// <param name="boolStatus"></param>
     private void HeroSpecificAnimationBool(string animationBool, bool boolStatus)
     {
         _heroSpecificAnimator.SetBool(animationBool, boolStatus);
     }
 
+
+    /// <summary>
+    /// Tells the hero specific animator to their animations by entering with the idle animation
+    /// </summary>
     private void StartHeroSpecificIdleAnimation()
     {
         HeroSpecificAnimationTrigger(_heroIdleAnimTrigger);
@@ -116,7 +140,7 @@ public class HeroVisuals : HeroChildrenFunctionality
 
 
     /// <summary>
-    /// Tells the hero specific animator to start performing the heroes walk animation
+    /// Tells the hero specific animator to start performing their walk animation
     /// </summary>
     public void StartHeroSpecificWalkingAnimation()
     {
@@ -124,23 +148,32 @@ public class HeroVisuals : HeroChildrenFunctionality
     }
 
     /// <summary>
-    /// Tells the hero specific animator to stop performing the heroes walk animation
+    /// Tells the hero specific animator to stop performing their walk animation
     /// </summary>
     public void StopHeroSpecificWalkingAnimation()
     {
         HeroSpecificAnimationBool(_heroWalkingAnimBool, false);
     }
 
+    /// <summary>
+    /// Tells the hero specific animator to start their basic attack animation
+    /// </summary>
     public void TriggerBasicAbilityAnimation()
     {
         HeroSpecificAnimationTrigger(_heroBasicAnimTrigger);
     }
 
+    /// <summary>
+    /// Tells the hero specific animator to start their manual ability animation
+    /// </summary>
     public void TriggerManualAbilityAnimation()
     {
         HeroSpecificAnimationTrigger(_heroManualAnimTrigger);
     }
 
+    /// <summary>
+    /// Tells the hero specific animator to start their passive ability animation
+    /// </summary>
     public void TriggerPassiveAbilityAnimation()
     {
         HeroSpecificAnimationTrigger(_heroPassiveAnimTrigger);
