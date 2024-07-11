@@ -115,11 +115,17 @@ public class HeroVisuals : HeroChildrenFunctionality
     }
 
 
+    /// <summary>
+    /// Tells the hero specific animator to start performing the heroes walk animation
+    /// </summary>
     public void StartHeroSpecificWalkingAnimation()
     {
         HeroSpecificAnimationBool(_heroWalkingAnimBool, true);
     }
 
+    /// <summary>
+    /// Tells the hero specific animator to stop performing the heroes walk animation
+    /// </summary>
     public void StopHeroSpecificWalkingAnimation()
     {
         HeroSpecificAnimationBool(_heroWalkingAnimBool, false);
@@ -145,6 +151,7 @@ public class HeroVisuals : HeroChildrenFunctionality
     public override void SubscribeToEvents()
     {
         myHeroBase.GetSOSetEvent().AddListener(HeroSOAssigned);
+
         myHeroBase.GetHeroControlledBeginEvent().AddListener(HeroControlStart);
         myHeroBase.GetHeroControlledEndEvent().AddListener(HeroControlStop);
 
