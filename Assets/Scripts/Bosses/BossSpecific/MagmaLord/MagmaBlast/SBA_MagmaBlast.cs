@@ -14,6 +14,8 @@ public class SBA_MagmaBlast : SpecificBossAbilityFramework
     [SerializeField] private GameObject _magmaBlast;
     [SerializeField] private GameObject _targetZone;
 
+    [SerializeField] private GameObject _failedVFX;
+
     private Queue<GameObject> _storedSafeZones = new Queue<GameObject>();
 
     protected override void AbilityPrep()
@@ -46,10 +48,19 @@ public class SBA_MagmaBlast : SpecificBossAbilityFramework
     protected override void AbilityStart()
     {
         if (_storedSafeZones.Dequeue().GetComponent<SBP_MagmaBlastSafeZone>().DoesSafeZoneContainHero())
+        {
+            AbilityFailed();
             return;
+        }
+            
 
         Instantiate(_magmaBlast, _targetLocation, Quaternion.identity);
 
         base.AbilityStart();
+    }
+
+    private void AbilityFailed()
+    {
+        Instantiate(_failedVFX, _targetLocation, Quaternion.identity);
     }
 }
