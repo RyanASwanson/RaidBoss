@@ -18,6 +18,9 @@ public class SelectHeroButton : MonoBehaviour
 
     private Color _defaultColor;
 
+    [SerializeField] private Image _bestDifficultyBeatenIcon;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,7 +40,9 @@ public class SelectHeroButton : MonoBehaviour
         colorVar.pressedColor = _associatedHero.GetHeroPressedColor();
         //Sets the colorblock for the button
         _heroButton.colors = colorVar;
+
     }
+
     
     /// <summary>
     /// The button to select and deselect heroes is pressed
@@ -65,6 +70,36 @@ public class SelectHeroButton : MonoBehaviour
     private void UpdateHeroIconColor(Color newColor)
     {
         _iconVisuals.color = newColor;
+    }
+
+    public void SetBestDifficultyBeatenIcon(BossSO hoveredBoss)
+    {
+        SaveManager saveManager = UniversalManagers.Instance.GetSaveManager();
+        SelectionManager selectionManager = UniversalManagers.Instance.GetSelectionManager();
+
+        GameDifficulty gameDifficulty = saveManager.
+            GetBestDifficultyBeatenOnHeroForBoss(hoveredBoss, _associatedHero);
+
+        Debug.Log(gameDifficulty);
+
+        if ((int)gameDifficulty > 0)
+        {
+            _bestDifficultyBeatenIcon.sprite = selectionManager.GetDifficultyIcons()[(int)gameDifficulty - 1];
+            UpdateBestDifficultyBeatenIconAlpha(1);
+        }
+        else
+            UpdateBestDifficultyBeatenIconAlpha(0);
+        
+
+    }
+
+    private void UpdateBestDifficultyBeatenIconAlpha(float newAlpha)
+    {
+        Color tempColor = _bestDifficultyBeatenIcon.color;
+
+        tempColor.a = newAlpha;
+
+        _bestDifficultyBeatenIcon.color = tempColor;
     }
 
     private void HeroSelect()

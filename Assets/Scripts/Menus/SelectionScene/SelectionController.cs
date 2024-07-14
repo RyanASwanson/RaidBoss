@@ -51,6 +51,8 @@ public class SelectionController : MonoBehaviour
     [Header("Hero")]
     [SerializeField] private List<HeroPillar> _heroPillars = new List<HeroPillar>();
 
+    [SerializeField] private List<SelectHeroButton> _heroSelectionButtons = new List<SelectHeroButton>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -103,6 +105,8 @@ public class SelectionController : MonoBehaviour
 
         _bossNameText.text = bossSO.GetBossName();
         _bossNameBorder.text = bossSO.GetBossName();
+
+        UpdateHeroButtonDifficultyBeaten();
 
         _bossPillar.ShowBossOnPillar(bossSO, true);
     }
@@ -301,6 +305,14 @@ public class SelectionController : MonoBehaviour
         _heroPillars[pillarNum].MovePillar(moveUp);
     }
 
+
+    private void UpdateHeroButtonDifficultyBeaten()
+    {
+        foreach(SelectHeroButton selectHeroButton in _heroSelectionButtons)
+        {
+            selectHeroButton.SetBestDifficultyBeatenIcon(_lastBossHoveredOver);
+        }
+    }
     #endregion
 
     #region General

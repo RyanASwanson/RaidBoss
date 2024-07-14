@@ -112,6 +112,11 @@ public class SaveManager : BaseUniversalManager
 
     #region Getters
 
+    public GameDifficulty GetBestDifficultyBeatenOnHeroForBoss(BossSO bossSO, HeroSO heroSO)
+    {
+        return GSD._bossHeroBestDifficultyComplete[bossSO.GetBossName()][heroSO.GetHeroName()];
+    }
+
     public float GetScreenShakeIntensity() => GSD._screenShakeStrength;
     public float GetMasterVolume() => GSD._masterVolume;
     public float GetMusicVolume() => GSD._musicVolume;
