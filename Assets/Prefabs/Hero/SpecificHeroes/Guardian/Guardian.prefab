@@ -58,6 +58,9 @@ MonoBehaviour:
   _heroManualAbilityDuration: 9
   _heroPassiveAbilityDuration: 2
   _heroPassiveDamageResistance: 0.5
+  _passiveEyeVFX:
+  - {fileID: 5628816040913483727}
+  - {fileID: 1777372058153511750}
 --- !u!95 &6106147606101072469
 Animator:
   serializedVersion: 5
@@ -136,6 +139,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 86e1069d04b28064997abddb6976f8ff, type: 3}
+--- !u!198 &1777372058153511750 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8716319596191617307, guid: 86e1069d04b28064997abddb6976f8ff, type: 3}
+  m_PrefabInstance: {fileID: 6943679836090464861}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &5628816040913483727 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3333079718690672018, guid: 86e1069d04b28064997abddb6976f8ff, type: 3}
+  m_PrefabInstance: {fileID: 6943679836090464861}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8966488095326918770 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2032167345699168815, guid: 86e1069d04b28064997abddb6976f8ff, type: 3}

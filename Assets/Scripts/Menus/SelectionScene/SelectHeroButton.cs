@@ -80,7 +80,6 @@ public class SelectHeroButton : MonoBehaviour
         GameDifficulty gameDifficulty = saveManager.
             GetBestDifficultyBeatenOnHeroForBoss(hoveredBoss, _associatedHero);
 
-        Debug.Log(gameDifficulty);
 
         if ((int)gameDifficulty > 0)
         {

@@ -15,6 +15,8 @@ public class SH_Guardian : SpecificHeroFramework
     [Space]
     [SerializeField] private float _heroPassiveAbilityDuration;
     [SerializeField] private float _heroPassiveDamageResistance;
+
+    [SerializeField] private List<ParticleSystem> _passiveEyeVFX;
     private Coroutine _passiveCoroutine;
 
     #region Basic Abilities
@@ -59,10 +61,19 @@ public class SH_Guardian : SpecificHeroFramework
     private IEnumerator PassiveAbilityProcess()
     {
         myHeroBase.GetHeroStats().ChangeCurrentHeroDamageResistance(_heroPassiveDamageResistance);
+        ActivatePassiveVFX();
         yield return new WaitForSeconds(_heroPassiveAbilityDuration);
         myHeroBase.GetHeroStats().ChangeCurrentHeroDamageResistance(-_heroPassiveDamageResistance);
 
         _passiveCoroutine = null;
+    }
+
+    private void ActivatePassiveVFX()
+    {
+        foreach (ParticleSystem particleSystem in _passiveEyeVFX)
+        {
+            particleSystem.Play();
+        }
     }
     #endregion
 
