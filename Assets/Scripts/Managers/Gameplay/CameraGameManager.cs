@@ -14,6 +14,9 @@ public class CameraGameManager : BaseGameplayManager
     float _screenShakeMultiplier = 1;
 
     [Header("Screen Shake")]
+    [SerializeField] private float _minimumIntensity;
+    [SerializeField] private float _minimumFrequency;
+
     [SerializeField] private float _intensityDecayMultiplier;
     [SerializeField] private float _frequencyDecayMultiplier;
 
@@ -71,20 +74,20 @@ public class CameraGameManager : BaseGameplayManager
 
     private IEnumerator CameraShakeDecay()
     {
-        while (_multiChannelPerlin.m_AmplitudeGain > 0 || _multiChannelPerlin.m_FrequencyGain > 0)
+        while (_multiChannelPerlin.m_AmplitudeGain > _minimumIntensity || _multiChannelPerlin.m_FrequencyGain > _minimumFrequency)
         {
-            if(_multiChannelPerlin.m_AmplitudeGain > 0)
+            if(_multiChannelPerlin.m_AmplitudeGain > +_minimumIntensity)
             {
                 _multiChannelPerlin.m_AmplitudeGain -= Time.deltaTime * _intensityDecayMultiplier;
-                if (_multiChannelPerlin.m_AmplitudeGain < 0)
-                    _multiChannelPerlin.m_AmplitudeGain = 0;
+                if (_multiChannelPerlin.m_AmplitudeGain < _minimumIntensity)
+                    _multiChannelPerlin.m_AmplitudeGain = _minimumIntensity;
             }
             
-            if(_multiChannelPerlin.m_FrequencyGain > 0)
+            if(_multiChannelPerlin.m_FrequencyGain > _minimumFrequency)
             {
                 _multiChannelPerlin.m_FrequencyGain -= Time.deltaTime * _frequencyDecayMultiplier;
-                if (_multiChannelPerlin.m_FrequencyGain < 0)
-                    _multiChannelPerlin.m_FrequencyGain = 0;
+                if (_multiChannelPerlin.m_FrequencyGain < _minimumFrequency)
+                    _multiChannelPerlin.m_FrequencyGain = _minimumFrequency;
             }
             
             yield return null;
@@ -107,8 +110,16 @@ public class CameraGameManager : BaseGameplayManager
 
         _multiChannelPerlin = _virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
 
+        StartingValues();
+
+    }
+
+    private void StartingValues()
+    {
         _screenShakeMultiplier = UniversalManagers.Instance.GetSaveManager().GSD._screenShakeStrength;
 
+        _multiChannelPerlin.m_AmplitudeGain = _minimumIntensity * _screenShakeMultiplier;
+        _multiChannelPerlin.m_FrequencyGain = _minimumFrequency * _screenShakeMultiplier;
     }
 
 
