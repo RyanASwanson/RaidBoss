@@ -6,6 +6,9 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
 {
     [SerializeField] private float _moveTime;
 
+    [Space]
+    [SerializeField] private GeneralHeroHealArea _healArea;
+
     public override void SetUpProjectile(HeroBase heroBase)
     {
         base.SetUpProjectile(heroBase);
@@ -31,5 +34,11 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
         }
 
         transform.position = targetLocation;
+        ReachedEndLocation();
+    }
+
+    private void ReachedEndLocation()
+    {
+        _healArea.ToggleProjectileCollider(true);
     }
 }
