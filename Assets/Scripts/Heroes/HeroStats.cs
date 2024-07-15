@@ -85,6 +85,8 @@ public class HeroStats : HeroChildrenFunctionality
 
         SetPreviousHealthValue();
 
+        healing *= _currentHealingReceivedMultiplier;
+
         float healthDifference = _currentHealth;
 
         _currentHealth += healing;
@@ -260,12 +262,12 @@ public class HeroStats : HeroChildrenFunctionality
 
     public void ChangeCurrentHeroHealingDealtMultiplier(float changeValue)
     {
-        
+        _currentHealingDealtMultiplier += changeValue;
     }
 
     public void ChangeCurrentHeroHealingReceivedMultiplier(float changeValue)
     {
-
+        _currentHealingReceivedMultiplier += changeValue;
     }
 
     /// <summary>
