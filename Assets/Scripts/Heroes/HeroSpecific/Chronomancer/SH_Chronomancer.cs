@@ -187,8 +187,6 @@ public class SH_Chronomancer : SpecificHeroFramework
     public override void SubscribeToEvents()
     {
         base.SubscribeToEvents();
-
-        myHeroBase.GetHeroDiedEvent().AddListener(HeroDied);
     }
 
     public void SubscribeToHeroesDamagedEvents()
