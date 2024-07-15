@@ -89,7 +89,7 @@ public class GeneralHeroDamageArea : MonoBehaviour
             //bossBase.GetBossStats().DealDamageToBoss(abilityDamage);
 
         if (abilityStagger > 0)
-            _myHeroBase.GetSpecificHeroScript().StaggerBoss(abilityDamage);
+            _myHeroBase.GetSpecificHeroScript().StaggerBoss(abilityStagger);
             //bossBase.GetBossStats().DealStaggerToBoss(abilityStagger);
     }
 

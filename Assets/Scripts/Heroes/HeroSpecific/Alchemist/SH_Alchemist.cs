@@ -66,6 +66,7 @@ public class SH_Alchemist : SpecificHeroFramework
         newestPotion.GetComponent<SHP_AlchemistPotion>().SetUpProjectile(myHeroBase);
         newestPotion.GetComponent<SHP_AlchemistPotion>().AdditionalSetup(endLocation);
         
+        newestPotion.GetComponent<GeneralHeroHealArea>().SetUpHealingArea(myHeroBase);
     }
 
     

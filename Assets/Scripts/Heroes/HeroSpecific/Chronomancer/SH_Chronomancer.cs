@@ -70,6 +70,7 @@ public class SH_Chronomancer : SpecificHeroFramework
             AdditionalSetup(_currentAttackDirection, _passiveAbilityBasicCooldownReduction);
 
         spawnedProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(myHeroBase);
+        spawnedProjectile.GetComponent<GeneralHeroHealArea>().SetUpHealingArea(myHeroBase);
     }
 
     private void IncreaseCurrentAttackRotation()

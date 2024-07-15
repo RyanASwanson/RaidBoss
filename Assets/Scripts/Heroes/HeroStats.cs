@@ -34,6 +34,7 @@ public class HeroStats : HeroChildrenFunctionality
         base.ChildFuncSetup(heroBase);
     }
 
+
     /// <summary>
     /// Assigns the values of the stats after the heroSO is assigned
     /// </summary>
@@ -249,23 +250,24 @@ public class HeroStats : HeroChildrenFunctionality
     #region Stat Changes
     public void ChangeCurrentHeroDamageMultiplier(float changeValue)
     {
-
+        _currentDamageMultiplier += changeValue;
     }
 
     public void ChangeCurrentHeroStaggerMultiplier(float changeValue)
     {
-        
+        _currentStaggerMultiplier += changeValue;
     }
 
     public void ChangeCurrentHeroHealingDealtMultiplier(float changeValue)
     {
-
+        
     }
 
     public void ChangeCurrentHeroHealingReceivedMultiplier(float changeValue)
     {
 
     }
+
     /// <summary>
     /// Increases or decreases the current speed value and updates how fast the nav mesh agent moves
     /// </summary>

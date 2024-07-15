@@ -192,6 +192,8 @@ public abstract class SpecificHeroFramework : MonoBehaviour
 
     public virtual void StaggerBoss(float stagger)
     {
+        stagger *= myHeroBase.GetHeroStats().GetCurrentStaggerMultiplier();
+
         GameplayManagers.Instance.GetBossManager().GetBossBase().GetBossStats().DealStaggerToBoss(stagger);
     }
 

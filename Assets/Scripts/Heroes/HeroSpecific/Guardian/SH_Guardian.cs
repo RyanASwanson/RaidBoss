@@ -5,8 +5,6 @@ using UnityEngine;
 public class SH_Guardian : SpecificHeroFramework
 {
     [Space]
-    [SerializeField] private float _heroBasicAbilityDamage;
-    [SerializeField] private float _heroBasicAbilityStagger;
     [SerializeField] private GameObject _basicProjectile;
     
     [Space]

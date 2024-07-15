@@ -25,10 +25,17 @@ public class GeneralHeroHealArea : MonoBehaviour
     [SerializeField] private float _exitHealing;
     [SerializeField] private UnityEvent<Collider> _exitEvent;
 
+    private HeroBase _myHeroBase;
+
     private void Start()
     {
         if (_hasLifeTime)
             Destroy(gameObject, _lifeTime);
+    }
+
+    public void SetUpHealingArea(HeroBase heroBase)
+    {
+        _myHeroBase = heroBase;
     }
 
 
