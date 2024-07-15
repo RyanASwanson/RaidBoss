@@ -49,6 +49,7 @@ public class SH_Samurai : SpecificHeroFramework
         GameObject spawnedProjectile = Instantiate(_basicProjectile, myHeroBase.transform.position, Quaternion.identity);
         spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(myHeroBase);
 
+        spawnedProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(myHeroBase);
         //spawnedProjectile.GetComponent<SHP_SamuraiBasicProjectile>().AdditionalSetup(1);
     }
 

@@ -185,6 +185,8 @@ public abstract class SpecificHeroFramework : MonoBehaviour
 
     public virtual void DamageBoss(float damage)
     {
+        damage *= myHeroBase.GetHeroStats().GetCurrentDamageMultiplier();
+
         GameplayManagers.Instance.GetBossManager().GetBossBase().GetBossStats().DealDamageToBoss(damage);
     }
 

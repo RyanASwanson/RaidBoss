@@ -29,7 +29,9 @@ public class SH_Shaman : SpecificHeroFramework
     {
         //Shaman Projectile Script Not Currently in use
         //GameObject spawnedProjectile = 
-        Instantiate(_basicProjectile, myHeroBase.transform.position, Quaternion.identity);
+        GameObject spawnedProjectile = Instantiate(_basicProjectile, myHeroBase.transform.position, Quaternion.identity);
+
+        spawnedProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(myHeroBase);
         //spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(myHeroBase);
 
         //spawnedProjectile.GetComponent<SHP_ShamanBasicAbility>().AdditionalSetup();
@@ -52,6 +54,8 @@ public class SH_Shaman : SpecificHeroFramework
         spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(myHeroBase);
 
         spawnedProjectile.GetComponent<SHP_ShamanManualProjectile>().AdditionalSetup(_currentTotem);
+
+        spawnedProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(myHeroBase);
     }
 
     #endregion

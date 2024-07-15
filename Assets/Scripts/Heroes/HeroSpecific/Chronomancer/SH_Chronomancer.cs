@@ -60,12 +60,16 @@ public class SH_Chronomancer : SpecificHeroFramework
     protected void CreateBasicAttackProjectiles()
     {
         GameObject spawnedProjectile = Instantiate(_basicProjectile, myHeroBase.transform.position, Quaternion.identity);
+
         spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(myHeroBase);
 
         Physics.IgnoreCollision(myHeroBase.GetHeroDamageCollider(), 
             spawnedProjectile.GetComponentInChildren<Collider>(), true);
+
         spawnedProjectile.GetComponent<SHP_ChronomancerBasicProjectile>().
             AdditionalSetup(_currentAttackDirection, _passiveAbilityBasicCooldownReduction);
+
+        spawnedProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(myHeroBase);
     }
 
     private void IncreaseCurrentAttackRotation()

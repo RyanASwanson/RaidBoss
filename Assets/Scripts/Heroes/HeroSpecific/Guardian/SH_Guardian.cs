@@ -32,7 +32,9 @@ public class SH_Guardian : SpecificHeroFramework
     {
         base.ActivateBasicAbilities();
 
-        Instantiate(_basicProjectile, myHeroBase.transform.position, Quaternion.identity);
+        GameObject spawnedProjectile = Instantiate(_basicProjectile, myHeroBase.transform.position, Quaternion.identity);
+
+        spawnedProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(myHeroBase);
     }
 
     #endregion

@@ -31,10 +31,17 @@ public class GeneralHeroDamageArea : MonoBehaviour
     [SerializeField] private float _exitStagger;
     [SerializeField] private UnityEvent<Collider> _exitEvent;
 
+    private HeroBase _myHeroBase;
+
     private void Start()
     {
         if (_hasLifeTime)
             Destroy(gameObject, _lifeTime);
+    }
+
+    public void SetUpDamageArea(HeroBase heroBase)
+    {
+        _myHeroBase = heroBase;
     }
 
     #region Collision
@@ -68,20 +75,22 @@ public class GeneralHeroDamageArea : MonoBehaviour
         {
             hitEvent?.Invoke(collision);
 
-            DealDamageAndStagger(collision.GetComponentInParent<BossBase>(),abilityDamage, abilityStagger);
+            DealDamageAndStagger(abilityDamage, abilityStagger);
 
             return true;
         }
         return false;
     }
 
-    private void DealDamageAndStagger(BossBase bossBase, float abilityDamage, float abilityStagger)
+    private void DealDamageAndStagger(float abilityDamage, float abilityStagger)
     {
         if (abilityDamage > 0)
-            bossBase.GetBossStats().DealDamageToBoss(abilityDamage);
+            _myHeroBase.GetSpecificHeroScript().DamageBoss(abilityDamage);
+            //bossBase.GetBossStats().DealDamageToBoss(abilityDamage);
 
         if (abilityStagger > 0)
-            bossBase.GetBossStats().DealStaggerToBoss(abilityStagger);
+            _myHeroBase.GetSpecificHeroScript().StaggerBoss(abilityDamage);
+            //bossBase.GetBossStats().DealStaggerToBoss(abilityStagger);
     }
 
     public void ToggleProjectileCollider(bool colliderEnabled)
