@@ -20,6 +20,11 @@ public class HeroStats : HeroChildrenFunctionality
     private float _heroDefaultDamageResistance;
     private float _currentDamageResistance;
 
+    private float _currentDamageMultiplier = 1;
+    private float _currentStaggerMultiplier = 1;
+    private float _currentHealingDealtMultiplier = 1;
+    private float _currentHealingReceivedMultiplier = 1;
+
     private int _damageTakenOverridesCounter = 0;
     private int _healingTakenOverridesCounter = 0;
     private int _deathOverridesCounter = 0;
@@ -242,11 +247,21 @@ public class HeroStats : HeroChildrenFunctionality
     #endregion
 
     #region Stat Changes
+    public void ChangeCurrentHeroDamageMultiplier(float changeValue)
+    {
+
+    }
+
+    public void ChangeCurrentHeroStaggerMultiplier(float changeValue)
+    {
+        
+    }
+
     /// <summary>
     /// Increases or decreases the current speed value and updates how fast the nav mesh agent moves
     /// </summary>
     /// <param name="changeValue"></param>
-    public void ChangeCurrentHeroCurrentSpeed(float changeValue)
+    public void ChangeCurrentHeroSpeed(float changeValue)
     {
         _currentMovespeed += changeValue;
 
@@ -302,6 +317,11 @@ public class HeroStats : HeroChildrenFunctionality
     public float GetCurrentSpeed() => _currentMovespeed;
     public float GetCurrentAggro() => _currentAggro;
     public float GetCurrentDamageResistance() => _currentDamageResistance;
+
+    public float GetCurrentDamageMultiplier() => _currentDamageMultiplier;
+    public float GetCurrentStaggerMultiplier() => _currentStaggerMultiplier;
+    public float GetCurrentHealingDealtMultiplier() => _currentHealingDealtMultiplier;
+    public float GetCurrentHealingReceivedMultiplier() => _currentHealingReceivedMultiplier;
     #endregion
 
     #region Setters

@@ -260,6 +260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveTime: 0.5
+  _potionType: 0
   _healArea: {fileID: 3208233250891310857}
 --- !u!114 &3208233250891310857
 MonoBehaviour:
@@ -281,7 +282,19 @@ MonoBehaviour:
   _enterHealing: 0
   _enterEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3208233250891310857}
+        m_TargetAssemblyTypeName: GeneralHeroHealArea, Assembly-CSharp
+        m_MethodName: DestroyProjectile
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _stayHealingPerTick: 0
   _stayHealingTickRate: 0
   _stayEvent:

@@ -100,3 +100,11 @@ public class SH_Alchemist : SpecificHeroFramework
         
     }
 }
+
+public enum PotionTypes
+{
+    HealingPotion,
+    DamagePotion,
+    StaggerPotion,
+    SpeedPotion
+};
