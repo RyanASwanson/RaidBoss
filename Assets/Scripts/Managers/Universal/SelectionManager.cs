@@ -203,6 +203,7 @@ public class SelectionManager : BaseUniversalManager
     public HeroSO GetHeroAtValue(int val) => _selectedHeroes[val];
     public int GetSelectedHeroesCount() => _selectedHeroes.Count;
     public int GetMaxHeroesCount() => _maxHeroes;
+    public bool AtMaxHeroesSelected() => _selectedHeroes.Count >= _maxHeroes;
 
     public BossSO GetSelectedBoss() => _selectedBoss;
     public LevelSO GetSelectedLevel() => _selectedLevel;

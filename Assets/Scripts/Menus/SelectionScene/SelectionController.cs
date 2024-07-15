@@ -53,6 +53,9 @@ public class SelectionController : MonoBehaviour
 
     [SerializeField] private List<SelectHeroButton> _heroSelectionButtons = new List<SelectHeroButton>();
 
+
+    private SelectionManager _selectionManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -61,6 +64,8 @@ public class SelectionController : MonoBehaviour
         BossSideStart();
         CenterStart();
         HeroSideStart();
+
+        _selectionManager = FindObjectOfType<SelectionManager>();
     }
 
     #region Boss Side
@@ -113,10 +118,13 @@ public class SelectionController : MonoBehaviour
 
     private void HeroHoveredOver(HeroSO heroSO)
     {
+        //Stops if it is already at max heroes
+        if (_selectionManager.AtMaxHeroesSelected()) return;
+
         //Stop if it is the same hero as the previous
         if (heroSO == _lastHeroHoveredOver) return;
         //Stop if the hero is selected already
-        if (UniversalManagers.Instance.GetSelectionManager().GetAllSelectedHeroes().Contains(heroSO)) return;
+        if (_selectionManager.GetAllSelectedHeroes().Contains(heroSO)) return;
         //bool a= (UniversalManagers.Instance.GetSelectionManager().GetAllSelectedHeroes().Contains(heroSO))
 
         _lastBossHoveredOver = null;
@@ -126,7 +134,6 @@ public class SelectionController : MonoBehaviour
 
     private void NewHeroHoveredOver(HeroSO heroSO)
     {
-        
         //Show hero description and hide boss description
         _bossDescription.SetActive(false);
         _heroDescription.SetActive(true);
@@ -229,7 +236,6 @@ public class SelectionController : MonoBehaviour
         _heroAbilityDescriptionAnimator.SetBool(_showAbilityDescriptionBool, false);
         _currentAbilityID = -1;
     }
-
 
     #endregion
 

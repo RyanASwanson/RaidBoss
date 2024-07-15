@@ -151,10 +151,13 @@ public class SH_Chronomancer : SpecificHeroFramework
 
     #endregion
 
+    #region Passive Abilities
     public override void ActivatePassiveAbilities()
     {
         
     }
+
+    #endregion
 
 
     public override void ActivateHeroSpecificActivity()

@@ -50,7 +50,11 @@ public class SelectHeroButton : MonoBehaviour
     public void SelectHeroButtonPressed()
     {
         if (!_buttonHasBeenPressed)
+        {
+            //Prevent button press at max heroes just in case
+            if (UniversalManagers.Instance.GetSelectionManager().AtMaxHeroesSelected()) return;
             HeroSelect();
+        }
         else
             HeroDeselect();
 
@@ -103,6 +107,7 @@ public class SelectHeroButton : MonoBehaviour
 
     private void HeroSelect()
     {
+
         UniversalManagers.Instance.GetSelectionManager().AddNewSelectedHero(_associatedHero);
         UpdateHeroIconColor(_associatedHero.GetHeroSelectedColor());
     }

@@ -239,6 +239,8 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         GameplayManagers.Instance.GetGameStateManager().GetStartOfBattleEvent().AddListener(BattleStarted);
 
         myHeroBase.GetHeroManualAbilityAttemptEvent().AddListener(AttemptActivationOfManualAbility);
+
+        myHeroBase.GetHeroDiedEvent().AddListener(HeroDied);
     }
 
     #region Getters
