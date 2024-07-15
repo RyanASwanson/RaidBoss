@@ -35,7 +35,11 @@ public class SH_Alchemist : SpecificHeroFramework
         Vector2 randomVector = Random.insideUnitCircle.normalized;
         Vector3 targetPosition = transform.position;
         targetPosition += new Vector3(randomVector.x, 0, randomVector.y) * _potionDistanceMultiplier;
-        return GameplayManagers.Instance.GetEnvironmentManager().GetClosestPointToFloor(targetPosition);
+
+        targetPosition = GameplayManagers.Instance.GetEnvironmentManager().GetClosestPointToFloor(targetPosition);
+        targetPosition = new Vector3(targetPosition.x, transform.position.y, targetPosition.z);
+
+        return targetPosition;
     }
 
     #endregion
@@ -45,6 +49,7 @@ public class SH_Alchemist : SpecificHeroFramework
     {
         base.ActivateManualAbilities(attackLocation);
 
+        attackLocation = new Vector3(attackLocation.x, transform.position.y, attackLocation.z);
         GameObject randomManualPotion = _manualProjectiles[Random.Range(0, _manualProjectiles.Count)];
         CreatePotion(randomManualPotion, attackLocation);
     }
