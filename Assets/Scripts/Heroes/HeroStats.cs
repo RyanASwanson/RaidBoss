@@ -146,7 +146,7 @@ public class HeroStats : HeroChildrenFunctionality
 
     #region Healing Override
 
-    private bool ShouldOverrideHealing()
+    public bool ShouldOverrideHealing()
     {
         return _healingTakenOverridesCounter > 0;
     }

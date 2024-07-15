@@ -8,6 +8,7 @@ public class GeneralHeroHealArea : MonoBehaviour
     [SerializeField] private Collider _healingCollider;
     [SerializeField] private bool _hasLifeTime;
     [SerializeField] private float _lifeTime;
+    [SerializeField] private bool _ignoreFullHealth;
     [Space]
     [SerializeField] private GameObject _hitCenteredVFX;
 
@@ -56,9 +57,11 @@ public class GeneralHeroHealArea : MonoBehaviour
 
     private bool HitHero(Collider collision, UnityEvent<Collider> hitEvent, float abilityHealing)
     {
-        if (DoesColliderBelongToHero(collision) && 
-            collision.GetComponentInParent<HeroBase>().GetHeroStats().CanHeroBeHealed())
+        if (DoesColliderBelongToHero(collision) 
+            && !collision.GetComponentInParent<HeroBase>().GetHeroStats().ShouldOverrideHealing())
         {
+            if (_ignoreFullHealth && collision.GetComponentInParent<HeroBase>().GetHeroStats().IsHeroMaxHealth()) return false;
+
             hitEvent?.Invoke(collision);
 
             DealHealing(collision.GetComponentInParent<HeroBase>(), abilityHealing);
