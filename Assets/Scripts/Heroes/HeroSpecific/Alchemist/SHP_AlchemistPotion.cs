@@ -5,7 +5,10 @@ using UnityEngine;
 public class SHP_AlchemistPotion : HeroProjectileFramework
 {
     [SerializeField] private float _moveTime;
+    [Space]
+
     [SerializeField] private PotionTypes _potionType;
+    [SerializeField] private float _buffDuration;
 
     [Space]
     [SerializeField] private GeneralHeroHealArea _healArea;
@@ -35,6 +38,9 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
                 return;
             case (PotionTypes.SpeedPotion):
                 _healArea.GetEnterEvent().AddListener(SpeedBuff);
+                return;
+            case (PotionTypes.UtilityPotion):
+                _healArea.GetEnterEvent().AddListener(UtilityBuff);
                 return;
 
         }
@@ -73,6 +79,11 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
     }
 
     private void SpeedBuff(Collider collider)
+    {
+
+    }
+
+    private void UtilityBuff(Collider collider)
     {
 
     }

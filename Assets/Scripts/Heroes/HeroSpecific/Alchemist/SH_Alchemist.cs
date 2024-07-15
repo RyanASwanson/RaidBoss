@@ -106,5 +106,6 @@ public enum PotionTypes
     HealingPotion,
     DamagePotion,
     StaggerPotion,
-    SpeedPotion
+    SpeedPotion,
+    UtilityPotion
 };

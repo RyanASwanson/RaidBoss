@@ -257,6 +257,15 @@ public class HeroStats : HeroChildrenFunctionality
         
     }
 
+    public void ChangeCurrentHeroHealingDealtMultiplier(float changeValue)
+    {
+
+    }
+
+    public void ChangeCurrentHeroHealingReceivedMultiplier(float changeValue)
+    {
+
+    }
     /// <summary>
     /// Increases or decreases the current speed value and updates how fast the nav mesh agent moves
     /// </summary>
