@@ -63,25 +63,12 @@ public class SH_Alchemist : SpecificHeroFramework
     protected void CreatePotion(GameObject potion, Vector3 endLocation)
     {
         GameObject newestPotion = Instantiate(potion, transform.position, Quaternion.identity);
-
-        StartCoroutine(MovePotionToEndLocation(newestPotion, endLocation));
+        newestPotion.GetComponent<SHP_AlchemistPotion>().SetUpProjectile(myHeroBase);
+        newestPotion.GetComponent<SHP_AlchemistPotion>().AdditionalSetup(endLocation);
         
     }
 
-    protected IEnumerator MovePotionToEndLocation(GameObject potion, Vector3 targetLocation)
-    {
-        Vector3 startingPotionLocation = potion.transform.position;
-        float lerpProgress = 0;
-
-        while(lerpProgress < 1)
-        {
-            lerpProgress += Time.deltaTime;
-            potion.transform.position = Vector3.Lerp(startingPotionLocation, targetLocation, lerpProgress);
-            yield return null;
-        }
-
-        potion.transform.position = targetLocation;
-    }
+    
 
     
     #endregion

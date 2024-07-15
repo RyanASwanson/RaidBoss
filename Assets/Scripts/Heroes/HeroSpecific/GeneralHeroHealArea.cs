@@ -27,6 +27,7 @@ public class GeneralHeroHealArea : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log("start");
         if (_hasLifeTime)
             Destroy(gameObject, _lifeTime);
     }
@@ -39,6 +40,7 @@ public class GeneralHeroHealArea : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
+        Debug.Log("HitHealing");
         HitHero(collision, _enterEvent, _enterHealing);
     }
 
