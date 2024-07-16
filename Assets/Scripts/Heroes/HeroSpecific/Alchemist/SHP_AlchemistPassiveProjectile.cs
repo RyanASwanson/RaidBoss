@@ -8,10 +8,10 @@ public class SHP_AlchemistPassiveProjectile : HeroProjectileFramework
     [SerializeField] private float _projectileStagger;
 
     [Space]
-    [SerializeField] private float _moveAwayDistMultiplier;
+    /*[SerializeField] private float _moveAwayDistMultiplier;
     [SerializeField] private float _moveAwayTime;
-    [SerializeField] private float _waitBeforeTowardsTime;
-    [SerializeField] private float _moveTowardsTime;
+    [SerializeField] private float _waitBeforeTowardsTime;*/
+    [SerializeField] private float _moveTime;
 
     public override void SetUpProjectile(HeroBase heroBase)
     {
@@ -36,7 +36,7 @@ public class SHP_AlchemistPassiveProjectile : HeroProjectileFramework
 
         float moveTimer = 0;
 
-        while (moveTimer < _moveAwayDistMultiplier)
+        /*while (moveTimer < _moveAwayDistMultiplier)
         {
             moveTimer += Time.deltaTime / _moveAwayTime;
             transform.position = Vector3.LerpUnclamped(startLoc, targetLoc, -Mathf.Pow(moveTimer,2));
@@ -45,12 +45,12 @@ public class SHP_AlchemistPassiveProjectile : HeroProjectileFramework
 
         moveTimer = 0;
         startLoc = transform.position;
-        yield return new WaitForSeconds(_waitBeforeTowardsTime);
+        yield return new WaitForSeconds(_waitBeforeTowardsTime);*/
 
         while (moveTimer < 1)
         {
-            moveTimer += Time.deltaTime / _moveTowardsTime;
-            transform.position = Vector3.LerpUnclamped(startLoc,targetLoc, Mathf.Pow(moveTimer,2));
+            moveTimer += Time.deltaTime / _moveTime;
+            transform.position = Vector3.LerpUnclamped(startLoc,targetLoc, 2 * Mathf.Pow(moveTimer,2) - moveTimer);
             yield return null;
         }
 
@@ -61,5 +61,7 @@ public class SHP_AlchemistPassiveProjectile : HeroProjectileFramework
     {
         _mySpecificHero.DamageBoss(_projectileDamage);
         _mySpecificHero.StaggerBoss(_projectileStagger);
+
+        Destroy(gameObject);
     }
 }

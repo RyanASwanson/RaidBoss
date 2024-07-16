@@ -93,6 +93,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7830053662602590432}
   - component: {fileID: 155826608772828596}
+  - component: {fileID: 1855390598869664798}
   m_Layer: 0
   m_Name: AlchemistPassiveProjectile
   m_TagString: Untagged
@@ -128,12 +129,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ff4d9024202c8043bb39fdcb232dfc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectileDamage: 1
+  _projectileDamage: 2
   _projectileStagger: 1
-  _moveAwayDistMultiplier: 0.6
-  _moveAwayTime: 0.5
-  _waitBeforeTowardsTime: 0.1
-  _moveTowardsTime: 1
+  _moveTime: 1
+--- !u!95 &1855390598869664798
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5943487390198471445}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 41ca8b8e8cbe0cf4584d070710d9852b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6475186278914521580
 GameObject:
   m_ObjectHideFlags: 0
