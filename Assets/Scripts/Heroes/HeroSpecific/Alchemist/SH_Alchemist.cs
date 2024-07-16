@@ -13,6 +13,7 @@ public class SH_Alchemist : SpecificHeroFramework
     [Space]
     [SerializeField] private GameObject _passiveProjectile;
 
+    [Space]
     [SerializeField] private float _potionDistanceMultiplier;
 
     #region Basic Abilities
@@ -57,6 +58,10 @@ public class SH_Alchemist : SpecificHeroFramework
 
     #region Passive Abilities
 
+    public void ActivatePassiveAbilities(Vector3 spawnLocation)
+    {
+        GameObject newestPassiveProjectile = Instantiate(_passiveProjectile, spawnLocation, Quaternion.identity);
+    }
     #endregion
 
     #region General Abilities
