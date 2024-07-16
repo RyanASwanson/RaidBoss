@@ -18,19 +18,23 @@ MonoBehaviour:
   _aggro: 3
   _damageResistance: 1
   _heroPrefab: {fileID: 4007423918639029171, guid: 4caeaac783f152b4f987cc686b5cf3a6, type: 3}
-  _heroIcon: {fileID: 0}
-  _heroBasicAbilityIcon: {fileID: 0}
-  _heroManualAbilityIcon: {fileID: 0}
+  _heroIcon: {fileID: 21300000, guid: 5beb97f5d3328b343bc51eace7c1f5f9, type: 3}
+  _heroBasicAbilityIcon: {fileID: 21300000, guid: 8124561ae48a5d441bf108b12425b1e6, type: 3}
+  _heroManualAbilityIcon: {fileID: 21300000, guid: 9aebd705574f9e642aef1e5f59b3e4d8, type: 3}
   _heroPassiveAbilityIcon: {fileID: 0}
   _surivalStat: 4
-  _damageStat: 2
+  _damageStat: 1
   _staggerStat: 1
   _speedStat: 3
   _utilityStat: 5
-  _heroHighlightedColor: {r: 0, g: 0, b: 0, a: 0}
-  _heroPressedColor: {r: 0, g: 0, b: 0, a: 0}
-  _heroSelectedColor: {r: 0, g: 0, b: 0, a: 0}
-  _basicAbilityDescription: The Alchemist throws a potion nearby which heals
+  _heroHighlightedColor: {r: 0.68571484, g: 1, b: 0, a: 1}
+  _heroPressedColor: {r: 0.58268595, g: 0.8490566, b: 0, a: 1}
+  _heroSelectedColor: {r: 0.47287193, g: 0.6886792, b: 0, a: 1}
+  _basicAbilityName: Healing Potion
+  _basicAbilityDescription: The Alchemist throws a potion nearby which heals heroes
+  _manualAbilityName: Mystery Concoction
   _manualAbilityDescription: The Alchemist throws a potion that provides a random
     buff
-  _passiveAbilityDescription: 
+  _passiveAbilityName: 
+  _passiveAbilityDescription: When a potion is picked up it fires a projectile at
+    the boss
