@@ -223,6 +223,7 @@ GameObject:
   - component: {fileID: -3453419747926540237}
   - component: {fileID: 3208233250891310857}
   - component: {fileID: 4711589050601783839}
+  - component: {fileID: 7264058780040159826}
   m_Layer: 0
   m_Name: PotionBase
   m_TagString: Untagged
@@ -259,8 +260,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5c31a73fb1ee26448ee5149ce8d46f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveTime: 0.5
+  _moveTime: 0.75
   _potionType: 0
+  _buffStrength: 0
+  _buffDuration: 0
   _healArea: {fileID: 3208233250891310857}
 --- !u!114 &3208233250891310857
 MonoBehaviour:
@@ -320,6 +323,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!95 &7264058780040159826
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2449731219547203033}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 015070c2a04dbfc439a51b13e9839118, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6632786382392944423
 GameObject:
   m_ObjectHideFlags: 0
