@@ -8,6 +8,7 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
     [Space]
 
     [SerializeField] private PotionTypes _potionType;
+    [SerializeField] private float _buffStrength;
     [SerializeField] private float _buffDuration;
 
     [Space]
@@ -70,21 +71,30 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
 
     private void DamageBuff(Collider collider)
     {
-
+        ApplyBuffToHero(collider.GetComponentInParent<HeroBase>().GetHeroStats(),
+            HeroGeneralAdjustableStats.DamageMultiplier);
     }
 
     private void StaggerBuff(Collider collider)
     {
-
+        ApplyBuffToHero(collider.GetComponentInParent<HeroBase>().GetHeroStats(),
+            HeroGeneralAdjustableStats.StaggerMultiplier);
     }
 
     private void SpeedBuff(Collider collider)
     {
-
+        ApplyBuffToHero(collider.GetComponentInParent<HeroBase>().GetHeroStats(),
+            HeroGeneralAdjustableStats.SpeedMultiplier);
     }
 
     private void UtilityBuff(Collider collider)
     {
+        ApplyBuffToHero(collider.GetComponentInParent<HeroBase>().GetHeroStats(),
+            HeroGeneralAdjustableStats.HealingRecievedMultiplier);
+    }
 
+    private void ApplyBuffToHero(HeroStats heroStats, HeroGeneralAdjustableStats stat)
+    {
+        heroStats.ApplyStatChangeForDuration(stat, _buffStrength, _buffDuration);
     }
 }

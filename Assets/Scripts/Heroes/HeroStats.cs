@@ -250,6 +250,46 @@ public class HeroStats : HeroChildrenFunctionality
     #endregion
 
     #region Stat Changes
+    public void ApplyStatChangeForDuration(HeroGeneralAdjustableStats stat, float changeValue, float duration)
+    {
+        StartCoroutine(StatChangeDurationProcess(stat, changeValue, duration));
+    }
+
+    private IEnumerator StatChangeDurationProcess(HeroGeneralAdjustableStats stat,float changeValue, float duration)
+    {
+        ChangeSpecificStat(stat, changeValue);
+        yield return new WaitForSeconds(duration);
+        ChangeSpecificStat(stat, -changeValue);
+    }
+
+    private void ChangeSpecificStat(HeroGeneralAdjustableStats stat, float changeValue)
+    {
+        switch(stat)
+        {
+            case (HeroGeneralAdjustableStats.DamageMultiplier):
+                ChangeCurrentHeroDamageMultiplier(changeValue);
+                return;
+            case (HeroGeneralAdjustableStats.StaggerMultiplier):
+                ChangeCurrentHeroStaggerMultiplier(changeValue);
+                return;
+            case (HeroGeneralAdjustableStats.HealingDealtMultiplier):
+                ChangeCurrentHeroHealingDealtMultiplier(changeValue);
+                return;
+            case (HeroGeneralAdjustableStats.HealingRecievedMultiplier):
+                ChangeCurrentHeroHealingReceivedMultiplier(changeValue);
+                return;
+            case (HeroGeneralAdjustableStats.SpeedMultiplier):
+                ChangeCurrentHeroSpeed(changeValue);
+                return;
+            case (HeroGeneralAdjustableStats.AggroMultiplier):
+                ChangeCurrentHeroAggro(changeValue);
+                return;
+            case (HeroGeneralAdjustableStats.DamageResistanceMultiplier):
+                ChangeCurrentHeroDamageResistance(changeValue);
+                return;
+        }
+    }
+
     public void ChangeCurrentHeroDamageMultiplier(float changeValue)
     {
         _currentDamageMultiplier += changeValue;
@@ -340,3 +380,14 @@ public class HeroStats : HeroChildrenFunctionality
     #region Setters
     #endregion
 }
+
+public enum HeroGeneralAdjustableStats
+{
+    DamageMultiplier,
+    StaggerMultiplier,
+    HealingDealtMultiplier,
+    HealingRecievedMultiplier,
+    SpeedMultiplier,
+    AggroMultiplier,
+    DamageResistanceMultiplier
+};
