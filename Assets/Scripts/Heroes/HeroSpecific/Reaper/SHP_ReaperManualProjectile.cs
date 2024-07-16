@@ -27,9 +27,9 @@ public class SHP_ReaperManualProjectile : HeroProjectileFramework
         while (true)
         {
             transform.position = Vector3.MoveTowards(transform.position,
-                _ownerHeroBase.gameObject.transform.position, _projectileSpeed * Time.deltaTime);
+                _myHeroBase.gameObject.transform.position, _projectileSpeed * Time.deltaTime);
 
-            transform.LookAt(_ownerHeroBase.gameObject.transform.position);
+            transform.LookAt(_myHeroBase.gameObject.transform.position);
             transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
             //transform.position +=  * Time.deltaTime;
             yield return null;

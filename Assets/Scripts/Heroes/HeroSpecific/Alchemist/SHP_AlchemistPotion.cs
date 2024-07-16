@@ -14,6 +14,8 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
     [Space]
     [SerializeField] private GeneralHeroHealArea _healArea;
 
+    private SH_Alchemist _alchemist;
+
     public override void SetUpProjectile(HeroBase heroBase)
     {
         base.SetUpProjectile(heroBase);
@@ -29,6 +31,10 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
 
     private void PotionTypeSetup()
     {
+        _alchemist = (SH_Alchemist)_mySpecificHero;
+
+        _healArea.GetEnterEvent().AddListener(ActivateAlchemistPassive);
+
         switch (_potionType)
         {
             case (PotionTypes.DamagePotion):
@@ -67,6 +73,12 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
     private void ReachedEndLocation()
     {
         _healArea.ToggleProjectileCollider(true);
+    }
+
+
+    public void ActivateAlchemistPassive(Collider collider)
+    {
+        _alchemist.ActivatePassiveAbilities(collider.transform.position);
     }
 
     private void DamageBuff(Collider collider)

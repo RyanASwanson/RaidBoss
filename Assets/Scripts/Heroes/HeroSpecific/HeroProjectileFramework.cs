@@ -4,12 +4,12 @@ using UnityEngine;
 
 public abstract class HeroProjectileFramework : MonoBehaviour
 {
-    protected HeroBase _ownerHeroBase;
+    protected HeroBase _myHeroBase;
     protected SpecificHeroFramework _mySpecificHero;
 
     public virtual void SetUpProjectile(HeroBase heroBase)
     {
-        _ownerHeroBase = heroBase;
+        _myHeroBase = heroBase;
         _mySpecificHero = heroBase.GetSpecificHeroScript();
     }
 }

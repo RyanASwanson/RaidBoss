@@ -61,6 +61,12 @@ public class SH_Alchemist : SpecificHeroFramework
     public void ActivatePassiveAbilities(Vector3 spawnLocation)
     {
         GameObject newestPassiveProjectile = Instantiate(_passiveProjectile, spawnLocation, Quaternion.identity);
+
+        SHP_AlchemistPassiveProjectile passiveProj = newestPassiveProjectile.
+            GetComponent<SHP_AlchemistPassiveProjectile>();
+
+        passiveProj.SetUpProjectile(myHeroBase);
+        passiveProj.AdditionalSetup();
     }
     #endregion
 

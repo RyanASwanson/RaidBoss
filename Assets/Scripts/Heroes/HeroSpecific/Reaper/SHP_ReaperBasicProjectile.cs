@@ -31,9 +31,9 @@ public class SHP_ReaperBasicProjectile : HeroProjectileFramework
 
     private IEnumerator FollowHero()
     {
-        while(_ownerHeroBase != null)
+        while(_myHeroBase != null)
         {
-            transform.position = _ownerHeroBase.transform.position;
+            transform.position = _myHeroBase.transform.position;
             yield return null;
         }
 
