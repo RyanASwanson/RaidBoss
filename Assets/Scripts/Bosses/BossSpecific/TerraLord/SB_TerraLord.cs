@@ -38,6 +38,7 @@ public class SB_TerraLord : SpecificBossFramework
     private void ChangePassiveCounterValue(int val)
     {
         _passiveCounterValue += val;
+        Debug.Log(_passiveCounterValue);
     }
 
     private void StopPassiveProcess()

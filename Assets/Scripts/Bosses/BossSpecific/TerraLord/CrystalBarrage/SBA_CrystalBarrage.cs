@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SBA_Tremor : SpecificBossAbilityFramework
+public class SBA_CrystalBarrage : SpecificBossAbilityFramework
 {
     [Space]
     [SerializeField] private float _targetDistance;
@@ -11,7 +11,7 @@ public class SBA_Tremor : SpecificBossAbilityFramework
     private Vector3[] _targetDirections = { Vector3.forward, Vector3.left, Vector3.back,Vector3.right};
     private const float _targetHeight = -.75f;
 
-    [SerializeField] private GameObject _tremor;
+    [SerializeField] private GameObject _crystalBarrage;
     [SerializeField] private GameObject _targetZone;
 
     public override void AbilitySetup(BossBase bossBase)
@@ -59,7 +59,7 @@ public class SBA_Tremor : SpecificBossAbilityFramework
 
     protected override void AbilityStart()
     {
-        Instantiate(_tremor, _currentTargetLocation, Quaternion.identity);
+        Instantiate(_crystalBarrage, _currentTargetLocation, Quaternion.identity);
 
         base.AbilityStart();
     }
