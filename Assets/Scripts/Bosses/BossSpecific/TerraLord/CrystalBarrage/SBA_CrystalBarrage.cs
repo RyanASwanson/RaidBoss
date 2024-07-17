@@ -17,10 +17,10 @@ public class SBA_CrystalBarrage : SpecificBossAbilityFramework
     public override void AbilitySetup(BossBase bossBase)
     {
         base.AbilitySetup(bossBase);
-        CreateTargetLocations();
+        CalculateTargetLocations();
     }
 
-    private void CreateTargetLocations()
+    private void CalculateTargetLocations()
     {
         for (int i = 0; i < _targetDirections.Length; i++)
         {
@@ -42,7 +42,7 @@ public class SBA_CrystalBarrage : SpecificBossAbilityFramework
 
     private void DetermineTargetLocation()
     {
-        float currentFurthestDistance = 100;
+        float currentFurthestDistance = float.MaxValue;
 
         foreach (Vector3 targetDir in _targetDirections)
         {
