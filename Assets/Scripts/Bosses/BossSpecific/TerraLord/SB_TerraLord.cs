@@ -9,12 +9,17 @@ public class SB_TerraLord : SpecificBossFramework
     [Header("Unstable Precipice")]
     [SerializeField] private float _passiveTickRate;
 
-    private int _passiveCounterValue = 0;
-    private const int _passiveMaxValue = 100;
+    [SerializeField] private float _passiveHeroWeightMultiplier;
+
+    [SerializeField] private float _passiveMaxValue;
+
+    private float _passiveCounterValue = 0;
+    
 
     [Space]
     [SerializeField] private GameObject _passiveUI;
 
+    private HeroesManager _heroesManager;
     private Coroutine _passiveProcessCoroutine;
 
     #region Passive
@@ -27,15 +32,35 @@ public class SB_TerraLord : SpecificBossFramework
 
     private IEnumerator PassiveProcess()
     {
-        yield return new WaitForSeconds(_passiveTickRate);
+        while(_heroesManager.GetCurrentLivingHeroes().Count > 0)
+        {
+            yield return new WaitForSeconds(_passiveTickRate);
+            PassiveTick();
+        }
+        
     }
 
     private void PassiveTick()
     {
-
+        ChangePassiveCounterValue(CalculatePassiveHeroWeight());
     }
 
-    private void ChangePassiveCounterValue(int val)
+    private float CalculatePassiveHeroWeight()
+    {
+        float weightCounter = 0;
+        foreach (HeroBase heroBase in _heroesManager.GetCurrentLivingHeroes())
+        {
+            
+            weightCounter += heroBase.transform.position.x * _passiveHeroWeightMultiplier;
+
+        }
+
+        weightCounter /= _heroesManager.GetCurrentLivingHeroes().Count;
+
+        return weightCounter;
+    }
+
+    private void ChangePassiveCounterValue(float val)
     {
         _passiveCounterValue += val;
         Debug.Log(_passiveCounterValue);
@@ -54,6 +79,7 @@ public class SB_TerraLord : SpecificBossFramework
     {
         base.StartFight();
 
+        _heroesManager = GameplayManagers.Instance.GetHeroesManager();
         StartPassiveProcess();
     }
 
