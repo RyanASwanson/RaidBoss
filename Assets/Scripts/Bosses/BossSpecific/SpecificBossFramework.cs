@@ -30,7 +30,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
     [SerializeField] private Animator _bossSpecificAnimator;
 
     #region Fight Start
-    private void StartFight()
+    protected virtual void StartFight()
     {
         SetupReadyBossAbilities();
 
@@ -236,6 +236,11 @@ public abstract class SpecificBossFramework : MonoBehaviour
             (myBossBase.GetBossStats().GetStaggerDuration()));
     }
 
+    protected virtual void BossNoLongerStaggeredOccured()
+    {
+
+    }
+
     protected virtual void UnlockNewAbility()
     {
         AddAbilityToBossReadyAttacks(_abilityLocked);
@@ -257,6 +262,8 @@ public abstract class SpecificBossFramework : MonoBehaviour
 
         //Listens for when the boss is staggered
         myBossBase.GetBossStaggeredEvent().AddListener(BossStaggerOccured);
+
+        myBossBase.GetBossNoLongerStaggeredEvent().AddListener(BossNoLongerStaggeredOccured);
 
         myBossBase.GetBossHalfHealthEvent().AddListener(UnlockNewAbility);
     }
