@@ -93,7 +93,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5688175cce93714583d51e69036cd2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startingBossAbilities: []
+  _startingBossAbilities:
+  - {fileID: 8901101681536682290}
+  - {fileID: 8901101681536682290}
+  - {fileID: 8901101681536682290}
+  - {fileID: 8901101681536682290}
   _attackRepititionProtection: 2
   _abilityLocked: {fileID: 0}
   _bossVisualsBase: {fileID: 6395382608547155393}
@@ -107,6 +111,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 501763575792267714}
+  - component: {fileID: 8901101681536682290}
   m_Layer: 0
   m_Name: AttackFunctionality
   m_TagString: Untagged
@@ -129,6 +134,26 @@ Transform:
   m_Father: {fileID: 501763575178469066}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8901101681536682290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 501763575792267715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9579a5732336224ba5eca2c37b159ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isTargeted: 1
+  _timeUntilNextAbility: 7
+  _targetZoneDuration: 3.5
+  _abilityWindUpTime: 3.5
+  _animationTriggerName: 
+  _targetDistance: 3.5
+  _tremor: {fileID: 0}
+  _targetZone: {fileID: 2799529881703815393, guid: 213c795acd17d1d4e9fe7c0439d07369, type: 3}
 --- !u!1 &501763576293021200
 GameObject:
   m_ObjectHideFlags: 0

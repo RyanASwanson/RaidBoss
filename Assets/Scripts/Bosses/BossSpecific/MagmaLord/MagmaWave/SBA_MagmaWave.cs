@@ -9,6 +9,7 @@ using UnityEngine;
 /// </summary>
 public class SBA_MagmaWave : SpecificBossAbilityFramework
 {
+    [Space]
     [SerializeField] private GameObject _magmaWave;
     [SerializeField] private GameObject _targetZone;
 

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SBA_Volcano : SpecificBossAbilityFramework
 {
+    [Space]
     [SerializeField] private int _projectileCount;
     [SerializeField] private float _minimumProjectileDistance;
     [SerializeField] private float _mapRadiusOffset;
