@@ -9,6 +9,8 @@ public class SBA_Entomb : SpecificBossAbilityFramework
     private Quaternion _storedTargetRotation;
 
     [SerializeField] private GameObject _entomb;
+    [SerializeField] private GameObject _entombWall;
+
     [SerializeField] private GameObject _targetZone;
     [SerializeField] private GameObject _safeZone;
 
@@ -30,9 +32,16 @@ public class SBA_Entomb : SpecificBossAbilityFramework
     {
         GameObject storedEntomb = Instantiate(_entomb, _storedTargetLocation, _storedTargetRotation);
 
-        storedEntomb.GetComponent<SBP_Entomb>().SetUpProjectile(_myBossBase);
+        if (_currentSafeZone.GetComponent<BossAbilitySafeZone>().DoesSafeZoneContainHero())
+        {
+            return;
+        }
+
+        Instantiate(_entombWall, _storedTargetLocation, _storedTargetRotation);
 
         base.AbilityStart();
+
+
     }
 
     protected void CalculateAttackRotation()
@@ -42,4 +51,5 @@ public class SBA_Entomb : SpecificBossAbilityFramework
         _storedTargetRotation = Quaternion.Euler(new Vector3(0, randomYRotation, 0));
         
     }
+
 }
