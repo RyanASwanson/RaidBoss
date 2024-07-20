@@ -28,7 +28,7 @@ public class SBP_MagmaWave : BossProjectileFramework
     /// <param name="heroBase"></param>
     private void StartProjectileMovement()
     {
-        ProjectileLookAt(_ownerBossBase.transform.position);
+        ProjectileLookAt(_myBossBase.transform.position);
 
         StartCoroutine(MoveProjectile());
     }
@@ -36,7 +36,7 @@ public class SBP_MagmaWave : BossProjectileFramework
 
     private IEnumerator MoveProjectile()
     {
-        Vector3 moveDirection = (_ownerBossBase.transform.position - transform.position).normalized;
+        Vector3 moveDirection = (_myBossBase.transform.position - transform.position).normalized;
         while (true)
         {
             transform.position += moveDirection * _projectileSpeed * Time.deltaTime;
@@ -55,7 +55,7 @@ public class SBP_MagmaWave : BossProjectileFramework
 
     private void CheckBossDistance()
     {
-        if (Vector3.Distance(transform.position, _ownerBossBase.transform.position) < _distanceThreshold)
+        if (Vector3.Distance(transform.position, _myBossBase.transform.position) < _distanceThreshold)
         {
             ProjectileReachedEndOfPath();
         }
