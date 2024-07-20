@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SBP_Entomb : BossProjectileFramework
 {
+    [Space]
     [SerializeField] private float _wallCreationDelay;
 
     [SerializeField] private GameObject _entombWalls;

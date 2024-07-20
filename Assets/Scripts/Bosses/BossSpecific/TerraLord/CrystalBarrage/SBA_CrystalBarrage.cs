@@ -12,7 +12,11 @@ public class SBA_CrystalBarrage : SpecificBossAbilityFramework
     private const float _targetHeight = -.75f;
 
     [SerializeField] private GameObject _crystalBarrage;
+    [SerializeField] private GameObject _barrageUpwardsVisual;
     [SerializeField] private GameObject _targetZone;
+
+    [Space]
+    [SerializeField] private GameObject _upwardsCrystalSource;
 
     public override void AbilitySetup(BossBase bossBase)
     {
