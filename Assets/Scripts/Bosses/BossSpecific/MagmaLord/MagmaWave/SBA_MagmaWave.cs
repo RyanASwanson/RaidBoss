@@ -56,7 +56,7 @@ public class SBA_MagmaWave : SpecificBossAbilityFramework
     {
         _storedMagmaWave = Instantiate(_magmaWave, _edgeOfMap, Quaternion.identity);
         SBP_MagmaWave mwScript = _storedMagmaWave.GetComponent<SBP_MagmaWave>();
-        mwScript.SetUpProjectile(_ownerBossBase);
+        mwScript.SetUpProjectile(_myBossBase);
         mwScript.AdditionalSetup();
         base.AbilityStart();
     }

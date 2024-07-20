@@ -22,7 +22,7 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     protected Vector3 _storedTargetLocation;
     protected HeroBase _storedTarget;
 
-    protected BossBase _ownerBossBase;
+    protected BossBase _myBossBase;
     protected SpecificBossFramework _mySpecificBoss;
 
     /// <summary>
@@ -31,7 +31,7 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     /// <param name="bossBase"></param>
     public virtual void AbilitySetup(BossBase bossBase)
     {
-        _ownerBossBase = bossBase;
+        _myBossBase = bossBase;
         _mySpecificBoss = bossBase.GetSpecificBossScript();
 
         _timeUntilNextAbility /= UniversalManagers.Instance.GetSelectionManager().GetSpeedMultiplierFromDifficulty();
@@ -66,7 +66,7 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
 
     protected virtual void StartBossAbilityAnimation()
     {
-        _ownerBossBase.GetBossVisuals().StartBossSpecificAnimationTrigger(_animationTriggerName);
+        _myBossBase.GetBossVisuals().StartBossSpecificAnimationTrigger(_animationTriggerName);
     }
 
     #region Target Zone

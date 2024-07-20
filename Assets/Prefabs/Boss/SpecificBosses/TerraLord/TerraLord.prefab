@@ -116,6 +116,7 @@ GameObject:
   - component: {fileID: 501763575792267714}
   - component: {fileID: 8901101681536682290}
   - component: {fileID: 3475215520520948729}
+  - component: {fileID: 1777365495296129283}
   m_Layer: 0
   m_Name: AttackFunctionality
   m_TagString: Untagged
@@ -178,6 +179,26 @@ MonoBehaviour:
   _targetLocation: {x: 0, y: -0.75, z: 0}
   _tremor: {fileID: 8560503281689201346, guid: e43707f02a3737f4e9566ead060d5b55, type: 3}
   _targetZone: {fileID: 4462416459843073010, guid: 6506bab34c4c66f42aa413b51a4a942c, type: 3}
+--- !u!114 &1777365495296129283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 501763575792267715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0140c1cb6b5a56f4f96e8ae8730d9712, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isTargeted: 1
+  _timeUntilNextAbility: 7
+  _targetZoneDuration: 3.5
+  _abilityWindUpTime: 3.5
+  _animationTriggerName: 
+  _entomb: {fileID: 6957617552280463618, guid: f07ff2d9d0e0e4e4da9b3e574c458e60, type: 3}
+  _entombWalls: {fileID: 0}
+  _targetZone: {fileID: 1062582142837617367, guid: 8c02a47f78d84624ca931dfcc3cba973, type: 3}
 --- !u!1 &501763576293021200
 GameObject:
   m_ObjectHideFlags: 0
