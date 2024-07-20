@@ -10,20 +10,28 @@ public class SBA_Entomb : SpecificBossAbilityFramework
 
     [SerializeField] private GameObject _entomb;
     [SerializeField] private GameObject _targetZone;
+    [SerializeField] private GameObject _safeZone;
 
-    
+    private GameObject _currentSafeZone;
 
     protected override void StartShowTargetZone()
     {
         CalculateAttackRotation();
+
         _currentTargetZones.Add(Instantiate(_targetZone, _storedTargetLocation, _storedTargetRotation));
+
+        _currentSafeZone = Instantiate(_safeZone, _storedTargetLocation, _storedTargetRotation);
+        _currentTargetZones.Add(_currentSafeZone);
+
         base.StartShowTargetZone();
     }
 
     protected override void AbilityStart()
     {
         GameObject storedEntomb = Instantiate(_entomb, _storedTargetLocation, _storedTargetRotation);
+
         storedEntomb.GetComponent<SBP_Entomb>().SetUpProjectile(_myBossBase);
+
         base.AbilityStart();
     }
 

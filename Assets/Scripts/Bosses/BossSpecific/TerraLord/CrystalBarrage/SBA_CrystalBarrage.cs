@@ -9,6 +9,10 @@ public class SBA_CrystalBarrage : SpecificBossAbilityFramework
     [SerializeField] private float _timeBetweenProjectiles;
 
     [Space]
+    [SerializeField] private Vector3 _upwardsProjectileSpawnVariance;
+
+    [Space]
+    [SerializeField] private float _targetWidth;
     [SerializeField] private float _targetDistance;
     private Vector3 _currentTargetLocation;
 
@@ -45,6 +49,8 @@ public class SBA_CrystalBarrage : SpecificBossAbilityFramework
 
         _currentTargetZones.Add(Instantiate(_targetZone, _currentTargetLocation, Quaternion.identity));
 
+        StartUpwardsProjectileProcess();
+
         base.StartShowTargetZone();
     }
 
@@ -67,7 +73,7 @@ public class SBA_CrystalBarrage : SpecificBossAbilityFramework
 
     protected override void AbilityStart()
     {
-        Instantiate(_crystalBarrage, _currentTargetLocation, Quaternion.identity);
+        StartDamageProjectileProcess();
 
         base.AbilityStart();
     }
@@ -75,26 +81,60 @@ public class SBA_CrystalBarrage : SpecificBossAbilityFramework
     #region Upwards Projectile
     protected void StartUpwardsProjectileProcess()
     {
-
+        StartCoroutine(UpwardsProjectileProcess());
     }
 
     protected IEnumerator UpwardsProjectileProcess()
     {
-        yield return new WaitForSeconds(_timeBetweenProjectiles);
+        for(int i = 0; i < _projectileCount; i++)
+        {
+            CreateUpwardsProjectile();
+            yield return new WaitForSeconds(_timeBetweenProjectiles);
+        }
+        
     }
 
     protected void CreateUpwardsProjectile()
     {
-        
+        Vector3 randomSpawnVariance = new Vector3(
+            Random.Range(-_upwardsProjectileSpawnVariance.x, _upwardsProjectileSpawnVariance.x),
+            Random.Range(-_upwardsProjectileSpawnVariance.y, _upwardsProjectileSpawnVariance.y),
+            Random.Range(-_upwardsProjectileSpawnVariance.z, _upwardsProjectileSpawnVariance.z));
+
+        Vector3 spawnLocation = _upwardsCrystalSource.transform.position + randomSpawnVariance;
+
+        Instantiate(_barrageUpwardsVisual, spawnLocation, Quaternion.identity);
     }
 
     #endregion
 
     #region DamageProjectile
 
-    protected void StartDownwardsProjectileProcess()
+    protected void StartDamageProjectileProcess()
     {
+        StartCoroutine(DamageProjectileProcess());
+    }
 
+    protected IEnumerator DamageProjectileProcess()
+    {
+        for (int i = 0; i < _projectileCount; i++)
+        {
+            CreateDamageProjectile();
+            yield return new WaitForSeconds(_timeBetweenProjectiles);
+        }
+            
+    }
+
+    protected void CreateDamageProjectile()
+    {
+        Vector3 randomSpawnVariance = new Vector3(Random.Range(-_targetWidth, _targetWidth),
+            0, Random.Range(-_targetWidth, _targetWidth));
+
+        randomSpawnVariance = Quaternion.Euler(0, -45, 0) * randomSpawnVariance;
+
+        Vector3 spawnLocation = _currentTargetLocation + randomSpawnVariance;
+
+        Instantiate(_crystalBarrage, spawnLocation, Quaternion.identity) ;
     }
     #endregion
 

@@ -48,7 +48,7 @@ public class SBA_MagmaBlast : SpecificBossAbilityFramework
 
     protected override void AbilityStart()
     {
-        if (_storedSafeZones.Dequeue().GetComponent<SBP_MagmaBlastSafeZone>().DoesSafeZoneContainHero())
+        if (_storedSafeZones.Dequeue().GetComponent<BossAbilitySafeZone>().DoesSafeZoneContainHero())
         {
             AbilityFailed();
             return;

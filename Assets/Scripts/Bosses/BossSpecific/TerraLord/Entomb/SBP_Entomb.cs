@@ -4,34 +4,25 @@ using UnityEngine;
 
 public class SBP_Entomb : BossProjectileFramework
 {
-    [Space]
-    [SerializeField] private float _wallCreationDelay;
-
-    [SerializeField] private GameObject _entombWalls;
-
-    private int _heroContactCounter;
+    [SerializeField] private GameObject _entombWall;
+    
 
     public override void SetUpProjectile(BossBase bossBase)
     {
-        StartCoroutine(WallCreationProcess());
+        WallCreationCheck();
         base.SetUpProjectile(bossBase);
     }
 
-    public void UpdateHeroContactCounter(int changeVal)
-    {
-        _heroContactCounter += changeVal;
-    }
 
-    private IEnumerator WallCreationProcess()
+
+    private void WallCreationCheck()
     {
-        yield return new WaitForSeconds(_wallCreationDelay);
-        if(_heroContactCounter < 1)
-            CreateWalls();
+        //RaycastHit rayHit = Physics.Bo
     }
 
     private void CreateWalls()
     {
-        GameObject wallObject = Instantiate(_entombWalls, transform.position, transform.rotation);
+        GameObject wallObject = Instantiate(_entombWall, transform.position, transform.rotation);
         wallObject.GetComponent<SBP_EntombWalls>().SetUpProjectile(_myBossBase);
     }
 }
