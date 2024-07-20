@@ -5,6 +5,10 @@ using UnityEngine;
 public class SBA_CrystalBarrage : SpecificBossAbilityFramework
 {
     [Space]
+    [SerializeField] private int _projectileCount;
+    [SerializeField] private float _timeBetweenProjectiles;
+
+    [Space]
     [SerializeField] private float _targetDistance;
     private Vector3 _currentTargetLocation;
 
@@ -67,5 +71,31 @@ public class SBA_CrystalBarrage : SpecificBossAbilityFramework
 
         base.AbilityStart();
     }
+
+    #region Upwards Projectile
+    protected void StartUpwardsProjectileProcess()
+    {
+
+    }
+
+    protected IEnumerator UpwardsProjectileProcess()
+    {
+        yield return new WaitForSeconds(_timeBetweenProjectiles);
+    }
+
+    protected void CreateUpwardsProjectile()
+    {
+        
+    }
+
+    #endregion
+
+    #region DamageProjectile
+
+    protected void StartDownwardsProjectileProcess()
+    {
+
+    }
+    #endregion
 
 }
