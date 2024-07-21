@@ -13,11 +13,11 @@ public class SB_TerraLord : SpecificBossFramework
 
     [SerializeField] private float _passiveMaxValue;
 
-    private float _passiveCounterValue = 0;
-    
-
     [Space]
-    [SerializeField] private GameObject _passiveUI;
+
+    [SerializeField] private List<float> _difficultyWeightMultiplier;
+
+    private float _passiveCounterValue = 0;
 
     private HeroesManager _heroesManager;
     private Coroutine _passiveProcessCoroutine;

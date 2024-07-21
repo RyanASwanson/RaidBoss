@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 501763575104870746}
   m_Layer: 0
   m_Name: BossHitbox
-  m_TagString: Untagged
+  m_TagString: BossHitbox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -101,11 +101,15 @@ MonoBehaviour:
   _attackRepititionProtection: 2
   _abilityLocked: {fileID: 0}
   _bossVisualsBase: {fileID: 6395382608547155393}
+  _bossSpecificUI: {fileID: 0}
   _bossSpecificAnimator: {fileID: 1530244410539311288}
   _passiveTickRate: 2
   _passiveHeroWeightMultiplier: 1
   _passiveMaxValue: 50
-  _passiveUI: {fileID: 0}
+  _difficultyWeightMultiplier:
+  - 1
+  - 1.15
+  - 1.3
 --- !u!1 &501763575792267715
 GameObject:
   m_ObjectHideFlags: 0

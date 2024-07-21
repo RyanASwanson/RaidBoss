@@ -31,6 +31,9 @@ public class BossUIManager : GameUIChildrenFunctionality
     private Coroutine _startStaggerBarDrainCoroutine;
 
     [Space]
+    [SerializeField] private GameObject _bossSpecificUIHolder;
+
+    [Space]
     [Header("BossWorldCanvas")]
     [SerializeField] private RectTransform _damageNumbersOrigin;
     [SerializeField] private GameObject _damageNumber;
@@ -173,6 +176,14 @@ public class BossUIManager : GameUIChildrenFunctionality
         }
     }
 
+    #endregion
+
+    #region Boss Specific UI
+
+    public GameObject AddBossUIToHolder(GameObject bossUI)
+    {
+        return Instantiate(bossUI, _bossSpecificUIHolder.transform);
+    }    
     #endregion
 
     private void CreateDamageNumbers(float damage)
