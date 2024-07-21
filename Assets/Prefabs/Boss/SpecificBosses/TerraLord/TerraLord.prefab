@@ -97,6 +97,7 @@ MonoBehaviour:
   - {fileID: 8901101681536682290}
   - {fileID: 3475215520520948729}
   - {fileID: 1777365495296129283}
+  - {fileID: 280044508746416317}
   _attackRepititionProtection: 2
   _abilityLocked: {fileID: 0}
   _bossVisualsBase: {fileID: 6395382608547155393}
@@ -117,6 +118,7 @@ GameObject:
   - component: {fileID: 8901101681536682290}
   - component: {fileID: 3475215520520948729}
   - component: {fileID: 1777365495296129283}
+  - component: {fileID: 280044508746416317}
   m_Layer: 0
   m_Name: AttackFunctionality
   m_TagString: Untagged
@@ -156,9 +158,9 @@ MonoBehaviour:
   _targetZoneDuration: 4
   _abilityWindUpTime: 4
   _animationTriggerName: 
-  _projectileCount: 8
-  _timeBetweenProjectiles: 0.25
-  _upwardsProjectileSpawnVariance: {x: 0.1, y: 0.1, z: 0.1}
+  _projectileCount: 10
+  _timeBetweenProjectiles: 0.15
+  _upwardsProjectileSpawnVariance: {x: 0.2, y: 0.1, z: 0.2}
   _targetWidth: 2.5
   _targetDistance: 3.5
   _crystalBarrage: {fileID: 556531669479417168, guid: 91dfd24925c211c4cab12e37a81439f0, type: 3}
@@ -207,6 +209,25 @@ MonoBehaviour:
   _entombWall: {fileID: 470047771293742491, guid: 1cc5467fda6f2de46b3da6fd57f0d553, type: 3}
   _targetZone: {fileID: 1062582142837617367, guid: 8c02a47f78d84624ca931dfcc3cba973, type: 3}
   _safeZone: {fileID: 6782212718119050, guid: f5c2f41be4f49e34faeecabf35e38f81, type: 3}
+--- !u!114 &280044508746416317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 501763575792267715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6b23d1b33ac06d4c9456e76e53efc1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isTargeted: 1
+  _timeUntilNextAbility: 7
+  _targetZoneDuration: 3.5
+  _abilityWindUpTime: 3.5
+  _animationTriggerName: 
+  _encirclingVines: {fileID: 5689458550558832625, guid: 7ca7480609fd18b48be3def648c774d3, type: 3}
+  _targetZone: {fileID: 1433578388064543568, guid: 5bc2b4850d852f34bb9f9d51540763f0, type: 3}
 --- !u!1 &501763576293021200
 GameObject:
   m_ObjectHideFlags: 0
