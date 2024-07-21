@@ -31,6 +31,7 @@ public class BossUIManager : GameUIChildrenFunctionality
     private Coroutine _startStaggerBarDrainCoroutine;
 
     [Space]
+    [Header("BossSpecificUI")]
     [SerializeField] private GameObject _bossSpecificUIHolder;
 
     [Space]

@@ -59,6 +59,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
         if (_bossSpecificUI == null) return;
         _storedBossUI = GameplayManagers.Instance.GetGameUIManager().
             GetBossUIManager().AddBossUIToHolder(_bossSpecificUI);
+        Debug.Log("BossUICreated");
     }
 
     #endregion
