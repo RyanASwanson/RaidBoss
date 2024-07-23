@@ -205,6 +205,12 @@ public class SelectionManager : BaseUniversalManager
     public int GetMaxHeroesCount() => _maxHeroes;
     public bool AtMaxHeroesSelected() => _selectedHeroes.Count >= _maxHeroes;
 
+    public void TestFunc()
+    {
+        print(_selectedHeroes.Count);
+        print(_maxHeroes);
+    }
+
     public BossSO GetSelectedBoss() => _selectedBoss;
     public LevelSO GetSelectedLevel() => _selectedLevel;
 
