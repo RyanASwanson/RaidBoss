@@ -37,7 +37,8 @@ public class SBA_Entomb : SpecificBossAbilityFramework
             return;
         }
 
-        Instantiate(_entombWall, _storedTargetLocation, _storedTargetRotation);
+        GameObject storedWalls = Instantiate(_entombWall, _storedTargetLocation, _storedTargetRotation);
+        storedWalls.GetComponent<SBP_EntombWalls>().SetUpProjectile(_myBossBase);
 
         base.AbilityStart();
 
