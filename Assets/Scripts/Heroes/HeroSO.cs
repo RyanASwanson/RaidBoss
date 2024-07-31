@@ -24,7 +24,7 @@ public class HeroSO : ScriptableObject
     [SerializeField] private Sprite _heroPassiveAbilityIcon;
 
     [Header("Selection")]
-    [Range(0,5)][SerializeField] private int _surivalStat;
+    [Range(0,5)][SerializeField] private int _survivalStat;
     [Range(0,5)][SerializeField] private int _damageStat;
     [Range(0,5)][SerializeField] private int _staggerStat;
     [Range(0,5)][SerializeField] private int _speedStat;
@@ -57,7 +57,7 @@ public class HeroSO : ScriptableObject
     public Sprite GetHeroManualAbilityIcon() => _heroManualAbilityIcon;
     public Sprite GetHeroPassiveAbilityIcon() => _heroPassiveAbilityIcon;
 
-    public int GetSurvivalStat() => _surivalStat;
+    public int GetSurvivalStat() => _survivalStat;
     public int GetDamageStat() => _damageStat;
     public int GetStaggerStat() => _staggerStat;
     public int GetSpeedStat() => _speedStat;
