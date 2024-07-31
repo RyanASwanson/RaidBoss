@@ -16,7 +16,7 @@ public class SBP_Tremor : BossProjectileFramework
 
     private IEnumerator SpikeSpawningProcess()
     {
-        for(int i = 0; i <= _spikeSets.Count; i++)
+        for(int i = 0; i <= _spikeSets.Count-1; i++)
         {
             _spikeSets[i].SetActive(true);
             yield return new WaitForSeconds(_spikeSeperationTime);
