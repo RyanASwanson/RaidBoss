@@ -31,12 +31,12 @@ public class SH_Reaper : SpecificHeroFramework
         GameObject spawnedProjectile = Instantiate(_basicProjectile, transform.position, Quaternion.identity);
 
         //Does the universal projectile setup
-        spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(myHeroBase);
+        spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(_myHeroBase);
 
         //Does the projectile specific setup
         spawnedProjectile.GetComponent<SHP_ReaperBasicProjectile>().AdditionalSetup();
 
-        spawnedProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(myHeroBase);
+        spawnedProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(_myHeroBase);
     }
 
     #endregion
@@ -56,12 +56,12 @@ public class SH_Reaper : SpecificHeroFramework
         GameObject spawnedProjectile = Instantiate(_manualProjectile, attackLocation, Quaternion.identity);
 
         //Does the universal projectile setup
-        spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(myHeroBase);
+        spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(_myHeroBase);
 
         //Does the projectile specific setup
         spawnedProjectile.GetComponent<SHP_ReaperManualProjectile>().AdditionalSetup();
 
-        spawnedProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(myHeroBase);
+        spawnedProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(_myHeroBase);
 
     }
     #endregion
@@ -79,11 +79,11 @@ public class SH_Reaper : SpecificHeroFramework
     /// <returns></returns>
     private IEnumerator PassiveProcess()
     {
-        myHeroBase.GetHeroStats().AddDamageTakenOverrideCounter();
-        myHeroBase.GetHeroStats().AddHealingTakenOverrideCounter();
+        _myHeroBase.GetHeroStats().AddDamageTakenOverrideCounter();
+        _myHeroBase.GetHeroStats().AddHealingTakenOverrideCounter();
         yield return new WaitForSeconds(_deathPersistDuration);
-        myHeroBase.GetHeroStats().RemoveDeathOverrideCounter();
-        myHeroBase.GetHeroStats().KillHero();
+        _myHeroBase.GetHeroStats().RemoveDeathOverrideCounter();
+        _myHeroBase.GetHeroStats().KillHero();
     }
     #endregion
     
@@ -102,13 +102,13 @@ public class SH_Reaper : SpecificHeroFramework
     {
         base.BattleStarted();
 
-        myHeroBase.GetHeroStats().AddDeathOverrideCounter();
+        _myHeroBase.GetHeroStats().AddDeathOverrideCounter();
     }
 
     public override void SubscribeToEvents()
     {
         base.SubscribeToEvents();
 
-        myHeroBase.GetHeroDeathOverrideEvent().AddListener(ActivatePassiveAbilities);
+        _myHeroBase.GetHeroDeathOverrideEvent().AddListener(ActivatePassiveAbilities);
     }
 }

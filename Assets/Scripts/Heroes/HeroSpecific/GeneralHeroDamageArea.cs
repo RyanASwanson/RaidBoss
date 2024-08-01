@@ -92,6 +92,9 @@ public class GeneralHeroDamageArea : MonoBehaviour
 
     private void DealDamageAndStagger(float abilityDamage, float abilityStagger)
     {
+        if (_myHeroBase == null)
+            Debug.Log("Cant Find Hero Base");
+
         if (abilityDamage > 0)
             _myHeroBase.GetSpecificHeroScript().DamageBoss(abilityDamage);
             //bossBase.GetBossStats().DealDamageToBoss(abilityDamage);

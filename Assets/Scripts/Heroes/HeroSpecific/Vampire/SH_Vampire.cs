@@ -28,16 +28,13 @@ public class SH_Vampire : SpecificHeroFramework
         //Creates the projectile at the hero location
         GameObject spawnedProjectile = Instantiate(_basicProjectile, transform.position, Quaternion.identity);
 
-        spawnedProjectile.transform.eulerAngles = GameplayManagers.Instance.GetBossManager().GetDirectionToBoss();
-
+        spawnedProjectile.transform.LookAt(GameplayManagers.Instance.GetBossManager().GetBossBaseGameObject().transform);
+        spawnedProjectile.transform.eulerAngles = new Vector3(0, spawnedProjectile.transform.eulerAngles.y, 0);
 
         //Does the universal projectile setup
-        spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(myHeroBase);
+        spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(_myHeroBase);
 
-        //Does the projectile specific setup
-        spawnedProjectile.GetComponent<SHP_ReaperBasicProjectile>().AdditionalSetup();
-
-        spawnedProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(myHeroBase);
+        spawnedProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(_myHeroBase);
     }
 
 

@@ -35,8 +35,10 @@ public class BossManager : BaseGameplayManager
     public Vector3 GetDirectionToBoss(Vector3 startLocation)
     {
         Vector3 returnVector = _bossGameObject.transform.position - startLocation;
-        returnVector = new Vector3(returnVector.x, 0, returnVector.z).normalized;
+        returnVector = new Vector3(returnVector.x, 0, returnVector.z);
+        returnVector.Normalize();
 
+        Debug.Log("Return Vec" + returnVector + " " + _bossGameObject.transform.position + " " +startLocation);
         return returnVector;
     }
 

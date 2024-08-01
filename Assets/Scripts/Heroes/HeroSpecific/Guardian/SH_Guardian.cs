@@ -20,7 +20,7 @@ public class SH_Guardian : SpecificHeroFramework
     #region Basic Abilities
     public override bool ConditionsToActivateBasicAbilities()
     {
-        return !myHeroBase.GetPathfinding().IsHeroMoving();  
+        return !_myHeroBase.GetPathfinding().IsHeroMoving();  
     }
 
     /// <summary>
@@ -30,9 +30,9 @@ public class SH_Guardian : SpecificHeroFramework
     {
         base.ActivateBasicAbilities();
 
-        GameObject spawnedProjectile = Instantiate(_basicProjectile, myHeroBase.transform.position, Quaternion.identity);
+        GameObject spawnedProjectile = Instantiate(_basicProjectile, _myHeroBase.transform.position, Quaternion.identity);
 
-        spawnedProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(myHeroBase);
+        spawnedProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(_myHeroBase);
     }
 
     #endregion
@@ -41,7 +41,7 @@ public class SH_Guardian : SpecificHeroFramework
     public override void ActivateManualAbilities(Vector3 attackLocation)
     {
         GameplayManagers.Instance.GetBossManager().GetBossBase().GetSpecificBossScript()
-            .HeroOverrideAggro(myHeroBase, _heroManualAbilityDuration);
+            .HeroOverrideAggro(_myHeroBase, _heroManualAbilityDuration);
         base.ActivateManualAbilities(attackLocation);
     }
     #endregion
@@ -51,7 +51,7 @@ public class SH_Guardian : SpecificHeroFramework
     {
         if (_passiveCoroutine != null)
         {
-            myHeroBase.GetHeroStats().ChangeCurrentHeroDamageResistance(-_heroPassiveDamageResistance);
+            _myHeroBase.GetHeroStats().ChangeCurrentHeroDamageResistance(-_heroPassiveDamageResistance);
             StopCoroutine(_passiveCoroutine);
         }
 
@@ -60,10 +60,10 @@ public class SH_Guardian : SpecificHeroFramework
 
     private IEnumerator PassiveAbilityProcess()
     {
-        myHeroBase.GetHeroStats().ChangeCurrentHeroDamageResistance(_heroPassiveDamageResistance);
+        _myHeroBase.GetHeroStats().ChangeCurrentHeroDamageResistance(_heroPassiveDamageResistance);
         ActivatePassiveVFX();
         yield return new WaitForSeconds(_heroPassiveAbilityDuration);
-        myHeroBase.GetHeroStats().ChangeCurrentHeroDamageResistance(-_heroPassiveDamageResistance);
+        _myHeroBase.GetHeroStats().ChangeCurrentHeroDamageResistance(-_heroPassiveDamageResistance);
 
         _passiveCoroutine = null;
     }
@@ -91,7 +91,7 @@ public class SH_Guardian : SpecificHeroFramework
     {
         base.SubscribeToEvents();
 
-        myHeroBase.GetHeroDamagedEvent().AddListener(ActivatePassiveAbilities);
+        _myHeroBase.GetHeroDamagedEvent().AddListener(ActivatePassiveAbilities);
     }
 
     

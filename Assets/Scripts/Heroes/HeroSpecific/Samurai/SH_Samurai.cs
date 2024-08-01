@@ -37,10 +37,10 @@ public class SH_Samurai : SpecificHeroFramework
     {
         //Samurai Projectile Script Not Currently in use
         //GameObject spawnedProjectile = 
-        GameObject spawnedProjectile = Instantiate(_basicProjectile, myHeroBase.transform.position, Quaternion.identity);
-        spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(myHeroBase);
+        GameObject spawnedProjectile = Instantiate(_basicProjectile, _myHeroBase.transform.position, Quaternion.identity);
+        spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(_myHeroBase);
 
-        spawnedProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(myHeroBase);
+        spawnedProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(_myHeroBase);
         //spawnedProjectile.GetComponent<SHP_SamuraiBasicProjectile>().AdditionalSetup(1);
     }
 
@@ -66,22 +66,22 @@ public class SH_Samurai : SpecificHeroFramework
 
     private void StartParry()
     {
-        myHeroBase.GetHeroStats().AddDamageTakenOverrideCounter();
-        myHeroBase.GetHeroDamagedOverrideEvent().AddListener(ParryAttack);
+        _myHeroBase.GetHeroStats().AddDamageTakenOverrideCounter();
+        _myHeroBase.GetHeroDamagedOverrideEvent().AddListener(ParryAttack);
     }
 
     private void EndParry()
     {
-        myHeroBase.GetHeroStats().RemoveDamageTakenOverrideCounter();
-        myHeroBase.GetHeroDamagedOverrideEvent().RemoveListener(ParryAttack);
+        _myHeroBase.GetHeroStats().RemoveDamageTakenOverrideCounter();
+        _myHeroBase.GetHeroDamagedOverrideEvent().RemoveListener(ParryAttack);
     }
 
     private void StopParryEarly()
     {
         StopCoroutine(_parryCoroutine);
         _parryCoroutine = null;
-        myHeroBase.GetHeroStats().RemoveDamageTakenOverrideCounter();
-        myHeroBase.GetHeroDamagedOverrideEvent().RemoveListener(ParryAttack);
+        _myHeroBase.GetHeroStats().RemoveDamageTakenOverrideCounter();
+        _myHeroBase.GetHeroDamagedOverrideEvent().RemoveListener(ParryAttack);
     }
 
     public void ParryAttack(float damagePrevented)
@@ -101,11 +101,11 @@ public class SH_Samurai : SpecificHeroFramework
 
     private IEnumerator SuccessfulParryIFrames()
     {
-        myHeroBase.GetHeroStats().AddDamageTakenOverrideCounter();
+        _myHeroBase.GetHeroStats().AddDamageTakenOverrideCounter();
 
         yield return new WaitForSeconds(_parryBonusIFrames);
 
-        myHeroBase.GetHeroStats().RemoveDamageTakenOverrideCounter();
+        _myHeroBase.GetHeroStats().RemoveDamageTakenOverrideCounter();
     }
 
     #endregion

@@ -36,14 +36,17 @@ public class SHP_VampireBasicProjectile : HeroProjectileFramework
     public void SplitProjectile()
     {
 
-        for(int i = 0; i <= _splitProjectileCount; i++)
+        for(int i = 0; i < _splitProjectileCount; i++)
         {
-            float tempRot = Mathf.Lerp(-_splitAngle, _splitAngle, i / _splitProjectileCount);
-            Vector3 a = new Vector3(0,tempRot,0);
+            float tempRot = Mathf.Lerp(-_splitAngle, _splitAngle, i / (_splitProjectileCount-1));
+            
+            Vector3 projRotation = new Vector3(0,tempRot,0) + transform.eulerAngles;
 
-            GameObject newestProjectile = Instantiate(_splitProjectile, transform.position, Quaternion.Euler(a));
+            GameObject newestProjectile = Instantiate(_splitProjectile, transform.position, Quaternion.Euler(projRotation));
 
             newestProjectile.GetComponent<SHP_VampireBasicProjectile>().SetUpProjectile(_myHeroBase);
+
+            newestProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(_myHeroBase);
         }
     }
 }

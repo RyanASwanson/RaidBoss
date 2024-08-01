@@ -46,7 +46,7 @@ public class SH_Chronomancer : SpecificHeroFramework
 
     public override bool ConditionsToActivateBasicAbilities()
     {
-        return !myHeroBase.GetPathfinding().IsHeroMoving();
+        return !_myHeroBase.GetPathfinding().IsHeroMoving();
     }
 
     public override void ActivateBasicAbilities()
@@ -59,18 +59,18 @@ public class SH_Chronomancer : SpecificHeroFramework
 
     protected void CreateBasicAttackProjectiles()
     {
-        GameObject spawnedProjectile = Instantiate(_basicProjectile, myHeroBase.transform.position, Quaternion.identity);
+        GameObject spawnedProjectile = Instantiate(_basicProjectile, _myHeroBase.transform.position, Quaternion.identity);
 
-        spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(myHeroBase);
+        spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(_myHeroBase);
 
-        Physics.IgnoreCollision(myHeroBase.GetHeroDamageCollider(), 
+        Physics.IgnoreCollision(_myHeroBase.GetHeroDamageCollider(), 
             spawnedProjectile.GetComponentInChildren<Collider>(), true);
 
         spawnedProjectile.GetComponent<SHP_ChronomancerBasicProjectile>().
             AdditionalSetup(_currentAttackDirection, _passiveAbilityBasicCooldownReduction);
 
-        spawnedProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(myHeroBase);
-        spawnedProjectile.GetComponent<GeneralHeroHealArea>().SetUpHealingArea(myHeroBase);
+        spawnedProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(_myHeroBase);
+        spawnedProjectile.GetComponent<GeneralHeroHealArea>().SetUpHealingArea(_myHeroBase);
     }
 
     private void IncreaseCurrentAttackRotation()

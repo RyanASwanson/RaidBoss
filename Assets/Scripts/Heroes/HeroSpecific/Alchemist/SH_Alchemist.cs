@@ -19,7 +19,7 @@ public class SH_Alchemist : SpecificHeroFramework
     #region Basic Abilities
     public override bool ConditionsToActivateBasicAbilities()
     {
-        return !myHeroBase.GetPathfinding().IsHeroMoving();
+        return !_myHeroBase.GetPathfinding().IsHeroMoving();
     }
 
     public override void ActivateBasicAbilities()
@@ -65,7 +65,7 @@ public class SH_Alchemist : SpecificHeroFramework
         SHP_AlchemistPassiveProjectile passiveProj = newestPassiveProjectile.
             GetComponent<SHP_AlchemistPassiveProjectile>();
 
-        passiveProj.SetUpProjectile(myHeroBase);
+        passiveProj.SetUpProjectile(_myHeroBase);
         passiveProj.AdditionalSetup();
     }
     #endregion
@@ -74,10 +74,10 @@ public class SH_Alchemist : SpecificHeroFramework
     protected void CreatePotion(GameObject potion, Vector3 endLocation)
     {
         GameObject newestPotion = Instantiate(potion, transform.position, Quaternion.identity);
-        newestPotion.GetComponent<SHP_AlchemistPotion>().SetUpProjectile(myHeroBase);
+        newestPotion.GetComponent<SHP_AlchemistPotion>().SetUpProjectile(_myHeroBase);
         newestPotion.GetComponent<SHP_AlchemistPotion>().AdditionalSetup(endLocation);
         
-        newestPotion.GetComponent<GeneralHeroHealArea>().SetUpHealingArea(myHeroBase);
+        newestPotion.GetComponent<GeneralHeroHealArea>().SetUpHealingArea(_myHeroBase);
     }
 
     

@@ -25,7 +25,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     [SerializeField] protected bool _hasManualAbilityAnimation;
     [SerializeField] protected bool _hasPassiveAbilityAnimation;
 
-    internal HeroBase myHeroBase;
+    internal HeroBase _myHeroBase;
 
     protected Coroutine _attemptingBasicAbilitiesCoroutine;
     internal Coroutine _basicAbilityCooldownCoroutine;
@@ -79,14 +79,14 @@ public abstract class SpecificHeroFramework : MonoBehaviour
 
     public virtual bool ConditionsToActivateBasicAbilities()
     {
-        return !myHeroBase.GetPathfinding().IsHeroMoving();
+        return !_myHeroBase.GetPathfinding().IsHeroMoving();
     }
 
     protected virtual void TriggerBasicAbilityAnimation()
     {
         if (!_hasBasicAbilityAnimation) return;
 
-        myHeroBase.GetHeroVisuals().TriggerBasicAbilityAnimation();
+        _myHeroBase.GetHeroVisuals().TriggerBasicAbilityAnimation();
     }
 
     public virtual void ActivateBasicAbilities()
@@ -120,13 +120,13 @@ public abstract class SpecificHeroFramework : MonoBehaviour
             yield return null;
         }
 
-        myHeroBase.InvokeHeroManualAbilityFullyChargedEvent();
+        _myHeroBase.InvokeHeroManualAbilityFullyChargedEvent();
     }
 
     public virtual void AddToManualAbilityChargeTime(float addedAmount)
     {
         _manualAbilityCurrentCharge += addedAmount;
-        myHeroBase.InvokeHeroManualAbilityChargingEvent();
+        _myHeroBase.InvokeHeroManualAbilityChargingEvent();
     }
 
     public virtual void AttemptActivationOfManualAbility(Vector3 activateLocation)
@@ -141,7 +141,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     {
         if (!_hasManualAbilityAnimation) return;
 
-        myHeroBase.GetHeroVisuals().TriggerManualAbilityAnimation();
+        _myHeroBase.GetHeroVisuals().TriggerManualAbilityAnimation();
     }
 
     public virtual void ActivateManualAbilities(Vector3 attackLocation)
@@ -162,7 +162,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     {
         if (!_hasPassiveAbilityAnimation) return;
 
-        myHeroBase.GetHeroVisuals().TriggerPassiveAbilityAnimation();
+        _myHeroBase.GetHeroVisuals().TriggerPassiveAbilityAnimation();
     }
 
     public virtual void ActivatePassiveAbilities()
@@ -175,8 +175,8 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     #region GeneralAbilityFunctionality
     protected virtual bool InAttackRangeOfBoss(float attackRange)
     {
-        Vector2 heroPos = new Vector2(myHeroBase.gameObject.transform.position.x, 
-            myHeroBase.gameObject.transform.position.z);
+        Vector2 heroPos = new Vector2(_myHeroBase.gameObject.transform.position.x, 
+            _myHeroBase.gameObject.transform.position.z);
         Vector2 bossPos = new Vector2(GameplayManagers.Instance.GetBossManager().GetBossBase().transform.position.x,
             GameplayManagers.Instance.GetBossManager().GetBossBase().transform.position.z);
 
@@ -185,14 +185,14 @@ public abstract class SpecificHeroFramework : MonoBehaviour
 
     public virtual void DamageBoss(float damage)
     {
-        damage *= myHeroBase.GetHeroStats().GetCurrentDamageMultiplier();
+        damage *= _myHeroBase.GetHeroStats().GetCurrentDamageMultiplier();
 
         GameplayManagers.Instance.GetBossManager().GetBossBase().GetBossStats().DealDamageToBoss(damage);
     }
 
     public virtual void StaggerBoss(float stagger)
     {
-        stagger *= myHeroBase.GetHeroStats().GetCurrentStaggerMultiplier();
+        stagger *= _myHeroBase.GetHeroStats().GetCurrentStaggerMultiplier();
 
         GameplayManagers.Instance.GetBossManager().GetBossBase().GetBossStats().DealStaggerToBoss(stagger);
     }
@@ -207,7 +207,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
 
     public virtual void SetupSpecificHero(HeroBase heroBase, HeroSO heroSO)
     {
-        myHeroBase = heroBase;
+        _myHeroBase = heroBase;
         SetDefaultValues(heroSO);
         SubscribeToEvents();
     }
@@ -242,9 +242,9 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     {
         GameplayManagers.Instance.GetGameStateManager().GetStartOfBattleEvent().AddListener(BattleStarted);
 
-        myHeroBase.GetHeroManualAbilityAttemptEvent().AddListener(AttemptActivationOfManualAbility);
+        _myHeroBase.GetHeroManualAbilityAttemptEvent().AddListener(AttemptActivationOfManualAbility);
 
-        myHeroBase.GetHeroDiedEvent().AddListener(HeroDied);
+        _myHeroBase.GetHeroDiedEvent().AddListener(HeroDied);
     }
 
     #region Getters

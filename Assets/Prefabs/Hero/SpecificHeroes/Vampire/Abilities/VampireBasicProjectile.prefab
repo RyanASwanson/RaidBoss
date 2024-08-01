@@ -82,13 +82,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _damageCollider: {fileID: 2326089875531476630}
   _hasLifeTime: 1
-  _lifeTime: 1
+  _lifeTime: 0.5
+  _lifeTimeEndEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2326089874878324352}
+        m_TargetAssemblyTypeName: SHP_VampireBasicProjectile, Assembly-CSharp
+        m_MethodName: SplitProjectile
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _hitCenteredVFX: {fileID: 0}
-  _enterDamage: 0
-  _enterStagger: 0
+  _enterDamage: 1
+  _enterStagger: 3
   _enterEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6578385233860500370}
+        m_TargetAssemblyTypeName: GeneralHeroDamageArea, Assembly-CSharp
+        m_MethodName: DestroyProjectile
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _stayDamagePerTick: 0
   _stayStaggerPerTick: 0
   _stayDamageTickRate: 0
@@ -112,10 +139,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdb2b3d97c52a9c4f8fcc0de2c66cd2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectileSpeed: 1
+  _projectileSpeed: 2
   _canSplit: 1
   _splitProjectileCount: 3
-  _splitAngle: 20
+  _splitAngle: 35
   _splitProjectile: {fileID: 7639787455298137888, guid: 9769ed4d9eb0e9647b8b85ede6bfba42, type: 3}
 --- !u!54 &5964745161964343066
 Rigidbody:
@@ -209,7 +236,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.2, y: 0.6, z: 0.6}
+  m_Size: {x: 0.6, y: 0.6, z: 1.2}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6455346884744471664
 GameObject:
@@ -236,14 +263,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6455346884744471664}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2326089875358352345}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!33 &322302195148485701
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -272,7 +299,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -8469494145858465668, guid: bf2fce4b246627f459801f22afe85843, type: 3}
+  - {fileID: 2100000, guid: bb9dc6e6365b0af46a3bcf0f6d9f5d61, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -319,14 +346,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8232353157083666460}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2326089875358352345}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!33 &4828422607551796776
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -355,7 +382,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -8469494145858465668, guid: 5173feedbc3e3834dbb284e3be196e69, type: 3}
+  - {fileID: 2100000, guid: 627f997b394e6de4c9c2ce671d334e2b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
