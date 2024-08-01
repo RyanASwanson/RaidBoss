@@ -1,0 +1,286 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &765828979446408723
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4228083629024248214}
+  m_Layer: 0
+  m_Name: VampireBats
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4228083629024248214
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765828979446408723}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 9099861791948125304}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5198815955587345016
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9099861791948125304}
+  m_Layer: 0
+  m_Name: Visuals
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9099861791948125304
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5198815955587345016}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 492852550611047966}
+  m_Father: {fileID: 4228083629024248214}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5316999915757931883
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 492852550611047966}
+  m_Layer: 0
+  m_Name: Bats
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &492852550611047966
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5316999915757931883}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 335223549621610171}
+  - {fileID: 299261588115230507}
+  - {fileID: 4851570021646825225}
+  m_Father: {fileID: 9099861791948125304}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &3624339377819389061
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 492852550611047966}
+    m_Modifications:
+    - target: {fileID: 3921242890107716526, guid: 0a72e95edee81ba468bdded3b26ede31, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3921242890107716526, guid: 0a72e95edee81ba468bdded3b26ede31, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3921242890107716526, guid: 0a72e95edee81ba468bdded3b26ede31, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3921242890107716526, guid: 0a72e95edee81ba468bdded3b26ede31, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3921242890107716526, guid: 0a72e95edee81ba468bdded3b26ede31, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3921242890107716526, guid: 0a72e95edee81ba468bdded3b26ede31, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3921242890107716526, guid: 0a72e95edee81ba468bdded3b26ede31, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3921242890107716526, guid: 0a72e95edee81ba468bdded3b26ede31, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3921242890107716526, guid: 0a72e95edee81ba468bdded3b26ede31, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3921242890107716526, guid: 0a72e95edee81ba468bdded3b26ede31, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3921242890107716526, guid: 0a72e95edee81ba468bdded3b26ede31, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3921242890107716527, guid: 0a72e95edee81ba468bdded3b26ede31, type: 3}
+      propertyPath: m_Name
+      value: VampireBat (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0a72e95edee81ba468bdded3b26ede31, type: 3}
+--- !u!4 &299261588115230507 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3921242890107716526, guid: 0a72e95edee81ba468bdded3b26ede31, type: 3}
+  m_PrefabInstance: {fileID: 3624339377819389061}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &3660856575652734229
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 492852550611047966}
+    m_Modifications:
+    - target: {fileID: 3921242890107716526, guid: 0a72e95edee81ba468bdded3b26ede31, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3921242890107716526, guid: 0a72e95edee81ba468bdded3b26ede31, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3921242890107716526, guid: 0a72e95edee81ba468bdded3b26ede31, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3921242890107716526, guid: 0a72e95edee81ba468bdded3b26ede31, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3921242890107716526, guid: 0a72e95edee81ba468bdded3b26ede31, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3921242890107716526, guid: 0a72e95edee81ba468bdded3b26ede31, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3921242890107716526, guid: 0a72e95edee81ba468bdded3b26ede31, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3921242890107716526, guid: 0a72e95edee81ba468bdded3b26ede31, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3921242890107716526, guid: 0a72e95edee81ba468bdded3b26ede31, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3921242890107716526, guid: 0a72e95edee81ba468bdded3b26ede31, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3921242890107716526, guid: 0a72e95edee81ba468bdded3b26ede31, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3921242890107716527, guid: 0a72e95edee81ba468bdded3b26ede31, type: 3}
+      propertyPath: m_Name
+      value: VampireBat
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0a72e95edee81ba468bdded3b26ede31, type: 3}
+--- !u!4 &335223549621610171 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3921242890107716526, guid: 0a72e95edee81ba468bdded3b26ede31, type: 3}
+  m_PrefabInstance: {fileID: 3660856575652734229}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8448524859018114215
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 492852550611047966}
+    m_Modifications:
+    - target: {fileID: 3921242890107716526, guid: 0a72e95edee81ba468bdded3b26ede31, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3921242890107716526, guid: 0a72e95edee81ba468bdded3b26ede31, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3921242890107716526, guid: 0a72e95edee81ba468bdded3b26ede31, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3921242890107716526, guid: 0a72e95edee81ba468bdded3b26ede31, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3921242890107716526, guid: 0a72e95edee81ba468bdded3b26ede31, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3921242890107716526, guid: 0a72e95edee81ba468bdded3b26ede31, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3921242890107716526, guid: 0a72e95edee81ba468bdded3b26ede31, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3921242890107716526, guid: 0a72e95edee81ba468bdded3b26ede31, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3921242890107716526, guid: 0a72e95edee81ba468bdded3b26ede31, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3921242890107716526, guid: 0a72e95edee81ba468bdded3b26ede31, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3921242890107716526, guid: 0a72e95edee81ba468bdded3b26ede31, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3921242890107716527, guid: 0a72e95edee81ba468bdded3b26ede31, type: 3}
+      propertyPath: m_Name
+      value: VampireBat (2)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0a72e95edee81ba468bdded3b26ede31, type: 3}
+--- !u!4 &4851570021646825225 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3921242890107716526, guid: 0a72e95edee81ba468bdded3b26ede31, type: 3}
+  m_PrefabInstance: {fileID: 8448524859018114215}
+  m_PrefabAsset: {fileID: 0}
