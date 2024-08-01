@@ -28,8 +28,11 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     internal HeroBase _myHeroBase;
 
     protected Coroutine _attemptingBasicAbilitiesCoroutine;
-    internal Coroutine _basicAbilityCooldownCoroutine;
-    internal Coroutine _manualAbilityCooldownCoroutine;
+    protected Coroutine _basicAbilityCooldownCoroutine;
+    protected Coroutine _manualAbilityCooldownCoroutine;
+
+    protected UnityEvent<float> _heroDealtDamageEvent = new UnityEvent<float>();
+    protected UnityEvent<float> _heroDealtStaggerEvent = new UnityEvent<float>();
 
     #region Basic Abilities
     protected virtual void StartCooldownBasicAbility()
@@ -247,12 +250,28 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         _myHeroBase.GetHeroDiedEvent().AddListener(HeroDied);
     }
 
+    #region Events
+    protected void InvokeHeroDealtDamageEvent(float damage)
+    {
+        _heroDealtDamageEvent?.Invoke(damage);
+    }
+    protected void InvokeHeroDealtStaggerEvent(float stagger)
+    {
+        _heroDealtStaggerEvent?.Invoke(stagger);
+    }
+    #endregion
+
     #region Getters
     public float GetBasicAbilityChargeTime() => _basicAbilityChargeTime;
 
     public float GetManualAbilityChargePercent() => _manualAbilityCurrentCharge / _manualAbilityChargeTime;
 
     public Animator GetSpecificHeroAnimator() => _heroSpecificAnimator;
+
+    public UnityEvent<float> GetHeroDealtDamageEvent() => _heroDealtDamageEvent;
+    public UnityEvent<float> GetHeroDealtStaggerEvent() => _heroDealtStaggerEvent;
     #endregion
+
+    
 
 }
