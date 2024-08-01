@@ -5,9 +5,9 @@ using UnityEngine;
 public class SH_Reaper : SpecificHeroFramework
 {
     [Space]
-    [SerializeField] private GameObject _basicAbilityProjectile;
+    [SerializeField] private GameObject _basicProjectile;
 
-    [SerializeField] private GameObject _manualAbilityProjectile;
+    [SerializeField] private GameObject _manualProjectile;
 
     [Space]
     [SerializeField] private float _deathPersistDuration;
@@ -20,13 +20,15 @@ public class SH_Reaper : SpecificHeroFramework
 
     public override void ActivateBasicAbilities()
     {
+        base.ActivateBasicAbilities();
+
         CreateBasicAbilityProjectile();
     }
 
     private void CreateBasicAbilityProjectile()
     {
         //Creates the projectile at the hero location
-        GameObject spawnedProjectile = Instantiate(_basicAbilityProjectile, transform.position, Quaternion.identity);
+        GameObject spawnedProjectile = Instantiate(_basicProjectile, transform.position, Quaternion.identity);
 
         //Does the universal projectile setup
         spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(myHeroBase);
@@ -51,7 +53,7 @@ public class SH_Reaper : SpecificHeroFramework
         attackLocation = new Vector3(attackLocation.x, transform.position.y, attackLocation.z);
 
         //Creates the projectile where the mouse is
-        GameObject spawnedProjectile = Instantiate(_manualAbilityProjectile, attackLocation, Quaternion.identity);
+        GameObject spawnedProjectile = Instantiate(_manualProjectile, attackLocation, Quaternion.identity);
 
         //Does the universal projectile setup
         spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(myHeroBase);

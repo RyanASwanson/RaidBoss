@@ -31,6 +31,15 @@ public class BossManager : BaseGameplayManager
     #region Getters
     public BossBase GetBossBase() => _bossBase;
     public GameObject GetBossBaseGameObject() => _bossGameObject;
+
+    public Vector3 GetDirectionToBoss(Vector3 startLocation)
+    {
+        Vector3 returnVector = _bossGameObject.transform.position - startLocation;
+        returnVector = new Vector3(returnVector.x, 0, returnVector.z).normalized;
+
+        return returnVector;
+    }
+
     #endregion
 
     #region Setters

@@ -9,16 +9,11 @@ using UnityEngine;
 /// </summary>
 public class SHP_ShamanBasicAbility : HeroProjectileFramework
 {
-    [SerializeField] private float _projectileLifetime;
 
     public override void SetUpProjectile(HeroBase heroBase)
     {
         base.SetUpProjectile(heroBase);
     }
 
-    public void AdditionalSetup()
-    {
-        Destroy(gameObject, _projectileLifetime);
-    }
 
 }

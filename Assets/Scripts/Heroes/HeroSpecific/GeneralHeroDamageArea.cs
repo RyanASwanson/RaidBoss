@@ -12,6 +12,7 @@ public class GeneralHeroDamageArea : MonoBehaviour
     [SerializeField] private Collider _damageCollider;
     [SerializeField] private bool _hasLifeTime;
     [SerializeField] private float _lifeTime;
+    [SerializeField] private UnityEvent _lifeTimeEndEvent;
     [Space]
     [SerializeField] private GameObject _hitCenteredVFX;
 
@@ -36,7 +37,14 @@ public class GeneralHeroDamageArea : MonoBehaviour
     private void Start()
     {
         if (_hasLifeTime)
-            Destroy(gameObject, _lifeTime);
+            StartCoroutine(LifeTimeDestruction());
+    }
+
+    private IEnumerator LifeTimeDestruction()
+    {
+        yield return new WaitForSeconds(_lifeTime);
+        _lifeTimeEndEvent?.Invoke();
+        Destroy(gameObject);
     }
 
     public void SetUpDamageArea(HeroBase heroBase)
@@ -106,7 +114,7 @@ public class GeneralHeroDamageArea : MonoBehaviour
     }
     #endregion
 
-    public void CreateDestructionVFX()
+    public void CreateHitDestructionVFX()
     {
         if (_hitCenteredVFX == null) return;
         Instantiate(_hitCenteredVFX, transform.position, Quaternion.identity);
@@ -114,7 +122,7 @@ public class GeneralHeroDamageArea : MonoBehaviour
 
     public void DestroyProjectile()
     {
-        CreateDestructionVFX();
+        CreateHitDestructionVFX();
         Destroy(gameObject);
     }
 
