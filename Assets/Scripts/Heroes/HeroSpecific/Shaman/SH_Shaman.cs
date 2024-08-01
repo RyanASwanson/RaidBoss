@@ -13,11 +13,6 @@ public class SH_Shaman : SpecificHeroFramework
     private GameObject _currentTotem;
 
     #region Basic Abilities
-    public override bool ConditionsToActivateBasicAbilities()
-    {
-        return !myHeroBase.GetPathfinding().IsHeroMoving();
-    }
-
     public override void ActivateBasicAbilities()
     {
         base.ActivateBasicAbilities();

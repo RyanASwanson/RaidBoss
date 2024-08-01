@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7576377450728511968}
+  - component: {fileID: 9086158948375762004}
+  - component: {fileID: 5042494388720665591}
   m_Layer: 0
   m_Name: Vampire
   m_TagString: Untagged
@@ -32,6 +34,49 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9086158948375762004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6798539756391374170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ececbe150ee4444ba98f7697970832b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _basicAbilityChargeTime: 4
+  _manualAbilityChargeTime: 20
+  _heroSpecificAnimator: {fileID: 5042494388720665591}
+  _hasBasicAbilityAnimation: 0
+  _hasManualAbilityAnimation: 0
+  _hasPassiveAbilityAnimation: 0
+  _basicProjectile: {fileID: 0}
+  _manualAbilityDuration: 8
+  _manualAbilityHealingMultiplier: 2
+  _passiveAbilityLifestealMultiplier: 1
+--- !u!95 &5042494388720665591
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6798539756391374170}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6f71bd28664442643944db0f9c040572, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &6627653811387902913
 PrefabInstance:
   m_ObjectHideFlags: 0

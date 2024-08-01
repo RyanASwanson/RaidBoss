@@ -19,15 +19,6 @@ public class SH_Samurai : SpecificHeroFramework
     private Coroutine _parryCoroutine;
 
     #region Basic Abilities
-    /// <summary>
-    /// Holds the conditions needed for a successful basic attack
-    /// Requires the samurai to be stationary
-    /// </summary>
-    /// <returns></returns>
-    public override bool ConditionsToActivateBasicAbilities()
-    {
-        return !myHeroBase.GetPathfinding().IsHeroMoving();
-    }
 
     /// <summary>
     /// Performs a horizontal slash
