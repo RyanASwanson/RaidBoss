@@ -20,7 +20,7 @@ public class SH_Reaper : SpecificHeroFramework
 
     public override void ActivateBasicAbilities()
     {
-        base.ActivateBasicAbilities();
+        //Doesn't use base.basic ability
 
         CreateBasicAbilityProjectile();
     }
