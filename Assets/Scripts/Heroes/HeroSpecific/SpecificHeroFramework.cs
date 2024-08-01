@@ -191,6 +191,8 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         damage *= _myHeroBase.GetHeroStats().GetCurrentDamageMultiplier();
 
         GameplayManagers.Instance.GetBossManager().GetBossBase().GetBossStats().DealDamageToBoss(damage);
+
+        InvokeHeroDealtDamageEvent(damage);
     }
 
     public virtual void StaggerBoss(float stagger)
@@ -198,6 +200,8 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         stagger *= _myHeroBase.GetHeroStats().GetCurrentStaggerMultiplier();
 
         GameplayManagers.Instance.GetBossManager().GetBossBase().GetBossStats().DealStaggerToBoss(stagger);
+
+        InvokeHeroDealtStaggerEvent(stagger);
     }
 
     public virtual void HeroTakeDamageOverride(float damage)

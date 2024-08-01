@@ -81,7 +81,7 @@ public class HeroStats : HeroChildrenFunctionality
             return;
         }
 
-        if (healing == 0) return;
+        if (healing == 0 || IsHeroMaxHealth()) return;
 
         SetPreviousHealthValue();
 
