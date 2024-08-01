@@ -9,7 +9,7 @@ public class SH_Vampire : SpecificHeroFramework
 
     [Space]
     [SerializeField] private float _manualAbilityDuration;
-    [SerializeField] private float _manualAbilityHealingMultiplier;
+    [SerializeField] private float _manualAbilityHealingIncrease;
 
     [Space]
     [SerializeField] private float _passiveAbilityLifestealMultiplier;
@@ -41,6 +41,26 @@ public class SH_Vampire : SpecificHeroFramework
     #endregion
 
     #region Manual Abilities
+
+    public override void ActivateManualAbilities(Vector3 attackLocation)
+    {
+        base.ActivateManualAbilities(attackLocation);
+
+        StartCoroutine(ManualAbilityProcess());
+    }
+
+    protected IEnumerator ManualAbilityProcess()
+    {
+        HeroStats heroStats = _myHeroBase.GetHeroStats();
+
+        heroStats.AddDamageTakenOverrideCounter();
+        heroStats.ChangeCurrentHeroHealingReceivedMultiplier(_manualAbilityHealingIncrease);
+
+        yield return new WaitForSeconds(_manualAbilityDuration);
+
+        heroStats.RemoveDamageTakenOverrideCounter();
+        heroStats.ChangeCurrentHeroHealingReceivedMultiplier(-_manualAbilityHealingIncrease);
+    }
 
     #endregion
 

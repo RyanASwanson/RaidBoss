@@ -42,6 +42,7 @@ public class SH_Guardian : SpecificHeroFramework
     {
         GameplayManagers.Instance.GetBossManager().GetBossBase().GetSpecificBossScript()
             .HeroOverrideAggro(_myHeroBase, _heroManualAbilityDuration);
+
         base.ActivateManualAbilities(attackLocation);
     }
     #endregion
