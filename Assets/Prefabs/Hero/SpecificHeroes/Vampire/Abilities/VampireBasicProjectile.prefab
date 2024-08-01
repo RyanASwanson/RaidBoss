@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 6578385233860500370}
   - component: {fileID: 2326089874878324352}
   - component: {fileID: 5964745161964343066}
+  - component: {fileID: 2051945748236001724}
   m_Layer: 0
   m_Name: VampireBasicProjectile
   m_TagString: Untagged
@@ -144,6 +145,7 @@ MonoBehaviour:
   _splitProjectileCount: 3
   _splitAngle: 35
   _splitProjectile: {fileID: 7639787455298137888, guid: 9769ed4d9eb0e9647b8b85ede6bfba42, type: 3}
+  _projectileAnimator: {fileID: 2051945748236001724}
 --- !u!54 &5964745161964343066
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -160,6 +162,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!95 &2051945748236001724
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2326089874878324366}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 717b29bf1de36db46a3fb812477ebd3b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2326089875358352326
 GameObject:
   m_ObjectHideFlags: 0

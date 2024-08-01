@@ -17,11 +17,27 @@ public class SHP_VampireBasicProjectile : HeroProjectileFramework
     [Space]
     [SerializeField] private GameObject _splitProjectile;
 
+    [Space]
+    [SerializeField] private Animator _projectileAnimator;
+
+    private const string _basicAttackAnim = "BasicAttack";
+    private const string _splitAttackAnim = "SplitAttack";
+
     public override void SetUpProjectile(HeroBase heroBase)
     {
         base.SetUpProjectile(heroBase);
 
+        StartAnimations();
+
         StartCoroutine(MoveProjectile());
+    }
+
+    private void StartAnimations()
+    {
+        if (_canSplit)
+            _projectileAnimator.SetTrigger(_basicAttackAnim);
+        else
+            _projectileAnimator.SetTrigger(_splitAttackAnim);
     }
 
     private IEnumerator MoveProjectile()
