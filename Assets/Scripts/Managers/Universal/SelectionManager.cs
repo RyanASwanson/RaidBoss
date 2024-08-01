@@ -20,6 +20,11 @@ public class SelectionManager : BaseUniversalManager
     [Range(1, 2.5f)] [SerializeField] private float _mythicSpeedMultiplier;
     [Range(1, 2.5f)] [SerializeField] private float _mythicHealthMultiplier;
     [Range(1, 2.5f)] [SerializeField] private float _mythicStaggerMultiplier;
+    [Space]
+    [Range(1, 2.5f)] [SerializeField] private float _mythicPlusDamageMultiplier;
+    [Range(1, 2.5f)] [SerializeField] private float _mythicPlusSpeedMultiplier;
+    [Range(1, 2.5f)] [SerializeField] private float _mythicPlusHealthMultiplier;
+    [Range(1, 2.5f)] [SerializeField] private float _mythicPlusStaggerMultiplier;
 
     [Space]
     [SerializeField] private List<Sprite> _difficultyIcons;
@@ -78,6 +83,11 @@ public class SelectionManager : BaseUniversalManager
         _difficultyAttackSpeedMultiplierDictionary.Add(GameDifficulty.Mythic, _mythicSpeedMultiplier);
         _difficultyHealthMultiplierDictionary.Add(GameDifficulty.Mythic, _mythicHealthMultiplier);
         _difficultyStaggerMultiplierDictionary.Add(GameDifficulty.Mythic, _mythicStaggerMultiplier);
+
+        _difficultyDamageMultiplierDictionary.Add(GameDifficulty.MythicPlus, _mythicPlusDamageMultiplier);
+        _difficultyAttackSpeedMultiplierDictionary.Add(GameDifficulty.MythicPlus, _mythicPlusSpeedMultiplier);
+        _difficultyHealthMultiplierDictionary.Add(GameDifficulty.MythicPlus, _mythicPlusHealthMultiplier);
+        _difficultyStaggerMultiplierDictionary.Add(GameDifficulty.MythicPlus, _mythicPlusStaggerMultiplier);
     }
 
     public void RemoveSelectedLevel()
@@ -247,5 +257,6 @@ public enum GameDifficulty
     Empty,
     Normal,
     Heroic,
-    Mythic
+    Mythic,
+    MythicPlus
 };
