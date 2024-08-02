@@ -16,6 +16,7 @@ public class BossVisuals : BossChildrenFunctionality
 
     private Animator _bossSpecificAnimator;
 
+    private const string _bossSpecificIntroTriggerAnim = "G_BossIntro";
     private const string _bossStaggerTriggerAnim = "G_BossStagger";
     private const string _bossDeathTriggerAnim = "G_BossDeath";
 
@@ -86,6 +87,11 @@ public class BossVisuals : BossChildrenFunctionality
         BossSpecificStaggerAnimTrigger();
     }
 
+    private void BossSpecificLevelIntroTrigger()
+    {
+        StartBossSpecificAnimationTrigger(_bossSpecificIntroTriggerAnim);
+    }
+
     private void BossSpecificStaggerAnimTrigger()
     {
         StartBossSpecificAnimationTrigger(_bossStaggerTriggerAnim);
@@ -124,6 +130,8 @@ public class BossVisuals : BossChildrenFunctionality
         _rotateSpeed = myBossBase.GetBossSO().GetBossRotationSpeed();
 
         _bossSpecificAnimator = myBossBase.GetSpecificBossScript().GetBossSpecificAnimator();
+
+        BossSpecificLevelIntroTrigger();
     }
 
     public override void SubscribeToEvents()

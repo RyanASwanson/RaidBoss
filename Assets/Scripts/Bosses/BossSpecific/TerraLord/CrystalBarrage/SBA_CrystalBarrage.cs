@@ -6,6 +6,7 @@ public class SBA_CrystalBarrage : SpecificBossAbilityFramework
 {
     [Space]
     [SerializeField] private int _projectileCount;
+    [SerializeField] private float _timeBeforeProjectiles;
     [SerializeField] private float _timeBetweenProjectiles;
 
     [Space]
@@ -86,6 +87,8 @@ public class SBA_CrystalBarrage : SpecificBossAbilityFramework
 
     protected IEnumerator UpwardsProjectileProcess()
     {
+        yield return new WaitForSeconds(_timeBeforeProjectiles);
+
         for(int i = 0; i < _projectileCount; i++)
         {
             CreateUpwardsProjectile();
