@@ -8,7 +8,7 @@ public class SH_Astromancer : SpecificHeroFramework
     [SerializeField] private GameObject _basicProjectile;
 
     [Space]
-    [SerializeField] private GameObject _manualProjectiles;
+    [SerializeField] private GameObject _manualProjectile;
 
     [Space]
     [SerializeField] private float _passiveRechargeManualAmount;
@@ -47,6 +47,7 @@ public class SH_Astromancer : SpecificHeroFramework
 
     protected void CreateManualAttackProjectiles()
     {
+        GameObject spawnedProjectile = Instantiate(_manualProjectile, transform);
     }
 
     #endregion

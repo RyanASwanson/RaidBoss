@@ -60,11 +60,15 @@ public class GeneralHeroDamageArea : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
+        if (!enabled) return;
+
         HitBoss(collision, _enterEvent, _enterDamage, _enterStagger);
     }
 
     private void OnTriggerStay(Collider collision)
     {
+        if (!enabled) return;
+
         if (HitBoss(collision, _stayEvent,
             _stayDamagePerTick, _stayStaggerPerTick) && (_stayDamageTickRate > 0))
         {
@@ -74,6 +78,8 @@ public class GeneralHeroDamageArea : MonoBehaviour
 
     private void OnTriggerExit(Collider collision)
     {
+        if (!enabled) return;
+
         HitBoss(collision, _exitEvent, _exitDamage, _exitStagger);
     }
 

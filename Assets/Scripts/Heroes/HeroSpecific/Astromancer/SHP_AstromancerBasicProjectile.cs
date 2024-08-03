@@ -33,7 +33,9 @@ public class SHP_AstromancerBasicProjectile : HeroProjectileFramework
     private void SubscribeToEvents()
     {
         _generalDamageArea.GetEnterEvent().AddListener(HitBoss);
+        _generalDamageArea.GetStayEvent().AddListener(HitBoss);
         _generalHealArea.GetEnterEvent().AddListener(HitHero);
+        _generalHealArea.GetStayEvent().AddListener(HitHero);
     }
 
 
@@ -51,7 +53,10 @@ public class SHP_AstromancerBasicProjectile : HeroProjectileFramework
         if (!_hasHitBoss)
         {
             _hasHitBoss = true;
+
+            _generalDamageArea.enabled = false;
             _generalHealArea.enabled = true;
+
             FlipDirection();
         }
            
@@ -65,9 +70,11 @@ public class SHP_AstromancerBasicProjectile : HeroProjectileFramework
         HeroBase storedSpecificHero = collider.gameObject.GetComponentInParent<HeroBase>();
         if (storedSpecificHero != _myHeroBase) return;
 
-
+        _generalDamageArea.enabled = true;
         _generalHealArea.enabled = false;
+
         FlipDirection();
+        TriggerHeroPassive();
     }
 
     private void FlipDirection()
