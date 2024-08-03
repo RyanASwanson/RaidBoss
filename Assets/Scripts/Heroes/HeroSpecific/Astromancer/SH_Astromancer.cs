@@ -48,6 +48,9 @@ public class SH_Astromancer : SpecificHeroFramework
     protected void CreateManualAttackProjectiles()
     {
         GameObject spawnedProjectile = Instantiate(_manualProjectile, transform);
+
+        SHP_AstromancerManualProjectile projectileFunc = spawnedProjectile.GetComponent<SHP_AstromancerManualProjectile>();
+        projectileFunc.SetUpProjectile(_myHeroBase);
     }
 
     #endregion
