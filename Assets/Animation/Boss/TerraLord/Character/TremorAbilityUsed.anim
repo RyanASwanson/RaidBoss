@@ -53,7 +53,7 @@ AnimationClip:
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 3.8
-        value: {x: 0, y: 15, z: 0}
+        value: {x: -5, y: 15, z: 0}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -62,27 +62,27 @@ AnimationClip:
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 4
-        value: {x: 0, y: -15, z: 0}
-        inSlope: {x: 0, y: 0, z: 0}
-        outSlope: {x: 0, y: 0, z: 0}
+        value: {x: -4.6296296, y: -15, z: 0}
+        inSlope: {x: 3.4722228, y: 0, z: 0}
+        outSlope: {x: 3.4722228, y: 0, z: 0}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 4.2
-        value: {x: 0, y: 15, z: 0}
-        inSlope: {x: 0, y: 0, z: 0}
-        outSlope: {x: 0, y: 0, z: 0}
+        value: {x: -3.7037048, y: 15, z: 0}
+        inSlope: {x: 5.5555544, y: 0, z: 0}
+        outSlope: {x: 5.5555544, y: 0, z: 0}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 4.4
-        value: {x: 0, y: -15, z: 0}
-        inSlope: {x: 0, y: 0, z: 0}
-        outSlope: {x: 0, y: 0, z: 0}
+        value: {x: -2.4999993, y: -15, z: 0}
+        inSlope: {x: 6.2500005, y: 0, z: 0}
+        outSlope: {x: 6.2500005, y: 0, z: 0}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
@@ -163,7 +163,7 @@ AnimationClip:
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
-        time: 2
+        time: 1.5
         value: {x: 0, y: 0, z: 0}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
@@ -206,7 +206,7 @@ AnimationClip:
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
-        time: 2
+        time: 1.5
         value: {x: 0, y: 0, z: 0}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
@@ -1133,6 +1133,15 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
+        time: 3.8
+        value: -5
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
         time: 5
         value: 0
         inSlope: 0
@@ -1421,7 +1430,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 2
+        time: 1.5
         value: 0
         inSlope: 0
         outSlope: 0
@@ -1467,7 +1476,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 2
+        time: 1.5
         value: 0
         inSlope: 0
         outSlope: 0
@@ -1541,7 +1550,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 2
+        time: 1.5
         value: 0
         inSlope: 0
         outSlope: 0
@@ -3747,7 +3756,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Terra Lord Model/UpperBodyPivot
+    path: Terra Lord Model/UpperBodyPivot/ShouldersPivot/LeftShoulderPivot/LeftArmPivot
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -3757,7 +3766,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Terra Lord Model/UpperBodyPivot
+    path: Terra Lord Model/UpperBodyPivot/ShouldersPivot/LeftShoulderPivot/LeftArmPivot
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -3767,7 +3776,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Terra Lord Model/UpperBodyPivot
+    path: Terra Lord Model/UpperBodyPivot/ShouldersPivot/LeftShoulderPivot/LeftArmPivot
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -3777,7 +3786,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Terra Lord Model/UpperBodyPivot/ShouldersPivot/LeftShoulderPivot/LeftArmPivot
+    path: Terra Lord Model/UpperBodyPivot/ShouldersPivot/LeftShoulderPivot
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -3787,7 +3796,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Terra Lord Model/UpperBodyPivot/ShouldersPivot/LeftShoulderPivot/LeftArmPivot
+    path: Terra Lord Model/UpperBodyPivot/ShouldersPivot/LeftShoulderPivot
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -3797,7 +3806,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Terra Lord Model/UpperBodyPivot/ShouldersPivot/LeftShoulderPivot/LeftArmPivot
+    path: Terra Lord Model/UpperBodyPivot/ShouldersPivot/LeftShoulderPivot
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -3897,7 +3906,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Terra Lord Model/UpperBodyPivot/ShouldersPivot/LeftShoulderPivot
+    path: Terra Lord Model/UpperBodyPivot
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -3907,7 +3916,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Terra Lord Model/UpperBodyPivot/ShouldersPivot/LeftShoulderPivot
+    path: Terra Lord Model/UpperBodyPivot
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -3917,7 +3926,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Terra Lord Model/UpperBodyPivot/ShouldersPivot/LeftShoulderPivot
+    path: Terra Lord Model/UpperBodyPivot
     classID: 4
     script: {fileID: 0}
   m_HasGenericRootTransform: 0
