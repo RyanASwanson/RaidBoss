@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 908535587928924495}
+  - component: {fileID: 4224236925297842562}
+  - component: {fileID: 1177675312439817104}
   m_Layer: 0
   m_Name: Astromancer
   m_TagString: Untagged
@@ -32,6 +34,47 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4224236925297842562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 908535587928924494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daf0401c78c7fc341975931bfeb8d6f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _basicAbilityChargeTime: 7
+  _manualAbilityChargeTime: 20
+  _heroSpecificAnimator: {fileID: 1177675312439817104}
+  _hasBasicAbilityAnimation: 0
+  _hasManualAbilityAnimation: 0
+  _hasPassiveAbilityAnimation: 0
+  _basicProjectile: {fileID: 0}
+  _manualProjectiles: {fileID: 0}
+--- !u!95 &1177675312439817104
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 908535587928924494}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 78e34e4b9e8028f47bb3ad3f4532eb35, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &7102958493377330405
 PrefabInstance:
   m_ObjectHideFlags: 0

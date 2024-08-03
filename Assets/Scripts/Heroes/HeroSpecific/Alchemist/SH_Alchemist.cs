@@ -17,11 +17,6 @@ public class SH_Alchemist : SpecificHeroFramework
     [SerializeField] private float _potionDistanceMultiplier;
 
     #region Basic Abilities
-    public override bool ConditionsToActivateBasicAbilities()
-    {
-        return !_myHeroBase.GetPathfinding().IsHeroMoving();
-    }
-
     public override void ActivateBasicAbilities()
     {
         base.ActivateBasicAbilities();
