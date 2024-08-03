@@ -23,7 +23,16 @@ public class SH_Astromancer : SpecificHeroFramework
 
     protected void CreateBasicAttackProjectiles()
     {
+        GameObject spawnedProjectile = Instantiate(_basicProjectile, transform.position, Quaternion.identity);
 
+        SHP_AstromancerBasicProjectile projectileFunc = spawnedProjectile.GetComponent<SHP_AstromancerBasicProjectile>();
+        projectileFunc.SetUpProjectile(_myHeroBase);
+
+        Vector3 storedProjectileDirection = GameplayManagers.Instance.GetBossManager().GetDirectionToBoss(transform.position);
+        projectileFunc.AdditionalSetup(this, storedProjectileDirection);
+
+        spawnedProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(_myHeroBase);
+        spawnedProjectile.GetComponent<GeneralHeroHealArea>().SetUpHealingArea(_myHeroBase);
     }
 
     #endregion
@@ -45,7 +54,7 @@ public class SH_Astromancer : SpecificHeroFramework
     #region Passive Abilities
     public override void ActivatePassiveAbilities()
     {
-
+        AddToManualAbilityChargeTime(_passiveRechargeManualAmount);
     }
 
     #endregion

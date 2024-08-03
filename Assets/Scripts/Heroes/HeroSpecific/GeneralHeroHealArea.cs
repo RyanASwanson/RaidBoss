@@ -80,6 +80,8 @@ public class GeneralHeroHealArea : MonoBehaviour
 
     private void DealHealing(HeroBase heroBase, float abilityHealing)
     {
+        if (_myHeroBase == null) print("Cant Find Hero Base");
+
         abilityHealing *= _myHeroBase.GetHeroStats().GetCurrentHealingDealtMultiplier();
 
         if (abilityHealing > 0)
