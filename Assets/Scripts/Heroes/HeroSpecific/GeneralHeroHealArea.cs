@@ -46,11 +46,15 @@ public class GeneralHeroHealArea : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
+        if (!enabled) return;
+
         HitHero(collision, _enterEvent, _enterHealing);
     }
 
     private void OnTriggerStay(Collider collision)
     {
+        if (!enabled) return;
+
         if (HitHero(collision, _stayEvent, _stayHealingPerTick) && _stayHealingTickRate > 0)
         {
             StartCoroutine(DisableColliderForDuration(_stayHealingTickRate));
@@ -59,6 +63,8 @@ public class GeneralHeroHealArea : MonoBehaviour
 
     private void OnTriggerExit(Collider collision)
     {
+        if (!enabled) return;
+
         HitHero(collision, _exitEvent, _exitHealing);
     }
 
@@ -80,8 +86,6 @@ public class GeneralHeroHealArea : MonoBehaviour
 
     private void DealHealing(HeroBase heroBase, float abilityHealing)
     {
-        if (_myHeroBase == null) print("Cant Find Hero Base");
-
         abilityHealing *= _myHeroBase.GetHeroStats().GetCurrentHealingDealtMultiplier();
 
         if (abilityHealing > 0)

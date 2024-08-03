@@ -49,15 +49,22 @@ public class SHP_AstromancerBasicProjectile : HeroProjectileFramework
     public void HitBoss(Collider collider)
     {
         if (!_hasHitBoss)
+        {
+            _hasHitBoss = true;
+            _generalHealArea.enabled = true;
             FlipDirection();
+        }
+           
         else
             _generalDamageArea.DestroyProjectile();
     }
     
     public void HitHero(Collider collider)
     {
-        HeroBase storedSpecificHero = collider.gameObject.GetComponent<HeroBase>();
+
+        HeroBase storedSpecificHero = collider.gameObject.GetComponentInParent<HeroBase>();
         if (storedSpecificHero != _myHeroBase) return;
+
 
         _generalHealArea.enabled = false;
         FlipDirection();

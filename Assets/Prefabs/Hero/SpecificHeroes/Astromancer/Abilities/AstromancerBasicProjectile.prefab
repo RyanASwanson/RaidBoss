@@ -242,8 +242,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damageCollider: {fileID: 7688413976365016179}
-  _hasLifeTime: 0
-  _lifeTime: 0
+  _hasLifeTime: 1
+  _lifeTime: 6
   _lifeTimeEndEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -271,12 +271,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7688413976857446936}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c367aa1a00f259d4c99948524ab26ba4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healingCollider: {fileID: 0}
+  _healingCollider: {fileID: 7688413976365016179}
   _hasLifeTime: 0
   _lifeTime: 0
   _ignoreFullHealth: 0
@@ -306,7 +306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e577f1972f333a49a2447da58f71c42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectileSpeed: 2
+  _projectileSpeed: 3
   _generalDamageArea: {fileID: 5478770782346241450}
   _generalHealArea: {fileID: 5312791802309699570}
 --- !u!54 &637497239959439783

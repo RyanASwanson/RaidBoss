@@ -38,7 +38,6 @@ public class BossManager : BaseGameplayManager
         returnVector = new Vector3(returnVector.x, 0, returnVector.z);
         returnVector.Normalize();
 
-        Debug.Log("Return Vec" + returnVector + " " + _bossGameObject.transform.position + " " +startLocation);
         return returnVector;
     }
 
