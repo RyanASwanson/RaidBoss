@@ -12,7 +12,6 @@ public class SBA_Entomb : SpecificBossAbilityFramework
     [SerializeField] private GameObject _entombWall;
 
     [SerializeField] private GameObject _targetZone;
-    [SerializeField] private GameObject _safeZone;
 
     private GameObject _currentSafeZone;
 
@@ -22,8 +21,8 @@ public class SBA_Entomb : SpecificBossAbilityFramework
 
         _currentTargetZones.Add(Instantiate(_targetZone, _storedTargetLocation, _storedTargetRotation));
 
-        _currentSafeZone = Instantiate(_safeZone, _storedTargetLocation, _storedTargetRotation);
-        _currentTargetZones.Add(_currentSafeZone);
+        //_currentSafeZone = Instantiate(_safeZone, _storedTargetLocation, _storedTargetRotation);
+        //_currentTargetZones.Add(_currentSafeZone);
 
         base.StartShowTargetZone();
     }
@@ -32,10 +31,10 @@ public class SBA_Entomb : SpecificBossAbilityFramework
     {
         GameObject storedEntomb = Instantiate(_entomb, _storedTargetLocation, _storedTargetRotation);
 
-        if (_currentSafeZone.GetComponent<BossAbilitySafeZone>().DoesSafeZoneContainHero())
+        /*if (_currentSafeZone.GetComponent<BossAbilitySafeZone>().DoesSafeZoneContainHero())
         {
             return;
-        }
+        }*/
 
         GameObject storedWalls = Instantiate(_entombWall, _storedTargetLocation, _storedTargetRotation);
         storedWalls.GetComponent<SBP_EntombWalls>().SetUpProjectile(_myBossBase);
@@ -47,9 +46,24 @@ public class SBA_Entomb : SpecificBossAbilityFramework
 
     protected void CalculateAttackRotation()
     {
-        float randomYRotation = Random.Range(-1, 1) * _rotationAmount;
+        float rotationMultiplier = 1;
+        switch (Random.Range(0, 2))
+        {
+            case (0):
+                rotationMultiplier *= -1;
+                break;
+            case (1):
+                break;
+        }
+
+        Debug.Log(rotationMultiplier);
+
+
+        float randomYRotation = rotationMultiplier * _rotationAmount;
 
         _storedTargetRotation = Quaternion.Euler(new Vector3(0, randomYRotation, 0));
+
+        Debug.Log(_storedTargetRotation);
         
     }
 
