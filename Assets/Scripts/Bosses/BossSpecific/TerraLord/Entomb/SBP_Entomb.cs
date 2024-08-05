@@ -12,6 +12,10 @@ public class SBP_Entomb : BossProjectileFramework
     [SerializeField] private List<GeneralBossDamageArea> _closingWalls;
 
     [Space]
+
+    [SerializeField] private GameObject _closedParticleVFX;
+
+    [Space]
     [SerializeField] private NavMeshObstacle _navMeshObstacle;
 
     [SerializeField] private Animator _animator;
@@ -32,10 +36,15 @@ public class SBP_Entomb : BossProjectileFramework
 
     private void EntombComplete()
     {
+        Instantiate(_closedParticleVFX, transform.position, transform.rotation);
+
         DisableHitboxes();
 
         if (CanCreateObstacle())
             CreateNavMeshObstacle();
+        else
+            DestroyRemainingWall();
+
     }
     
     private void DisableHitboxes()
@@ -55,6 +64,15 @@ public class SBP_Entomb : BossProjectileFramework
                 return false;
         }
         return true;
+    }
+
+    private void DestroyRemainingWall()
+    {
+        foreach (GeneralBossDamageArea damageArea in _closingWalls)
+        {
+            if (damageArea != null)
+                damageArea.DestroyProjectile();
+        }
     }
 
     private void CreateNavMeshObstacle()

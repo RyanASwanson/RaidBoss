@@ -5,7 +5,9 @@ using UnityEngine;
 public class SBA_EncirclingVines : SpecificBossAbilityFramework
 {
     [Space]
+    [SerializeField] private float _yLoc;
 
+    [Space]
     [SerializeField] private GameObject _encirclingVines;
     [SerializeField] private GameObject _targetZone;
 
@@ -25,7 +27,9 @@ public class SBA_EncirclingVines : SpecificBossAbilityFramework
     {
         while(_newestTargetZone != null && _storedTarget != null)
         {
-            _newestTargetZone.transform.position = _storedTarget.transform.position;
+            _newestTargetZone.transform.position =  
+                new Vector3(_storedTarget.transform.position.x, _yLoc, _storedTarget.transform.position.z);
+
             yield return null;
         }
     }
