@@ -9,6 +9,7 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
 
     [SerializeField] private PotionTypes _potionType;
     [SerializeField] private float _buffStrength;
+    [SerializeField] private float _secondaryBuffStrength;
     [SerializeField] private float _buffDuration;
 
     [Space]
@@ -107,6 +108,6 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
 
     private void ApplyBuffToHero(HeroStats heroStats, HeroGeneralAdjustableStats stat)
     {
-        heroStats.ApplyStatChangeForDuration(stat, _buffStrength, _buffDuration);
+        heroStats.ApplyStatChangeForDuration(stat, _buffStrength,_secondaryBuffStrength, _buffDuration);
     }
 }

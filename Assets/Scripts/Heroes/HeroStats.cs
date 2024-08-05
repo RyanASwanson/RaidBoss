@@ -11,8 +11,11 @@ public class HeroStats : HeroChildrenFunctionality
     private float _currentHealth;
     private float _previousHealthValue;
 
-    private float _heroDefaultMovespeed;
-    private float _currentMovespeed;
+    private float _heroDefaultMoveSpeed;
+    private float _currentMoveSpeed;
+
+    private float _heroDefaultAcceleration;
+    private float _currentAcceleration;
 
     private float _heroDefaultAggro;
     private float _currentAggro;
@@ -42,18 +45,20 @@ public class HeroStats : HeroChildrenFunctionality
     private void StatsSetup(HeroSO heroSO)
     {
         _heroMaxHealth = heroSO.GetMaxHP();
-        _heroDefaultMovespeed = heroSO.GetMoveSpeed();
+        _heroDefaultMoveSpeed = heroSO.GetMoveSpeed();
+        _heroDefaultAcceleration = heroSO.GetMoveAcceleration();
         _heroDefaultAggro = heroSO.GetAggro();
         _heroDefaultDamageResistance = heroSO.GetDamageResistance();
 
 
         _currentHealth = _heroMaxHealth;
-        _currentMovespeed = _heroDefaultMovespeed;
+        _currentMoveSpeed = _heroDefaultMoveSpeed;
+        _currentAcceleration = _heroDefaultAcceleration;
         _currentAggro = _heroDefaultAggro;
         _currentDamageResistance = _heroDefaultDamageResistance;
 
         //Sets up the movement speed
-        myHeroBase.GetPathfinding().GetNavMeshAgent().speed = _heroDefaultMovespeed;
+        myHeroBase.GetPathfinding().GetNavMeshAgent().speed = _heroDefaultMoveSpeed;
     }
 
     public void DealDamageToHero(float damage)
@@ -250,19 +255,21 @@ public class HeroStats : HeroChildrenFunctionality
     #endregion
 
     #region Stat Changes
-    public void ApplyStatChangeForDuration(HeroGeneralAdjustableStats stat, float changeValue, float duration)
+    public void ApplyStatChangeForDuration(HeroGeneralAdjustableStats stat, 
+        float changeValue, float secondaryValue, float duration)
     {
-        StartCoroutine(StatChangeDurationProcess(stat, changeValue, duration));
+        StartCoroutine(StatChangeDurationProcess(stat, changeValue, secondaryValue, duration));
     }
 
-    private IEnumerator StatChangeDurationProcess(HeroGeneralAdjustableStats stat,float changeValue, float duration)
+    private IEnumerator StatChangeDurationProcess(HeroGeneralAdjustableStats stat,
+        float changeValue, float secondaryValue, float duration)
     {
-        ChangeSpecificStat(stat, changeValue);
+        ChangeSpecificStat(stat, changeValue,secondaryValue);
         yield return new WaitForSeconds(duration);
-        ChangeSpecificStat(stat, -changeValue);
+        ChangeSpecificStat(stat, -changeValue, -secondaryValue);
     }
 
-    private void ChangeSpecificStat(HeroGeneralAdjustableStats stat, float changeValue)
+    private void ChangeSpecificStat(HeroGeneralAdjustableStats stat, float changeValue, float secondaryValue)
     {
         switch(stat)
         {
@@ -280,6 +287,7 @@ public class HeroStats : HeroChildrenFunctionality
                 return;
             case (HeroGeneralAdjustableStats.SpeedMultiplier):
                 ChangeCurrentHeroSpeed(changeValue);
+                ChangeCurrentHeroAcceleration(secondaryValue);
                 return;
             case (HeroGeneralAdjustableStats.AggroMultiplier):
                 ChangeCurrentHeroAggro(changeValue);
@@ -316,9 +324,16 @@ public class HeroStats : HeroChildrenFunctionality
     /// <param name="changeValue"></param>
     public void ChangeCurrentHeroSpeed(float changeValue)
     {
-        _currentMovespeed += changeValue;
+        _currentMoveSpeed += changeValue;
 
-        myHeroBase.GetPathfinding().GetNavMeshAgent().speed = _currentMovespeed;
+        myHeroBase.GetPathfinding().GetNavMeshAgent().speed = _currentMoveSpeed;
+    }
+
+    public void ChangeCurrentHeroAcceleration(float changeValue)
+    {
+        _currentAcceleration += changeValue;
+
+        myHeroBase.GetPathfinding().GetNavMeshAgent().acceleration = _currentAcceleration;
     }
 
     /// <summary>
@@ -367,7 +382,7 @@ public class HeroStats : HeroChildrenFunctionality
     public bool IsHeroMaxHealth() => _currentHealth >= _heroMaxHealth;
     public bool CanHeroBeHealed() => !IsHeroMaxHealth() && !ShouldOverrideHealing();
     public float GetHeroHealthPercentage() => _currentHealth / _heroMaxHealth;
-    public float GetCurrentSpeed() => _currentMovespeed;
+    public float GetCurrentSpeed() => _currentMoveSpeed;
     public float GetCurrentAggro() => _currentAggro;
     public float GetCurrentDamageResistance() => _currentDamageResistance;
 
@@ -388,6 +403,7 @@ public enum HeroGeneralAdjustableStats
     HealingDealtMultiplier,
     HealingRecievedMultiplier,
     SpeedMultiplier,
+    AccelerationMultiplier,
     AggroMultiplier,
     DamageResistanceMultiplier
 };
