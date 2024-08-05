@@ -13,6 +13,10 @@ public class SBP_Entomb : BossProjectileFramework
 
     [Space]
     [SerializeField] private NavMeshObstacle _navMeshObstacle;
+
+    [SerializeField] private Animator _animator;
+    private const string _removalAnimation = "RemoveEntomb";
+
     public override void SetUpProjectile(BossBase bossBase)
     {
         StartCoroutine(AbilityProcess());
@@ -36,9 +40,10 @@ public class SBP_Entomb : BossProjectileFramework
     
     private void DisableHitboxes()
     {
-        foreach (GeneralBossDamageArea bossDamageArea in _closingWalls)
+        foreach (GeneralBossDamageArea damageArea in _closingWalls)
         {
-            bossDamageArea.enabled = false;
+            if(damageArea != null)
+                damageArea.enabled = false;
         }
     }
 
@@ -62,6 +67,7 @@ public class SBP_Entomb : BossProjectileFramework
     private IEnumerator RemovalProcess()
     {
         yield return new WaitForSeconds(_entombPersistantTime);
-        Destroy(gameObject);
+
+        _animator.SetTrigger(_removalAnimation);
     }
 }

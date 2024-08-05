@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2855185685145580373}
   - component: {fileID: 4236018537920859869}
+  - component: {fileID: 6921249448797452126}
   m_Layer: 0
   m_Name: Visuals
   m_TagString: Untagged
@@ -55,6 +56,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6921249448797452126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1087537916005437765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15b178d837850bd44a6ea78907376d8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1285949513328819880
 GameObject:
   m_ObjectHideFlags: 0
@@ -105,7 +118,7 @@ MonoBehaviour:
   _hasLifeTime: 0
   _lifeTime: 0
   _preventReHitDuration: 5
-  _hitCenteredVFX: {fileID: 0}
+  _hitCenteredVFX: {fileID: 3441087648407882265, guid: 516634b61b250d44d853a13b0b70bf62, type: 3}
   _enterDamage: 3
   _enterEvent:
     m_PersistentCalls:
@@ -276,7 +289,7 @@ MonoBehaviour:
   _hasLifeTime: 0
   _lifeTime: 0
   _preventReHitDuration: 5
-  _hitCenteredVFX: {fileID: 0}
+  _hitCenteredVFX: {fileID: 3441087648407882265, guid: 516634b61b250d44d853a13b0b70bf62, type: 3}
   _enterDamage: 3
   _enterEvent:
     m_PersistentCalls:
@@ -313,7 +326,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.4, y: 1.4, z: 0.9}
-  m_Center: {x: -0.3, y: 0.8, z: 0}
+  m_Center: {x: 0.3, y: 0.8, z: 0}
 --- !u!1 &5479515116561902438
 GameObject:
   m_ObjectHideFlags: 0
@@ -450,6 +463,7 @@ MonoBehaviour:
   - {fileID: 2753615494377525193}
   - {fileID: 2338302277446499341}
   _navMeshObstacle: {fileID: 4253151356447421041}
+  _animator: {fileID: 4236018537920859869}
 --- !u!54 &6957617552280463617
 Rigidbody:
   m_ObjectHideFlags: 0
