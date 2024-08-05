@@ -30,14 +30,17 @@ public class SBA_Entomb : SpecificBossAbilityFramework
     protected override void AbilityStart()
     {
         GameObject storedEntomb = Instantiate(_entomb, _storedTargetLocation, _storedTargetRotation);
+        storedEntomb.GetComponent<SBP_Entomb>().SetUpProjectile(_myBossBase);
 
         /*if (_currentSafeZone.GetComponent<BossAbilitySafeZone>().DoesSafeZoneContainHero())
         {
             return;
         }*/
 
-        GameObject storedWalls = Instantiate(_entombWall, _storedTargetLocation, _storedTargetRotation);
-        storedWalls.GetComponent<SBP_EntombWalls>().SetUpProjectile(_myBossBase);
+        //GameObject storedWalls = Instantiate(_entombWall, _storedTargetLocation, _storedTargetRotation);
+
+        
+        //storedWalls.GetComponent<SBP_EntombWalls>().SetUpProjectile(_myBossBase);
 
         base.AbilityStart();
 
@@ -56,14 +59,11 @@ public class SBA_Entomb : SpecificBossAbilityFramework
                 break;
         }
 
-        Debug.Log(rotationMultiplier);
-
 
         float randomYRotation = rotationMultiplier * _rotationAmount;
 
         _storedTargetRotation = Quaternion.Euler(new Vector3(0, randomYRotation, 0));
 
-        Debug.Log(_storedTargetRotation);
         
     }
 

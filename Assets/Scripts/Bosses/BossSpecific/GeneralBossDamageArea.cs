@@ -12,6 +12,8 @@ public class GeneralBossDamageArea : MonoBehaviour
     [SerializeField] private bool _hasLifeTime;
     [SerializeField] private float _lifeTime;
     [SerializeField] private float _preventReHitDuration;
+    [Space]
+    [SerializeField] private GameObject _hitCenteredVFX;
 
     [Header("Enter")]
     [SerializeField] private float _enterDamage;
@@ -40,16 +42,22 @@ public class GeneralBossDamageArea : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
+        if (!enabled) return;
+
         HitHero(collision, _enterEvent, _enterDamage);
     }
 
     private void OnTriggerStay(Collider collision)
     {
+        if (!enabled) return;
+
         HitHero(collision, _stayEvent, _stayDamagePerTick);
     }
 
     private void OnTriggerExit(Collider collision)
     {
+        if (!enabled) return;
+
         HitHero(collision, _exitEvent, _exitDamage);
     }
 
@@ -85,5 +93,29 @@ public class GeneralBossDamageArea : MonoBehaviour
         _heroesToIgnore.Add(heroBase);
         yield return new WaitForSeconds(_preventReHitDuration);
         _heroesToIgnore.Remove(heroBase);
+    }
+
+    public void ToggleProjectileCollider(bool colliderEnabled)
+    {
+        _damageCollider.enabled = colliderEnabled;
+    }
+
+    private IEnumerator DisableColliderForDuration(float duration)
+    {
+        ToggleProjectileCollider(false);
+        yield return new WaitForSeconds(duration);
+        ToggleProjectileCollider(true);
+    }
+
+    public void CreateHitDestructionVFX()
+    {
+        if (_hitCenteredVFX == null) return;
+        Instantiate(_hitCenteredVFX, transform.position, Quaternion.identity);
+    }
+
+    public void DestroyProjectile()
+    {
+        CreateHitDestructionVFX();
+        Destroy(gameObject);
     }
 }
