@@ -10,8 +10,12 @@ public class SH_Astromancer : SpecificHeroFramework
     [Space]
     [SerializeField] private GameObject _manualProjectile;
 
+    private bool _manualActive = false;
+
     [Space]
     [SerializeField] private float _passiveRechargeManualAmount;
+
+    SHP_AstromancerManualProjectile _storedManual;
 
     #region Basic Abilities
     public override void ActivateBasicAbilities()
@@ -40,7 +44,15 @@ public class SH_Astromancer : SpecificHeroFramework
     #region Manual Abilities
     public override void ActivateManualAbilities(Vector3 attackLocation)
     {
-        base.ActivateManualAbilities(attackLocation);
+        _manualActive = true;
+
+        //Does everything in the base of this function except for starting the cooldown
+        _manualAbilityCurrentCharge = 0;
+
+        _manualAbilityCooldownCoroutine = null;
+
+        TriggerManualAbilityAnimation();
+
 
         CreateManualAttackProjectiles();
     }
@@ -49,8 +61,21 @@ public class SH_Astromancer : SpecificHeroFramework
     {
         GameObject spawnedProjectile = Instantiate(_manualProjectile, transform);
 
-        SHP_AstromancerManualProjectile projectileFunc = spawnedProjectile.GetComponent<SHP_AstromancerManualProjectile>();
-        projectileFunc.SetUpProjectile(_myHeroBase);
+        _storedManual = spawnedProjectile.GetComponent<SHP_AstromancerManualProjectile>();
+        _storedManual.SetUpProjectile(_myHeroBase);
+
+        _myHeroBase.GetHeroStartedMovingEvent().AddListener(EndManualAbility);
+    }
+
+    protected void EndManualAbility()
+    {
+        _manualActive = false;
+
+        _myHeroBase.GetHeroStartedMovingEvent().RemoveListener(EndManualAbility);
+
+        _storedManual.StopLaser();
+
+        StartCooldownManualAbility();
     }
 
     #endregion
@@ -58,7 +83,8 @@ public class SH_Astromancer : SpecificHeroFramework
     #region Passive Abilities
     public override void ActivatePassiveAbilities()
     {
-        AddToManualAbilityChargeTime(_passiveRechargeManualAmount);
+        if (!_manualActive)
+            AddToManualAbilityChargeTime(_passiveRechargeManualAmount);
     }
 
     #endregion

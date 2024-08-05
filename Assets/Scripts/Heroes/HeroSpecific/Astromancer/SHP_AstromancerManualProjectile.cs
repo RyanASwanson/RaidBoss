@@ -53,7 +53,7 @@ public class SHP_AstromancerManualProjectile : HeroProjectileFramework
         }
     }
 
-    private void StopLaser()
+    public void StopLaser()
     {
         Destroy(gameObject);
     }
