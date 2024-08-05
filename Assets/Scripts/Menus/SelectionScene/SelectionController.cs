@@ -24,12 +24,6 @@ public class SelectionController : MonoBehaviour
 
     [SerializeField] private List<StatCounter> _statCounters;
 
-    [SerializeField] private List<Image> _survivalCounters;
-    [SerializeField] private List<Image> _damageCounters;
-    [SerializeField] private List<Image> _staggerCounters;
-    [SerializeField] private List<Image> _speedCounters;
-    [SerializeField] private List<Image> _utilityCounters;
-
     [SerializeField] private Image _heroBasicIcon;
     [SerializeField] private Image _heroManualIcon;
     [SerializeField] private Image _heroPassiveIcon;
@@ -158,14 +152,11 @@ public class SelectionController : MonoBehaviour
 
     private void DisplayStatsForHero(HeroSO heroSO)
     {
-
         _statCounters[0].ShowStatNodes(heroSO.GetSurvivalStat());
         _statCounters[1].ShowStatNodes(heroSO.GetDamageStat());
         _statCounters[2].ShowStatNodes(heroSO.GetStaggerStat());
         _statCounters[3].ShowStatNodes(heroSO.GetSpeedStat());
         _statCounters[4].ShowStatNodes(heroSO.GetUtilityStat());
-
-
     }
 
     private void DisplayAbilityIconsForHero(HeroSO heroSO)
