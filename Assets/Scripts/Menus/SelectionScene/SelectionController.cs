@@ -22,6 +22,8 @@ public class SelectionController : MonoBehaviour
     [SerializeField] private TMP_Text _heroNameText;
     [SerializeField] private Text _heroNameBorder;
 
+    [SerializeField] private List<StatCounter> _statCounters;
+
     [SerializeField] private List<Image> _survivalCounters;
     [SerializeField] private List<Image> _damageCounters;
     [SerializeField] private List<Image> _staggerCounters;
@@ -156,11 +158,14 @@ public class SelectionController : MonoBehaviour
 
     private void DisplayStatsForHero(HeroSO heroSO)
     {
-        ShowStatCounter(_survivalCounters, heroSO.GetSurvivalStat());
-        ShowStatCounter(_damageCounters, heroSO.GetDamageStat());
-        ShowStatCounter(_staggerCounters, heroSO.GetStaggerStat());
-        ShowStatCounter(_speedCounters, heroSO.GetSpeedStat());
-        ShowStatCounter(_utilityCounters, heroSO.GetUtilityStat());
+
+        _statCounters[0].ShowStatNodes(heroSO.GetSurvivalStat());
+        _statCounters[1].ShowStatNodes(heroSO.GetDamageStat());
+        _statCounters[2].ShowStatNodes(heroSO.GetStaggerStat());
+        _statCounters[3].ShowStatNodes(heroSO.GetSpeedStat());
+        _statCounters[4].ShowStatNodes(heroSO.GetUtilityStat());
+
+
     }
 
     private void DisplayAbilityIconsForHero(HeroSO heroSO)
@@ -168,14 +173,6 @@ public class SelectionController : MonoBehaviour
         _heroBasicIcon.sprite = heroSO.GetHeroBasicAbilityIcon();
         _heroManualIcon.sprite = heroSO.GetHeroManualAbilityIcon();
         _heroPassiveIcon.sprite = heroSO.GetHeroPassiveAbilityIcon();
-    }
-    
-    private void ShowStatCounter(List<Image> statCounters, int statNumber)
-    {
-        for(int i = 0; i < statCounters.Count; i++)
-        {
-            statCounters[i].enabled = (i<statNumber);
-        }
     }
 
     public void HeroAbilityIconPressed(float abilityID)
