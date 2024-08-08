@@ -396,6 +396,7 @@ MonoBehaviour:
   _heroHealedVFX: {fileID: 700729426277998176, guid: 6976765d93469bb4bb9e062098039f64, type: 3}
   _damageNumbersOrigin: {fileID: 7059950255087619679}
   _healingNumbersOrigin: {fileID: 2598898760619311672}
+  _buffDebuffOrigin: {fileID: 0}
   _abilityChargedIconOrigin: {fileID: 3619858743365021079}
   _heroGeneralAnimator: {fileID: 6661400035776441673}
 --- !u!114 &2507807044940824500
@@ -410,6 +411,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6178bf0307f7e7543ba2cd262db0a114, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _damageBuffIcon: {fileID: 21300000, guid: f162ed8f63d0b1b40934d06e49bd331b, type: 3}
+  _staggerBuffIcon: {fileID: 21300000, guid: 714962a7e9ebbf3468035c9b8aaaa32b, type: 3}
+  _speedBuffIcon: {fileID: 21300000, guid: 776f3debda23f2d45be94846ff82e67d, type: 3}
+  _healingBuffIcon: {fileID: 21300000, guid: d34635bb5dbd7834b896cf02f2a383c1, type: 3}
 --- !u!95 &6661400035776441673
 Animator:
   serializedVersion: 5

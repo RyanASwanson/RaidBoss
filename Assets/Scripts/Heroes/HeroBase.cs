@@ -26,6 +26,7 @@ public class HeroBase : MonoBehaviour
     private HeroSO _associatedSO;
     private GameObject _associatedHeroGameObject;
     private SpecificHeroFramework _associatedHeroScript;
+    private HeroUIManager _associatedHeroUIManager;
     private int _myHeroID;
 
     private UnityEvent<HeroSO> _heroSOSetEvent = new UnityEvent<HeroSO>();
@@ -66,7 +67,7 @@ public class HeroBase : MonoBehaviour
 
         SetHeroSO(newSO);
 
-        AssignSelfToUI();
+        UIManagerSetup();
     }
 
     /// <summary>
@@ -90,9 +91,14 @@ public class HeroBase : MonoBehaviour
             childFunc.ChildFuncSetup(this);
     }
 
+    private void UIManagerSetup()
+    {
+        AssignSelfToUI();
+    }
+
     private void AssignSelfToUI()
     {
-        GameplayManagers.Instance.GetGameUIManager().SetAssociatedHeroUIManager(this);
+        _associatedHeroUIManager = GameplayManagers.Instance.GetGameUIManager().SetAssociatedHeroUIManager(this);
     }
 
 
@@ -198,6 +204,7 @@ public class HeroBase : MonoBehaviour
 
     public GameObject GetAssociatedHeroObject() => _associatedHeroGameObject;
     public SpecificHeroFramework GetSpecificHeroScript() => _associatedHeroScript;
+    public HeroUIManager GetHeroUIManager() => _associatedHeroUIManager;
 
     public int GetHeroID() => _myHeroID;
 

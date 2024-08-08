@@ -46,15 +46,21 @@ public class HeroUIManager : GameUIChildrenFunctionality
     [Space]
     [SerializeField] private GameObject _healingNumber;
     [Space]
+    [SerializeField] private GameObject _buffDebuffObj;
+    [Space]
     [SerializeField] private float _damageNumbersXVariance;
     [Space]
     [SerializeField] private GameObject _abilityChargedIcon;
 
     private RectTransform _damageNumbersOrigin;
     private RectTransform _healingNumbersOrigin;
+    private RectTransform _buffDebuffOrigin;
     private RectTransform _abilityChargedOrigin;
 
     private const string _damageHealingWeakAnimTrigger = "WeakDamage";
+
+    private const string _buffAnimTrigger = "Buff";
+    private const string _debuffAnimTrigger = "Debuff";
 
 
     public void AssignSpecificHero(HeroBase heroBase)
@@ -68,9 +74,12 @@ public class HeroUIManager : GameUIChildrenFunctionality
 
     private void GeneralSetup()
     {
-        _damageNumbersOrigin = _associatedHeroBase.GetHeroVisuals().GetDamageNumbersOrigin();
-        _healingNumbersOrigin = _associatedHeroBase.GetHeroVisuals().GetHealingNumbersOrigin();
-        _abilityChargedOrigin = _associatedHeroBase.GetHeroVisuals().GetAbilityChargedIconOrigin();
+        HeroVisuals heroVisuals = _associatedHeroBase.GetHeroVisuals();
+
+        _damageNumbersOrigin = heroVisuals.GetDamageNumbersOrigin();
+        _healingNumbersOrigin = heroVisuals.GetHealingNumbersOrigin();
+        _buffDebuffOrigin = heroVisuals.GetBuffDebuffOrigin();
+        _abilityChargedOrigin = heroVisuals.GetAbilityChargedIconOrigin();
     }
 
     private void SetUpHeroIcons()
@@ -289,6 +298,17 @@ public class HeroUIManager : GameUIChildrenFunctionality
     private void AddSpawnVarianceToDamageHealingNumber(GameObject number)
     {
         number.transform.position += new Vector3(Random.Range(-_damageNumbersXVariance, _damageNumbersXVariance), 0, 0);
+    }
+
+    public void CreateBuffDebuffIcon(Sprite buffSprite, bool isBuff)
+    {
+        GameObject _newBuffDebuff = Instantiate(_buffDebuffObj, _buffDebuffOrigin);
+
+        _newBuffDebuff.GetComponentInChildren<Image>().sprite = buffSprite;
+        if (isBuff)
+            _newBuffDebuff.GetComponentInChildren<Animator>().SetTrigger(_buffAnimTrigger);
+        else
+            _newBuffDebuff.GetComponentInChildren<Animator>().SetTrigger(_debuffAnimTrigger);
     }
 
     private void ManualFullyCharged()

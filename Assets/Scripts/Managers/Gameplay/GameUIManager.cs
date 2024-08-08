@@ -46,9 +46,11 @@ public class GameUIManager : BaseGameplayManager
     #endregion
 
     #region Setters
-    public void SetAssociatedHeroUIManager(HeroBase heroBase)
+    public HeroUIManager SetAssociatedHeroUIManager(HeroBase heroBase)
     {
         _heroUIManagers[_heroUIManagersAssigned++].AssignSpecificHero(heroBase);
+
+        return _heroUIManagers[_heroUIManagersAssigned];
     }    
     #endregion
 }

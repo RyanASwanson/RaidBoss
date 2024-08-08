@@ -32,6 +32,11 @@ public class HeroStats : HeroChildrenFunctionality
     private int _healingTakenOverridesCounter = 0;
     private int _deathOverridesCounter = 0;
 
+    [SerializeField] private Sprite _damageBuffIcon;
+    [SerializeField] private Sprite _staggerBuffIcon;
+    [SerializeField] private Sprite _speedBuffIcon;
+    [SerializeField] private Sprite _healingBuffIcon;
+
     public override void ChildFuncSetup(HeroBase heroBase)
     {
         base.ChildFuncSetup(heroBase);
@@ -275,19 +280,23 @@ public class HeroStats : HeroChildrenFunctionality
         {
             case (HeroGeneralAdjustableStats.DamageMultiplier):
                 ChangeCurrentHeroDamageMultiplier(changeValue);
+                myHeroBase.GetHeroUIManager().CreateBuffDebuffIcon(_damageBuffIcon, changeValue > 0);
                 return;
             case (HeroGeneralAdjustableStats.StaggerMultiplier):
                 ChangeCurrentHeroStaggerMultiplier(changeValue);
+                myHeroBase.GetHeroUIManager().CreateBuffDebuffIcon(_staggerBuffIcon, changeValue > 0);
                 return;
             case (HeroGeneralAdjustableStats.HealingDealtMultiplier):
                 ChangeCurrentHeroHealingDealtMultiplier(changeValue);
                 return;
             case (HeroGeneralAdjustableStats.HealingRecievedMultiplier):
                 ChangeCurrentHeroHealingReceivedMultiplier(changeValue);
+                myHeroBase.GetHeroUIManager().CreateBuffDebuffIcon(_healingBuffIcon, changeValue > 0);
                 return;
             case (HeroGeneralAdjustableStats.SpeedMultiplier):
                 ChangeCurrentHeroSpeed(changeValue);
                 ChangeCurrentHeroAcceleration(secondaryValue);
+                myHeroBase.GetHeroUIManager().CreateBuffDebuffIcon(_speedBuffIcon, changeValue > 0);
                 return;
             case (HeroGeneralAdjustableStats.AggroMultiplier):
                 ChangeCurrentHeroAggro(changeValue);

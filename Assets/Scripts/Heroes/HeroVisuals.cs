@@ -14,6 +14,7 @@ public class HeroVisuals : HeroChildrenFunctionality
 
     [SerializeField] private RectTransform _damageNumbersOrigin;
     [SerializeField] private RectTransform _healingNumbersOrigin;
+    [SerializeField] private RectTransform _buffDebuffOrigin;
     [SerializeField] private RectTransform _abilityChargedIconOrigin;
 
     private const string _healthStatusIntAnim = "HealthStatus";
@@ -237,6 +238,7 @@ public class HeroVisuals : HeroChildrenFunctionality
     #region Getters
     public RectTransform GetDamageNumbersOrigin() => _damageNumbersOrigin;
     public RectTransform GetHealingNumbersOrigin() => _healingNumbersOrigin;
+    public RectTransform GetBuffDebuffOrigin() => _buffDebuffOrigin;
     public RectTransform GetAbilityChargedIconOrigin() => _abilityChargedIconOrigin;
     #endregion
 }
