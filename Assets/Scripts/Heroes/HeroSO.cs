@@ -69,8 +69,11 @@ public class HeroSO : ScriptableObject
     public Color GetHeroPressedColor() => _heroPressedColor;
     public Color GetHeroSelectedColor() => _heroSelectedColor;
 
+    public string GetHeroBasicAbilityName() => _basicAbilityName;
     public string GetHeroBasicAbilityDescription() => _basicAbilityDescription;
+    public string GetHeroManualAbilityName() => _manualAbilityName;
     public string GetHeroManualAbilityDescription() => _manualAbilityDescription;
+    public string GetHeroPassiveAbilityName() => _passiveAbilityName;
     public string GetHeroPassiveAbilityDescription() => _passiveAbilityDescription;
     #endregion
 }

@@ -36,8 +36,12 @@ public class SelectionController : MonoBehaviour
     private const string _showAbilityDescriptionBool = "ShowDescription";
     private const string _swapAbilityDescriptionTrigger = "SwapDescription";
 
+    [Space]
     [SerializeField] private Text _heroAbilityBackgroundDescriptionText;
     [SerializeField] private TMP_Text _heroAbilityDescriptionText;
+
+    [SerializeField] private Text _heroAbilityBackgroundNameText;
+    [SerializeField] private TMP_Text _heroAbilityNameText;
     private float _currentAbilityID = -1;
 
     [Space]
@@ -189,10 +193,17 @@ public class SelectionController : MonoBehaviour
         _heroAbilityDescriptionAnimator.SetBool(_showAbilityDescriptionBool, true);
     }
 
-    public void UpdateHeroDescriptionText(string newText)
+
+    public void UpdateHeroAbilityDescriptionText(string newText)
     {
         _heroAbilityBackgroundDescriptionText.text = newText;
         _heroAbilityDescriptionText.text = newText;
+    }
+
+    private void UpdateHeroAbilityNameText(string newText)
+    {
+        _heroAbilityBackgroundNameText.text = newText;
+        _heroAbilityNameText.text = newText;
     }
 
     public void HeroAbilityDescriptionChanged()
@@ -200,13 +211,16 @@ public class SelectionController : MonoBehaviour
         switch(_currentAbilityID)
         {
             case (0):
-                UpdateHeroDescriptionText(_lastHeroHoveredOver.GetHeroBasicAbilityDescription());
+                UpdateHeroAbilityDescriptionText(_lastHeroHoveredOver.GetHeroBasicAbilityDescription());
+                UpdateHeroAbilityNameText(_lastHeroHoveredOver.GetHeroBasicAbilityName());
                 return;
             case (1):
-                UpdateHeroDescriptionText(_lastHeroHoveredOver.GetHeroManualAbilityDescription());
+                UpdateHeroAbilityDescriptionText(_lastHeroHoveredOver.GetHeroManualAbilityDescription());
+                UpdateHeroAbilityNameText(_lastHeroHoveredOver.GetHeroManualAbilityName());
                 return;
             case (2):
-                UpdateHeroDescriptionText(_lastHeroHoveredOver.GetHeroPassiveAbilityDescription());
+                UpdateHeroAbilityDescriptionText(_lastHeroHoveredOver.GetHeroPassiveAbilityDescription());
+                UpdateHeroAbilityNameText(_lastHeroHoveredOver.GetHeroPassiveAbilityName());
                 return;
 
         }
