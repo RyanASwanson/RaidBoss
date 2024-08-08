@@ -5,15 +5,22 @@ using UnityEngine;
 public class SHP_AlchemistPotion : HeroProjectileFramework
 {
     [SerializeField] private float _moveTime;
+    [SerializeField] private float _idleLifetime;
     [Space]
 
     [SerializeField] private PotionTypes _potionType;
     [SerializeField] private float _buffStrength;
     [SerializeField] private float _secondaryBuffStrength;
     [SerializeField] private float _buffDuration;
+    
 
     [Space]
     [SerializeField] private GeneralHeroHealArea _healArea;
+
+    [Space]
+
+    [SerializeField] private Animator _animator;
+    private const string _removePotionAnimTrigger = "RemovePotion";
 
     private SH_Alchemist _alchemist;
 
@@ -28,6 +35,7 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
     {
         PotionTypeSetup();
         StartCoroutine(MovePotionToEndLocation(targetLocation));
+        StartCoroutine(RemovePotionTimer());
     }
 
     private void PotionTypeSetup()
@@ -109,5 +117,16 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
     private void ApplyBuffToHero(HeroStats heroStats, HeroGeneralAdjustableStats stat)
     {
         heroStats.ApplyStatChangeForDuration(stat, _buffStrength,_secondaryBuffStrength, _buffDuration);
+    }
+
+    private IEnumerator RemovePotionTimer()
+    {
+        yield return new WaitForSeconds(_idleLifetime);
+        RemovePotionAnimation();
+    }
+
+    private void RemovePotionAnimation()
+    {
+        _animator.SetTrigger(_removePotionAnimTrigger);
     }
 }
