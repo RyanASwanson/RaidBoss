@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "BossScriptableObject", menuName = "BossScriptableObject", order = 3)]
 public class BossSO : ScriptableObject
@@ -59,4 +60,6 @@ public class BossAbilityInformation
 {
     public string _abilityName;
     [TextArea(3, 10)] public string _abilityDescription;
+
+    public Sprite _abilityImage;
 }
