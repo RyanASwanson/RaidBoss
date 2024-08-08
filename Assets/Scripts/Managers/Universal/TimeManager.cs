@@ -133,6 +133,7 @@ public class TimeManager : BaseUniversalManager
 
     private void SceneLoadStart()
     {
+        _gamePaused = false;
         _canUpdateTimeVariation = false;
         SetTimeToNormalSpeedOverride();
     }
