@@ -3871,36 +3871,6 @@ MonoBehaviour:
   - {fileID: 1263421499}
   - {fileID: 74565170}
   - {fileID: 10848420}
-  _survivalCounters:
-  - {fileID: 1633923804}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  _damageCounters:
-  - {fileID: 1556120664}
-  - {fileID: 210896366}
-  - {fileID: 1629397194}
-  - {fileID: 1730039170}
-  - {fileID: 1385683255}
-  _staggerCounters:
-  - {fileID: 757334597}
-  - {fileID: 1787432541}
-  - {fileID: 1138380785}
-  - {fileID: 2073346832}
-  - {fileID: 187282992}
-  _speedCounters:
-  - {fileID: 1510343797}
-  - {fileID: 292161589}
-  - {fileID: 977971990}
-  - {fileID: 1435708150}
-  - {fileID: 814178527}
-  _utilityCounters:
-  - {fileID: 1559357613}
-  - {fileID: 375763336}
-  - {fileID: 1378791480}
-  - {fileID: 885850226}
-  - {fileID: 268780946}
   _heroBasicIcon: {fileID: 227679989}
   _heroManualIcon: {fileID: 1157080886}
   _heroPassiveIcon: {fileID: 1586770093}
@@ -4706,13 +4676,13 @@ MonoBehaviour:
   m_Options:
     m_Options:
     - m_Text: Normal
-      m_Image: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+      m_Image: {fileID: 21300000, guid: 4861dc12cd1136f428fda6d69e2b91ba, type: 3}
     - m_Text: Heroic
-      m_Image: {fileID: 21300000, guid: fe2bf9c72fd89414ca1dc07e70fefe01, type: 3}
+      m_Image: {fileID: 21300000, guid: 9c3180150c34c9742bdfd92d8294712d, type: 3}
     - m_Text: Mythic
-      m_Image: {fileID: 21300000, guid: 4184165ee7d65e54ea0f6f63f2a3cc0a, type: 3}
+      m_Image: {fileID: 21300000, guid: 64cb822beb4ca4342a56928e180ac4da, type: 3}
     - m_Text: Mythic Plus
-      m_Image: {fileID: 21300000, guid: 21d4b6b1ff7b4a44e98295360c31c422, type: 3}
+      m_Image: {fileID: 21300000, guid: 7d3ee4008449a474a8cfed84359c1e59, type: 3}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -6966,7 +6936,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4861dc12cd1136f428fda6d69e2b91ba, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8156,7 +8126,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 145, y: 0}
-  m_SizeDelta: {x: 20, y: 20}
+  m_SizeDelta: {x: 18, y: 18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1281332822
 MonoBehaviour:
@@ -10157,17 +10127,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1629397192}
   m_CullTransparentMesh: 1
---- !u!114 &1633923804 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3756539800095712808, guid: f70ba1800d5b207488e0fb4dd4d8eb63, type: 3}
-  m_PrefabInstance: {fileID: 3756539801687414004}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1633930833
 GameObject:
   m_ObjectHideFlags: 0
@@ -11778,8 +11737,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 25
+  m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
