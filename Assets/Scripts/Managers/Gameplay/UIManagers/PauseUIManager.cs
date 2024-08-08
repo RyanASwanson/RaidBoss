@@ -12,6 +12,8 @@ public class PauseUIManager : GameUIChildrenFunctionality
 
     public void PauseButtonPressed()
     {
+        Debug.Log("Pause Button Pressed");
+
         UniversalManagers.Instance.GetTimeManager().PressGamePauseButton();
     }
 
