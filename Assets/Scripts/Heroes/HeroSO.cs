@@ -35,7 +35,7 @@ public class HeroSO : ScriptableObject
     [SerializeField] private Color _heroPressedColor;
     [SerializeField] private Color _heroSelectedColor;
 
-    [Header("Ability Text")]
+    [Header("Ability Information")]
     [SerializeField] private string _basicAbilityName;
     [TextArea(3, 10)] [SerializeField] private string _basicAbilityDescription;
     [SerializeField] private string _manualAbilityName;

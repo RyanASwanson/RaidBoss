@@ -29,6 +29,9 @@ public class BossSO : ScriptableObject
     [SerializeField] private Color _bossPressedColor;
     [SerializeField] private Color _bossSelectedColor;
 
+    [Header("Ability Information")]
+    [SerializeField] private List<BossAbilityInformation> _bossAbilities;
+
     #region Getters
     public string GetBossName() => _name;
     public float GetMaxHP() => _maxHP;
@@ -47,4 +50,11 @@ public class BossSO : ScriptableObject
     public Color GetBossPressedColor() => _bossPressedColor;
     public Color GetBossSelectedColor() => _bossSelectedColor;
     #endregion
+}
+
+[System.Serializable]
+public class BossAbilityInformation
+{
+    public string _abilityName;
+    [TextArea(3, 10)] public string _abilityDescription;
 }
