@@ -22,8 +22,10 @@ public class SelectionController : MonoBehaviour
     [SerializeField] private TMP_Text _heroNameText;
     [SerializeField] private Text _heroNameBorder;
 
+    [Space]
     [SerializeField] private List<StatCounter> _statCounters;
 
+    [Space]
     [SerializeField] private Image _heroBasicIcon;
     [SerializeField] private Image _heroManualIcon;
     [SerializeField] private Image _heroPassiveIcon;
@@ -42,10 +44,19 @@ public class SelectionController : MonoBehaviour
 
     [SerializeField] private Text _heroAbilityBackgroundNameText;
     [SerializeField] private TMP_Text _heroAbilityNameText;
-    private float _currentAbilityID = -1;
+    private int _currentHeroAbilityID = -1;
 
     [Space]
     [SerializeField] private Animator _bossAbilityDescriptionAnimator;
+
+    [Space]
+    [SerializeField] private Text _bossAbilityBackgroundDescriptionText;
+    [SerializeField] private TMP_Text _bossAbilityDescriptionText;
+
+    [SerializeField] private Text _bossAbilityBackgroundNameText;
+    [SerializeField] private TMP_Text _bossAbilityNameText;
+    private int _currentBossAbilityID = -1;
+
 
     [Space]
     [Header("Hero")]
@@ -111,6 +122,8 @@ public class SelectionController : MonoBehaviour
         _bossNameText.text = bossSO.GetBossName();
         _bossNameBorder.text = bossSO.GetBossName();
 
+        HideBossAbilityDescription();
+
         UpdateHeroButtonDifficultyBeaten();
 
         _bossPillar.ShowBossOnPillar(bossSO, true);
@@ -142,7 +155,7 @@ public class SelectionController : MonoBehaviour
         _heroNameText.text = heroSO.GetHeroName();
         _heroNameBorder.text = heroSO.GetHeroName();
 
-        HideAbilityDescription();
+        HideHeroAbilityDescription();
 
         //Displays all stats associated for the hero on the counters
         DisplayStatsForHero(heroSO);
@@ -170,31 +183,31 @@ public class SelectionController : MonoBehaviour
         _heroPassiveIcon.sprite = heroSO.GetHeroPassiveAbilityIcon();
     }
 
-    public void HeroAbilityIconPressed(float abilityID)
+    public void HeroAbilityIconPressed(int abilityID)
     {
-        if(_currentAbilityID == -1)
+        if(_currentHeroAbilityID == -1)
         {
             ShowHeroAbilityDescription(abilityID);
         }
-        else if(abilityID != _currentAbilityID)
+        else if(abilityID != _currentHeroAbilityID)
         {
-            SwapAbilityDescription(abilityID);
+            SwapHeroAbilityDescription(abilityID);
         }
         else
         {
-            HideAbilityDescription();
+            HideHeroAbilityDescription();
         }
     }
 
 
-    public void ShowHeroAbilityDescription(float abilityID)
+    public void ShowHeroAbilityDescription(int abilityID)
     {
-        _currentAbilityID = abilityID;
+        _currentHeroAbilityID = abilityID;
         _heroAbilityDescriptionAnimator.SetBool(_showAbilityDescriptionBool, true);
     }
 
 
-    public void UpdateHeroAbilityDescriptionText(string newText)
+    private void UpdateHeroAbilityDescriptionText(string newText)
     {
         _heroAbilityBackgroundDescriptionText.text = newText;
         _heroAbilityDescriptionText.text = newText;
@@ -208,7 +221,7 @@ public class SelectionController : MonoBehaviour
 
     public void HeroAbilityDescriptionChanged()
     {
-        switch(_currentAbilityID)
+        switch(_currentHeroAbilityID)
         {
             case (0):
                 UpdateHeroAbilityDescriptionText(_lastHeroHoveredOver.GetHeroBasicAbilityDescription());
@@ -227,16 +240,73 @@ public class SelectionController : MonoBehaviour
             
     }
 
-    public void SwapAbilityDescription(float abilityID)
+    private void SwapHeroAbilityDescription(int abilityID)
     {
-        _currentAbilityID = abilityID;
+        _currentHeroAbilityID = abilityID;
         _heroAbilityDescriptionAnimator.SetTrigger(_swapAbilityDescriptionTrigger);
     }
 
-    public void HideAbilityDescription()
+    private void HideHeroAbilityDescription()
     {
         _heroAbilityDescriptionAnimator.SetBool(_showAbilityDescriptionBool, false);
-        _currentAbilityID = -1;
+        _currentHeroAbilityID = -1;
+    }
+
+
+    public void BossAbilityIconPressed(int abilityID)
+    {
+        if (_currentBossAbilityID == -1)
+        {
+            ShowBossAbilityDescription(abilityID);
+        }
+        else if (abilityID != _currentBossAbilityID)
+        {
+            SwapBossAbilityDescription(abilityID);
+        }
+        else
+        {
+            HideBossAbilityDescription();
+        }
+    }
+
+    public void ShowBossAbilityDescription(int abilityID)
+    {
+        _currentBossAbilityID = abilityID;
+        _bossAbilityDescriptionAnimator.SetBool(_showAbilityDescriptionBool, true);
+    }
+
+    private void UpdateBossAbilityDescriptionText(string newText)
+    {
+        _bossAbilityBackgroundDescriptionText.text = newText;
+        _bossAbilityDescriptionText.text = newText;
+    }
+
+    private void UpdateBossAbilityNameText(string newText)
+    {
+        _bossAbilityBackgroundNameText.text = newText;
+        _bossAbilityNameText.text = newText;
+    }
+
+    public void BossAbilityDescriptionChanged()
+    {
+        UpdateBossAbilityDescriptionText(_lastBossHoveredOver.GetBossAbilityInformation()
+            [_currentBossAbilityID]._abilityDescription);
+
+        UpdateBossAbilityNameText(_lastBossHoveredOver.GetBossAbilityInformation()
+            [_currentBossAbilityID]._abilityName);
+
+    }
+
+    private void SwapBossAbilityDescription(int abilityID)
+    {
+        _currentBossAbilityID = abilityID;
+        _bossAbilityDescriptionAnimator.SetTrigger(_swapAbilityDescriptionTrigger);
+    }
+
+    private void HideBossAbilityDescription()
+    {
+        _bossAbilityDescriptionAnimator.SetBool(_showAbilityDescriptionBool, false);
+        _currentBossAbilityID = -1;
     }
 
     #endregion

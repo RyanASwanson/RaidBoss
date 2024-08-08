@@ -49,6 +49,8 @@ public class BossSO : ScriptableObject
     public Color GetBossHighlightedColor() => _bossHighlightedColor;
     public Color GetBossPressedColor() => _bossPressedColor;
     public Color GetBossSelectedColor() => _bossSelectedColor;
+
+    public List<BossAbilityInformation> GetBossAbilityInformation() => _bossAbilities;
     #endregion
 }
 

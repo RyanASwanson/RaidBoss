@@ -4,16 +4,26 @@ using UnityEngine;
 
 public class AbilityDescriptionFunctionality : MonoBehaviour
 {
+    [SerializeField] private bool _bossOrHero;
+
+    [Space]
     [SerializeField] private SelectionController _selectionController;
     
+    public void ChangeBossHeroAbilityText()
+    {
+        if (_bossOrHero)
+            ChangeBossAbilityText();
+        else
+            ChangeHeroAbilityText();
+    }
 
-    public void ChangeHeroAbilityText()
+    private void ChangeHeroAbilityText()
     {
         _selectionController.HeroAbilityDescriptionChanged();
     }
 
-    public void ChangeBossAbilityText()
+    private void ChangeBossAbilityText()
     {
-        //_selectionController.HeroAbilityDescriptionChanged(_abilityID);
+        _selectionController.BossAbilityDescriptionChanged();
     }
 }
