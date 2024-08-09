@@ -269,41 +269,53 @@ public class HeroStats : HeroChildrenFunctionality
     private IEnumerator StatChangeDurationProcess(HeroGeneralAdjustableStats stat,
         float changeValue, float secondaryValue, float duration)
     {
-        ChangeSpecificStat(stat, changeValue,secondaryValue);
+        ChangeSpecificStat(stat, changeValue,secondaryValue,true);
         yield return new WaitForSeconds(duration);
-        ChangeSpecificStat(stat, -changeValue, -secondaryValue);
+        ChangeSpecificStat(stat, -changeValue, -secondaryValue,true);
     }
 
-    private void ChangeSpecificStat(HeroGeneralAdjustableStats stat, float changeValue, float secondaryValue)
+    private void ChangeSpecificStat(HeroGeneralAdjustableStats stat, float changeValue, float secondaryValue, bool createBuffIcons)
     {
+        Sprite buffDebuffIconSprite = null;
+
         switch(stat)
         {
             case (HeroGeneralAdjustableStats.DamageMultiplier):
                 ChangeCurrentHeroDamageMultiplier(changeValue);
-                myHeroBase.GetHeroUIManager().CreateBuffDebuffIcon(_damageBuffIcon, changeValue > 0);
-                return;
+
+                buffDebuffIconSprite = _damageBuffIcon;
+                break;
             case (HeroGeneralAdjustableStats.StaggerMultiplier):
                 ChangeCurrentHeroStaggerMultiplier(changeValue);
-                myHeroBase.GetHeroUIManager().CreateBuffDebuffIcon(_staggerBuffIcon, changeValue > 0);
-                return;
+
+                buffDebuffIconSprite = _staggerBuffIcon;
+                break;
             case (HeroGeneralAdjustableStats.HealingDealtMultiplier):
                 ChangeCurrentHeroHealingDealtMultiplier(changeValue);
                 return;
             case (HeroGeneralAdjustableStats.HealingRecievedMultiplier):
                 ChangeCurrentHeroHealingReceivedMultiplier(changeValue);
-                myHeroBase.GetHeroUIManager().CreateBuffDebuffIcon(_healingBuffIcon, changeValue > 0);
-                return;
+
+                buffDebuffIconSprite = _healingBuffIcon;
+                break;
             case (HeroGeneralAdjustableStats.SpeedMultiplier):
                 ChangeCurrentHeroSpeed(changeValue);
                 ChangeCurrentHeroAcceleration(secondaryValue);
-                myHeroBase.GetHeroUIManager().CreateBuffDebuffIcon(_speedBuffIcon, changeValue > 0);
-                return;
+
+                buffDebuffIconSprite = _speedBuffIcon;
+                break;
             case (HeroGeneralAdjustableStats.AggroMultiplier):
                 ChangeCurrentHeroAggro(changeValue);
-                return;
+                break;
             case (HeroGeneralAdjustableStats.DamageResistanceMultiplier):
                 ChangeCurrentHeroDamageResistance(changeValue);
-                return;
+                break;
+        }
+
+
+        if (buffDebuffIconSprite != null && createBuffIcons)
+        {
+            myHeroBase.GetHeroUIManager().CreateBuffDebuffIcon(buffDebuffIconSprite, changeValue > 0);
         }
     }
 

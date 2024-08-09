@@ -50,7 +50,7 @@ public class GameUIManager : BaseGameplayManager
     {
         _heroUIManagers[_heroUIManagersAssigned++].AssignSpecificHero(heroBase);
 
-        return _heroUIManagers[_heroUIManagersAssigned];
+        return _heroUIManagers[_heroUIManagersAssigned-1];
     }    
     #endregion
 }

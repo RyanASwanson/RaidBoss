@@ -1,9 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
 //using UnityEngine.UIElements;
 using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Shows the ui for all heroes that is used while in a combat scene
@@ -39,7 +38,7 @@ public class HeroUIManager : GameUIChildrenFunctionality
 
     private const string _combinedHealthBarStatusIntAnim = "HealthStatus";
 
-    private HeroBase _associatedHeroBase;
+    [SerializeField] private HeroBase _associatedHeroBase;
 
     [Header("HeroWorldCanvas")]
     [SerializeField] private GameObject _damageNumber;
@@ -302,13 +301,13 @@ public class HeroUIManager : GameUIChildrenFunctionality
 
     public void CreateBuffDebuffIcon(Sprite buffSprite, bool isBuff)
     {
-        GameObject _newBuffDebuff = Instantiate(_buffDebuffObj, _buffDebuffOrigin);
+        GameObject newBuffDebuff = Instantiate(_buffDebuffObj, _buffDebuffOrigin);
 
-        _newBuffDebuff.GetComponentInChildren<Image>().sprite = buffSprite;
+        newBuffDebuff.GetComponent<HeroBuffDebuffFunctionality>().ChangeHeroBuffDebuffIcon(buffSprite);
         if (isBuff)
-            _newBuffDebuff.GetComponentInChildren<Animator>().SetTrigger(_buffAnimTrigger);
+            newBuffDebuff.GetComponentInChildren<Animator>().SetTrigger(_buffAnimTrigger);
         else
-            _newBuffDebuff.GetComponentInChildren<Animator>().SetTrigger(_debuffAnimTrigger);
+            newBuffDebuff.GetComponentInChildren<Animator>().SetTrigger(_debuffAnimTrigger);
     }
 
     private void ManualFullyCharged()
