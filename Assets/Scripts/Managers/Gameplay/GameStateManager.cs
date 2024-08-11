@@ -14,6 +14,8 @@ public class GameStateManager : BaseGameplayManager
     private UnityEvent _battleLostEvent = new UnityEvent();
     private UnityEvent _battleWonEvent = new UnityEvent();
 
+    private UnityEvent _battleWonOrLostEvent = new UnityEvent();
+
     public override void SetupGameplayManager()
     {
         base.SetupGameplayManager();
@@ -65,10 +67,16 @@ public class GameStateManager : BaseGameplayManager
     public void InvokeBattleLostEvent()
     {
         _battleLostEvent?.Invoke();
+        InvokeBattleWonOrLostEvent();
     }
     public void InvokeBattleWonEvent()
     {
         _battleWonEvent?.Invoke();
+        InvokeBattleWonOrLostEvent();
+    }
+    public void InvokeBattleWonOrLostEvent()
+    {
+        _battleWonOrLostEvent?.Invoke();
     }
 
     #endregion
@@ -80,6 +88,7 @@ public class GameStateManager : BaseGameplayManager
     public UnityEvent GetStartOfBattleEvent() => _startOfBattleEvent;
     public UnityEvent GetBattleLostEvent() => _battleLostEvent;
     public UnityEvent GetBattleWonEvent() => _battleWonEvent;
+    public UnityEvent GetBattleWonOrLostEvent() => _battleWonOrLostEvent;
     #endregion
 }
 

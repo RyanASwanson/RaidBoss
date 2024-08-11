@@ -83,7 +83,7 @@ public class SB_TerraLord : SpecificBossFramework
         _passiveCounterValue += val;
         //Debug.Log(_passiveCounterValue);
 
-        RotateCameraBasedOnPassive();
+        //RotateCameraBasedOnPassive();
         InvokePassivePercentUpdate();
     }
 
@@ -109,7 +109,8 @@ public class SB_TerraLord : SpecificBossFramework
             Vector3 tempRotation = new(0, 0, (GetPassiveCounterPercent() * _zRotationMultiplier));
 
             print(tempRotation);
-            GameplayManagers.Instance.GetCameraManager().StartRotateCinemachineCamera(tempRotation);
+            //REPLACE THE 1
+            GameplayManagers.Instance.GetCameraManager().StartRotateCinemachineCamera( 1);
         }
     }
     #endregion
