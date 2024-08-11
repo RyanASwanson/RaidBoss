@@ -50,7 +50,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3425e68e875b47544b4ab40d91e33ab4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _passivePassiveBars: []
+  _passiveBars:
+  - {fileID: 4528850969367966740}
+  - {fileID: 3739365496976687039}
+  - {fileID: 6764769525886228412}
+  - {fileID: 4809694187837679283}
+  - {fileID: 1621707803040575814}
+  - {fileID: 6491059166515273762}
+  - {fileID: 7354995544256710927}
+  - {fileID: 2416364404520868874}
+  - {fileID: 6221609528211563443}
+  - {fileID: 5578510460716498587}
+  - {fileID: 1874777478129614315}
+  - {fileID: 8837387466764089623}
+  - {fileID: 6365601003473778313}
+  - {fileID: 9012314083343847552}
+  - {fileID: 4120827453377174899}
+  - {fileID: 2729046422936653120}
+  - {fileID: 4181062471350660888}
+  - {fileID: 8563482409582240874}
+  - {fileID: 8265449862666709519}
+  - {fileID: 7968122207724404705}
+  - {fileID: 9015060289209816777}
+  - {fileID: 4222849260481075863}
+  - {fileID: 3505217978132152538}
+  - {fileID: 6621811280206604407}
+  - {fileID: 8893645397915648689}
+  - {fileID: 1098189000304998520}
+  - {fileID: 1045147625052355731}
+  - {fileID: 1920122675542005643}
+  - {fileID: 8417225795841668361}
+  - {fileID: 2187388819196894748}
+  - {fileID: 1751995265717513313}
+  - {fileID: 5713665436207759370}
+  - {fileID: 3171166098254432297}
+  - {fileID: 5385482263204566261}
+  - {fileID: 5380923038994972170}
+  - {fileID: 2529035406209609070}
+  - {fileID: 1554074166730977937}
+  - {fileID: 4167362685253162057}
+  - {fileID: 462687447728050419}
+  - {fileID: 7180652234924280984}
 --- !u!1 &2590965182119975300
 GameObject:
   m_ObjectHideFlags: 0
@@ -80,8 +120,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4855329644904715203}
-  - {fileID: 4956710874586943752}
-  - {fileID: 1761732951477852499}
+  - {fileID: 1638994588639990129}
   - {fileID: 1315515076668946883}
   m_Father: {fileID: 4431154760222054907}
   m_RootOrder: 1
@@ -124,40 +163,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &3650968311051677972
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1761732951477852499}
-  m_Layer: 0
-  m_Name: LeftBarsTest 1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1761732951477852499
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3650968311051677972}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -122.44998, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 8866363377463829935}
-  - {fileID: 3864728258285040204}
-  - {fileID: 6775467159177137474}
-  m_Father: {fileID: 2360947229820117908}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4020671950948241681
 GameObject:
   m_ObjectHideFlags: 0
@@ -244,7 +249,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4855329644904715203}
   m_Layer: 0
-  m_Name: LeftBars (2)
+  m_Name: LeftBars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -270,7 +275,6 @@ Transform:
   - {fileID: 1035047074994046889}
   - {fileID: 3628730619199811204}
   - {fileID: 8485134231190715265}
-  - {fileID: 8119695157335727263}
   - {fileID: 152698903936894008}
   - {fileID: 1811361337611311376}
   - {fileID: 5642282533206694496}
@@ -449,41 +453,7 @@ Transform:
   - {fileID: 5918343400559523704}
   - {fileID: 4030487567772855059}
   m_Father: {fileID: 2360947229820117908}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &9134337666036354033
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4956710874586943752}
-  m_Layer: 0
-  m_Name: LeftBarsTest
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &4956710874586943752
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9134337666036354033}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -122.44998, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 784868767826851605}
-  - {fileID: 2297492595628391195}
-  - {fileID: 1011755616680321443}
-  m_Father: {fileID: 2360947229820117908}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &168436126837509760
 PrefabInstance:
@@ -578,10 +548,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8421194680955031369, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_Name
-      value: TerraLordPassiveBar (27)
+      value: TerraLordPassiveBar (26)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+--- !u!95 &1045147625052355731 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 925344560281334291, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+  m_PrefabInstance: {fileID: 168436126837509760}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &6541753359545326360 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
@@ -680,120 +655,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8421194680955031369, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_Name
-      value: TerraLordPassiveBar (26)
+      value: TerraLordPassiveBar (25)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+--- !u!95 &1098189000304998520 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 925344560281334291, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+  m_PrefabInstance: {fileID: 282309413040228971}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &6590009995123220467 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
   m_PrefabInstance: {fileID: 282309413040228971}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &475647343882983642
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1761732951477852499}
-    m_Modifications:
-    - target: {fileID: 1551541863403133145, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 47fe73b0c94ad4d41ad65a4dbb4dee66, type: 3}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 96
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 160
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -149.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8421194680955031369, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_Name
-      value: TerraLordPassiveBar (2)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
---- !u!224 &6775467159177137474 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-  m_PrefabInstance: {fileID: 475647343882983642}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &773686964019028704
 PrefabInstance:
@@ -888,10 +762,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8421194680955031369, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_Name
-      value: TerraLordPassiveBar (39)
+      value: TerraLordPassiveBar (38)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+--- !u!95 &462687447728050419 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 925344560281334291, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+  m_PrefabInstance: {fileID: 773686964019028704}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &5918343400559523704 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
@@ -990,10 +869,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8421194680955031369, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_Name
-      value: TerraLordPassiveBar (30)
+      value: TerraLordPassiveBar (29)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+--- !u!95 &2187388819196894748 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 925344560281334291, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+  m_PrefabInstance: {fileID: 1336532744381721615}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &5337553588884879767 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
@@ -1092,10 +976,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8421194680955031369, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_Name
-      value: TerraLordPassiveBar (31)
+      value: TerraLordPassiveBar (30)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+--- !u!95 &1751995265717513313 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 925344560281334291, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+  m_PrefabInstance: {fileID: 1479201103259803250}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &5483607906722925546 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
@@ -1194,10 +1083,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8421194680955031369, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_Name
-      value: TerraLordPassiveBar (28)
+      value: TerraLordPassiveBar (27)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+--- !u!95 &1920122675542005643 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 925344560281334291, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+  m_PrefabInstance: {fileID: 1617599994463921560}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &5686994480639963136 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
@@ -1220,7 +1114,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1296,10 +1190,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8421194680955031369, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_Name
-      value: TerraLordPassiveBar (11)
+      value: TerraLordPassiveBar (10)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+--- !u!95 &1874777478129614315 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 925344560281334291, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+  m_PrefabInstance: {fileID: 1644930793366736888}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &5642282533206694496 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
@@ -1398,10 +1297,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8421194680955031369, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_Name
-      value: TerraLordPassiveBar (37)
+      value: TerraLordPassiveBar (36)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+--- !u!95 &1554074166730977937 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 925344560281334291, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+  m_PrefabInstance: {fileID: 1821237387086577794}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &4744762142314468634 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
@@ -1504,6 +1408,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+--- !u!95 &1621707803040575814 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 925344560281334291, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+  m_PrefabInstance: {fileID: 1897718990560478037}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &4812255186691692237 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
@@ -1602,222 +1511,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8421194680955031369, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_Name
-      value: TerraLordPassiveBar (33)
+      value: TerraLordPassiveBar (32)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+--- !u!95 &3171166098254432297 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 925344560281334291, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+  m_PrefabInstance: {fileID: 2365873296146119226}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &8668260488285253538 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
   m_PrefabInstance: {fileID: 2365873296146119226}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &2564020719857397815
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1761732951477852499}
-    m_Modifications:
-    - target: {fileID: 1551541863403133145, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 47fe73b0c94ad4d41ad65a4dbb4dee66, type: 3}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 96
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 160
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -170.10002
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8421194680955031369, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_Name
-      value: TerraLordPassiveBar
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
---- !u!224 &8866363377463829935 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-  m_PrefabInstance: {fileID: 2564020719857397815}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &2895936053244348679
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 4855329644904715203}
-    m_Modifications:
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_RootOrder
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 96
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 160
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -109.725
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8421194680955031369, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_Name
-      value: TerraLordPassiveBar (8)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
---- !u!224 &8119695157335727263 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-  m_PrefabInstance: {fileID: 2895936053244348679}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2956893232951738195
 PrefabInstance:
@@ -1836,7 +1542,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_RootOrder
-      value: 16
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1912,10 +1618,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8421194680955031369, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_Name
-      value: TerraLordPassiveBar (16)
+      value: TerraLordPassiveBar (15)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+--- !u!95 &2729046422936653120 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 925344560281334291, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+  m_PrefabInstance: {fileID: 2956893232951738195}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &8184838757628570315 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
@@ -2018,6 +1729,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+--- !u!95 &2416364404520868874 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 925344560281334291, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+  m_PrefabInstance: {fileID: 3269575284805201433}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &8485134231190715265 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
@@ -2116,10 +1832,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8421194680955031369, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_Name
-      value: TerraLordPassiveBar (36)
+      value: TerraLordPassiveBar (35)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+--- !u!95 &2529035406209609070 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 925344560281334291, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+  m_PrefabInstance: {fileID: 3445125848962359165}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &8597677844144720613 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
@@ -2222,6 +1943,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+--- !u!95 &4528850969367966740 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 925344560281334291, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+  m_PrefabInstance: {fileID: 3607046918203819527}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &7678729488076641183 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
@@ -2320,10 +2046,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8421194680955031369, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_Name
-      value: TerraLordPassiveBar (38)
+      value: TerraLordPassiveBar (37)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+--- !u!95 &4167362685253162057 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 925344560281334291, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+  m_PrefabInstance: {fileID: 3819626093180298842}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &7898351086569255874 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
@@ -2346,7 +2077,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2422,10 +2153,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8421194680955031369, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_Name
-      value: TerraLordPassiveBar (15)
+      value: TerraLordPassiveBar (14)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+--- !u!95 &4120827453377174899 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 925344560281334291, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+  m_PrefabInstance: {fileID: 3884184554035081056}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &7888609465078201080 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
@@ -2524,10 +2260,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8421194680955031369, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_Name
-      value: TerraLordPassiveBar (22)
+      value: TerraLordPassiveBar (21)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+--- !u!95 &4222849260481075863 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 925344560281334291, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+  m_PrefabInstance: {fileID: 3913039832306575492}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &7985855448911887644 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
@@ -2550,7 +2291,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_RootOrder
-      value: 17
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2626,10 +2367,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8421194680955031369, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_Name
-      value: TerraLordPassiveBar (17)
+      value: TerraLordPassiveBar (16)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+--- !u!95 &4181062471350660888 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 925344560281334291, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+  m_PrefabInstance: {fileID: 3950050308565638411}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &7948844637726099603 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
@@ -2728,10 +2474,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8421194680955031369, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_Name
-      value: TerraLordPassiveBar (23)
+      value: TerraLordPassiveBar (22)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+--- !u!95 &3505217978132152538 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 925344560281334291, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+  m_PrefabInstance: {fileID: 4355670046300304073}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &7272450362846291793 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
@@ -2834,6 +2585,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+--- !u!95 &3739365496976687039 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 925344560281334291, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+  m_PrefabInstance: {fileID: 4554158342084038060}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &7470630812553697332 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
@@ -2856,7 +2612,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2932,13 +2688,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8421194680955031369, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_Name
-      value: TerraLordPassiveBar (10)
+      value: TerraLordPassiveBar (9)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
 --- !u!224 &1811361337611311376 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+  m_PrefabInstance: {fileID: 4737120833060080776}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &5578510460716498587 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 925344560281334291, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
   m_PrefabInstance: {fileID: 4737120833060080776}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4871909121969877529
@@ -3034,13 +2795,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8421194680955031369, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_Name
-      value: TerraLordPassiveBar (32)
+      value: TerraLordPassiveBar (31)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
 --- !u!224 &1946366814425130881 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+  m_PrefabInstance: {fileID: 4871909121969877529}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &5713665436207759370 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 925344560281334291, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
   m_PrefabInstance: {fileID: 4871909121969877529}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5073982743924254438
@@ -3136,13 +2902,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8421194680955031369, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_Name
-      value: TerraLordPassiveBar (34)
+      value: TerraLordPassiveBar (33)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
 --- !u!224 &2230677828775834494 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+  m_PrefabInstance: {fileID: 5073982743924254438}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &5385482263204566261 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 925344560281334291, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
   m_PrefabInstance: {fileID: 5073982743924254438}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5078823459382496281
@@ -3238,7 +3009,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8421194680955031369, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_Name
-      value: TerraLordPassiveBar (35)
+      value: TerraLordPassiveBar (34)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
@@ -3247,12 +3018,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
   m_PrefabInstance: {fileID: 5078823459382496281}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &5151212600311279235
+--- !u!95 &5380923038994972170 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 925344560281334291, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+  m_PrefabInstance: {fileID: 5078823459382496281}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5629637125708727529
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 4956710874586943752}
+    m_TransformParent: {fileID: 2360947229820117908}
     m_Modifications:
     - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_Pivot.x
@@ -3284,11 +3060,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 64
+      value: 96
       objectReference: {fileID: 0}
     - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_SizeDelta.y
       value: 160
+      objectReference: {fileID: 0}
+    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+      propertyPath: m_LocalScale.z
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3320,7 +3108,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -163.20001
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -3340,14 +3128,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8421194680955031369, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_Name
-      value: TerraLordPassiveBar (1)
+      value: MiddleBar
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
---- !u!224 &2297492595628391195 stripped
+--- !u!224 &1638994588639990129 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-  m_PrefabInstance: {fileID: 5151212600311279235}
+  m_PrefabInstance: {fileID: 5629637125708727529}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5649779579950978208
 PrefabInstance:
@@ -3449,6 +3237,11 @@ PrefabInstance:
 --- !u!224 &1654669748613349688 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+  m_PrefabInstance: {fileID: 5649779579950978208}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &4809694187837679283 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 925344560281334291, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
   m_PrefabInstance: {fileID: 5649779579950978208}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5851919687503226287
@@ -3553,107 +3346,10 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
   m_PrefabInstance: {fileID: 5851919687503226287}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &5943331192056767117
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 4956710874586943752}
-    m_Modifications:
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 64
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 160
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -170.10002
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8421194680955031369, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_Name
-      value: TerraLordPassiveBar
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
---- !u!224 &784868767826851605 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-  m_PrefabInstance: {fileID: 5943331192056767117}
+--- !u!95 &6764769525886228412 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 925344560281334291, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+  m_PrefabInstance: {fileID: 5851919687503226287}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6088958623327978650
 PrefabInstance:
@@ -3672,7 +3368,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_AnchorMax.x
@@ -3748,7 +3444,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8421194680955031369, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_Name
-      value: TerraLordPassiveBar (13)
+      value: TerraLordPassiveBar (12)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
@@ -3757,107 +3453,10 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
   m_PrefabInstance: {fileID: 6088958623327978650}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &6238866032210506811
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 4956710874586943752}
-    m_Modifications:
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 64
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 160
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -156.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8421194680955031369, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_Name
-      value: TerraLordPassiveBar (2)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
---- !u!224 &1011755616680321443 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-  m_PrefabInstance: {fileID: 6238866032210506811}
+--- !u!95 &6365601003473778313 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 925344560281334291, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+  m_PrefabInstance: {fileID: 6088958623327978650}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6252021105713156657
 PrefabInstance:
@@ -3961,6 +3560,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
   m_PrefabInstance: {fileID: 6252021105713156657}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &6491059166515273762 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 925344560281334291, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+  m_PrefabInstance: {fileID: 6252021105713156657}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6283117136647494244
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4054,13 +3658,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8421194680955031369, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_Name
-      value: TerraLordPassiveBar (24)
+      value: TerraLordPassiveBar (23)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
 --- !u!224 &1129418866236051452 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+  m_PrefabInstance: {fileID: 6283117136647494244}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &6621811280206604407 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 925344560281334291, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
   m_PrefabInstance: {fileID: 6283117136647494244}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6521461980943143328
@@ -4080,7 +3689,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_AnchorMax.x
@@ -4156,13 +3765,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8421194680955031369, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_Name
-      value: TerraLordPassiveBar (9)
+      value: TerraLordPassiveBar (8)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
 --- !u!224 &152698903936894008 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+  m_PrefabInstance: {fileID: 6521461980943143328}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &6221609528211563443 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 925344560281334291, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
   m_PrefabInstance: {fileID: 6521461980943143328}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7080519633907273202
@@ -4182,7 +3796,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_RootOrder
-      value: 20
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_AnchorMax.x
@@ -4258,13 +3872,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8421194680955031369, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_Name
-      value: TerraLordPassiveBar (20)
+      value: TerraLordPassiveBar (19)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
 --- !u!224 &4241707851550824554 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+  m_PrefabInstance: {fileID: 7080519633907273202}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &7968122207724404705 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 925344560281334291, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
   m_PrefabInstance: {fileID: 7080519633907273202}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7693637465846332188
@@ -4369,111 +3988,10 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
   m_PrefabInstance: {fileID: 7693637465846332188}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &7871403852449884116
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1761732951477852499}
-    m_Modifications:
-    - target: {fileID: 1551541863403133145, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 47fe73b0c94ad4d41ad65a4dbb4dee66, type: 3}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 96
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 160
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -159.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8421194680955031369, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-      propertyPath: m_Name
-      value: TerraLordPassiveBar (1)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
---- !u!224 &3864728258285040204 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
-  m_PrefabInstance: {fileID: 7871403852449884116}
+--- !u!95 &7354995544256710927 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 925344560281334291, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+  m_PrefabInstance: {fileID: 7693637465846332188}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8030400615654784651
 PrefabInstance:
@@ -4568,13 +4086,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8421194680955031369, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_Name
-      value: TerraLordPassiveBar (40)
+      value: TerraLordPassiveBar (39)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
 --- !u!224 &4030487567772855059 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+  m_PrefabInstance: {fileID: 8030400615654784651}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &7180652234924280984 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 925344560281334291, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
   m_PrefabInstance: {fileID: 8030400615654784651}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8198046731844018835
@@ -4594,7 +4117,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_AnchorMax.x
@@ -4670,13 +4193,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8421194680955031369, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_Name
-      value: TerraLordPassiveBar (14)
+      value: TerraLordPassiveBar (13)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
 --- !u!224 &2980201905076680459 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+  m_PrefabInstance: {fileID: 8198046731844018835}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &9012314083343847552 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 925344560281334291, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
   m_PrefabInstance: {fileID: 8198046731844018835}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8200094395584505050
@@ -4772,13 +4300,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8421194680955031369, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_Name
-      value: TerraLordPassiveBar (21)
+      value: TerraLordPassiveBar (20)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
 --- !u!224 &2977455148381024578 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+  m_PrefabInstance: {fileID: 8200094395584505050}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &9015060289209816777 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 925344560281334291, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
   m_PrefabInstance: {fileID: 8200094395584505050}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8535393238391900932
@@ -4798,7 +4331,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_AnchorMax.x
@@ -4874,13 +4407,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8421194680955031369, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_Name
-      value: TerraLordPassiveBar (12)
+      value: TerraLordPassiveBar (11)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
 --- !u!224 &3381450339508690588 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+  m_PrefabInstance: {fileID: 8535393238391900932}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &8837387466764089623 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 925344560281334291, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
   m_PrefabInstance: {fileID: 8535393238391900932}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8627745319400272034
@@ -4976,13 +4514,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8421194680955031369, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_Name
-      value: TerraLordPassiveBar (25)
+      value: TerraLordPassiveBar (24)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
 --- !u!224 &3397250555539662138 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+  m_PrefabInstance: {fileID: 8627745319400272034}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &8893645397915648689 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 925344560281334291, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
   m_PrefabInstance: {fileID: 8627745319400272034}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8653813718994192154
@@ -5078,13 +4621,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8421194680955031369, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_Name
-      value: TerraLordPassiveBar (29)
+      value: TerraLordPassiveBar (28)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
 --- !u!224 &2343587580196016770 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+  m_PrefabInstance: {fileID: 8653813718994192154}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &8417225795841668361 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 925344560281334291, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
   m_PrefabInstance: {fileID: 8653813718994192154}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8791275068641252985
@@ -5104,7 +4652,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_RootOrder
-      value: 18
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_AnchorMax.x
@@ -5180,13 +4728,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8421194680955031369, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_Name
-      value: TerraLordPassiveBar (18)
+      value: TerraLordPassiveBar (17)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
 --- !u!224 &2494571836235891681 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+  m_PrefabInstance: {fileID: 8791275068641252985}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &8563482409582240874 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 925344560281334291, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
   m_PrefabInstance: {fileID: 8791275068641252985}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9107330825458047004
@@ -5206,7 +4759,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_RootOrder
-      value: 19
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_AnchorMax.x
@@ -5282,12 +4835,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8421194680955031369, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
       propertyPath: m_Name
-      value: TerraLordPassiveBar (19)
+      value: TerraLordPassiveBar (18)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
 --- !u!224 &2809437908588596612 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6385714797544265112, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
+  m_PrefabInstance: {fileID: 9107330825458047004}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &8265449862666709519 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 925344560281334291, guid: a55cbc30e0371024dbdb21943ca362b8, type: 3}
   m_PrefabInstance: {fileID: 9107330825458047004}
   m_PrefabAsset: {fileID: 0}

@@ -23,6 +23,7 @@ public class SB_TerraLord : SpecificBossFramework
     private HeroesManager _heroesManager;
     private Coroutine _passiveProcessCoroutine;
 
+    //Invokes the passive counter value scaled from -1 to 1
     private UnityEvent<float> _passivePercentUpdated = new UnityEvent<float>();
 
     #region Passive
@@ -71,9 +72,11 @@ public class SB_TerraLord : SpecificBossFramework
         InvokePassivePercentUpdate();
     }
 
-    private float GetPassiveCounterPercentWithNegatives()
+
+    
+    private float GetPassiveCounterPercent()
     {
-        return _passiveCounterValue / _passiveMaxValue;
+        return Mathf.Clamp(_passiveCounterValue / _passiveMaxValue, -_passiveMaxValue, _passiveMaxValue);
     }
 
     private void StopPassiveProcess()
@@ -87,9 +90,10 @@ public class SB_TerraLord : SpecificBossFramework
 
     #region Events
 
+
     private void InvokePassivePercentUpdate()
     {
-        _passivePercentUpdated?.Invoke(GetPassiveCounterPercentWithNegatives());
+        _passivePercentUpdated?.Invoke(GetPassiveCounterPercent());
     }
 
     #endregion
