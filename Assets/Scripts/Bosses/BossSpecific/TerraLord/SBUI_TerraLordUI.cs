@@ -59,6 +59,7 @@ public class SBUI_TerraLordUI : SpecificBossUIFramework
             _passiveBars[barPos].SetTrigger(_passiveBarHide);
     }
 
+    //Takes the percentage and converts it to a scale from -1 to 1
     private int ConvertPercentToValue(float passivePercent)
     {
         float lerpA = _startingPassiveBarValue;

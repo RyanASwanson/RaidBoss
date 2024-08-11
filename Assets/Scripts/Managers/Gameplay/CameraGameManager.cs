@@ -11,9 +11,7 @@ public class CameraGameManager : BaseGameplayManager
     [SerializeField] private Camera _gameplayCamera;
     [SerializeField] private CinemachineVirtualCamera _virtualCamera;
 
-    [Space]
-    [SerializeField] private GameObject _cinemachineGameObject;
-    [SerializeField] private GameObject _virtualCameraGameObject;
+    
 
     float _screenShakeMultiplier = 1;
 
@@ -40,13 +38,13 @@ public class CameraGameManager : BaseGameplayManager
     private Coroutine _cameraShakeCoroutine;
     private Coroutine _cameraShakeDecayCoroutine;
 
-    /*private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            StartCameraShake(1, 1, 1);
-        }
-    }*/
+    [Space]
+    [Header("Camera Rotation")]
+    [SerializeField] private Transform _cinemachineTransform;
+
+    [SerializeField] private Transform _virtualCameraTransform;
+    private Vector3 _targetVirtualCamRotation;
+    private Coroutine _virtualCamRotationCoroutine;
 
     /// <summary>
     /// Initiates the camera shake process
@@ -107,6 +105,44 @@ public class CameraGameManager : BaseGameplayManager
     private void CameraShakeOnBossDeath()
     {
         StartCameraShake(_bossDeathIntensity, _bossDeathFrequency, _bossDeathDuration);
+    }
+
+    public void StartRotateCinemachineCamera(Vector3 targetRotation)
+    {
+        _targetVirtualCamRotation = targetRotation;
+
+        if (_virtualCamRotationCoroutine != null)
+            StopCoroutine(_virtualCamRotationCoroutine);
+
+        _virtualCamRotationCoroutine = StartCoroutine(RotateCinemachineCameraProcess());
+    }
+
+    private IEnumerator RotateCinemachineCameraProcess()
+    {
+        float coroutineTimer = 0;
+        Vector3 startingEulerAngles = _virtualCameraTransform.localEulerAngles;
+
+        while(coroutineTimer < 1)
+        {
+            coroutineTimer += Time.deltaTime;
+            //SetCinemachineCameraEulerAngles(_targetVirtualCamRotation);
+            //SetCinemachineCameraEulerAngles(Vector3.Lerp(startingEulerAngles,_targetVirtualCamRotation,coroutineTimer));
+            _virtualCameraTransform.Rotate(new Vector3(0, 0, Time.deltaTime));
+            //SetCinemachineCameraEulerAngles(Vector3.Lerp(startingEulerAngles,_targetVirtualCamRotation,coroutineTimer));
+            
+            yield return null;
+        }
+        //SetCinemachineCameraEulerAngles(_targetVirtualCamRotation);
+
+        _virtualCamRotationCoroutine = null;
+    }
+
+    private void SetCinemachineCameraEulerAngles(Vector3 angle)
+    {
+        //transform.Rotate(angle);
+        //_virtualCameraTransform.Rotate(angle);
+        _virtualCameraTransform.localEulerAngles = angle;
+        print(angle + " "+ _virtualCameraTransform.eulerAngles + " " +_targetVirtualCamRotation);
     }
 
     public override void SetupGameplayManager()

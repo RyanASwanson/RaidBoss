@@ -19,6 +19,9 @@ public class SB_TerraLord : SpecificBossFramework
 
     private float _passiveCounterValue = 0;
 
+    [SerializeField] private float _minimumPercentForRotation;
+    [SerializeField] private float _zRotationMultiplier;
+
     private HeroesManager _heroesManager;
     private Coroutine _passiveProcessCoroutine;
 
@@ -79,6 +82,8 @@ public class SB_TerraLord : SpecificBossFramework
     {
         _passiveCounterValue += val;
         //Debug.Log(_passiveCounterValue);
+
+        RotateCameraBasedOnPassive();
         InvokePassivePercentUpdate();
     }
 
@@ -95,6 +100,17 @@ public class SB_TerraLord : SpecificBossFramework
 
         StopCoroutine(_passiveProcessCoroutine);
         _passiveProcessCoroutine = null;
+    }
+
+    private void RotateCameraBasedOnPassive()
+    {
+        if(Mathf.Abs(GetPassiveCounterPercent()) > _minimumPercentForRotation)
+        {
+            Vector3 tempRotation = new(0, 0, (GetPassiveCounterPercent() * _zRotationMultiplier));
+
+            print(tempRotation);
+            GameplayManagers.Instance.GetCameraManager().StartRotateCinemachineCamera(tempRotation);
+        }
     }
     #endregion
 

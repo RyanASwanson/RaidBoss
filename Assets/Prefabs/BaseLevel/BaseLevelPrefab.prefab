@@ -109,9 +109,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &5621628427160508316 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5583464084943650830, guid: 40f71232f8554274b8418750ffe165a0, type: 3}
+  m_PrefabInstance: {fileID: 250084218826397586}
+  m_PrefabAsset: {fileID: 0}
 --- !u!20 &5804870082119834788 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 6050428663841655606, guid: 40f71232f8554274b8418750ffe165a0, type: 3}
+  m_PrefabInstance: {fileID: 250084218826397586}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8726387744900322030 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8818647505153492348, guid: 40f71232f8554274b8418750ffe165a0, type: 3}
   m_PrefabInstance: {fileID: 250084218826397586}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &8885438487741888185 stripped
@@ -865,6 +875,14 @@ PrefabInstance:
       propertyPath: _gameplayCamera
       value: 
       objectReference: {fileID: 5804870082119834788}
+    - target: {fileID: 233360647747506127, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
+      propertyPath: _cinemachineTransform
+      value: 
+      objectReference: {fileID: 8726387744900322030}
+    - target: {fileID: 233360647747506127, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
+      propertyPath: _virtualCameraTransform
+      value: 
+      objectReference: {fileID: 5621628427160508316}
     - target: {fileID: 4430481737671908547, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
       propertyPath: _floorCollider
       value: 
