@@ -19,16 +19,14 @@ public abstract class SpecificBossFramework : MonoBehaviour
 
     [Header("GameObjects")]
     [SerializeField] private GameObject _bossVisualsBase;
-
-    private List<HeroBase> _aggroOverrides = new List<HeroBase>();
-
-    private Coroutine _nextAttackProcess;
-
-    private Coroutine _preventAttacksCoroutine;
-    
     [SerializeField] protected GameObject _bossSpecificUI;
 
     protected GameObject _storedBossUI;
+
+    private List<HeroBase> _aggroOverrides = new List<HeroBase>();
+
+    protected Coroutine _nextAttackProcess;
+    protected Coroutine _preventAttacksCoroutine;
 
     [Header("Animator")]
     [SerializeField] private Animator _bossSpecificAnimator;
@@ -37,8 +35,6 @@ public abstract class SpecificBossFramework : MonoBehaviour
     protected virtual void StartFight()
     {
         SetupReadyBossAbilities();
-
-        CreateBossUI();
 
         StartNextAbility();
     }
@@ -54,7 +50,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
         }
     }
 
-    private void CreateBossUI()
+    private void CreateBossSpecificUI()
     {
         if (_bossSpecificUI == null) return;
         _storedBossUI = GameplayManagers.Instance.GetGameUIManager().
@@ -260,6 +256,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
     public virtual void SetupSpecificBoss(BossBase bossBase)
     {
         myBossBase = bossBase;
+        CreateBossSpecificUI();
         SubscribeToEvents();
     }
 
