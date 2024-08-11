@@ -11,8 +11,13 @@ public class CameraGameManager : BaseGameplayManager
     [SerializeField] private Camera _gameplayCamera;
     [SerializeField] private CinemachineVirtualCamera _virtualCamera;
 
+    [Space]
+    [SerializeField] private GameObject _cinemachineGameObject;
+    [SerializeField] private GameObject _virtualCameraGameObject;
+
     float _screenShakeMultiplier = 1;
 
+    [Space]
     [Header("Screen Shake")]
     [SerializeField] private float _minimumIntensity;
     [SerializeField] private float _minimumFrequency;
