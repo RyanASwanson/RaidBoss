@@ -57,16 +57,6 @@ public class SBUI_TerraLordUI : SpecificBossUIFramework
 
         else
             _passiveBars[barPos].SetTrigger(_passiveBarHide);
-
-        print(sideCondition == changeDirection);
-
-        /*if ( && changeDirection) ; //Show
-
-        if ((barPos > _startingPassiveBarValue) && !changeDirection) ; //Hide
-
-        if ((barPos < _startingPassiveBarValue) && changeDirection) ; //Hide
-
-        if ((barPos < _startingPassiveBarValue) && !changeDirection) ; //Show*/
     }
 
     private int ConvertPercentToValue(float passivePercent)

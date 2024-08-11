@@ -10,13 +10,12 @@ public class SB_TerraLord : SpecificBossFramework
     [Header("Unstable Precipice")]
     [SerializeField] private float _passiveTickRate;
 
-    [SerializeField] private float _passiveHeroWeightMultiplier;
-
     [SerializeField] private float _passiveMaxValue;
 
     [Space]
 
     [SerializeField] private List<float> _difficultyWeightMultiplier;
+    private float _passiveHeroWeightMultiplier;
 
     private float _passiveCounterValue = 0;
 
@@ -27,11 +26,22 @@ public class SB_TerraLord : SpecificBossFramework
     private UnityEvent<float> _passivePercentUpdated = new UnityEvent<float>();
 
     #region Passive
+
     private void StartPassiveProcess()
     {
+        SetStartingPassiveWeightMultiplier();
+
         if (_passiveProcessCoroutine != null) return;
 
         _passiveProcessCoroutine = StartCoroutine(PassiveProcess());
+    }
+
+    private void SetStartingPassiveWeightMultiplier()
+    {
+        GameDifficulty selectedDifficulty = UniversalManagers.Instance.GetSelectionManager().GetSelectedDifficulty();
+
+        _passiveHeroWeightMultiplier = _difficultyWeightMultiplier[(int)selectedDifficulty-1];
+        print(_passiveHeroWeightMultiplier);
     }
 
     private IEnumerator PassiveProcess()
