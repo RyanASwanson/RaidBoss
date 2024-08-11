@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SB_TerraLord : SpecificBossFramework
 {
@@ -21,6 +22,8 @@ public class SB_TerraLord : SpecificBossFramework
 
     private HeroesManager _heroesManager;
     private Coroutine _passiveProcessCoroutine;
+
+    private UnityEvent<float> _passivePercentUpdated = new UnityEvent<float>();
 
     #region Passive
     private void StartPassiveProcess()
@@ -43,6 +46,7 @@ public class SB_TerraLord : SpecificBossFramework
     private void PassiveTick()
     {
         ChangePassiveCounterValue(CalculatePassiveHeroWeight());
+        
     }
 
     private float CalculatePassiveHeroWeight()
@@ -64,6 +68,12 @@ public class SB_TerraLord : SpecificBossFramework
     {
         _passiveCounterValue += val;
         //Debug.Log(_passiveCounterValue);
+        InvokePassivePercentUpdate();
+    }
+
+    private float GetPassiveCounterPercentWithNegatives()
+    {
+        return _passiveCounterValue / _passiveMaxValue;
     }
 
     private void StopPassiveProcess()
@@ -73,6 +83,15 @@ public class SB_TerraLord : SpecificBossFramework
         StopCoroutine(_passiveProcessCoroutine);
         _passiveProcessCoroutine = null;
     }
+    #endregion
+
+    #region Events
+
+    private void InvokePassivePercentUpdate()
+    {
+        _passivePercentUpdated?.Invoke(GetPassiveCounterPercentWithNegatives());
+    }
+
     #endregion
 
     protected override void StartFight()
@@ -103,4 +122,8 @@ public class SB_TerraLord : SpecificBossFramework
 
         
     }
+
+    #region Getters
+    public UnityEvent<float> GetPassivePercentUpdatedEvent() => _passivePercentUpdated;
+    #endregion
 }

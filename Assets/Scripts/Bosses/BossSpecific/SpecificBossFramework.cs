@@ -15,7 +15,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
     protected List<SpecificBossAbilityFramework> _readyBossAttacks = new List<SpecificBossAbilityFramework>();
     protected Queue<SpecificBossAbilityFramework> _bossCooldownQueue = new Queue<SpecificBossAbilityFramework>();
 
-    internal BossBase myBossBase;
+    protected BossBase _myBossBase;
 
     [Header("GameObjects")]
     [SerializeField] private GameObject _bossVisualsBase;
@@ -55,6 +55,8 @@ public abstract class SpecificBossFramework : MonoBehaviour
         if (_bossSpecificUI == null) return;
         _storedBossUI = GameplayManagers.Instance.GetGameUIManager().
             GetBossUIManager().AddBossUIToHolder(_bossSpecificUI);
+
+        _storedBossUI.GetComponent<SpecificBossUIFramework>().SetupBossSpecificUIFunctionality(_myBossBase, this);
     }
 
     #endregion
@@ -167,8 +169,8 @@ public abstract class SpecificBossFramework : MonoBehaviour
     /// </summary>
     protected void RepitionCounterAtMax()
     {
-        myBossBase.GetBossAbilityUsedEvent().RemoveListener(IterateRepitionCounter);
-        myBossBase.GetBossAbilityUsedEvent().AddListener(TakeAbilityFromQueueToReady);
+        _myBossBase.GetBossAbilityUsedEvent().RemoveListener(IterateRepitionCounter);
+        _myBossBase.GetBossAbilityUsedEvent().AddListener(TakeAbilityFromQueueToReady);
     }
 
 
@@ -201,12 +203,12 @@ public abstract class SpecificBossFramework : MonoBehaviour
     {
         HeroBase newTarget = DetermineAggroTarget();
 
-        myBossBase.GetBossVisuals().BossLookAt(newTarget.transform.position);
+        _myBossBase.GetBossVisuals().BossLookAt(newTarget.transform.position);
 
         currentAbility.ActivateAbility(
             ClosestFloorSpaceOfHeroTarget(newTarget), newTarget);
 
-        myBossBase.InvokeBossAbilityUsedEvent();
+        _myBossBase.InvokeBossAbilityUsedEvent();
 
         yield return new WaitForSeconds(currentAbility.GetTimeUntilNextAbility());
 
@@ -230,7 +232,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
         yield return new WaitForSeconds(stopDuration);
         StartNextAbility();
 
-        myBossBase.InvokeBossNoLongerStaggeredEvent();
+        _myBossBase.InvokeBossNoLongerStaggeredEvent();
     }
 
 
@@ -240,7 +242,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
     protected virtual void BossStaggerOccured()
     {
         _preventAttacksCoroutine = StartCoroutine(StaggerBossForDuration
-            (myBossBase.GetBossStats().GetStaggerDuration()));
+            (_myBossBase.GetBossStats().GetStaggerDuration()));
     }
 
     protected virtual void BossNoLongerStaggeredOccured()
@@ -255,7 +257,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
 
     public virtual void SetupSpecificBoss(BossBase bossBase)
     {
-        myBossBase = bossBase;
+        _myBossBase = bossBase;
         CreateBossSpecificUI();
         SubscribeToEvents();
     }
@@ -266,14 +268,14 @@ public abstract class SpecificBossFramework : MonoBehaviour
         GameplayManagers.Instance.GetGameStateManager().GetStartOfBattleEvent().AddListener(StartFight);
 
         //Listens for when the boss uses an ability
-        myBossBase.GetBossAbilityUsedEvent().AddListener(IterateRepitionCounter);
+        _myBossBase.GetBossAbilityUsedEvent().AddListener(IterateRepitionCounter);
 
         //Listens for when the boss is staggered
-        myBossBase.GetBossStaggeredEvent().AddListener(BossStaggerOccured);
+        _myBossBase.GetBossStaggeredEvent().AddListener(BossStaggerOccured);
 
-        myBossBase.GetBossNoLongerStaggeredEvent().AddListener(BossNoLongerStaggeredOccured);
+        _myBossBase.GetBossNoLongerStaggeredEvent().AddListener(BossNoLongerStaggeredOccured);
 
-        myBossBase.GetBossHalfHealthEvent().AddListener(UnlockNewAbility);
+        _myBossBase.GetBossHalfHealthEvent().AddListener(UnlockNewAbility);
     }
 
     #endregion
