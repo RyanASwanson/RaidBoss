@@ -6,7 +6,7 @@ public class SBUI_TerraLordUI : SpecificBossUIFramework
 {
     [SerializeField] private List<Animator> _passiveBars;
     private const string _passiveBarShow = "ShowBar";
-    private const string _passiveBarHide = "ShowBar";
+    private const string _passiveBarHide = "HideBar";
 
     int _startingPassiveBarValue;
     int _previousPassiveBarValue;
@@ -26,13 +26,47 @@ public class SBUI_TerraLordUI : SpecificBossUIFramework
     private void IterateThroughPassiveBars(int start, int end)
     {
         int changeVal = 1;
+        bool upOrDown = true;
+
         if (end < start)
+        {
             changeVal *= -1;
+            upOrDown = false;
+        }
+            
 
         for (int i = start; i != end; i += changeVal)
         {
-            Debug.Log(i);
+            AnimateSpecificBar(i, upOrDown);
         }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="barPos"></param>
+    /// <param name="changeDirection"></param> false = down, true = up
+    private void AnimateSpecificBar(int barPos, bool changeDirection)
+    {
+        bool sideCondition = barPos > _startingPassiveBarValue;
+
+        if (sideCondition == changeDirection)
+        {
+            _passiveBars[barPos].SetTrigger(_passiveBarShow);
+        }
+
+        else
+            _passiveBars[barPos].SetTrigger(_passiveBarHide);
+
+        print(sideCondition == changeDirection);
+
+        /*if ( && changeDirection) ; //Show
+
+        if ((barPos > _startingPassiveBarValue) && !changeDirection) ; //Hide
+
+        if ((barPos < _startingPassiveBarValue) && changeDirection) ; //Hide
+
+        if ((barPos < _startingPassiveBarValue) && !changeDirection) ; //Show*/
     }
 
     private int ConvertPercentToValue(float passivePercent)
