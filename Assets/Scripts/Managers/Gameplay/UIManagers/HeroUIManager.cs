@@ -58,9 +58,6 @@ public class HeroUIManager : GameUIChildrenFunctionality
 
     private const string _damageHealingWeakAnimTrigger = "WeakDamage";
 
-    private const string _buffAnimTrigger = "Buff";
-    private const string _debuffAnimTrigger = "Debuff";
-
 
     public void AssignSpecificHero(HeroBase heroBase)
     {
@@ -303,11 +300,8 @@ public class HeroUIManager : GameUIChildrenFunctionality
     {
         GameObject newBuffDebuff = Instantiate(_buffDebuffObj, _buffDebuffOrigin);
 
-        newBuffDebuff.GetComponent<HeroBuffDebuffFunctionality>().ChangeHeroBuffDebuffIcon(buffSprite);
-        if (isBuff)
-            newBuffDebuff.GetComponentInChildren<Animator>().SetTrigger(_buffAnimTrigger);
-        else
-            newBuffDebuff.GetComponentInChildren<Animator>().SetTrigger(_debuffAnimTrigger);
+        newBuffDebuff.GetComponent<HeroBuffDebuffFunctionality>().ChangeHeroBuffDebuffIcon(buffSprite, isBuff);
+        
     }
 
     private void ManualFullyCharged()
