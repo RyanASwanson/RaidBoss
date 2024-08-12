@@ -133,7 +133,7 @@ public class SelectionController : MonoBehaviour
     {
         //Show boss description and hide hero description
         _bossDescription.SetActive(true);
-        _heroDescription.SetActive(false);
+        HideFullHeroDescription();
 
         _bossNameText.text = bossSO.GetBossName();
         _bossNameBorder.text = bossSO.GetBossName();
@@ -201,16 +201,30 @@ public class SelectionController : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Changes what the currently displayed boss description is.
+    /// Animates the boss description to change the visuals
+    /// </summary>
+    /// <param name="abilityID"></param>
     private void SwapBossAbilityDescription(int abilityID)
     {
         _currentBossAbilityID = abilityID;
         _bossAbilityDescriptionAnimator.SetTrigger(_swapAbilityDescriptionTrigger);
     }
 
+    /// <summary>
+    /// Animates the boss description to hide it from view.
+    /// Removes the currently displayed boss ability id
+    /// </summary>
     private void HideBossAbilityDescription()
     {
         _bossAbilityDescriptionAnimator.SetBool(_showAbilityDescriptionBool, false);
         _currentBossAbilityID = -1;
+    }
+
+    private void HideFullBossDescription()
+    {
+        _bossDescription.SetActive(false);
     }
 
     #endregion
@@ -270,7 +284,7 @@ public class SelectionController : MonoBehaviour
     private void NewHeroHoveredOver(HeroSO heroSO)
     {
         //Show hero description and hide boss description
-        _bossDescription.SetActive(false);
+        HideFullBossDescription();
         _heroDescription.SetActive(true);
 
         //Updates the text to display the heroes name
@@ -296,6 +310,26 @@ public class SelectionController : MonoBehaviour
         _statCounters[2].ShowStatNodes(heroSO.GetStaggerStat());
         _statCounters[3].ShowStatNodes(heroSO.GetSpeedStat());
         _statCounters[4].ShowStatNodes(heroSO.GetUtilityStat());
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Y))
+        {
+            print(_lastHeroHoveredOver.GetSurvivalStat());
+            print(_lastHeroHoveredOver.GetDamageStat());
+            print(_lastHeroHoveredOver.GetStaggerStat());
+            print(_lastHeroHoveredOver.GetSpeedStat());
+            print(_lastHeroHoveredOver.GetUtilityStat());
+
+            DisplayStatsForHero(_lastHeroHoveredOver);
+        }
+    }
+
+    private void StopStatDisplayProcess()
+    {
+        foreach (StatCounter statCounter in _statCounters)
+            statCounter.StopShowNodeProcess();
     }
 
     private void DisplayAbilityIconsForHero(HeroSO heroSO)
@@ -372,6 +406,12 @@ public class SelectionController : MonoBehaviour
     {
         _heroAbilityDescriptionAnimator.SetBool(_showAbilityDescriptionBool, false);
         _currentHeroAbilityID = -1;
+    }
+
+    private void HideFullHeroDescription()
+    {
+        //StopStatDisplayProcess();
+        _heroDescription.SetActive(false);
     }
 
     #endregion

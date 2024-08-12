@@ -15,9 +15,11 @@ public class StatCounter : MonoBehaviour
 
     private const string _resetNodeAnimTrigger = "ResetNode";
 
+    private Coroutine _showNodeCoroutine;
+
     public void ShowStatNodes(int statNumber)
     {
-        StartCoroutine(ShowNodeProcess(statNumber));
+        _showNodeCoroutine = StartCoroutine(ShowNodeProcess(statNumber));
     }
 
     private IEnumerator ShowNodeProcess(int statNumber)
@@ -28,6 +30,14 @@ public class StatCounter : MonoBehaviour
             yield return new WaitForSeconds(_delayBetweenNodes);
             
         }
+
+        _showNodeCoroutine = null;
+    }
+
+    public void StopShowNodeProcess()
+    {
+        if(_showNodeCoroutine != null)
+            StopCoroutine(_showNodeCoroutine);
     }
 
     private void SpecificNodeAction(int statNumber, int currentPos)
