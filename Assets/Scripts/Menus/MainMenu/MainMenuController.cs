@@ -18,6 +18,15 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private GameObject _howToPlayCanvas;
 
     [Space]
+    [SerializeField] private GameObject _universalSublayer;
+
+    [SerializeField] private GameObject _selectionSublayer;
+    [SerializeField] private GameObject _bossMechanicsSublayer;
+    [SerializeField] private GameObject _heroMechanicsSublayer;
+    [SerializeField] private GameObject _generalSublayer;
+    private GameObject _currentSublayer;
+
+    [Space]
     [Header("Controls")]
     [SerializeField] private GameObject _controlsCanvas;
 
@@ -43,6 +52,7 @@ public class MainMenuController : MonoBehaviour
         UniversalManagers.Instance.GetSceneLoadManager().LoadSelectionScene();
     }
 
+    #region How To Play
     public void HowToPlayButtonPressed()
     {
         _howToPlayCanvas.SetActive(true);
@@ -52,6 +62,27 @@ public class MainMenuController : MonoBehaviour
     {
         _howToPlayCanvas.SetActive(false);
     }
+
+    #region How To Play Sublayers
+
+    public void ShowHowToPlaySublayer(GameObject sublayer)
+    {
+        sublayer.SetActive(true);
+        _universalSublayer.SetActive(true);
+
+        _currentSublayer = sublayer;
+    }
+
+    public void CloseHowToPlaySublayer()
+    {
+        if (_currentSublayer == null) return;
+
+        _currentSublayer.SetActive(false);
+        _universalSublayer.SetActive(false);
+    }
+    #endregion
+
+    #endregion
 
     #region Controls
     public void ControlsButtonPressed()
