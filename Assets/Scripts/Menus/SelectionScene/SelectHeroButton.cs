@@ -10,6 +10,7 @@ using UnityEngine.UI;
 public class SelectHeroButton : MonoBehaviour
 {
     [SerializeField] private HeroSO _associatedHero;
+    [SerializeField] private bool _heroEnabled;
     [Space]
 
     [SerializeField] private Image _iconVisuals;
@@ -24,7 +25,13 @@ public class SelectHeroButton : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        UpdateButtonInteractability();
         SetButtonHeroIconVisuals();
+    }
+
+    private void UpdateButtonInteractability()
+    {
+        _heroButton.interactable = _heroEnabled;
     }
 
     private void SetButtonHeroIconVisuals()

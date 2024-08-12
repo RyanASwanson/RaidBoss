@@ -10,6 +10,7 @@ using UnityEngine.UI;
 public class SelectBossLevelButton : MonoBehaviour
 {
     [SerializeField] private LevelSO _associatedLevel;
+    [SerializeField] private bool _bossEnabled;
     [Space]
 
     [SerializeField] private Image _iconVisuals;
@@ -21,7 +22,13 @@ public class SelectBossLevelButton : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        UpdateButtonInteractability();
         SetButtonBossIconVisuals();
+    }
+
+    private void UpdateButtonInteractability()
+    {
+        _levelBossButton.interactable = _bossEnabled;
     }
 
     private void SetButtonBossIconVisuals()
