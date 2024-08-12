@@ -44,7 +44,6 @@ public class SB_TerraLord : SpecificBossFramework
         GameDifficulty selectedDifficulty = UniversalManagers.Instance.GetSelectionManager().GetSelectedDifficulty();
 
         _passiveHeroWeightMultiplier = _difficultyWeightMultiplier[(int)selectedDifficulty-1];
-        print(_passiveHeroWeightMultiplier);
     }
 
     private IEnumerator PassiveProcess()

@@ -21,7 +21,7 @@ public class PlayerInputGameplayManager : BaseGameplayManager
 
     private UniversalPlayerInputActions UPIA;
 
-
+    private bool _subscribedToInput = false;
 
     public override void SetupGameplayManager()
     {
@@ -156,9 +156,13 @@ public class PlayerInputGameplayManager : BaseGameplayManager
         UPIA.GameplayActions.ActiveAbility.started += HeroActiveButton;
         UPIA.GameplayActions.NumberPress.started += HeroNumberPress;
         UPIA.GameplayActions.EscapePress.started += EscapePress;
+
+        _subscribedToInput = true;
     }
     private void UnsubscribeToPlayerInput()
     {
+        if (!_subscribedToInput) return;
+
         UPIA.GameplayActions.SelectClick.started -= PlayerSelectClicked;
         UPIA.GameplayActions.DirectClick.started -= PlayerDirectClicked;
         UPIA.GameplayActions.ActiveAbility.started -= HeroActiveButton;
@@ -166,6 +170,8 @@ public class PlayerInputGameplayManager : BaseGameplayManager
         UPIA.GameplayActions.EscapePress.started -= EscapePress;
 
         UPIA.Disable();
+
+        _subscribedToInput = false;
     }
     #endregion
 
@@ -174,7 +180,7 @@ public class PlayerInputGameplayManager : BaseGameplayManager
     #region BaseManager
     public override void SubscribeToEvents()
     {
-        
+        GameplayManagers.Instance.GetGameStateManager().GetBattleWonOrLostEvent().AddListener(UnsubscribeToPlayerInput);
     }
     #endregion
 

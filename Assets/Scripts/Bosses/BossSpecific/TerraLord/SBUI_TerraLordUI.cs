@@ -5,11 +5,20 @@ using UnityEngine;
 public class SBUI_TerraLordUI : SpecificBossUIFramework
 {
     [SerializeField] private List<Animator> _passiveBars;
-    private const string _passiveBarShow = "ShowBar";
-    private const string _passiveBarHide = "HideBar";
+    private const string _passiveBarShowAnimTrigger = "ShowBar";
+    private const string _passiveBarHideAnimTrigger = "HideBar";
 
     int _startingPassiveBarValue;
     int _previousPassiveBarValue;
+
+    [Space]
+    [SerializeField] private float _minorWarningPercent;
+    [SerializeField] private float _majorWarningPercent;
+
+    [Space]
+    [SerializeField] private Animator _leftWarningIcon;
+    [SerializeField] private Animator _rightWarningIcon;
+    private const string _warningIconAnimInt = "WarningLevel";
 
     SB_TerraLord _terraLordFunctionality;
 
@@ -19,6 +28,8 @@ public class SBUI_TerraLordUI : SpecificBossUIFramework
 
         //Debug.Log(passivePercent);
         IterateThroughPassiveBars(_previousPassiveBarValue, passiveBarValue);
+
+        EvaluateWarningLevels(passivePercent);
 
         _previousPassiveBarValue = passiveBarValue;
     }
@@ -32,6 +43,10 @@ public class SBUI_TerraLordUI : SpecificBossUIFramework
         {
             changeVal *= -1;
             upOrDown = false;
+        }
+        else if (end == start)
+        {
+            changeVal = 0;
         }
 
         start = Mathf.Clamp(start, -1, _passiveBars.Count+1);
@@ -55,11 +70,11 @@ public class SBUI_TerraLordUI : SpecificBossUIFramework
 
         if (sideCondition == changeDirection)
         {
-            _passiveBars[barPos].SetTrigger(_passiveBarShow);
+            _passiveBars[barPos].SetTrigger(_passiveBarShowAnimTrigger);
         }
 
         else
-            _passiveBars[barPos].SetTrigger(_passiveBarHide);
+            _passiveBars[barPos].SetTrigger(_passiveBarHideAnimTrigger);
     }
 
     //Takes the percentage and converts it to a scale from -1 to 1
@@ -69,6 +84,24 @@ public class SBUI_TerraLordUI : SpecificBossUIFramework
         float lerpB = _passiveBars.Count;
 
         return Mathf.RoundToInt(Mathf.LerpUnclamped(lerpA, lerpB, passivePercent));
+    }
+
+    private void EvaluateWarningLevels(float passivePercent)
+    {
+        if (passivePercent >= _majorWarningPercent)
+            _rightWarningIcon.SetInteger(_warningIconAnimInt, 2);
+        else if (passivePercent >= _minorWarningPercent)
+            _rightWarningIcon.SetInteger(_warningIconAnimInt, 1);
+        else if (passivePercent <= -_majorWarningPercent)
+            _leftWarningIcon.SetInteger(_warningIconAnimInt, 2);
+        else if (passivePercent <= -_minorWarningPercent)
+            _leftWarningIcon.SetInteger(_warningIconAnimInt, 1);
+        else
+        {
+            _rightWarningIcon.SetInteger(_warningIconAnimInt, 0);
+            _leftWarningIcon.SetInteger(_warningIconAnimInt, 0);
+        }
+            
     }
 
     protected override void AdditionalSetup()
