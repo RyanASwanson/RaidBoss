@@ -20,6 +20,10 @@ public class SBA_CrystalBarrage : SpecificBossAbilityFramework
     private Vector3[] _targetDirections = { Vector3.forward, Vector3.left, Vector3.back,Vector3.right};
     private const float _targetHeight = -.75f;
 
+    [Space]
+    [SerializeField] private float _spawnYEulerVariance;
+
+    [Space]
     [SerializeField] private GameObject _crystalBarrage;
     [SerializeField] private GameObject _barrageUpwardsVisual;
     [SerializeField] private GameObject _targetZone;
@@ -136,8 +140,9 @@ public class SBA_CrystalBarrage : SpecificBossAbilityFramework
         randomSpawnVariance = Quaternion.Euler(0, -45, 0) * randomSpawnVariance;
 
         Vector3 spawnLocation = _currentTargetLocation + randomSpawnVariance;
+        Vector3 spawnEulerAngles = new Vector3(0, Random.Range(-_spawnYEulerVariance,_spawnYEulerVariance), 0);
 
-        Instantiate(_crystalBarrage, spawnLocation, Quaternion.identity) ;
+        Instantiate(_crystalBarrage, spawnLocation, Quaternion.Euler(spawnEulerAngles));
     }
     #endregion
 

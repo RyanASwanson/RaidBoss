@@ -9,8 +9,12 @@ using UnityEngine.Events;
 public class GeneralBossDamageArea : MonoBehaviour
 {
     [SerializeField] private Collider _damageCollider;
+
+    [Space]
     [SerializeField] private bool _hasLifeTime;
     [SerializeField] private float _lifeTime;
+
+    [Space]
     [SerializeField] private float _preventReHitDuration;
     [Space]
     [SerializeField] private GameObject _hitCenteredVFX;
