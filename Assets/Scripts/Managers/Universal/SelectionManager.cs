@@ -108,8 +108,7 @@ public class SelectionManager : BaseUniversalManager
     /// <param name="newHeroSO"></param>
     public void AddNewSelectedHero(HeroSO newHeroSO)
     {
-        if (_selectedHeroes.Count > _maxHeroes)
-            return;
+        if (AtMaxHeroesSelected()) return;
 
         _selectedHeroes.Add(newHeroSO);
         InvokeHeroSelectionEvent(newHeroSO);
@@ -237,6 +236,8 @@ public class SelectionManager : BaseUniversalManager
     #region Setters
     public void SetSelectedBoss(BossSO bossSO)
     {
+        if (AtMaxBossSelected()) return;
+
         _selectedBoss = bossSO;
 
         InvokeBossSelectionEvent(bossSO);

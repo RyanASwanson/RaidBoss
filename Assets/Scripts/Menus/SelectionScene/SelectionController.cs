@@ -121,7 +121,7 @@ public class SelectionController : MonoBehaviour
 
     private void BossHoveredOver(BossSO bossSO)
     {
-        if (bossSO == _lastBossHoveredOver) return;
+        if (bossSO == _lastBossHoveredOver ||_selectionManager.AtMaxBossSelected()) return;
 
         _lastHeroHoveredOver = null;
         _lastBossHoveredOver = bossSO;

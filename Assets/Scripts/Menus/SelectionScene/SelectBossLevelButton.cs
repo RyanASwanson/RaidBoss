@@ -45,7 +45,10 @@ public class SelectBossLevelButton : MonoBehaviour
     public void SelectBossLevelButtonPressed()
     {
         if (!_buttonHasBeenPressed)
+        {
+            if (UniversalManagers.Instance.GetSelectionManager().AtMaxBossSelected()) return;
             BossLevelSelect();
+        }
         else
             BossLevelDeselect();
 
