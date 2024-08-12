@@ -10,6 +10,7 @@ public class SelectionController : MonoBehaviour
 
     [Space]
     [Header("Center")]
+    [Header("Center-Boss")]
     [SerializeField] private GameObject _bossDescription;
 
     [SerializeField] private TMP_Text _bossNameText;
@@ -29,8 +30,15 @@ public class SelectionController : MonoBehaviour
     [SerializeField] private TMP_Text _bossAbilityNameText;
     private int _currentBossAbilityID = -1;
 
+    [Header("Center-General")]
+    [SerializeField] private bool _requiresMaxCharacters;
+
+    [SerializeField] private Button _fightButton;
+
+    private bool _maxCharactersSelected = false;
 
     [Space]
+    [Header("Center-Hero")]
     [SerializeField] private GameObject _heroDescription;
 
     [SerializeField] private TMP_Text _heroNameText;
@@ -90,11 +98,15 @@ public class SelectionController : MonoBehaviour
     private void NewBossAdded(BossSO bossSO)
     {
         _bossPillar.ShowBossOnPillar(bossSO, false);
+
+        CheckMaxCharactersSelected();
     }
 
     private void BossRemoved(BossSO bossSO)
     {
         _bossPillar.RemoveBossOnPillar();
+
+        CheckMaxCharactersNoLongerSelected();
     }
     #endregion
 
@@ -102,7 +114,7 @@ public class SelectionController : MonoBehaviour
 
     private void CenterStart()
     {
-
+        FightButtonStartingInteractablity();
     }
 
     #region Center - Boss
@@ -203,6 +215,42 @@ public class SelectionController : MonoBehaviour
 
     #endregion
 
+    #region Center - General
+    private void FightButtonStartingInteractablity()
+    {
+        _fightButton.interactable = !_requiresMaxCharacters;
+
+    }
+
+    private void CheckMaxCharactersSelected()
+    {
+
+        if (_selectionManager.AtMaxBossSelected() && _selectionManager.AtMaxHeroesSelected() && _requiresMaxCharacters)
+        {
+            MaxCharactersSelected();
+        }
+    }
+
+    private void MaxCharactersSelected()
+    {
+        _maxCharactersSelected = true;
+        _fightButton.interactable = true ;
+    }
+    
+    private void CheckMaxCharactersNoLongerSelected()
+    {
+        if (_maxCharactersSelected)
+            NoLongerMaxHeroesSelected();
+    }
+
+    private void NoLongerMaxHeroesSelected()
+    {
+        _maxCharactersSelected = false;
+        _fightButton.interactable = false;
+    }
+    #endregion
+
+    #region Center - Hero
     private void HeroHoveredOver(HeroSO heroSO)
     {
         //Stops if it is already at max heroes
@@ -326,6 +374,7 @@ public class SelectionController : MonoBehaviour
         _currentHeroAbilityID = -1;
     }
 
+    #endregion
 
 
     #endregion
@@ -348,6 +397,8 @@ public class SelectionController : MonoBehaviour
 
         }
 
+        CheckMaxCharactersSelected();
+
     }
 
 
@@ -367,6 +418,8 @@ public class SelectionController : MonoBehaviour
 
         FindHeroPillarWithHero(heroSO).RemoveHeroOnPillar();
         RearrangeHeroesOnPillars();
+
+        CheckMaxCharactersNoLongerSelected();
     }
 
     private HeroPillar FindHeroPillarWithHero(HeroSO searchHero)

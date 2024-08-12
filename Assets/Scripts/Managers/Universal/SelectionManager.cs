@@ -202,6 +202,8 @@ public class SelectionManager : BaseUniversalManager
     #endregion
 
     #region Getters
+    public bool AtMaxBossSelected() => _selectedBoss != null;
+
     public float GetDamageMultiplierFromDifficulty() => _difficultyDamageMultiplierDictionary[_currentGameDifficulty];
     public float GetSpeedMultiplierFromDifficulty() => _difficultyAttackSpeedMultiplierDictionary[_currentGameDifficulty];
     public float GetHealthMultiplierFromDifficulty() => _difficultyHealthMultiplierDictionary[_currentGameDifficulty];
