@@ -53,6 +53,7 @@ public class MainMenuController : MonoBehaviour
         _howToPlayCanvas.SetActive(false);
     }
 
+    #region Controls
     public void ControlsButtonPressed()
     {
         _controlsCanvas.SetActive(true);
@@ -62,7 +63,9 @@ public class MainMenuController : MonoBehaviour
     {
         _controlsCanvas.SetActive(false);
     }
+    #endregion
 
+    #region Options
     public void OptionsButtonPressed()
     {
         _optionsCanvas.SetActive(true);
@@ -75,6 +78,13 @@ public class MainMenuController : MonoBehaviour
         _optionsCanvas.SetActive(false);
     }
 
+    public void ResetSaveData()
+    {
+        UniversalManagers.Instance.GetSaveManager().ResetSaveData();
+    }
+    #endregion
+
+    #region Credits
     public void CreditsButtonPressed()
     {
         _creditsCanvas.SetActive(true);
@@ -84,6 +94,7 @@ public class MainMenuController : MonoBehaviour
     {
         _creditsCanvas.SetActive(false);
     }
+    #endregion
 
     public void QuitButtonPressed()
     {

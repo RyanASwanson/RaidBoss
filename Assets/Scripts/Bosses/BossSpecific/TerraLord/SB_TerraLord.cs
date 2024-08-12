@@ -84,6 +84,8 @@ public class SB_TerraLord : SpecificBossFramework
 
         //RotateCameraBasedOnPassive();
         InvokePassivePercentUpdate();
+
+        CheckPassiveMax();
     }
 
 
@@ -111,6 +113,18 @@ public class SB_TerraLord : SpecificBossFramework
             //REPLACE THE 1
             GameplayManagers.Instance.GetCameraManager().StartRotateCinemachineCamera( 1);
         }
+    }
+
+    private void CheckPassiveMax()
+    {
+        if (Mathf.Abs(_passiveCounterValue) >= _passiveMaxValue)
+            PassiveMax();
+    }
+
+    private void PassiveMax()
+    {
+        //GameplayManagers.Instance.GetGameStateManager().SetGameplayState(GameplayStates.PostBattleLost);
+        GameplayManagers.Instance.GetHeroesManager().KillAllHeroes();
     }
     #endregion
 

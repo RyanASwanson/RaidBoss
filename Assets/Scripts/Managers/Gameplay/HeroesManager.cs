@@ -65,6 +65,15 @@ public class HeroesManager : BaseGameplayManager
             GameplayManagers.Instance.GetGameStateManager().SetGameplayState(GameplayStates.PostBattleLost);
     }
 
+    public void KillAllHeroes()
+    {
+        while(_currentLivingHeroes.Count > 0)
+        {
+            _currentLivingHeroes[0].GetHeroStats().KillHero();
+        }
+        
+    }
+
     #region Events
     public override void SubscribeToEvents()
     {
