@@ -36,12 +36,14 @@ public class SBP_Entomb : BossProjectileFramework
 
     private void EntombComplete()
     {
-        Instantiate(_closedParticleVFX, transform.position, transform.rotation);
-
         DisableHitboxes();
 
         if (CanCreateObstacle())
+        {
             CreateNavMeshObstacle();
+            Instantiate(_closedParticleVFX, transform.position, transform.rotation);
+        }
+            
         else
             DestroyRemainingWall();
 
