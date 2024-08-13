@@ -18,16 +18,16 @@ public class SBA_EncirclingVines : SpecificBossAbilityFramework
         _newestTargetZone = Instantiate(_targetZone, _storedTargetLocation, Quaternion.identity);
         _currentTargetZones.Add(_newestTargetZone);
 
-        StartCoroutine(TargetZoneFollow());
+        StartCoroutine(FollowHeroTarget(_newestTargetZone));
 
         base.StartShowTargetZone();
     }
 
-    protected IEnumerator TargetZoneFollow()
+    protected IEnumerator FollowHeroTarget(GameObject followingObject)
     {
-        while(_newestTargetZone != null && _storedTarget != null)
+        while(followingObject != null && _storedTarget != null)
         {
-            _newestTargetZone.transform.position =  
+            followingObject.transform.position =  
                 new Vector3(_storedTarget.transform.position.x, _yLoc, _storedTarget.transform.position.z);
 
             yield return null;
@@ -36,7 +36,8 @@ public class SBA_EncirclingVines : SpecificBossAbilityFramework
 
     protected override void AbilityStart()
     {
-        Instantiate(_encirclingVines, _newestTargetZone.transform.position, Quaternion.identity);
+        GameObject newestVines =Instantiate(_encirclingVines, _newestTargetZone.transform.position, Quaternion.identity);
+        StartCoroutine(FollowHeroTarget(newestVines));
         base.AbilityStart();
     }
 }
