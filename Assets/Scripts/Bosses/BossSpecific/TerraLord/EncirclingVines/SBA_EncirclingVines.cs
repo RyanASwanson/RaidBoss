@@ -36,7 +36,7 @@ public class SBA_EncirclingVines : SpecificBossAbilityFramework
 
     protected override void AbilityStart()
     {
-        Instantiate(_encirclingVines, _storedTarget.transform.position, Quaternion.identity);
+        Instantiate(_encirclingVines, _newestTargetZone.transform.position, Quaternion.identity);
         base.AbilityStart();
     }
 }

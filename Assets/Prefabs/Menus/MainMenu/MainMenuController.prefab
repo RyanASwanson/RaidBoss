@@ -271,7 +271,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8039736765666296196}
         m_TargetAssemblyTypeName: MainMenuController, Assembly-CSharp
-        m_MethodName: HideHowToPlayButton
+        m_MethodName: CloseHowToPlaySublayer
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -368,7 +368,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3083583254729299254
 RectTransform:
   m_ObjectHideFlags: 0
@@ -409,7 +409,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8039736763702536481
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9200,9 +9200,25 @@ PrefabInstance:
     m_TransformParent: {fileID: 8039736763709891592}
     m_Modifications:
     - target: {fileID: 8324448916173229705, guid: 019b734477927cc4eb24012852ecf148, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8324448916173229705, guid: 019b734477927cc4eb24012852ecf148, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 8039736765666296196}
+    - target: {fileID: 8324448916173229705, guid: 019b734477927cc4eb24012852ecf148, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ShowHowToPlaySublayer
+      objectReference: {fileID: 0}
+    - target: {fileID: 8324448916173229705, guid: 019b734477927cc4eb24012852ecf148, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 5520883792847833199}
+    - target: {fileID: 8324448916173229705, guid: 019b734477927cc4eb24012852ecf148, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 8324448916173229718, guid: 019b734477927cc4eb24012852ecf148, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -9306,9 +9322,25 @@ PrefabInstance:
     m_TransformParent: {fileID: 8039736763709891592}
     m_Modifications:
     - target: {fileID: 8324448916173229705, guid: 019b734477927cc4eb24012852ecf148, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8324448916173229705, guid: 019b734477927cc4eb24012852ecf148, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 8039736765666296196}
+    - target: {fileID: 8324448916173229705, guid: 019b734477927cc4eb24012852ecf148, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ShowHowToPlaySublayer
+      objectReference: {fileID: 0}
+    - target: {fileID: 8324448916173229705, guid: 019b734477927cc4eb24012852ecf148, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 1114346410718374248}
+    - target: {fileID: 8324448916173229705, guid: 019b734477927cc4eb24012852ecf148, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 8324448916173229718, guid: 019b734477927cc4eb24012852ecf148, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -9416,9 +9448,25 @@ PrefabInstance:
     m_TransformParent: {fileID: 8039736763709891592}
     m_Modifications:
     - target: {fileID: 8324448916173229705, guid: 019b734477927cc4eb24012852ecf148, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8324448916173229705, guid: 019b734477927cc4eb24012852ecf148, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 8039736765666296196}
+    - target: {fileID: 8324448916173229705, guid: 019b734477927cc4eb24012852ecf148, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ShowHowToPlaySublayer
+      objectReference: {fileID: 0}
+    - target: {fileID: 8324448916173229705, guid: 019b734477927cc4eb24012852ecf148, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 5299388343942836884}
+    - target: {fileID: 8324448916173229705, guid: 019b734477927cc4eb24012852ecf148, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 8324448916173229718, guid: 019b734477927cc4eb24012852ecf148, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -9526,9 +9574,25 @@ PrefabInstance:
     m_TransformParent: {fileID: 8039736763709891592}
     m_Modifications:
     - target: {fileID: 8324448916173229705, guid: 019b734477927cc4eb24012852ecf148, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8324448916173229705, guid: 019b734477927cc4eb24012852ecf148, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 8039736765666296196}
+    - target: {fileID: 8324448916173229705, guid: 019b734477927cc4eb24012852ecf148, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ShowHowToPlaySublayer
+      objectReference: {fileID: 0}
+    - target: {fileID: 8324448916173229705, guid: 019b734477927cc4eb24012852ecf148, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 2249356706795618029}
+    - target: {fileID: 8324448916173229705, guid: 019b734477927cc4eb24012852ecf148, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 8324448916173229718, guid: 019b734477927cc4eb24012852ecf148, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
