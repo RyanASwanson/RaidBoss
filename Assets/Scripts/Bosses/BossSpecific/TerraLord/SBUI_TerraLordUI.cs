@@ -51,7 +51,6 @@ public class SBUI_TerraLordUI : SpecificBossUIFramework
 
         start = Mathf.Clamp(start, -1, _passiveBars.Count+1);
         end = Mathf.Clamp(end, -1, _passiveBars.Count+1);
-            
 
         for (int i = start; i != end; i += changeVal)
         {
@@ -70,11 +69,15 @@ public class SBUI_TerraLordUI : SpecificBossUIFramework
 
         if (sideCondition == changeDirection)
         {
+            _passiveBars[barPos].ResetTrigger(_passiveBarHideAnimTrigger);
             _passiveBars[barPos].SetTrigger(_passiveBarShowAnimTrigger);
         }
-
         else
+        {
+            _passiveBars[barPos].ResetTrigger(_passiveBarShowAnimTrigger);
             _passiveBars[barPos].SetTrigger(_passiveBarHideAnimTrigger);
+        }
+            
     }
 
     //Takes the percentage and converts it to a scale from -1 to 1
