@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Specific hero script for the Vampire
+/// </summary>
 public class SH_Vampire : SpecificHeroFramework
 {
     [Space]

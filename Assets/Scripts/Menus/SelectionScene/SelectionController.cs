@@ -95,7 +95,7 @@ public class SelectionController : MonoBehaviour
         CenterStart();
         HeroSideStart();
 
-        _selectionManager = FindObjectOfType<SelectionManager>();
+        _selectionManager = UniversalManagers.Instance.GetSelectionManager();
     }
 
     #region Boss Side
@@ -299,6 +299,7 @@ public class SelectionController : MonoBehaviour
         if (heroSO == _lastHeroHoveredOver) return;
         //Stop if the hero is selected already
         if (_selectionManager.GetAllSelectedHeroes().Contains(heroSO)) return;
+
         //bool a= (UniversalManagers.Instance.GetSelectionManager().GetAllSelectedHeroes().Contains(heroSO))
 
         _lastBossHoveredOver = null;
