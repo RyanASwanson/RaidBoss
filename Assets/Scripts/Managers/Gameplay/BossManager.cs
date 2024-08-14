@@ -22,10 +22,7 @@ public class BossManager : BaseGameplayManager
     }
 
     #region Events
-    public override void SubscribeToEvents()
-    {
-        
-    }
+
     #endregion
 
     #region Getters

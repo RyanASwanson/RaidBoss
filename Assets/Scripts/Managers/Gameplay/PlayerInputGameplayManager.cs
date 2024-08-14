@@ -117,6 +117,8 @@ public class PlayerInputGameplayManager : BaseGameplayManager
 
     private void CreateHeroDirectIcon(Vector3 location)
     {
+        if (_controlledHeroes.Count <= 0) return;
+
         location = GameplayManagers.Instance.GetEnvironmentManager().GetClosestPointToFloor(location);
         location = new Vector3(location.x, -.75f, location.z);
         Instantiate(_heroDirectIcon, location, Quaternion.identity);
@@ -128,11 +130,18 @@ public class PlayerInputGameplayManager : BaseGameplayManager
         ActivateAllManualAbilities();
     }
 
+    /// <summary>
+    /// Called when numbers 1-5 are pressed on the keyboard
+    /// </summary>
+    /// <param name="context"></param>
     private void HeroNumberPress(InputAction.CallbackContext context)
     {
         int pressNumVal = (int)context.ReadValue<float>();
 
         HeroesManager heroesManager = GameplayManagers.Instance.GetHeroesManager();
+
+        //Returns if the number is more than the number of heroes
+        //Or if the hero in that slot doesn't exist
         if (heroesManager.GetCurrentHeroes().Count <= pressNumVal
             || heroesManager.GetCurrentHeroes()[pressNumVal] == null)
             return;
@@ -180,6 +189,7 @@ public class PlayerInputGameplayManager : BaseGameplayManager
     #region BaseManager
     public override void SubscribeToEvents()
     {
+        //Prevents the player from performing any actions after the game ends
         GameplayManagers.Instance.GetGameStateManager().GetBattleWonOrLostEvent().AddListener(UnsubscribeToPlayerInput);
     }
     #endregion

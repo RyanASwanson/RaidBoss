@@ -59,7 +59,10 @@ public class GameStateManager : BaseGameplayManager
     {
         
     }
-    
+    #endregion
+
+
+    #region Events
     public void InvokeStartOfBattleEvent()
     {
         _startOfBattleEvent?.Invoke();
@@ -78,8 +81,8 @@ public class GameStateManager : BaseGameplayManager
     {
         _battleWonOrLostEvent?.Invoke();
     }
-
     #endregion
+
 
     #region Getters
     public bool GetIsFightOver() => (_currentGameplayState == GameplayStates.PostBattleLost

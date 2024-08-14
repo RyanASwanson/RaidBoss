@@ -75,10 +75,7 @@ public class HeroesManager : BaseGameplayManager
     }
 
     #region Events
-    public override void SubscribeToEvents()
-    {
-        
-    }
+    
     #endregion
 
     #region Getters

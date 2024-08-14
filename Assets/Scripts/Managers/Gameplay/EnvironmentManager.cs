@@ -20,10 +20,7 @@ public class EnvironmentManager : BaseGameplayManager
     }
 
     #region Events
-    public override void SubscribeToEvents()
-    {
-        
-    }
+
     #endregion
 
     #region Getters

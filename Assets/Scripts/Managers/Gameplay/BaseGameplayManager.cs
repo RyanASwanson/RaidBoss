@@ -8,5 +8,8 @@ public abstract class BaseGameplayManager : MonoBehaviour
     {
         SubscribeToEvents();
     }
-    public abstract void SubscribeToEvents();
+    public virtual void SubscribeToEvents()
+    {
+
+    }
 }

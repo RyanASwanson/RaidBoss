@@ -22,6 +22,11 @@ public class GameplayManagers : MonoBehaviour
     {
         Instance = this;
 
+        SetupAllGameplayManagers();
+    }
+
+    private void SetupAllGameplayManagers()
+    {
         foreach (BaseGameplayManager bgm in GetComponentsInChildren<BaseGameplayManager>())
             bgm.SetupGameplayManager();
     }

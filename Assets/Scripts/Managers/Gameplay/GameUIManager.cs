@@ -34,10 +34,8 @@ public class GameUIManager : BaseGameplayManager
             gameUIChildrenFunctionality.ChildFuncSetup() ;
     }
 
-    public override void SubscribeToEvents()
-    {
-        
-    }
+    #region Events
+    #endregion
 
     #region Getters
     public BossUIManager GetBossUIManager() => _bossUIManager;
