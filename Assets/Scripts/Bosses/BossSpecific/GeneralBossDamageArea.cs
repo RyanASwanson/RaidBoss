@@ -11,7 +11,6 @@ public class GeneralBossDamageArea : GeneralAbilityAreaFramework
     [Space]
     [SerializeField] private float _preventReHitDuration;
     [Space]
-    [SerializeField] private GameObject _hitCenteredVFX;
 
     [Header("Enter")]
     [SerializeField] private float _enterDamage;
@@ -88,16 +87,4 @@ public class GeneralBossDamageArea : GeneralAbilityAreaFramework
         _heroesToIgnore.Remove(heroBase);
     }
 
-
-    public void CreateHitDestructionVFX()
-    {
-        if (_hitCenteredVFX == null) return;
-        Instantiate(_hitCenteredVFX, transform.position, Quaternion.identity);
-    }
-
-    public void DestroyProjectile()
-    {
-        CreateHitDestructionVFX();
-        Destroy(gameObject);
-    }
 }

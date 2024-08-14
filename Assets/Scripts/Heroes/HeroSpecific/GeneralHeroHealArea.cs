@@ -7,8 +7,6 @@ public class GeneralHeroHealArea : GeneralAbilityAreaFramework
 {
 
     [SerializeField] private bool _ignoreFullHealth;
-    [Space]
-    [SerializeField] private GameObject _hitCenteredVFX;
 
     [Header("Enter")]
     [SerializeField] private float _enterHealing;
@@ -85,18 +83,7 @@ public class GeneralHeroHealArea : GeneralAbilityAreaFramework
     }
 
 
-    public void CreateDestructionVFX()
-    {
-        if (_hitCenteredVFX == null) return;
-
-        Instantiate(_hitCenteredVFX, transform.position, Quaternion.identity);
-    }
-
-    public void DestroyProjectile()
-    {
-        CreateDestructionVFX();
-        Destroy(gameObject);
-    }
+    
 
     #region Getters
     public UnityEvent<Collider> GetEnterEvent() => _enterEvent;

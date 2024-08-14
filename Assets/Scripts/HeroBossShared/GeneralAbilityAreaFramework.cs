@@ -10,6 +10,9 @@ public abstract class GeneralAbilityAreaFramework : MonoBehaviour
     [SerializeField] private bool _hasLifetime;
     [SerializeField] private float _lifetime;
 
+    [Space]
+    [SerializeField] private GameObject _hitCenteredVFX;
+
     [SerializeField] private UnityEvent _lifeTimeEndEvent;
 
     // Start is called before the first frame update
@@ -51,6 +54,19 @@ public abstract class GeneralAbilityAreaFramework : MonoBehaviour
 
     public void ForceDestroyProjectileWithoutVFX()
     {
+        Destroy(gameObject);
+    }
+
+    public void CreateDestructionVFX()
+    {
+        if (_hitCenteredVFX == null) return;
+
+        Instantiate(_hitCenteredVFX, transform.position, Quaternion.identity);
+    }
+
+    public void DestroyProjectile()
+    {
+        CreateDestructionVFX();
         Destroy(gameObject);
     }
 }

@@ -8,10 +8,6 @@ using UnityEngine.Events;
 /// </summary>
 public class GeneralHeroDamageArea : GeneralAbilityAreaFramework
 {
-    [Header("General")]
-
-    [Space]
-    [SerializeField] private GameObject _hitCenteredVFX;
 
     [Header("Enter")]
     [SerializeField] private float _enterDamage;
@@ -95,18 +91,6 @@ public class GeneralHeroDamageArea : GeneralAbilityAreaFramework
     }
 
     #endregion
-
-    public void CreateHitDestructionVFX()
-    {
-        if (_hitCenteredVFX == null) return;
-        Instantiate(_hitCenteredVFX, transform.position, Quaternion.identity);
-    }
-
-    public void DestroyProjectile()
-    {
-        CreateHitDestructionVFX();
-        Destroy(gameObject);
-    }
 
 
 
