@@ -108,6 +108,8 @@ public class GeneralHeroDamageArea : GeneralAbilityAreaFramework
         Destroy(gameObject);
     }
 
+
+
     #region Getters
     public UnityEvent<Collider> GetEnterEvent() => _enterEvent;
     public UnityEvent<Collider> GetStayEvent() => _stayEvent;

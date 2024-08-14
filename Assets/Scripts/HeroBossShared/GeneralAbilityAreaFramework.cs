@@ -48,4 +48,9 @@ public abstract class GeneralAbilityAreaFramework : MonoBehaviour
         yield return new WaitForSeconds(duration);
         ToggleProjectileCollider(true);
     }
+
+    public void ForceDestroyProjectileWithoutVFX()
+    {
+        Destroy(gameObject);
+    }
 }
