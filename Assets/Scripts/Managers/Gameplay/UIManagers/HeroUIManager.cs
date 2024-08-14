@@ -94,6 +94,7 @@ public class HeroUIManager : GameUIChildrenFunctionality
         SetHealthBarPercent(_associatedHeroBase.GetHeroStats().GetHeroHealthPercentage());
         StartRecentHealthBarDrain();
         ReduceRecentHealingOnDamage(damageTaken);
+
         CreateDamageNumbers(damageTaken);
     }
 
@@ -103,7 +104,8 @@ public class HeroUIManager : GameUIChildrenFunctionality
         SetRecentHealingHealthBarPercent(_associatedHeroBase.GetHeroStats().GetHeroHealthPercentage());
         StartCurrentHealthBarGain();
 
-        CreateHealingNumbers(healingTaken);
+        //CreateHealingNumbers(healingTaken);
+        CreateDamageHealingNumber(healingTaken, _healingNumber, _healingNumbersOrigin);
     }
 
     #region Health Bar
@@ -289,6 +291,17 @@ public class HeroUIManager : GameUIChildrenFunctionality
             newDamageNumber.GetComponent<Animator>().SetTrigger(_damageAverageAnimTrigger);
         else
         newHealingNumber.GetComponent<Animator>().SetTrigger(_damageHealingWeakAnimTrigger);*/
+    }
+
+    private void CreateDamageHealingNumber(float damageHealing, GameObject number, RectTransform spawnOrigin)
+    {
+        GameObject newNumber = Instantiate(number, spawnOrigin);
+
+        damageHealing = Mathf.RoundToInt(damageHealing);
+        newNumber.GetComponentInChildren<Text>().text = damageHealing.ToString();
+        newNumber.GetComponentInChildren<TMP_Text>().text = damageHealing.ToString();
+
+        AddSpawnVarianceToDamageHealingNumber(newNumber);
     }
 
     private void AddSpawnVarianceToDamageHealingNumber(GameObject number)

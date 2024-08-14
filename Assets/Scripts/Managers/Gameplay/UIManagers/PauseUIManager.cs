@@ -9,10 +9,11 @@ public class PauseUIManager : GameUIChildrenFunctionality
     [SerializeField] private GameObject _gamePausedUI;
     [SerializeField] private GameObject _pauseButton;
 
+    private TimeManager _timeManager;
 
     public void PauseButtonPressed()
     {
-        UniversalManagers.Instance.GetTimeManager().PressGamePauseButton();
+        _timeManager.PressGamePauseButton();
     }
 
     private void GamePausedUI()
@@ -32,14 +33,15 @@ public class PauseUIManager : GameUIChildrenFunctionality
 
     public override void ChildFuncSetup()
     {
+        _timeManager = UniversalManagers.Instance.GetTimeManager();
         base.ChildFuncSetup();
     }
 
 
     public override void SubscribeToEvents()
     {
-        UniversalManagers.Instance.GetTimeManager().GetGamePausedEvent().AddListener(GamePausedUI);
-        UniversalManagers.Instance.GetTimeManager().GetGameUnpausedEvent().AddListener(GameUnpausedUI);
+        _timeManager.GetGamePausedEvent().AddListener(GamePausedUI);
+        _timeManager.GetGameUnpausedEvent().AddListener(GameUnpausedUI);
 
         GameplayManagers.Instance.GetGameStateManager().GetBattleWonOrLostEvent().AddListener(GameWonOrLost);
     }

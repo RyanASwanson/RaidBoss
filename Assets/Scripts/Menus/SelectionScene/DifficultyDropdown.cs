@@ -11,6 +11,8 @@ public class DifficultyDropdown : MonoBehaviour
     [Space]
     [SerializeField] private Image _currentDifficultyIcon;
 
+    private SelectionManager _selectionManager;
+
 
     // Start is called before the first frame update
     void Start()
@@ -29,12 +31,18 @@ public class DifficultyDropdown : MonoBehaviour
          }
          _dropdown.AddOptions(difficultyIcons);*/
 
-        _dropdown.value = (int)UniversalManagers.Instance.GetSelectionManager().GetSelectedDifficulty()-1;
+        _selectionManager = UniversalManagers.Instance.GetSelectionManager();
+
+        SetStartingDropdownValue();
+    }
+
+    private void SetStartingDropdownValue()
+    {
+        _dropdown.value = (int)_selectionManager.GetSelectedDifficulty() - 1;
     }
 
     public void UpdateDifficulty()
     {
-        
-        UniversalManagers.Instance.GetSelectionManager().SetSelectedDifficulty((GameDifficulty)_dropdown.value+1);
+        _selectionManager.SetSelectedDifficulty((GameDifficulty)_dropdown.value+1);
     }
 }

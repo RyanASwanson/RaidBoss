@@ -32,6 +32,11 @@ public class BossManager : BaseGameplayManager
     public BossBase GetBossBase() => _bossBase;
     public GameObject GetBossBaseGameObject() => _bossGameObject;
 
+    /// <summary>
+    /// Returns the direction from the input vector to the boss normalized
+    /// </summary>
+    /// <param name="startLocation"></param>
+    /// <returns></returns>
     public Vector3 GetDirectionToBoss(Vector3 startLocation)
     {
         Vector3 returnVector = _bossGameObject.transform.position - startLocation;

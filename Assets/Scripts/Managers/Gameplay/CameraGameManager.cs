@@ -75,6 +75,10 @@ public class CameraGameManager : BaseGameplayManager
         _cameraShakeCoroutine = StartCoroutine(CameraShakeDecay());
     }
 
+    /// <summary>
+    /// Process of reducing the camera shake over time
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator CameraShakeDecay()
     {
         while (_multiChannelPerlin.m_AmplitudeGain > _minimumIntensity || _multiChannelPerlin.m_FrequencyGain > _minimumFrequency)
