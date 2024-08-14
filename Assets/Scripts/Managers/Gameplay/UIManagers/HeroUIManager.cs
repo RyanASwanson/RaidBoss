@@ -82,7 +82,9 @@ public class HeroUIManager : GameUIChildrenFunctionality
     {
         HeroSO heroSO = _associatedHeroBase.GetHeroSO();
         _associatedHeroIcon.sprite = heroSO.GetHeroIcon();
+
         _associatedHeroManualAbilityIcon.sprite = heroSO.GetHeroManualAbilityIcon();
+
         _heroFullyChargedIconAnimator.gameObject.GetComponent<Image>().sprite =
             heroSO.GetHeroManualAbilityIcon();
     }

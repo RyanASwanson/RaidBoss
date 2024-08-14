@@ -34,6 +34,12 @@ public class PlayerInputGameplayManager : BaseGameplayManager
         UnsubscribeToPlayerInput();
     }
 
+    /// <summary>
+    /// Finds the object in 3D space at the location in which you clicked
+    /// </summary>
+    /// <param name="detectionLayerMask"></param> The layer/layers that can be clicked on
+    /// <param name="rayHit"></param> Out variable for the object the ray hit
+    /// <returns></returns> Returns if something was clicked
     private bool ClickOnPoint(LayerMask detectionLayerMask, out RaycastHit rayHit)
     {
         Camera mainCam = GameplayManagers.Instance.GetCameraManager().GetGameplayCamera();
@@ -49,6 +55,10 @@ public class PlayerInputGameplayManager : BaseGameplayManager
     }
 
     #region Controlling Heroes
+    /// <summary>
+    /// Swaps which hero is currently being controlled
+    /// </summary>
+    /// <param name="newHero"></param>
     private void NewControlledHero(HeroBase newHero)
     {
         ClearControlledHeroes();
@@ -62,6 +72,9 @@ public class PlayerInputGameplayManager : BaseGameplayManager
 
     }
 
+    /// <summary>
+    /// Clears out the list of controlled heroes
+    /// </summary>
     private void ClearControlledHeroes()
     {
         foreach (HeroBase newHero in _controlledHeroes)
@@ -117,6 +130,7 @@ public class PlayerInputGameplayManager : BaseGameplayManager
 
     private void CreateHeroDirectIcon(Vector3 location)
     {
+        //No icon is created if no heroes as controlled
         if (_controlledHeroes.Count <= 0) return;
 
         location = GameplayManagers.Instance.GetEnvironmentManager().GetClosestPointToFloor(location);

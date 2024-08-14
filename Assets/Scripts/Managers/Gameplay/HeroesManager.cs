@@ -51,9 +51,15 @@ public class HeroesManager : BaseGameplayManager
         _currentLivingHeroes.Add(heroBase);
     }
 
+    /// <summary>
+    /// Called by a hero when they die
+    /// </summary>
+    /// <param name="deadHero"></param> The hero that called this function
     public void HeroDied(HeroBase deadHero)
     {
+        //Removes the hero from the list of living heroes
         _currentLivingHeroes.Remove(deadHero);
+        //Checks if the game should be declared a loss
         CheckIfAllHeroesDead();
 
         UniversalManagers.Instance.GetTimeManager().HeroDiedTimeSlow();
@@ -65,6 +71,10 @@ public class HeroesManager : BaseGameplayManager
             GameplayManagers.Instance.GetGameStateManager().SetGameplayState(GameplayStates.PostBattleLost);
     }
 
+    /// <summary>
+    /// Kills all heroes that are currently alive.
+    /// Ignores all heroes death overrides.
+    /// </summary>
     public void KillAllHeroes()
     {
         while(_currentLivingHeroes.Count > 0)

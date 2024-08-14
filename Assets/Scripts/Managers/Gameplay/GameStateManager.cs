@@ -22,6 +22,10 @@ public class GameStateManager : BaseGameplayManager
         StartCoroutine(ProgressToStart());
     }
 
+    /// <summary>
+    /// Starts the battle
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator ProgressToStart()
     {
         yield return new WaitForSeconds(_timeToStart);
@@ -34,8 +38,7 @@ public class GameStateManager : BaseGameplayManager
     /// <param name="newGameplayState"></param>
     public void SetGameplayState(GameplayStates newGameplayState)
     {
-        if (_currentGameplayState == newGameplayState || _currentGameplayState == GameplayStates.PostBattleLost ||
-            _currentGameplayState == GameplayStates.PostBattleWon) return;
+        if (_currentGameplayState == newGameplayState || _currentGameplayState >= GameplayStates.PostBattleLost) return;
 
         _currentGameplayState = newGameplayState;
 
@@ -77,6 +80,10 @@ public class GameStateManager : BaseGameplayManager
         _battleWonEvent?.Invoke();
         InvokeBattleWonOrLostEvent();
     }
+
+    /// <summary>
+    /// Called if the game ends, regardless of win or loss.
+    /// </summary>
     public void InvokeBattleWonOrLostEvent()
     {
         _battleWonOrLostEvent?.Invoke();
@@ -85,8 +92,7 @@ public class GameStateManager : BaseGameplayManager
 
 
     #region Getters
-    public bool GetIsFightOver() => (_currentGameplayState == GameplayStates.PostBattleLost
-        || _currentGameplayState == GameplayStates.PostBattleWon);
+    public bool GetIsFightOver() => _currentGameplayState >= GameplayStates.PostBattleLost;
 
     public UnityEvent GetStartOfBattleEvent() => _startOfBattleEvent;
     public UnityEvent GetBattleLostEvent() => _battleLostEvent;
