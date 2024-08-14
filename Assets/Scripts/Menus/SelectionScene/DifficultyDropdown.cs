@@ -15,23 +15,26 @@ public class DifficultyDropdown : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       /* List<Sprite> diffIcons = UniversalManagers.Instance.GetSelectionManager().GetDifficultyIcons();
+        /* List<Sprite> diffIcons = UniversalManagers.Instance.GetSelectionManager().GetDifficultyIcons();
 
-        _dropdown.ClearOptions();
+         _dropdown.ClearOptions();
 
-        List<TMP_Dropdown.OptionData> difficultyIcons = new List<TMP_Dropdown.OptionData>();
-        //List<Dropdown.OptionData> difficultyIcons = new List<Dropdown.OptionData>();
+         List<TMP_Dropdown.OptionData> difficultyIcons = new List<TMP_Dropdown.OptionData>();
+         //List<Dropdown.OptionData> difficultyIcons = new List<Dropdown.OptionData>();
 
-        foreach (var icon in diffIcons)
-        {
-            var iconOptions = new TMP_Dropdown.OptionData(icon.name, icon);
-            difficultyIcons.Add(iconOptions);
-        }
-        _dropdown.AddOptions(difficultyIcons);*/
+         foreach (var icon in diffIcons)
+         {
+             var iconOptions = new TMP_Dropdown.OptionData(icon.name, icon);
+             difficultyIcons.Add(iconOptions);
+         }
+         _dropdown.AddOptions(difficultyIcons);*/
+
+        _dropdown.value = (int)UniversalManagers.Instance.GetSelectionManager().GetSelectedDifficulty()-1;
     }
 
     public void UpdateDifficulty()
     {
+        
         UniversalManagers.Instance.GetSelectionManager().SetSelectedDifficulty((GameDifficulty)_dropdown.value+1);
     }
 }

@@ -8,5 +8,8 @@ public abstract class BaseUniversalManager : MonoBehaviour
     {
         SubscribeToEvents();
     }
-    public abstract void SubscribeToEvents();
+    public virtual void SubscribeToEvents()
+    {
+
+    }
 }

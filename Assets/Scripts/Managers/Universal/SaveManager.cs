@@ -12,21 +12,10 @@ public class SaveManager : BaseUniversalManager
     [SerializeField] private List<BossSO> _bossesInGame = new();
     [SerializeField] private List<HeroSO> _heroesInGame = new();
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            PopulateBossHeroDifficultyDictionary();
-            foreach (BossSO bossSO in _bossesInGame)
-            {
-                foreach (HeroSO heroSO in _heroesInGame)
-                {
-                    print(GSD._bossHeroBestDifficultyComplete[bossSO.GetBossName()][heroSO.GetHeroName()]);
-                }
-            }
-        }
-    }
 
+    /// <summary>
+    /// Sets the path to create the save file
+    /// </summary>
     private void EstablishPath()
     {
         _path = Application.isEditor ? Application.dataPath : Application.persistentDataPath; //checks to see if we're in editor, if so use datapath instead of persistent datapath
@@ -51,9 +40,6 @@ public class SaveManager : BaseUniversalManager
         GSD._masterVolume = 1;
         GSD._musicVolume = 1;
         GSD._sfxVolume = 1;
-
-        /*System.Array.Fill(GSD.SaveNames, "");
-        System.Array.Fill(GSD.SaveScore, 0);*/
     }
 
     private void PopulateBossHeroDifficultyDictionary()
@@ -69,6 +55,7 @@ public class SaveManager : BaseUniversalManager
 
             foreach(HeroSO heroSO in _heroesInGame)
             {
+                //Sets each best difficulty beaten to empty
                 GSD._bossHeroBestDifficultyComplete[bossSO.GetBossName()].Add(heroSO.GetHeroName(), GameDifficulty.Empty);
             }
         }
@@ -91,8 +78,6 @@ public class SaveManager : BaseUniversalManager
             GSD = JsonUtility.FromJson<GameSaveData>(json);
 
             GSD = JsonConvert.DeserializeObject<GameSaveData>(json);
-            /*var a = JsonConvert.DeserializeObject<GameSaveData>(json);
-            Debug.Log(a._screenShakeStrength);*/
         }
         else
         {
@@ -103,28 +88,6 @@ public class SaveManager : BaseUniversalManager
         }
     }
 
-    public void ResetSaveData()
-    {
-        PopulateBossHeroDifficultyDictionary();
-        
-        SaveText();
-    }
-
-    #region Getters
-
-    public GameDifficulty GetBestDifficultyBeatenOnHeroForBoss(BossSO bossSO, HeroSO heroSO)
-    {
-        return GSD._bossHeroBestDifficultyComplete[bossSO.GetBossName()][heroSO.GetHeroName()];
-    }
-
-    public float GetScreenShakeIntensity() => GSD._screenShakeStrength;
-    public float GetMasterVolume() => GSD._masterVolume;
-    public float GetMusicVolume() => GSD._musicVolume;
-    public float GetSFXVolume() => GSD._sfxVolume;
-
-    #endregion
-
-    #region Setters
     /// <summary>
     /// Saves the heroes best difficulty beaten on a boss
     /// </summary>
@@ -147,8 +110,37 @@ public class SaveManager : BaseUniversalManager
             }
         }
 
+        //Saves the changes to the save file
         SaveText();
     }
+
+    /// <summary>
+    /// Resets the best difficulties beaten for heroes and bosses
+    /// DOESN'T reset the settings the player has changed
+    /// </summary>
+    public void ResetSaveData()
+    {
+        PopulateBossHeroDifficultyDictionary();
+        
+        SaveText();
+    }
+
+    #region Getters
+
+    public GameDifficulty GetBestDifficultyBeatenOnHeroForBoss(BossSO bossSO, HeroSO heroSO)
+    {
+        return GSD._bossHeroBestDifficultyComplete[bossSO.GetBossName()][heroSO.GetHeroName()];
+    }
+
+    public float GetScreenShakeIntensity() => GSD._screenShakeStrength;
+    public float GetMasterVolume() => GSD._masterVolume;
+    public float GetMusicVolume() => GSD._musicVolume;
+    public float GetSFXVolume() => GSD._sfxVolume;
+
+    #endregion
+
+    #region Setters
+    
 
     /// <summary>
     /// Saves the current screen shake intensity into the game save data
@@ -194,17 +186,13 @@ public class SaveManager : BaseUniversalManager
         //PopulateBossHeroDifficultyDictionary();
         Load();
     }
-
-    public override void SubscribeToEvents()
-    {
-
-    }
 }
 
 [System.Serializable]
 public class GameSaveData
 {
     //First string is boss name, second string is hero name
+    //Represents the best difficulty each hero has beaten each boss at
     public Dictionary<string, Dictionary<string,GameDifficulty>> _bossHeroBestDifficultyComplete = new();
 
     [Space]

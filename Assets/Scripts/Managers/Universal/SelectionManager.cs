@@ -147,13 +147,15 @@ public class SelectionManager : BaseUniversalManager
         InvokeHeroNotHoveredOverEvent(heroSO);
     }
 
-
+    /// <summary>
+    /// Removes the currently selected heroes, boss, level, and difficulty
+    /// </summary>
     public void ResetSelectionData()
     {
         _selectedHeroes = new();
         _selectedBoss = null;
         _selectedLevel = null;
-        _currentGameDifficulty = GameDifficulty.Normal;
+        //_currentGameDifficulty = GameDifficulty.Normal;
     }
 
 

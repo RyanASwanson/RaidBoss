@@ -20,15 +20,7 @@ public class SceneLoadManager : BaseUniversalManager
     private UnityEvent _startOfSceneLoadEvent = new UnityEvent();
     private UnityEvent _endOfSceneLoadEvent = new UnityEvent();
 
-    public override void SetupUniversalManager()
-    {
-        base.SetupUniversalManager();
-    }
 
-    public override void SubscribeToEvents()
-    {
-
-    }
 
     /// <summary>
     /// Loads a scene using the build ID
@@ -40,6 +32,12 @@ public class SceneLoadManager : BaseUniversalManager
             _sceneTransitionCoroutine = StartCoroutine(SceneLoadProcess(id));
     }
 
+
+    /// <summary>
+    /// Returns if a scene load can occur.
+    /// Prevented if scene load is currently in process.
+    /// </summary>
+    /// <returns></returns>
     private bool CanLoadScene()
     {
         return _sceneTransitionCoroutine == null;
@@ -50,6 +48,8 @@ public class SceneLoadManager : BaseUniversalManager
         InvokeStartOfSceneLoadEvent();
 
         _sceneTransitionAnimator.SetTrigger(_closeInFromSidesAnimTrigger);
+
+        //Loads the scene after half of the screen transition has occurred
         yield return new WaitForSeconds(_sceneTransitionTime / 2);
         SceneManager.LoadScene(id);
         yield return new WaitForSeconds(_sceneTransitionTime / 2);
@@ -59,7 +59,7 @@ public class SceneLoadManager : BaseUniversalManager
     }
 
     /// <summary>
-    /// Loads a scene using the scriptable object associated with gameplay scenes
+    /// Loads a scene using the scriptable object associated with gameplay scenes.
     /// </summary>
     /// <param name="levelSO"></param>
     public void LoadSceneByLevelSO(LevelSO levelSO)
@@ -67,6 +67,9 @@ public class SceneLoadManager : BaseUniversalManager
         LoadSceneByID(levelSO.GetLevelBuildID());
     }
 
+    /// <summary>
+    /// Loads a scene based on which 
+    /// </summary>
     public void LoadCurrentlySelectedLevelSO()
     {
         LoadSceneByLevelSO(UniversalManagers.Instance.GetSelectionManager().GetSelectedLevel());

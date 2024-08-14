@@ -122,33 +122,52 @@ public class TimeManager : BaseUniversalManager
         AddNewTimeVariationForDuration(_largeHeroDamageTimeSpeed, _largeHeroDamageDuration);
     }
 
+    /// <summary>
+    /// Slows time on hero death to predetermined values
+    /// </summary>
     public void HeroDiedTimeSlow()
     {
         AddNewTimeVariationForDuration(_heroDeathTimeSpeed, _heroDeathDuration);
     }
 
+    /// <summary>
+    /// Sets the time to 1, ignoring any time variations
+    /// </summary>
     public void SetTimeToNormalSpeedOverride()
     {
         SetTimeScale(1);
     }
 
+    /// <summary>
+    /// Sets the speed at which the game plays
+    /// </summary>
+    /// <param name="scale"></param>
     public void SetTimeScale(float scale)
     {
         Time.timeScale = scale;
     }
 
+    /// <summary>
+    /// Freezes the game and invokes game paused event
+    /// </summary>
     public void FreezeTime()
     {
         SetTimeScale(0);
         InvokeGamePausedEvent();
     }
 
+    /// <summary>
+    /// Returns time to normal based on time variations and invokes game unpaused event
+    /// </summary>
     public void UnfreezeTime()
     {
         DetermineCurrentTimeSpeedBasedOnList();
         InvokeGameUnpausedEvent();
     }
 
+    /// <summary>
+    /// Makes the game proceed at normal speed during a scene load and prevent adjusting speed
+    /// </summary>
     private void SceneLoadStart()
     {
         _gamePaused = false;
@@ -156,6 +175,9 @@ public class TimeManager : BaseUniversalManager
         SetTimeToNormalSpeedOverride();
     }
 
+    /// <summary>
+    /// Reenables the ability to adjust the speed of the game
+    /// </summary>
     private void SceneLoadEnd()
     {
         _canUpdateTimeVariation = true;
