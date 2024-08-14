@@ -49,8 +49,8 @@ public class SBUI_TerraLordUI : SpecificBossUIFramework
             changeVal = 0;
         }
 
-        start = Mathf.Clamp(start, -1, _passiveBars.Count+1);
-        end = Mathf.Clamp(end, -1, _passiveBars.Count+1);
+        start = Mathf.Clamp(start, -1, _passiveBars.Count);
+        end = Mathf.Clamp(end, -1, _passiveBars.Count);
 
         for (int i = start; i != end; i += changeVal)
         {

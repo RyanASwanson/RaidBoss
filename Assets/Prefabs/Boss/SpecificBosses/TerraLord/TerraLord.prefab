@@ -214,7 +214,6 @@ MonoBehaviour:
   _animationTriggerName: EntombUsed
   _rotationAmount: 45
   _entomb: {fileID: 6957617552280463618, guid: f07ff2d9d0e0e4e4da9b3e574c458e60, type: 3}
-  _entombWall: {fileID: 470047771293742491, guid: 1cc5467fda6f2de46b3da6fd57f0d553, type: 3}
   _targetZone: {fileID: 1062582142837617367, guid: 8c02a47f78d84624ca931dfcc3cba973, type: 3}
 --- !u!114 &280044508746416317
 MonoBehaviour:
@@ -246,6 +245,7 @@ GameObject:
   m_Component:
   - component: {fileID: 501763576293021207}
   - component: {fileID: 1530244410539311288}
+  - component: {fileID: 1267568357380142074}
   m_Layer: 0
   m_Name: Visuals
   m_TagString: Untagged
@@ -290,6 +290,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1267568357380142074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 501763576293021200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15b178d837850bd44a6ea78907376d8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _vfxList:
+  - {fileID: 7230887684584444961, guid: ca326f8ca81954c439824e4b7b39c20d, type: 3}
 --- !u!1001 &501763576286941701
 PrefabInstance:
   m_ObjectHideFlags: 0

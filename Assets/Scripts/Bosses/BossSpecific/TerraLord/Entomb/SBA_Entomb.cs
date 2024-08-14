@@ -9,20 +9,14 @@ public class SBA_Entomb : SpecificBossAbilityFramework
     private Quaternion _storedTargetRotation;
 
     [SerializeField] private GameObject _entomb;
-    [SerializeField] private GameObject _entombWall;
 
     [SerializeField] private GameObject _targetZone;
-
-    private GameObject _currentSafeZone;
 
     protected override void StartShowTargetZone()
     {
         CalculateAttackRotation();
 
         _currentTargetZones.Add(Instantiate(_targetZone, _storedTargetLocation, _storedTargetRotation));
-
-        //_currentSafeZone = Instantiate(_safeZone, _storedTargetLocation, _storedTargetRotation);
-        //_currentTargetZones.Add(_currentSafeZone);
 
         base.StartShowTargetZone();
     }
@@ -32,19 +26,7 @@ public class SBA_Entomb : SpecificBossAbilityFramework
         GameObject storedEntomb = Instantiate(_entomb, _storedTargetLocation, _storedTargetRotation);
         storedEntomb.GetComponent<SBP_Entomb>().SetUpProjectile(_myBossBase);
 
-        /*if (_currentSafeZone.GetComponent<BossAbilitySafeZone>().DoesSafeZoneContainHero())
-        {
-            return;
-        }*/
-
-        //GameObject storedWalls = Instantiate(_entombWall, _storedTargetLocation, _storedTargetRotation);
-
-        
-        //storedWalls.GetComponent<SBP_EntombWalls>().SetUpProjectile(_myBossBase);
-
         base.AbilityStart();
-
-
     }
 
     protected void CalculateAttackRotation()
@@ -58,7 +40,6 @@ public class SBA_Entomb : SpecificBossAbilityFramework
             case (1):
                 break;
         }
-
 
         float randomYRotation = rotationMultiplier * _rotationAmount;
 
