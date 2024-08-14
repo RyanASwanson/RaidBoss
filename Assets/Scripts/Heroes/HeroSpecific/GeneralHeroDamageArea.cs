@@ -6,7 +6,7 @@ using UnityEngine.Events;
 /// <summary>
 /// Contains the functionality that is generally used for hero attacks to do damage
 /// </summary>
-public class GeneralHeroDamageArea : MonoBehaviour
+public class GeneralHeroDamageArea : GeneralAbilityAreaFramework
 {
     [Header("General")]
     [SerializeField] private Collider _damageCollider;
@@ -33,19 +33,6 @@ public class GeneralHeroDamageArea : MonoBehaviour
     [SerializeField] private UnityEvent<Collider> _exitEvent;
 
     private HeroBase _myHeroBase;
-
-    private void Start()
-    {
-        if (_hasLifeTime)
-            StartCoroutine(LifeTimeDestruction());
-    }
-
-    private IEnumerator LifeTimeDestruction()
-    {
-        yield return new WaitForSeconds(_lifeTime);
-        _lifeTimeEndEvent?.Invoke();
-        Destroy(gameObject);
-    }
 
     public void SetUpDamageArea(HeroBase heroBase)
     {
@@ -99,7 +86,7 @@ public class GeneralHeroDamageArea : MonoBehaviour
     private void DealDamageAndStagger(float abilityDamage, float abilityStagger)
     {
         if (_myHeroBase == null)
-            Debug.Log("Cant Find Hero Base");
+            Debug.LogWarning("Cant Find Hero Base");
 
         if (abilityDamage > 0)
             _myHeroBase.GetSpecificHeroScript().DamageBoss(abilityDamage);

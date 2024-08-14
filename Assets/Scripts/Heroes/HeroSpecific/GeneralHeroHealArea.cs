@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class GeneralHeroHealArea : MonoBehaviour
+public class GeneralHeroHealArea : GeneralAbilityAreaFramework
 {
     [SerializeField] private Collider _healingCollider;
     [SerializeField] private bool _hasLifeTime;
@@ -26,12 +26,6 @@ public class GeneralHeroHealArea : MonoBehaviour
     [SerializeField] private UnityEvent<Collider> _exitEvent;
 
     private HeroBase _myHeroBase;
-
-    private void Start()
-    {
-        if (_hasLifeTime)
-            Destroy(gameObject, _lifeTime);
-    }
 
     public void SetUpHealingArea(HeroBase heroBase)
     {

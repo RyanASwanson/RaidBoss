@@ -6,13 +6,13 @@ using UnityEngine.Events;
 /// <summary>
 /// Contains the functionality that is generally used for boss attacks
 /// </summary>
-public class GeneralBossDamageArea : MonoBehaviour
+public class GeneralBossDamageArea : GeneralAbilityAreaFramework
 {
     [SerializeField] private Collider _damageCollider;
 
     [Space]
-    [SerializeField] private bool _hasLifeTime;
-    [SerializeField] private float _lifeTime;
+    [SerializeField] private bool _hasLifetime;
+    [SerializeField] private float _lifetime;
 
     [Space]
     [SerializeField] private float _preventReHitDuration;
@@ -33,11 +33,6 @@ public class GeneralBossDamageArea : MonoBehaviour
 
     private List<HeroBase> _heroesToIgnore = new List<HeroBase>();
 
-    private void Start()
-    {
-        if (_hasLifeTime)
-            Destroy(gameObject, _lifeTime);
-    }
 
     private bool DoesColliderBelongToHero(Collider collision)
     {
