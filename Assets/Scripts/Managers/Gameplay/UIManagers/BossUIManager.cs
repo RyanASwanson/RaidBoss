@@ -187,22 +187,31 @@ public class BossUIManager : GameUIChildrenFunctionality
     }    
     #endregion
 
+    /// <summary>
+    /// Create the damage numbers from the boss taking damage
+    /// </summary>
+    /// <param name="damage"></param> The amount of damage the boss took
     private void CreateDamageNumbers(float damage)
     {
-        /*Vector3 damageNumberSpawnLocation = new Vector3(_damageStaggerOrigin.transform.localPosition.x,
-            _damageStaggerOrigin.transform.localPosition.y, _damageStaggerOrigin.transform.localPosition.z);*/
-
+        //Spawns in the damage number at the bosses location
+        //Attached to boss canvas at the damage number origin
         GameObject newDamageNumber = Instantiate(_damageNumber, _damageNumbersOrigin);
 
+        //Rounds the damage to the nearest int to create cleaner damage numbers
         damage = Mathf.RoundToInt(damage);
+
+        //Updates the text on the damage number
         newDamageNumber.GetComponentInChildren<Text>().text = damage.ToString();
         newDamageNumber.GetComponentInChildren<TMP_Text>().text = damage.ToString();
 
+        //Add variance to the spawn location
         AddSpawnVarianceToDamageStaggerNumber(newDamageNumber);
 
+        //Performs a different animation on the damage number depending on how much damage was dealt
         if(damage >= _strongDamage)
         {
             newDamageNumber.GetComponent<Animator>().SetTrigger(_damageStrongAnimTrigger);
+            //Shows time on large damage dealt
             UniversalManagers.Instance.GetTimeManager().LargeHeroDamageTimeSlow();
         }
         else if (damage >= _averageDamage)
@@ -210,6 +219,7 @@ public class BossUIManager : GameUIChildrenFunctionality
         else
             newDamageNumber.GetComponent<Animator>().SetTrigger(_damageStaggerWeakAnimTrigger);
     }
+
 
     private void CreateStaggerNumbers(float stagger)
     {
@@ -232,6 +242,10 @@ public class BossUIManager : GameUIChildrenFunctionality
             newStaggerNumber.GetComponent<Animator>().SetTrigger(_damageStaggerWeakAnimTrigger);
     }
 
+    /// <summary>
+    /// Adds variance to the location of the damage/stagger number
+    /// </summary>
+    /// <param name="number"></param>
     private void AddSpawnVarianceToDamageStaggerNumber(GameObject number)
     {
         number.transform.position += new Vector3(Random.Range(-_damageNumbersXVariance, _damageNumbersXVariance), 0, 0);

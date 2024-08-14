@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Handles the ui for the gameplay
+/// Handles the Ui for the gameplay
+/// Holds all other needed UI Managers for gameplay for more specific needs
 /// </summary>
 public class GameUIManager : BaseGameplayManager
 {

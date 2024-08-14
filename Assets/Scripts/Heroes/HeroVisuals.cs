@@ -89,44 +89,27 @@ public class HeroVisuals : HeroChildrenFunctionality
         _healthStatusIcon.GetComponent<Animator>().SetInteger(_healthStatusIntAnim, 2);
     }
 
-    /// <summary>
-    /// Causes the general hero damage animation to play
-    /// </summary>
-    private void HeroDamagedAnimation()
-    {
-        HeroGeneralAnimationTrigger(_heroDamagedTriggerAnim);
-    }
-
-    /// <summary>
-    /// Causes the general hero heal animation to play
-    /// </summary>
-    private void HeroHealedAnimation()
-    {
-        HeroGeneralAnimationTrigger(_heroHealedTriggerAnim);
-    }
-
-    /// <summary>
-    /// Causes the hero death animation to play
-    /// </summary>
-    private void HeroDeathAnimation()
-    {
-        HeroGeneralAnimationTrigger(_heroDeathTriggerAnim);
-    }
     #endregion
 
+
+    #region Hero Animation
+    /// <summary>
+    /// Activates a trigger on the hero general animator
+    /// </summary>
+    /// <param name="animationTrigger"></param>
     private void HeroGeneralAnimationTrigger(string animationTrigger)
     {
         _heroGeneralAnimator.SetTrigger(animationTrigger);
     }
 
+    /// <summary>
+    /// Sets a bool on the hero general animator
+    /// </summary>
+    /// <param name="animationTrigger"></param>
+    /// <param name="boolStatus"></param>
     private void HeroGeneralAnimationBool(string animationTrigger, bool boolStatus)
     {
         _heroGeneralAnimator.SetBool(animationTrigger, boolStatus);
-    }
-
-    public void HeroLevelIntroAnimation()
-    {
-        HeroGeneralAnimationTrigger(_levelIntroTriggerAnim);
     }
 
 
@@ -147,6 +130,12 @@ public class HeroVisuals : HeroChildrenFunctionality
     public void HeroSpecificAnimationBool(string animationBool, bool boolStatus)
     {
         _heroSpecificAnimator.SetBool(animationBool, boolStatus);
+    }
+
+
+    public void HeroLevelIntroAnimation()
+    {
+        HeroGeneralAnimationTrigger(_levelIntroTriggerAnim);
     }
 
 
@@ -199,6 +188,31 @@ public class HeroVisuals : HeroChildrenFunctionality
         HeroSpecificAnimationTrigger(_heroPassiveAnimTrigger);
     }
 
+    /// <summary>
+    /// Causes the general hero damage animation to play
+    /// </summary>
+    private void HeroDamagedAnimation()
+    {
+        HeroGeneralAnimationTrigger(_heroDamagedTriggerAnim);
+    }
+
+    /// <summary>
+    /// Causes the general hero heal animation to play
+    /// </summary>
+    private void HeroHealedAnimation()
+    {
+        HeroGeneralAnimationTrigger(_heroHealedTriggerAnim);
+    }
+
+    /// <summary>
+    /// Causes the hero death animation to play
+    /// </summary>
+    private void HeroDeathAnimation()
+    {
+        HeroGeneralAnimationTrigger(_heroDeathTriggerAnim);
+    }
+
+    #endregion
 
     #region Events
     public override void SubscribeToEvents()

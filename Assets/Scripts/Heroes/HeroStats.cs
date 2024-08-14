@@ -108,6 +108,7 @@ public class HeroStats : HeroChildrenFunctionality
         
     }
 
+
     //Checks if the hero has died after taking damage
     private void CheckIfHeroIsDead()
     {
@@ -128,9 +129,12 @@ public class HeroStats : HeroChildrenFunctionality
     /// </summary>
     public void KillHero()
     {
+        //Prevents hero from taking damage as they die
         AddDamageTakenOverrideCounter();
 
+        //Tells the hero base to invoke the death event
         myHeroBase.InvokeHeroDiedEvent();
+        //Tells the heroes manager that this hero died
         GameplayManagers.Instance.GetHeroesManager().HeroDied(myHeroBase);
     }
 
@@ -142,7 +146,7 @@ public class HeroStats : HeroChildrenFunctionality
     #region Damage Override
 
     /// <summary>
-    /// Determines if damaged should be overridden based on if they have damage overrides
+    /// Determines if damaged should be overridden based on if they have damage overrides.
     /// </summary>
     /// <returns></returns>
     private bool ShouldOverrideDamage()
@@ -150,12 +154,16 @@ public class HeroStats : HeroChildrenFunctionality
         return _damageTakenOverridesCounter > 0;
     }
 
+    /// <summary>
+    /// Add 1 to the counter that tracks all active damage overrides.
+    /// </summary>
     public void AddDamageTakenOverrideCounter()
     {
         _damageTakenOverridesCounter++;
     }
-    
-
+    /// <summary>
+    /// Remove 1 from the counter that tracks all active damage overrides.
+    /// </summary>
     public void RemoveDamageTakenOverrideCounter()
     {
         _damageTakenOverridesCounter--;
@@ -164,17 +172,24 @@ public class HeroStats : HeroChildrenFunctionality
 
     #region Healing Override
 
+    /// <summary>
+    /// Determines if healing should be overidden based on if they have healing overrides.
+    /// </summary>
+    /// <returns></returns>
     public bool ShouldOverrideHealing()
     {
         return _healingTakenOverridesCounter > 0;
     }
-
+    /// <summary>
+    /// Add 1 to the counter that tracks all active healing overrides.
+    /// </summary>
     public void AddHealingTakenOverrideCounter()
     {
         _healingTakenOverridesCounter++;
     }
-
-
+    /// <summary>
+    /// Remove 1 from the counter that tracks all active healing overrides.
+    /// </summary>
     public void RemoveHealingTakenOverrideCounter()
     {
         _healingTakenOverridesCounter--;
@@ -183,17 +198,27 @@ public class HeroStats : HeroChildrenFunctionality
     #endregion
 
     #region Death Override
+    /// <summary>
+    /// Determines if death should be overridden based on if they have any death overrides.
+    /// Only taken into account when damage kills the hero, not if they are forcibly killed.
+    ///     -EX: Terra Lord Passive forcibly kills
+    /// </summary>
+    /// <returns></returns>
     private bool ShouldOverrideDeath()
     {
         return _deathOverridesCounter > 0;
     }
-
+    /// <summary>
+    /// Add 1 to the counter that tracks all active death overrides.
+    /// </summary>
     public void AddDeathOverrideCounter()
     {
         _deathOverridesCounter++;
     }
 
-
+    /// <summary>
+    /// Remove 1 from the counter that tracks all active death overrides.
+    /// </summary>
     public void RemoveDeathOverrideCounter()
     {
         _deathOverridesCounter--;
@@ -260,12 +285,28 @@ public class HeroStats : HeroChildrenFunctionality
     #endregion
 
     #region Stat Changes
+
+    /// <summary>
+    /// Starts the process of applying a stat change to the hero
+    /// </summary>
+    /// <param name="stat"></param> Which stat is being adjusted
+    /// <param name="changeValue"></param> How much the stat is being changed by
+    /// <param name="secondaryValue"></param> How much a secondary stat (if it exists) is changed by
+    /// <param name="duration"></param> How long the stat is changed for 
     public void ApplyStatChangeForDuration(HeroGeneralAdjustableStats stat, 
         float changeValue, float secondaryValue, float duration)
     {
         StartCoroutine(StatChangeDurationProcess(stat, changeValue, secondaryValue, duration));
     }
 
+    /// <summary>
+    /// Applies the stat change, then waits for the duration to reverse it
+    /// </summary>
+    /// <param name="stat"></param>
+    /// <param name="changeValue"></param>
+    /// <param name="secondaryValue"></param>
+    /// <param name="duration"></param>
+    /// <returns></returns>
     private IEnumerator StatChangeDurationProcess(HeroGeneralAdjustableStats stat,
         float changeValue, float secondaryValue, float duration)
     {
@@ -273,6 +314,7 @@ public class HeroStats : HeroChildrenFunctionality
         yield return new WaitForSeconds(duration);
         ChangeSpecificStat(stat, -changeValue, -secondaryValue,true);
     }
+
 
     private void ChangeSpecificStat(HeroGeneralAdjustableStats stat, float changeValue, float secondaryValue, bool createBuffIcons)
     {
@@ -312,7 +354,8 @@ public class HeroStats : HeroChildrenFunctionality
                 break;
         }
 
-
+        // If the stat has an icon associated with it and creating icons is allowed
+        // Tell the associated HeroUI manager to create a buff/debuff icon
         if (buffDebuffIconSprite != null && createBuffIcons)
         {
             myHeroBase.GetHeroUIManager().CreateBuffDebuffIcon(buffDebuffIconSprite, changeValue > 0);
@@ -417,6 +460,10 @@ public class HeroStats : HeroChildrenFunctionality
     #endregion
 }
 
+
+/// <summary>
+/// The stats which can be adjusted by buffs/debuffs
+/// </summary>
 public enum HeroGeneralAdjustableStats
 {
     DamageMultiplier,
