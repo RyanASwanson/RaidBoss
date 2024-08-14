@@ -45,17 +45,27 @@ public class HeroVisuals : HeroChildrenFunctionality
         HeroLevelIntroAnimation();
     }
 
-
+    #region Health Status
     private void HeroDamaged(float damage)
     {
-        Instantiate(_heroDamagedVFX, transform.position, Quaternion.identity);
+        CreateHeroDamagedVFX();
         HeroDamagedAnimation();
     }
 
     private void HeroHealed(float healing)
     {
-        Instantiate(_heroHealedVFX, transform.position, Quaternion.identity);
+        CreateHeroHealedVFX();
         HeroHealedAnimation();
+    }
+
+    private void CreateHeroDamagedVFX()
+    {
+        Instantiate(_heroDamagedVFX, transform.position, Quaternion.identity);
+    }
+
+    private void CreateHeroHealedVFX()
+    {
+        Instantiate(_heroHealedVFX, transform.position, Quaternion.identity);
     }
 
     private void HeroDied()
@@ -63,7 +73,7 @@ public class HeroVisuals : HeroChildrenFunctionality
         HeroDeathAnimation();
     }
 
-    #region Health Status
+    
     private void HeroHealthAboveHalf()
     {
         _healthStatusIcon.GetComponent<Animator>().SetInteger(_healthStatusIntAnim, 0);
@@ -77,6 +87,30 @@ public class HeroVisuals : HeroChildrenFunctionality
     private void HeroCritical()
     {
         _healthStatusIcon.GetComponent<Animator>().SetInteger(_healthStatusIntAnim, 2);
+    }
+
+    /// <summary>
+    /// Causes the general hero damage animation to play
+    /// </summary>
+    private void HeroDamagedAnimation()
+    {
+        HeroGeneralAnimationTrigger(_heroDamagedTriggerAnim);
+    }
+
+    /// <summary>
+    /// Causes the general hero heal animation to play
+    /// </summary>
+    private void HeroHealedAnimation()
+    {
+        HeroGeneralAnimationTrigger(_heroHealedTriggerAnim);
+    }
+
+    /// <summary>
+    /// Causes the hero death animation to play
+    /// </summary>
+    private void HeroDeathAnimation()
+    {
+        HeroGeneralAnimationTrigger(_heroDeathTriggerAnim);
     }
     #endregion
 
@@ -93,21 +127,6 @@ public class HeroVisuals : HeroChildrenFunctionality
     public void HeroLevelIntroAnimation()
     {
         HeroGeneralAnimationTrigger(_levelIntroTriggerAnim);
-    }
-
-    private void HeroDamagedAnimation()
-    {
-        HeroGeneralAnimationTrigger(_heroDamagedTriggerAnim);
-    }
-
-    private void HeroHealedAnimation()
-    {
-        HeroGeneralAnimationTrigger(_heroHealedTriggerAnim);
-    }
-
-    private void HeroDeathAnimation()
-    {
-        HeroGeneralAnimationTrigger(_heroDeathTriggerAnim);
     }
 
 
@@ -204,16 +223,22 @@ public class HeroVisuals : HeroChildrenFunctionality
     }
     private void HeroSOAssigned(HeroSO heroSO)
     {
-        //Debug.Log("Hero Assigned SO Event");
         AssignHeroSpecificAnimator();
 
         StartHeroSpecificIdleAnimation();
     }
+
+    /// <summary>
+    /// Shows the control shape under the hero
+    /// </summary>
     private void HeroControlStart()
     {
         _controlIcon.enabled = true;
     }
 
+    /// <summary>
+    /// Hides the control shape under the hero
+    /// </summary>
     private void HeroControlStop()
     {
         _controlIcon.enabled = false;

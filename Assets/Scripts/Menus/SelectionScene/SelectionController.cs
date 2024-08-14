@@ -392,25 +392,29 @@ public class SelectionController : MonoBehaviour
     }
 
     
-
+    /// <summary>
+    /// Changes which ability is being displayed
+    /// Can update the ability name, type, and description text
+    /// Presents the hero ability based on which hero ability ID is currently active
+    /// </summary>
     public void HeroAbilityDescriptionChanged()
     {
         switch(_currentHeroAbilityID)
         {
             case (0):
-                UpdateHeroAbilityDescriptionText(_lastHeroHoveredOver.GetHeroBasicAbilityDescription());
-                UpdateHeroAbilityTypeText(HeroAbilityType.Basic.ToString());
                 UpdateHeroAbilityNameText(_lastHeroHoveredOver.GetHeroBasicAbilityName());
+                UpdateHeroAbilityTypeText(HeroAbilityType.Basic.ToString());
+                UpdateHeroAbilityDescriptionText(_lastHeroHoveredOver.GetHeroBasicAbilityDescription());
                 return;
             case (1):
-                UpdateHeroAbilityDescriptionText(_lastHeroHoveredOver.GetHeroManualAbilityDescription());
-                UpdateHeroAbilityTypeText(HeroAbilityType.Manual.ToString());
                 UpdateHeroAbilityNameText(_lastHeroHoveredOver.GetHeroManualAbilityName());
+                UpdateHeroAbilityTypeText(HeroAbilityType.Manual.ToString());
+                UpdateHeroAbilityDescriptionText(_lastHeroHoveredOver.GetHeroManualAbilityDescription());
                 return;
             case (2):
-                UpdateHeroAbilityDescriptionText(_lastHeroHoveredOver.GetHeroPassiveAbilityDescription());
-                UpdateHeroAbilityTypeText(HeroAbilityType.Passive.ToString());
                 UpdateHeroAbilityNameText(_lastHeroHoveredOver.GetHeroPassiveAbilityName());
+                UpdateHeroAbilityTypeText(HeroAbilityType.Passive.ToString());
+                UpdateHeroAbilityDescriptionText(_lastHeroHoveredOver.GetHeroPassiveAbilityDescription());
                 return;
 
         }
