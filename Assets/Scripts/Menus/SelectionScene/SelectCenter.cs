@@ -4,27 +4,17 @@ using UnityEngine;
 
 /// <summary>
 /// Menu in the middle of the selection screen
-/// Handles starting the level and difficulty
+/// Handles starting the level
 /// </summary>
 public class SelectCenter : MonoBehaviour
 {
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-
+    /// <summary>
+    /// Causes the game to proceed to the currently selected level
+    /// Called by play button press
+    /// </summary>
     public void PlayLevel()
     {
         UniversalManagers.Instance.GetSceneLoadManager().LoadCurrentlySelectedLevelSO();
     }
-
-    public void SetDifficulty(GameDifficulty newDifficulty)
-    {
-        UniversalManagers.Instance.GetSelectionManager().SetSelectedDifficulty(newDifficulty);
-    }
-    
+ 
 }

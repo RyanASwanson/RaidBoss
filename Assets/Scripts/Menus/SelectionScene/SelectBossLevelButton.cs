@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 /// <summary>
 /// The button that is pressed in order to selected which boss
-///     that you are going to fight
+/// that you are going to fight
 /// </summary>
 public class SelectBossLevelButton : MonoBehaviour
 {

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Provides the functionality for displaying stats of heroes
+/// </summary>
 public class StatCounter : MonoBehaviour
 {
     [SerializeField] private float _delayBetweenNodes;
@@ -17,11 +20,20 @@ public class StatCounter : MonoBehaviour
 
     private Coroutine _showNodeCoroutine;
 
+    /// <summary>
+    /// Starts the process of showing stat nodes
+    /// </summary>
+    /// <param name="statNumber"></param>
     public void ShowStatNodes(int statNumber)
     {
         _showNodeCoroutine = StartCoroutine(ShowNodeProcess(statNumber));
     }
 
+    /// <summary>
+    /// Iterates through all stat nodes to determine which animation to play
+    /// </summary>
+    /// <param name="statNumber"></param>
+    /// <returns></returns>
     private IEnumerator ShowNodeProcess(int statNumber)
     {
         for (int i = 0; i < _statNodes.Count; i++)
@@ -34,12 +46,21 @@ public class StatCounter : MonoBehaviour
         _showNodeCoroutine = null;
     }
 
+
+    /// <summary>
+    /// Stops the process of showing nodes
+    /// </summary>
     public void StopShowNodeProcess()
     {
         if(_showNodeCoroutine != null)
             StopCoroutine(_showNodeCoroutine);
     }
 
+    /// <summary>
+    /// Performs animations based on comparing the heroes stat and current position in loop
+    /// </summary>
+    /// <param name="statNumber"></param> How much the hero has in the current stat
+    /// <param name="currentPos"></param> What position we are in the for loop
     private void SpecificNodeAction(int statNumber, int currentPos)
     {
         _statNodes[currentPos].SetTrigger(_resetNodeAnimTrigger);

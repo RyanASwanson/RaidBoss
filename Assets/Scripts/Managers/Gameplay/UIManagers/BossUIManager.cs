@@ -212,7 +212,7 @@ public class BossUIManager : GameUIChildrenFunctionality
         {
             newDamageNumber.GetComponent<Animator>().SetTrigger(_damageStrongAnimTrigger);
             //Shows time on large damage dealt
-            UniversalManagers.Instance.GetTimeManager().LargeHeroDamageTimeSlow();
+            UniversalManagers.Instance.GetTimeManager().LargeHeroDamageStaggerTimeSlow();
         }
         else if (damage >= _averageDamage)
             newDamageNumber.GetComponent<Animator>().SetTrigger(_damageAverageAnimTrigger);
@@ -234,7 +234,7 @@ public class BossUIManager : GameUIChildrenFunctionality
         if (stagger >= _strongStagger)
         {
             newStaggerNumber.GetComponent<Animator>().SetTrigger(_staggerStrongAnimTrigger);
-            UniversalManagers.Instance.GetTimeManager().LargeHeroDamageTimeSlow();
+            UniversalManagers.Instance.GetTimeManager().LargeHeroDamageStaggerTimeSlow();
         }
         else if (stagger >= _averageStagger)
             newStaggerNumber.GetComponent<Animator>().SetTrigger(_staggerAverageAnimTrigger);

@@ -35,13 +35,6 @@ public class TimeManager : BaseUniversalManager
     private UnityEvent _gamePausedEvent = new UnityEvent();
     private UnityEvent _gameUnpausedEvent = new UnityEvent();
 
-    /*private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.T))
-        {
-            AddNewTimeVariationForDuration(.2f, .5f);
-        }
-    }*/
 
     public void PressGamePauseButton()
     {
@@ -54,7 +47,7 @@ public class TimeManager : BaseUniversalManager
 
 
     /// <summary>
-    /// Adds a new value to the appliedTimeVariations
+    /// Starts process of taking into account new time variation
     /// </summary>
     /// <param name="timeVariation"></param> the speed the time is being set to
     /// <param name="duration"></param> duration is relative to the current time scale
@@ -65,41 +58,66 @@ public class TimeManager : BaseUniversalManager
         StartCoroutine(AddTimeVariationProcess(timeVariation, duration));
     }
 
+    /// <summary>
+    /// Process of taking into account new time variation
+    /// </summary>
+    /// <param name="timeVariation"></param>
+    /// <param name="duration"></param>
+    /// <returns></returns>
     private IEnumerator AddTimeVariationProcess(float timeVariation, float duration)
     {
+        //Adds new time variation to the list and evaluates what the current speed should be
         _appliedSlowedTimeVariations.Add(timeVariation);
         DetermineCurrentTimeSpeedBasedOnList();
+        //Waits for the duration (Scaled based on the time variation speed)
         yield return new WaitForSeconds(duration);
+        //Removes the time variation from the list and reevaluates the current speed
         _appliedSlowedTimeVariations.Remove(timeVariation);
         DetermineCurrentTimeSpeedBasedOnList();
     }
 
+    /// <summary>
+    /// Determines what the speed of the game should be
+    /// </summary>
     private void DetermineCurrentTimeSpeedBasedOnList()
     {
+        // Starts with a lowest time at 1 so if nothing is found lower it returns to normal speed
         float currentLowestTime = 1;
 
-        foreach(float timeVar in _appliedSlowedTimeVariations)
+        //Checks a list of all different speeds the game has applied to it
+        foreach (float timeVar in _appliedSlowedTimeVariations)
         {
+            //Picks the lowest speed in the list
             if(timeVar < currentLowestTime)
             {
                 currentLowestTime = timeVar;
             }
         }
 
+        // Sets the time scale to the lowest number
         SetTimeScale(currentLowestTime);
     }
 
+    /// <summary>
+    /// Slows time on boss stagger to predetermined values
+    /// </summary>
     public void BossStaggeredTimeSlow()
     {
         AddNewTimeVariationForDuration(_bossStaggerTimeSpeed, _bossStaggerDuration);
     }
 
+    /// <summary>
+    /// Slows time on boss death to predetermined values
+    /// </summary>
     public void BossDiedTimeSlow()
     {
         AddNewTimeVariationForDuration(_bossDeathTimeSpeed, _bossDeathDuration);
     }
 
-    public void LargeHeroDamageTimeSlow()
+    /// <summary>
+    /// Slows time on large damage/stagger from a hero to predetermined values
+    /// </summary>
+    public void LargeHeroDamageStaggerTimeSlow()
     {
         AddNewTimeVariationForDuration(_largeHeroDamageTimeSpeed, _largeHeroDamageDuration);
     }
