@@ -1,5 +1,50 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2517796013821006047
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4753508093489804654}
+  - component: {fileID: 3435551567484640816}
+  m_Layer: 0
+  m_Name: Hitbox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4753508093489804654
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2517796013821006047}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3036980778436170515}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &3435551567484640816
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2517796013821006047}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 8.3}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3036980777064200824
 GameObject:
   m_ObjectHideFlags: 0
@@ -44,6 +89,7 @@ GameObject:
   - component: {fileID: 8707996497148491200}
   - component: {fileID: 5210636693036678854}
   - component: {fileID: 4592040662282795275}
+  - component: {fileID: 7226741974417249739}
   m_Layer: 0
   m_Name: ShamanBasicProjectile
   m_TagString: Untagged
@@ -80,9 +126,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b527e9b5780366e439a119526137a69d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damageCollider: {fileID: 7511552934580160234}
-  _hasLifeTime: 1
-  _lifeTime: 3
+  _areaColliders:
+  - {fileID: 3435551567484640816}
+  _hasLifetime: 0
+  _lifetime: 0
+  _lifeTimeEndEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _hitCenteredVFX: {fileID: 0}
   _enterDamage: 0
   _enterStagger: 0
   _enterEvent:
@@ -136,6 +187,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7226741974417249739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3036980777955802489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15b178d837850bd44a6ea78907376d8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _vfxList: []
 --- !u!1 &3036980778436170516
 GameObject:
   m_ObjectHideFlags: 0
@@ -145,7 +209,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3036980778436170515}
-  - component: {fileID: 7511552934580160234}
   m_Layer: 0
   m_Name: ProjectileHitbox
   m_TagString: Untagged
@@ -164,23 +227,11 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4753508093489804654}
   m_Father: {fileID: 3036980777955802487}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &7511552934580160234
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3036980778436170516}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 8.3}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &5066274259774258205
 PrefabInstance:
   m_ObjectHideFlags: 0

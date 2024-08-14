@@ -8,12 +8,6 @@ using UnityEngine.Events;
 /// </summary>
 public class GeneralBossDamageArea : GeneralAbilityAreaFramework
 {
-    [SerializeField] private Collider _damageCollider;
-
-    [Space]
-    [SerializeField] private bool _hasLifetime;
-    [SerializeField] private float _lifetime;
-
     [Space]
     [SerializeField] private float _preventReHitDuration;
     [Space]
@@ -94,17 +88,6 @@ public class GeneralBossDamageArea : GeneralAbilityAreaFramework
         _heroesToIgnore.Remove(heroBase);
     }
 
-    public void ToggleProjectileCollider(bool colliderEnabled)
-    {
-        _damageCollider.enabled = colliderEnabled;
-    }
-
-    private IEnumerator DisableColliderForDuration(float duration)
-    {
-        ToggleProjectileCollider(false);
-        yield return new WaitForSeconds(duration);
-        ToggleProjectileCollider(true);
-    }
 
     public void CreateHitDestructionVFX()
     {

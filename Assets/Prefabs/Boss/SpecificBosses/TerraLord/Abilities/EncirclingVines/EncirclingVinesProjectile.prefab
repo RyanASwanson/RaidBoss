@@ -124,6 +124,7 @@ GameObject:
   - component: {fileID: 42282694769550797}
   - component: {fileID: 5958291190454923689}
   - component: {fileID: 4251420898718093529}
+  - component: {fileID: 7399425391046026434}
   m_Layer: 0
   m_Name: EncirclingVinesProjectile
   m_TagString: Untagged
@@ -160,9 +161,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43a32c0522af3ff4db1e2d43d0e55468, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damageCollider: {fileID: 450800387679761659}
-  _hasLifeTime: 1
-  _lifeTime: 3
+  _areaColliders:
+  - {fileID: 450800387679761659}
+  - {fileID: 8731614769517118171}
+  - {fileID: 6454508617186959990}
+  - {fileID: 382053247313286612}
+  _hasLifetime: 0
+  _lifetime: 0
+  _lifeTimeEndEvent:
+    m_PersistentCalls:
+      m_Calls: []
   _preventReHitDuration: 4
   _hitCenteredVFX: {fileID: 0}
   _enterDamage: 4
@@ -214,6 +222,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7399425391046026434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5689458550558832625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15b178d837850bd44a6ea78907376d8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _vfxList: []
 --- !u!1 &6411779528081174390
 GameObject:
   m_ObjectHideFlags: 0

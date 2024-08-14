@@ -241,9 +241,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b527e9b5780366e439a119526137a69d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damageCollider: {fileID: 7688413976365016179}
-  _hasLifeTime: 1
-  _lifeTime: 6
+  _areaColliders:
+  - {fileID: 7688413976365016179}
+  _hasLifetime: 1
+  _lifetime: 5
   _lifeTimeEndEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -276,9 +277,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c367aa1a00f259d4c99948524ab26ba4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healingCollider: {fileID: 7688413976365016179}
-  _hasLifeTime: 0
-  _lifeTime: 0
+  _areaColliders: []
+  _hasLifetime: 0
+  _lifetime: 0
+  _lifeTimeEndEvent:
+    m_PersistentCalls:
+      m_Calls: []
   _ignoreFullHealth: 0
   _hitCenteredVFX: {fileID: 0}
   _enterHealing: 0

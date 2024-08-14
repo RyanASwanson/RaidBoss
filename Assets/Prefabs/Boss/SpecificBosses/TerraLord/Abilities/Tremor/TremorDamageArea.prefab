@@ -258,9 +258,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43a32c0522af3ff4db1e2d43d0e55468, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damageCollider: {fileID: 6406290696520673139}
-  _hasLifeTime: 1
-  _lifeTime: 2.5
+  _areaColliders:
+  - {fileID: 9184632411260880818}
+  - {fileID: 5348477102975611668}
+  - {fileID: 4012975739029856524}
+  - {fileID: 7508628334674631766}
+  - {fileID: 969322756827811230}
+  - {fileID: 3117898044262246605}
+  _hasLifetime: 1
+  _lifetime: 4
+  _lifeTimeEndEvent:
+    m_PersistentCalls:
+      m_Calls: []
   _preventReHitDuration: 4
   _hitCenteredVFX: {fileID: 0}
   _enterDamage: 4
@@ -402,6 +411,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 329832972780280468, guid: 0fd1dcdc63894a0449a05d5b188911dd, type: 3}
   m_PrefabInstance: {fileID: 229044559519062560}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &9184632411260880818 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 8961006934058605970, guid: 0fd1dcdc63894a0449a05d5b188911dd, type: 3}
+  m_PrefabInstance: {fileID: 229044559519062560}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1472648371139690948
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -462,6 +476,11 @@ PrefabInstance:
 --- !u!4 &1223897950033369936 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 329832972780280468, guid: 0fd1dcdc63894a0449a05d5b188911dd, type: 3}
+  m_PrefabInstance: {fileID: 1472648371139690948}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &7508628334674631766 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 8961006934058605970, guid: 0fd1dcdc63894a0449a05d5b188911dd, type: 3}
   m_PrefabInstance: {fileID: 1472648371139690948}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3918835098212626054
@@ -526,6 +545,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 329832972780280468, guid: 0fd1dcdc63894a0449a05d5b188911dd, type: 3}
   m_PrefabInstance: {fileID: 3918835098212626054}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &5348477102975611668 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 8961006934058605970, guid: 0fd1dcdc63894a0449a05d5b188911dd, type: 3}
+  m_PrefabInstance: {fileID: 3918835098212626054}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5470484281954581662
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -583,6 +607,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0fd1dcdc63894a0449a05d5b188911dd, type: 3}
+--- !u!65 &4012975739029856524 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 8961006934058605970, guid: 0fd1dcdc63894a0449a05d5b188911dd, type: 3}
+  m_PrefabInstance: {fileID: 5470484281954581662}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5726570120915265034 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 329832972780280468, guid: 0fd1dcdc63894a0449a05d5b188911dd, type: 3}
@@ -645,6 +674,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0fd1dcdc63894a0449a05d5b188911dd, type: 3}
+--- !u!65 &3117898044262246605 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 8961006934058605970, guid: 0fd1dcdc63894a0449a05d5b188911dd, type: 3}
+  m_PrefabInstance: {fileID: 6277766729125000543}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6020422935322652619 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 329832972780280468, guid: 0fd1dcdc63894a0449a05d5b188911dd, type: 3}
@@ -707,6 +741,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0fd1dcdc63894a0449a05d5b188911dd, type: 3}
+--- !u!65 &969322756827811230 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 8961006934058605970, guid: 0fd1dcdc63894a0449a05d5b188911dd, type: 3}
+  m_PrefabInstance: {fileID: 8153870193279143948}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8483533657893178008 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 329832972780280468, guid: 0fd1dcdc63894a0449a05d5b188911dd, type: 3}

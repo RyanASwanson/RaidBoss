@@ -5,9 +5,7 @@ using UnityEngine.Events;
 
 public class GeneralHeroHealArea : GeneralAbilityAreaFramework
 {
-    [SerializeField] private Collider _healingCollider;
-    [SerializeField] private bool _hasLifeTime;
-    [SerializeField] private float _lifeTime;
+
     [SerializeField] private bool _ignoreFullHealth;
     [Space]
     [SerializeField] private GameObject _hitCenteredVFX;
@@ -86,17 +84,6 @@ public class GeneralHeroHealArea : GeneralAbilityAreaFramework
             heroBase.GetHeroStats().HealHero(abilityHealing);
     }
 
-    public void ToggleProjectileCollider(bool colliderEnabled)
-    {
-        _healingCollider.enabled = colliderEnabled;
-    }
-
-    private IEnumerator DisableColliderForDuration(float duration)
-    {
-        ToggleProjectileCollider(false);
-        yield return new WaitForSeconds(duration);
-        ToggleProjectileCollider(true);
-    }
 
     public void CreateDestructionVFX()
     {

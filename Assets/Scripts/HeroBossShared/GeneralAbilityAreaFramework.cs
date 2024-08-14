@@ -35,4 +35,17 @@ public abstract class GeneralAbilityAreaFramework : MonoBehaviour
         Destroy(gameObject);
     }
 
+
+    public void ToggleProjectileCollider(bool colliderEnabled)
+    {
+        foreach (Collider col in _areaColliders)
+            col.enabled = colliderEnabled;
+    }
+
+    protected virtual IEnumerator DisableColliderForDuration(float duration)
+    {
+        ToggleProjectileCollider(false);
+        yield return new WaitForSeconds(duration);
+        ToggleProjectileCollider(true);
+    }
 }

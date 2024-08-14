@@ -280,9 +280,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c367aa1a00f259d4c99948524ab26ba4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healingCollider: {fileID: 4721906302640942420}
-  _hasLifeTime: 0
-  _lifeTime: 0
+  _areaColliders:
+  - {fileID: 4721906302640942420}
+  _hasLifetime: 0
+  _lifetime: 0
+  _lifeTimeEndEvent:
+    m_PersistentCalls:
+      m_Calls: []
   _ignoreFullHealth: 0
   _hitCenteredVFX: {fileID: 0}
   _enterHealing: 0

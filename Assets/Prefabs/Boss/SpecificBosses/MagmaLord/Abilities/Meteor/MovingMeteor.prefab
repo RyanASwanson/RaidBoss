@@ -49,10 +49,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43a32c0522af3ff4db1e2d43d0e55468, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damageCollider: {fileID: 5230195009579388698}
-  _hasLifeTime: 1
-  _lifeTime: 4
+  _areaColliders:
+  - {fileID: 5230195009579388698}
+  _hasLifetime: 1
+  _lifetime: 4
+  _lifeTimeEndEvent:
+    m_PersistentCalls:
+      m_Calls: []
   _preventReHitDuration: 0.5
+  _hitCenteredVFX: {fileID: 0}
   _enterDamage: 0
   _enterEvent:
     m_PersistentCalls:

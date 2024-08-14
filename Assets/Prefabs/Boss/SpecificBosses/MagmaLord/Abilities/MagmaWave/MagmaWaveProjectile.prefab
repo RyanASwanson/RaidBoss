@@ -104,10 +104,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43a32c0522af3ff4db1e2d43d0e55468, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damageCollider: {fileID: 5207342555288860306}
-  _hasLifeTime: 0
-  _lifeTime: 0
+  _areaColliders:
+  - {fileID: 5207342555288860306}
+  _hasLifetime: 0
+  _lifetime: 0
+  _lifeTimeEndEvent:
+    m_PersistentCalls:
+      m_Calls: []
   _preventReHitDuration: 0.5
+  _hitCenteredVFX: {fileID: 0}
   _enterDamage: 0
   _enterEvent:
     m_PersistentCalls:
@@ -184,6 +189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15b178d837850bd44a6ea78907376d8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _vfxList: []
 --- !u!1 &501723202605305961
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,10 +9,7 @@ using UnityEngine.Events;
 public class GeneralHeroDamageArea : GeneralAbilityAreaFramework
 {
     [Header("General")]
-    [SerializeField] private Collider _damageCollider;
-    [SerializeField] private bool _hasLifeTime;
-    [SerializeField] private float _lifeTime;
-    [SerializeField] private UnityEvent _lifeTimeEndEvent;
+
     [Space]
     [SerializeField] private GameObject _hitCenteredVFX;
 
@@ -86,7 +83,7 @@ public class GeneralHeroDamageArea : GeneralAbilityAreaFramework
     private void DealDamageAndStagger(float abilityDamage, float abilityStagger)
     {
         if (_myHeroBase == null)
-            Debug.LogWarning("Cant Find Hero Base");
+            Debug.Log("Cant Find Hero Base");
 
         if (abilityDamage > 0)
             _myHeroBase.GetSpecificHeroScript().DamageBoss(abilityDamage);
@@ -97,17 +94,6 @@ public class GeneralHeroDamageArea : GeneralAbilityAreaFramework
             //bossBase.GetBossStats().DealStaggerToBoss(abilityStagger);
     }
 
-    public void ToggleProjectileCollider(bool colliderEnabled)
-    {
-        _damageCollider.enabled = colliderEnabled;
-    }
-
-    private IEnumerator DisableColliderForDuration(float duration)
-    {
-        ToggleProjectileCollider(false);
-        yield return new WaitForSeconds(duration);
-        ToggleProjectileCollider(true);
-    }
     #endregion
 
     public void CreateHitDestructionVFX()

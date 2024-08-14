@@ -5360,10 +5360,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43a32c0522af3ff4db1e2d43d0e55468, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damageCollider: {fileID: 4329377688926411860}
-  _hasLifeTime: 1
-  _lifeTime: 1.5
+  _areaColliders:
+  - {fileID: 4329377688926411860}
+  - {fileID: 4861767599255988852}
+  - {fileID: 7189891124433455833}
+  - {fileID: 4546887292678307195}
+  _hasLifetime: 1
+  _lifetime: 1.5
+  _lifeTimeEndEvent:
+    m_PersistentCalls:
+      m_Calls: []
   _preventReHitDuration: 3
+  _hitCenteredVFX: {fileID: 0}
   _enterDamage: 8
   _enterEvent:
     m_PersistentCalls:

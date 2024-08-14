@@ -68,6 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15b178d837850bd44a6ea78907376d8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _vfxList: []
 --- !u!1 &1285949513328819880
 GameObject:
   m_ObjectHideFlags: 0
@@ -114,9 +115,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43a32c0522af3ff4db1e2d43d0e55468, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damageCollider: {fileID: 1202132379755321836}
-  _hasLifeTime: 0
-  _lifeTime: 0
+  _areaColliders:
+  - {fileID: 1202132379755321836}
+  _hasLifetime: 0
+  _lifetime: 0
+  _lifeTimeEndEvent:
+    m_PersistentCalls:
+      m_Calls: []
   _preventReHitDuration: 5
   _hitCenteredVFX: {fileID: 3441087648407882265, guid: 516634b61b250d44d853a13b0b70bf62, type: 3}
   _enterDamage: 3
@@ -285,9 +290,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43a32c0522af3ff4db1e2d43d0e55468, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damageCollider: {fileID: 7427630861823656495}
-  _hasLifeTime: 0
-  _lifeTime: 0
+  _areaColliders:
+  - {fileID: 7427630861823656495}
+  _hasLifetime: 0
+  _lifetime: 0
+  _lifeTimeEndEvent:
+    m_PersistentCalls:
+      m_Calls: []
   _preventReHitDuration: 5
   _hitCenteredVFX: {fileID: 3441087648407882265, guid: 516634b61b250d44d853a13b0b70bf62, type: 3}
   _enterDamage: 3
