@@ -18,6 +18,8 @@ public class SH_Samurai : SpecificHeroFramework
 
     private Coroutine _parryCoroutine;
 
+    private const string _parrySuccessTrigger = "ParrySuccess";
+
     #region Basic Abilities
 
     /// <summary>
@@ -88,8 +90,11 @@ public class SH_Samurai : SpecificHeroFramework
     {
         DamageBoss(_manualAbilityParryDamage);
         StaggerBoss(_manualAbilityParryStagger);
+
         StopParryEarly();
         ActivatePassiveAbilities();
+
+        SuccessfulParryAnimation();
 
         StartSuccessfulParryIFrames();
     }
@@ -97,6 +102,11 @@ public class SH_Samurai : SpecificHeroFramework
     private void StartSuccessfulParryIFrames()
     {
         StartCoroutine(SuccessfulParryIFrames());
+    }
+
+    private void SuccessfulParryAnimation()
+    {
+        _myHeroBase.GetHeroVisuals().HeroSpecificAnimationTrigger(_parrySuccessTrigger);
     }
 
     private IEnumerator SuccessfulParryIFrames()

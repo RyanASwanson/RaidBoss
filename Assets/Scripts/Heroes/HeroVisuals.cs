@@ -115,7 +115,7 @@ public class HeroVisuals : HeroChildrenFunctionality
     /// Activates a trigger on the hero specific animator
     /// </summary>
     /// <param name="animationTrigger"></param>
-    private void HeroSpecificAnimationTrigger(string animationTrigger)
+    public void HeroSpecificAnimationTrigger(string animationTrigger)
     {
         _heroSpecificAnimator.SetTrigger(animationTrigger);
     }
@@ -125,7 +125,7 @@ public class HeroVisuals : HeroChildrenFunctionality
     /// </summary>
     /// <param name="animationBool"></param>
     /// <param name="boolStatus"></param>
-    private void HeroSpecificAnimationBool(string animationBool, bool boolStatus)
+    public void HeroSpecificAnimationBool(string animationBool, bool boolStatus)
     {
         _heroSpecificAnimator.SetBool(animationBool, boolStatus);
     }
