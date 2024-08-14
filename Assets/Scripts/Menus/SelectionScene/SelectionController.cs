@@ -23,11 +23,16 @@ public class SelectionController : MonoBehaviour
     [SerializeField] private Animator _bossAbilityDescriptionAnimator;
 
     [Space]
+    [SerializeField] private Text _bossAbilityBackgroundNameText;
+    [SerializeField] private TMP_Text _bossAbilityNameText;
+
+    [SerializeField] private Text _bossAbilityBackgroundTypeText;
+    [SerializeField] private TMP_Text _bossAbilityTypeText;
+
     [SerializeField] private Text _bossAbilityBackgroundDescriptionText;
     [SerializeField] private TMP_Text _bossAbilityDescriptionText;
 
-    [SerializeField] private Text _bossAbilityBackgroundNameText;
-    [SerializeField] private TMP_Text _bossAbilityNameText;
+
     private int _currentBossAbilityID = -1;
 
     [Header("Center-General")]
@@ -61,11 +66,15 @@ public class SelectionController : MonoBehaviour
     private const string _swapAbilityDescriptionTrigger = "SwapDescription";
 
     [Space]
+    [SerializeField] private Text _heroAbilityBackgroundNameText;
+    [SerializeField] private TMP_Text _heroAbilityNameText;
+
+    [SerializeField] private Text _heroAbilityBackgroundTypeText;
+    [SerializeField] private TMP_Text _heroAbilityTypeText;
+
     [SerializeField] private Text _heroAbilityBackgroundDescriptionText;
     [SerializeField] private TMP_Text _heroAbilityDescriptionText;
 
-    [SerializeField] private Text _heroAbilityBackgroundNameText;
-    [SerializeField] private TMP_Text _heroAbilityNameText;
     private int _currentHeroAbilityID = -1;
 
     [Space]
@@ -179,25 +188,41 @@ public class SelectionController : MonoBehaviour
         _bossAbilityDescriptionAnimator.SetBool(_showAbilityDescriptionBool, true);
     }
 
-    private void UpdateBossAbilityDescriptionText(string newText)
-    {
-        _bossAbilityBackgroundDescriptionText.text = newText;
-        _bossAbilityDescriptionText.text = newText;
-    }
-
     private void UpdateBossAbilityNameText(string newText)
     {
         _bossAbilityBackgroundNameText.text = newText;
         _bossAbilityNameText.text = newText;
     }
 
+    private void UpdateBossAbilityTypeText(string newText)
+    {
+        _bossAbilityBackgroundTypeText.text = newText;
+        _bossAbilityTypeText.text = newText;
+    }
+
+    private void UpdateBossAbilityDescriptionText(string newText)
+    {
+        _bossAbilityBackgroundDescriptionText.text = newText;
+        _bossAbilityDescriptionText.text = newText;
+    }
+
+    
+
     public void BossAbilityDescriptionChanged()
     {
-        UpdateBossAbilityDescriptionText(_lastBossHoveredOver.GetBossAbilityInformation()
-            [_currentBossAbilityID]._abilityDescription);
+        if (_currentBossAbilityID == -1) return;
+
 
         UpdateBossAbilityNameText(_lastBossHoveredOver.GetBossAbilityInformation()
             [_currentBossAbilityID]._abilityName);
+
+        UpdateBossAbilityTypeText(_lastBossHoveredOver.GetBossAbilityInformation()
+            [_currentBossAbilityID]._abilityType.ToString());
+
+        UpdateBossAbilityDescriptionText(_lastBossHoveredOver.GetBossAbilityInformation()
+            [_currentBossAbilityID]._abilityDescription);
+
+        
 
     }
 
@@ -312,20 +337,6 @@ public class SelectionController : MonoBehaviour
         _statCounters[4].ShowStatNodes(heroSO.GetUtilityStat());
     }
 
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Y))
-        {
-            print(_lastHeroHoveredOver.GetSurvivalStat());
-            print(_lastHeroHoveredOver.GetDamageStat());
-            print(_lastHeroHoveredOver.GetStaggerStat());
-            print(_lastHeroHoveredOver.GetSpeedStat());
-            print(_lastHeroHoveredOver.GetUtilityStat());
-
-            DisplayStatsForHero(_lastHeroHoveredOver);
-        }
-    }
-
     private void StopStatDisplayProcess()
     {
         foreach (StatCounter statCounter in _statCounters)
@@ -362,6 +373,17 @@ public class SelectionController : MonoBehaviour
         _heroAbilityDescriptionAnimator.SetBool(_showAbilityDescriptionBool, true);
     }
 
+    private void UpdateHeroAbilityNameText(string newText)
+    {
+        _heroAbilityBackgroundNameText.text = newText;
+        _heroAbilityNameText.text = newText;
+    }
+
+    private void UpdateHeroAbilityTypeText(string newText)
+    {
+        _heroAbilityBackgroundTypeText.text = newText;
+        _heroAbilityTypeText.text = newText;
+    }
 
     private void UpdateHeroAbilityDescriptionText(string newText)
     {
@@ -369,11 +391,7 @@ public class SelectionController : MonoBehaviour
         _heroAbilityDescriptionText.text = newText;
     }
 
-    private void UpdateHeroAbilityNameText(string newText)
-    {
-        _heroAbilityBackgroundNameText.text = newText;
-        _heroAbilityNameText.text = newText;
-    }
+    
 
     public void HeroAbilityDescriptionChanged()
     {
@@ -381,14 +399,17 @@ public class SelectionController : MonoBehaviour
         {
             case (0):
                 UpdateHeroAbilityDescriptionText(_lastHeroHoveredOver.GetHeroBasicAbilityDescription());
+                UpdateHeroAbilityTypeText(HeroAbilityType.Basic.ToString());
                 UpdateHeroAbilityNameText(_lastHeroHoveredOver.GetHeroBasicAbilityName());
                 return;
             case (1):
                 UpdateHeroAbilityDescriptionText(_lastHeroHoveredOver.GetHeroManualAbilityDescription());
+                UpdateHeroAbilityTypeText(HeroAbilityType.Manual.ToString());
                 UpdateHeroAbilityNameText(_lastHeroHoveredOver.GetHeroManualAbilityName());
                 return;
             case (2):
                 UpdateHeroAbilityDescriptionText(_lastHeroHoveredOver.GetHeroPassiveAbilityDescription());
+                UpdateHeroAbilityTypeText(HeroAbilityType.Passive.ToString());
                 UpdateHeroAbilityNameText(_lastHeroHoveredOver.GetHeroPassiveAbilityName());
                 return;
 

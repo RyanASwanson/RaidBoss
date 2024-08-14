@@ -59,7 +59,14 @@ public class BossSO : ScriptableObject
 public class BossAbilityInformation
 {
     public string _abilityName;
+    public BossAbilityType _abilityType;
     [TextArea(3, 10)] public string _abilityDescription;
 
     public Sprite _abilityImage;
 }
+
+public enum BossAbilityType
+{
+    Active,
+    Passive
+};

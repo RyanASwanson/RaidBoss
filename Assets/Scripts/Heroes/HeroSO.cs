@@ -77,3 +77,10 @@ public class HeroSO : ScriptableObject
     public string GetHeroPassiveAbilityDescription() => _passiveAbilityDescription;
     #endregion
 }
+
+public enum HeroAbilityType
+{
+    Basic,
+    Manual,
+    Passive
+};
