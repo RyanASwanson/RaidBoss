@@ -109,6 +109,17 @@ public partial class @UniversalPlayerInputActions: IInputActionCollection2, IDis
                 },
                 {
                     ""name"": """",
+                    ""id"": ""a08058e0-54cb-4e1b-90f0-e297bb312204"",
+                    ""path"": ""<Mouse>/middleButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ActiveAbility"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""2d32b115-6bd4-484d-8644-af4226731896"",
                     ""path"": ""<Keyboard>/1"",
                     ""interactions"": """",

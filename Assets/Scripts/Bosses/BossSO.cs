@@ -60,7 +60,7 @@ public class BossAbilityInformation
 {
     public string _abilityName;
     public BossAbilityType _abilityType;
-    [TextArea(3, 10)] public string _abilityDescription;
+    [TextArea(5, 10)] public string _abilityDescription;
 
     public Sprite _abilityImage;
 }
