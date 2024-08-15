@@ -37,11 +37,11 @@ public class HeroSO : ScriptableObject
 
     [Header("Ability Information")]
     [SerializeField] private string _basicAbilityName;
-    [TextArea(3, 10)] [SerializeField] private string _basicAbilityDescription;
+    [TextArea(4, 10)] [SerializeField] private string _basicAbilityDescription;
     [SerializeField] private string _manualAbilityName;
-    [TextArea(3, 10)] [SerializeField] private string _manualAbilityDescription;
+    [TextArea(4, 10)] [SerializeField] private string _manualAbilityDescription;
     [SerializeField] private string _passiveAbilityName;
-    [TextArea(3, 10)] [SerializeField] private string _passiveAbilityDescription;
+    [TextArea(4, 10)] [SerializeField] private string _passiveAbilityDescription;
 
     #region Getters
     public string GetHeroName() => _name;

@@ -38,7 +38,7 @@ public class HeroUIManager : GameUIChildrenFunctionality
 
     private const string _combinedHealthBarStatusIntAnim = "HealthStatus";
 
-    [SerializeField] private HeroBase _associatedHeroBase;
+    private HeroBase _associatedHeroBase;
 
     [Header("HeroWorldCanvas")]
     [SerializeField] private GameObject _damageNumber;
