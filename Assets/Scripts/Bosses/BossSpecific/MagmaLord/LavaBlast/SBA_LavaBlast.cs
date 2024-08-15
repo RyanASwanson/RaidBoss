@@ -7,12 +7,12 @@ using UnityEngine;
 /// Create a target zone at the center of the arena if no hero is inside it deal 
 ///     damage at the edges of the arena
 /// </summary>
-public class SBA_MagmaBlast : SpecificBossAbilityFramework
+public class SBA_LavaBlast : SpecificBossAbilityFramework
 {
     [Space]
     [SerializeField] private Vector3 _targetLocation;
 
-    [SerializeField] private GameObject _magmaBlast;
+    [SerializeField] private GameObject _lavaBlast;
     [SerializeField] private GameObject _targetZone;
 
     [SerializeField] private GameObject _failedVFX;
@@ -55,7 +55,7 @@ public class SBA_MagmaBlast : SpecificBossAbilityFramework
         }
             
 
-        Instantiate(_magmaBlast, _targetLocation, Quaternion.identity);
+        Instantiate(_lavaBlast, _targetLocation, Quaternion.identity);
 
         base.AbilityStart();
     }
