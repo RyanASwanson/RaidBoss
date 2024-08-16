@@ -41,7 +41,7 @@ public class SBP_Entomb : BossProjectileFramework
         if (CanCreateObstacle())
         {
             CreateNavMeshObstacle();
-            Instantiate(_closedParticleVFX, transform.position, transform.rotation);
+            Instantiate(_closedParticleVFX, new Vector3(transform.position.x,0,transform.position.z), transform.rotation);
         }
             
         else
