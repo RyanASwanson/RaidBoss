@@ -111,20 +111,19 @@ public class CameraGameManager : BaseGameplayManager
         StartCameraShake(_bossDeathIntensity, _bossDeathFrequency, _bossDeathDuration);
     }
 
-    public void StartRotateCinemachineCamera(float directionMultiplier)
+    public void StartRotateCinemachineCamera(float directionMultiplier, float processTime)
     {
         if (_virtualCamRotationCoroutine != null)
             StopCoroutine(_virtualCamRotationCoroutine);
 
-        _virtualCamRotationCoroutine = StartCoroutine(RotateCinemachineCameraProcess(directionMultiplier));
+        _virtualCamRotationCoroutine = StartCoroutine(RotateCinemachineCameraProcess(directionMultiplier,processTime));
     }
 
-    private IEnumerator RotateCinemachineCameraProcess(float directionMultiplier)
+    private IEnumerator RotateCinemachineCameraProcess(float directionMultiplier, float processTime)
     {
         float coroutineTimer = 0;
 
-
-        while(coroutineTimer < 2)
+        while(coroutineTimer < processTime)
         {
             coroutineTimer += Time.deltaTime;
             _virtualCameraTransform.Rotate(new Vector3(0, 0, Time.deltaTime* directionMultiplier));
@@ -133,14 +132,6 @@ public class CameraGameManager : BaseGameplayManager
         }
 
         _virtualCamRotationCoroutine = null;
-    }
-
-    private void SetCinemachineCameraEulerAngles(Vector3 angle)
-    {
-        //transform.Rotate(angle);
-        //_virtualCameraTransform.Rotate(angle);
-        _virtualCameraTransform.localEulerAngles = angle;
-        print(angle + " "+ _virtualCameraTransform.eulerAngles + " " +_targetVirtualCamRotation);
     }
 
     public override void SetupGameplayManager()
