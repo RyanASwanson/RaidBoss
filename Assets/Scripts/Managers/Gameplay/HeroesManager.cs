@@ -42,13 +42,30 @@ public class HeroesManager : BaseGameplayManager
     /// <param name="heroSO"></param>
     void SpawnHero(Transform spawnLocation, HeroSO heroSO)
     {
-        GameObject newHero = Instantiate(_baseHeroPrefab, 
-            spawnLocation.transform.position,spawnLocation.transform.rotation);
-        HeroBase heroBase = newHero.GetComponent<HeroBase>();
-        heroBase.Setup(heroSO);
+        HeroBase heroBase = CreateHeroBase(spawnLocation, heroSO);
 
         _currentHeroes.Add(heroBase);
         _currentLivingHeroes.Add(heroBase);
+    }
+
+    public HeroBase CreateHeroBase(Transform spawnTransform, HeroSO heroSO)
+    {
+        GameObject newHero = Instantiate(_baseHeroPrefab,
+            spawnTransform.transform.position, spawnTransform.transform.rotation);
+        HeroBase heroBase = newHero.GetComponent<HeroBase>();
+        heroBase.Setup(heroSO);
+
+        return heroBase;
+    }
+
+    public HeroBase CreateHeroBase(Vector3 spawnLocation, Quaternion spawnRotation, HeroSO heroSO)
+    {
+        GameObject newHero = Instantiate(_baseHeroPrefab,
+            spawnLocation, spawnRotation);
+        HeroBase heroBase = newHero.GetComponent<HeroBase>();
+        heroBase.Setup(heroSO);
+
+        return heroBase;
     }
 
     /// <summary>
@@ -77,18 +94,19 @@ public class HeroesManager : BaseGameplayManager
     /// </summary>
     public void KillAllHeroes()
     {
-        while(_currentLivingHeroes.Count > 0)
+        while (_currentLivingHeroes.Count > 0)
         {
             _currentLivingHeroes[0].GetHeroStats().KillHero();
         }
-        
+
     }
 
     #region Events
-    
+
     #endregion
 
     #region Getters
+    public GameObject GetBaseHeroPrefab() => _baseHeroPrefab;
     public List<HeroBase> GetCurrentHeroes() => _currentHeroes;
     public List<HeroBase> GetCurrentLivingHeroes() => _currentLivingHeroes;
     #endregion

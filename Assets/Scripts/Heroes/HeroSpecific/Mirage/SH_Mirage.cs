@@ -22,9 +22,16 @@ public class SH_Mirage : SpecificHeroFramework
     private void CreateClone()
     {
         Vector3 spawnLocation = _myHeroBase.transform.position + (_myHeroBase.transform.forward * _cloneSpawnOffset);
-        GameObject cloneObject = Instantiate(_manualClone, spawnLocation, _myHeroBase.transform.rotation);
+        /*GameObject cloneObject = Instantiate(_manualClone, spawnLocation, _myHeroBase.transform.rotation);
 
         _cloneBase = cloneObject.GetComponent<HeroBase>();
+        _cloneBase.SetupChildren();*/
+
+        //Transform cloneTransform = _myHeroBase.transform;
+        //cloneTransform.transform.position += _myHeroBase.transform.forward * _cloneSpawnOffset;
+
+        /*GameplayManagers.Instance.GetHeroesManager().CreateHeroBase(spawnLocation,
+            _myHeroBase.transform.rotation, _myHeroBase.GetHeroSO());*/
     }
 
     public override void ActivateManualAbilities(Vector3 attackLocation)

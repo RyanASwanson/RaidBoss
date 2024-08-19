@@ -61,13 +61,15 @@ public class HeroBase : MonoBehaviour
 
     public void Setup(HeroSO newSO)
     {
+        print("setup 1");
         CreateHeroPrefab(newSO);
-
+        print("setup 2");
         SetupChildren();
-
+        print("setup 3");
         SetHeroSO(newSO);
-
+        print("setup 4");
         UIManagerSetup();
+        print("setup 5");
     }
 
     /// <summary>
@@ -85,7 +87,7 @@ public class HeroBase : MonoBehaviour
     /// <summary>
     /// Sets up all scripts that inherit from HeroChildrenFunctionality
     /// </summary>
-    private void SetupChildren()
+    public void SetupChildren()
     {
         foreach (HeroChildrenFunctionality childFunc in GetComponentsInChildren<HeroChildrenFunctionality>())
             childFunc.ChildFuncSetup(this);
