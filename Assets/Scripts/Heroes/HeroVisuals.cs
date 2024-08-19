@@ -231,7 +231,6 @@ public class HeroVisuals : HeroChildrenFunctionality
         myHeroBase.GetHeroDamagedUnderHalfEvent().AddListener(HeroInjured);
         myHeroBase.GetHeroDamagedUnderQuarterEvent().AddListener(HeroCritical);
 
-
         myHeroBase.GetHeroStartedMovingEvent().AddListener(HeroStartedMoving);
         myHeroBase.GetHeroStoppedMovingEvent().AddListener(HeroStoppedMoving);
     }

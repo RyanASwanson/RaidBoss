@@ -64,31 +64,17 @@ public class SBA_Meteor : SpecificBossAbilityFramework
     {
         targetZone.SetActive(false);
 
-        /* while (targetZone != null && _storedTarget != null &&
-             targetZone.transform.position.x == _storedTarget.transform.position.x &&
-             targetZone.transform.position.z == _storedTarget.transform.position.z)
-         {
-             print(targetZone.transform.position);
-             print(_storedTarget.transform.position);
-             yield return null;
-         }
-
-         print(targetZone.transform.position);
-         print(_storedTarget.transform.position);
-         print(targetZone.transform.position.x == _storedTarget.transform.position.x);
-         print(targetZone.transform.position.z == _storedTarget.transform.position.z);
-         Debug.Log("Active");*/
-
         //If that direction is close to zero choose a random direction instead
-        while (Mathf.Abs(targetZone.transform.position.x - _storedTarget.transform.position.x) < .1f &&
-            Mathf.Abs(targetZone.transform.position.z - _storedTarget.transform.position.z) < .1f)
+        while (targetZone != null &&
+            (Mathf.Abs(targetZone.transform.position.x - _storedTarget.transform.position.x) < .1f &&
+            Mathf.Abs(targetZone.transform.position.z - _storedTarget.transform.position.z) < .1f))
             yield return null;
 
-        print(targetZone.transform.position);
+        /*print(targetZone.transform.position);
         print(_storedTarget.transform.position);
 
         print(Mathf.Abs(targetZone.transform.position.x - _storedTarget.transform.position.x));
-        print(Mathf.Abs(targetZone.transform.position.z - _storedTarget.transform.position.z));
+        print(Mathf.Abs(targetZone.transform.position.z - _storedTarget.transform.position.z));*/
 
         if (targetZone != null)
             targetZone.SetActive(true);
