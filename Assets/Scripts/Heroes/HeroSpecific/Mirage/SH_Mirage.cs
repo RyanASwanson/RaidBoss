@@ -12,7 +12,6 @@ public class SH_Mirage : SpecificHeroFramework
     private const float _cloneSpawnOffset = -2;
 
     private HeroBase _cloneBase;
-    private MirageClone _associatedCloneFunc;
 
 
     #region Basic Abilities
@@ -23,16 +22,8 @@ public class SH_Mirage : SpecificHeroFramework
     private void CreateClone()
     {
         Vector3 spawnLocation = _myHeroBase.transform.position + (_myHeroBase.transform.forward * _cloneSpawnOffset);
-        /*GameObject cloneObject = Instantiate(_manualClone, spawnLocation, _myHeroBase.transform.rotation);
 
-        _cloneBase = cloneObject.GetComponent<HeroBase>();
-        _cloneBase.SetupChildren();*/
-
-        //Transform cloneTransform = _myHeroBase.transform;
-        //cloneTransform.transform.position += _myHeroBase.transform.forward * _cloneSpawnOffset;
-        if (_cloneSO == null)
-            print("CLONE SO CANT BE FOUND");
-        GameplayManagers.Instance.GetHeroesManager().CreateHeroBase(spawnLocation,
+        _cloneBase = GameplayManagers.Instance.GetHeroesManager().CreateHeroBase(spawnLocation,
             _myHeroBase.transform.rotation, _cloneSO);
     }
 

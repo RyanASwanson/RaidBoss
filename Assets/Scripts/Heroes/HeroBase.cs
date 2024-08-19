@@ -61,15 +61,13 @@ public class HeroBase : MonoBehaviour
 
     public void Setup(HeroSO newSO)
     {
-        print("setup 1");
         CreateHeroPrefab(newSO);
-        print("setup 2");
+
         SetupChildren();
-        print("setup 3");
+
         SetHeroSO(newSO);
-        print("setup 4");
+
         UIManagerSetup();
-        print("setup 5");
     }
 
     /// <summary>
@@ -78,15 +76,11 @@ public class HeroBase : MonoBehaviour
     /// <param name="newSO"></param>
     private void CreateHeroPrefab(HeroSO newSO)
     {
-        print("heroprefab part 1");
-        if (newSO == null)
-            print("so");
-        if (newSO.GetHeroPrefab() == null)
-            print("heroprefab");
+
         _associatedHeroGameObject = Instantiate(newSO.GetHeroPrefab(), _heroSpecificsGO.transform);
-        print("heroprefab part 2");
+
         _associatedHeroScript = _associatedHeroGameObject.GetComponentInChildren<SpecificHeroFramework>();
-        print("heroprefab part 3");
+
         _associatedHeroScript.SetupSpecificHero(this, newSO);
     }
 
