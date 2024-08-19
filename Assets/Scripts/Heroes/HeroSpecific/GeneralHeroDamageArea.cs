@@ -27,6 +27,9 @@ public class GeneralHeroDamageArea : GeneralAbilityAreaFramework
 
     private HeroBase _myHeroBase;
 
+    private float _damageMultiplier = 1;
+    private float _staggerMultiplier = 1;
+
     public void SetUpDamageArea(HeroBase heroBase)
     {
         _myHeroBase = heroBase;
@@ -82,17 +85,38 @@ public class GeneralHeroDamageArea : GeneralAbilityAreaFramework
             Debug.Log("Cant Find Hero Base");
 
         if (abilityDamage > 0)
-            _myHeroBase.GetSpecificHeroScript().DamageBoss(abilityDamage);
+            _myHeroBase.GetSpecificHeroScript().DamageBoss(abilityDamage * _damageMultiplier);
             //bossBase.GetBossStats().DealDamageToBoss(abilityDamage);
 
         if (abilityStagger > 0)
-            _myHeroBase.GetSpecificHeroScript().StaggerBoss(abilityStagger);
+            _myHeroBase.GetSpecificHeroScript().StaggerBoss(abilityStagger * _staggerMultiplier);
             //bossBase.GetBossStats().DealStaggerToBoss(abilityStagger);
     }
 
     #endregion
 
+    #region Setters
 
+    public void SetDamageMultiplier(float newDamageMultiplier)
+    {
+        _damageMultiplier = newDamageMultiplier;
+    }
+    public void SetStaggerMultiplier(float newStaggerMultiplier)
+    {
+        _staggerMultiplier = newStaggerMultiplier;
+    }
+
+    public void IncreaseDamageMultiplierByAmount(float changeAmount)
+    {
+        SetDamageMultiplier(_damageMultiplier + changeAmount);
+    }
+
+    public void IncreaseStaggerMultiplierByAmount(float changeAmount)
+    {
+        SetStaggerMultiplier(_staggerMultiplier + changeAmount);
+    }
+
+    #endregion
 
     #region Getters
     public UnityEvent<Collider> GetEnterEvent() => _enterEvent;

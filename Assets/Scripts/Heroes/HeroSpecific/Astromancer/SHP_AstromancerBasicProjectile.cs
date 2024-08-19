@@ -5,6 +5,7 @@ using UnityEngine;
 public class SHP_AstromancerBasicProjectile : HeroProjectileFramework
 {
     [SerializeField] private float _projectileSpeed;
+    [SerializeField] private float _damageScalingPerSecond;
     [Space]
 
     [SerializeField] private GeneralHeroDamageArea _generalDamageArea;
@@ -15,6 +16,8 @@ public class SHP_AstromancerBasicProjectile : HeroProjectileFramework
     private SH_Astromancer _astromancerScript;
 
     private Vector3 _storedDirection;
+
+    private float _damageScalingAmount = 0;
 
     public override void SetUpProjectile(HeroBase heroBase)
     {
@@ -28,15 +31,10 @@ public class SHP_AstromancerBasicProjectile : HeroProjectileFramework
 
         _storedDirection = direction;
         StartCoroutine(MoveProjectile());
+        StartCoroutine(DamageScaling());
     }
 
-    private void SubscribeToEvents()
-    {
-        _generalDamageArea.GetEnterEvent().AddListener(HitBoss);
-        _generalDamageArea.GetStayEvent().AddListener(HitBoss);
-        _generalHealArea.GetEnterEvent().AddListener(HitHero);
-        _generalHealArea.GetStayEvent().AddListener(HitHero);
-    }
+    
 
 
     private IEnumerator MoveProjectile()
@@ -48,10 +46,27 @@ public class SHP_AstromancerBasicProjectile : HeroProjectileFramework
         }
     }
 
+    private IEnumerator DamageScaling()
+    {
+        while(true)
+        {
+            _damageScalingAmount += _damageScalingPerSecond * Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    private void AdjustDamageAreaScaling()
+    {
+        _generalDamageArea.IncreaseDamageMultiplierByAmount(_damageScalingAmount);
+    }
+
     public void HitBoss(Collider collider)
     {
+        AdjustDamageAreaScaling();
         if (!_hasHitBoss)
         {
+            _damageScalingAmount = 0; 
+
             _hasHitBoss = true;
 
             _generalDamageArea.enabled = false;
@@ -61,7 +76,10 @@ public class SHP_AstromancerBasicProjectile : HeroProjectileFramework
         }
            
         else
+        {
             _generalDamageArea.DestroyProjectile();
+        }
+            
     }
     
     public void HitHero(Collider collider)
@@ -85,5 +103,13 @@ public class SHP_AstromancerBasicProjectile : HeroProjectileFramework
     public void TriggerHeroPassive()
     {
         _astromancerScript.ActivatePassiveAbilities();
+    }
+
+    private void SubscribeToEvents()
+    {
+        _generalDamageArea.GetEnterEvent().AddListener(HitBoss);
+        _generalDamageArea.GetStayEvent().AddListener(HitBoss);
+        _generalHealArea.GetEnterEvent().AddListener(HitHero);
+        _generalHealArea.GetStayEvent().AddListener(HitHero);
     }
 }
