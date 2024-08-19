@@ -64,6 +64,7 @@ public class SH_Astromancer : SpecificHeroFramework
         _storedManual = spawnedProjectile.GetComponent<SHP_AstromancerManualProjectile>();
         _storedManual.SetUpProjectile(_myHeroBase);
 
+        _myHeroBase.GetPathfinding().BriefStopCurrentMovement();
         _myHeroBase.GetHeroStartedMovingEvent().AddListener(EndManualAbility);
     }
 

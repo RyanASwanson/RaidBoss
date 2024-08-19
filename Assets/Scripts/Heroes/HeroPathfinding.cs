@@ -42,6 +42,25 @@ public class HeroPathfinding : HeroChildrenFunctionality
         _heroMovementCoroutine = StartCoroutine(MovingOnNavMesh());
     }
 
+    public void BriefStopCurrentMovement()
+    {
+        _meshAgent.isStopped = true;
+        _meshAgent.SetDestination(transform.position);
+        StartCoroutine(ReenableMovement());
+    }
+
+    private IEnumerator ReenableMovement()
+    {
+        yield return null;
+
+        if (!myHeroBase.GetHeroStats().IsHeroDead())
+        {
+            _meshAgent.isStopped = false;
+        }
+
+        
+    }
+
     private void StopAbilityToMove()
     {
         _meshAgent.speed = 0;

@@ -444,6 +444,7 @@ public class HeroStats : HeroChildrenFunctionality
     public float GetCurrentHealth() => _currentHealth;
     public float GetPreviousHealth() => _previousHealthValue;
     public bool IsHeroMaxHealth() => _currentHealth >= _heroMaxHealth;
+    public bool IsHeroDead() => _currentHealth <= 0;
     public bool CanHeroBeHealed() => !IsHeroMaxHealth() && !ShouldOverrideHealing();
     public float GetHeroHealthPercentage() => _currentHealth / _heroMaxHealth;
     public float GetCurrentSpeed() => _currentMoveSpeed;
