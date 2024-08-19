@@ -63,6 +63,8 @@ public class HeroesManager : BaseGameplayManager
         GameObject newHero = Instantiate(_baseHeroPrefab,
             spawnLocation, spawnRotation);
         HeroBase heroBase = newHero.GetComponent<HeroBase>();
+        if (heroSO == null)
+            print("Scriptable object not found???");
         heroBase.Setup(heroSO);
 
         return heroBase;

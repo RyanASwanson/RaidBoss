@@ -7,6 +7,7 @@ public class HeroSO : ScriptableObject
 {
     [Header("General")]
     [SerializeField] private string _name;
+    [SerializeField] private bool _hasUIManager;
 
     [Header("Stats")]
     [SerializeField] private float _maxHP;
@@ -45,6 +46,7 @@ public class HeroSO : ScriptableObject
 
     #region Getters
     public string GetHeroName() => _name;
+    public bool GetHasUIManager() => _hasUIManager;
 
     public float GetMaxHP() => _maxHP;
     public float GetMoveSpeed() => _moveSpeed;

@@ -801,7 +801,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8742380473180758464}
   - component: {fileID: 8742380473180758467}
-  - component: {fileID: 8742380473180758466}
   - component: {fileID: 8742380473180758465}
   m_Layer: 0
   m_Name: MirageCloneSpecifics
@@ -838,26 +837,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b363d2790dfbf88468ec153d83d662c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8742380473180758466
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8742380473180758471}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93d313a559318ad4c9c46cde86f1c07b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _basicAbilityChargeTime: 5
-  _manualAbilityChargeTime: 9
+  _basicAbilityChargeTime: 9999
+  _manualAbilityChargeTime: 9999
   _heroSpecificAnimator: {fileID: 8742380473180758465}
   _hasBasicAbilityAnimation: 0
   _hasManualAbilityAnimation: 0
   _hasPassiveAbilityAnimation: 0
-  _basicProjectile: {fileID: 0}
-  _manualClone: {fileID: 0}
 --- !u!95 &8742380473180758465
 Animator:
   serializedVersion: 5

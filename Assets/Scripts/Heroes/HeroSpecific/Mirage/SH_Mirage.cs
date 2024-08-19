@@ -7,6 +7,7 @@ public class SH_Mirage : SpecificHeroFramework
     [Space]
     [SerializeField] private GameObject _basicProjectile;
 
+    [SerializeField] private HeroSO _cloneSO;
     [SerializeField] private GameObject _manualClone;
     private const float _cloneSpawnOffset = -2;
 
@@ -29,9 +30,10 @@ public class SH_Mirage : SpecificHeroFramework
 
         //Transform cloneTransform = _myHeroBase.transform;
         //cloneTransform.transform.position += _myHeroBase.transform.forward * _cloneSpawnOffset;
-
-        /*GameplayManagers.Instance.GetHeroesManager().CreateHeroBase(spawnLocation,
-            _myHeroBase.transform.rotation, _myHeroBase.GetHeroSO());*/
+        if (_cloneSO == null)
+            print("CLONE SO CANT BE FOUND");
+        GameplayManagers.Instance.GetHeroesManager().CreateHeroBase(spawnLocation,
+            _myHeroBase.transform.rotation, _cloneSO);
     }
 
     public override void ActivateManualAbilities(Vector3 attackLocation)

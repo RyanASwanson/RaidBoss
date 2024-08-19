@@ -10,7 +10,7 @@ public class HeroCanvasFollow : MonoBehaviour
     private void Start()
     {
         transform.SetParent(null, false);
-        transform.eulerAngles = new Vector3(35, 0, 0);
+        transform.eulerAngles = new Vector3(xRotation, 0, 0);
         StartCoroutine(FollowAssociatedHero());
     }
     private IEnumerator FollowAssociatedHero()
