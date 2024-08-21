@@ -252,6 +252,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
 
     protected virtual void UnlockNewAbility()
     {
+        if (_abilityLocked == null) return;
         AddAbilityToBossReadyAttacks(_abilityLocked);
     }
 
