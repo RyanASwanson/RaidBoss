@@ -10,6 +10,10 @@ using UnityEngine.UI;
 public class HeroUIManager : GameUIChildrenFunctionality
 {
     [Header("Bottom UI")]
+    [Header("Background")]
+    [SerializeField] private GameObject _backgroundHolder;
+    [SerializeField] private Image _backgroundImage;
+
     [Header("Left Side")]
     [SerializeField] private Image _associatedHeroIcon;
     
@@ -64,6 +68,7 @@ public class HeroUIManager : GameUIChildrenFunctionality
         _associatedHeroBase = heroBase;
 
         GeneralSetup();
+        SetupBackground();
         SetUpHeroIcons();
         SubscribeToEvents();
     }
@@ -76,6 +81,18 @@ public class HeroUIManager : GameUIChildrenFunctionality
         _healingNumbersOrigin = heroVisuals.GetHealingNumbersOrigin();
         _buffDebuffOrigin = heroVisuals.GetBuffDebuffOrigin();
         _abilityChargedOrigin = heroVisuals.GetAbilityChargedIconOrigin();
+    }
+
+    private void SetupBackground()
+    {
+        if (_associatedHeroBase == null)
+            print("Associatedhero");
+        if (_associatedHeroBase.GetHeroSO().GetHeroUIColor() == null)
+            print("uicolor");
+        if (_backgroundImage == null)
+            print("Background");
+        _backgroundImage.color = _associatedHeroBase.GetHeroSO().GetHeroUIColor();
+        
     }
 
     private void SetUpHeroIcons()

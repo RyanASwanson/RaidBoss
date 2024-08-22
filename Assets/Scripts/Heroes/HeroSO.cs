@@ -36,6 +36,8 @@ public class HeroSO : ScriptableObject
     [SerializeField] private Color _heroPressedColor;
     [SerializeField] private Color _heroSelectedColor;
 
+    [SerializeField] private Color _heroUIColor;
+
     [Header("Ability Information")]
     [SerializeField] private string _basicAbilityName;
     [TextArea(4, 10)] [SerializeField] private string _basicAbilityDescription;
@@ -70,6 +72,7 @@ public class HeroSO : ScriptableObject
     public Color GetHeroHighlightedColor() => _heroHighlightedColor;
     public Color GetHeroPressedColor() => _heroPressedColor;
     public Color GetHeroSelectedColor() => _heroSelectedColor;
+    public Color GetHeroUIColor() => _heroUIColor;
 
     public string GetHeroBasicAbilityName() => _basicAbilityName;
     public string GetHeroBasicAbilityDescription() => _basicAbilityDescription;
