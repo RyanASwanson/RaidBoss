@@ -75,7 +75,7 @@ public class HeroPathfinding : HeroChildrenFunctionality
     private IEnumerator MovingOnNavMesh()
     {
         yield return new WaitForEndOfFrame();
-        while(_meshAgent.hasPath )
+        while(gameObject != null && _meshAgent.hasPath )
         {
             yield return null;
         }

@@ -28,7 +28,11 @@ public class SBA_Volcano : SpecificBossAbilityFramework
         DetermineAttackLocations();
 
         foreach(Vector3 attackLoc in _targetLocations)
-            _currentTargetZones.Add(Instantiate(_targetZone, attackLoc, Quaternion.identity));
+        {
+            //_currentTargetZones.Add(Instantiate(_targetZone, attackLoc, Quaternion.identity));
+            Instantiate(_targetZone, attackLoc, Quaternion.identity);
+        }
+            
 
         base.StartShowTargetZone();
     }
@@ -86,4 +90,9 @@ public class SBA_Volcano : SpecificBossAbilityFramework
         //_storedMovingMeteor.GetComponent<SBP_FollowingMeteor>().AdditionalSetup(_storedTarget);
         base.AbilityStart();
     }
+
+    /*protected IEnumerator CreateVolcanoDamageZonesProcess()
+    {
+
+    }*/
 }
