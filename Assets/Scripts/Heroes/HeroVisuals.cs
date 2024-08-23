@@ -39,7 +39,6 @@ public class HeroVisuals : HeroChildrenFunctionality
     private const string _heroDeathTriggerAnim = "HeroDeath";
 
 
-    [Space]
     private Animator _heroSpecificAnimator;
 
     private const string _heroIdleAnimTrigger = "G_HeroIdle";
@@ -48,6 +47,12 @@ public class HeroVisuals : HeroChildrenFunctionality
     private const string _heroBasicAnimTrigger = "G_HeroBasic";
     private const string _heroManualAnimTrigger = "G_HeroManual";
     private const string _heroPassiveAnimTrigger = "G_HeroPassive";
+
+    [Space]
+    [SerializeField] private float _outlineWidth;
+    [SerializeField] private Outline.Mode _outlineMode;
+    private Outline _addedOutline;
+
 
     public override void ChildFuncSetup(HeroBase heroBase)
     {
@@ -226,6 +231,16 @@ public class HeroVisuals : HeroChildrenFunctionality
 
     #endregion
 
+    #region Hero Outline
+    private void AddOutlineToHero()
+    {
+        _addedOutline = myHeroBase.GetAssociatedHeroObject().AddComponent<Outline>();
+
+        _addedOutline.OutlineWidth = _outlineWidth;
+        _addedOutline.OutlineMode = _outlineMode;
+    }
+    #endregion
+
     #region Events
     public override void SubscribeToEvents()
     {
@@ -251,6 +266,8 @@ public class HeroVisuals : HeroChildrenFunctionality
         AssignHeroSpecificAnimator();
 
         StartHeroSpecificIdleAnimation();
+
+        AddOutlineToHero();
     }
 
     /// <summary>
