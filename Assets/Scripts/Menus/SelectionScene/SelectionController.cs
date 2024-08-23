@@ -59,6 +59,7 @@ public class SelectionController : MonoBehaviour
 
     private BossSO _lastBossHoveredOver;
     private HeroSO _lastHeroHoveredOver;
+    private HeroSO _heroUIToDisplay;
 
     [Space]
     [SerializeField] private Animator _heroAbilityDescriptionAnimator;
@@ -304,6 +305,7 @@ public class SelectionController : MonoBehaviour
 
         _lastBossHoveredOver = null;
         _lastHeroHoveredOver = heroSO;
+        _heroUIToDisplay = heroSO;
         NewHeroHoveredOver(heroSO);
     }
 
@@ -327,6 +329,18 @@ public class SelectionController : MonoBehaviour
         int heroPillarNum = UniversalManagers.Instance.GetSelectionManager().GetSelectedHeroesCount();
 
         _heroPillars[heroPillarNum ].ShowHeroOnPillar(heroSO, true);
+    }
+
+    private void HeroNotHoveredOver(HeroSO heroSO)
+    {
+        if (_selectionManager.AtMaxHeroesSelected()) return;
+        if (_selectionManager.GetAllSelectedHeroes().Contains(heroSO)) return;
+
+        int heroPillarNum = UniversalManagers.Instance.GetSelectionManager().GetSelectedHeroesCount();
+
+        _heroPillars[heroPillarNum].AnimateOutHeroOnPillar();
+
+        _lastHeroHoveredOver = null;
     }
 
     private void DisplayStatsForHero(HeroSO heroSO)
@@ -403,19 +417,19 @@ public class SelectionController : MonoBehaviour
         switch(_currentHeroAbilityID)
         {
             case (0):
-                UpdateHeroAbilityNameText(_lastHeroHoveredOver.GetHeroBasicAbilityName());
+                UpdateHeroAbilityNameText(_heroUIToDisplay.GetHeroBasicAbilityName());
                 UpdateHeroAbilityTypeText(HeroAbilityType.Basic.ToString());
-                UpdateHeroAbilityDescriptionText(_lastHeroHoveredOver.GetHeroBasicAbilityDescription());
+                UpdateHeroAbilityDescriptionText(_heroUIToDisplay.GetHeroBasicAbilityDescription());
                 return;
             case (1):
-                UpdateHeroAbilityNameText(_lastHeroHoveredOver.GetHeroManualAbilityName());
+                UpdateHeroAbilityNameText(_heroUIToDisplay.GetHeroManualAbilityName());
                 UpdateHeroAbilityTypeText(HeroAbilityType.Manual.ToString());
-                UpdateHeroAbilityDescriptionText(_lastHeroHoveredOver.GetHeroManualAbilityDescription());
+                UpdateHeroAbilityDescriptionText(_heroUIToDisplay.GetHeroManualAbilityDescription());
                 return;
             case (2):
-                UpdateHeroAbilityNameText(_lastHeroHoveredOver.GetHeroPassiveAbilityName());
+                UpdateHeroAbilityNameText(_heroUIToDisplay.GetHeroPassiveAbilityName());
                 UpdateHeroAbilityTypeText(HeroAbilityType.Passive.ToString());
-                UpdateHeroAbilityDescriptionText(_lastHeroHoveredOver.GetHeroPassiveAbilityDescription());
+                UpdateHeroAbilityDescriptionText(_heroUIToDisplay.GetHeroPassiveAbilityDescription());
                 return;
 
         }
@@ -551,5 +565,6 @@ public class SelectionController : MonoBehaviour
         UniversalManagers.Instance.GetSelectionManager().GetHeroDeselectionEvent().AddListener(HeroRemoved);
 
         UniversalManagers.Instance.GetSelectionManager().GetHeroHoveredOverEvent().AddListener(HeroHoveredOver);
+        UniversalManagers.Instance.GetSelectionManager().GetHeroNotHoveredOverEvent().AddListener(HeroNotHoveredOver);
     }
 }

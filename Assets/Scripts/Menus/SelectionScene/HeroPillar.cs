@@ -17,6 +17,7 @@ public class HeroPillar : MonoBehaviour
     private const string _heroPillarMoveAnimBool = "PillarUp";
 
     private const string _newHeroHoverAnimTrigger = "NewHover";
+    private const string _removeHeroOnPillarAnimTrigger = "RemoveHero";
 
     public void MovePillar(bool moveUp)
     {
@@ -42,7 +43,9 @@ public class HeroPillar : MonoBehaviour
         _storedHero = heroSO;
 
         if (!newHero) return;
+
         _heroSpawnAnimator.SetTrigger(_newHeroHoverAnimTrigger);
+        _heroSpawnAnimator.ResetTrigger(_removeHeroOnPillarAnimTrigger);
     }
 
     /// <summary>
@@ -52,6 +55,13 @@ public class HeroPillar : MonoBehaviour
     {
         _storedHero = null;
         Destroy(_currentHeroVisual);
+    }
+
+    public void AnimateOutHeroOnPillar()
+    {
+        print("Animate Out");
+        _heroSpawnAnimator.ResetTrigger(_newHeroHoverAnimTrigger);
+        _heroSpawnAnimator.SetTrigger(_removeHeroOnPillarAnimTrigger);
     }
 
     #region Getters
