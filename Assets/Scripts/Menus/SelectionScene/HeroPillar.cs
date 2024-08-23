@@ -59,7 +59,6 @@ public class HeroPillar : MonoBehaviour
 
     public void AnimateOutHeroOnPillar()
     {
-        print("Animate Out");
         _heroSpawnAnimator.ResetTrigger(_newHeroHoverAnimTrigger);
         _heroSpawnAnimator.SetTrigger(_removeHeroOnPillarAnimTrigger);
     }

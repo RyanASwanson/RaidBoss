@@ -17,6 +17,7 @@ public class BossPillar : MonoBehaviour
     private const string _bossPillarMoveAnimBool = "PillarUp";
 
     private const string _newBossHoverAnimTrigger = "NewHover";
+    private const string _removeBossOnPillarAnimTrigger = "RemoveBoss";
 
     public void MovePillar(bool moveUp)
     {
@@ -34,12 +35,19 @@ public class BossPillar : MonoBehaviour
 
         if (!newBoss) return;
         _bossSpawnAnimator.SetTrigger(_newBossHoverAnimTrigger);
+        _bossSpawnAnimator.ResetTrigger(_removeBossOnPillarAnimTrigger);
     }
 
     public void RemoveBossOnPillar()
     {
         _storedBoss = null;
         Destroy(_currentBossVisual);
+    }
+
+    public void AnimateOutBossOnPillar()
+    {
+        _bossSpawnAnimator.ResetTrigger(_newBossHoverAnimTrigger);
+        _bossSpawnAnimator.SetTrigger(_removeBossOnPillarAnimTrigger);
     }
 
     #region Getters

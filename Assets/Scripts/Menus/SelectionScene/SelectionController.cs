@@ -157,6 +157,15 @@ public class SelectionController : MonoBehaviour
         _bossPillar.ShowBossOnPillar(bossSO, true);
     }
 
+    private void BossNotHoveredOver(BossSO bossSO)
+    {
+        if (_selectionManager.AtMaxBossSelected()) return;
+
+        _bossPillar.AnimateOutBossOnPillar();
+
+        _lastBossHoveredOver = null;
+    }
+
 
     public void BossAbilityIconPressed(int abilityID)
     {
@@ -560,6 +569,7 @@ public class SelectionController : MonoBehaviour
         UniversalManagers.Instance.GetSelectionManager().GetBossDeselectionEvent().AddListener(BossRemoved);
 
         UniversalManagers.Instance.GetSelectionManager().GetBossHoveredOverEvent().AddListener(BossHoveredOver);
+        UniversalManagers.Instance.GetSelectionManager().GetBossNotHoveredOverEvent().AddListener(BossNotHoveredOver);
 
         UniversalManagers.Instance.GetSelectionManager().GetHeroSelectionEvent().AddListener(NewHeroAdded);
         UniversalManagers.Instance.GetSelectionManager().GetHeroDeselectionEvent().AddListener(HeroRemoved);
