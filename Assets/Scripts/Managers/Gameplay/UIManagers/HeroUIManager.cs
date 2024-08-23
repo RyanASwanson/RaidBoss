@@ -368,6 +368,10 @@ public class HeroUIManager : GameUIChildrenFunctionality
         GameObject newNumber = Instantiate(number, spawnOrigin);
 
         damageHealing = Mathf.RoundToInt(damageHealing);
+        //Makes sure the value shown isn't less than 1
+        if (damageHealing <= 0)
+            damageHealing = 1;
+
         newNumber.GetComponentInChildren<Text>().text = damageHealing.ToString();
         newNumber.GetComponentInChildren<TMP_Text>().text = damageHealing.ToString();
 

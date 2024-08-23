@@ -67,6 +67,11 @@ public class PlayerInputGameplayManager : BaseGameplayManager
         _controlledHeroes.Add(newHero);
     }
 
+    public void NewControlledHeroByID(int id)
+    {
+        NewControlledHero(GameplayManagers.Instance.GetHeroesManager().GetCurrentHeroes()[id]);
+    }
+
     private void NewControlledHeroes()
     {
 
