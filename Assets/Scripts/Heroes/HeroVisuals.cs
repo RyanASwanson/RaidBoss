@@ -12,10 +12,16 @@ public class HeroVisuals : HeroChildrenFunctionality
     [SerializeField] private GameObject _heroHealedVFX;
     [Space]
 
+    [SerializeField] private RectTransform _abilityChargedOrigin;
+    [SerializeField] private Animator _abilityRechargedHolder;
+
+    private const string _showAbilityRechargedHolderBool = "ShowRechargedIcon";
+
+    [Space]
     [SerializeField] private RectTransform _damageNumbersOrigin;
     [SerializeField] private RectTransform _healingNumbersOrigin;
     [SerializeField] private RectTransform _buffDebuffOrigin;
-    [SerializeField] private RectTransform _abilityChargedIconOrigin;
+    [SerializeField] private RectTransform _abilityReChargedPopupIconOrigin;
 
     private const string _healthStatusIntAnim = "HealthStatus";
 
@@ -274,9 +280,10 @@ public class HeroVisuals : HeroChildrenFunctionality
     #endregion
 
     #region Getters
+    public RectTransform GetAbilityChargedOrigin() => _abilityChargedOrigin;
     public RectTransform GetDamageNumbersOrigin() => _damageNumbersOrigin;
     public RectTransform GetHealingNumbersOrigin() => _healingNumbersOrigin;
     public RectTransform GetBuffDebuffOrigin() => _buffDebuffOrigin;
-    public RectTransform GetAbilityChargedIconOrigin() => _abilityChargedIconOrigin;
+    public RectTransform GetAbilityReChargedPopupIconOrigin() => _abilityReChargedPopupIconOrigin;
     #endregion
 }

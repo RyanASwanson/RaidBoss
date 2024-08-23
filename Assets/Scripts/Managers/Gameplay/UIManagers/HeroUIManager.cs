@@ -80,17 +80,11 @@ public class HeroUIManager : GameUIChildrenFunctionality
         _damageNumbersOrigin = heroVisuals.GetDamageNumbersOrigin();
         _healingNumbersOrigin = heroVisuals.GetHealingNumbersOrigin();
         _buffDebuffOrigin = heroVisuals.GetBuffDebuffOrigin();
-        _abilityChargedOrigin = heroVisuals.GetAbilityChargedIconOrigin();
+        _abilityChargedOrigin = heroVisuals.GetAbilityReChargedPopupIconOrigin();
     }
 
     private void SetupBackground()
     {
-        if (_associatedHeroBase == null)
-            print("Associatedhero");
-        if (_associatedHeroBase.GetHeroSO().GetHeroUIColor() == null)
-            print("uicolor");
-        if (_backgroundImage == null)
-            print("Background");
         _backgroundImage.color = _associatedHeroBase.GetHeroSO().GetHeroUIColor();
         
     }
