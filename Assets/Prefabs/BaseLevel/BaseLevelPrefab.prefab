@@ -343,6 +343,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1480555665315486639, guid: b30be74494dc02f429e331376638e4ad, type: 3}
   m_PrefabInstance: {fileID: 497493319253816297}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1494613793895350974 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1322541901136064855, guid: b30be74494dc02f429e331376638e4ad, type: 3}
+  m_PrefabInstance: {fileID: 497493319253816297}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1634633978649368238 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1173206913772234055, guid: b30be74494dc02f429e331376638e4ad, type: 3}
@@ -483,6 +488,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &3868398118533378323 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3695269595493974778, guid: b30be74494dc02f429e331376638e4ad, type: 3}
+  m_PrefabInstance: {fileID: 497493319253816297}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4016579976082842883 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3556350279494244074, guid: b30be74494dc02f429e331376638e4ad, type: 3}
@@ -570,6 +580,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4911869713409596826, guid: b30be74494dc02f429e331376638e4ad, type: 3}
   m_PrefabInstance: {fileID: 497493319253816297}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &4907909439482037387 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4826475788697991010, guid: b30be74494dc02f429e331376638e4ad, type: 3}
+  m_PrefabInstance: {fileID: 497493319253816297}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4920022067746192698 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4800869678892764883, guid: b30be74494dc02f429e331376638e4ad, type: 3}
@@ -578,6 +593,11 @@ GameObject:
 --- !u!1 &5048227332124889243 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4677440707977814898, guid: b30be74494dc02f429e331376638e4ad, type: 3}
+  m_PrefabInstance: {fileID: 497493319253816297}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &5068207240964335914 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4661947081491815107, guid: b30be74494dc02f429e331376638e4ad, type: 3}
   m_PrefabInstance: {fileID: 497493319253816297}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &5728264264999072875 stripped
@@ -612,6 +632,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &5963108077550281856 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6063609515631531881, guid: b30be74494dc02f429e331376638e4ad, type: 3}
+  m_PrefabInstance: {fileID: 497493319253816297}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &6073523316413007126 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5957715638164748031, guid: b30be74494dc02f429e331376638e4ad, type: 3}
@@ -1141,6 +1166,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8092990391142746203}
     - target: {fileID: 5382582155930290902, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
+      propertyPath: _heroUIGeneralAnimator
+      value: 
+      objectReference: {fileID: 3868398118533378323}
+    - target: {fileID: 5382582155930290902, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
       propertyPath: _associatedHeroHealthBar
       value: 
       objectReference: {fileID: 4016579976082842883}
@@ -1189,6 +1218,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 136016012692897219}
     - target: {fileID: 5992424181216115921, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
+      propertyPath: _heroUIGeneralAnimator
+      value: 
+      objectReference: {fileID: 4907909439482037387}
+    - target: {fileID: 5992424181216115921, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
       propertyPath: _associatedHeroHealthBar
       value: 
       objectReference: {fileID: 5048227332124889243}
@@ -1236,6 +1269,10 @@ PrefabInstance:
       propertyPath: _backgroundUIAnimator
       value: 
       objectReference: {fileID: 264234445810421858}
+    - target: {fileID: 6448319292877436050, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
+      propertyPath: _heroUIGeneralAnimator
+      value: 
+      objectReference: {fileID: 5068207240964335914}
     - target: {fileID: 6448319292877436050, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
       propertyPath: _associatedHeroHealthBar
       value: 
@@ -1293,6 +1330,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1674894059248524744}
     - target: {fileID: 8017965727851126149, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
+      propertyPath: _heroUIGeneralAnimator
+      value: 
+      objectReference: {fileID: 5963108077550281856}
+    - target: {fileID: 8017965727851126149, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
       propertyPath: _associatedHeroHealthBar
       value: 
       objectReference: {fileID: 5824203875472666768}
@@ -1340,6 +1381,10 @@ PrefabInstance:
       propertyPath: _backgroundUIAnimator
       value: 
       objectReference: {fileID: 5855439439845014518}
+    - target: {fileID: 8111601579374945493, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
+      propertyPath: _heroUIGeneralAnimator
+      value: 
+      objectReference: {fileID: 1494613793895350974}
     - target: {fileID: 8111601579374945493, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
       propertyPath: _associatedHeroHealthBar
       value: 

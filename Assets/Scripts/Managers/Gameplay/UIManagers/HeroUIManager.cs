@@ -10,6 +10,10 @@ using UnityEngine.UI;
 public class HeroUIManager : GameUIChildrenFunctionality
 {
     [Header("Bottom UI")]
+    [SerializeField] private Animator _heroUIGeneralAnimator;
+
+    private const string _generalAnimIntroTrigger = "ShowGeneralUIIntro";
+
     [Header("Background")]
     [SerializeField] private GameObject _backgroundHolder;
     [SerializeField] private Image _backgroundImage;
@@ -84,6 +88,7 @@ public class HeroUIManager : GameUIChildrenFunctionality
         GeneralSetup();
         SetupBackground();
         SetUpHeroIcons();
+        GeneralUIIntroAnimation();
         SubscribeToEvents();
     }
 
@@ -423,6 +428,11 @@ public class HeroUIManager : GameUIChildrenFunctionality
     private void HeroIconOnUIFlash()
     {
         _heroFullyChargedIconAnimator.SetTrigger(_heroFullyChargedIconTrigger);
+    }
+
+    private void GeneralUIIntroAnimation()
+    {
+        _heroUIGeneralAnimator.SetTrigger(_generalAnimIntroTrigger);
     }
 
     public override void ChildFuncSetup()
