@@ -33,6 +33,11 @@ public class HeroSO : ScriptableObject
     [Range(0,5)][SerializeField] private int _speedStat;
     [Range(0,5)][SerializeField] private int _utilityStat;
 
+    [Space]
+    [SerializeField] private HeroRange _heroRange;
+    [SerializeField] private HeroDifficulty _heroDifficulty;
+
+    [Space]
     [SerializeField] private Color _heroHighlightedColor;
     [SerializeField] private Color _heroPressedColor;
     [SerializeField] private Color _heroSelectedColor;
@@ -90,4 +95,18 @@ public enum HeroAbilityType
     Basic,
     Manual,
     Passive
+};
+
+public enum HeroRange
+{
+    Close,
+    Medium,
+    Far
+};
+
+public enum HeroDifficulty
+{
+    Easy,
+    Medium,
+    Hard
 };

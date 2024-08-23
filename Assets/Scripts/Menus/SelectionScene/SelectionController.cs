@@ -58,6 +58,7 @@ public class SelectionController : MonoBehaviour
     [SerializeField] private Image _heroPassiveIcon;
 
     private BossSO _lastBossHoveredOver;
+    private BossSO _bossUIToDisplay;
     private HeroSO _lastHeroHoveredOver;
     private HeroSO _heroUIToDisplay;
 
@@ -135,6 +136,7 @@ public class SelectionController : MonoBehaviour
 
         _lastHeroHoveredOver = null;
         _lastBossHoveredOver = bossSO;
+        _bossUIToDisplay = bossSO;
 
         NewBossHoveredOver(bossSO);
     }
@@ -223,13 +225,13 @@ public class SelectionController : MonoBehaviour
         if (_currentBossAbilityID == -1) return;
 
 
-        UpdateBossAbilityNameText(_lastBossHoveredOver.GetBossAbilityInformation()
+        UpdateBossAbilityNameText(_bossUIToDisplay.GetBossAbilityInformation()
             [_currentBossAbilityID]._abilityName);
 
-        UpdateBossAbilityTypeText(_lastBossHoveredOver.GetBossAbilityInformation()
+        UpdateBossAbilityTypeText(_bossUIToDisplay.GetBossAbilityInformation()
             [_currentBossAbilityID]._abilityType.ToString());
 
-        UpdateBossAbilityDescriptionText(_lastBossHoveredOver.GetBossAbilityInformation()
+        UpdateBossAbilityDescriptionText(_bossUIToDisplay.GetBossAbilityInformation()
             [_currentBossAbilityID]._abilityDescription);
 
         
