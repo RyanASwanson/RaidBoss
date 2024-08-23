@@ -55,10 +55,15 @@ public class HeroUIManager : GameUIChildrenFunctionality
     [Space]
     [SerializeField] private GameObject _abilityChargedIcon;
 
-    private Animator _abilityChargedAnimator;
+    private Animator _abilityChargedIconAnimator;
     private Image _abilityChargedManualIcon;
 
     private const string _showAbilityRechargedHolderBool = "ShowRechargedIcon";
+
+    private Animator _heroControlledIconAnimator;
+    private Image _heroControlledIcon;
+
+    private const string _showHeroControlledHolderBool = "ShowControlledIcon";
 
     private RectTransform _damageNumbersOrigin;
     private RectTransform _healingNumbersOrigin;
@@ -82,10 +87,17 @@ public class HeroUIManager : GameUIChildrenFunctionality
     {
         HeroVisuals heroVisuals = _associatedHeroBase.GetHeroVisuals();
 
-        _abilityChargedAnimator = heroVisuals.GetAbilityChargedAnimator();
+        _abilityChargedIconAnimator = heroVisuals.GetAbilityChargedAnimator();
         _abilityChargedManualIcon = heroVisuals.GetAbilityChargedManualImage();
 
         _abilityChargedManualIcon.sprite = _associatedHeroBase.GetHeroSO().GetHeroManualAbilityIcon();
+
+        _heroControlledIconAnimator = heroVisuals.GetHeroControlledAnimator();
+        _heroControlledIcon = heroVisuals.GetHeroControlledIcon();
+
+        _heroControlledIcon.color = _associatedHeroBase.GetHeroSO().GetHeroUIColor();
+
+
 
         _damageNumbersOrigin = heroVisuals.GetDamageNumbersOrigin();
         _healingNumbersOrigin = heroVisuals.GetHealingNumbersOrigin();
@@ -109,6 +121,25 @@ public class HeroUIManager : GameUIChildrenFunctionality
         _heroFullyChargedIconAnimator.gameObject.GetComponent<Image>().sprite =
             heroSO.GetHeroManualAbilityIcon();
     }
+
+    #region Hero Control
+
+    private void HeroControlStart()
+    {
+        ShowControlIconAboveHero(true);
+    }
+
+    private void HeroControlEnd()
+    {
+        ShowControlIconAboveHero(false);
+    }
+
+    private void ShowControlIconAboveHero(bool show)
+    {
+        _heroControlledIconAnimator.SetBool(_showHeroControlledHolderBool, show);
+    }
+
+    #endregion
 
     #region Health
     private void AssociatedHeroTookDamage(float damageTaken)
@@ -268,6 +299,7 @@ public class HeroUIManager : GameUIChildrenFunctionality
     }
 
     #endregion
+
     /// <summary>
     /// Is called as the progress of the heroes manual ability charges
     /// </summary>
@@ -280,6 +312,9 @@ public class HeroUIManager : GameUIChildrenFunctionality
     {
         _associatedHeroManualAbilityChargeBar.fillAmount = 1- percent;
     }
+
+    //Outdated damage healing numbers code
+    //Preserved for now just in case
 
     /*private void CreateDamageNumbers(float damage)
     {
@@ -356,7 +391,7 @@ public class HeroUIManager : GameUIChildrenFunctionality
 
     private void ShowManualAbilityChargedIconAboveHero(bool show)
     {
-        _abilityChargedAnimator.SetBool(_showAbilityRechargedHolderBool, show);
+        _abilityChargedIconAnimator.SetBool(_showAbilityRechargedHolderBool, show);
     }
 
     /// <summary>
@@ -382,6 +417,9 @@ public class HeroUIManager : GameUIChildrenFunctionality
 
     public override void SubscribeToEvents()
     {
+        _associatedHeroBase.GetHeroControlledBeginEvent().AddListener(HeroControlStart);
+        _associatedHeroBase.GetHeroControlledEndEvent().AddListener(HeroControlEnd);
+
         //Update health bar when hero takes damage
         _associatedHeroBase.GetHeroDamagedEvent().AddListener(AssociatedHeroTookDamage);
         //Update health bar when hero is healed

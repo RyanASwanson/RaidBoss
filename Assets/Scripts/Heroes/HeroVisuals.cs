@@ -18,6 +18,11 @@ public class HeroVisuals : HeroChildrenFunctionality
     [SerializeField] private Image _abilityChargedManualImage;
 
     [Space]
+    [SerializeField] private RectTransform _heroControlledOrigin;
+    [SerializeField] private Animator _heroControlledAnimator;
+    [SerializeField] private Image _heroControlledIcon;
+
+    [Space]
     [SerializeField] private RectTransform _damageNumbersOrigin;
     [SerializeField] private RectTransform _healingNumbersOrigin;
     [SerializeField] private RectTransform _buffDebuffOrigin;
@@ -283,6 +288,10 @@ public class HeroVisuals : HeroChildrenFunctionality
     public RectTransform GetAbilityChargedOrigin() => _abilityChargedOrigin;
     public Animator GetAbilityChargedAnimator() => _abilityChargedAnimator;
     public Image GetAbilityChargedManualImage() => _abilityChargedManualImage;
+
+    public RectTransform GetHeroControlledOrigin() => _heroControlledOrigin;
+    public Animator GetHeroControlledAnimator() => _heroControlledAnimator;
+    public Image GetHeroControlledIcon() => _heroControlledIcon;
 
     public RectTransform GetDamageNumbersOrigin() => _damageNumbersOrigin;
     public RectTransform GetHealingNumbersOrigin() => _healingNumbersOrigin;

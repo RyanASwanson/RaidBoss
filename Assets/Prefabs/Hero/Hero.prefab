@@ -66,7 +66,7 @@ RectTransform:
   m_Children:
   - {fileID: 6552675560253751124}
   m_Father: {fileID: 7976408396630340822}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -105,8 +105,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2053411722302991304}
   - {fileID: 8583944512691567596}
+  - {fileID: 2053411722302991304}
   - {fileID: 2598898760619311672}
   - {fileID: 7059950255087619679}
   - {fileID: 4244322162348049187}
@@ -379,7 +379,7 @@ GameObject:
   - component: {fileID: 543963827721324970}
   - component: {fileID: 3545510438298908622}
   m_Layer: 0
-  m_Name: SelectionIconFront
+  m_Name: ControlledIconFront
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -433,7 +433,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 6c365a457009df44fa0d7676bf0e490f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -549,6 +549,9 @@ MonoBehaviour:
   _abilityChargedOrigin: {fileID: 8583944512691567596}
   _abilityChargedAnimator: {fileID: 8999442573997647937}
   _abilityChargedManualImage: {fileID: 3060856149297694712}
+  _heroControlledOrigin: {fileID: 2053411722302991304}
+  _heroControlledAnimator: {fileID: 5884776824559135494}
+  _heroControlledIcon: {fileID: 3545510438298908622}
   _damageNumbersOrigin: {fileID: 7059950255087619679}
   _healingNumbersOrigin: {fileID: 2598898760619311672}
   _buffDebuffOrigin: {fileID: 4244322162348049187}
@@ -1017,8 +1020,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4985879099735786900}
+  - component: {fileID: 5884776824559135494}
   m_Layer: 0
-  m_Name: SelectionIcon
+  m_Name: ControlledIconHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1033,7 +1037,7 @@ RectTransform:
   m_GameObject: {fileID: 5513586269490953564}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2960299905636394670}
@@ -1041,11 +1045,32 @@ RectTransform:
   m_Father: {fileID: 2053411722302991304}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.2}
-  m_SizeDelta: {x: 0, y: -0.4}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0.4}
+  m_SizeDelta: {x: 1, y: 1.1}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!95 &5884776824559135494
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5513586269490953564}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cb28e8d150c327042ba8be5ba9d1efce, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6765925229142548606
 GameObject:
   m_ObjectHideFlags: 0
@@ -1058,7 +1083,7 @@ GameObject:
   - component: {fileID: 445559356136806324}
   - component: {fileID: 3260226272551011482}
   m_Layer: 0
-  m_Name: SelectionIconBack
+  m_Name: ControlledIconBack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1112,7 +1137,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 4ed14edf65d69de4d92ab517fd48d320, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1208,7 +1233,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2053411722302991304}
   m_Layer: 0
-  m_Name: SelectionIconOriginPoint
+  m_Name: ControlledIconOriginPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1228,7 +1253,7 @@ RectTransform:
   m_Children:
   - {fileID: 4985879099735786900}
   m_Father: {fileID: 7976408396630340822}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
