@@ -1,8 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Events;
 
 /// <summary>
 /// Controls the movement of the heroes and how they pathfind
@@ -12,6 +10,8 @@ public class HeroPathfinding : HeroChildrenFunctionality
 {
     [SerializeField] private GameObject _rotationObject;
     [SerializeField] private float _rotateSpeedMultiplier;
+
+    private Coroutine _heroRotationCoroutine = null;
 
     [Space]
     [SerializeField] private NavMeshAgent _meshAgent;
@@ -78,6 +78,8 @@ public class HeroPathfinding : HeroChildrenFunctionality
     /// <returns></returns>
     private IEnumerator MovingOnNavMesh()
     {
+        StopHeroLookAt();
+
         yield return new WaitForEndOfFrame();
         while(gameObject != null && _meshAgent.hasPath )
         {
@@ -86,21 +88,28 @@ public class HeroPathfinding : HeroChildrenFunctionality
         myHeroBase.InvokeHeroStoppedMovingEvent();
         _heroMovementCoroutine = null;
 
-        HeroLookTemp();
+        HeroLookAtBoss();
     }
 
 
     #region Hero Rotation
 
-    private void HeroLookTemp()
+    private void HeroLookAtBoss()
     {
         HeroLookAt(GameplayManagers.Instance.GetBossManager().GetBossBaseGameObject().transform.position);
     }
 
     public void HeroLookAt(Vector3 lookLocation)
     {
-        StartCoroutine(LookAtProcess(lookLocation));
+        _heroRotationCoroutine = StartCoroutine(LookAtProcess(lookLocation));
     }
+
+    private void StopHeroLookAt()
+    {
+        if (_heroRotationCoroutine != null)
+            StopCoroutine(_heroRotationCoroutine);
+    }
+
 
     private IEnumerator LookAtProcess(Vector3 lookLocation)
     {
