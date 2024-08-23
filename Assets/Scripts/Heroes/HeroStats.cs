@@ -14,6 +14,9 @@ public class HeroStats : HeroChildrenFunctionality
     private float _heroDefaultMoveSpeed;
     private float _currentMoveSpeed;
 
+    private float _heroDefaultAngularSpeed;
+    private float _currentAngularSpeed;
+
     private float _heroDefaultAcceleration;
     private float _currentAcceleration;
 
@@ -51,6 +54,7 @@ public class HeroStats : HeroChildrenFunctionality
     {
         _heroMaxHealth = heroSO.GetMaxHP();
         _heroDefaultMoveSpeed = heroSO.GetMoveSpeed();
+        _heroDefaultAngularSpeed = heroSO.GetAngularSpeed();
         _heroDefaultAcceleration = heroSO.GetMoveAcceleration();
         _heroDefaultAggro = heroSO.GetAggro();
         _heroDefaultDamageResistance = heroSO.GetDamageResistance();
@@ -58,12 +62,15 @@ public class HeroStats : HeroChildrenFunctionality
 
         _currentHealth = _heroMaxHealth;
         _currentMoveSpeed = _heroDefaultMoveSpeed;
+        _currentAngularSpeed = _heroDefaultAngularSpeed;
         _currentAcceleration = _heroDefaultAcceleration;
         _currentAggro = _heroDefaultAggro;
         _currentDamageResistance = _heroDefaultDamageResistance;
 
         //Sets up the movement speed
-        myHeroBase.GetPathfinding().GetNavMeshAgent().speed = _heroDefaultMoveSpeed;
+        myHeroBase.GetPathfinding().GetNavMeshAgent().speed = _currentMoveSpeed ;
+        myHeroBase.GetPathfinding().GetNavMeshAgent().angularSpeed = _currentAngularSpeed ;
+        myHeroBase.GetPathfinding().GetNavMeshAgent().acceleration = _currentAcceleration;
     }
 
     public void DealDamageToHero(float damage)
@@ -393,6 +400,13 @@ public class HeroStats : HeroChildrenFunctionality
         myHeroBase.GetPathfinding().GetNavMeshAgent().speed = _currentMoveSpeed;
     }
 
+    public void ChangeCurrentHeroAngularSpeed(float changeValue)
+    {
+        _currentAngularSpeed += changeValue;
+
+        myHeroBase.GetPathfinding().GetNavMeshAgent().angularSpeed = _currentAngularSpeed;
+    }
+
     public void ChangeCurrentHeroAcceleration(float changeValue)
     {
         _currentAcceleration += changeValue;
@@ -437,6 +451,7 @@ public class HeroStats : HeroChildrenFunctionality
     #region Getters
     public float GetMaxHealth() => _heroMaxHealth;
     public float GetDefaultSpeed() => _heroMaxHealth;
+    public float GetDefaultAngularSpeed() => _heroDefaultAngularSpeed;
     public float GetDefaultAggro() => _heroMaxHealth;
     public float GetDefaultDamageResistance() => _heroDefaultDamageResistance;
 
@@ -448,6 +463,8 @@ public class HeroStats : HeroChildrenFunctionality
     public bool CanHeroBeHealed() => !IsHeroMaxHealth() && !ShouldOverrideHealing();
     public float GetHeroHealthPercentage() => _currentHealth / _heroMaxHealth;
     public float GetCurrentSpeed() => _currentMoveSpeed;
+    public float GetAngularSpeed() => _currentAngularSpeed;
+    public float GetAcceleration() => _currentAcceleration;
     public float GetCurrentAggro() => _currentAggro;
     public float GetCurrentDamageResistance() => _currentDamageResistance;
 

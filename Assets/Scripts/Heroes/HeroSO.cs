@@ -12,6 +12,7 @@ public class HeroSO : ScriptableObject
     [Header("Stats")]
     [SerializeField] private float _maxHP;
     [SerializeField] private float _moveSpeed;
+    [SerializeField] private float _angularSpeed;
     [SerializeField] private float _moveAcceleration;
     [SerializeField] private float _aggro;
     [Range(.5f, 1.5f)] [SerializeField] private float _damageResistance;
@@ -52,6 +53,7 @@ public class HeroSO : ScriptableObject
 
     public float GetMaxHP() => _maxHP;
     public float GetMoveSpeed() => _moveSpeed;
+    public float GetAngularSpeed() => _angularSpeed;
     public float GetMoveAcceleration() => _moveAcceleration;
     public float GetAggro() => _aggro;
     public float GetDamageResistance() => _damageResistance;

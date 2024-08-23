@@ -10,6 +10,10 @@ using UnityEngine.Events;
 /// </summary>
 public class HeroPathfinding : HeroChildrenFunctionality
 {
+    [SerializeField] private GameObject _rotationObject;
+    [SerializeField] private float _rotateSpeedMultiplier;
+
+    [Space]
     [SerializeField] private NavMeshAgent _meshAgent;
 
     private Coroutine _heroMovementCoroutine = null;
@@ -81,7 +85,50 @@ public class HeroPathfinding : HeroChildrenFunctionality
         }
         myHeroBase.InvokeHeroStoppedMovingEvent();
         _heroMovementCoroutine = null;
+
+        HeroLookTemp();
     }
+
+
+    #region Hero Rotation
+
+    private void HeroLookTemp()
+    {
+        HeroLookAt(GameplayManagers.Instance.GetBossManager().GetBossBaseGameObject().transform.position);
+    }
+
+    public void HeroLookAt(Vector3 lookLocation)
+    {
+        StartCoroutine(LookAtProcess(lookLocation));
+    }
+
+    private IEnumerator LookAtProcess(Vector3 lookLocation)
+    {
+        float progress = 0;
+        Quaternion startingRotation = _rotationObject.transform.rotation;
+        HeroStats heroStats = myHeroBase.GetHeroStats();
+
+        while (progress < 1)
+        {
+            progress += Time.deltaTime * _rotateSpeedMultiplier * heroStats.GetAngularSpeed() ;
+
+            Vector3 lookDir = lookLocation - _rotationObject.transform.position;
+
+            //Quaternion toRotation = Quaternion.FromToRotation(_visualObjectBase.transform.forward, lookDir);
+            Quaternion toRotation = Quaternion.LookRotation(lookDir);
+
+            _rotationObject.transform.rotation = Quaternion.Lerp
+                (startingRotation, toRotation, progress);
+
+
+            _rotationObject.transform.eulerAngles = new Vector3(0, _rotationObject.transform.eulerAngles.y, 0);
+
+            yield return null;
+        }
+
+    }
+
+    #endregion
 
     #region Events
     public override void SubscribeToEvents()

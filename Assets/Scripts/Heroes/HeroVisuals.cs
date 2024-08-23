@@ -102,6 +102,7 @@ public class HeroVisuals : HeroChildrenFunctionality
 
     #endregion
 
+    
 
     #region Hero Animation
     /// <summary>
