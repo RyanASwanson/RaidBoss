@@ -14,6 +14,10 @@ public class HeroUIManager : GameUIChildrenFunctionality
     [SerializeField] private GameObject _backgroundHolder;
     [SerializeField] private Image _backgroundImage;
 
+    [SerializeField] private Animator _backgroundUIAnimator;
+
+    private const string _backgroundUIAnimBool = "ShowUIControl";
+
     [Header("Left Side")]
     [SerializeField] private Image _associatedHeroIcon;
     
@@ -127,16 +131,23 @@ public class HeroUIManager : GameUIChildrenFunctionality
     private void HeroControlStart()
     {
         ShowControlIconAboveHero(true);
+        ShowControlUIBackground(true);
     }
 
     private void HeroControlEnd()
     {
         ShowControlIconAboveHero(false);
+        ShowControlUIBackground(false);
     }
 
     private void ShowControlIconAboveHero(bool show)
     {
         _heroControlledIconAnimator.SetBool(_showHeroControlledHolderBool, show);
+    }
+
+    private void ShowControlUIBackground(bool show)
+    {
+        _backgroundUIAnimator.SetBool(_backgroundUIAnimBool, show);
     }
 
     #endregion

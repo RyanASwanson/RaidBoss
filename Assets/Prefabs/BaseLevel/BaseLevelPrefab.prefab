@@ -265,6 +265,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &136016012692897219 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 505610827707174442, guid: b30be74494dc02f429e331376638e4ad, type: 3}
+  m_PrefabInstance: {fileID: 497493319253816297}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &264234445810421858 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 382186246081029003, guid: b30be74494dc02f429e331376638e4ad, type: 3}
+  m_PrefabInstance: {fileID: 497493319253816297}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &338293971697141837 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 168514564708301732, guid: b30be74494dc02f429e331376638e4ad, type: 3}
@@ -336,6 +346,11 @@ GameObject:
 --- !u!1 &1634633978649368238 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1173206913772234055, guid: b30be74494dc02f429e331376638e4ad, type: 3}
+  m_PrefabInstance: {fileID: 497493319253816297}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1674894059248524744 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1286086434682007073, guid: b30be74494dc02f429e331376638e4ad, type: 3}
   m_PrefabInstance: {fileID: 497493319253816297}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1809731705299160689 stripped
@@ -581,6 +596,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6211810893739623289, guid: b30be74494dc02f429e331376638e4ad, type: 3}
   m_PrefabInstance: {fileID: 497493319253816297}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &5855439439845014518 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6315665897885714463, guid: b30be74494dc02f429e331376638e4ad, type: 3}
+  m_PrefabInstance: {fileID: 497493319253816297}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &5885463705425022937 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6289889887421266992, guid: b30be74494dc02f429e331376638e4ad, type: 3}
@@ -749,6 +769,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &8092990391142746203 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8554412018733841330, guid: b30be74494dc02f429e331376638e4ad, type: 3}
+  m_PrefabInstance: {fileID: 497493319253816297}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &8211752501265548385 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8579765130992760712, guid: b30be74494dc02f429e331376638e4ad, type: 3}
@@ -1112,6 +1137,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1809731705299160689}
     - target: {fileID: 5382582155930290902, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
+      propertyPath: _backgroundUIAnimator
+      value: 
+      objectReference: {fileID: 8092990391142746203}
+    - target: {fileID: 5382582155930290902, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
       propertyPath: _associatedHeroHealthBar
       value: 
       objectReference: {fileID: 4016579976082842883}
@@ -1156,6 +1185,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7543071239669808105}
     - target: {fileID: 5992424181216115921, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
+      propertyPath: _backgroundUIAnimator
+      value: 
+      objectReference: {fileID: 136016012692897219}
+    - target: {fileID: 5992424181216115921, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
       propertyPath: _associatedHeroHealthBar
       value: 
       objectReference: {fileID: 5048227332124889243}
@@ -1199,6 +1232,10 @@ PrefabInstance:
       propertyPath: _associatedHeroIcon
       value: 
       objectReference: {fileID: 7703364625334212168}
+    - target: {fileID: 6448319292877436050, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
+      propertyPath: _backgroundUIAnimator
+      value: 
+      objectReference: {fileID: 264234445810421858}
     - target: {fileID: 6448319292877436050, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
       propertyPath: _associatedHeroHealthBar
       value: 
@@ -1252,6 +1289,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 9111641597141015522}
     - target: {fileID: 8017965727851126149, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
+      propertyPath: _backgroundUIAnimator
+      value: 
+      objectReference: {fileID: 1674894059248524744}
+    - target: {fileID: 8017965727851126149, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
       propertyPath: _associatedHeroHealthBar
       value: 
       objectReference: {fileID: 5824203875472666768}
@@ -1295,6 +1336,10 @@ PrefabInstance:
       propertyPath: _associatedHeroIcon
       value: 
       objectReference: {fileID: 4039682281268248028}
+    - target: {fileID: 8111601579374945493, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
+      propertyPath: _backgroundUIAnimator
+      value: 
+      objectReference: {fileID: 5855439439845014518}
     - target: {fileID: 8111601579374945493, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
       propertyPath: _associatedHeroHealthBar
       value: 
