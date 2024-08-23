@@ -55,6 +55,11 @@ public class HeroUIManager : GameUIChildrenFunctionality
     [Space]
     [SerializeField] private GameObject _abilityChargedIcon;
 
+    private Animator _abilityChargedAnimator;
+    private Image _abilityChargedManualIcon;
+
+    private const string _showAbilityRechargedHolderBool = "ShowRechargedIcon";
+
     private RectTransform _damageNumbersOrigin;
     private RectTransform _healingNumbersOrigin;
     private RectTransform _buffDebuffOrigin;
@@ -76,6 +81,11 @@ public class HeroUIManager : GameUIChildrenFunctionality
     private void GeneralSetup()
     {
         HeroVisuals heroVisuals = _associatedHeroBase.GetHeroVisuals();
+
+        _abilityChargedAnimator = heroVisuals.GetAbilityChargedAnimator();
+        _abilityChargedManualIcon = heroVisuals.GetAbilityChargedManualImage();
+
+        _abilityChargedManualIcon.sprite = _associatedHeroBase.GetHeroSO().GetHeroManualAbilityIcon();
 
         _damageNumbersOrigin = heroVisuals.GetDamageNumbersOrigin();
         _healingNumbersOrigin = heroVisuals.GetHealingNumbersOrigin();
@@ -108,7 +118,8 @@ public class HeroUIManager : GameUIChildrenFunctionality
         StartRecentHealthBarDrain();
         ReduceRecentHealingOnDamage(damageTaken);
 
-        CreateDamageNumbers(damageTaken);
+        //CreateDamageNumbers(damageTaken);
+        CreateDamageHealingNumber(damageTaken, _damageNumber, _damageNumbersOrigin);
     }
 
     private void AssociatedHeroTookHealing(float healingTaken)
@@ -270,7 +281,7 @@ public class HeroUIManager : GameUIChildrenFunctionality
         _associatedHeroManualAbilityChargeBar.fillAmount = 1- percent;
     }
 
-    private void CreateDamageNumbers(float damage)
+    /*private void CreateDamageNumbers(float damage)
     {
         GameObject newDamageNumber = Instantiate(_damageNumber, _damageNumbersOrigin);
 
@@ -280,12 +291,12 @@ public class HeroUIManager : GameUIChildrenFunctionality
 
         AddSpawnVarianceToDamageHealingNumber(newDamageNumber);
 
-        /*if (damage >= _strongDamage)
+        *//*if (damage >= _strongDamage)
             newDamageNumber.GetComponent<Animator>().SetTrigger(_damageStrongAnimTrigger);
         else if (damage >= _averageDamage)
             newDamageNumber.GetComponent<Animator>().SetTrigger(_damageAverageAnimTrigger);
         else
-        newDamageNumber.GetComponent<Animator>().SetTrigger(_damageHealingWeakAnimTrigger);*/
+        newDamageNumber.GetComponent<Animator>().SetTrigger(_damageHealingWeakAnimTrigger);*//*
     }
 
     private void CreateHealingNumbers(float healing)
@@ -298,13 +309,13 @@ public class HeroUIManager : GameUIChildrenFunctionality
 
         AddSpawnVarianceToDamageHealingNumber(newHealingNumber);
 
-        /*if (damage >= _strongDamage)
+        *//*if (damage >= _strongDamage)
             newDamageNumber.GetComponent<Animator>().SetTrigger(_damageStrongAnimTrigger);
         else if (damage >= _averageDamage)
             newDamageNumber.GetComponent<Animator>().SetTrigger(_damageAverageAnimTrigger);
         else
-        newHealingNumber.GetComponent<Animator>().SetTrigger(_damageHealingWeakAnimTrigger);*/
-    }
+        newHealingNumber.GetComponent<Animator>().SetTrigger(_damageHealingWeakAnimTrigger);*//*
+    }*/
 
     private void CreateDamageHealingNumber(float damageHealing, GameObject number, RectTransform spawnOrigin)
     {
@@ -332,14 +343,26 @@ public class HeroUIManager : GameUIChildrenFunctionality
 
     private void ManualFullyCharged()
     {
-        CreateAbilityChargedIconAboveHero();
+        ShowManualAbilityChargedIconAboveHero(true);
+
+        CreateAbilityReChargedIconAboveHero();
         HeroIconOnUIFlash();
+    }
+
+    private void ManualUsed(Vector3 manualLoc)
+    {
+        ShowManualAbilityChargedIconAboveHero(false);
+    }
+
+    private void ShowManualAbilityChargedIconAboveHero(bool show)
+    {
+        _abilityChargedAnimator.SetBool(_showAbilityRechargedHolderBool, show);
     }
 
     /// <summary>
     /// Causes the icon of the heroes manual ability to appear when the ability is charged
     /// </summary>
-    private void CreateAbilityChargedIconAboveHero()
+    private void CreateAbilityReChargedIconAboveHero()
     {
         GameObject newAbilityChargedIcon = Instantiate(_abilityChargedIcon, _abilityChargedOrigin);
 
@@ -373,5 +396,7 @@ public class HeroUIManager : GameUIChildrenFunctionality
         _associatedHeroBase.GetHeroManualAbilityChargingEvent().AddListener(AssociatedHeroManualCharging);
         //Creates an icon to show the player that the ability is charged
         _associatedHeroBase.GetHeroManualAbilityFullyChargedEvent().AddListener(ManualFullyCharged);
+        //Hides the ability icon
+        _associatedHeroBase.GetHeroManualAbilityAttemptEvent().AddListener(ManualUsed);
     }
 }

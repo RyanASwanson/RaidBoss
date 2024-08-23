@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HeroVisuals : HeroChildrenFunctionality
 {
@@ -13,9 +14,8 @@ public class HeroVisuals : HeroChildrenFunctionality
     [Space]
 
     [SerializeField] private RectTransform _abilityChargedOrigin;
-    [SerializeField] private Animator _abilityRechargedHolder;
-
-    private const string _showAbilityRechargedHolderBool = "ShowRechargedIcon";
+    [SerializeField] private Animator _abilityChargedAnimator;
+    [SerializeField] private Image _abilityChargedManualImage;
 
     [Space]
     [SerializeField] private RectTransform _damageNumbersOrigin;
@@ -281,6 +281,9 @@ public class HeroVisuals : HeroChildrenFunctionality
 
     #region Getters
     public RectTransform GetAbilityChargedOrigin() => _abilityChargedOrigin;
+    public Animator GetAbilityChargedAnimator() => _abilityChargedAnimator;
+    public Image GetAbilityChargedManualImage() => _abilityChargedManualImage;
+
     public RectTransform GetDamageNumbersOrigin() => _damageNumbersOrigin;
     public RectTransform GetHealingNumbersOrigin() => _healingNumbersOrigin;
     public RectTransform GetBuffDebuffOrigin() => _buffDebuffOrigin;
