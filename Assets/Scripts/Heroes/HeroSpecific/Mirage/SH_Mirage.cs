@@ -6,6 +6,8 @@ public class SH_Mirage : SpecificHeroFramework
 {
     [Space]
     [SerializeField] private GameObject _basicProjectile;
+    [SerializeField] private GameObject _basicTargetZone;
+    private GameObject _currentBasicTargetZone;
 
     [SerializeField] private HeroSO _cloneSO;
     [SerializeField] private GameObject _manualClone;
@@ -15,7 +17,30 @@ public class SH_Mirage : SpecificHeroFramework
 
 
     #region Basic Abilities
+    private void CreateBasicTargetZone()
+    {
+        _currentBasicTargetZone = Instantiate(_basicTargetZone, FindHeroCloneMidpoint(), Quaternion.identity);
 
+        StartCoroutine(MoveBasicTargetZone());
+    }
+
+    private IEnumerator MoveBasicTargetZone()
+    {
+        while(this != null && _currentBasicTargetZone != null)
+        {
+            _currentBasicTargetZone.transform.position = FindHeroCloneMidpoint();
+
+            _currentBasicTargetZone.transform.LookAt(transform.position);
+            _currentBasicTargetZone.transform.eulerAngles = new Vector3(_currentBasicTargetZone.transform.eulerAngles.x,
+                0, _currentBasicTargetZone.transform.eulerAngles.z);
+            yield return null;
+        }
+    }
+
+    private Vector3 FindHeroCloneMidpoint()
+    {
+        return Vector3.Lerp(transform.position, _cloneBase.transform.position, .5f);
+    }
     #endregion
 
     #region Manual Abilities
@@ -42,6 +67,12 @@ public class SH_Mirage : SpecificHeroFramework
     #region Passive Abilities
 
     #endregion
+
+    protected override void BattleStarted()
+    {
+        CreateBasicTargetZone();
+        base.BattleStarted();
+    }
 
     public override void SetupSpecificHero(HeroBase heroBase, HeroSO heroSO)
     {

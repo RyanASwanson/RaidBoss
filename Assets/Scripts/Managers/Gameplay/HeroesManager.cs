@@ -80,6 +80,7 @@ public class HeroesManager : BaseGameplayManager
         //Checks if the game should be declared a loss
         CheckIfAllHeroesDead();
 
+        GameplayManagers.Instance.GetBossManager().GetBossBase().GetSpecificBossScript().HeroDied(deadHero);
         UniversalManagers.Instance.GetTimeManager().HeroDiedTimeSlow();
     }
 

@@ -77,12 +77,14 @@ public abstract class SpecificBossFramework : MonoBehaviour
 
     public void AddHeroTarget(HeroBase heroBase)
     {
-
+        _bossAttackTargets.Add(heroBase);
     }
 
-    protected virtual void RemoveHeroTarget()
+    protected virtual void RemoveHeroTarget(HeroBase heroBase)
     {
+        if (!_bossAttackTargets.Contains(heroBase)) return;
 
+        _bossAttackTargets.Remove(heroBase);
     }
 
     /// <summary>
@@ -93,7 +95,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
     {
         //If there is no aggro override just check the current living heroes
         if (_aggroOverrides.Count < 1)
-            return DetermineAggroFromList(GameplayManagers.Instance.GetHeroesManager().GetCurrentLivingHeroes());
+            return DetermineAggroFromList(_bossAttackTargets);
         //If there are aggro overrides just check them
         return DetermineAggroFromList(_aggroOverrides);
     }
@@ -277,6 +279,11 @@ public abstract class SpecificBossFramework : MonoBehaviour
     {
         if (_abilityLocked == null) return;
         AddAbilityToBossReadyAttacks(_abilityLocked);
+    }
+
+    public virtual void HeroDied(HeroBase heroBase)
+    {
+        RemoveHeroTarget(heroBase);
     }
 
     public virtual void SetupSpecificBoss(BossBase bossBase)
