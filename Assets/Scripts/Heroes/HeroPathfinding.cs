@@ -79,11 +79,15 @@ public class HeroPathfinding : HeroChildrenFunctionality
     private IEnumerator MovingOnNavMesh()
     {
         StopHeroLookAt();
+        _meshAgent.autoRepath = true;
 
         yield return new WaitForEndOfFrame();
         while(gameObject != null && _meshAgent.hasPath )
         {
             yield return null;
+
+            if (_meshAgent.pathStatus == NavMeshPathStatus.PathInvalid || _meshAgent.pathStatus == NavMeshPathStatus.PathPartial)
+                print("cant find path end");
         }
         myHeroBase.InvokeHeroStoppedMovingEvent();
         _heroMovementCoroutine = null;
