@@ -409,6 +409,15 @@ public class SelectionController : MonoBehaviour
         }
     }
 
+    public void HeroAbilityHoverBegin(int abilityID)
+    {
+        ShowHeroAbilityDescription(abilityID);
+    }
+    public void HeroAbilityHoverEnd()
+    {
+        HideHeroAbilityDescription();
+    }
+
 
     public void ShowHeroAbilityDescription(int abilityID)
     {
