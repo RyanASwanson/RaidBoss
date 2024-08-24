@@ -17,6 +17,7 @@ public class BossBase : MonoBehaviour
     private SpecificBossFramework _associatedBossScript;
 
     private UnityEvent<BossSO> _bossSOSetEvent = new UnityEvent<BossSO>();
+    private UnityEvent _bossTargetsAssigned = new UnityEvent();
 
     private UnityEvent<float> _bossDamagedEvent = new UnityEvent<float>();
     private UnityEvent<float> _bossStaggerDealtEvent = new UnityEvent<float>();
@@ -126,6 +127,7 @@ public class BossBase : MonoBehaviour
 
 
     public UnityEvent<BossSO> GetSOSetEvent() => _bossSOSetEvent;
+    public UnityEvent GetBossTargetsAssignedEvent() => _bossTargetsAssigned;
 
     public UnityEvent<float> GetBossDamagedEvent() => _bossDamagedEvent;
     public UnityEvent<float> GetBossStaggerDealtEvent() => _bossStaggerDealtEvent;

@@ -23,6 +23,8 @@ public abstract class SpecificBossFramework : MonoBehaviour
 
     protected GameObject _storedBossUI;
 
+
+    private List<HeroBase> _bossAttackTargets = new List<HeroBase>();
     private List<HeroBase> _aggroOverrides = new List<HeroBase>();
 
     protected Coroutine _nextAttackProcess;
@@ -35,6 +37,8 @@ public abstract class SpecificBossFramework : MonoBehaviour
     protected virtual void StartFight()
     {
         SetupReadyBossAbilities();
+
+        AssignInitialHeroTargets();
 
         StartNextAbility();
     }
@@ -50,7 +54,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
         }
     }
 
-    private void CreateBossSpecificUI()
+    protected virtual void CreateBossSpecificUI()
     {
         if (_bossSpecificUI == null) return;
         _storedBossUI = GameplayManagers.Instance.GetGameUIManager().
@@ -62,6 +66,24 @@ public abstract class SpecificBossFramework : MonoBehaviour
     #endregion
 
     #region Aggro
+    protected virtual void AssignInitialHeroTargets()
+    {
+        
+        List<HeroBase> allHeroes = GameplayManagers.Instance.GetHeroesManager().GetCurrentHeroes();
+        _bossAttackTargets = new List<HeroBase>(allHeroes);
+
+    }
+
+    public void AddHeroTarget(HeroBase heroBase)
+    {
+
+    }
+
+    protected virtual void RemoveHeroTarget()
+    {
+
+    }
+
     /// <summary>
     /// Determine which hero should be targeted
     /// </summary>
