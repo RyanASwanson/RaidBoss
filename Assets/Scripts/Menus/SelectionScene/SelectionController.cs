@@ -194,6 +194,15 @@ public class SelectionController : MonoBehaviour
         }
     }
 
+    public void BossAbilityHoverBegin(int abilityID)
+    {
+        ShowBossAbilityDescription(abilityID);
+    }
+    public void BossAbilityHoverEnd()
+    {
+        HideBossAbilityDescription();
+    }
+
     private void DisplayAbilityIconsForBoss(BossSO bossSO)
     {
         List<BossAbilityInformation> bossAbilityInfo = bossSO.GetBossAbilityInformation();

@@ -3102,6 +3102,7 @@ GameObject:
   - component: {fileID: 1211727581337640484}
   - component: {fileID: 1211727581337640487}
   - component: {fileID: 1211727581337640490}
+  - component: {fileID: 3052645175450145586}
   m_Layer: 5
   m_Name: AbilityIcon
   m_TagString: Untagged
@@ -3174,7 +3175,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1211727581337640481}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -3223,6 +3224,51 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &3052645175450145586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1211727581337640481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1211727580956939670}
+          m_TargetAssemblyTypeName: SelectionController, Assembly-CSharp
+          m_MethodName: HeroAbilityHoverBegin
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1211727580956939670}
+          m_TargetAssemblyTypeName: SelectionController, Assembly-CSharp
+          m_MethodName: HeroAbilityHoverEnd
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1211727581360931369
 GameObject:
   m_ObjectHideFlags: 0
@@ -5085,6 +5131,7 @@ GameObject:
   - component: {fileID: 1211727582126043260}
   - component: {fileID: 1211727582126043263}
   - component: {fileID: 1211727582126043234}
+  - component: {fileID: 7965359723141633028}
   m_Layer: 5
   m_Name: AbilityIcon
   m_TagString: Untagged
@@ -5157,7 +5204,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1211727582126043257}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -5206,6 +5253,51 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &7965359723141633028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1211727582126043257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1211727580956939670}
+          m_TargetAssemblyTypeName: SelectionController, Assembly-CSharp
+          m_MethodName: HeroAbilityHoverBegin
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 2
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1211727580956939670}
+          m_TargetAssemblyTypeName: SelectionController, Assembly-CSharp
+          m_MethodName: HeroAbilityHoverEnd
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1211727582170954974
 GameObject:
   m_ObjectHideFlags: 0
@@ -6478,6 +6570,7 @@ GameObject:
   - component: {fileID: 1211727582564313061}
   - component: {fileID: 1211727582564313060}
   - component: {fileID: 1211727582564313067}
+  - component: {fileID: 8585328623481221930}
   m_Layer: 5
   m_Name: AbilityIcon
   m_TagString: Untagged
@@ -6550,7 +6643,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1211727582564313062}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -6599,6 +6692,51 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8585328623481221930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1211727582564313062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1211727580956939670}
+          m_TargetAssemblyTypeName: SelectionController, Assembly-CSharp
+          m_MethodName: HeroAbilityHoverBegin
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 1
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1211727580956939670}
+          m_TargetAssemblyTypeName: SelectionController, Assembly-CSharp
+          m_MethodName: HeroAbilityHoverEnd
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1211727582608226421
 GameObject:
   m_ObjectHideFlags: 0
@@ -8705,6 +8843,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: BossAbilityIconButton (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5073443168337597270, guid: d04e8b8878375eb4e987b2c2e2b56f31, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1211727580956939670}
+    - target: {fileID: 5073443168337597270, guid: d04e8b8878375eb4e987b2c2e2b56f31, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1211727580956939670}
+    - target: {fileID: 5073443168337597270, guid: d04e8b8878375eb4e987b2c2e2b56f31, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BossAbilityHoverBegin
+      objectReference: {fileID: 0}
+    - target: {fileID: 5073443168337597270, guid: d04e8b8878375eb4e987b2c2e2b56f31, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BossAbilityHoverEnd
+      objectReference: {fileID: 0}
+    - target: {fileID: 5073443168337597270, guid: d04e8b8878375eb4e987b2c2e2b56f31, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d04e8b8878375eb4e987b2c2e2b56f31, type: 3}
 --- !u!114 &3019865820654716604 stripped
@@ -9971,6 +10129,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: BossAbilityIconButton (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5073443168337597270, guid: d04e8b8878375eb4e987b2c2e2b56f31, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1211727580956939670}
+    - target: {fileID: 5073443168337597270, guid: d04e8b8878375eb4e987b2c2e2b56f31, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1211727580956939670}
+    - target: {fileID: 5073443168337597270, guid: d04e8b8878375eb4e987b2c2e2b56f31, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BossAbilityHoverBegin
+      objectReference: {fileID: 0}
+    - target: {fileID: 5073443168337597270, guid: d04e8b8878375eb4e987b2c2e2b56f31, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BossAbilityHoverEnd
+      objectReference: {fileID: 0}
+    - target: {fileID: 5073443168337597270, guid: d04e8b8878375eb4e987b2c2e2b56f31, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d04e8b8878375eb4e987b2c2e2b56f31, type: 3}
 --- !u!114 &3019865819577442369 stripped
@@ -10868,6 +11046,26 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5073443168337597270, guid: d04e8b8878375eb4e987b2c2e2b56f31, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1211727580956939670}
+    - target: {fileID: 5073443168337597270, guid: d04e8b8878375eb4e987b2c2e2b56f31, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1211727580956939670}
+    - target: {fileID: 5073443168337597270, guid: d04e8b8878375eb4e987b2c2e2b56f31, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BossAbilityHoverBegin
+      objectReference: {fileID: 0}
+    - target: {fileID: 5073443168337597270, guid: d04e8b8878375eb4e987b2c2e2b56f31, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BossAbilityHoverEnd
+      objectReference: {fileID: 0}
+    - target: {fileID: 5073443168337597270, guid: d04e8b8878375eb4e987b2c2e2b56f31, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d04e8b8878375eb4e987b2c2e2b56f31, type: 3}
 --- !u!114 &3019865819884315642 stripped
@@ -11121,6 +11319,26 @@ PrefabInstance:
     - target: {fileID: 4123146778406054868, guid: d04e8b8878375eb4e987b2c2e2b56f31, type: 3}
       propertyPath: m_Name
       value: BossAbilityIconButton (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5073443168337597270, guid: d04e8b8878375eb4e987b2c2e2b56f31, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1211727580956939670}
+    - target: {fileID: 5073443168337597270, guid: d04e8b8878375eb4e987b2c2e2b56f31, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1211727580956939670}
+    - target: {fileID: 5073443168337597270, guid: d04e8b8878375eb4e987b2c2e2b56f31, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BossAbilityHoverBegin
+      objectReference: {fileID: 0}
+    - target: {fileID: 5073443168337597270, guid: d04e8b8878375eb4e987b2c2e2b56f31, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BossAbilityHoverEnd
+      objectReference: {fileID: 0}
+    - target: {fileID: 5073443168337597270, guid: d04e8b8878375eb4e987b2c2e2b56f31, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d04e8b8878375eb4e987b2c2e2b56f31, type: 3}
@@ -11871,6 +12089,22 @@ PrefabInstance:
     - target: {fileID: 4123146778406054868, guid: d04e8b8878375eb4e987b2c2e2b56f31, type: 3}
       propertyPath: m_Name
       value: BossAbilityIconButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 5073443168337597270, guid: d04e8b8878375eb4e987b2c2e2b56f31, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1211727580956939670}
+    - target: {fileID: 5073443168337597270, guid: d04e8b8878375eb4e987b2c2e2b56f31, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1211727580956939670}
+    - target: {fileID: 5073443168337597270, guid: d04e8b8878375eb4e987b2c2e2b56f31, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BossAbilityHoverBegin
+      objectReference: {fileID: 0}
+    - target: {fileID: 5073443168337597270, guid: d04e8b8878375eb4e987b2c2e2b56f31, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BossAbilityHoverEnd
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d04e8b8878375eb4e987b2c2e2b56f31, type: 3}
