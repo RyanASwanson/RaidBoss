@@ -76,6 +76,9 @@ public class HeroSO : ScriptableObject
     public int GetSpeedStat() => _speedStat;
     public int GetUtilityStat() => _utilityStat;
 
+    public HeroRange GetHeroRange() => _heroRange;
+    public HeroDifficulty GetHeroDifficulty() => _heroDifficulty;
+
     public Color GetHeroHighlightedColor() => _heroHighlightedColor;
     public Color GetHeroPressedColor() => _heroPressedColor;
     public Color GetHeroSelectedColor() => _heroSelectedColor;

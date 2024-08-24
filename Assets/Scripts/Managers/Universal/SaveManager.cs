@@ -198,6 +198,7 @@ public class GameSaveData
     [Space]
     [Header("Settings")]
     [Range(0, 1)] public float _screenShakeStrength;
+    public bool _heroClickAndDragMovement;
 
     [Range(0, 1)] public float _masterVolume;
     [Range(0, 1)] public float _musicVolume;

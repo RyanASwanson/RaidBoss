@@ -53,6 +53,15 @@ public class SelectionController : MonoBehaviour
     [SerializeField] private List<StatCounter> _statCounters;
 
     [Space]
+    [SerializeField] private Image _rangeIcon;
+    [SerializeField] private List<Sprite> _rangeIconSprites;
+
+    [Space]
+    [SerializeField] private Image _difficultyIcon;
+    [SerializeField] private List<Sprite> _difficultyIconSprites;
+    
+
+    [Space]
     [SerializeField] private Image _heroBasicIcon;
     [SerializeField] private Image _heroManualIcon;
     [SerializeField] private Image _heroPassiveIcon;
@@ -335,6 +344,8 @@ public class SelectionController : MonoBehaviour
         //Displays all stats associated for the hero on the counters
         DisplayStatsForHero(heroSO);
 
+        DisplayHeroRangeAndDifficulty(heroSO);
+
         DisplayAbilityIconsForHero(heroSO);
 
         int heroPillarNum = UniversalManagers.Instance.GetSelectionManager().GetSelectedHeroesCount();
@@ -367,6 +378,12 @@ public class SelectionController : MonoBehaviour
     {
         foreach (StatCounter statCounter in _statCounters)
             statCounter.StopShowNodeProcess();
+    }
+
+    private void DisplayHeroRangeAndDifficulty(HeroSO heroSO)
+    {
+        _rangeIcon.sprite = _rangeIconSprites[(int)heroSO.GetHeroRange()];
+        _difficultyIcon.sprite = _difficultyIconSprites[(int)heroSO.GetHeroDifficulty()];
     }
 
     private void DisplayAbilityIconsForHero(HeroSO heroSO)
