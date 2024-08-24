@@ -72,6 +72,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
         List<HeroBase> allHeroes = GameplayManagers.Instance.GetHeroesManager().GetCurrentHeroes();
         _bossAttackTargets = new List<HeroBase>(allHeroes);
 
+        _myBossBase.InvokeBossTargetsAssignedEvent();
     }
 
     public void AddHeroTarget(HeroBase heroBase)

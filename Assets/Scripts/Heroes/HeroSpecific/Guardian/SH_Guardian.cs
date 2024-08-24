@@ -88,7 +88,7 @@ public class SH_Guardian : SpecificHeroFramework
         base.DeactivateHeroSpecificActivity();
     }
 
-    public override void SubscribeToEvents()
+    protected override void SubscribeToEvents()
     {
         base.SubscribeToEvents();
 

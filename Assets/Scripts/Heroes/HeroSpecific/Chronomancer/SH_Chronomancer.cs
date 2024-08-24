@@ -189,7 +189,7 @@ public class SH_Chronomancer : SpecificHeroFramework
         UnsubscribeToHeroesDamagedEvents();
     }
 
-    public override void SubscribeToEvents()
+    protected override void SubscribeToEvents()
     {
         base.SubscribeToEvents();
     }

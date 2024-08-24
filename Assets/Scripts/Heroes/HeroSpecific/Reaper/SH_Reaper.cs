@@ -105,7 +105,7 @@ public class SH_Reaper : SpecificHeroFramework
         _myHeroBase.GetHeroStats().AddDeathOverrideCounter();
     }
 
-    public override void SubscribeToEvents()
+    protected override void SubscribeToEvents()
     {
         base.SubscribeToEvents();
 

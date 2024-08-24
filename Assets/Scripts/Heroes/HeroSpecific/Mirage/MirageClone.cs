@@ -15,4 +15,9 @@ public class MirageClone : SpecificHeroFramework
     {
         
     }
+
+    protected override void SubscribeToEvents()
+    {
+        base.SubscribeToEvents();
+    }
 }

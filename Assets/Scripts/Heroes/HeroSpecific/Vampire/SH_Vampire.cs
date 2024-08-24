@@ -103,7 +103,7 @@ public class SH_Vampire : SpecificHeroFramework
     }
     #endregion
 
-    public override void SubscribeToEvents()
+    protected override void SubscribeToEvents()
     {
         base.SubscribeToEvents();
 

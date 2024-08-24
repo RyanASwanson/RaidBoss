@@ -77,6 +77,10 @@ public class BossBase : MonoBehaviour
     {
         _bossSOSetEvent?.Invoke(bossSO);
     }
+    public void InvokeBossTargetsAssignedEvent()
+    {
+        _bossTargetsAssigned?.Invoke();
+    }
 
     public void InvokeBossDamagedEvent(float damage)
     {

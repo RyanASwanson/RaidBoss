@@ -100,7 +100,7 @@ public class SH_Alchemist : SpecificHeroFramework
         base.HeroDied();
     }
 
-    public override void SubscribeToEvents()
+    protected override void SubscribeToEvents()
     {
         base.SubscribeToEvents();
 

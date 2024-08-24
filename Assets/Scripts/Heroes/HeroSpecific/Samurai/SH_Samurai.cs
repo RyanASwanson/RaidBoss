@@ -144,7 +144,7 @@ public class SH_Samurai : SpecificHeroFramework
         base.DeactivateHeroSpecificActivity();
     }
 
-    public override void SubscribeToEvents()
+    protected override void SubscribeToEvents()
     {
         base.SubscribeToEvents();
     }
