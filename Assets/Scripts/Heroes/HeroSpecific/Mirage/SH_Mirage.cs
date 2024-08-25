@@ -8,6 +8,7 @@ public class SH_Mirage : SpecificHeroFramework
     [SerializeField] private GameObject _basicProjectile;
     [SerializeField] private GameObject _basicTargetZone;
     private GameObject _currentBasicTargetZone;
+    private const float _targetZoneYOffset = -.5f;
 
     [SerializeField] private HeroSO _cloneSO;
     [SerializeField] private GameObject _manualClone;
@@ -31,8 +32,8 @@ public class SH_Mirage : SpecificHeroFramework
             _currentBasicTargetZone.transform.position = FindHeroCloneMidpoint();
 
             _currentBasicTargetZone.transform.LookAt(transform.position);
-            _currentBasicTargetZone.transform.eulerAngles = new Vector3(_currentBasicTargetZone.transform.eulerAngles.x,
-                0, _currentBasicTargetZone.transform.eulerAngles.z);
+            _currentBasicTargetZone.transform.eulerAngles = new Vector3
+                (0,_currentBasicTargetZone.transform.eulerAngles.y + _targetZoneYOffset, 0);
             yield return null;
         }
     }
@@ -40,6 +41,20 @@ public class SH_Mirage : SpecificHeroFramework
     private Vector3 FindHeroCloneMidpoint()
     {
         return Vector3.Lerp(transform.position, _cloneBase.transform.position, .5f);
+    }
+
+    public override void ActivateBasicAbilities()
+    {
+        CreateBasicAbilityProjectile();
+        base.ActivateBasicAbilities();
+    }
+
+    public void CreateBasicAbilityProjectile()
+    {
+        GameObject _newestProjectile = Instantiate(_basicProjectile, 
+            _currentBasicTargetZone.transform.position, _currentBasicTargetZone.transform.rotation);
+
+        _newestProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(_myHeroBase);
     }
     #endregion
 
@@ -50,6 +65,8 @@ public class SH_Mirage : SpecificHeroFramework
 
         _cloneBase = GameplayManagers.Instance.GetHeroesManager().CreateHeroBase(spawnLocation,
             _myHeroBase.transform.rotation, _cloneSO);
+
+        ((MirageClone)_cloneBase.GetSpecificHeroScript()).AdditionalSetup(this);
     }
 
     public override void ActivateManualAbilities(Vector3 attackLocation)
@@ -61,6 +78,11 @@ public class SH_Mirage : SpecificHeroFramework
     private void MoveClone(Vector3 moveLocation)
     {
         _cloneBase.GetPathfinding().DirectNavigationTo(moveLocation);
+    }
+
+    private void CloneBasicAbility()
+    {
+        CreateBasicAbilityProjectile();
     }
     #endregion
 
@@ -79,6 +101,7 @@ public class SH_Mirage : SpecificHeroFramework
         base.SetupSpecificHero(heroBase, heroSO);
         CreateClone();
     }
+
 
 
 }

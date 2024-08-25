@@ -21,6 +21,7 @@ public class HeroBase : MonoBehaviour
     [SerializeField] private GameObject _heroSpecificsGO;
 
     [Header("Colliders")]
+    [SerializeField] private Collider _clickCollider;
     [SerializeField] private Collider _damageCollider;
 
     private HeroSO _associatedSO;
@@ -202,6 +203,7 @@ public class HeroBase : MonoBehaviour
     public HeroVisuals GetHeroVisuals() => _heroVisuals;
     public HeroStats GetHeroStats() => _heroStats;
 
+    public Collider GetClickCollider() => _clickCollider;
     public Collider GetHeroDamageCollider() => _damageCollider;
 
     public HeroSO GetHeroSO() => _associatedSO;
@@ -245,5 +247,11 @@ public class HeroBase : MonoBehaviour
         _associatedSO = heroSO;
         InvokeSetHeroSO(heroSO);
     }
+
+    public void SetClickColliderStatus(bool status)
+    {
+        _clickCollider.enabled = status;
+    }
+
     #endregion
 }
