@@ -145,6 +145,11 @@ public class HeroStats : HeroChildrenFunctionality
         GameplayManagers.Instance.GetHeroesManager().HeroDied(myHeroBase);
     }
 
+    public void ForceKillHero()
+    {
+        myHeroBase.InvokeHeroDiedEvent();
+    }
+
     private void SetPreviousHealthValue()
     {
         _previousHealthValue = _currentHealth;

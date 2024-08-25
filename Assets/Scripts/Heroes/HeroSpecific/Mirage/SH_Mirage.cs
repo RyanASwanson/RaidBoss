@@ -86,6 +86,11 @@ public class SH_Mirage : SpecificHeroFramework
     {
         CreateBasicAbilityProjectile();
     }
+
+    private void CloneDeath()
+    {
+        _cloneBase.GetHeroStats().ForceKillHero();
+    }
     #endregion
 
     #region Passive Abilities
@@ -104,6 +109,11 @@ public class SH_Mirage : SpecificHeroFramework
         CreateClone();
     }
 
+    protected override void SubscribeToEvents()
+    {
+        base.SubscribeToEvents();
+        _myHeroBase.GetHeroDiedEvent().AddListener(CloneDeath);
+    }
 
 
 }
