@@ -71,6 +71,15 @@ public partial class @UniversalPlayerInputActions: IInputActionCollection2, IDis
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MouseScroll"",
+                    ""type"": ""Value"",
+                    ""id"": ""2ed982a0-9da7-4e89-97e8-16fb56e89c60"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -238,6 +247,17 @@ public partial class @UniversalPlayerInputActions: IInputActionCollection2, IDis
                     ""action"": ""NumberPress"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a81ab5ce-27d2-4120-b0cf-5b9e9741b1e5"",
+                    ""path"": ""<Mouse>/scroll/y"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale"",
+                    ""groups"": """",
+                    ""action"": ""MouseScroll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -251,6 +271,7 @@ public partial class @UniversalPlayerInputActions: IInputActionCollection2, IDis
         m_GameplayActions_ActiveAbility = m_GameplayActions.FindAction("ActiveAbility", throwIfNotFound: true);
         m_GameplayActions_NumberPress = m_GameplayActions.FindAction("NumberPress", throwIfNotFound: true);
         m_GameplayActions_EscapePress = m_GameplayActions.FindAction("EscapePress", throwIfNotFound: true);
+        m_GameplayActions_MouseScroll = m_GameplayActions.FindAction("MouseScroll", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -317,6 +338,7 @@ public partial class @UniversalPlayerInputActions: IInputActionCollection2, IDis
     private readonly InputAction m_GameplayActions_ActiveAbility;
     private readonly InputAction m_GameplayActions_NumberPress;
     private readonly InputAction m_GameplayActions_EscapePress;
+    private readonly InputAction m_GameplayActions_MouseScroll;
     public struct GameplayActionsActions
     {
         private @UniversalPlayerInputActions m_Wrapper;
@@ -326,6 +348,7 @@ public partial class @UniversalPlayerInputActions: IInputActionCollection2, IDis
         public InputAction @ActiveAbility => m_Wrapper.m_GameplayActions_ActiveAbility;
         public InputAction @NumberPress => m_Wrapper.m_GameplayActions_NumberPress;
         public InputAction @EscapePress => m_Wrapper.m_GameplayActions_EscapePress;
+        public InputAction @MouseScroll => m_Wrapper.m_GameplayActions_MouseScroll;
         public InputActionMap Get() { return m_Wrapper.m_GameplayActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -350,6 +373,9 @@ public partial class @UniversalPlayerInputActions: IInputActionCollection2, IDis
             @EscapePress.started += instance.OnEscapePress;
             @EscapePress.performed += instance.OnEscapePress;
             @EscapePress.canceled += instance.OnEscapePress;
+            @MouseScroll.started += instance.OnMouseScroll;
+            @MouseScroll.performed += instance.OnMouseScroll;
+            @MouseScroll.canceled += instance.OnMouseScroll;
         }
 
         private void UnregisterCallbacks(IGameplayActionsActions instance)
@@ -369,6 +395,9 @@ public partial class @UniversalPlayerInputActions: IInputActionCollection2, IDis
             @EscapePress.started -= instance.OnEscapePress;
             @EscapePress.performed -= instance.OnEscapePress;
             @EscapePress.canceled -= instance.OnEscapePress;
+            @MouseScroll.started -= instance.OnMouseScroll;
+            @MouseScroll.performed -= instance.OnMouseScroll;
+            @MouseScroll.canceled -= instance.OnMouseScroll;
         }
 
         public void RemoveCallbacks(IGameplayActionsActions instance)
@@ -393,5 +422,6 @@ public partial class @UniversalPlayerInputActions: IInputActionCollection2, IDis
         void OnActiveAbility(InputAction.CallbackContext context);
         void OnNumberPress(InputAction.CallbackContext context);
         void OnEscapePress(InputAction.CallbackContext context);
+        void OnMouseScroll(InputAction.CallbackContext context);
     }
 }

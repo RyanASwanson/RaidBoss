@@ -9,6 +9,12 @@ using UnityEngine.Events;
 /// </summary>
 public class PlayerInputGameplayManager : BaseGameplayManager
 {
+    [SerializeField] private float _scrollCooldown;
+    private bool _scrollOnCooldown;
+
+    private Coroutine _scrollCooldownCoroutine;
+
+    [Space]
     [SerializeField] private LayerMask _selectClickLayerMask;
     [SerializeField] private LayerMask _directClickLayerMask;
 
@@ -70,6 +76,18 @@ public class PlayerInputGameplayManager : BaseGameplayManager
     public void NewControlledHeroByID(int id)
     {
         NewControlledHero(GameplayManagers.Instance.GetHeroesManager().GetCurrentHeroes()[id]);
+    }
+
+    private void ScrollControlledHero(int direction)
+    {
+        direction += _controlledHeroes[0].GetHeroID();
+        if (direction > GameplayManagers.Instance.GetHeroesManager().GetCurrentHeroes().Count-1)
+            direction = 0;
+        else if (direction < 0)
+            direction = GameplayManagers.Instance.GetHeroesManager().GetCurrentHeroes().Count-1;
+
+        NewControlledHeroByID(direction);
+        
     }
 
     private void NewControlledHeroes()
@@ -169,6 +187,29 @@ public class PlayerInputGameplayManager : BaseGameplayManager
         
     }
 
+    private void MouseScroll(InputAction.CallbackContext context)
+    {
+        if (_scrollCooldownCoroutine != null)
+            return;
+
+
+        int storedDirection = (int)context.ReadValue<float>();
+        if (storedDirection > 0)
+            storedDirection = 1;
+        else if (storedDirection < 0)
+            storedDirection = -1;
+
+        ScrollControlledHero(storedDirection);
+
+        _scrollCooldownCoroutine = StartCoroutine(ScrollCooldown());
+    }
+
+    private IEnumerator ScrollCooldown()
+    {
+        yield return new WaitForSeconds(_scrollCooldown);
+        _scrollCooldownCoroutine = null;
+    }
+
     private void EscapePress(InputAction.CallbackContext context)
     {
         UniversalManagers.Instance.GetTimeManager().PressGamePauseButton();
@@ -183,6 +224,7 @@ public class PlayerInputGameplayManager : BaseGameplayManager
         UPIA.GameplayActions.DirectClick.started += PlayerDirectClicked;
         UPIA.GameplayActions.ActiveAbility.started += HeroActiveButton;
         UPIA.GameplayActions.NumberPress.started += HeroNumberPress;
+        UPIA.GameplayActions.MouseScroll.performed += MouseScroll;
         UPIA.GameplayActions.EscapePress.started += EscapePress;
 
         _subscribedToInput = true;
@@ -195,6 +237,8 @@ public class PlayerInputGameplayManager : BaseGameplayManager
         UPIA.GameplayActions.DirectClick.started -= PlayerDirectClicked;
         UPIA.GameplayActions.ActiveAbility.started -= HeroActiveButton;
         UPIA.GameplayActions.NumberPress.started -= HeroNumberPress;
+        UPIA.GameplayActions.MouseScroll.started -= MouseScroll;
+        UPIA.GameplayActions.MouseScroll.performed -= MouseScroll;
         UPIA.GameplayActions.EscapePress.started -= EscapePress;
 
         UPIA.Disable();

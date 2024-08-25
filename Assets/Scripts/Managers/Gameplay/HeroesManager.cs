@@ -29,7 +29,7 @@ public class HeroesManager : BaseGameplayManager
 
         for (int i = 0; i < heroSOs.Count; i++)
         {
-            SpawnHero(spawnLocations[i].transform,heroSOs[i]);
+            SpawnHero(spawnLocations[i].transform,heroSOs[i] , i);
 
             yield return new WaitForSeconds(_heroSpawnInterval);
         }
@@ -40,20 +40,20 @@ public class HeroesManager : BaseGameplayManager
     /// </summary>
     /// <param name="spawnLocation"></param>
     /// <param name="heroSO"></param>
-    void SpawnHero(Transform spawnLocation, HeroSO heroSO)
+    void SpawnHero(Transform spawnLocation, HeroSO heroSO, int heroID)
     {
-        HeroBase heroBase = CreateHeroBase(spawnLocation, heroSO);
+        HeroBase heroBase = CreateHeroBase(spawnLocation, heroSO, heroID);
 
         _currentHeroes.Add(heroBase);
         _currentLivingHeroes.Add(heroBase);
     }
 
-    public HeroBase CreateHeroBase(Transform spawnTransform, HeroSO heroSO)
+    public HeroBase CreateHeroBase(Transform spawnTransform, HeroSO heroSO, int heroID)
     {
         GameObject newHero = Instantiate(_baseHeroPrefab,
             spawnTransform.transform.position, spawnTransform.transform.rotation);
         HeroBase heroBase = newHero.GetComponent<HeroBase>();
-        heroBase.Setup(heroSO);
+        heroBase.Setup(heroSO, heroID);
 
         return heroBase;
     }

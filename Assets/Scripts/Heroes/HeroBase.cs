@@ -60,6 +60,12 @@ public class HeroBase : MonoBehaviour
     private UnityEvent _heroDiedEvent = new UnityEvent();
     private UnityEvent _heroDeathOverrideEvent = new UnityEvent();
 
+    public void Setup(HeroSO newSO, int heroID)
+    {
+        Setup(newSO);
+        SetHeroID(heroID);
+    }
+
     public void Setup(HeroSO newSO)
     {
         CreateHeroPrefab(newSO);
@@ -246,6 +252,11 @@ public class HeroBase : MonoBehaviour
     {
         _associatedSO = heroSO;
         InvokeSetHeroSO(heroSO);
+    }
+
+    public void SetHeroID(int id)
+    {
+        _myHeroID = id;
     }
 
     public void SetClickColliderStatus(bool status)
