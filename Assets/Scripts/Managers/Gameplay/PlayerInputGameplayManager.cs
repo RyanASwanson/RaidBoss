@@ -156,10 +156,16 @@ public class PlayerInputGameplayManager : BaseGameplayManager
         //No icon is created if no heroes as controlled
         if (_controlledHeroes.Count <= 0) return;
 
-        location = GameplayManagers.Instance.GetEnvironmentManager().GetClosestPointToFloor(location);
-        location = new Vector3(location.x, -.75f, location.z);
+        location = CalculateDirectIconLocation(location);
         Instantiate(_heroDirectIcon, location, Quaternion.identity);
         
+    }
+
+    public Vector3 CalculateDirectIconLocation(Vector3 location)
+    {
+        location = GameplayManagers.Instance.GetEnvironmentManager().GetClosestPointToFloor(location);
+        location = new Vector3(location.x, -.75f, location.z);
+        return location;
     }
 
     private void HeroActiveButton(InputAction.CallbackContext context)

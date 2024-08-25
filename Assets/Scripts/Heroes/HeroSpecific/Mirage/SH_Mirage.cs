@@ -10,8 +10,14 @@ public class SH_Mirage : SpecificHeroFramework
     private GameObject _currentBasicTargetZone;
     private const float _targetZoneYOffset = -.5f;
 
+    [Space]
+    [SerializeField] private float _cloneSpawnDelay;
+    [Space]
     [SerializeField] private HeroSO _cloneSO;
     [SerializeField] private GameObject _manualClone;
+    [Space]
+    [SerializeField] private GameObject _cloneDirectIcon;
+    
     private const float _cloneSpawnOffset = -2;
 
     private HeroBase _cloneBase;
@@ -61,6 +67,7 @@ public class SH_Mirage : SpecificHeroFramework
     #endregion
 
     #region Manual Abilities
+
     private void CreateClone()
     {
         Vector3 spawnLocation = _myHeroBase.transform.position + (_myHeroBase.transform.forward * _cloneSpawnOffset);
@@ -80,9 +87,16 @@ public class SH_Mirage : SpecificHeroFramework
     private void MoveClone(Vector3 moveLocation)
     {
         _cloneBase.GetPathfinding().DirectNavigationTo(moveLocation);
+        CreateCloneDirectIcon(moveLocation);
     }
 
-    private void CloneBasicAbility()
+    private void CreateCloneDirectIcon(Vector3 location)
+    {
+        location = GameplayManagers.Instance.GetPlayerInputManager().CalculateDirectIconLocation(location);
+        Instantiate(_cloneDirectIcon, location, Quaternion.identity);
+    }
+
+    public void CloneBasicAbility()
     {
         CreateBasicAbilityProjectile();
     }
@@ -106,7 +120,7 @@ public class SH_Mirage : SpecificHeroFramework
     public override void SetupSpecificHero(HeroBase heroBase, HeroSO heroSO)
     {
         base.SetupSpecificHero(heroBase, heroSO);
-        CreateClone();
+        Invoke(nameof(CreateClone), _cloneSpawnDelay);
     }
 
     protected override void SubscribeToEvents()

@@ -28,8 +28,8 @@ public class MirageClone : SpecificHeroFramework
             if (castCounter >= _basicAbilityChargeTime)
             {
                 castCounter -= _basicAbilityChargeTime;
-                
-                _mirageOwner.CreateBasicAbilityProjectile();
+
+                _mirageOwner.CloneBasicAbility();
             }
 
             yield return null;
