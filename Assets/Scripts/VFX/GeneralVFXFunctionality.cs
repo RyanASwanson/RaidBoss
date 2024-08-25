@@ -18,12 +18,23 @@ public class GeneralVFXFunctionality : MonoBehaviour
             Destroy(gameObject, _lifeTime);
 
         if (_hasDetachTime)
-            StartCoroutine(DetachProcess());
+        {
+            if (_detachTime == 0)
+                Detach();
+            else
+                StartCoroutine(DetachProcess());
+        }
+            
     }
 
     private IEnumerator DetachProcess()
     {
         yield return new WaitForSeconds(_detachTime);
+        Detach();
+    }
+
+    private void Detach()
+    {
         transform.SetParent(null);
     }
 }
