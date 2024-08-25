@@ -33,14 +33,16 @@ public class SH_Mirage : SpecificHeroFramework
 
             _currentBasicTargetZone.transform.LookAt(transform.position);
             _currentBasicTargetZone.transform.eulerAngles = new Vector3
-                (0,_currentBasicTargetZone.transform.eulerAngles.y + _targetZoneYOffset, 0);
+                (0,_currentBasicTargetZone.transform.eulerAngles.y, 0);
             yield return null;
         }
     }
 
     private Vector3 FindHeroCloneMidpoint()
     {
-        return Vector3.Lerp(transform.position, _cloneBase.transform.position, .5f);
+        Vector3 tempVector = Vector3.Lerp(transform.position, _cloneBase.transform.position, .5f);
+        tempVector = new Vector3(tempVector.x, tempVector.y + _targetZoneYOffset, tempVector.z);
+        return tempVector;
     }
 
     public override void ActivateBasicAbilities()
