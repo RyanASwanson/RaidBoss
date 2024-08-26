@@ -62,7 +62,7 @@ public class SHP_AstromancerManualProjectile : HeroProjectileFramework
 
     private void CreateInitialVFX(Vector3 heroLoc, Vector3 bossLoc, float length)
     {
-        _createdVFX.Add(Instantiate(_bossSideAttackVFX, _bossSideVFXHolder.transform.position, Quaternion.identity));
+        
 
         GameObject heroSideVFX = Instantiate(_heroSideAttackVFX, _heroSideVFXHolder.transform.position, Quaternion.identity);
         heroSideVFX.transform.LookAt(bossLoc);
@@ -73,6 +73,12 @@ public class SHP_AstromancerManualProjectile : HeroProjectileFramework
             heroSideVFXScale.transform.localScale.y, _visualsHolder.transform.localScale.z);*/
 
         _createdVFX.Add(heroSideVFX);
+
+        GameObject bossSideVFX = Instantiate(_bossSideAttackVFX, _bossSideVFXHolder.transform.position, Quaternion.identity);
+        bossSideVFX.transform.LookAt(heroLoc);
+        bossSideVFX.transform.eulerAngles = new Vector3(0, bossSideVFX.transform.eulerAngles.y, 0);
+
+        _createdVFX.Add(bossSideVFX);
     }
     
 

@@ -10,7 +10,7 @@ using UnityEngine.Events;
 public class PlayerInputGameplayManager : BaseGameplayManager
 {
     [SerializeField] private float _scrollCooldown;
-    private bool _scrollOnCooldown;
+    private bool _clickAndDragEnabled;
 
     private Coroutine _scrollCooldownCoroutine;
 
@@ -29,15 +29,12 @@ public class PlayerInputGameplayManager : BaseGameplayManager
 
     private bool _subscribedToInput = false;
 
-    public override void SetupGameplayManager()
-    {
-        base.SetupGameplayManager();
-        SubscribeToPlayerInput();
-    }
+    private HeroesManager _heroesManager;
 
-    private void OnDestroy()
+
+    private void SetupClickAndDrag()
     {
-        UnsubscribeToPlayerInput();
+        _clickAndDragEnabled = UniversalManagers.Instance.GetSaveManager().GetClickAndDragEnabled();
     }
 
     /// <summary>
@@ -75,16 +72,32 @@ public class PlayerInputGameplayManager : BaseGameplayManager
 
     public void NewControlledHeroByID(int id)
     {
-        NewControlledHero(GameplayManagers.Instance.GetHeroesManager().GetCurrentHeroes()[id]);
+        NewControlledHero(_heroesManager.GetCurrentHeroes()[id]);
     }
 
     private void ScrollControlledHero(int direction)
     {
-        direction += _controlledHeroes[0].GetHeroID();
-        if (direction > GameplayManagers.Instance.GetHeroesManager().GetCurrentHeroes().Count-1)
-            direction = 0;
-        else if (direction < 0)
-            direction = GameplayManagers.Instance.GetHeroesManager().GetCurrentHeroes().Count-1;
+
+        if(_controlledHeroes.Count == 0)
+        {
+            HeroBase heroBase = _heroesManager.GetCurrentLivingHeroes()[0];
+            if (heroBase != null)
+                NewControlledHero(heroBase);
+        }
+
+
+        HeroBase heroToControl;
+        do
+        {
+            direction += _controlledHeroes[0].GetHeroID();
+            if (direction > _heroesManager.GetCurrentHeroes().Count - 1)
+                direction = 0;
+            else if (direction < 0)
+                direction = _heroesManager.GetCurrentHeroes().Count - 1;
+
+            heroToControl = _heroesManager.GetCurrentHeroes()[direction];
+        }
+        while (heroToControl.GetHeroStats().IsHeroDead());
 
         NewControlledHeroByID(direction);
         
@@ -251,11 +264,29 @@ public class PlayerInputGameplayManager : BaseGameplayManager
 
         _subscribedToInput = false;
     }
+
+    private void OnDestroy()
+    {
+        UnsubscribeToPlayerInput();
+    }
     #endregion
 
 
 
     #region BaseManager
+    public override void SetupGameplayManager()
+    {
+        base.SetupGameplayManager();
+        GetManagers();
+        SetupClickAndDrag();
+        SubscribeToPlayerInput();
+    }
+
+    private void GetManagers()
+    {
+        _heroesManager = GameplayManagers.Instance.GetHeroesManager();
+    }
+
     public override void SubscribeToEvents()
     {
         //Prevents the player from performing any actions after the game ends

@@ -133,6 +133,9 @@ public class SaveManager : BaseUniversalManager
     }
 
     public float GetScreenShakeIntensity() => GSD._screenShakeStrength;
+
+    public bool GetClickAndDragEnabled() => GSD._heroClickAndDragMovementEnabled;
+
     public float GetMasterVolume() => GSD._masterVolume;
     public float GetMusicVolume() => GSD._musicVolume;
     public float GetSFXVolume() => GSD._sfxVolume;
@@ -198,7 +201,7 @@ public class GameSaveData
     [Space]
     [Header("Settings")]
     [Range(0, 1)] public float _screenShakeStrength;
-    public bool _heroClickAndDragMovement;
+    public bool _heroClickAndDragMovementEnabled;
 
     [Range(0, 1)] public float _masterVolume;
     [Range(0, 1)] public float _musicVolume;
