@@ -18,11 +18,12 @@ public class BossStats : BossChildrenFunctionality
     private float _bossStaggerDuration;
 
     private float _bossDamageIncrementMultiplier;
+    private float _bossDamageResistanceChangeOnStagger;
 
     private bool _bossStaggered = false;
 
     private float _bossDamageMultiplier = 1;
-
+    private float _bossDamageResistanceMultiplier =1;
    
 
     private void StatsSetup(BossSO bossSO)
@@ -39,6 +40,9 @@ public class BossStats : BossChildrenFunctionality
         _bossStaggerDuration = bossSO.GetStaggerDuration();
 
         _bossDamageIncrementMultiplier = bossSO.GetBossDamageIncrementMultiplier();
+
+        _bossDamageResistanceChangeOnStagger = bossSO.GetDamageResistanceChangeOnStagger();
+        
 
         _bossDamageMultiplier = UniversalManagers.Instance.
                 GetSelectionManager().GetDamageMultiplierFromDifficulty();
@@ -65,6 +69,8 @@ public class BossStats : BossChildrenFunctionality
     {
         _bossStaggered = true;
         myBossBase.InvokeBossStaggeredEvent();
+
+        DecreaseBossDamageResOnStagger();
     }
 
     /// <summary>
@@ -75,6 +81,8 @@ public class BossStats : BossChildrenFunctionality
     {
         _bossStaggered = false;
         _currentStaggerCounter = 0;
+
+        IncreaseBossDamageResAfterStagger();
     }
 
     private void CheckBossIsUnderHalf(float damage)
@@ -141,6 +149,30 @@ public class BossStats : BossChildrenFunctionality
         myBossBase.GetBossStats().MultiplyBossDamageMultiplier(_bossDamageIncrementMultiplier);
     }
 
+
+
+    #region Stat Changes
+
+    /// <summary>
+    /// Increases or decreases the current aggro value
+    /// </summary>
+    /// <param name="changeValue"></param>
+    public void ChangeBossDamageResistance(float changeValue)
+    {
+        _bossDamageResistanceMultiplier+= changeValue;
+    }
+
+    private void DecreaseBossDamageResOnStagger()
+    {
+        ChangeBossDamageResistance(-_bossDamageResistanceChangeOnStagger);
+    }
+
+    private void IncreaseBossDamageResAfterStagger()
+    {
+        ChangeBossDamageResistance(_bossDamageResistanceChangeOnStagger);
+    }
+    #endregion
+
     #region Events
     public override void SubscribeToEvents()
     {
@@ -174,6 +206,7 @@ public class BossStats : BossChildrenFunctionality
     #region Setters
     public void DealDamageToBoss(float damage)
     {
+        damage /= _bossDamageResistanceMultiplier;
         _currentHealth -= damage;
         myBossBase.InvokeBossDamagedEvent(damage);
     }
