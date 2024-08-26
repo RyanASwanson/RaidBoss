@@ -10,6 +10,7 @@ public class SHP_AstromancerManualProjectile : HeroProjectileFramework
 
     [Space]
     [SerializeField] private float _rotationSpeed;
+    [SerializeField] private float _yOffset;
 
     [Space]
     [SerializeField] private GameObject _visualsHolder;
@@ -31,9 +32,11 @@ public class SHP_AstromancerManualProjectile : HeroProjectileFramework
 
     private void InitialSetup()
     {
-        
 
-        Vector3 heroLoc = new Vector3(_myHeroBase.transform.position.x, 0, _myHeroBase.transform.position.z);
+
+        Vector3 heroLoc = new Vector3(_myHeroBase.transform.position.x, 
+            _myHeroBase.transform.position.y + _yOffset, _myHeroBase.transform.position.z);
+        //Vector3 heroLoc = _myHeroBase.transform.position;
         Vector3 bossLoc = GameplayManagers.Instance.GetBossManager().GetBossBaseGameObject().transform.position;
         bossLoc = new Vector3(bossLoc.x, 0, bossLoc.z);
 
