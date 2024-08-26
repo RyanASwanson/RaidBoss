@@ -11,11 +11,14 @@ public class GeneralVFXFunctionality : MonoBehaviour
     [SerializeField] private bool _hasDetachTime;
     [SerializeField] private float _detachTime;
 
+    [Space]
+    [SerializeField] private List<ParticleSystem> _particleSystems;
+
     // Start is called before the first frame update
     void Start()
     {
         if (_hasLifeTime)
-            Destroy(gameObject, _lifeTime);
+            DestroyOverLifeTime();
 
         if (_hasDetachTime)
         {
@@ -33,8 +36,32 @@ public class GeneralVFXFunctionality : MonoBehaviour
         Detach();
     }
 
-    private void Detach()
+    public void Detach()
     {
         transform.SetParent(null);
     }
+
+
+    public void StartDelayedLifetime()
+    {
+        DestroyOverLifeTime();
+    }
+
+    private void DestroyOverLifeTime()
+    {
+        Destroy(gameObject, _lifeTime);
+    }
+
+    public void SetLoopOfParticleSystems(bool shouldLoop)
+    {
+        foreach(ParticleSystem ps in _particleSystems)
+        {
+            var psMain = ps.main;
+            psMain.loop = shouldLoop;
+        }
+    }
+
+    #region Getters
+    public List<ParticleSystem> GetParticleSystems() => _particleSystems;
+    #endregion
 }

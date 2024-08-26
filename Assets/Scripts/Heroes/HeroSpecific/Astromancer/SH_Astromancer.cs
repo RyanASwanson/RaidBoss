@@ -8,6 +8,7 @@ public class SH_Astromancer : SpecificHeroFramework
     [SerializeField] private GameObject _basicProjectile;
 
     [Space]
+    [SerializeField] private float _increasedManualRotationalSpeed;
     [SerializeField] private GameObject _manualProjectile;
 
     private bool _manualActive = false;
@@ -53,6 +54,8 @@ public class SH_Astromancer : SpecificHeroFramework
 
         TriggerManualAbilityAnimation();
 
+        _myHeroBase.GetHeroStats().ChangeCurrentHeroAngularSpeed(_increasedManualRotationalSpeed);
+
 
         CreateManualAttackProjectiles();
     }
@@ -75,6 +78,8 @@ public class SH_Astromancer : SpecificHeroFramework
         _myHeroBase.GetHeroStartedMovingEvent().RemoveListener(EndManualAbility);
 
         _storedManual.StopLaser();
+
+        _myHeroBase.GetHeroStats().ChangeCurrentHeroAngularSpeed(-_increasedManualRotationalSpeed);
 
         StartCooldownManualAbility();
     }
