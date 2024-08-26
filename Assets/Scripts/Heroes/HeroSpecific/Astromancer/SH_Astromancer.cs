@@ -59,7 +59,7 @@ public class SH_Astromancer : SpecificHeroFramework
 
     protected void CreateManualAttackProjectiles()
     {
-        GameObject spawnedProjectile = Instantiate(_manualProjectile, transform);
+        GameObject spawnedProjectile = Instantiate(_manualProjectile, transform.position, Quaternion.identity);
 
         _storedManual = spawnedProjectile.GetComponent<SHP_AstromancerManualProjectile>();
         _storedManual.SetUpProjectile(_myHeroBase);
