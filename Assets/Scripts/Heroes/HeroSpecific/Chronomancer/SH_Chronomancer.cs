@@ -5,8 +5,13 @@ using UnityEngine;
 public class SH_Chronomancer : SpecificHeroFramework
 {
     [Space]
-    [SerializeField] private GameObject _basicProjectile;
     [SerializeField] private Vector3 _attackRotationIncrease;
+    [SerializeField] private GameObject _basicProjectile;
+    [Space]
+    [SerializeField] private GameObject _basicDirectionOrigin;
+    [SerializeField] private GameObject _basicDirectionObj;
+    private GameObject _storedDirectionObj;
+    
 
     private Vector3 _currentAttackDirection = new Vector3(0, 0, 1);
 
@@ -44,6 +49,12 @@ public class SH_Chronomancer : SpecificHeroFramework
 
     #region Basic Abilities
 
+    private void CreateInitialTargetDirectionObject()
+    {
+        _storedDirectionObj = Instantiate(_basicDirectionObj, _basicDirectionOrigin.transform.position, Quaternion.identity) ;
+        StartCoroutine(AttackDirectionFollow());
+    }
+
     public override bool ConditionsToActivateBasicAbilities()
     {
         return !_myHeroBase.GetPathfinding().IsHeroMoving();
@@ -76,6 +87,17 @@ public class SH_Chronomancer : SpecificHeroFramework
     private void IncreaseCurrentAttackRotation()
     {
         _currentAttackDirection = Quaternion.Euler(_attackRotationIncrease) * _currentAttackDirection;
+
+        _storedDirectionObj.transform.localEulerAngles += _attackRotationIncrease;
+    }
+
+    private IEnumerator AttackDirectionFollow()
+    {
+        while(gameObject != null)
+        {
+            _storedDirectionObj.transform.position = _basicDirectionOrigin.transform.position;
+            yield return null;
+        }
     }
 
 
@@ -179,6 +201,7 @@ public class SH_Chronomancer : SpecificHeroFramework
     {
         base.BattleStarted();
         AddStartingHealthValues();
+        CreateInitialTargetDirectionObject();
 
         SubscribeToHeroesDamagedEvents();
     }

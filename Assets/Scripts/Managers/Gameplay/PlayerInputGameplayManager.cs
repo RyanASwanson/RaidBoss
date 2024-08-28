@@ -82,7 +82,12 @@ public class PlayerInputGameplayManager : BaseGameplayManager
         {
             HeroBase heroBase = _heroesManager.GetCurrentLivingHeroes()[0];
             if (heroBase != null)
+            {
                 NewControlledHero(heroBase);
+                return;
+            }
+                
+
         }
 
 
@@ -90,6 +95,7 @@ public class PlayerInputGameplayManager : BaseGameplayManager
         do
         {
             direction += _controlledHeroes[0].GetHeroID();
+
             if (direction > _heroesManager.GetCurrentHeroes().Count - 1)
                 direction = 0;
             else if (direction < 0)
