@@ -12,6 +12,8 @@ public class SHP_ChronomancerBasicProjectile : HeroProjectileFramework
     [SerializeField] private float _timeToReachMaxHomingStrength;
     private float _currentHomingStrength = 0;
 
+    private Vector3 _storedDirection;
+
 
     private float _basicAbilityCooldownReduction;
 
@@ -50,12 +52,10 @@ public class SHP_ChronomancerBasicProjectile : HeroProjectileFramework
             yield return null;
         }
         _currentHomingStrength = 1;
-        print("max strength");
     }
 
     public void SetHomingTarget(Transform targetTransform)
     {
-        print("startHoming");
         _targetLoc = targetTransform;
         _hasTarget = true;
         StartCoroutine(UpdateHomingStrength());
@@ -80,6 +80,7 @@ public class SHP_ChronomancerBasicProjectile : HeroProjectileFramework
     public void AdditionalSetup(Vector3 direction, float cooldownReduction)
     {
         _basicAbilityCooldownReduction = cooldownReduction;
+        _storedDirection = direction;
 
         _homing.SetupHoming(_myHeroBase);
 
@@ -87,4 +88,9 @@ public class SHP_ChronomancerBasicProjectile : HeroProjectileFramework
         StartCoroutine(MoveProjectile(direction));
         
     }
+
+    #region Getters
+
+    public Vector3 GetDirection() => _storedDirection;
+    #endregion
 }

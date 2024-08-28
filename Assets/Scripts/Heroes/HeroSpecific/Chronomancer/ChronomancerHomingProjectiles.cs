@@ -31,12 +31,19 @@ public class ChronomancerHomingProjectiles : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider collision)
+    private void OnTriggerStay(Collider collision)
     {
-        if (DoesColliderBelongToHero(collision))
+        
+        if (DoesColliderBelongToHero(collision) && IsValidHomingDirection(collision.gameObject.transform.position))
         {
             StartHoming(collision.transform);
         }
+    }
+
+    private bool IsValidHomingDirection(Vector3 contactObject)
+    {
+        Vector3 objectDirection = (contactObject - transform.position).normalized;
+        return Vector3.Dot(objectDirection, _associatedProjectile.GetDirection()) >= 0;
     }
 
     private void StartHoming(Transform homingTransform)
