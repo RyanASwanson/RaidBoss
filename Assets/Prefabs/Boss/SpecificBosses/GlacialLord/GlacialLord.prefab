@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6747769096848636562}
+  - component: {fileID: 6853814535601210447}
   m_Layer: 0
   m_Name: Visuals
   m_TagString: Untagged
@@ -32,6 +33,27 @@ Transform:
   m_Father: {fileID: 1438817367525158933}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &6853814535601210447
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1235970322285102276}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 748508cb204619343bed30b445fa9793, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1438817367525158931
 GameObject:
   m_ObjectHideFlags: 0
@@ -80,11 +102,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _startingBossAbilities: []
-  _attackRepititionProtection: 0
+  _attackRepititionProtection: 2
   _abilityLocked: {fileID: 0}
-  _bossVisualsBase: {fileID: 0}
+  _bossVisualsBase: {fileID: 4023705979124066978}
   _bossSpecificUI: {fileID: 0}
-  _bossSpecificAnimator: {fileID: 0}
+  _bossSpecificAnimator: {fileID: 6853814535601210447}
 --- !u!1 &8936730800719072827
 GameObject:
   m_ObjectHideFlags: 0
@@ -222,5 +244,10 @@ PrefabInstance:
 --- !u!4 &992257904120557565 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 208452061188490739, guid: b3e3e261431596e47be4a19274fcd71f, type: 3}
+  m_PrefabInstance: {fileID: 1090336503612795406}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4023705979124066978 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4104666027071455404, guid: b3e3e261431596e47be4a19274fcd71f, type: 3}
   m_PrefabInstance: {fileID: 1090336503612795406}
   m_PrefabAsset: {fileID: 0}
