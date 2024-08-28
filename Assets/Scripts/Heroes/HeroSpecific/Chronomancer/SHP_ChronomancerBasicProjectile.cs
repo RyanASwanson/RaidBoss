@@ -8,8 +8,10 @@ using UnityEngine;
 public class SHP_ChronomancerBasicProjectile : HeroProjectileFramework
 {
     [SerializeField] private float _projectileSpeed;
-    [SerializeField] private float _homingSpeedIncrease;
-    private Vector3 _moveDirection;
+    [SerializeField] private float _maxHomingSpeedIncrease;
+    [SerializeField] private float _timeToReachMaxHomingStrength;
+    private float _currentHomingStrength = 0;
+
 
     private float _basicAbilityCooldownReduction;
 
@@ -33,17 +35,30 @@ public class SHP_ChronomancerBasicProjectile : HeroProjectileFramework
             if(_hasTarget)
             {
                 transform.position = Vector3.MoveTowards(transform.position, _targetLoc.transform.position, 
-                    _homingSpeedIncrease * Time.deltaTime);
+                    _maxHomingSpeedIncrease * _currentHomingStrength* Time.deltaTime);
             }
                 
             yield return null;
         }
     }
 
+    private IEnumerator UpdateHomingStrength()
+    {
+        while(_currentHomingStrength < 1)
+        {
+            _currentHomingStrength += Time.deltaTime / _timeToReachMaxHomingStrength;
+            yield return null;
+        }
+        _currentHomingStrength = 1;
+        print("max strength");
+    }
+
     public void SetHomingTarget(Transform targetTransform)
     {
+        print("startHoming");
         _targetLoc = targetTransform;
         _hasTarget = true;
+        StartCoroutine(UpdateHomingStrength());
     }
 
 
@@ -64,12 +79,12 @@ public class SHP_ChronomancerBasicProjectile : HeroProjectileFramework
 
     public void AdditionalSetup(Vector3 direction, float cooldownReduction)
     {
-        _moveDirection = direction;
         _basicAbilityCooldownReduction = cooldownReduction;
 
         _homing.SetupHoming(_myHeroBase);
 
         GetComponent<GeneralHeroHealArea>().GetEnterEvent().AddListener(ReduceManualCooldownOfTarget);
         StartCoroutine(MoveProjectile(direction));
+        
     }
 }

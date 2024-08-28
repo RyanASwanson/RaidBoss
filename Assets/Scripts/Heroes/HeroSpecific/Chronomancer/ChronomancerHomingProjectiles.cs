@@ -6,9 +6,8 @@ public class ChronomancerHomingProjectiles : MonoBehaviour
 {
     [SerializeField] private SHP_ChronomancerBasicProjectile _associatedProjectile;
 
-    private Transform _targetTransform;
-
     private HeroBase _ignoreHero;
+    private bool _isHoming = false;
 
     public void SetupHoming(HeroBase ignoreHero)
     {
@@ -34,17 +33,23 @@ public class ChronomancerHomingProjectiles : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        print("trigger Enter");
         if (DoesColliderBelongToHero(collision))
         {
-            _associatedProjectile.SetHomingTarget(collision.transform);
+            StartHoming(collision.transform);
         }
+    }
+
+    private void StartHoming(Transform homingTransform)
+    {
+        _isHoming = true;
+        _associatedProjectile.SetHomingTarget(homingTransform);
     }
 
     private bool DoesColliderBelongToHero(Collider collision)
     {
         HeroBase hitHero = collision.GetComponentInParent<HeroBase>();
-        Debug.Log(" " + hitHero != null + " " + hitHero != _ignoreHero);
-        return (hitHero != null && hitHero != _ignoreHero && hitHero.GetHeroStats().ShouldOverrideHealing());
+
+        return (hitHero != null && hitHero != _ignoreHero && !_isHoming &&
+            hitHero.GetHeroStats().CanHeroBeHealed() && _associatedProjectile != null);
     }
 }
