@@ -8,8 +8,16 @@ using UnityEngine;
 public class SHP_ChronomancerBasicProjectile : HeroProjectileFramework
 {
     [SerializeField] private float _projectileSpeed;
+    [SerializeField] private float _homingSpeedIncrease;
+    private Vector3 _moveDirection;
 
     private float _basicAbilityCooldownReduction;
+
+    [Space]
+    [SerializeField] private ChronomancerHomingProjectiles _homing;
+    Transform _targetLoc;
+    private bool _hasTarget = false;
+
 
     /// <summary>
     /// Sends the projectile moving in a direction until it is destroyed
@@ -21,9 +29,23 @@ public class SHP_ChronomancerBasicProjectile : HeroProjectileFramework
         while (true)
         {
             transform.position += direction * _projectileSpeed * Time.deltaTime;
+
+            if(_hasTarget)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, _targetLoc.transform.position, 
+                    _homingSpeedIncrease * Time.deltaTime);
+            }
+                
             yield return null;
         }
     }
+
+    public void SetHomingTarget(Transform targetTransform)
+    {
+        _targetLoc = targetTransform;
+        _hasTarget = true;
+    }
+
 
     private void ReduceManualCooldownOfTarget(Collider collider)
     {
@@ -42,7 +64,10 @@ public class SHP_ChronomancerBasicProjectile : HeroProjectileFramework
 
     public void AdditionalSetup(Vector3 direction, float cooldownReduction)
     {
+        _moveDirection = direction;
         _basicAbilityCooldownReduction = cooldownReduction;
+
+        _homing.SetupHoming(_myHeroBase);
 
         GetComponent<GeneralHeroHealArea>().GetEnterEvent().AddListener(ReduceManualCooldownOfTarget);
         StartCoroutine(MoveProjectile(direction));
