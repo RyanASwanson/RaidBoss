@@ -19,9 +19,6 @@ public class EnvironmentManager : BaseGameplayManager
         base.SetupGameplayManager();
     }
 
-    #region Events
-
-    #endregion
 
     #region Getters
     public float GetMapRadius() => _mapRadius;

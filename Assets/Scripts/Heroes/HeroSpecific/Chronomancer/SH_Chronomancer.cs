@@ -23,7 +23,9 @@ public class SH_Chronomancer : SpecificHeroFramework
     [Space]
     [SerializeField] private float _passiveAbilityBasicCooldownReduction;
 
-    /*private void Update()
+
+    /* Code is here to test the storing of data for the manual ability
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.U))
         {
@@ -210,6 +212,7 @@ public class SH_Chronomancer : SpecificHeroFramework
     {
         base.HeroDied();
         UnsubscribeToHeroesDamagedEvents();
+        Destroy(_storedDirectionObj);
     }
 
     protected override void SubscribeToEvents()
@@ -232,9 +235,7 @@ public class SH_Chronomancer : SpecificHeroFramework
                 .GetHeroHealthChangedEvent().AddListener(delegate { AddHeroHealthValue(tempI); });
         }
 
-        //GameplayManagers.Instance.GetHeroesManager().GetCurrentHeroes()[0].GetHeroHealthChangedEvent().AddListener(delegate { AddHeroHealthValue(7);});
-        //if (GameplayManagers.Instance.GetHeroesManager().GetCurrentHeroes()[1] != null) print("A");
-        //GameplayManagers.Instance.GetHeroesManager().GetCurrentHeroes()[1].GetHeroHealthChangedEvent().AddListener(delegate { AddHeroHealthValue(2);});
+        
     }
 
     private void UnsubscribeToHeroesDamagedEvents()

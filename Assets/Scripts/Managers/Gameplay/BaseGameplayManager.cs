@@ -6,9 +6,16 @@ public abstract class BaseGameplayManager : MonoBehaviour
 {
     public virtual void SetupGameplayManager()
     {
+        GetManagers();
         SubscribeToEvents();
     }
-    public virtual void SubscribeToEvents()
+
+    protected virtual void GetManagers()
+    {
+
+    }
+
+    protected virtual void SubscribeToEvents()
     {
 
     }

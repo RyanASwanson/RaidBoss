@@ -154,7 +154,7 @@ public class CameraGameManager : BaseGameplayManager
 
 
     #region BaseManager
-    public override void SubscribeToEvents()
+    protected override void SubscribeToEvents()
     {
         GameplayManagers.Instance.GetBossManager().GetBossBase()
             .GetBossStaggeredEvent().AddListener(CameraShakeOnBossStagger);

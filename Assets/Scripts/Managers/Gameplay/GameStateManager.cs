@@ -58,7 +58,7 @@ public class GameStateManager : BaseGameplayManager
     }
 
     #region BaseManager
-    public override void SubscribeToEvents()
+    protected override void SubscribeToEvents()
     {
         
     }

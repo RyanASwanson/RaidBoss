@@ -288,12 +288,12 @@ public class PlayerInputGameplayManager : BaseGameplayManager
         SubscribeToPlayerInput();
     }
 
-    private void GetManagers()
+    protected override void GetManagers()
     {
         _heroesManager = GameplayManagers.Instance.GetHeroesManager();
     }
 
-    public override void SubscribeToEvents()
+    protected override void SubscribeToEvents()
     {
         //Prevents the player from performing any actions after the game ends
         GameplayManagers.Instance.GetGameStateManager().GetBattleWonOrLostEvent().AddListener(UnsubscribeToPlayerInput);
