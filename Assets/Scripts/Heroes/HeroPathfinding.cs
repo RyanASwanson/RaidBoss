@@ -50,10 +50,10 @@ public class HeroPathfinding : HeroChildrenFunctionality
     {
         _meshAgent.isStopped = true;
         _meshAgent.SetDestination(transform.position);
-        StartCoroutine(ReenableMovement());
+        StartCoroutine(BriefReenableMovement());
     }
 
-    private IEnumerator ReenableMovement()
+    private IEnumerator BriefReenableMovement()
     {
         yield return null;
 
@@ -65,11 +65,22 @@ public class HeroPathfinding : HeroChildrenFunctionality
         
     }
 
-    private void StopAbilityToMove()
+    public void StopAbilityToMove()
     {
         _meshAgent.speed = 0;
         _meshAgent.angularSpeed = 0;
         _meshAgent.isStopped = true;
+    }
+
+    public void EnableAbilityToMove()
+    {
+        HeroStats heroStats = myHeroBase.GetHeroStats();
+
+        if (heroStats.IsHeroDead()) return;
+
+        _meshAgent.speed = heroStats.GetCurrentSpeed();
+        _meshAgent.angularSpeed = heroStats.GetAngularSpeed();
+        _meshAgent.isStopped = false;
     }
 
     /// <summary>
