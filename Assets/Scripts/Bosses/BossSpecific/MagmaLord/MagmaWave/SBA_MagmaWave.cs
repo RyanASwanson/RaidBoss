@@ -19,7 +19,7 @@ public class SBA_MagmaWave : SpecificBossAbilityFramework
     protected override void AbilityPrep()
     {
         _edgeOfMap = GameplayManagers.Instance.GetEnvironmentManager().
-            GetEdgeOfMapWithDirection(transform.position,
+            GetEdgeOfMapLoc(transform.position,
             (_storedTarget.transform.position - Vector3.zero).normalized);
 
         base.AbilityPrep();

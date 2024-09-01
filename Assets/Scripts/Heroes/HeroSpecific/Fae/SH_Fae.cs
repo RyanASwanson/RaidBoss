@@ -97,7 +97,7 @@ public class SH_Fae : SpecificHeroFramework
     private void CheckManualRedirect()
     {
         
-        if(_environmentManager.GetEdgeOfMapRayHit(transform.position,
+        if(_environmentManager.GetEdgeOfMapWithDistanceAndDirection(transform.position,
             _currentManualDirection, _manualWallDistanceRange, out RaycastHit rayHit))
         {
             print(rayHit.normal);
