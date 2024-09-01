@@ -34,8 +34,6 @@ public class SHP_AstromancerBasicProjectile : HeroProjectileFramework
         StartCoroutine(DamageScaling());
     }
 
-    
-
 
     private IEnumerator MoveProjectile()
     {
@@ -82,6 +80,10 @@ public class SHP_AstromancerBasicProjectile : HeroProjectileFramework
             
     }
     
+    /// <summary>
+    /// Checks if the projectile made contact with the astromancer
+    /// </summary>
+    /// <param name="collider"></param>
     public void HitHero(Collider collider)
     {
 
@@ -95,6 +97,9 @@ public class SHP_AstromancerBasicProjectile : HeroProjectileFramework
         TriggerHeroPassive();
     }
 
+    /// <summary>
+    /// Causes the astromancer projectile to turn around
+    /// </summary>
     private void FlipDirection()
     {
         _storedDirection *= -1;

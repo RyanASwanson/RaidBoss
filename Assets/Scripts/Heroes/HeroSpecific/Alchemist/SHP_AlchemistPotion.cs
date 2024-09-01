@@ -38,6 +38,9 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
         StartCoroutine(RemovePotionTimer());
     }
 
+    /// <summary>
+    /// Sets up the potion differently depending on what type of potion it is
+    /// </summary>
     private void PotionTypeSetup()
     {
         _alchemist = (SH_Alchemist)_mySpecificHero;
@@ -63,6 +66,11 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
         
     }
 
+    /// <summary>
+    /// The process by which the potion moves from where it's created to it's end location
+    /// </summary>
+    /// <param name="targetLocation"></param>
+    /// <returns></returns>
     public IEnumerator MovePotionToEndLocation( Vector3 targetLocation)
     {
         Vector3 startingPotionLocation = transform.position;
@@ -79,12 +87,19 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
         ReachedEndLocation();
     }
 
+    /// <summary>
+    /// Called when the potion reaches the end of it's path
+    /// </summary>
     private void ReachedEndLocation()
     {
         _healArea.ToggleProjectileCollider(true);
     }
 
 
+    /// <summary>
+    /// Tells the alchemist script to use its passive ability
+    /// </summary>
+    /// <param name="collider"></param> The object that picked up the potion
     public void ActivateAlchemistPassive(Collider collider)
     {
         _alchemist.ActivatePassiveAbilities(collider.transform.position);

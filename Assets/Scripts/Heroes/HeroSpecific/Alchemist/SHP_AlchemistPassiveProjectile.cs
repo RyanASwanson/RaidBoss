@@ -2,50 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Provides the functionality and movement for the passive projectile created by
+/// the alchemist
+/// </summary>
 public class SHP_AlchemistPassiveProjectile : HeroProjectileFramework
 {
     [SerializeField] private float _projectileDamage;
     [SerializeField] private float _projectileStagger;
 
     [Space]
-    /*[SerializeField] private float _moveAwayDistMultiplier;
-    [SerializeField] private float _moveAwayTime;
-    [SerializeField] private float _waitBeforeTowardsTime;*/
     [SerializeField] private float _moveTime;
 
     public override void SetUpProjectile(HeroBase heroBase)
     {
         base.SetUpProjectile(heroBase);
 
-
-    }
-
-    public void AdditionalSetup()
-    {
-        /*PotionTypeSetup();
-        StartCoroutine(MovePotionToEndLocation(targetLocation));*/
-
         StartCoroutine(MoveProcess());
     }
 
 
+    /// <summary>
+    /// The process of moving the passive projectile from where its created
+    /// to the location of the boss
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator MoveProcess()
     {
         Vector3 targetLoc = GameplayManagers.Instance.GetBossManager().GetBossBaseGameObject().transform.position;
         Vector3 startLoc = transform.position;
 
         float moveTimer = 0;
-
-        /*while (moveTimer < _moveAwayDistMultiplier)
-        {
-            moveTimer += Time.deltaTime / _moveAwayTime;
-            transform.position = Vector3.LerpUnclamped(startLoc, targetLoc, -Mathf.Pow(moveTimer,2));
-            yield return null;
-        }
-
-        moveTimer = 0;
-        startLoc = transform.position;
-        yield return new WaitForSeconds(_waitBeforeTowardsTime);*/
 
         while (moveTimer < 1)
         {
@@ -57,6 +44,10 @@ public class SHP_AlchemistPassiveProjectile : HeroProjectileFramework
         EndOfMovement();
     }
 
+
+    /// <summary>
+    /// Is called when the projectile reaches the location of the boss
+    /// </summary>
     private void EndOfMovement()
     {
         _mySpecificHero.DamageBoss(_projectileDamage);

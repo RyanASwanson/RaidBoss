@@ -21,10 +21,6 @@ public class BossManager : BaseGameplayManager
         _bossBase.Setup(UniversalManagers.Instance.GetSelectionManager().GetSelectedBoss());
     }
 
-    #region Events
-
-    #endregion
-
     #region Getters
     public BossBase GetBossBase() => _bossBase;
     public GameObject GetBossBaseGameObject() => _bossGameObject;

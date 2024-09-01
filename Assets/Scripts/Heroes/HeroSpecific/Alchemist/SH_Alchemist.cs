@@ -61,7 +61,6 @@ public class SH_Alchemist : SpecificHeroFramework
             GetComponent<SHP_AlchemistPassiveProjectile>();
 
         passiveProj.SetUpProjectile(_myHeroBase);
-        passiveProj.AdditionalSetup();
     }
     #endregion
 

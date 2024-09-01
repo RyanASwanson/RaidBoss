@@ -95,7 +95,7 @@ public class SH_Chronomancer : SpecificHeroFramework
 
     private IEnumerator AttackDirectionFollow()
     {
-        while(gameObject != null)
+        while (gameObject != null && _storedDirectionObj != null)
         {
             _storedDirectionObj.transform.position = _basicDirectionOrigin.transform.position;
             yield return null;

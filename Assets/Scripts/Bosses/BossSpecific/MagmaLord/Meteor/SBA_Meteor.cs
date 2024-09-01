@@ -70,12 +70,6 @@ public class SBA_Meteor : SpecificBossAbilityFramework
             Mathf.Abs(targetZone.transform.position.z - _storedTarget.transform.position.z) < .1f))
             yield return null;
 
-        /*print(targetZone.transform.position);
-        print(_storedTarget.transform.position);
-
-        print(Mathf.Abs(targetZone.transform.position.x - _storedTarget.transform.position.x));
-        print(Mathf.Abs(targetZone.transform.position.z - _storedTarget.transform.position.z));*/
-
         if (targetZone != null)
             targetZone.SetActive(true);
     }

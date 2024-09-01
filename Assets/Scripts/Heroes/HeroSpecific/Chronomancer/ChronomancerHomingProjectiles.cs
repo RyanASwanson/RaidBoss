@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Provides the homing functionality for the chronomancer basic projectile
+/// </summary>
 public class ChronomancerHomingProjectiles : MonoBehaviour
 {
     [SerializeField] private SHP_ChronomancerBasicProjectile _associatedProjectile;
@@ -16,11 +19,19 @@ public class ChronomancerHomingProjectiles : MonoBehaviour
         StartCoroutine(FollowProjectile());
     }
 
+    /// <summary>
+    /// Causes the homing projectile to no longer be a child of the projectile
+    /// </summary>
     private void Detach()
     {
         transform.parent = null;
     }
 
+    /// <summary>
+    /// Repeating process that makes the homing functionality stay at the same position as the
+    /// basic projectile
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator FollowProjectile()
     {
         
@@ -40,12 +51,21 @@ public class ChronomancerHomingProjectiles : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Checks if the target is roughly in front of the projectile
+    /// </summary>
+    /// <param name="contactObject"></param>
+    /// <returns></returns>
     private bool IsValidHomingDirection(Vector3 contactObject)
     {
         Vector3 objectDirection = (contactObject - transform.position).normalized;
         return Vector3.Dot(objectDirection, _associatedProjectile.GetDirection()) >= 0;
     }
 
+    /// <summary>
+    /// Called when all checks have passed and we know we can home in on a target
+    /// </summary>
+    /// <param name="homingTransform"></param>
     private void StartHoming(Transform homingTransform)
     {
         _isHoming = true;
