@@ -46,12 +46,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa1f39b37198beb4788e1c8644083e46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _basicAbilityChargeTime: 4
+  _basicAbilityChargeTime: 5
   _manualAbilityChargeTime: 4
   _heroSpecificAnimator: {fileID: 2172733275908692571}
   _hasBasicAbilityAnimation: 0
   _hasManualAbilityAnimation: 0
   _hasPassiveAbilityAnimation: 0
+  _primaryAttackEulers:
+  - {x: 0, y: 45, z: 0}
+  - {x: 0, y: 135, z: 0}
+  - {x: 0, y: 225, z: 0}
+  - {x: 0, y: 315, z: 0}
+  _projectileSpawnDistance: 0.25
+  _basicProjectile: {fileID: 8998477801622210341, guid: f4b23504b8f511d49b10e0f78e70a0b4, type: 3}
+  _passiveBasicAttackSpeedChange: 1.5
 --- !u!95 &2172733275908692571
 Animator:
   serializedVersion: 5

@@ -46,16 +46,22 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         _basicAbilityCooldownCoroutine = null;
     }
 
-    public virtual IEnumerator CooldownBasicAbility()
+    protected virtual IEnumerator CooldownBasicAbility()
     {
         _basicAbilityCurrentCharge = 0;
         while (_basicAbilityCurrentCharge < _basicAbilityChargeTime)
         {
-            AddToBasicAbilityChargeTime(Time.deltaTime);
+            //AddToBasicAbilityChargeTime(Time.deltaTime);
+            CooldownAddToBasicAbilityCharge(Time.deltaTime);
             yield return null;
         }
 
         BasicAbilityCooldownReady();
+    }
+
+    protected virtual void CooldownAddToBasicAbilityCharge(float addedAmount)
+    {
+        AddToBasicAbilityChargeTime(addedAmount);
     }
 
     protected virtual void BasicAbilityCooldownReady()
