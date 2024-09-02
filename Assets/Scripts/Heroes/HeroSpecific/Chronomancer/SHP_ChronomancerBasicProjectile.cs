@@ -10,6 +10,7 @@ public class SHP_ChronomancerBasicProjectile : HeroProjectileFramework
     [SerializeField] private float _projectileSpeed;
     [SerializeField] private float _maxHomingSpeedIncrease;
     [SerializeField] private float _timeToReachMaxHomingStrength;
+    private float _currentProjectileSpeed;
     private float _currentHomingStrength = 0;
 
     private Vector3 _storedDirection;
@@ -21,6 +22,8 @@ public class SHP_ChronomancerBasicProjectile : HeroProjectileFramework
     [SerializeField] private ChronomancerHomingProjectiles _homing;
     Transform _targetLoc;
     private bool _hasTarget = false;
+
+    private SH_Chronomancer _chronomancerHero;
 
 
     /// <summary>
@@ -53,11 +56,18 @@ public class SHP_ChronomancerBasicProjectile : HeroProjectileFramework
         while(_currentHomingStrength < 1)
         {
             _currentHomingStrength += Time.deltaTime / _timeToReachMaxHomingStrength;
+            _projectileSpeed = Mathf.Lerp(_projectileSpeed, 0, _currentHomingStrength);
             yield return null;
         }
         _currentHomingStrength = 1;
+        _projectileSpeed = 0;
     }
 
+
+    /// <summary>
+    /// Assigns a target for the projectile to home in on
+    /// </summary>
+    /// <param name="targetTransform"></param>
     public void SetHomingTarget(Transform targetTransform)
     {
         _targetLoc = targetTransform;
@@ -66,13 +76,15 @@ public class SHP_ChronomancerBasicProjectile : HeroProjectileFramework
     }
 
 
-    private void ReduceManualCooldownOfTarget(Collider collider)
+    private void ReduceBasicCooldownOfTarget(Collider collider)
     {
-        SpecificHeroFramework specificHeroFramework = collider.GetComponentInParent<HeroBase>().GetSpecificHeroScript();
+        //SpecificHeroFramework specificHeroFramework = collider.GetComponentInParent<HeroBase>().GetSpecificHeroScript();
+        HeroBase heroTarget = collider.GetComponentInParent<HeroBase>();
 
-        if(specificHeroFramework != null)
+        if (heroTarget != null)
         {
-            specificHeroFramework.AddToBasicAbilityChargeTime(_basicAbilityCooldownReduction);
+            _chronomancerHero.PassiveReduceBasicCooldownOfHero(heroTarget);
+            //specificHeroFramework.AddToBasicAbilityChargeTime(_basicAbilityCooldownReduction);
         }
     }
 
@@ -81,14 +93,17 @@ public class SHP_ChronomancerBasicProjectile : HeroProjectileFramework
         base.SetUpProjectile(heroBase);
     }
 
-    public void AdditionalSetup(Vector3 direction, float cooldownReduction)
+    public void AdditionalSetup(Vector3 direction, float cooldownReduction, SH_Chronomancer chrono)
     {
+        _currentProjectileSpeed = _projectileSpeed;
+
         _basicAbilityCooldownReduction = cooldownReduction;
         _storedDirection = direction;
+        _chronomancerHero = chrono;
 
         _homing.SetupHoming(_myHeroBase);
 
-        GetComponent<GeneralHeroHealArea>().GetEnterEvent().AddListener(ReduceManualCooldownOfTarget);
+        GetComponent<GeneralHeroHealArea>().GetEnterEvent().AddListener(ReduceBasicCooldownOfTarget);
         StartCoroutine(MoveProjectile(direction));
         
     }

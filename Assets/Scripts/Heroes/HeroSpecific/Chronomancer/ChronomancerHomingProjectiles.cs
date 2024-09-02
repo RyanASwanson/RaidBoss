@@ -7,6 +7,8 @@ using UnityEngine;
 /// </summary>
 public class ChronomancerHomingProjectiles : MonoBehaviour
 {
+    [Range(-1, 1)] [SerializeField] private float _homingDotProduct;
+
     [SerializeField] private SHP_ChronomancerBasicProjectile _associatedProjectile;
 
     private HeroBase _ignoreHero;
@@ -59,7 +61,7 @@ public class ChronomancerHomingProjectiles : MonoBehaviour
     private bool IsValidHomingDirection(Vector3 contactObject)
     {
         Vector3 objectDirection = (contactObject - transform.position).normalized;
-        return Vector3.Dot(objectDirection, _associatedProjectile.GetDirection()) >= 0;
+        return Vector3.Dot(objectDirection, _associatedProjectile.GetDirection()) >= _homingDotProduct;
     }
 
     /// <summary>

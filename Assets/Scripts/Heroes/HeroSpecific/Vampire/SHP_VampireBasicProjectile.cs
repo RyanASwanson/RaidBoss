@@ -23,7 +23,7 @@ public class SHP_VampireBasicProjectile : HeroProjectileFramework
     private const string BASIC_ATTACK_ANIM_TRIGGER = "BasicAttack";
     private const string SPLIT_ATTACK_ANIM_TRIGGER = "SplitAttack";
 
-    private SH_Vampire _vampireScript;
+    private SH_Vampire _vampireHero;
 
     public override void SetUpProjectile(HeroBase heroBase)
     {
@@ -36,7 +36,7 @@ public class SHP_VampireBasicProjectile : HeroProjectileFramework
 
     public void AdditionalSetup(SH_Vampire heroScript)
     {
-        _vampireScript = heroScript;
+        _vampireHero = heroScript;
     }
 
 
@@ -82,7 +82,7 @@ public class SHP_VampireBasicProjectile : HeroProjectileFramework
             SHP_VampireBasicProjectile projectileFunc = newestProjectile.GetComponent<SHP_VampireBasicProjectile>();
 
             projectileFunc.SetUpProjectile(_myHeroBase);
-            projectileFunc.AdditionalSetup(_vampireScript);
+            projectileFunc.AdditionalSetup(_vampireHero);
 
             //Performs the setup for the damage area so that it knows it's owner
             newestProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(_myHeroBase);
@@ -96,6 +96,6 @@ public class SHP_VampireBasicProjectile : HeroProjectileFramework
     /// <param name="damage"></param>
     public void TriggerHeroPassive(float damage)
     {
-        _vampireScript.AddToPassiveHealingCounter(damage);
+        _vampireHero.AddToPassiveHealingCounter(damage);
     }
 }

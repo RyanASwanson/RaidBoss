@@ -163,6 +163,9 @@ public class SH_Mirage : SpecificHeroFramework
         Invoke(nameof(CreateClone), _cloneSpawnDelay);
     }
 
+    /// <summary>
+    /// Starts the fight by spawning the target zone for the basic ability
+    /// </summary>
     protected override void BattleStarted()
     {
         CreateBasicTargetZone();

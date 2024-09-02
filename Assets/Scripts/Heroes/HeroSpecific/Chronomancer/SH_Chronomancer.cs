@@ -80,7 +80,7 @@ public class SH_Chronomancer : SpecificHeroFramework
             spawnedProjectile.GetComponentInChildren<Collider>(), true);
 
         spawnedProjectile.GetComponent<SHP_ChronomancerBasicProjectile>().
-            AdditionalSetup(_currentAttackDirection, _passiveAbilityBasicCooldownReduction);
+            AdditionalSetup(_currentAttackDirection, _passiveAbilityBasicCooldownReduction, this);
 
         //Performs the setup for the damage area so that it knows it's owner
         spawnedProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(_myHeroBase);
@@ -117,7 +117,10 @@ public class SH_Chronomancer : SpecificHeroFramework
         foreach (HeroBase heroBase in GameplayManagers.Instance.GetHeroesManager().GetCurrentHeroes())
         {
             RevertHeroHealth(counter, heroBase);
-            heroBase.GetSpecificHeroScript().AddToBasicAbilityChargeTime(_passiveAbilityBasicCooldownReduction);
+
+            //heroBase.GetSpecificHeroScript().AddToBasicAbilityChargeTime(_passiveAbilityBasicCooldownReduction);
+            PassiveReduceBasicCooldownOfHero(heroBase);
+
             counter++;
         }
     }
@@ -188,6 +191,10 @@ public class SH_Chronomancer : SpecificHeroFramework
         
     }
 
+    public void PassiveReduceBasicCooldownOfHero(HeroBase heroBase)
+    {
+        heroBase.GetSpecificHeroScript().AddToBasicAbilityChargeTime(_passiveAbilityBasicCooldownReduction);
+    }
     #endregion
 
 
