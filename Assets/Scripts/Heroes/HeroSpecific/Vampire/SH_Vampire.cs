@@ -44,6 +44,7 @@ public class SH_Vampire : SpecificHeroFramework
         projectileFunc.SetUpProjectile(_myHeroBase);
         projectileFunc.AdditionalSetup(this);
 
+        //Performs the setup for the damage area so that it knows it's owner
         spawnedProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(_myHeroBase);
     }
 

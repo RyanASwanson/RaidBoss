@@ -12,4 +12,9 @@ public abstract class HeroProjectileFramework : MonoBehaviour
         _myHeroBase = heroBase;
         _mySpecificHero = heroBase.GetSpecificHeroScript();
     }
+
+    public virtual void SetUpProjectile()
+    {
+
+    }
 }

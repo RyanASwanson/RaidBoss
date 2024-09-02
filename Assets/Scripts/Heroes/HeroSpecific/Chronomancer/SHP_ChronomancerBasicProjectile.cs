@@ -44,6 +44,10 @@ public class SHP_ChronomancerBasicProjectile : HeroProjectileFramework
         }
     }
 
+    /// <summary>
+    /// Gradually adjusts how strong the homing strength of the projectile is
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator UpdateHomingStrength()
     {
         while(_currentHomingStrength < 1)

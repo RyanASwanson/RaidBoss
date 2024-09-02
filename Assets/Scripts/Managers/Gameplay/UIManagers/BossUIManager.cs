@@ -54,6 +54,11 @@ public class BossUIManager : GameUIChildrenFunctionality
     private const string _damageStrongAnimTrigger = "StrongDamage";
     private const string _staggerStrongAnimTrigger = "StrongStagger";
 
+
+    private BossManager _bossManager;
+
+
+    #region Health Bar
     private void BossTookDamage(float damage)
     {
 
@@ -63,8 +68,6 @@ public class BossUIManager : GameUIChildrenFunctionality
         CreateDamageNumbers(damage);
     }
 
-
-    #region Health Bar
     private void SetHealthBarPercentage(float damage)
     {
         float fillPercent = GameplayManagers.Instance.
@@ -111,6 +114,7 @@ public class BossUIManager : GameUIChildrenFunctionality
 
     #endregion
 
+    #region Stagger Bar
     private void BossTookStagger(float stagger)
     {
         SetStaggerBarPercentage(stagger);
@@ -125,7 +129,7 @@ public class BossUIManager : GameUIChildrenFunctionality
         SetRecentStaggerBarPercentage(1);
     }
 
-    #region Stagger Bar
+
     private void ResetStaggerBar()
     {
         foreach (Image bar in _staggerBars)
@@ -251,12 +255,18 @@ public class BossUIManager : GameUIChildrenFunctionality
         number.transform.position += new Vector3(Random.Range(-_damageNumbersXVariance, _damageNumbersXVariance), 0, 0);
     }
 
-    public override void SubscribeToEvents()
+    /*protected override void GetManagers()
     {
-        GameplayManagers.Instance.GetBossManager().GetBossBase().GetBossDamagedEvent().AddListener(BossTookDamage);
-        GameplayManagers.Instance.GetBossManager().GetBossBase().GetBossStaggerDealtEvent().AddListener(BossTookStagger);
-        GameplayManagers.Instance.GetBossManager().GetBossBase().GetBossStaggeredEvent().AddListener(BossFullyStaggered);
-        GameplayManagers.Instance.GetBossManager().GetBossBase().GetBossNoLongerStaggeredEvent()
-            .AddListener(ResetStaggerBar);
+        base.GetManagers();
+        _bossManager = GameplayManagers.Instance.GetBossManager();
+    }*/
+
+    protected override void SubscribeToEvents()
+    {
+        _bossManager = GameplayManagers.Instance.GetBossManager();
+        _bossManager.GetBossBase().GetBossDamagedEvent().AddListener(BossTookDamage);
+        _bossManager.GetBossBase().GetBossStaggerDealtEvent().AddListener(BossTookStagger);
+        _bossManager.GetBossBase().GetBossStaggeredEvent().AddListener(BossFullyStaggered);
+        _bossManager.GetBossBase().GetBossNoLongerStaggeredEvent().AddListener(ResetStaggerBar);
     }
 }

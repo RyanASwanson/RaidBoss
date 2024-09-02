@@ -30,6 +30,10 @@ public class GeneralHeroDamageArea : GeneralAbilityAreaFramework
     private float _damageMultiplier = 1;
     private float _staggerMultiplier = 1;
 
+    /// <summary>
+    /// Performs the setup for the damage area so that it knows it's owner
+    /// </summary>
+    /// <param name="heroBase"></param>
     public void SetUpDamageArea(HeroBase heroBase)
     {
         _myHeroBase = heroBase;

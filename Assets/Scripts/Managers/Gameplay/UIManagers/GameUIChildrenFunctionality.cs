@@ -14,6 +14,6 @@ public abstract class GameUIChildrenFunctionality : MonoBehaviour
     {
         SubscribeToEvents();
     }
-    public abstract void SubscribeToEvents();
+    protected abstract void SubscribeToEvents();
 
 }

@@ -24,7 +24,7 @@ public class HeroUIManager : GameUIChildrenFunctionality
 
     [Header("Left Side")]
     [SerializeField] private Image _associatedHeroIcon;
-    
+
     [SerializeField] private Image _associatedHeroManualAbilityChargeBar;
     [SerializeField] private Image _associatedHeroManualAbilityIcon;
 
@@ -117,7 +117,7 @@ public class HeroUIManager : GameUIChildrenFunctionality
     private void SetupBackground()
     {
         _backgroundImage.color = _associatedHeroBase.GetHeroSO().GetHeroUIColor();
-        
+
     }
 
     private void SetUpHeroIcons()
@@ -234,7 +234,7 @@ public class HeroUIManager : GameUIChildrenFunctionality
         _startHealthBarDrainCoroutine = StartCoroutine(RecentHealthBarDrain());
     }
 
-    
+
     /// <summary>
     /// Waits for a brief period before the recent health bar decays from damage
     /// </summary>
@@ -267,7 +267,7 @@ public class HeroUIManager : GameUIChildrenFunctionality
     {
         //Checks if the recent health bar is less than the current health bar
         if (_associatedHeroRecentHealthBar.fillAmount < _associatedHeroCurrentHealthBar.fillAmount)
-            SetRecentDamageHealthBarPercent(_associatedHeroCurrentHealthBar.fillAmount) ;
+            SetRecentDamageHealthBarPercent(_associatedHeroCurrentHealthBar.fillAmount);
     }
 
     private void SetRecentDamageHealthBarPercent(float percent)
@@ -286,7 +286,7 @@ public class HeroUIManager : GameUIChildrenFunctionality
     /// <param name="damage"></param>
     private void ReduceRecentHealingOnDamage(float damage)
     {
-        if(_associatedHeroHealingHealthBar.fillAmount > _associatedHeroCurrentHealthBar.fillAmount)
+        if (_associatedHeroHealingHealthBar.fillAmount > _associatedHeroCurrentHealthBar.fillAmount)
         {
             _associatedHeroHealingHealthBar.fillAmount -= damage;
         }
@@ -326,47 +326,8 @@ public class HeroUIManager : GameUIChildrenFunctionality
 
     private void SetHeroManualAbilityCharge(float percent)
     {
-        _associatedHeroManualAbilityChargeBar.fillAmount = 1- percent;
+        _associatedHeroManualAbilityChargeBar.fillAmount = 1 - percent;
     }
-
-    //Outdated damage healing numbers code
-    //Preserved for now just in case
-
-    /*private void CreateDamageNumbers(float damage)
-    {
-        GameObject newDamageNumber = Instantiate(_damageNumber, _damageNumbersOrigin);
-
-        damage = Mathf.RoundToInt(damage);
-        newDamageNumber.GetComponentInChildren<Text>().text = damage.ToString();
-        newDamageNumber.GetComponentInChildren<TMP_Text>().text = damage.ToString();
-
-        AddSpawnVarianceToDamageHealingNumber(newDamageNumber);
-
-        *//*if (damage >= _strongDamage)
-            newDamageNumber.GetComponent<Animator>().SetTrigger(_damageStrongAnimTrigger);
-        else if (damage >= _averageDamage)
-            newDamageNumber.GetComponent<Animator>().SetTrigger(_damageAverageAnimTrigger);
-        else
-        newDamageNumber.GetComponent<Animator>().SetTrigger(_damageHealingWeakAnimTrigger);*//*
-    }
-
-    private void CreateHealingNumbers(float healing)
-    {
-        GameObject newHealingNumber = Instantiate(_healingNumber, _healingNumbersOrigin);
-
-        healing = Mathf.RoundToInt(healing);
-        newHealingNumber.GetComponentInChildren<Text>().text = healing.ToString();
-        newHealingNumber.GetComponentInChildren<TMP_Text>().text = healing.ToString();
-
-        AddSpawnVarianceToDamageHealingNumber(newHealingNumber);
-
-        *//*if (damage >= _strongDamage)
-            newDamageNumber.GetComponent<Animator>().SetTrigger(_damageStrongAnimTrigger);
-        else if (damage >= _averageDamage)
-            newDamageNumber.GetComponent<Animator>().SetTrigger(_damageAverageAnimTrigger);
-        else
-        newHealingNumber.GetComponent<Animator>().SetTrigger(_damageHealingWeakAnimTrigger);*//*
-    }*/
 
     private void CreateDamageHealingNumber(float damageHealing, GameObject number, RectTransform spawnOrigin)
     {
@@ -393,7 +354,7 @@ public class HeroUIManager : GameUIChildrenFunctionality
         GameObject newBuffDebuff = Instantiate(_buffDebuffObj, _buffDebuffOrigin);
 
         newBuffDebuff.GetComponent<HeroBuffDebuffFunctionality>().ChangeHeroBuffDebuffIcon(buffSprite, isBuff);
-        
+
     }
 
     private void ManualFullyCharged()
@@ -435,12 +396,13 @@ public class HeroUIManager : GameUIChildrenFunctionality
         _heroUIGeneralAnimator.SetTrigger(_generalAnimIntroTrigger);
     }
 
+    #region BaseManager
     public override void ChildFuncSetup()
     {
         //base.ChildFuncSetup();
     }
 
-    public override void SubscribeToEvents()
+    protected override void SubscribeToEvents()
     {
         _associatedHeroBase.GetHeroControlledBeginEvent().AddListener(HeroControlStart);
         _associatedHeroBase.GetHeroControlledEndEvent().AddListener(HeroControlEnd);
@@ -462,4 +424,6 @@ public class HeroUIManager : GameUIChildrenFunctionality
         //Hides the ability icon
         _associatedHeroBase.GetHeroManualAbilityAttemptEvent().AddListener(ManualUsed);
     }
+
+    #endregion
 }

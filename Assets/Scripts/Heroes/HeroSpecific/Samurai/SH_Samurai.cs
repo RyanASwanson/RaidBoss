@@ -37,18 +37,20 @@ public class SH_Samurai : SpecificHeroFramework
     /// </summary>
     protected void CreateBasicAttackProjectiles()
     {
-        //Samurai Projectile Script Not Currently in use
-        //GameObject spawnedProjectile = 
         GameObject spawnedProjectile = Instantiate(_basicProjectile, _myHeroBase.transform.position, Quaternion.identity);
         spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(_myHeroBase);
 
+        //Performs the setup for the damage area so that it knows it's owner
         spawnedProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(_myHeroBase);
-        //spawnedProjectile.GetComponent<SHP_SamuraiBasicProjectile>().AdditionalSetup(1);
     }
 
     #endregion
 
     #region Manual Abilities
+    /// <summary>
+    /// Called when manual button is pressed
+    /// </summary>
+    /// <param name="attackLocation"></param>
     public override void ActivateManualAbilities(Vector3 attackLocation)
     {
         base.ActivateManualAbilities(attackLocation);

@@ -41,10 +41,11 @@ public class CameraGameManager : BaseGameplayManager
     [Space]
     [Header("Camera Rotation")]
     [SerializeField] private Transform _cinemachineTransform;
+    private Coroutine _cinemachineCamRotationCoroutine;
 
     [SerializeField] private Transform _virtualCameraTransform;
-    private Vector3 _targetVirtualCamRotation;
     private Coroutine _virtualCamRotationCoroutine;
+
 
     /// <summary>
     /// Initiates the camera shake process
@@ -134,15 +135,7 @@ public class CameraGameManager : BaseGameplayManager
         _virtualCamRotationCoroutine = null;
     }
 
-    public override void SetupGameplayManager()
-    {
-        base.SetupGameplayManager();
-
-        _multiChannelPerlin = _virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-
-        StartingValues();
-
-    }
+    
 
     private void StartingValues()
     {
@@ -154,6 +147,16 @@ public class CameraGameManager : BaseGameplayManager
 
 
     #region BaseManager
+    public override void SetupGameplayManager()
+    {
+        base.SetupGameplayManager();
+
+        _multiChannelPerlin = _virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+
+        StartingValues();
+
+    }
+
     protected override void SubscribeToEvents()
     {
         GameplayManagers.Instance.GetBossManager().GetBossBase()

@@ -13,9 +13,4 @@ public class SHP_SamuraiBasicProjectile : HeroProjectileFramework
     {
         base.SetUpProjectile(heroBase);
     }
-
-    public void AdditionalSetup(float lifeTime)
-    {
-        Destroy(gameObject, lifeTime);
-    }
 }

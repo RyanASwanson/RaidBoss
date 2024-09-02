@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Provides the functionality for general management of heroes
+/// Spawns heroes into the environment
+/// 
+/// </summary>
 public class HeroesManager : BaseGameplayManager
 {
     [SerializeField] private GameObject _baseHeroPrefab;
@@ -12,11 +17,6 @@ public class HeroesManager : BaseGameplayManager
     private List<HeroBase> _currentHeroes = new List<HeroBase>();
     private List<HeroBase> _currentLivingHeroes = new List<HeroBase>();
 
-    public override void SetupGameplayManager()
-    {
-        base.SetupGameplayManager();
-        StartCoroutine(SpawnHeroesAtSpawnPoints());
-    }
 
     /// <summary>
     /// Spawns all selected heroes from the selection manager
@@ -84,6 +84,11 @@ public class HeroesManager : BaseGameplayManager
         UniversalManagers.Instance.GetTimeManager().HeroDiedTimeSlow();
     }
 
+
+    /// <summary>
+    /// Performs a check for if all heroes are dead
+    /// If they are declare the battle a loss
+    /// </summary>
     private void CheckIfAllHeroesDead()
     {
         if (_currentLivingHeroes.Count == 0)
@@ -103,8 +108,12 @@ public class HeroesManager : BaseGameplayManager
 
     }
 
-    #region Events
-
+    #region BaseManager
+    public override void SetupGameplayManager()
+    {
+        base.SetupGameplayManager();
+        StartCoroutine(SpawnHeroesAtSpawnPoints());
+    }
     #endregion
 
     #region Getters

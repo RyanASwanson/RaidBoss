@@ -37,16 +37,19 @@ public class GameStateUIManager : GameUIChildrenFunctionality
         _loseUI.SetActive(true);
     }
 
+
+    #region BaseManager
     public override void ChildFuncSetup()
     {
         base.ChildFuncSetup();
     }
 
-    public override void SubscribeToEvents()
+    protected override void SubscribeToEvents()
     {
         GameplayManagers.Instance.GetGameStateManager().GetBattleWonEvent().AddListener(BattleWinUI);
         GameplayManagers.Instance.GetGameStateManager().GetBattleLostEvent().AddListener(BattleLoseUI);
     }
+    #endregion
 
     #region Getters
 

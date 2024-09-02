@@ -72,6 +72,7 @@ public class SHP_VampireBasicProjectile : HeroProjectileFramework
             projectileFunc.SetUpProjectile(_myHeroBase);
             projectileFunc.AdditionalSetup(_vampireScript);
 
+            //Performs the setup for the damage area so that it knows it's owner
             newestProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(_myHeroBase);
         }
     }

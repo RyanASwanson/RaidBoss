@@ -22,14 +22,11 @@ public class SH_Shaman : SpecificHeroFramework
 
     protected void CreateBasicAttackProjectiles()
     {
-        //Shaman Projectile Script Not Currently in use
-        //GameObject spawnedProjectile = 
+        //Spawns the projectile at the hero location
         GameObject spawnedProjectile = Instantiate(_basicProjectile, _myHeroBase.transform.position, Quaternion.identity);
 
+        //Performs the setup for the damage area so that it knows it's owner
         spawnedProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(_myHeroBase);
-        //spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(myHeroBase);
-
-        //spawnedProjectile.GetComponent<SHP_ShamanBasicAbility>().AdditionalSetup();
     }
 
     #endregion
@@ -50,6 +47,7 @@ public class SH_Shaman : SpecificHeroFramework
 
         spawnedProjectile.GetComponent<SHP_ShamanManualProjectile>().AdditionalSetup(_currentTotem);
 
+        //Performs the setup for the damage area so that it knows it's owner
         spawnedProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(_myHeroBase);
     }
 

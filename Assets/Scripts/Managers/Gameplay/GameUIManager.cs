@@ -18,12 +18,7 @@ public class GameUIManager : BaseGameplayManager
 
     private int _heroUIManagersAssigned = 0;
 
-    public override void SetupGameplayManager()
-    {
-        base.SetupGameplayManager();
-        SetupChildrenUIManagers();
-    }
-
+    
     /// <summary>
     /// Sets up all scripts that inherit from GameUIChildrenFunctionality
     /// </summary>
@@ -34,7 +29,13 @@ public class GameUIManager : BaseGameplayManager
             gameUIChildrenFunctionality.ChildFuncSetup() ;
     }
 
-    #region Events
+    #region BaseManager
+    public override void SetupGameplayManager()
+    {
+        base.SetupGameplayManager();
+        SetupChildrenUIManagers();
+    }
+
     #endregion
 
     #region Getters

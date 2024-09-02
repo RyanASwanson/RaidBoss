@@ -11,6 +11,9 @@ public class BossManager : BaseGameplayManager
 
     private GameObject _bossGameObject;
 
+
+
+    #region BaseManager
     /// <summary>
     /// Sets up the manager then sets up the specific boss
     /// </summary>
@@ -18,8 +21,11 @@ public class BossManager : BaseGameplayManager
     {
         base.SetupGameplayManager();
         _bossGameObject = _bossBase.gameObject;
+
+        //Sets up the boss base by giving it the BossSO
         _bossBase.Setup(UniversalManagers.Instance.GetSelectionManager().GetSelectedBoss());
     }
+    #endregion
 
     #region Getters
     public BossBase GetBossBase() => _bossBase;

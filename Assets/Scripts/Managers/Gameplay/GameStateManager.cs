@@ -16,11 +16,7 @@ public class GameStateManager : BaseGameplayManager
 
     private UnityEvent _battleWonOrLostEvent = new UnityEvent();
 
-    public override void SetupGameplayManager()
-    {
-        base.SetupGameplayManager();
-        StartCoroutine(ProgressToStart());
-    }
+    
 
     /// <summary>
     /// Starts the battle
@@ -58,6 +54,12 @@ public class GameStateManager : BaseGameplayManager
     }
 
     #region BaseManager
+    public override void SetupGameplayManager()
+    {
+        base.SetupGameplayManager();
+        StartCoroutine(ProgressToStart());
+    }
+
     protected override void SubscribeToEvents()
     {
         

@@ -31,6 +31,8 @@ public class PauseUIManager : GameUIChildrenFunctionality
         _pauseButton.SetActive(false);
     }
 
+    #region BaseManager
+
     public override void ChildFuncSetup()
     {
         _timeManager = UniversalManagers.Instance.GetTimeManager();
@@ -38,11 +40,13 @@ public class PauseUIManager : GameUIChildrenFunctionality
     }
 
 
-    public override void SubscribeToEvents()
+    protected override void SubscribeToEvents()
     {
         _timeManager.GetGamePausedEvent().AddListener(GamePausedUI);
         _timeManager.GetGameUnpausedEvent().AddListener(GameUnpausedUI);
 
         GameplayManagers.Instance.GetGameStateManager().GetBattleWonOrLostEvent().AddListener(GameWonOrLost);
     }
+
+    #endregion
 }

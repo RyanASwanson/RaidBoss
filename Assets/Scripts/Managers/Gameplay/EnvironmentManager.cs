@@ -14,10 +14,14 @@ public class EnvironmentManager : BaseGameplayManager
 
     private const float _distanceToEdgeOfMap = 25;
 
+
+
+    #region BaseManager
     public override void SetupGameplayManager()
     {
         base.SetupGameplayManager();
     }
+    #endregion
 
 
     #region Getters
