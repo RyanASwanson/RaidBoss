@@ -21,32 +21,7 @@ public class SBA_Meteor : SpecificBossAbilityFramework
     private GameObject _storedFallingMeteor;
     private GameObject _storedMovingMeteor;
 
-    protected override void AbilityPrep()
-    {
-        base.AbilityPrep();
-    }
-
-    protected override void StartShowTargetZone()
-    {
-        _currentTargetZones.Add(Instantiate(_targetZone, _storedTargetLocation, Quaternion.identity));
-
-        GameObject newDirectionalTargetZone = Instantiate(_directionalTargetZone, 
-            _storedTargetLocation, Quaternion.identity);
-
-        _currentTargetZones.Add(newDirectionalTargetZone);
-
-        StartCoroutine(FollowingDirectionalTargetZone(newDirectionalTargetZone));
-
-        base.StartShowTargetZone();
-    }
-
-    protected override void StartAbilityWindUp()
-    {
-        _storedFallingMeteor = Instantiate(_fallingMeteor, _storedTargetLocation, _fallingMeteor.transform.rotation);
-        _storedFallingMeteor.GetComponent<SBP_FallingMeteor>().AdditionalSetup(_storedTarget.gameObject);
-
-        base.StartAbilityWindUp();
-    }
+    
 
     protected IEnumerator FollowingDirectionalTargetZone(GameObject targetZone)
     {
@@ -81,6 +56,36 @@ public class SBA_Meteor : SpecificBossAbilityFramework
     }
 
 
+    
+
+    #region Base Ability
+    protected override void AbilityPrep()
+    {
+        base.AbilityPrep();
+    }
+
+    protected override void StartShowTargetZone()
+    {
+        _currentTargetZones.Add(Instantiate(_targetZone, _storedTargetLocation, Quaternion.identity));
+
+        GameObject newDirectionalTargetZone = Instantiate(_directionalTargetZone,
+            _storedTargetLocation, Quaternion.identity);
+
+        _currentTargetZones.Add(newDirectionalTargetZone);
+
+        StartCoroutine(FollowingDirectionalTargetZone(newDirectionalTargetZone));
+
+        base.StartShowTargetZone();
+    }
+
+    protected override void StartAbilityWindUp()
+    {
+        _storedFallingMeteor = Instantiate(_fallingMeteor, _storedTargetLocation, _fallingMeteor.transform.rotation);
+        _storedFallingMeteor.GetComponent<SBP_FallingMeteor>().AdditionalSetup(_storedTarget.gameObject);
+
+        base.StartAbilityWindUp();
+    }
+
     protected override void AbilityStart()
     {
         FallingMeteorContact();
@@ -90,8 +95,5 @@ public class SBA_Meteor : SpecificBossAbilityFramework
         _storedMovingMeteor.GetComponent<SBP_FollowingMeteor>().AdditionalSetup(_storedTarget);
         base.AbilityStart();
     }
-
-    #region Base Ability
-
     #endregion
 }

@@ -12,15 +12,7 @@ public class SBP_MagmaWave : BossProjectileFramework
 
     private const string REMOVE_PROJECTILE_ANIM_TRIGGER = "WaveEnd";
 
-    /// <summary>
-    /// Called when projectile is created
-    /// Provides the projectile with any additional information it may need
-    /// </summary>
-    /// <param name="heroBase"></param>
-    public void AdditionalSetup()
-    {
-        StartProjectileMovement();
-    }
+    
 
     /// <summary>
     /// Makes the projectile look at the target hero and start moving 
@@ -81,6 +73,15 @@ public class SBP_MagmaWave : BossProjectileFramework
     }
 
     #region Base Ability
-
+    /// <summary>
+    /// Called when projectile is created
+    /// Provides the projectile with any additional information it may need
+    /// </summary>
+    /// <param name="heroBase"></param>
+    public override void SetUpProjectile(BossBase bossBase)
+    {
+        base.SetUpProjectile(bossBase);
+        StartProjectileMovement();
+    }
     #endregion
 }

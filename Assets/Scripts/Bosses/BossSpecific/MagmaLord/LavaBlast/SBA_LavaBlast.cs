@@ -19,11 +19,13 @@ public class SBA_LavaBlast : SpecificBossAbilityFramework
 
     private Queue<GameObject> _storedSafeZones = new Queue<GameObject>();
 
-    protected override void AbilityPrep()
+    
+    private void AbilityFailed()
     {
-
-        base.AbilityPrep();
+        Instantiate(_failedVFX, _targetLocation, Quaternion.identity);
     }
+
+    #region Base Ability
 
     /// <summary>
     /// Spawns in the safe zone 
@@ -40,12 +42,6 @@ public class SBA_LavaBlast : SpecificBossAbilityFramework
     }
 
 
-    protected override void StartAbilityWindUp()
-    {
-        base.StartAbilityWindUp();
-    }
-
-
     protected override void AbilityStart()
     {
         if (_storedSafeZones.Dequeue().GetComponent<BossAbilitySafeZone>().DoesSafeZoneContainHero())
@@ -53,19 +49,11 @@ public class SBA_LavaBlast : SpecificBossAbilityFramework
             AbilityFailed();
             return;
         }
-            
+
 
         Instantiate(_lavaBlast, _targetLocation, Quaternion.identity);
 
         base.AbilityStart();
     }
-
-    private void AbilityFailed()
-    {
-        Instantiate(_failedVFX, _targetLocation, Quaternion.identity);
-    }
-
-    #region Base Ability
-
     #endregion
 }

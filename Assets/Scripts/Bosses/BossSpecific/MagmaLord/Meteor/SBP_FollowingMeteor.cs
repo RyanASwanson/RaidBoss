@@ -14,15 +14,7 @@ public class SBP_FollowingMeteor : BossProjectileFramework
     [Space]
     [SerializeField] private float _randomDirectionThreshold;
 
-    /// <summary>
-    /// Called when projectile is created
-    /// Provides the projectile with any additional information it may need
-    /// </summary>
-    /// <param name="heroBase"></param>
-    public void AdditionalSetup(HeroBase heroBase)
-    {
-        StartProjectileMovement(heroBase);
-    }
+    
 
     /// <summary>
     /// Makes the projectile look at the target hero and start moving 
@@ -76,7 +68,6 @@ public class SBP_FollowingMeteor : BossProjectileFramework
             yield return null;
         }
 
-        //ProjectileReachedEndOfPath();
     }
 
     private void ProjectileLookAt(Vector3 lookLocation)
@@ -86,6 +77,14 @@ public class SBP_FollowingMeteor : BossProjectileFramework
     }
 
     #region Base Ability
-
+    /// <summary>
+    /// Called when projectile is created
+    /// Provides the projectile with any additional information it may need
+    /// </summary>
+    /// <param name="heroBase"></param>
+    public void AdditionalSetup(HeroBase heroBase)
+    {
+        StartProjectileMovement(heroBase);
+    }
     #endregion
 }

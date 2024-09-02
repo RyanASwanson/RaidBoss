@@ -18,24 +18,8 @@ public class SBA_Volcano : SpecificBossAbilityFramework
     private List<GameObject> _storedDamageZones = new List<GameObject>();
     private List<Vector3> _targetLocations;
 
-    protected override void AbilityPrep()
-    {
-        base.AbilityPrep();
-    }
 
-    protected override void StartShowTargetZone()
-    {
-        DetermineAttackLocations();
-
-        foreach(Vector3 attackLoc in _targetLocations)
-        {
-            _currentTargetZones.Add(Instantiate(_targetZone, attackLoc, Quaternion.identity));
-            //Instantiate(_targetZone, attackLoc, Quaternion.identity);
-        }
-            
-
-        base.StartShowTargetZone();
-    }
+    
 
     private void DetermineAttackLocations()
     {
@@ -68,28 +52,8 @@ public class SBA_Volcano : SpecificBossAbilityFramework
         return currentTestLocation;
     }
 
-    protected override void StartAbilityWindUp()
-    {
-        //_storedFallingMeteor = Instantiate(_volcanoDamageZone, _storedTargetLocation, _volcanoDamageZone.transform.rotation);
-        base.StartAbilityWindUp();
-    }
 
-    protected override void AbilityStart()
-    {
-        foreach (Vector3 attackLoc in _targetLocations)
-        {
-            GameObject newestDamageZone = Instantiate(_volcanoDamageZone, attackLoc, Quaternion.identity);
-
-            newestDamageZone.transform.eulerAngles += new Vector3(0, _rotationAmount*
-                Mathf.RoundToInt(Random.Range(0,_maxRotations)), 0);
-            _storedDamageZones.Add(newestDamageZone);
-        }
-
-
-            
-        //_storedMovingMeteor.GetComponent<SBP_FollowingMeteor>().AdditionalSetup(_storedTarget);
-        base.AbilityStart();
-    }
+    
 
     /*protected IEnumerator CreateVolcanoDamageZonesProcess()
     {
@@ -98,6 +62,32 @@ public class SBA_Volcano : SpecificBossAbilityFramework
 
 
     #region Base Ability
+    protected override void StartShowTargetZone()
+    {
+        DetermineAttackLocations();
 
+        foreach (Vector3 attackLoc in _targetLocations)
+        {
+            _currentTargetZones.Add(Instantiate(_targetZone, attackLoc, Quaternion.identity));
+            //Instantiate(_targetZone, attackLoc, Quaternion.identity);
+        }
+
+
+        base.StartShowTargetZone();
+    }
+
+    protected override void AbilityStart()
+    {
+        foreach (Vector3 attackLoc in _targetLocations)
+        {
+            GameObject newestDamageZone = Instantiate(_volcanoDamageZone, attackLoc, Quaternion.identity);
+
+            newestDamageZone.transform.eulerAngles += new Vector3(0, _rotationAmount *
+                Mathf.RoundToInt(Random.Range(0, _maxRotations)), 0);
+            _storedDamageZones.Add(newestDamageZone);
+        }
+
+        base.AbilityStart();
+    }
     #endregion
 }

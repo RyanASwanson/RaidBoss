@@ -14,10 +14,9 @@ public class SBA_Scorch : SpecificBossAbilityFramework
     [SerializeField] private GameObject _scorch;
     [SerializeField] private GameObject _targetZone;
 
-    protected override void AbilityPrep()
-    {
-        base.AbilityPrep();
-    }
+
+
+    #region Base Ability
 
     protected override void StartShowTargetZone()
     {
@@ -25,10 +24,6 @@ public class SBA_Scorch : SpecificBossAbilityFramework
         base.StartShowTargetZone();
     }
 
-    protected override void StartAbilityWindUp()
-    {
-        base.StartAbilityWindUp();
-    }
 
     protected override void AbilityStart()
     {
@@ -36,8 +31,5 @@ public class SBA_Scorch : SpecificBossAbilityFramework
 
         base.AbilityStart();
     }
-
-    #region Base Ability
-
     #endregion
 }

@@ -6,11 +6,7 @@ public class SBP_FallingMeteor : BossProjectileFramework
 {
     [SerializeField] private GameObject _contactParticles;
 
-    public void AdditionalSetup(GameObject target)
-    {
-        StartCoroutine(LookAtTarget(target));
-    }
-
+    
     private IEnumerator LookAtTarget(GameObject target)
     {
         while (true)
@@ -28,5 +24,9 @@ public class SBP_FallingMeteor : BossProjectileFramework
 
     #region Base Ability
 
+    public void AdditionalSetup(GameObject target)
+    {
+        StartCoroutine(LookAtTarget(target));
+    }
     #endregion
 }

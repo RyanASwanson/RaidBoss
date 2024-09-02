@@ -16,6 +16,9 @@ public class SBA_MagmaWave : SpecificBossAbilityFramework
     private GameObject _storedMagmaWave;
     private Vector3 _edgeOfMap;
 
+
+
+    #region Base Ability
     protected override void AbilityPrep()
     {
         _edgeOfMap = GameplayManagers.Instance.GetEnvironmentManager().
@@ -34,8 +37,8 @@ public class SBA_MagmaWave : SpecificBossAbilityFramework
         GameObject newTargetZone = Instantiate(_targetZone, midpoint, Quaternion.identity);
 
         //Set the scale of the target zone to be the length of the distance from boss to edge of map
-        newTargetZone.transform.localScale = new (newTargetZone.transform.localScale.x,
-            newTargetZone.transform.localScale.y, Vector3.Distance(transform.position, _edgeOfMap)/2);
+        newTargetZone.transform.localScale = new(newTargetZone.transform.localScale.x,
+            newTargetZone.transform.localScale.y, Vector3.Distance(transform.position, _edgeOfMap) / 2);
 
         //Make the target zone be pointed towards the boss
         newTargetZone.transform.LookAt(transform.position);
@@ -57,11 +60,7 @@ public class SBA_MagmaWave : SpecificBossAbilityFramework
         _storedMagmaWave = Instantiate(_magmaWave, _edgeOfMap, Quaternion.identity);
         SBP_MagmaWave mwScript = _storedMagmaWave.GetComponent<SBP_MagmaWave>();
         mwScript.SetUpProjectile(_myBossBase);
-        mwScript.AdditionalSetup();
         base.AbilityStart();
     }
-
-    #region Base Ability
-
     #endregion
 }
