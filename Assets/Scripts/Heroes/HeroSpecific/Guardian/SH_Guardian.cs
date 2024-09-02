@@ -79,16 +79,8 @@ public class SH_Guardian : SpecificHeroFramework
     }
     #endregion
 
-    public override void ActivateHeroSpecificActivity()
-    {
-        base.ActivateHeroSpecificActivity();
-    }
 
-    public override void DeactivateHeroSpecificActivity()
-    {
-        base.DeactivateHeroSpecificActivity();
-    }
-
+    #region Base Hero
     protected override void SubscribeToEvents()
     {
         base.SubscribeToEvents();
@@ -96,5 +88,6 @@ public class SH_Guardian : SpecificHeroFramework
         _myHeroBase.GetHeroDamagedEvent().AddListener(ActivatePassiveAbilities);
     }
 
-    
+    #endregion
+
 }

@@ -191,36 +191,8 @@ public class SH_Chronomancer : SpecificHeroFramework
     #endregion
 
 
-    public override void ActivateHeroSpecificActivity()
-    {
-        base.ActivateHeroSpecificActivity();
-    }
 
-    public override void DeactivateHeroSpecificActivity()
-    {
-        base.DeactivateHeroSpecificActivity();
-    }
-
-    protected override void BattleStarted()
-    {
-        base.BattleStarted();
-        AddStartingHealthValues();
-        CreateInitialTargetDirectionObject();
-
-        SubscribeToHeroesDamagedEvents();
-    }
-
-    protected override void HeroDied()
-    {
-        base.HeroDied();
-        UnsubscribeToHeroesDamagedEvents();
-        Destroy(_storedDirectionObj);
-    }
-
-    protected override void SubscribeToEvents()
-    {
-        base.SubscribeToEvents();
-    }
+    
 
     public void SubscribeToHeroesDamagedEvents()
     {
@@ -250,4 +222,27 @@ public class SH_Chronomancer : SpecificHeroFramework
         }*/
 
     }
+
+    #region Base Hero
+    protected override void BattleStarted()
+    {
+        base.BattleStarted();
+        AddStartingHealthValues();
+        CreateInitialTargetDirectionObject();
+
+        SubscribeToHeroesDamagedEvents();
+    }
+
+    protected override void HeroDied()
+    {
+        base.HeroDied();
+        UnsubscribeToHeroesDamagedEvents();
+        Destroy(_storedDirectionObj);
+    }
+
+    protected override void SubscribeToEvents()
+    {
+        base.SubscribeToEvents();
+    }
+    #endregion
 }

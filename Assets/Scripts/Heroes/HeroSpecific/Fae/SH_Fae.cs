@@ -147,6 +147,9 @@ public class SH_Fae : SpecificHeroFramework
     #endregion
 
 
+
+
+    #region Base Hero
     public override void SetupSpecificHero(HeroBase heroBase, HeroSO heroSO)
     {
         _heroStats = heroBase.GetHeroStats();
@@ -162,4 +165,5 @@ public class SH_Fae : SpecificHeroFramework
         _myHeroBase.GetHeroStartedMovingEvent().AddListener(IncreaseBasicAttackSpeed);
         _myHeroBase.GetHeroStoppedMovingEvent().AddListener(DecreaseBasicAttackSpeed);
     }
+    #endregion
 }

@@ -72,4 +72,8 @@ public class MirageClone : SpecificHeroFramework
         _bossBase.GetBossTargetsAssignedEvent().AddListener(AssignSelfAsBossTarget);
         base.SubscribeToEvents();
     }
+
+    #region Base Hero
+
+    #endregion
 }

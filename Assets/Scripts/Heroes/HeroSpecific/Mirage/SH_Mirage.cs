@@ -24,6 +24,9 @@ public class SH_Mirage : SpecificHeroFramework
 
 
     #region Basic Abilities
+    /// <summary>
+    /// Creates the zone that shows where the basic ability will be cast at
+    /// </summary>
     private void CreateBasicTargetZone()
     {
         _currentBasicTargetZone = Instantiate(_basicTargetZone, FindHeroCloneMidpoint(), Quaternion.identity);
@@ -31,6 +34,11 @@ public class SH_Mirage : SpecificHeroFramework
         StartCoroutine(MoveBasicTargetZone());
     }
 
+    /// <summary>
+    /// Moves the location of the target zone to be in the midpoint between 
+    /// the Mirage and the clone
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator MoveBasicTargetZone()
     {
         while(this != null && _currentBasicTargetZone != null)
@@ -44,8 +52,14 @@ public class SH_Mirage : SpecificHeroFramework
         }
     }
 
+
+    /// <summary>
+    /// Finds the point at the middle in between the Mirage and the clone
+    /// </summary>
+    /// <returns></returns>
     private Vector3 FindHeroCloneMidpoint()
     {
+        //Finds the midpoint by lerping half way between the 2 locations
         Vector3 tempVector = Vector3.Lerp(transform.position, _cloneBase.transform.position, .5f);
         tempVector = new Vector3(tempVector.x, tempVector.y + _targetZoneYOffset, tempVector.z);
         return tempVector;
@@ -57,8 +71,12 @@ public class SH_Mirage : SpecificHeroFramework
         base.ActivateBasicAbilities();
     }
 
+    /// <summary>
+    /// Spawns and sets up the projectile for the basic ability
+    /// </summary>
     public void CreateBasicAbilityProjectile()
     {
+        //Spawns the projectile at the location of the midpoint
         GameObject _newestProjectile = Instantiate(_basicProjectile, 
             _currentBasicTargetZone.transform.position, _currentBasicTargetZone.transform.rotation);
 
@@ -69,6 +87,10 @@ public class SH_Mirage : SpecificHeroFramework
 
     #region Manual Abilities
 
+    /// <summary>
+    /// Spawns the clone and sets them up with the needed functionality
+    /// Called at the start of the battle
+    /// </summary>
     private void CreateClone()
     {
         Vector3 spawnLocation = _myHeroBase.transform.position + (_myHeroBase.transform.forward * _cloneSpawnOffset);
@@ -85,23 +107,40 @@ public class SH_Mirage : SpecificHeroFramework
         MoveClone(attackLocation);
     }
 
+
+    /// <summary>
+    /// Directs the pathfinding of the clone to move to the target location
+    /// </summary>
+    /// <param name="moveLocation"></param>
     private void MoveClone(Vector3 moveLocation)
     {
         _cloneBase.GetPathfinding().DirectNavigationTo(moveLocation);
         CreateCloneDirectIcon(moveLocation);
     }
 
+    /// <summary>
+    /// Creates a direct icon similar to the one created when moving a hero to a location
+    /// </summary>
+    /// <param name="location"></param>
     private void CreateCloneDirectIcon(Vector3 location)
     {
         location = GameplayManagers.Instance.GetPlayerInputManager().CalculateDirectIconLocation(location);
         Instantiate(_cloneDirectIcon, location, Quaternion.identity);
     }
 
+
+    /// <summary>
+    /// The version of the basic ability casted by the clone
+    /// </summary>
     public void CloneBasicAbility()
     {
         CreateBasicAbilityProjectile();
     }
 
+
+    /// <summary>
+    /// Kills the clone when the Mirage dies
+    /// </summary>
     private void CloneDeath()
     {
         _cloneBase.GetHeroStats().ForceKillHero();
@@ -112,16 +151,22 @@ public class SH_Mirage : SpecificHeroFramework
 
     #endregion
 
+    
+
+
+    #region Base Hero
+    public override void SetupSpecificHero(HeroBase heroBase, HeroSO heroSO)
+    {
+        base.SetupSpecificHero(heroBase, heroSO);
+
+        //Spawn the clone at a delay
+        Invoke(nameof(CreateClone), _cloneSpawnDelay);
+    }
+
     protected override void BattleStarted()
     {
         CreateBasicTargetZone();
         base.BattleStarted();
-    }
-
-    public override void SetupSpecificHero(HeroBase heroBase, HeroSO heroSO)
-    {
-        base.SetupSpecificHero(heroBase, heroSO);
-        Invoke(nameof(CreateClone), _cloneSpawnDelay);
     }
 
     protected override void SubscribeToEvents()
@@ -129,6 +174,6 @@ public class SH_Mirage : SpecificHeroFramework
         base.SubscribeToEvents();
         _myHeroBase.GetHeroDiedEvent().AddListener(CloneDeath);
     }
-
+    #endregion
 
 }

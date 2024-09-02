@@ -97,5 +97,9 @@ public class SH_Astromancer : SpecificHeroFramework
 
     #endregion
 
+    #region Base Hero
+
+    #endregion
+
 }
 

@@ -234,6 +234,11 @@ public abstract class SpecificHeroFramework : MonoBehaviour
 
     }
 
+
+    /// <summary>
+    /// Starts the cooldowns for abilities
+    /// Called at the start of the battle
+    /// </summary>
     public virtual void ActivateHeroSpecificActivity()
     {
         StartCooldownBasicAbility();

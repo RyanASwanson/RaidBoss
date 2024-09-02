@@ -64,15 +64,6 @@ public class SH_Shaman : SpecificHeroFramework
     #endregion
 
 
-    public override void ActivateHeroSpecificActivity()
-    {
-        base.ActivateHeroSpecificActivity();
-    }
-
-    public override void DeactivateHeroSpecificActivity()
-    {
-        base.DeactivateHeroSpecificActivity();
-    }
 
     protected override void SubscribeToEvents()
     {

@@ -74,37 +74,23 @@ public class SH_Alchemist : SpecificHeroFramework
         newestPotion.GetComponent<GeneralHeroHealArea>().SetUpHealingArea(_myHeroBase);
     }
 
-    
 
-    
+
+
     #endregion
 
-    public override void ActivateHeroSpecificActivity()
-    {
-        base.ActivateHeroSpecificActivity();
-    }
-
-    public override void DeactivateHeroSpecificActivity()
-    {
-        base.DeactivateHeroSpecificActivity();
-    }
-
+    #region Base Hero
     protected override void BattleStarted()
     {
         base.BattleStarted();
     }
 
-    protected override void HeroDied()
-    {
-        base.HeroDied();
-    }
-
     protected override void SubscribeToEvents()
     {
         base.SubscribeToEvents();
-
-        
     }
+
+    #endregion
 }
 
 public enum PotionTypes

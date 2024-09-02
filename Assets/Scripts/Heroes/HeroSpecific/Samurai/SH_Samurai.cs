@@ -136,15 +136,6 @@ public class SH_Samurai : SpecificHeroFramework
     #endregion
 
 
-    public override void ActivateHeroSpecificActivity()
-    {
-        base.ActivateHeroSpecificActivity();
-    }
-
-    public override void DeactivateHeroSpecificActivity()
-    {
-        base.DeactivateHeroSpecificActivity();
-    }
 
     protected override void SubscribeToEvents()
     {
