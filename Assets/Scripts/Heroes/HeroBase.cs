@@ -32,6 +32,9 @@ public class HeroBase : MonoBehaviour
 
     private UnityEvent<HeroSO> _heroSOSetEvent = new UnityEvent<HeroSO>();
 
+    private UnityEvent<float> _heroDealtDamageEvent = new UnityEvent<float>();
+    private UnityEvent<float> _heroDealtStaggerEvent = new UnityEvent<float>();
+
     private UnityEvent _heroControlledStartEvent = new UnityEvent();
     private UnityEvent _heroControlledEndEvent = new UnityEvent();
 
@@ -118,6 +121,17 @@ public class HeroBase : MonoBehaviour
     {
         _heroSOSetEvent?.Invoke(heroSO);
     }
+
+    public void InvokeHeroDealtDamageEvent(float damage)
+    {
+        _heroDealtDamageEvent?.Invoke(damage);
+    }
+    public void InvokeHeroDealtStaggerEvent(float stagger)
+    {
+        _heroDealtStaggerEvent?.Invoke(stagger);
+    }
+
+
     public void InvokeHeroControlledBegin()
     {
         _heroControlledStartEvent?.Invoke();
@@ -221,6 +235,10 @@ public class HeroBase : MonoBehaviour
     public int GetHeroID() => _myHeroID;
 
     public UnityEvent<HeroSO> GetSOSetEvent() => _heroSOSetEvent;
+
+    public UnityEvent<float> GetHeroDealtDamageEvent() => _heroDealtDamageEvent;
+    public UnityEvent<float> GetHeroDealtStaggerEvent() => _heroDealtStaggerEvent;
+
     public UnityEvent GetHeroControlledBeginEvent() => _heroControlledStartEvent;
     public UnityEvent GetHeroControlledEndEvent() => _heroControlledEndEvent;
 

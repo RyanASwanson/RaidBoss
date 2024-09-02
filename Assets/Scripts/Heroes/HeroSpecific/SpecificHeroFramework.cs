@@ -198,7 +198,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
 
         GameplayManagers.Instance.GetBossManager().GetBossBase().GetBossStats().DealDamageToBoss(damage);
 
-        InvokeHeroDealtDamageEvent(damage);
+        _myHeroBase.InvokeHeroDealtDamageEvent(damage);
     }
 
     public virtual void StaggerBoss(float stagger)
@@ -207,10 +207,10 @@ public abstract class SpecificHeroFramework : MonoBehaviour
 
         GameplayManagers.Instance.GetBossManager().GetBossBase().GetBossStats().DealStaggerToBoss(stagger);
 
-        InvokeHeroDealtStaggerEvent(stagger);
+        _myHeroBase.InvokeHeroDealtStaggerEvent(stagger);
     }
 
-    public virtual void HeroTakeDamageOverride(float damage)
+    protected virtual void HeroTakeDamageOverride(float damage)
     {
 
     }
@@ -221,7 +221,6 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     public virtual void SetupSpecificHero(HeroBase heroBase, HeroSO heroSO)
     {
         _myHeroBase = heroBase;
-        SetDefaultValues(heroSO);
         SubscribeToEvents();
     }
 
@@ -246,11 +245,6 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         StopCooldownManualAbility();
     }
 
-    public void SetDefaultValues(HeroSO heroSO)
-    {
-
-    }
-
     protected virtual void SubscribeToEvents()
     {
         GameplayManagers.Instance.GetGameStateManager().GetStartOfBattleEvent().AddListener(BattleStarted);
@@ -260,16 +254,6 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         _myHeroBase.GetHeroDiedEvent().AddListener(HeroDied);
     }
 
-    #region Events
-    protected void InvokeHeroDealtDamageEvent(float damage)
-    {
-        _heroDealtDamageEvent?.Invoke(damage);
-    }
-    protected void InvokeHeroDealtStaggerEvent(float stagger)
-    {
-        _heroDealtStaggerEvent?.Invoke(stagger);
-    }
-    #endregion
 
     #region Getters
     public float GetBasicAbilityChargeTime() => _basicAbilityChargeTime;
@@ -277,9 +261,6 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     public float GetManualAbilityChargePercent() => _manualAbilityCurrentCharge / _manualAbilityChargeTime;
 
     public Animator GetSpecificHeroAnimator() => _heroSpecificAnimator;
-
-    public UnityEvent<float> GetHeroDealtDamageEvent() => _heroDealtDamageEvent;
-    public UnityEvent<float> GetHeroDealtStaggerEvent() => _heroDealtStaggerEvent;
     #endregion
 
     

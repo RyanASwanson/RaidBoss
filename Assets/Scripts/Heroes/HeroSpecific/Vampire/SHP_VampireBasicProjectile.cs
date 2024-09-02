@@ -40,6 +40,10 @@ public class SHP_VampireBasicProjectile : HeroProjectileFramework
     }
 
 
+    /// <summary>
+    /// Triggers different animations based on if the projectile is the original
+    /// or a split copy
+    /// </summary>
     private void StartAnimations()
     {
         if (_canSplit)
@@ -48,6 +52,10 @@ public class SHP_VampireBasicProjectile : HeroProjectileFramework
             _projectileAnimator.SetTrigger(SPLIT_ATTACK_ANIM_TRIGGER);
     }
 
+    /// <summary>
+    /// Moves the projectile along its path
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator MoveProjectile()
     {
         while (true)
@@ -57,6 +65,9 @@ public class SHP_VampireBasicProjectile : HeroProjectileFramework
         }
     }
 
+    /// <summary>
+    /// Splits the projectile into several other projectiles
+    /// </summary>
     public void SplitProjectile()
     {
 
@@ -69,6 +80,7 @@ public class SHP_VampireBasicProjectile : HeroProjectileFramework
             GameObject newestProjectile = Instantiate(_splitProjectile, transform.position, Quaternion.Euler(projRotation));
 
             SHP_VampireBasicProjectile projectileFunc = newestProjectile.GetComponent<SHP_VampireBasicProjectile>();
+
             projectileFunc.SetUpProjectile(_myHeroBase);
             projectileFunc.AdditionalSetup(_vampireScript);
 
@@ -77,6 +89,11 @@ public class SHP_VampireBasicProjectile : HeroProjectileFramework
         }
     }
 
+    /// <summary>
+    /// Triggers the passive of the vampire
+    /// Called when the projectile does damage
+    /// </summary>
+    /// <param name="damage"></param>
     public void TriggerHeroPassive(float damage)
     {
         _vampireScript.AddToPassiveHealingCounter(damage);
