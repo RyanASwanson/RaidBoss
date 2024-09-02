@@ -65,7 +65,7 @@ public class BossUIManager : GameUIChildrenFunctionality
         SetHealthBarPercentage(damage);
         StartRecentHealthBarDrain();
 
-        CreateDamageNumbers(damage);
+        CreateDamageStaggerNumber(true, damage, _damageNumber, _damageNumbersOrigin);
     }
 
     private void SetHealthBarPercentage(float damage)
@@ -115,11 +115,13 @@ public class BossUIManager : GameUIChildrenFunctionality
     #endregion
 
     #region Stagger Bar
+
     private void BossTookStagger(float stagger)
     {
         SetStaggerBarPercentage(stagger);
         StartRecentStaggerBarDrain();
-        CreateStaggerNumbers(stagger);
+
+        CreateDamageStaggerNumber(false, stagger, _staggerNumber, _staggerNumbersOrigin);
     }
 
     private void BossFullyStaggered()
@@ -191,7 +193,7 @@ public class BossUIManager : GameUIChildrenFunctionality
     }    
     #endregion
 
-    /// <summary>
+    /*/// <summary>
     /// Create the damage numbers from the boss taking damage
     /// </summary>
     /// <param name="damage"></param> The amount of damage the boss took
@@ -244,7 +246,28 @@ public class BossUIManager : GameUIChildrenFunctionality
             newStaggerNumber.GetComponent<Animator>().SetTrigger(_staggerAverageAnimTrigger);
         else
             newStaggerNumber.GetComponent<Animator>().SetTrigger(_damageStaggerWeakAnimTrigger);
+    }*/
+
+    private void CreateDamageStaggerNumber(bool isDamage, float damageStagger, GameObject number, RectTransform spawnOrigin)
+    {
+        GameObject newNumber = Instantiate(number, spawnOrigin);
+
+        damageStagger = Mathf.RoundToInt(damageStagger);
+
+        //Makes sure the value shown isn't less than 1
+        if (damageStagger <= 0)
+            damageStagger = 1;
+
+        newNumber.GetComponentInChildren<Text>().text = damageStagger.ToString();
+        newNumber.GetComponentInChildren<TMP_Text>().text = damageStagger.ToString();
+
+        AddSpawnVarianceToDamageStaggerNumber(newNumber);
+
+        PerformAnimationOnDamageStaggerNumber(isDamage, damageStagger, newNumber);
+        
     }
+
+    
 
     /// <summary>
     /// Adds variance to the location of the damage/stagger number
@@ -253,6 +276,38 @@ public class BossUIManager : GameUIChildrenFunctionality
     private void AddSpawnVarianceToDamageStaggerNumber(GameObject number)
     {
         number.transform.position += new Vector3(Random.Range(-_damageNumbersXVariance, _damageNumbersXVariance), 0, 0);
+    }
+
+    private void PerformAnimationOnDamageStaggerNumber(bool isDamage, float damageStagger, GameObject newNumber)
+    {
+        Animator numberAnimator = newNumber.GetComponent<Animator>();
+
+        if (isDamage)
+        {
+            //Performs a different animation on the damage number depending on how much damage was dealt
+            if (damageStagger >= _strongDamage)
+            {
+                numberAnimator.SetTrigger(_damageStrongAnimTrigger);
+                //Shows time on large damage dealt
+                UniversalManagers.Instance.GetTimeManager().LargeHeroDamageStaggerTimeSlow();
+            }
+            else if (damageStagger >= _averageDamage)
+                numberAnimator.SetTrigger(_damageAverageAnimTrigger);
+            else
+                numberAnimator.SetTrigger(_damageStaggerWeakAnimTrigger);
+        }
+        else
+        {
+            if (damageStagger >= _strongStagger)
+            {
+                numberAnimator.SetTrigger(_staggerStrongAnimTrigger);
+                UniversalManagers.Instance.GetTimeManager().LargeHeroDamageStaggerTimeSlow();
+            }
+            else if (damageStagger >= _averageStagger)
+                numberAnimator.SetTrigger(_staggerAverageAnimTrigger);
+            else
+                numberAnimator.SetTrigger(_damageStaggerWeakAnimTrigger);
+        }
     }
 
     /*protected override void GetManagers()
