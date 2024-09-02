@@ -185,13 +185,13 @@ public class TimeManager : BaseUniversalManager
 
 
     #region BaseManager
-    public override void SetupUniversalManager()
+    public override void SetupManager()
     {
-        base.SetupUniversalManager();
+        base.SetupManager();
     }
 
 
-    public override void SubscribeToEvents()
+    protected override void SubscribeToEvents()
     {
         UniversalManagers.Instance.GetSceneLoadManager().GetStartOfSceneLoadEvent().AddListener(SceneLoadStart);
         UniversalManagers.Instance.GetSceneLoadManager().GetEndOfSceneLoadEvent().AddListener(SceneLoadEnd);

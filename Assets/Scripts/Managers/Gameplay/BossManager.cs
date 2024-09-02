@@ -17,9 +17,9 @@ public class BossManager : BaseGameplayManager
     /// <summary>
     /// Sets up the manager then sets up the specific boss
     /// </summary>
-    public override void SetupGameplayManager()
+    public override void SetupManager()
     {
-        base.SetupGameplayManager();
+        base.SetupManager();
         _bossGameObject = _bossBase.gameObject;
 
         //Sets up the boss base by giving it the BossSO

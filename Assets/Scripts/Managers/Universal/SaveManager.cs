@@ -128,9 +128,9 @@ public class SaveManager : BaseUniversalManager
     }
 
     #region BaseManager
-    public override void SetupUniversalManager()
+    public override void SetupManager()
     {
-        base.SetupUniversalManager();
+        base.SetupManager();
         EstablishPath();
         Load();
     }

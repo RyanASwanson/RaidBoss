@@ -26,10 +26,10 @@ public class UniversalManagers : MonoBehaviour
     private void ConfirmedUniversalManager()
     {
         foreach (BaseUniversalManager bgm in GetComponentsInChildren<BaseUniversalManager>())
-            bgm.SetupUniversalManager();
+            bgm.SetupManager();
     }
 
-    #region Get Managers
+    #region Getters - Managers
     public SceneLoadManager GetSceneLoadManager() => _sceneLoadManager;
     public SelectionManager GetSelectionManager() => _selectionManager;
     public TimeManager GetTimeManager() => _timeManager;

@@ -28,10 +28,10 @@ public class GameplayManagers : MonoBehaviour
     private void SetupAllGameplayManagers()
     {
         foreach (BaseGameplayManager bgm in GetComponentsInChildren<BaseGameplayManager>())
-            bgm.SetupGameplayManager();
+            bgm.SetupManager();
     }
 
-    #region Getters
+    #region Getters - Managers
     public PlayerInputGameplayManager GetPlayerInputManager() => _playerInputManager;
     public GameStateManager GetGameStateManager() => _gameStateManager;
     public CameraGameManager GetCameraManager() => _cameraManager;

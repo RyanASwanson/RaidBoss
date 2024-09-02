@@ -280,9 +280,9 @@ public class PlayerInputGameplayManager : BaseGameplayManager
 
 
     #region BaseManager
-    public override void SetupGameplayManager()
+    public override void SetupManager()
     {
-        base.SetupGameplayManager();
+        base.SetupManager();
         GetManagers();
         SetupClickAndDrag();
         SubscribeToPlayerInput();

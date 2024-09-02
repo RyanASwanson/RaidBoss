@@ -30,9 +30,9 @@ public class GameUIManager : BaseGameplayManager
     }
 
     #region BaseManager
-    public override void SetupGameplayManager()
+    public override void SetupManager()
     {
-        base.SetupGameplayManager();
+        base.SetupManager();
         SetupChildrenUIManagers();
     }
 
