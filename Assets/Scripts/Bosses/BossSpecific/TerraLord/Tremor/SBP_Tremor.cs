@@ -8,11 +8,6 @@ public class SBP_Tremor : BossProjectileFramework
 
     [SerializeField] private List<GameObject> _spikeSets;
 
-    public override void SetUpProjectile(BossBase bossBase)
-    {
-        base.SetUpProjectile(bossBase);
-        StartCoroutine(SpikeSpawningProcess());
-    }
 
     private IEnumerator SpikeSpawningProcess()
     {
@@ -25,6 +20,10 @@ public class SBP_Tremor : BossProjectileFramework
 
 
     #region Base Ability
-
+    public override void SetUpProjectile(BossBase bossBase)
+    {
+        base.SetUpProjectile(bossBase);
+        StartCoroutine(SpikeSpawningProcess());
+    }
     #endregion
 }

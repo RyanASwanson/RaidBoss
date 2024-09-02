@@ -12,6 +12,34 @@ public class SBA_Entomb : SpecificBossAbilityFramework
 
     [SerializeField] private GameObject _targetZone;
 
+    
+    /// <summary>
+    /// Calculates the Y rotation of the target zone and attack
+    /// </summary>
+    protected void CalculateAttackRotation()
+    {
+        float rotationMultiplier = 1;
+
+        //Randomly determine if we are adding or subtracting Y rotation
+        //Determines direction of rotation
+        switch (Random.Range(0, 2))
+        {
+            case (0):
+                rotationMultiplier *= -1;
+                break;
+            case (1):
+                break;
+        }
+
+        //Multiplies our Y rotation by the direction and amount
+        float randomYRotation = rotationMultiplier * _rotationAmount;
+        
+        //Set the rotation of the attack
+        _storedTargetRotation = Quaternion.Euler(new Vector3(0, randomYRotation, 0));
+
+    }
+
+    #region Base Ability
     protected override void StartShowTargetZone()
     {
         CalculateAttackRotation();
@@ -28,28 +56,6 @@ public class SBA_Entomb : SpecificBossAbilityFramework
 
         base.AbilityStart();
     }
-
-    protected void CalculateAttackRotation()
-    {
-        float rotationMultiplier = 1;
-        switch (Random.Range(0, 2))
-        {
-            case (0):
-                rotationMultiplier *= -1;
-                break;
-            case (1):
-                break;
-        }
-
-        float randomYRotation = rotationMultiplier * _rotationAmount;
-
-        _storedTargetRotation = Quaternion.Euler(new Vector3(0, randomYRotation, 0));
-
-        
-    }
-
-    #region Base Ability
-
     #endregion
 
 }

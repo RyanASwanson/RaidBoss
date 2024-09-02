@@ -31,44 +31,48 @@ public class SBA_CrystalBarrage : SpecificBossAbilityFramework
     [Space]
     [SerializeField] private GameObject _upwardsCrystalSource;
 
-    public override void AbilitySetup(BossBase bossBase)
-    {
-        base.AbilitySetup(bossBase);
-        CalculateTargetLocations();
-    }
+    #region Target Location
 
+    /// <summary>
+    /// Calculates the locations at which the ability can be used
+    /// </summary>
     private void CalculateTargetLocations()
     {
+        //Iterate through each direction
         for (int i = 0; i < _targetDirections.Length; i++)
         {
+            //Multiply the direction by the distance
             _targetDirections[i] *= _targetDistance;
+            //Keep the y value consistent
             _targetDirections[i] = new Vector3(_targetDirections[i].x, _targetHeight, _targetDirections[i].z);
         }
             
 
     }
 
-    protected override void StartShowTargetZone()
-    {
-        DetermineTargetLocation();
-
-        _currentTargetZones.Add(Instantiate(_targetZone, _currentTargetLocation, Quaternion.identity));
-
-        StartUpwardsProjectileProcess();
-
-        base.StartShowTargetZone();
-    }
-
+    /// <summary>
+    /// Determines where the attack is going to occur
+    /// </summary>
     private void DetermineTargetLocation()
     {
+        //The attack uses 4 seperate base target locations
+        //In order to determine which of them is closest to the attack target
+        //  it performs distance checks with each of the base locations
+        //Start the distance as float max so that it is more than all base location distances
         float currentFurthestDistance = float.MaxValue;
 
+        //Iterate through each of the base target locations
         foreach (Vector3 targetDir in _targetDirections)
         {
+            //Find the distance between the area we are attacking and the current base target location
             float currentDist = Vector3.Distance(_storedTargetLocation, targetDir);
+
+            //Check if the current distance is less than the furthest distance we have so far
             if (currentDist < currentFurthestDistance)
             {
+                //Set the attack location as the current base target location
                 _currentTargetLocation = targetDir;
+                //Set the current furthest distance as the current distance
                 currentFurthestDistance = currentDist;
             }
                 
@@ -76,12 +80,8 @@ public class SBA_CrystalBarrage : SpecificBossAbilityFramework
         
     }
 
-    protected override void AbilityStart()
-    {
-        StartDamageProjectileProcess();
+    #endregion
 
-        base.AbilityStart();
-    }
 
     #region Upwards Projectile
     protected void StartUpwardsProjectileProcess()
@@ -147,7 +147,35 @@ public class SBA_CrystalBarrage : SpecificBossAbilityFramework
     #endregion
 
     #region Base Ability
+    public override void AbilitySetup(BossBase bossBase)
+    {
+        base.AbilitySetup(bossBase);
+        CalculateTargetLocations();
+    }
 
+    /// <summary>
+    /// Determines the area to use the ability, spawns in the target area for the attack,
+    /// and starts the initial animation of the projectiles
+    /// </summary>
+    protected override void StartShowTargetZone()
+    {
+        DetermineTargetLocation();
+
+        _currentTargetZones.Add(Instantiate(_targetZone, _currentTargetLocation, Quaternion.identity));
+
+        StartUpwardsProjectileProcess();
+
+        base.StartShowTargetZone();
+    }
+
+    protected override void AbilityStart()
+    {
+        StartDamageProjectileProcess();
+
+        base.AbilityStart();
+    }
+
+    
     #endregion
 
 }

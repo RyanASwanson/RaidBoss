@@ -22,11 +22,7 @@ public class SBP_Entomb : BossProjectileFramework
 
     private const string REMOVE_PROJECTILE_ANIM_TRIGGER = "RemoveEntomb";
 
-    public override void SetUpProjectile(BossBase bossBase)
-    {
-        StartCoroutine(AbilityProcess());
-        base.SetUpProjectile(bossBase);
-    }
+    
 
     private IEnumerator AbilityProcess()
     {
@@ -93,6 +89,10 @@ public class SBP_Entomb : BossProjectileFramework
     }
 
     #region Base Ability
-
+    public override void SetUpProjectile(BossBase bossBase)
+    {
+        StartCoroutine(AbilityProcess());
+        base.SetUpProjectile(bossBase);
+    }
     #endregion
 }

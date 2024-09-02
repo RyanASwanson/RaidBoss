@@ -13,16 +13,12 @@ public class SBA_EncirclingVines : SpecificBossAbilityFramework
 
     private GameObject _newestTargetZone;
 
-    protected override void StartShowTargetZone()
-    {
-        _newestTargetZone = Instantiate(_targetZone, _storedTargetLocation, Quaternion.identity);
-        _currentTargetZones.Add(_newestTargetZone);
-
-        StartCoroutine(FollowHeroTarget(_newestTargetZone));
-
-        base.StartShowTargetZone();
-    }
-
+    
+    /// <summary>
+    /// Makes the target zone and attack follow the hero it is targetting
+    /// </summary>
+    /// <param name="followingObject"></param>
+    /// <returns></returns>
     protected IEnumerator FollowHeroTarget(GameObject followingObject)
     {
         while(followingObject != null && _storedTarget != null)
@@ -34,14 +30,25 @@ public class SBA_EncirclingVines : SpecificBossAbilityFramework
         }
     }
 
+    
+
+    #region Base Ability
+    protected override void StartShowTargetZone()
+    {
+        _newestTargetZone = Instantiate(_targetZone, _storedTargetLocation, Quaternion.identity);
+        _currentTargetZones.Add(_newestTargetZone);
+
+        StartCoroutine(FollowHeroTarget(_newestTargetZone));
+
+        base.StartShowTargetZone();
+    }
+
+
     protected override void AbilityStart()
     {
-        GameObject newestVines =Instantiate(_encirclingVines, _newestTargetZone.transform.position, Quaternion.identity);
+        GameObject newestVines = Instantiate(_encirclingVines, _newestTargetZone.transform.position, Quaternion.identity);
         StartCoroutine(FollowHeroTarget(newestVines));
         base.AbilityStart();
     }
-
-    #region Base Ability
-
     #endregion
 }
