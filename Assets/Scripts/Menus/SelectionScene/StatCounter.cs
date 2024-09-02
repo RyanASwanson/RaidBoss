@@ -12,11 +12,11 @@ public class StatCounter : MonoBehaviour
 
     [SerializeField] private List<Animator> _statNodes;
 
-    private const string _showNodeFillAnimTrigger = "ShowNodeFill";
-    private const string _highlightNodeFillAnimTrigger = "HighlightNodeFill";
-    private const string _showNodeEmptyAnimTrigger = "ShowNodeEmpty";
+    private const string SHOW_NODE_FILL_ANIM_TRIGGER = "ShowNodeFill";
+    private const string HIGHLIGHT_NODE_FILL_ANIM_TRIGGER = "HighlightNodeFill";
+    private const string SHOW_NODE_EMPTY_ANIM_TRIGGER = "ShowNodeEmpty";
 
-    private const string _resetNodeAnimTrigger = "ResetNode";
+    private const string RESET_NODE_ANIM_TRIGGER = "ResetNode";
 
     private Coroutine _showNodeCoroutine;
 
@@ -63,13 +63,13 @@ public class StatCounter : MonoBehaviour
     /// <param name="currentPos"></param> What position we are in the for loop
     private void SpecificNodeAction(int statNumber, int currentPos)
     {
-        _statNodes[currentPos].SetTrigger(_resetNodeAnimTrigger);
+        _statNodes[currentPos].SetTrigger(RESET_NODE_ANIM_TRIGGER);
 
         if (currentPos == statNumber-1)
-            _statNodes[currentPos].SetTrigger(_highlightNodeFillAnimTrigger);
+            _statNodes[currentPos].SetTrigger(HIGHLIGHT_NODE_FILL_ANIM_TRIGGER);
         else if (currentPos < statNumber)
-            _statNodes[currentPos].SetTrigger(_showNodeFillAnimTrigger);
+            _statNodes[currentPos].SetTrigger(SHOW_NODE_FILL_ANIM_TRIGGER);
         else
-            _statNodes[currentPos].SetTrigger(_showNodeEmptyAnimTrigger);
+            _statNodes[currentPos].SetTrigger(SHOW_NODE_EMPTY_ANIM_TRIGGER);
     }
 }

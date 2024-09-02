@@ -12,7 +12,7 @@ public class HeroUIManager : GameUIChildrenFunctionality
     [Header("Bottom UI")]
     [SerializeField] private Animator _heroUIGeneralAnimator;
 
-    private const string _generalAnimIntroTrigger = "ShowGeneralUIIntro";
+    private const string GENERAL_INTRO_ANIM_TRIGGER = "ShowGeneralUIIntro";
 
     [Header("Background")]
     [SerializeField] private GameObject _backgroundHolder;
@@ -20,7 +20,7 @@ public class HeroUIManager : GameUIChildrenFunctionality
 
     [SerializeField] private Animator _backgroundUIAnimator;
 
-    private const string _backgroundUIAnimBool = "ShowUIControl";
+    private const string BACKGROUND_UI_ANIM_BOOL = "ShowUIControl";
 
     [Header("Left Side")]
     [SerializeField] private Image _associatedHeroIcon;
@@ -30,7 +30,7 @@ public class HeroUIManager : GameUIChildrenFunctionality
 
     [SerializeField] private Animator _heroFullyChargedIconAnimator;
 
-    private const string _heroFullyChargedIconTrigger = "Flash";
+    private const string HERO_FULLY_CHARGED_ICON_ANIM_TRIGGER = "Flash";
 
     [Header("RightSide")]
     [SerializeField] private Image _associatedHeroRecentHealthBar;
@@ -48,7 +48,7 @@ public class HeroUIManager : GameUIChildrenFunctionality
     private Coroutine _startHealthBarDrainCoroutine;
     private Coroutine _startHealthBarGainCoroutine;
 
-    private const string _combinedHealthBarStatusIntAnim = "HealthStatus";
+    private const string COMBINED_HEALTH_BAR_STATUS_ANIM_INT = "HealthStatus";
 
     private HeroBase _associatedHeroBase;
 
@@ -66,12 +66,12 @@ public class HeroUIManager : GameUIChildrenFunctionality
     private Animator _abilityChargedIconAnimator;
     private Image _abilityChargedManualIcon;
 
-    private const string _showAbilityRechargedHolderBool = "ShowRechargedIcon";
+    private const string SHOW_ABILITY_RECHARGED_HOLDER_ANIM_BOOL = "ShowRechargedIcon";
 
     private Animator _heroControlledIconAnimator;
     private Image _heroControlledIcon;
 
-    private const string _showHeroControlledHolderBool = "ShowControlledIcon";
+    private const string SHOW_HERO_CONTROLLED_HOLDER_ANIM_BOOL = "ShowControlledIcon";
 
     private RectTransform _damageNumbersOrigin;
     private RectTransform _healingNumbersOrigin;
@@ -147,12 +147,12 @@ public class HeroUIManager : GameUIChildrenFunctionality
 
     private void ShowControlIconAboveHero(bool show)
     {
-        _heroControlledIconAnimator.SetBool(_showHeroControlledHolderBool, show);
+        _heroControlledIconAnimator.SetBool(SHOW_HERO_CONTROLLED_HOLDER_ANIM_BOOL, show);
     }
 
     private void ShowControlUIBackground(bool show)
     {
-        _backgroundUIAnimator.SetBool(_backgroundUIAnimBool, show);
+        _backgroundUIAnimator.SetBool(BACKGROUND_UI_ANIM_BOOL, show);
     }
 
     #endregion
@@ -311,7 +311,7 @@ public class HeroUIManager : GameUIChildrenFunctionality
 
     private void SetCombinedHealthBarAnim(int animID)
     {
-        _associatedHeroHealthBarCombined.SetInteger(_combinedHealthBarStatusIntAnim, animID);
+        _associatedHeroHealthBarCombined.SetInteger(COMBINED_HEALTH_BAR_STATUS_ANIM_INT, animID);
     }
 
     #endregion
@@ -372,7 +372,7 @@ public class HeroUIManager : GameUIChildrenFunctionality
 
     private void ShowManualAbilityChargedIconAboveHero(bool show)
     {
-        _abilityChargedIconAnimator.SetBool(_showAbilityRechargedHolderBool, show);
+        _abilityChargedIconAnimator.SetBool(SHOW_ABILITY_RECHARGED_HOLDER_ANIM_BOOL, show);
     }
 
     /// <summary>
@@ -388,12 +388,12 @@ public class HeroUIManager : GameUIChildrenFunctionality
 
     private void HeroIconOnUIFlash()
     {
-        _heroFullyChargedIconAnimator.SetTrigger(_heroFullyChargedIconTrigger);
+        _heroFullyChargedIconAnimator.SetTrigger(HERO_FULLY_CHARGED_ICON_ANIM_TRIGGER);
     }
 
     private void GeneralUIIntroAnimation()
     {
-        _heroUIGeneralAnimator.SetTrigger(_generalAnimIntroTrigger);
+        _heroUIGeneralAnimator.SetTrigger(GENERAL_INTRO_ANIM_TRIGGER);
     }
 
     #region BaseManager

@@ -28,25 +28,25 @@ public class HeroVisuals : HeroChildrenFunctionality
     [SerializeField] private RectTransform _buffDebuffOrigin;
     [SerializeField] private RectTransform _abilityReChargedPopupIconOrigin;
 
-    private const string _healthStatusIntAnim = "HealthStatus";
+    private const string HEALTH_STATUS_ANIM_INT = "HealthStatus";
 
     [Space]
     [SerializeField] private Animator _heroGeneralAnimator;
 
-    private const string _levelIntroTriggerAnim = "LevelIntroTrigger";
-    private const string _heroDamagedTriggerAnim = "HeroDamaged";
-    private const string _heroHealedTriggerAnim = "HeroHealed";
-    private const string _heroDeathTriggerAnim = "HeroDeath";
+    private const string LEVEL_INTO_ANIM_TRIGGER = "LevelIntroTrigger";
+    private const string HERO_DAMAGED_ANIM_TRIGGER = "HeroDamaged";
+    private const string HERO_HEALED_ANIM_TRIGGER = "HeroHealed";
+    private const string HERO_DEATH_ANIM_TRIGGER = "HeroDeath";
 
 
     private Animator _heroSpecificAnimator;
 
-    private const string _heroIdleAnimTrigger = "G_HeroIdle";
-    private const string _heroWalkingAnimBool = "G_HeroWalking";
+    private const string HERO_IDLE_ANIM_TRIGGER = "G_HeroIdle";
+    private const string HERO_WALKING_ANIM_BOOL = "G_HeroWalking";
 
-    private const string _heroBasicAnimTrigger = "G_HeroBasic";
-    private const string _heroManualAnimTrigger = "G_HeroManual";
-    private const string _heroPassiveAnimTrigger = "G_HeroPassive";
+    private const string HERO_BASIC_ANIM_TRIGGER = "G_HeroBasic";
+    private const string HERO_MANUAL_ANIM_TRIGGER = "G_HeroManual";
+    private const string HERO_PASSIVE_ANIM_TRIGGER = "G_HeroPassive";
 
     [Space]
     [SerializeField] private float _outlineWidth;
@@ -92,17 +92,17 @@ public class HeroVisuals : HeroChildrenFunctionality
     
     private void HeroHealthAboveHalf()
     {
-        _healthStatusIcon.GetComponent<Animator>().SetInteger(_healthStatusIntAnim, 0);
+        _healthStatusIcon.GetComponent<Animator>().SetInteger(HEALTH_STATUS_ANIM_INT, 0);
     }
 
     private void HeroInjured()
     {
-        _healthStatusIcon.GetComponent<Animator>().SetInteger(_healthStatusIntAnim, 1);
+        _healthStatusIcon.GetComponent<Animator>().SetInteger(HEALTH_STATUS_ANIM_INT, 1);
     }
 
     private void HeroCritical()
     {
-        _healthStatusIcon.GetComponent<Animator>().SetInteger(_healthStatusIntAnim, 2);
+        _healthStatusIcon.GetComponent<Animator>().SetInteger(HEALTH_STATUS_ANIM_INT, 2);
     }
 
     #endregion
@@ -152,7 +152,7 @@ public class HeroVisuals : HeroChildrenFunctionality
 
     public void HeroLevelIntroAnimation()
     {
-        HeroGeneralAnimationTrigger(_levelIntroTriggerAnim);
+        HeroGeneralAnimationTrigger(LEVEL_INTO_ANIM_TRIGGER);
     }
 
 
@@ -161,7 +161,7 @@ public class HeroVisuals : HeroChildrenFunctionality
     /// </summary>
     private void StartHeroSpecificIdleAnimation()
     {
-        HeroSpecificAnimationTrigger(_heroIdleAnimTrigger);
+        HeroSpecificAnimationTrigger(HERO_IDLE_ANIM_TRIGGER);
     }
 
 
@@ -170,7 +170,7 @@ public class HeroVisuals : HeroChildrenFunctionality
     /// </summary>
     public void StartHeroSpecificWalkingAnimation()
     {
-        HeroSpecificAnimationBool(_heroWalkingAnimBool, true);
+        HeroSpecificAnimationBool(HERO_WALKING_ANIM_BOOL, true);
     }
 
     /// <summary>
@@ -178,7 +178,7 @@ public class HeroVisuals : HeroChildrenFunctionality
     /// </summary>
     public void StopHeroSpecificWalkingAnimation()
     {
-        HeroSpecificAnimationBool(_heroWalkingAnimBool, false);
+        HeroSpecificAnimationBool(HERO_WALKING_ANIM_BOOL, false);
     }
 
     /// <summary>
@@ -186,7 +186,7 @@ public class HeroVisuals : HeroChildrenFunctionality
     /// </summary>
     public void TriggerBasicAbilityAnimation()
     {
-        HeroSpecificAnimationTrigger(_heroBasicAnimTrigger);
+        HeroSpecificAnimationTrigger(HERO_BASIC_ANIM_TRIGGER);
     }
 
     /// <summary>
@@ -194,7 +194,7 @@ public class HeroVisuals : HeroChildrenFunctionality
     /// </summary>
     public void TriggerManualAbilityAnimation()
     {
-        HeroSpecificAnimationTrigger(_heroManualAnimTrigger);
+        HeroSpecificAnimationTrigger(HERO_MANUAL_ANIM_TRIGGER);
     }
 
     /// <summary>
@@ -202,7 +202,7 @@ public class HeroVisuals : HeroChildrenFunctionality
     /// </summary>
     public void TriggerPassiveAbilityAnimation()
     {
-        HeroSpecificAnimationTrigger(_heroPassiveAnimTrigger);
+        HeroSpecificAnimationTrigger(HERO_PASSIVE_ANIM_TRIGGER);
     }
 
     /// <summary>
@@ -210,7 +210,7 @@ public class HeroVisuals : HeroChildrenFunctionality
     /// </summary>
     private void HeroDamagedAnimation()
     {
-        HeroGeneralAnimationTrigger(_heroDamagedTriggerAnim);
+        HeroGeneralAnimationTrigger(HERO_DAMAGED_ANIM_TRIGGER);
     }
 
     /// <summary>
@@ -218,7 +218,7 @@ public class HeroVisuals : HeroChildrenFunctionality
     /// </summary>
     private void HeroHealedAnimation()
     {
-        HeroGeneralAnimationTrigger(_heroHealedTriggerAnim);
+        HeroGeneralAnimationTrigger(HERO_HEALED_ANIM_TRIGGER);
     }
 
     /// <summary>
@@ -226,7 +226,7 @@ public class HeroVisuals : HeroChildrenFunctionality
     /// </summary>
     private void HeroDeathAnimation()
     {
-        HeroGeneralAnimationTrigger(_heroDeathTriggerAnim);
+        HeroGeneralAnimationTrigger(HERO_DEATH_ANIM_TRIGGER);
     }
 
     #endregion

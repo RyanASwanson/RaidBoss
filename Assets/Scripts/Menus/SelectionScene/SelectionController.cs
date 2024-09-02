@@ -73,8 +73,9 @@ public class SelectionController : MonoBehaviour
 
     [Space]
     [SerializeField] private Animator _heroAbilityDescriptionAnimator;
-    private const string _showAbilityDescriptionBool = "ShowDescription";
-    private const string _swapAbilityDescriptionTrigger = "SwapDescription";
+
+    private const string SHOW_ABILITY_DESCRIPTION_ANIM_BOOL = "ShowDescription";
+    private const string SWAP_ABILITY_DESCRIPTION_ANIM_TRIGGER = "SwapDescription";
 
     [Space]
     [SerializeField] private Text _heroAbilityBackgroundNameText;
@@ -215,7 +216,7 @@ public class SelectionController : MonoBehaviour
     public void ShowBossAbilityDescription(int abilityID)
     {
         _currentBossAbilityID = abilityID;
-        _bossAbilityDescriptionAnimator.SetBool(_showAbilityDescriptionBool, true);
+        _bossAbilityDescriptionAnimator.SetBool(SHOW_ABILITY_DESCRIPTION_ANIM_BOOL, true);
     }
 
     private void UpdateBossAbilityNameText(string newText)
@@ -264,7 +265,7 @@ public class SelectionController : MonoBehaviour
     private void SwapBossAbilityDescription(int abilityID)
     {
         _currentBossAbilityID = abilityID;
-        _bossAbilityDescriptionAnimator.SetTrigger(_swapAbilityDescriptionTrigger);
+        _bossAbilityDescriptionAnimator.SetTrigger(SWAP_ABILITY_DESCRIPTION_ANIM_TRIGGER);
     }
 
     /// <summary>
@@ -273,7 +274,7 @@ public class SelectionController : MonoBehaviour
     /// </summary>
     private void HideBossAbilityDescription()
     {
-        _bossAbilityDescriptionAnimator.SetBool(_showAbilityDescriptionBool, false);
+        _bossAbilityDescriptionAnimator.SetBool(SHOW_ABILITY_DESCRIPTION_ANIM_BOOL, false);
         _currentBossAbilityID = -1;
     }
 
@@ -431,7 +432,7 @@ public class SelectionController : MonoBehaviour
     public void ShowHeroAbilityDescription(int abilityID)
     {
         _currentHeroAbilityID = abilityID;
-        _heroAbilityDescriptionAnimator.SetBool(_showAbilityDescriptionBool, true);
+        _heroAbilityDescriptionAnimator.SetBool(SHOW_ABILITY_DESCRIPTION_ANIM_BOOL, true);
     }
 
     private void UpdateHeroAbilityNameText(string newText)
@@ -485,12 +486,12 @@ public class SelectionController : MonoBehaviour
     private void SwapHeroAbilityDescription(int abilityID)
     {
         _currentHeroAbilityID = abilityID;
-        _heroAbilityDescriptionAnimator.SetTrigger(_swapAbilityDescriptionTrigger);
+        _heroAbilityDescriptionAnimator.SetTrigger(SWAP_ABILITY_DESCRIPTION_ANIM_TRIGGER);
     }
 
     private void HideHeroAbilityDescription()
     {
-        _heroAbilityDescriptionAnimator.SetBool(_showAbilityDescriptionBool, false);
+        _heroAbilityDescriptionAnimator.SetBool(SHOW_ABILITY_DESCRIPTION_ANIM_BOOL, false);
         _currentHeroAbilityID = -1;
     }
 

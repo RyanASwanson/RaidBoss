@@ -10,15 +10,15 @@ public class BossVisuals : BossChildrenFunctionality
     [Space]
     [SerializeField] private Animator _bossGeneralAnimator;
 
-    private const string _levelIntroTriggerAnim = "LevelIntroTrigger";
+    private const string LEVEL_INTRO_ANIM_TRIGGER = "LevelIntroTrigger";
 
-    private const string _bossDamagedTriggerAnim = "BossDamaged";
+    private const string BOSS_DAMAGED_ANIM_TRIGGER = "BossDamaged";
 
     private Animator _bossSpecificAnimator;
 
-    private const string _bossSpecificIntroTriggerAnim = "G_BossIntro";
-    private const string _bossStaggerTriggerAnim = "G_BossStagger";
-    private const string _bossDeathTriggerAnim = "G_BossDeath";
+    private const string SPECIFIC_BOSS_LEVEL_INTRO_ANIM_TRIGGER = "G_BossIntro";
+    private const string BOSS_STAGGER_ANIM_TRIGGER = "G_BossStagger";
+    private const string BOSS_DEATH_ANIM_TRIGGER = "G_BossDeath";
 
     public void BossLookAt(Vector3 lookLocation)
     {
@@ -63,7 +63,7 @@ public class BossVisuals : BossChildrenFunctionality
     /// </summary>
     public void BossLevelIntroAnimation()
     {
-        _bossGeneralAnimator.SetTrigger(_levelIntroTriggerAnim);
+        _bossGeneralAnimator.SetTrigger(LEVEL_INTRO_ANIM_TRIGGER);
     }
 
     /// <summary>
@@ -71,7 +71,7 @@ public class BossVisuals : BossChildrenFunctionality
     /// </summary>
     private void BossDamagedAnimation()
     {
-        _bossGeneralAnimator.SetTrigger(_bossDamagedTriggerAnim);
+        _bossGeneralAnimator.SetTrigger(BOSS_DAMAGED_ANIM_TRIGGER);
     }
 
     public void StartBossSpecificAnimationTrigger(string triggerName)
@@ -89,17 +89,17 @@ public class BossVisuals : BossChildrenFunctionality
 
     private void BossSpecificLevelIntroTrigger()
     {
-        StartBossSpecificAnimationTrigger(_bossSpecificIntroTriggerAnim);
+        StartBossSpecificAnimationTrigger(SPECIFIC_BOSS_LEVEL_INTRO_ANIM_TRIGGER);
     }
 
     private void BossSpecificStaggerAnimTrigger()
     {
-        StartBossSpecificAnimationTrigger(_bossStaggerTriggerAnim);
+        StartBossSpecificAnimationTrigger(BOSS_STAGGER_ANIM_TRIGGER);
     }
 
     private void BossSpecificDeathAnimTrigger()
     {
-        StartBossSpecificAnimationTrigger(_bossDeathTriggerAnim);
+        StartBossSpecificAnimationTrigger(BOSS_DEATH_ANIM_TRIGGER);
         //_bossSpecificAnimator.SetTrigger(_bossDeathTriggerAnim);
     }
 

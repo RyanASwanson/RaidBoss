@@ -19,7 +19,8 @@ public class SBP_Entomb : BossProjectileFramework
     [SerializeField] private NavMeshObstacle _navMeshObstacle;
 
     [SerializeField] private Animator _animator;
-    private const string _removalAnimation = "RemoveEntomb";
+
+    private const string REMOVE_PROJECTILE_ANIM_TRIGGER = "RemoveEntomb";
 
     public override void SetUpProjectile(BossBase bossBase)
     {
@@ -88,6 +89,6 @@ public class SBP_Entomb : BossProjectileFramework
     {
         yield return new WaitForSeconds(_entombPersistantTime);
 
-        _animator.SetTrigger(_removalAnimation);
+        _animator.SetTrigger(REMOVE_PROJECTILE_ANIM_TRIGGER);
     }
 }

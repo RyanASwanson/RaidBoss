@@ -48,11 +48,11 @@ public class BossUIManager : GameUIChildrenFunctionality
     [Space]
     [SerializeField] private float _damageNumbersXVariance;
 
-    private const string _damageStaggerWeakAnimTrigger = "WeakDamage";
-    private const string _damageAverageAnimTrigger = "AverageDamage";
-    private const string _staggerAverageAnimTrigger = "AverageStagger";
-    private const string _damageStrongAnimTrigger = "StrongDamage";
-    private const string _staggerStrongAnimTrigger = "StrongStagger";
+    private const string DAMAGE_STAGGER_WEAK_ANIM_TRIGGER = "WeakDamage";
+    private const string DAMAGE_AVERAGE_ANIM_TRIGGER = "AverageDamage";
+    private const string STAGGER_AVERAGE_ANIM_TRIGGER = "AverageStagger";
+    private const string DAMAGE_STRONG_ANIM_TRIGGER = "StrongDamage";
+    private const string STAGGER_STRONG_ANIM_TRIGGER = "StrongStagger";
 
 
     private BossManager _bossManager;
@@ -287,26 +287,26 @@ public class BossUIManager : GameUIChildrenFunctionality
             //Performs a different animation on the damage number depending on how much damage was dealt
             if (damageStagger >= _strongDamage)
             {
-                numberAnimator.SetTrigger(_damageStrongAnimTrigger);
+                numberAnimator.SetTrigger(DAMAGE_STRONG_ANIM_TRIGGER);
                 //Shows time on large damage dealt
                 UniversalManagers.Instance.GetTimeManager().LargeHeroDamageStaggerTimeSlow();
             }
             else if (damageStagger >= _averageDamage)
-                numberAnimator.SetTrigger(_damageAverageAnimTrigger);
+                numberAnimator.SetTrigger(DAMAGE_AVERAGE_ANIM_TRIGGER);
             else
-                numberAnimator.SetTrigger(_damageStaggerWeakAnimTrigger);
+                numberAnimator.SetTrigger(DAMAGE_STAGGER_WEAK_ANIM_TRIGGER);
         }
         else
         {
             if (damageStagger >= _strongStagger)
             {
-                numberAnimator.SetTrigger(_staggerStrongAnimTrigger);
+                numberAnimator.SetTrigger(STAGGER_STRONG_ANIM_TRIGGER);
                 UniversalManagers.Instance.GetTimeManager().LargeHeroDamageStaggerTimeSlow();
             }
             else if (damageStagger >= _averageStagger)
-                numberAnimator.SetTrigger(_staggerAverageAnimTrigger);
+                numberAnimator.SetTrigger(STAGGER_AVERAGE_ANIM_TRIGGER);
             else
-                numberAnimator.SetTrigger(_damageStaggerWeakAnimTrigger);
+                numberAnimator.SetTrigger(DAMAGE_STAGGER_WEAK_ANIM_TRIGGER);
         }
     }
 

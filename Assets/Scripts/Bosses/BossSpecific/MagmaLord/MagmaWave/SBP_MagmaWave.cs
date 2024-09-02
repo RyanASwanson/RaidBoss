@@ -10,7 +10,7 @@ public class SBP_MagmaWave : BossProjectileFramework
     [Space]
     [SerializeField] private Animator _waveAnimator;
 
-    private const string _waveEndTrigger = "WaveEnd";
+    private const string REMOVE_PROJECTILE_ANIM_TRIGGER = "WaveEnd";
 
     /// <summary>
     /// Called when projectile is created
@@ -63,6 +63,6 @@ public class SBP_MagmaWave : BossProjectileFramework
 
     private void ProjectileReachedEndOfPath()
     {
-        _waveAnimator.SetTrigger(_waveEndTrigger);
+        _waveAnimator.SetTrigger(REMOVE_PROJECTILE_ANIM_TRIGGER);
     }
 }

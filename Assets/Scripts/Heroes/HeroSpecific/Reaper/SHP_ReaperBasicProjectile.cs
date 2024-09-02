@@ -13,8 +13,9 @@ public class SHP_ReaperBasicProjectile : HeroProjectileFramework
 
     [Space]
     [SerializeField] private Animator _hitAnimator;
-    private const string _hitAnimTrigger = "HitEnemy";
-    private const string _outroAnimTrigger = "Outro";
+
+    private const string HIT_ANIM_TRIGGER = "HitEnemy";
+    private const string OUTRO_ANIM_TRIGGER = "Outro";
 
 
     public override void SetUpProjectile(HeroBase heroBase)
@@ -70,11 +71,11 @@ public class SHP_ReaperBasicProjectile : HeroProjectileFramework
 
     public void TriggerHitVFX()
     {
-        _hitAnimator.SetTrigger(_hitAnimTrigger);
+        _hitAnimator.SetTrigger(HIT_ANIM_TRIGGER);
     }
 
     private void StartOutroAnimation()
     {
-        _hitAnimator.SetTrigger(_outroAnimTrigger);
+        _hitAnimator.SetTrigger(OUTRO_ANIM_TRIGGER);
     }
 }

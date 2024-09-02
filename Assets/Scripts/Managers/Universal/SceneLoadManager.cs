@@ -8,7 +8,8 @@ public class SceneLoadManager : BaseUniversalManager
 {
     [Header("SceneTransitions")]
     [SerializeField] private Animator _sceneTransitionAnimator;
-    private const string _closeInFromSidesAnimTrigger = "CloseInFromSides";
+
+    private const string ST_CLOSE_IN_FROM_SIDES_ANIM_TRIGGER = "CloseInFromSides";
 
     private const float _sceneTransitionTime = 1;
 
@@ -47,7 +48,7 @@ public class SceneLoadManager : BaseUniversalManager
     {
         InvokeStartOfSceneLoadEvent();
 
-        _sceneTransitionAnimator.SetTrigger(_closeInFromSidesAnimTrigger);
+        _sceneTransitionAnimator.SetTrigger(ST_CLOSE_IN_FROM_SIDES_ANIM_TRIGGER);
 
         //Loads the scene after half of the screen transition has occurred
         yield return new WaitForSeconds(_sceneTransitionTime / 2);

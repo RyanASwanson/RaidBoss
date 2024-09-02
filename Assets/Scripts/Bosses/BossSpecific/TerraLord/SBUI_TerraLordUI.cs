@@ -5,8 +5,9 @@ using UnityEngine;
 public class SBUI_TerraLordUI : SpecificBossUIFramework
 {
     [SerializeField] private List<Animator> _passiveBars;
-    private const string _passiveBarShowAnimTrigger = "ShowBar";
-    private const string _passiveBarHideAnimTrigger = "HideBar";
+
+    private const string PASSIVE_BAR_SHOW_ANIM_TRIGGER = "ShowBar";
+    private const string PASSIVE_BAR_HIDE_ANIM_TRIGGER = "HideBar";
 
     int _startingPassiveBarValue;
     int _previousPassiveBarValue;
@@ -18,7 +19,8 @@ public class SBUI_TerraLordUI : SpecificBossUIFramework
     [Space]
     [SerializeField] private Animator _leftWarningIcon;
     [SerializeField] private Animator _rightWarningIcon;
-    private const string _warningIconAnimInt = "WarningLevel";
+
+    private const string WARNING_ICON_ANIM_INT = "WarningLevel";
 
     SB_TerraLord _terraLordFunctionality;
 
@@ -69,13 +71,13 @@ public class SBUI_TerraLordUI : SpecificBossUIFramework
 
         if (sideCondition == changeDirection)
         {
-            _passiveBars[barPos].ResetTrigger(_passiveBarHideAnimTrigger);
-            _passiveBars[barPos].SetTrigger(_passiveBarShowAnimTrigger);
+            _passiveBars[barPos].ResetTrigger(PASSIVE_BAR_HIDE_ANIM_TRIGGER);
+            _passiveBars[barPos].SetTrigger(PASSIVE_BAR_SHOW_ANIM_TRIGGER);
         }
         else
         {
-            _passiveBars[barPos].ResetTrigger(_passiveBarShowAnimTrigger);
-            _passiveBars[barPos].SetTrigger(_passiveBarHideAnimTrigger);
+            _passiveBars[barPos].ResetTrigger(PASSIVE_BAR_SHOW_ANIM_TRIGGER);
+            _passiveBars[barPos].SetTrigger(PASSIVE_BAR_HIDE_ANIM_TRIGGER);
         }
             
     }
@@ -92,17 +94,17 @@ public class SBUI_TerraLordUI : SpecificBossUIFramework
     private void EvaluateWarningLevels(float passivePercent)
     {
         if (passivePercent >= _majorWarningPercent)
-            _rightWarningIcon.SetInteger(_warningIconAnimInt, 2);
+            _rightWarningIcon.SetInteger(WARNING_ICON_ANIM_INT, 2);
         else if (passivePercent >= _minorWarningPercent)
-            _rightWarningIcon.SetInteger(_warningIconAnimInt, 1);
+            _rightWarningIcon.SetInteger(WARNING_ICON_ANIM_INT, 1);
         else if (passivePercent <= -_majorWarningPercent)
-            _leftWarningIcon.SetInteger(_warningIconAnimInt, 2);
+            _leftWarningIcon.SetInteger(WARNING_ICON_ANIM_INT, 2);
         else if (passivePercent <= -_minorWarningPercent)
-            _leftWarningIcon.SetInteger(_warningIconAnimInt, 1);
+            _leftWarningIcon.SetInteger(WARNING_ICON_ANIM_INT, 1);
         else
         {
-            _rightWarningIcon.SetInteger(_warningIconAnimInt, 0);
-            _leftWarningIcon.SetInteger(_warningIconAnimInt, 0);
+            _rightWarningIcon.SetInteger(WARNING_ICON_ANIM_INT, 0);
+            _leftWarningIcon.SetInteger(WARNING_ICON_ANIM_INT, 0);
         }
             
     }

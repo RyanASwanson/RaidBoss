@@ -14,14 +14,14 @@ public class HeroPillar : MonoBehaviour
 
     [SerializeField] private Animator _pillarAnimator;
 
-    private const string _heroPillarMoveAnimBool = "PillarUp";
+    private const string HERO_PILLAR_MOVE_ANIM_BOOL = "PillarUp";
 
-    private const string _newHeroHoverAnimTrigger = "NewHover";
-    private const string _removeHeroOnPillarAnimTrigger = "RemoveHero";
+    private const string NEW_HERO_HOVER_ANIM_TRIGGER = "NewHover";
+    private const string REMOVE_HERO_ON_PILLAR_ANIM_TRIGGER = "RemoveHero";
 
     public void MovePillar(bool moveUp)
     {
-        _pillarAnimator.SetBool(_heroPillarMoveAnimBool, moveUp);
+        _pillarAnimator.SetBool(HERO_PILLAR_MOVE_ANIM_BOOL, moveUp);
     }
 
     /// <summary>
@@ -44,8 +44,8 @@ public class HeroPillar : MonoBehaviour
 
         if (!newHero) return;
 
-        _heroSpawnAnimator.SetTrigger(_newHeroHoverAnimTrigger);
-        _heroSpawnAnimator.ResetTrigger(_removeHeroOnPillarAnimTrigger);
+        _heroSpawnAnimator.SetTrigger(NEW_HERO_HOVER_ANIM_TRIGGER);
+        _heroSpawnAnimator.ResetTrigger(REMOVE_HERO_ON_PILLAR_ANIM_TRIGGER);
     }
 
     /// <summary>
@@ -59,8 +59,8 @@ public class HeroPillar : MonoBehaviour
 
     public void AnimateOutHeroOnPillar()
     {
-        _heroSpawnAnimator.ResetTrigger(_newHeroHoverAnimTrigger);
-        _heroSpawnAnimator.SetTrigger(_removeHeroOnPillarAnimTrigger);
+        _heroSpawnAnimator.ResetTrigger(NEW_HERO_HOVER_ANIM_TRIGGER);
+        _heroSpawnAnimator.SetTrigger(REMOVE_HERO_ON_PILLAR_ANIM_TRIGGER);
     }
 
     #region Getters

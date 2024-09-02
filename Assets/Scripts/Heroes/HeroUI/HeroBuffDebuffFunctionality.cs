@@ -11,8 +11,8 @@ public class HeroBuffDebuffFunctionality : MonoBehaviour
 
     [SerializeField] private Animator _animator;
 
-    private const string _buffAnimTrigger = "Buff";
-    private const string _debuffAnimTrigger = "Debuff";
+    private const string BUFF_ANIM_TRIGGER = "Buff";
+    private const string DEBUFF_ANIM_TRIGGER = "Debuff";
 
     public void ChangeHeroBuffDebuffIcon(Sprite buffDebuffSprite, bool isBuff)
     {
@@ -22,9 +22,9 @@ public class HeroBuffDebuffFunctionality : MonoBehaviour
         _downArrow.enabled = !isBuff;
 
         if (isBuff)
-            _animator.SetTrigger(_buffAnimTrigger);
+            _animator.SetTrigger(BUFF_ANIM_TRIGGER);
         else
-            _animator.SetTrigger(_debuffAnimTrigger);
+            _animator.SetTrigger(DEBUFF_ANIM_TRIGGER);
 
     }
 }

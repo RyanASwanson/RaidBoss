@@ -14,14 +14,14 @@ public class BossPillar : MonoBehaviour
 
     [SerializeField] private Animator _pillarAnimator;
 
-    private const string _bossPillarMoveAnimBool = "PillarUp";
+    private const string BOSS_PILLAR_MOVE_ANIM_BOOL = "PillarUp";
 
-    private const string _newBossHoverAnimTrigger = "NewHover";
-    private const string _removeBossOnPillarAnimTrigger = "RemoveBoss";
+    private const string NEW_BOSS_HOVER_ANIM_TRIGGER = "NewHover";
+    private const string REMOVE_BOSS_ON_PILLAR_ANIM_TRIGGER = "RemoveBoss";
 
     public void MovePillar(bool moveUp)
     {
-        _pillarAnimator.SetBool(_bossPillarMoveAnimBool, moveUp);
+        _pillarAnimator.SetBool(BOSS_PILLAR_MOVE_ANIM_BOOL, moveUp);
     }
 
     public void ShowBossOnPillar(BossSO bossSO,bool newBoss)
@@ -34,8 +34,8 @@ public class BossPillar : MonoBehaviour
         _storedBoss = bossSO;
 
         if (!newBoss) return;
-        _bossSpawnAnimator.SetTrigger(_newBossHoverAnimTrigger);
-        _bossSpawnAnimator.ResetTrigger(_removeBossOnPillarAnimTrigger);
+        _bossSpawnAnimator.SetTrigger(NEW_BOSS_HOVER_ANIM_TRIGGER);
+        _bossSpawnAnimator.ResetTrigger(REMOVE_BOSS_ON_PILLAR_ANIM_TRIGGER);
     }
 
     public void RemoveBossOnPillar()
@@ -46,8 +46,8 @@ public class BossPillar : MonoBehaviour
 
     public void AnimateOutBossOnPillar()
     {
-        _bossSpawnAnimator.ResetTrigger(_newBossHoverAnimTrigger);
-        _bossSpawnAnimator.SetTrigger(_removeBossOnPillarAnimTrigger);
+        _bossSpawnAnimator.ResetTrigger(NEW_BOSS_HOVER_ANIM_TRIGGER);
+        _bossSpawnAnimator.SetTrigger(REMOVE_BOSS_ON_PILLAR_ANIM_TRIGGER);
     }
 
     #region Getters

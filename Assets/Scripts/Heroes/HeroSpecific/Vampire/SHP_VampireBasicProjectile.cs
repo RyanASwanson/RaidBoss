@@ -20,8 +20,8 @@ public class SHP_VampireBasicProjectile : HeroProjectileFramework
     [Space]
     [SerializeField] private Animator _projectileAnimator;
 
-    private const string _basicAttackAnim = "BasicAttack";
-    private const string _splitAttackAnim = "SplitAttack";
+    private const string BASIC_ATTACK_ANIM_TRIGGER = "BasicAttack";
+    private const string SPLIT_ATTACK_ANIM_TRIGGER = "SplitAttack";
 
     private SH_Vampire _vampireScript;
 
@@ -43,9 +43,9 @@ public class SHP_VampireBasicProjectile : HeroProjectileFramework
     private void StartAnimations()
     {
         if (_canSplit)
-            _projectileAnimator.SetTrigger(_basicAttackAnim);
+            _projectileAnimator.SetTrigger(BASIC_ATTACK_ANIM_TRIGGER);
         else
-            _projectileAnimator.SetTrigger(_splitAttackAnim);
+            _projectileAnimator.SetTrigger(SPLIT_ATTACK_ANIM_TRIGGER);
     }
 
     private IEnumerator MoveProjectile()

@@ -20,7 +20,8 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
     [Space]
 
     [SerializeField] private Animator _animator;
-    private const string _removePotionAnimTrigger = "RemovePotion";
+
+    private const string REMOVE_POTION_ANIM_TRIGGER = "RemovePotion";
 
     private SH_Alchemist _alchemist;
 
@@ -142,6 +143,6 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
 
     private void RemovePotionAnimation()
     {
-        _animator.SetTrigger(_removePotionAnimTrigger);
+        _animator.SetTrigger(REMOVE_POTION_ANIM_TRIGGER);
     }
 }
