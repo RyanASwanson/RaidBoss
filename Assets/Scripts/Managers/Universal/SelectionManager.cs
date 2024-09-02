@@ -56,17 +56,6 @@ public class SelectionManager : BaseUniversalManager
     private UnityEvent<HeroSO> _heroNotHoveredOverEvent = new UnityEvent<HeroSO>();
 
 
-    public override void SetupUniversalManager()
-    {
-        base.SetupUniversalManager();
-        SetupDifficultyDictionaries();
-    }
-
-    public override void SubscribeToEvents()
-    {
-
-    }
-
     private void SetupDifficultyDictionaries()
     {
         _difficultyDamageMultiplierDictionary.Add(GameDifficulty.Normal, _normalDamageMultiplier);
@@ -158,6 +147,14 @@ public class SelectionManager : BaseUniversalManager
         //_currentGameDifficulty = GameDifficulty.Normal;
     }
 
+
+    #region BaseManager
+    public override void SetupUniversalManager()
+    {
+        base.SetupUniversalManager();
+        SetupDifficultyDictionaries();
+    }
+    #endregion
 
     #region Events
     public void InvokeBossSelectionEvent(BossSO bossSO)

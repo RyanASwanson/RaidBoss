@@ -120,10 +120,21 @@ public class SaveManager : BaseUniversalManager
     /// </summary>
     public void ResetSaveData()
     {
+        //Resets the best difficulties beaten
         PopulateBossHeroDifficultyDictionary();
         
+        //Saves the changes into the text file
         SaveText();
     }
+
+    #region BaseManager
+    public override void SetupUniversalManager()
+    {
+        base.SetupUniversalManager();
+        EstablishPath();
+        Load();
+    }
+    #endregion
 
     #region Getters
 
@@ -182,13 +193,7 @@ public class SaveManager : BaseUniversalManager
     }
     #endregion
 
-    public override void SetupUniversalManager()
-    {
-        base.SetupUniversalManager();
-        EstablishPath();
-        //PopulateBossHeroDifficultyDictionary();
-        Load();
-    }
+    
 }
 
 [System.Serializable]

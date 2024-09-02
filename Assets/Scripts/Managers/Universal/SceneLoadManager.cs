@@ -91,6 +91,10 @@ public class SceneLoadManager : BaseUniversalManager
         LoadSceneByID(SceneManager.GetActiveScene().buildIndex);
     }
 
+    #region BaseManager
+
+    #endregion
+
     #region Events
     private void InvokeStartOfSceneLoadEvent()
     {

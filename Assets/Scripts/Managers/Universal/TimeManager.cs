@@ -183,10 +183,20 @@ public class TimeManager : BaseUniversalManager
         _canUpdateTimeVariation = true;
     }
 
+
+    #region BaseManager
     public override void SetupUniversalManager()
     {
         base.SetupUniversalManager();
     }
+
+
+    public override void SubscribeToEvents()
+    {
+        UniversalManagers.Instance.GetSceneLoadManager().GetStartOfSceneLoadEvent().AddListener(SceneLoadStart);
+        UniversalManagers.Instance.GetSceneLoadManager().GetEndOfSceneLoadEvent().AddListener(SceneLoadEnd);
+    }
+    #endregion
 
     #region Events
     private void InvokeGamePausedEvent()
@@ -199,12 +209,6 @@ public class TimeManager : BaseUniversalManager
         _gameUnpausedEvent?.Invoke();
     }
     #endregion
-
-    public override void SubscribeToEvents()
-    {
-        UniversalManagers.Instance.GetSceneLoadManager().GetStartOfSceneLoadEvent().AddListener(SceneLoadStart);
-        UniversalManagers.Instance.GetSceneLoadManager().GetEndOfSceneLoadEvent().AddListener(SceneLoadEnd);
-    }
 
     #region Getters
     public bool GetGamePaused() => _gamePaused;
