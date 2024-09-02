@@ -9,8 +9,11 @@ public class SHP_SamuraiBasicProjectile : HeroProjectileFramework
         _mySpecificHero.ActivatePassiveAbilities();
     }
 
+    #region Base Ability
     public override void SetUpProjectile(HeroBase heroBase)
     {
         base.SetUpProjectile(heroBase);
     }
+
+    #endregion
 }

@@ -25,19 +25,7 @@ public class SHP_VampireBasicProjectile : HeroProjectileFramework
 
     private SH_Vampire _vampireHero;
 
-    public override void SetUpProjectile(HeroBase heroBase)
-    {
-        base.SetUpProjectile(heroBase);
-
-        StartAnimations();
-
-        StartCoroutine(MoveProjectile());
-    }
-
-    public void AdditionalSetup(SH_Vampire heroScript)
-    {
-        _vampireHero = heroScript;
-    }
+    
 
 
     /// <summary>
@@ -98,4 +86,21 @@ public class SHP_VampireBasicProjectile : HeroProjectileFramework
     {
         _vampireHero.AddToPassiveHealingCounter(damage);
     }
+
+
+    #region Base Ability
+    public override void SetUpProjectile(HeroBase heroBase)
+    {
+        base.SetUpProjectile(heroBase);
+
+        StartAnimations();
+
+        StartCoroutine(MoveProjectile());
+    }
+
+    public void AdditionalSetup(SH_Vampire heroScript)
+    {
+        _vampireHero = heroScript;
+    }
+    #endregion
 }

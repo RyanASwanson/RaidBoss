@@ -21,18 +21,7 @@ public class SHP_ShamanManualProjectile : HeroProjectileFramework
 
     private SH_Shaman _ownerShaman;
 
-    public override void SetUpProjectile(HeroBase heroBase)
-    {
-        base.SetUpProjectile(heroBase);
-    }
-
-    public void AdditionalSetup(GameObject totem)
-    {
-        DetermineTargetOrder(totem);
-
-        StartCoroutine(MoveProjectile());
-        StartCoroutine(LightningVFXSpawnProcess());
-    }
+    
 
     /// <summary>
     /// Determines the order to go between each hero
@@ -138,4 +127,20 @@ public class SHP_ShamanManualProjectile : HeroProjectileFramework
 
         _targetsNotGoneTo.Dequeue();
     }
+
+
+    #region Base Ability
+    public override void SetUpProjectile(HeroBase heroBase)
+    {
+        base.SetUpProjectile(heroBase);
+    }
+
+    public void AdditionalSetup(GameObject totem)
+    {
+        DetermineTargetOrder(totem);
+
+        StartCoroutine(MoveProjectile());
+        StartCoroutine(LightningVFXSpawnProcess());
+    }
+    #endregion
 }

@@ -15,9 +15,12 @@ public class SHP_FaeBasicProjectile : HeroProjectileFramework
         }
     }
 
+    #region Base Ability
     public override void SetUpProjectile(HeroBase heroBase)
     {
         base.SetUpProjectile(heroBase);
         StartCoroutine(MoveProjectile(transform.forward));
     }
+
+    #endregion
 }

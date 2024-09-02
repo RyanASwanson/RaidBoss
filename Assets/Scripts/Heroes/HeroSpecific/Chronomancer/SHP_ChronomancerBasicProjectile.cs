@@ -35,10 +35,13 @@ public class SHP_ChronomancerBasicProjectile : HeroProjectileFramework
     {
         while (true)
         {
-            transform.position += direction * _projectileSpeed * Time.deltaTime;
+            //Moves the projectile in it's set direction
+            transform.position += direction * _currentProjectileSpeed * Time.deltaTime;
 
+            //If the projectile is homing in on a target
             if(_hasTarget)
             {
+                //Move the projectile towards its homing target
                 transform.position = Vector3.MoveTowards(transform.position, _targetLoc.transform.position, 
                     _maxHomingSpeedIncrease * _currentHomingStrength* Time.deltaTime);
             }
@@ -55,12 +58,16 @@ public class SHP_ChronomancerBasicProjectile : HeroProjectileFramework
     {
         while(_currentHomingStrength < 1)
         {
+            //Increases homing strength over time
             _currentHomingStrength += Time.deltaTime / _timeToReachMaxHomingStrength;
-            _projectileSpeed = Mathf.Lerp(_projectileSpeed, 0, _currentHomingStrength);
+            //Decreases normal projectile speed
+            _currentProjectileSpeed = Mathf.Lerp(_projectileSpeed, 0, _currentHomingStrength);
             yield return null;
         }
+
+        //Makes sure that the speed values are exact
         _currentHomingStrength = 1;
-        _projectileSpeed = 0;
+        _currentProjectileSpeed = 0;
     }
 
 
@@ -88,6 +95,8 @@ public class SHP_ChronomancerBasicProjectile : HeroProjectileFramework
         }
     }
 
+
+    #region Base Ability
     public override void SetUpProjectile(HeroBase heroBase)
     {
         base.SetUpProjectile(heroBase);
@@ -105,8 +114,9 @@ public class SHP_ChronomancerBasicProjectile : HeroProjectileFramework
 
         GetComponent<GeneralHeroHealArea>().GetEnterEvent().AddListener(ReduceBasicCooldownOfTarget);
         StartCoroutine(MoveProjectile(direction));
-        
+
     }
+    #endregion
 
     #region Getters
 

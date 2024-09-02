@@ -13,31 +13,17 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
     [SerializeField] private float _secondaryBuffStrength;
     [SerializeField] private float _buffDuration;
     
-
     [Space]
     [SerializeField] private GeneralHeroHealArea _healArea;
 
     [Space]
-
     [SerializeField] private Animator _animator;
 
     private const string REMOVE_POTION_ANIM_TRIGGER = "RemovePotion";
 
     private SH_Alchemist _alchemist;
 
-    public override void SetUpProjectile(HeroBase heroBase)
-    {
-        base.SetUpProjectile(heroBase);
-
-        
-    }
-
-    public void AdditionalSetup(Vector3 targetLocation)
-    {
-        PotionTypeSetup();
-        StartCoroutine(MovePotionToEndLocation(targetLocation));
-        StartCoroutine(RemovePotionTimer());
-    }
+    
 
     /// <summary>
     /// Sets up the potion differently depending on what type of potion it is
@@ -145,4 +131,19 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
     {
         _animator.SetTrigger(REMOVE_POTION_ANIM_TRIGGER);
     }
+
+
+    #region Base Ability
+    public override void SetUpProjectile(HeroBase heroBase)
+    {
+        base.SetUpProjectile(heroBase);
+    }
+
+    public void AdditionalSetup(Vector3 targetLocation)
+    {
+        PotionTypeSetup();
+        StartCoroutine(MovePotionToEndLocation(targetLocation));
+        StartCoroutine(RemovePotionTimer());
+    }
+    #endregion
 }

@@ -12,11 +12,6 @@ public class SHP_ReaperManualProjectile : HeroProjectileFramework
 {
     [SerializeField] private float _projectileSpeed;
 
-    public override void SetUpProjectile(HeroBase heroBase)
-    {
-        StartCoroutine(MoveProjectile());
-        base.SetUpProjectile(heroBase);
-    }
 
     private IEnumerator MoveProjectile()
     {
@@ -27,31 +22,16 @@ public class SHP_ReaperManualProjectile : HeroProjectileFramework
 
             transform.LookAt(_myHeroBase.gameObject.transform.position);
             transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
-            //transform.position +=  * Time.deltaTime;
             yield return null;
         }
     }
 
-    /*private void StartDamageCooldown()
+
+    #region Base Ability
+    public override void SetUpProjectile(HeroBase heroBase)
     {
-        StartCoroutine(DamageCooldown());
+        StartCoroutine(MoveProjectile());
+        base.SetUpProjectile(heroBase);
     }
-
-    private IEnumerator DamageCooldown()
-    {
-        _projCollider.enabled = false;
-        yield return new WaitForSeconds( _attackDamageCooldown);
-        _projCollider.enabled = true;
-    }
-
-    protected void OnTriggerStay(Collider collision)
-    {
-        if (collision.gameObject.CompareTag(TagStringData.GetBossHitboxTagName()))
-        {
-            StartDamageCooldown();
-
-            _ownerHeroBase.GetSpecificHeroScript().DamageBoss(_mySpecificHero.GetBasicAbilityStrength());
-            _ownerHeroBase.GetSpecificHeroScript().StaggerBoss(_mySpecificHero.GetBasicAbilityStagger());
-        }
-    }*/
+    #endregion
 }

@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Provides the functionality for the Astromancer's manual ability
+/// </summary>
 public class SHP_AstromancerManualProjectile : HeroProjectileFramework
 {
     [SerializeField] private float _damage;
@@ -22,28 +25,14 @@ public class SHP_AstromancerManualProjectile : HeroProjectileFramework
     [SerializeField] private GameObject _bossSideAttackVFX;
 
     private List<GameObject> _createdVFX = new List<GameObject>();
-    //[SerializeField] private LineRenderer _lineRenderer;
 
-    public override void SetUpProjectile(HeroBase heroBase)
-    {
-        base.SetUpProjectile(heroBase);
-        InitialSetup();
-        SubscribeToEvents();
-        StartProcesses();
-    }
-
-    /*public void AdditionalSetup()
-    {
-        
-    }*/
 
     private void InitialSetup()
     {
-
-
         Vector3 heroLoc = new Vector3(_myHeroBase.transform.position.x, 
             _myHeroBase.transform.position.y + _yOffset, _myHeroBase.transform.position.z);
-        //Vector3 heroLoc = _myHeroBase.transform.position;
+        
+
         Vector3 bossLoc = GameplayManagers.Instance.GetBossManager().GetBossBaseGameObject().transform.position;
         bossLoc = new Vector3(bossLoc.x, 0, bossLoc.z);
 
@@ -68,9 +57,6 @@ public class SHP_AstromancerManualProjectile : HeroProjectileFramework
         heroSideVFX.transform.LookAt(bossLoc);
         heroSideVFX.transform.eulerAngles = new Vector3(0,heroSideVFX.transform.eulerAngles.y, 0);
 
-        /*GameObject heroSideVFXScale = heroSideVFX.GetComponent<GeneralVFXFunctionality>().GetParticleSystems()[0].gameObject;
-        heroSideVFXScale.transform.localScale = new Vector3(heroSideVFXScale.transform.localScale.x,
-            heroSideVFXScale.transform.localScale.y, _visualsHolder.transform.localScale.z);*/
 
         _createdVFX.Add(heroSideVFX);
 
@@ -81,10 +67,11 @@ public class SHP_AstromancerManualProjectile : HeroProjectileFramework
         _createdVFX.Add(bossSideVFX);
     }
     
-
+    /// <summary>
+    /// Starts updating the visuals and damage/stagger dealt
+    /// </summary>
     private void StartProcesses()
     {
-        //_lineRenderer.SetPosition(1, GameplayManagers.Instance.GetBossManager().GetBossBaseGameObject().transform.position);
         StartCoroutine(UpdateVisuals());
         StartCoroutine(DamageTick());
     }
@@ -93,12 +80,16 @@ public class SHP_AstromancerManualProjectile : HeroProjectileFramework
     {
         while(gameObject != null)
         {
-            //_lineRenderer.SetPosition(0, transform.position);
+            
             _visualsHolder.transform.Rotate(new Vector3(0, 0, Time.deltaTime * _rotationSpeed));
             yield return null;
         }
     }
     
+    /// <summary>
+    /// Deals damage and stagger to the boss every tick relative to the attack rate
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator DamageTick()
     {
         while(gameObject != null)
@@ -109,25 +100,44 @@ public class SHP_AstromancerManualProjectile : HeroProjectileFramework
         }
     }
 
+
     public void StopLaser()
     {
         DestroyVFX();
         Destroy(gameObject);
     }
 
+
+    /// <summary>
+    /// Removes all vfx associated will the ability
+    /// </summary>
     private void DestroyVFX()
     {
         foreach(GameObject vfx in _createdVFX)
         {
             GeneralVFXFunctionality generalVFX = vfx.GetComponent<GeneralVFXFunctionality>();
+            //Stops the looping of the vfx
             generalVFX.SetLoopOfParticleSystems(false);
+            //Makes the vfx not childed to the ability
             generalVFX.Detach();
+            //Starts the destruction of the vfx
             generalVFX.StartDelayedLifetime();
         }
+    }
+
+    #region Base Ability
+    public override void SetUpProjectile(HeroBase heroBase)
+    {
+        base.SetUpProjectile(heroBase);
+        InitialSetup();
+        SubscribeToEvents();
+        StartProcesses();
     }
 
     private void SubscribeToEvents()
     {
         _myHeroBase.GetHeroStartedMovingEvent().AddListener(StopLaser);
     }
+
+    #endregion
 }

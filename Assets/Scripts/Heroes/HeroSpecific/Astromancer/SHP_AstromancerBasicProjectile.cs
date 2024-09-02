@@ -19,20 +19,7 @@ public class SHP_AstromancerBasicProjectile : HeroProjectileFramework
 
     private float _damageScalingAmount = 0;
 
-    public override void SetUpProjectile(HeroBase heroBase)
-    {
-        base.SetUpProjectile(heroBase);
-        SubscribeToEvents();
-    }
-
-    public void AdditionalSetup(SH_Astromancer heroScript, Vector3 direction)
-    {
-        _astromancerScript = heroScript;
-
-        _storedDirection = direction;
-        StartCoroutine(MoveProjectile());
-        StartCoroutine(DamageScaling());
-    }
+    
 
 
     private IEnumerator MoveProjectile()
@@ -110,6 +97,23 @@ public class SHP_AstromancerBasicProjectile : HeroProjectileFramework
         _astromancerScript.ActivatePassiveAbilities();
     }
 
+
+    #region Base Ability
+    public override void SetUpProjectile(HeroBase heroBase)
+    {
+        base.SetUpProjectile(heroBase);
+        SubscribeToEvents();
+    }
+
+    public void AdditionalSetup(SH_Astromancer heroScript, Vector3 direction)
+    {
+        _astromancerScript = heroScript;
+
+        _storedDirection = direction;
+        StartCoroutine(MoveProjectile());
+        StartCoroutine(DamageScaling());
+    }
+
     private void SubscribeToEvents()
     {
         _generalDamageArea.GetEnterEvent().AddListener(HitBoss);
@@ -117,4 +121,5 @@ public class SHP_AstromancerBasicProjectile : HeroProjectileFramework
         _generalHealArea.GetEnterEvent().AddListener(HitHero);
         _generalHealArea.GetStayEvent().AddListener(HitHero);
     }
+    #endregion
 }

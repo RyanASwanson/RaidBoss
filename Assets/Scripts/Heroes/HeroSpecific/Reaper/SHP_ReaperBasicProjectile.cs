@@ -18,15 +18,6 @@ public class SHP_ReaperBasicProjectile : HeroProjectileFramework
     private const string OUTRO_ANIM_TRIGGER = "Outro";
 
 
-    public override void SetUpProjectile(HeroBase heroBase)
-    {
-        StartCoroutine(FollowHero());
-        StartCoroutine(MoveProjectile(_projectileSpeed, _movementVariability));
-        StartCoroutine(RotateProjectile(_projectileYSpinSpeed));
-
-        base.SetUpProjectile(heroBase);
-    }
-
     private IEnumerator FollowHero()
     {
         while(_myHeroBase != null)
@@ -78,4 +69,15 @@ public class SHP_ReaperBasicProjectile : HeroProjectileFramework
     {
         _hitAnimator.SetTrigger(OUTRO_ANIM_TRIGGER);
     }
+
+    #region Base Ability
+    public override void SetUpProjectile(HeroBase heroBase)
+    {
+        StartCoroutine(FollowHero());
+        StartCoroutine(MoveProjectile(_projectileSpeed, _movementVariability));
+        StartCoroutine(RotateProjectile(_projectileYSpinSpeed));
+
+        base.SetUpProjectile(heroBase);
+    }
+    #endregion
 }

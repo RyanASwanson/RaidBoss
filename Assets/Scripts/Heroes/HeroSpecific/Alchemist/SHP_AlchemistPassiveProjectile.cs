@@ -14,14 +14,7 @@ public class SHP_AlchemistPassiveProjectile : HeroProjectileFramework
     [Space]
     [SerializeField] private float _moveTime;
 
-    public override void SetUpProjectile(HeroBase heroBase)
-    {
-        base.SetUpProjectile(heroBase);
-
-        StartCoroutine(MoveProcess());
-    }
-
-
+    
     /// <summary>
     /// The process of moving the passive projectile from where its created
     /// to the location of the boss
@@ -55,4 +48,13 @@ public class SHP_AlchemistPassiveProjectile : HeroProjectileFramework
 
         Destroy(gameObject);
     }
+
+    #region Base Ability
+    public override void SetUpProjectile(HeroBase heroBase)
+    {
+        base.SetUpProjectile(heroBase);
+
+        StartCoroutine(MoveProcess());
+    }
+    #endregion
 }
