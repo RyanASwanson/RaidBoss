@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+
+/// <summary>
+/// Provides the functionality for the Terra Lord's Entomb ability projectiles
+/// </summary>
 public class SBP_Entomb : BossProjectileFramework
 {
     [SerializeField] private float _entombCompleteDelay;

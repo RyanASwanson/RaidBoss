@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Magma lord attack
-/// Deals damage in an area around the boss
+/// Provides the functionality for the Magma Lord's Scorch ability
 /// </summary>
 public class SBA_Scorch : SpecificBossAbilityFramework
 {

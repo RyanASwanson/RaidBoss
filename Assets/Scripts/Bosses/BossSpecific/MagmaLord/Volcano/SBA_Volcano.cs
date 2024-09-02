@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Provides the functionality for the Magma Lord's Volcano ability
+/// </summary>
 public class SBA_Volcano : SpecificBossAbilityFramework
 {
     [Space]

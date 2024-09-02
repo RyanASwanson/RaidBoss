@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Magma lord attack
-/// Create a damage target zone then a meteor falls on that location
-///     does initial damage and creates a damaging zone
+/// Provides the functionality for the Magma Lord's Meteor ability
 /// </summary>
 public class SBA_Meteor : SpecificBossAbilityFramework
 {
@@ -35,6 +33,11 @@ public class SBA_Meteor : SpecificBossAbilityFramework
         }
     }
 
+    /// <summary>
+    /// Waits until the hero that is being targetted is not directly on top of the target zone
+    /// </summary>
+    /// <param name="targetZone"></param>
+    /// <returns></returns>
     protected IEnumerator HideTargetZoneUntilNonZero(GameObject targetZone)
     {
         targetZone.SetActive(false);
@@ -49,6 +52,9 @@ public class SBA_Meteor : SpecificBossAbilityFramework
             targetZone.SetActive(true);
     }
 
+    /// <summary>
+    /// Occurs the moment the meteor makes contact with the ground
+    /// </summary>
     protected void FallingMeteorContact()
     {
         _storedFallingMeteor.GetComponent<SBP_FallingMeteor>().FloorContact();
@@ -59,10 +65,6 @@ public class SBA_Meteor : SpecificBossAbilityFramework
     
 
     #region Base Ability
-    protected override void AbilityPrep()
-    {
-        base.AbilityPrep();
-    }
 
     protected override void StartShowTargetZone()
     {

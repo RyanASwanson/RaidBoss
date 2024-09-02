@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Magma lord attack
-/// Create a target zone at the center of the arena if no hero is inside it deal 
-///     damage at the edges of the arena
+/// Provides the functionality for the Magma Lord's Lava Blast ability
+/// Spawns a safe zone in the center, if no hero is in it when the ability starts
+///     deals damage on the outer rim of the arena
 /// </summary>
 public class SBA_LavaBlast : SpecificBossAbilityFramework
 {

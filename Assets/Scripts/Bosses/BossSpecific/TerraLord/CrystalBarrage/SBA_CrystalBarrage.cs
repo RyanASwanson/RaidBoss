@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Provides the functionality for the Terra Lord's Crystal Barrage ability
+/// </summary>
 public class SBA_CrystalBarrage : SpecificBossAbilityFramework
 {
     [Space]

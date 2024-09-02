@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Magma lord attack
-/// Create a damage target zone at the edge of the arena in the direction of a target
-///     then has a projectile move from that point to the boss
+/// Provides the functionality for the Magma Lord's Magma Wave ability
 /// </summary>
 public class SBA_MagmaWave : SpecificBossAbilityFramework
 {
