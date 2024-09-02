@@ -22,4 +22,9 @@ public class SBP_Tremor : BossProjectileFramework
             yield return new WaitForSeconds(_spikeSeperationTime);
         }
     }
+
+
+    #region Base Ability
+
+    #endregion
 }

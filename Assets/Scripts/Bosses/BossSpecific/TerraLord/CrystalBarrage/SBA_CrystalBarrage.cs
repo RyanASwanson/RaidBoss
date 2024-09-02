@@ -146,4 +146,8 @@ public class SBA_CrystalBarrage : SpecificBossAbilityFramework
     }
     #endregion
 
+    #region Base Ability
+
+    #endregion
+
 }

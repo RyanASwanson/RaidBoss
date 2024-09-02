@@ -36,4 +36,8 @@ public class SBA_Scorch : SpecificBossAbilityFramework
 
         base.AbilityStart();
     }
+
+    #region Base Ability
+
+    #endregion
 }

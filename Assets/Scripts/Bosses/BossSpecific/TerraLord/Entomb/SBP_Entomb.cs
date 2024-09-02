@@ -91,4 +91,8 @@ public class SBP_Entomb : BossProjectileFramework
 
         _animator.SetTrigger(REMOVE_PROJECTILE_ANIM_TRIGGER);
     }
+
+    #region Base Ability
+
+    #endregion
 }

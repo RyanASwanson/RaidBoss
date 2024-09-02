@@ -48,4 +48,8 @@ public class SBA_Entomb : SpecificBossAbilityFramework
         
     }
 
+    #region Base Ability
+
+    #endregion
+
 }

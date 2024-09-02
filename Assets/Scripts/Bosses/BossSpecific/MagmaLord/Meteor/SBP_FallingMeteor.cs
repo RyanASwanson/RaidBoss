@@ -25,4 +25,8 @@ public class SBP_FallingMeteor : BossProjectileFramework
     {
         Instantiate(_contactParticles, transform.position, Quaternion.identity);
     }
+
+    #region Base Ability
+
+    #endregion
 }

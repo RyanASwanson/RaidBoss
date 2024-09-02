@@ -40,4 +40,8 @@ public class SBA_EncirclingVines : SpecificBossAbilityFramework
         StartCoroutine(FollowHeroTarget(newestVines));
         base.AbilityStart();
     }
+
+    #region Base Ability
+
+    #endregion
 }

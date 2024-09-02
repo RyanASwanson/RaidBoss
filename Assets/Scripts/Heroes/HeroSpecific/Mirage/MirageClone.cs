@@ -44,11 +44,19 @@ public class MirageClone : SpecificHeroFramework
         _myHeroBase.GetHeroStoppedMovingEvent().RemoveListener(EndBasicCastProcess);
     }
 
+
+    /// <summary>
+    /// The mirage clone adds itself as a possible target for boss attacks
+    /// Heroes are already set as targets, but as this is an ability it has to do so manually
+    /// </summary>
     private void AssignSelfAsBossTarget()
     {
         GameplayManagers.Instance.GetBossManager().GetBossBase().GetSpecificBossScript().AddHeroTarget(_myHeroBase);
     }
 
+
+
+    #region Base Hero
     public override void SetupSpecificHero(HeroBase heroBase, HeroSO heroSO)
     {
         _bossBase = GameplayManagers.Instance.GetBossManager().GetBossBase();
@@ -72,8 +80,5 @@ public class MirageClone : SpecificHeroFramework
         _bossBase.GetBossTargetsAssignedEvent().AddListener(AssignSelfAsBossTarget);
         base.SubscribeToEvents();
     }
-
-    #region Base Hero
-
     #endregion
 }

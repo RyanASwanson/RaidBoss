@@ -84,4 +84,8 @@ public class SBP_FollowingMeteor : BossProjectileFramework
         transform.LookAt(lookLocation);
         transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
     }
+
+    #region Base Ability
+
+    #endregion
 }

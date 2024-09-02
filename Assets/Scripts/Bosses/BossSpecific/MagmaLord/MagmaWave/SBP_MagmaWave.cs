@@ -79,4 +79,8 @@ public class SBP_MagmaWave : BossProjectileFramework
     {
         _waveAnimator.SetTrigger(REMOVE_PROJECTILE_ANIM_TRIGGER);
     }
+
+    #region Base Ability
+
+    #endregion
 }

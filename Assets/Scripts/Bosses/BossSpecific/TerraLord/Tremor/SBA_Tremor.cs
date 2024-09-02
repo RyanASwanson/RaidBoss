@@ -22,4 +22,8 @@ public class SBA_Tremor : SpecificBossAbilityFramework
         storedTremor.GetComponent<SBP_Tremor>().SetUpProjectile(_myBossBase);
         base.AbilityStart();
     }
+
+    #region Base Ability
+
+    #endregion
 }

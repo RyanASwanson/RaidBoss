@@ -28,4 +28,8 @@ public class SBP_TremorSpike : BossProjectileFramework
     {
         Instantiate(_spikeStartVFX, transform.position, Quaternion.identity);
     }
+
+    #region Base Ability
+
+    #endregion
 }

@@ -60,4 +60,8 @@ public class SBA_MagmaWave : SpecificBossAbilityFramework
         mwScript.AdditionalSetup();
         base.AbilityStart();
     }
+
+    #region Base Ability
+
+    #endregion
 }

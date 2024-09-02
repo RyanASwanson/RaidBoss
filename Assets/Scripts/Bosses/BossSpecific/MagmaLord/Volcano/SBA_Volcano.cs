@@ -95,4 +95,9 @@ public class SBA_Volcano : SpecificBossAbilityFramework
     {
 
     }*/
+
+
+    #region Base Ability
+
+    #endregion
 }

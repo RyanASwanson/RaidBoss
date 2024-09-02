@@ -91,5 +91,7 @@ public class SBA_Meteor : SpecificBossAbilityFramework
         base.AbilityStart();
     }
 
-    
+    #region Base Ability
+
+    #endregion
 }

@@ -64,4 +64,8 @@ public class SBA_LavaBlast : SpecificBossAbilityFramework
     {
         Instantiate(_failedVFX, _targetLocation, Quaternion.identity);
     }
+
+    #region Base Ability
+
+    #endregion
 }
