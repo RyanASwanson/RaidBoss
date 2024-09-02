@@ -33,9 +33,7 @@ public class SH_Reaper : SpecificHeroFramework
         //Does the universal projectile setup
         spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(_myHeroBase);
 
-        //Does the projectile specific setup
-        spawnedProjectile.GetComponent<SHP_ReaperBasicProjectile>().AdditionalSetup();
-
+        //Performs the setup for the damage area so that it knows it's owner
         spawnedProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(_myHeroBase);
     }
 
@@ -58,9 +56,7 @@ public class SH_Reaper : SpecificHeroFramework
         //Does the universal projectile setup
         spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(_myHeroBase);
 
-        //Does the projectile specific setup
-        spawnedProjectile.GetComponent<SHP_ReaperManualProjectile>().AdditionalSetup();
-
+        //Performs the setup for the damage area so that it knows it's owner
         spawnedProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(_myHeroBase);
 
     }

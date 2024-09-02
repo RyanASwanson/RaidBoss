@@ -14,12 +14,8 @@ public class SHP_ReaperManualProjectile : HeroProjectileFramework
 
     public override void SetUpProjectile(HeroBase heroBase)
     {
-        base.SetUpProjectile(heroBase);
-    }
-
-    public void AdditionalSetup()
-    {
         StartCoroutine(MoveProjectile());
+        base.SetUpProjectile(heroBase);
     }
 
     private IEnumerator MoveProjectile()

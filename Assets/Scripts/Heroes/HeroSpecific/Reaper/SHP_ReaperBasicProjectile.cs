@@ -19,14 +19,11 @@ public class SHP_ReaperBasicProjectile : HeroProjectileFramework
 
     public override void SetUpProjectile(HeroBase heroBase)
     {
-        base.SetUpProjectile(heroBase);
-    }
-
-    public void AdditionalSetup()
-    {
         StartCoroutine(FollowHero());
-        StartCoroutine(MoveProjectile(_projectileSpeed,_movementVariability));
+        StartCoroutine(MoveProjectile(_projectileSpeed, _movementVariability));
         StartCoroutine(RotateProjectile(_projectileYSpinSpeed));
+
+        base.SetUpProjectile(heroBase);
     }
 
     private IEnumerator FollowHero()

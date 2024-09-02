@@ -62,6 +62,7 @@ public class SH_Mirage : SpecificHeroFramework
         GameObject _newestProjectile = Instantiate(_basicProjectile, 
             _currentBasicTargetZone.transform.position, _currentBasicTargetZone.transform.rotation);
 
+        //Performs the setup for the damage area so that it knows it's owner
         _newestProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(_myHeroBase);
     }
     #endregion
