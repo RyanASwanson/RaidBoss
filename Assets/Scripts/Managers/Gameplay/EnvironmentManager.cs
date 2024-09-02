@@ -7,7 +7,6 @@ public class EnvironmentManager : BaseGameplayManager
     [SerializeField] private float _mapRadius;
 
     [SerializeField] private LayerMask _mapBorderLayer;
-    [SerializeField] private LayerMask _bossLayer;
 
     [SerializeField] private List<GameObject> _heroSpawnLocations;
 
@@ -32,6 +31,15 @@ public class EnvironmentManager : BaseGameplayManager
         _floorCollider, _floorCollider.gameObject.transform.position, _floorCollider.gameObject.transform.rotation);
 
 
+    /// <summary>
+    /// Raycasts with a specific layer, aligning the y values of start and direction
+    /// </summary>
+    /// <param name="startPoint"></param>
+    /// <param name="direction"></param>
+    /// <param name="distance"></param>
+    /// <param name="layer"></param>
+    /// <param name="raycastHit"></param>
+    /// <returns></returns>
     public bool GetLayerRayHit(Vector3 startPoint, Vector3 direction, float distance, LayerMask layer, out RaycastHit raycastHit)
     {
         startPoint = new Vector3(startPoint.x, 0, startPoint.z);
@@ -57,6 +65,7 @@ public class EnvironmentManager : BaseGameplayManager
     /// </summary>
     /// <param name="startPoint"></param>
     /// <param name="direction"></param>
+    /// <param name="raycastHit"></param>
     /// <returns></returns>
     public bool GetEdgeOfMapWithDirection(Vector3 startPoint, Vector3 direction, out RaycastHit raycastHit)
     {
@@ -77,12 +86,7 @@ public class EnvironmentManager : BaseGameplayManager
         return Vector3.Distance(startPoint, rayHit.point) ;
     }
 
-    public Vector3 GetBossWithDistanceAndDirection(Vector3 startPoint, Vector3 direction, float distance)
-    {
-        return Vector3.zero;
-    }
-
-        #endregion
+    #endregion
     #endregion
 
     #region Setters

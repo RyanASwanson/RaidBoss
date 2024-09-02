@@ -36,7 +36,9 @@ public class SH_Astromancer : SpecificHeroFramework
         Vector3 storedProjectileDirection = GameplayManagers.Instance.GetBossManager().GetDirectionToBoss(transform.position);
         projectileFunc.AdditionalSetup(this, storedProjectileDirection);
 
+        //Performs the setup for the damage area so that it knows it's owner
         spawnedProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(_myHeroBase);
+        //Performs the setup for the 'healing' area so that it knows it's owner
         spawnedProjectile.GetComponent<GeneralHeroHealArea>().SetUpHealingArea(_myHeroBase);
     }
 

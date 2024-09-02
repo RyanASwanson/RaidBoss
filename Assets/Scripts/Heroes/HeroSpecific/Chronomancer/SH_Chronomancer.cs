@@ -82,7 +82,9 @@ public class SH_Chronomancer : SpecificHeroFramework
         spawnedProjectile.GetComponent<SHP_ChronomancerBasicProjectile>().
             AdditionalSetup(_currentAttackDirection, _passiveAbilityBasicCooldownReduction);
 
+        //Performs the setup for the damage area so that it knows it's owner
         spawnedProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(_myHeroBase);
+        //Performs the setup for the healing area so that it knows it's owner
         spawnedProjectile.GetComponent<GeneralHeroHealArea>().SetUpHealingArea(_myHeroBase);
     }
 
