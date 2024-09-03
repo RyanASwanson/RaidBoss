@@ -27,6 +27,7 @@ public class GeneralBossDamageArea : GeneralAbilityAreaFramework
     private List<HeroBase> _heroesToIgnore = new List<HeroBase>();
 
 
+    #region Collision
     private bool DoesColliderBelongToHero(Collider collision)
     {
         return collision.gameObject.CompareTag(TagStringData.GetHeroHitboxTagName());
@@ -73,13 +74,25 @@ public class GeneralBossDamageArea : GeneralAbilityAreaFramework
         return false;
     }
 
+    /// <summary>
+    /// Inflicts damage to the hero that it hit
+    /// </summary>
+    /// <param name="heroBase"></param>
+    /// <param name="abilityDamage"></param>
     private void DealDamage(HeroBase heroBase, float abilityDamage)
     {
         if (abilityDamage > 0)
             heroBase.GetHeroStats().DealDamageToHero(abilityDamage * GameplayManagers.Instance.
                 GetBossManager().GetBossBase().GetBossStats().GetBossDamageMultiplier());
     }
+    #endregion
 
+
+    /// <summary>
+    /// Prevents damage from being dealt to a hero for a duration
+    /// </summary>
+    /// <param name="heroBase"></param>
+    /// <returns></returns>
     private IEnumerator IgnoreHeroForDuration(HeroBase heroBase)
     {
         _heroesToIgnore.Add(heroBase);

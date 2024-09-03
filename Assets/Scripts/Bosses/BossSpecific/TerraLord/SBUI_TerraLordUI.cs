@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Provides the functionality for the boss UI for the Terra Lord
+/// </summary>
 public class SBUI_TerraLordUI : SpecificBossUIFramework
 {
     [SerializeField] private List<Animator> _passiveBars;
@@ -24,18 +27,30 @@ public class SBUI_TerraLordUI : SpecificBossUIFramework
 
     SB_TerraLord _terraLordFunctionality;
 
+    /// <summary>
+    /// Adjusts the ui whenever the Terra Lords passive has updated its value
+    /// </summary>
+    /// <param name="passivePercent"></param>
     private void UpdatePassiveBars(float passivePercent)
     {
         int passiveBarValue = ConvertPercentToValue(passivePercent);
 
-        //Debug.Log(passivePercent);
         IterateThroughPassiveBars(_previousPassiveBarValue, passiveBarValue);
 
+        //Determines if the value is far enough on either side to show a warning
         EvaluateWarningLevels(passivePercent);
 
         _previousPassiveBarValue = passiveBarValue;
     }
 
+    /// <summary>
+    /// Moves from the previous passive bar value to the new value
+    /// First it determines the direction that it is moving in, as well as 
+    ///     if we should be hiding or showing the nodes we are moving through
+    /// Iterates through the bars and animates them accordingly
+    /// </summary>
+    /// <param name="start"></param>
+    /// <param name="end"></param>
     private void IterateThroughPassiveBars(int start, int end)
     {
         int changeVal = 1;
@@ -61,7 +76,7 @@ public class SBUI_TerraLordUI : SpecificBossUIFramework
     }
 
     /// <summary>
-    /// 
+    /// Animates a single bar on the passive ui
     /// </summary>
     /// <param name="barPos"></param>
     /// <param name="changeDirection"></param> false = down, true = up
@@ -82,7 +97,11 @@ public class SBUI_TerraLordUI : SpecificBossUIFramework
             
     }
 
-    //Takes the percentage and converts it to a scale from -1 to 1
+    /// <summary>
+    /// Takes the percentage and converts it to a scale from -1 to 1
+    /// </summary>
+    /// <param name="passivePercent"></param>
+    /// <returns></returns>
     private int ConvertPercentToValue(float passivePercent)
     {
         float lerpA = _startingPassiveBarValue;
@@ -91,6 +110,12 @@ public class SBUI_TerraLordUI : SpecificBossUIFramework
         return Mathf.RoundToInt(Mathf.LerpUnclamped(lerpA, lerpB, passivePercent));
     }
 
+    /// <summary>
+    /// Determines if the passive percent is far enough to either side
+    ///     to show a warning UI element. The warning is animated differently
+    ///     depending on the level of intensity
+    /// </summary>
+    /// <param name="passivePercent"></param>
     private void EvaluateWarningLevels(float passivePercent)
     {
         if (passivePercent >= _majorWarningPercent)
@@ -109,16 +134,24 @@ public class SBUI_TerraLordUI : SpecificBossUIFramework
             
     }
 
-    protected override void AdditionalSetup()
-    {
-        _terraLordFunctionality = (SB_TerraLord)_associatedBossScript;
 
-        _startingPassiveBarValue = (_passiveBars.Count - 1)/2;
+
+    #region Base Boss UI
+    public override void SetupBossSpecificUIFunctionality(BossBase bossBase, SpecificBossFramework specificBoss)
+    {
+        _terraLordFunctionality = (SB_TerraLord)specificBoss;
+
+        //Sets the starting value at the middle
+        _startingPassiveBarValue = (_passiveBars.Count - 1) / 2;
         _previousPassiveBarValue = _startingPassiveBarValue;
+
+        base.SetupBossSpecificUIFunctionality(bossBase, specificBoss);
     }
+
 
     protected override void SubscribeToEvents()
     {
         _terraLordFunctionality.GetPassivePercentUpdatedEvent().AddListener(UpdatePassiveBars);
     }
+    #endregion
 }

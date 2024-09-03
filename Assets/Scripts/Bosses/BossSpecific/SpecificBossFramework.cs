@@ -66,11 +66,14 @@ public abstract class SpecificBossFramework : MonoBehaviour
     #endregion
 
     #region Aggro
+    /// <summary>
+    /// Alls all heroes to the list of heroes that can be attacked;
+    /// </summary>
     protected virtual void AssignInitialHeroTargets()
     {
         
-        List<HeroBase> allHeroes = GameplayManagers.Instance.GetHeroesManager().GetCurrentHeroes();
-        _bossAttackTargets = new List<HeroBase>(allHeroes);
+        //List<HeroBase> allHeroes = GameplayManagers.Instance.GetHeroesManager().GetCurrentHeroes();
+        _bossAttackTargets = new List<HeroBase>(GameplayManagers.Instance.GetHeroesManager().GetCurrentHeroes());
 
         _myBossBase.InvokeBossTargetsAssignedEvent();
     }
@@ -154,14 +157,17 @@ public abstract class SpecificBossFramework : MonoBehaviour
     #endregion
 
     #region Ability Functionality
-
+    /// <summary>
+    /// Adds an ability to the list of attacks that the boss can randomly pick to use
+    /// </summary>
+    /// <param name="newAbility"></param>
     private void AddAbilityToBossReadyAttacks(SpecificBossAbilityFramework newAbility)
     {
         _readyBossAttacks.Add(newAbility);
     }
 
     /// <summary>
-    /// Removes the next ability from the queue and adds it back into the list of
+    /// Removes the next ability from the cooldown queue and adds it back into the list of
     /// available abilities that the boss can use
     /// </summary>
     private void TakeAbilityFromQueueToReady()
@@ -169,6 +175,10 @@ public abstract class SpecificBossFramework : MonoBehaviour
         AddAbilityToBossReadyAttacks(_bossCooldownQueue.Dequeue());
     }
 
+    /// <summary>
+    /// Removes the ability that was just used and puts it at the end of the cooldown queue
+    /// </summary>
+    /// <param name="newAbility"></param>
     private void AddAbilityToEndOfCooldownQueue(SpecificBossAbilityFramework newAbility)
     {
         _readyBossAttacks?.Remove(newAbility);
@@ -178,7 +188,8 @@ public abstract class SpecificBossFramework : MonoBehaviour
     }
 
     /// <summary>
-    /// For the first few abilities used iterate a counter
+    /// For the first few abilities used iterate a counter 
+    /// Counter prevents the ability from immediately moving right back into the ready list
     /// When the counter is at max call RepitionCounterAtMax
     /// </summary>
     protected void IterateRepitionCounter()
@@ -226,19 +237,24 @@ public abstract class SpecificBossFramework : MonoBehaviour
 
     protected virtual IEnumerator UseNextAttackProcess(SpecificBossAbilityFramework currentAbility)
     {
+        //Determines the hero to attack
         HeroBase newTarget = DetermineAggroTarget();
 
+        //Causes the boss to turn to look at the current location of their target
         _myBossBase.GetBossVisuals().BossLookAt(newTarget.transform.position);
 
+        //Uses the current ability
         currentAbility.ActivateAbility(
             ClosestFloorSpaceOfHeroTarget(newTarget), newTarget);
 
         _myBossBase.InvokeBossAbilityUsedEvent();
 
+        //Waits for a specified amount of time determined by the current ability
         yield return new WaitForSeconds(currentAbility.GetTimeUntilNextAbility());
 
         _nextAttackProcess = null;
 
+        //Uses the next ability to repeat the cycle
         StartNextAbility();
     }
 
@@ -251,10 +267,18 @@ public abstract class SpecificBossFramework : MonoBehaviour
         _nextAttackProcess = null;
     }
 
+    /// <summary>
+    /// Stuns the boss and prevents them from attacking
+    /// </summary>
+    /// <param name="stopDuration"></param>
+    /// <returns></returns>
     protected virtual IEnumerator StaggerBossForDuration(float stopDuration)
     {
+        //Prevents the next attack from being used
         StopNextAttackProcess();
+        //Waits for the boss stagger duration
         yield return new WaitForSeconds(stopDuration);
+        //Starts up the process of using abilities again
         StartNextAbility();
 
         _myBossBase.InvokeBossNoLongerStaggeredEvent();
@@ -281,6 +305,10 @@ public abstract class SpecificBossFramework : MonoBehaviour
         AddAbilityToBossReadyAttacks(_abilityLocked);
     }
 
+    /// <summary>
+    /// Removes the dead hero from the list of targets
+    /// </summary>
+    /// <param name="heroBase"></param>
     public virtual void HeroDied(HeroBase heroBase)
     {
         RemoveHeroTarget(heroBase);

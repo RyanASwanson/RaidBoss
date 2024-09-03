@@ -38,7 +38,10 @@ public class BossAbilitySafeZone : BossProjectileFramework
     }
 
     #region Collision
-
+    /// <summary>
+    /// When a hero enters the safe zone they are added to the list of heroes in range
+    /// </summary>
+    /// <param name="collision"></param>
     private void OnTriggerEnter(Collider collision)
     {
         HeroBase tempHero = collision.GetComponentInParent<HeroBase>();
@@ -46,6 +49,10 @@ public class BossAbilitySafeZone : BossProjectileFramework
             AddHeroInRange(tempHero);
     }
 
+    /// <summary>
+    /// When a hero leaves the safe zone they are removed from the list of heroes in range
+    /// </summary>
+    /// <param name="collision"></param>
     private void OnTriggerExit(Collider collision)
     {
         HeroBase tempHero = collision.GetComponentInParent<HeroBase>();

@@ -99,6 +99,7 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     {
         if (_currentTargetZones.Count == 0) return;
 
+        //Iterates through all target zones and removes them
         foreach(GameObject currentZone in _currentTargetZones)
         {
             Destroy(currentZone.gameObject);
