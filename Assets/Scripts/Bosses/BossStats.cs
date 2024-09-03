@@ -33,17 +33,19 @@ public class BossStats : BossChildrenFunctionality
             UniversalManagers.Instance.GetSelectionManager().GetHealthMultiplierFromDifficulty();
         _bossDefaultStaggerMax = bossSO.GetBaseStaggerMax() *
             UniversalManagers.Instance.GetSelectionManager().GetStaggerMultiplierFromDifficulty();
-
+        
+        //Sets the starting health and stagger values
         _currentHealth = _bossMaxHealth;
         _currentStaggerCounter = 0;
 
+        //Sets the stagger duration from the SO
         _bossStaggerDuration = bossSO.GetStaggerDuration();
-
+        //Sets the damage scaling from the SO
         _bossDamageIncrementMultiplier = bossSO.GetBossDamageIncrementMultiplier();
-
+        //Sets the damage resistance taken when staggered from the SO
         _bossDamageResistanceChangeOnStagger = bossSO.GetDamageResistanceChangeOnStagger();
         
-
+        //Sets the damage dealt multiplier based on the difficulty
         _bossDamageMultiplier = UniversalManagers.Instance.
                 GetSelectionManager().GetDamageMultiplierFromDifficulty();
     }

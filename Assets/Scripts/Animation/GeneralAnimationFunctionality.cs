@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Provides general functionality for animations to play
+/// </summary>
 public class GeneralAnimationFunctionality : MonoBehaviour
 {
     [SerializeField] private List<GameObject> _vfxList;

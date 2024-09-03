@@ -20,6 +20,18 @@ public class SBA_LavaBlast : SpecificBossAbilityFramework
     private Queue<GameObject> _storedSafeZones = new Queue<GameObject>();
 
     
+    /// <summary>
+    /// Checks if at least 1 hero is in the safe zone area
+    /// </summary>
+    /// <returns></returns>
+    private bool IsHeroInSafeZone()
+    {
+        return _storedSafeZones.Dequeue().GetComponent<BossAbilitySafeZone>().DoesSafeZoneContainHero();
+    }
+
+    /// <summary>
+    /// If there is a hero in the safe zone the ability fails and doesn't deal damage
+    /// </summary>
     private void AbilityFailed()
     {
         Instantiate(_failedVFX, _targetLocation, Quaternion.identity);
@@ -44,13 +56,15 @@ public class SBA_LavaBlast : SpecificBossAbilityFramework
 
     protected override void AbilityStart()
     {
-        if (_storedSafeZones.Dequeue().GetComponent<BossAbilitySafeZone>().DoesSafeZoneContainHero())
+        //Checks if at least 1 hero is in the safe zone
+        if (IsHeroInSafeZone())
         {
+            //If there is, cancel the ability
             AbilityFailed();
             return;
         }
 
-
+        //Spawn the damage zone
         Instantiate(_lavaBlast, _targetLocation, Quaternion.identity);
 
         base.AbilityStart();

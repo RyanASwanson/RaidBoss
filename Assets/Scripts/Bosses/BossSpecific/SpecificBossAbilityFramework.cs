@@ -64,6 +64,9 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
         StartAbilityWindUp();
     }
 
+    /// <summary>
+    /// Starts the animation associated with the boss attack
+    /// </summary>
     protected virtual void StartBossAbilityAnimation()
     {
         _myBossBase.GetBossVisuals().StartBossSpecificAnimationTrigger(_animationTriggerName);
@@ -114,7 +117,10 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
         StartCoroutine(AbilityWindUp());
     }
 
-
+    /// <summary>
+    /// Provides a delay between the ability wind up and the ability start
+    /// </summary>
+    /// <returns></returns>
     protected virtual IEnumerator AbilityWindUp()
     {
         yield return new WaitForSeconds(_abilityWindUpTime);
@@ -122,17 +128,15 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
         AbilityStart();
     }
 
+    /// <summary>
+    /// Starts the ability
+    /// Generally spawns the damage area of the attack
+    /// </summary>
     protected virtual void AbilityStart()
     {
         
     }
 
-    
-
-    protected virtual void ProgressToNextBossAttack()
-    {
-
-    }
 
     #region Getters
     public bool GetIsTargeted() => _isTargeted;

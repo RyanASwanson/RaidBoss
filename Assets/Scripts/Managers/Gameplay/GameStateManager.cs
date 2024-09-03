@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// Provides the functionality for the game state throughout gameplay scenes
+/// Battle starts in the pre battle state
+/// </summary>
 public class GameStateManager : BaseGameplayManager
 {
     [SerializeField] private float _timeToStart;
@@ -24,6 +28,7 @@ public class GameStateManager : BaseGameplayManager
     /// <returns></returns>
     private IEnumerator ProgressToStart()
     {
+        //Waits for a brief period before the battle is started
         yield return new WaitForSeconds(_timeToStart);
         SetGameplayState(GameplayStates.Battle);
     }
@@ -44,13 +49,33 @@ public class GameStateManager : BaseGameplayManager
                 InvokeStartOfBattleEvent();
                 break;
             case (GameplayStates.PostBattleLost):
-                InvokeBattleLostEvent();
+                BattleLost();
                 break;
             case (GameplayStates.PostBattleWon):
-                UniversalManagers.Instance.GetSaveManager().SaveBossDifficultyHeroesDictionary();
-                InvokeBattleWonEvent();
+                BattleWon();
                 break;
         }
+    }
+
+    /// <summary>
+    /// Called when the battle is lost by all heroes dying
+    /// </summary>
+    private void BattleLost()
+    {
+        InvokeBattleLostEvent();
+    }
+
+    /// <summary>
+    /// Called when the battle is won by reducing the boss health to 0
+    /// </summary>
+    private void BattleWon()
+    {
+        //Slows time
+        UniversalManagers.Instance.GetTimeManager().BossDiedTimeSlow();
+
+        //Saves the best difficulty beaten for each hero
+        UniversalManagers.Instance.GetSaveManager().SaveBossDifficultyHeroesDictionary();
+        InvokeBattleWonEvent();
     }
 
     #region BaseManager
@@ -58,11 +83,6 @@ public class GameStateManager : BaseGameplayManager
     {
         base.SetupManager();
         StartCoroutine(ProgressToStart());
-    }
-
-    protected override void SubscribeToEvents()
-    {
-        
     }
     #endregion
 
@@ -72,11 +92,19 @@ public class GameStateManager : BaseGameplayManager
     {
         _startOfBattleEvent?.Invoke();
     }
+
+    /// <summary>
+    /// Invokes the lost event and then invokes the won or lost event
+    /// </summary>
     public void InvokeBattleLostEvent()
     {
         _battleLostEvent?.Invoke();
         InvokeBattleWonOrLostEvent();
     }
+    
+    /// <summary>
+    /// Invokes the won event and then invokes the won or lost event
+    /// </summary>
     public void InvokeBattleWonEvent()
     {
         _battleWonEvent?.Invoke();

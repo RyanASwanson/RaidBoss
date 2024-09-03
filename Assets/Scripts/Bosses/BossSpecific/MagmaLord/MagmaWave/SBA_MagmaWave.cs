@@ -19,6 +19,8 @@ public class SBA_MagmaWave : SpecificBossAbilityFramework
     #region Base Ability
     protected override void AbilityPrep()
     {
+        //Determines the location of the edge of the map
+        //Direction determined by the direction of the current target
         _edgeOfMap = GameplayManagers.Instance.GetEnvironmentManager().
             GetEdgeOfMapLoc(transform.position,
             (_storedTarget.transform.position - Vector3.zero).normalized);
@@ -42,6 +44,7 @@ public class SBA_MagmaWave : SpecificBossAbilityFramework
         newTargetZone.transform.LookAt(transform.position);
         newTargetZone.transform.eulerAngles = new Vector3(0, newTargetZone.transform.eulerAngles.y, 0);
 
+        //Adds the newly spawn target zone into the list of target zones currently active
         _currentTargetZones.Add(newTargetZone);
 
         base.StartShowTargetZone();
@@ -55,9 +58,11 @@ public class SBA_MagmaWave : SpecificBossAbilityFramework
 
     protected override void AbilityStart()
     {
+        //Spawns the magma wave damage zone
         _storedMagmaWave = Instantiate(_magmaWave, _edgeOfMap, Quaternion.identity);
-        SBP_MagmaWave mwScript = _storedMagmaWave.GetComponent<SBP_MagmaWave>();
-        mwScript.SetUpProjectile(_myBossBase);
+        //Sets up the 
+        SBP_MagmaWave waveFunc = _storedMagmaWave.GetComponent<SBP_MagmaWave>();
+        waveFunc.SetUpProjectile(_myBossBase);
         base.AbilityStart();
     }
     #endregion

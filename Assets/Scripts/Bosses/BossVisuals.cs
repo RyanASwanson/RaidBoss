@@ -20,31 +20,43 @@ public class BossVisuals : BossChildrenFunctionality
     private const string BOSS_STAGGER_ANIM_TRIGGER = "G_BossStagger";
     private const string BOSS_DEATH_ANIM_TRIGGER = "G_BossDeath";
 
+
+    /// <summary>
+    /// Causes the boss to start looking at a desired target location
+    /// </summary>
+    /// <param name="lookLocation"></param>
     public void BossLookAt(Vector3 lookLocation)
     {
-        /*transform.LookAt(lookLocation);
-        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);*/
         StartCoroutine(LookAtProcess(lookLocation));
     }
-
+    
+    /// <summary>
+    /// Rotates the boss to look at a target location
+    /// </summary>
+    /// <param name="lookLocation"></param>
+    /// <returns></returns>
     private IEnumerator LookAtProcess(Vector3 lookLocation)
     {
         float progress = 0;
         Quaternion startingRotation = _visualObjectBase.transform.rotation;
+
+        //Converts the position of the look location and boss location into a direction
+        Vector3 lookDir = lookLocation - _visualObjectBase.transform.position;
+
+        //Converts the direction into a quaternion
+        Quaternion toRotation = Quaternion.LookRotation(lookDir);
+
+
         while (progress < 1)
         {
+            //Iterates the progress
             progress += Time.deltaTime * _rotateSpeed ;
 
-            Vector3 lookDir = lookLocation - _visualObjectBase.transform.position;
-
-            //Quaternion toRotation = Quaternion.FromToRotation(_visualObjectBase.transform.forward, lookDir);
-            Quaternion toRotation = Quaternion.LookRotation(lookDir);
-
+            //Lerps the rotation from the start to the end
             _visualObjectBase.transform.rotation = Quaternion.Lerp
                 (startingRotation, toRotation, progress);
-            /*_visualObjectBase.transform.eulerAngles = new Vector3(0, 
-                Mathf.Lerp(_visualObjectBase.transform.eulerAngles.y,toRotation.eulerAngles.y,progress), 0);*/
 
+            //Makes certain that only the Y euler angle was adjusted
             _visualObjectBase.transform.eulerAngles = new Vector3(0, _visualObjectBase.transform.eulerAngles.y, 0);
 
             yield return null;
@@ -100,12 +112,10 @@ public class BossVisuals : BossChildrenFunctionality
     private void BossSpecificDeathAnimTrigger()
     {
         StartBossSpecificAnimationTrigger(BOSS_DEATH_ANIM_TRIGGER);
-        //_bossSpecificAnimator.SetTrigger(_bossDeathTriggerAnim);
     }
 
     private void BattleWon()
     {
-        UniversalManagers.Instance.GetTimeManager().BossDiedTimeSlow();
         BossSpecificDeathAnimTrigger();
     }
 
@@ -141,6 +151,7 @@ public class BossVisuals : BossChildrenFunctionality
         myBossBase.GetBossDamagedEvent().AddListener(BossTookDamage);
 
         myBossBase.GetBossStaggeredEvent().AddListener(BossFullyStaggered);
+
         GameplayManagers.Instance.GetGameStateManager().GetBattleWonEvent().AddListener(BattleWon);
     }
 
