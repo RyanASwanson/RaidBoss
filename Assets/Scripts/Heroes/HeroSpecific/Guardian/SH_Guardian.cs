@@ -42,7 +42,7 @@ public class SH_Guardian : SpecificHeroFramework
     public override void ActivateManualAbilities(Vector3 attackLocation)
     {
         GameplayManagers.Instance.GetBossManager().GetBossBase().GetSpecificBossScript()
-            .HeroOverrideAggro(_myHeroBase, _heroManualAbilityDuration);
+            .StartHeroOverrideAggro(_myHeroBase, _heroManualAbilityDuration);
 
         base.ActivateManualAbilities(attackLocation);
     }

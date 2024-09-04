@@ -32,6 +32,9 @@ public class SB_TerraLord : SpecificBossFramework
 
     #region Passive
 
+    /// <summary>
+    /// At the start of the fight or after a stagger ends the boss passive is activated
+    /// </summary>
     private void StartPassiveProcess()
     {
         SetStartingPassiveWeightMultiplier();
@@ -41,13 +44,21 @@ public class SB_TerraLord : SpecificBossFramework
         _passiveProcessCoroutine = StartCoroutine(PassiveProcess());
     }
 
+    /// <summary>
+    /// Sets up the initial values for the passive to function
+    /// </summary>
     private void SetStartingPassiveWeightMultiplier()
     {
+        //Gets the difficulty
         GameDifficulty selectedDifficulty = UniversalManagers.Instance.GetSelectionManager().GetSelectedDifficulty();
-
+        //Scales the speed of the passive based on the difficulty
         _passiveHeroWeightMultiplier = _difficultyWeightMultiplier[(int)selectedDifficulty-1];
     }
 
+    /// <summary>
+    /// The process at which the passive ticks every few set amount of time
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator PassiveProcess()
     {
         while(_heroesManager.GetCurrentLivingHeroes().Count > 0)
@@ -58,45 +69,63 @@ public class SB_TerraLord : SpecificBossFramework
         
     }
 
+    /// <summary>
+    /// Each individual tick of the passive
+    /// </summary>
     private void PassiveTick()
     {
         ChangePassiveCounterValue(CalculatePassiveHeroWeight());
-        
     }
 
+    /// <summary>
+    /// Calculates how much to increase or decrease the passive value by each tick
+    /// </summary>
+    /// <returns></returns>
     private float CalculatePassiveHeroWeight()
     {
         float weightCounter = 0;
+
+        //Determines the center of mass based on how far each hero is from the center in the X
         foreach (HeroBase heroBase in _heroesManager.GetCurrentLivingHeroes())
         {
-            
             weightCounter += heroBase.transform.position.x * _passiveHeroWeightMultiplier;
-
         }
 
+        //Scales the speed of the passive with how many heroes are alive
         weightCounter /= _heroesManager.GetCurrentLivingHeroes().Count;
 
         return weightCounter;
     }
 
+    /// <summary>
+    /// Changes the passive value based on the input float and calls and needed functionality
+    /// </summary>
+    /// <param name="val"></param>
     private void ChangePassiveCounterValue(float val)
     {
         _passiveCounterValue += val;
-        //Debug.Log(_passiveCounterValue);
 
+        //Rotates the camera to demonstrate the imbalance of the arena
         RotateCameraBasedOnPassive(val);
         InvokePassivePercentUpdate();
 
+        //Checks if the passive value is too far in either direction
         CheckPassiveMax();
     }
 
 
-    
+    /// <summary>
+    /// Gets a value from -1 to 1 of how far the balance is in either direction
+    /// </summary>
+    /// <returns></returns>
     private float GetPassiveCounterPercent()
     {
         return Mathf.Clamp(_passiveCounterValue / _passiveMaxValue, -_passiveMaxValue, _passiveMaxValue);
     }
 
+    /// <summary>
+    /// Stops the passive from ticking
+    /// </summary>
     private void StopPassiveProcess()
     {
         if (_passiveProcessCoroutine == null) return;
@@ -105,21 +134,30 @@ public class SB_TerraLord : SpecificBossFramework
         _passiveProcessCoroutine = null;
     }
 
+    /// <summary>
+    /// Rotates the camera to demonstrate the imbalance of the arena
+    /// </summary>
+    /// <param name="passiveDifference"></param>
     private void RotateCameraBasedOnPassive(float passiveDifference)
     {
         GameplayManagers.Instance.GetCameraManager().StartRotateCinemachineCamera
             (passiveDifference * _zRotationMultiplier, _passiveTickRate);
     }
 
+    /// <summary>
+    /// Checks if the passive counter value is too far in either direction
+    /// </summary>
     private void CheckPassiveMax()
     {
         if (Mathf.Abs(_passiveCounterValue) >= _passiveMaxValue)
             PassiveMax();
     }
 
+    /// <summary>
+    /// If the passive goes too far in either direction all heroes are killed
+    /// </summary>
     private void PassiveMax()
     {
-        //GameplayManagers.Instance.GetGameStateManager().SetGameplayState(GameplayStates.PostBattleLost);
         GameplayManagers.Instance.GetHeroesManager().KillAllHeroes();
     }
     #endregion
@@ -130,9 +168,13 @@ public class SB_TerraLord : SpecificBossFramework
         base.StartFight();
 
         _heroesManager = GameplayManagers.Instance.GetHeroesManager();
+        
         StartPassiveProcess();
     }
 
+    /// <summary>
+    /// Stops the passive when the boss is staggered
+    /// </summary>
     protected override void BossStaggerOccured()
     {
         base.BossStaggerOccured();
@@ -140,6 +182,9 @@ public class SB_TerraLord : SpecificBossFramework
         StopPassiveProcess();
     }
 
+    /// <summary>
+    /// Resumes the passive when the boss is no longer staggered
+    /// </summary>
     protected override void BossNoLongerStaggeredOccured()
     {
         base.BossNoLongerStaggeredOccured();

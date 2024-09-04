@@ -10,11 +10,19 @@ public class MirageClone : SpecificHeroFramework
     private SH_Mirage _mirageOwner;
     private BossBase _bossBase;
 
+    /// <summary>
+    /// Starts the process of the clone casting it's own copy of the Mirage
+    ///     basic ability
+    /// </summary>
     private void StartCloneCastBasic()
     {
         StartCoroutine(BasicCastProcess());
     }
 
+    /// <summary>
+    /// Continues casting the Mirage basic ability until it stops moving
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator BasicCastProcess()
     {
         _myHeroBase.GetHeroStoppedMovingEvent().AddListener(EndBasicCastProcess);
@@ -38,6 +46,9 @@ public class MirageClone : SpecificHeroFramework
         _canCastBasic = false;
     }
 
+    /// <summary>
+    /// Disables the ability to cast the Mirage basic ability
+    /// </summary>
     private void EndBasicCastProcess()
     {
         _canCastBasic = false;

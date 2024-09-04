@@ -23,7 +23,6 @@ public abstract class SpecificBossFramework : MonoBehaviour
 
     protected GameObject _storedBossUI;
 
-
     private List<HeroBase> _bossAttackTargets = new List<HeroBase>();
     private List<HeroBase> _aggroOverrides = new List<HeroBase>();
 
@@ -54,6 +53,9 @@ public abstract class SpecificBossFramework : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Creates an ui elements that are unique to the specific boss
+    /// </summary>
     protected virtual void CreateBossSpecificUI()
     {
         if (_bossSpecificUI == null) return;
@@ -67,22 +69,29 @@ public abstract class SpecificBossFramework : MonoBehaviour
 
     #region Aggro
     /// <summary>
-    /// Alls all heroes to the list of heroes that can be attacked;
+    /// Alls all heroes to the list of heroes that can be targeted
     /// </summary>
     protected virtual void AssignInitialHeroTargets()
     {
-        
-        //List<HeroBase> allHeroes = GameplayManagers.Instance.GetHeroesManager().GetCurrentHeroes();
         _bossAttackTargets = new List<HeroBase>(GameplayManagers.Instance.GetHeroesManager().GetCurrentHeroes());
 
         _myBossBase.InvokeBossTargetsAssignedEvent();
     }
 
+    /// <summary>
+    /// Adds a specific hero to the list of heroes that can be targeted
+    /// </summary>
+    /// <param name="heroBase"></param>
     public void AddHeroTarget(HeroBase heroBase)
     {
         _bossAttackTargets.Add(heroBase);
     }
 
+
+    /// <summary>
+    /// Removes a specific hero from the list of heroes that can be targeted
+    /// </summary>
+    /// <param name="heroBase"></param>
     protected virtual void RemoveHeroTarget(HeroBase heroBase)
     {
         if (!_bossAttackTargets.Contains(heroBase)) return;
@@ -128,7 +137,6 @@ public abstract class SpecificBossFramework : MonoBehaviour
 
             if (randomWeightValue <= currentWeightProgress)
             {
-                //Debug.Log("Random " + randomWeightValue + " current " + currentWeightProgress + " total " + totalAggroWeight);
                 return hb;
             }
 
@@ -137,7 +145,12 @@ public abstract class SpecificBossFramework : MonoBehaviour
         return null;
     }
 
-    public virtual void HeroOverrideAggro(HeroBase heroBase, float duration)
+    /// <summary>
+    /// Starts the process of having a hero be the sole target for boss abilities
+    /// </summary>
+    /// <param name="heroBase"></param>
+    /// <param name="duration"></param>
+    public virtual void StartHeroOverrideAggro(HeroBase heroBase, float duration)
     {
         StartCoroutine(AggroOverride(heroBase, duration));
     }
@@ -299,6 +312,9 @@ public abstract class SpecificBossFramework : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// If the boss has an abilities locked it is unlocked under half health
+    /// </summary>
     protected virtual void UnlockNewAbility()
     {
         if (_abilityLocked == null) return;
@@ -331,9 +347,9 @@ public abstract class SpecificBossFramework : MonoBehaviour
 
         //Listens for when the boss is staggered
         _myBossBase.GetBossStaggeredEvent().AddListener(BossStaggerOccured);
-
+        //Listens for when the boss stagger ends
         _myBossBase.GetBossNoLongerStaggeredEvent().AddListener(BossNoLongerStaggeredOccured);
-
+        
         _myBossBase.GetBossHalfHealthEvent().AddListener(UnlockNewAbility);
     }
 

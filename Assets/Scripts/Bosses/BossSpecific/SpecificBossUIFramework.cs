@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Provides the framework for UI elements that are specific to certain bosses
+/// </summary>
 public abstract class SpecificBossUIFramework : MonoBehaviour
 {
     protected BossBase _myBossBase;

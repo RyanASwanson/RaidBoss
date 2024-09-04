@@ -114,11 +114,12 @@ public class SH_Chronomancer : SpecificHeroFramework
 
 
         int counter = 0;
+
+        //Iterate through all heroes
         foreach (HeroBase heroBase in GameplayManagers.Instance.GetHeroesManager().GetCurrentHeroes())
         {
             RevertHeroHealth(counter, heroBase);
 
-            //heroBase.GetSpecificHeroScript().AddToBasicAbilityChargeTime(_passiveAbilityBasicCooldownReduction);
             PassiveReduceBasicCooldownOfHero(heroBase);
 
             counter++;
@@ -153,6 +154,10 @@ public class SH_Chronomancer : SpecificHeroFramework
         StartCoroutine(RemovePastHealthValueProcess(heroID));
     }
 
+    /// <summary>
+    /// Listens for when all heroes take damage
+    /// </summary>
+    /// <param name="heroID"></param>
     private void AddHeroHealthValue(int heroID)
     {
         AddPastHealthValue(heroID, GameplayManagers.Instance.GetHeroesManager()
@@ -200,7 +205,11 @@ public class SH_Chronomancer : SpecificHeroFramework
 
 
     
-
+    /// <summary>
+    /// Goes through every hero and listens for them taking damage
+    /// Each hero has an associated number which is aligned with their position
+    ///     in the list of queues of health values
+    /// </summary>
     public void SubscribeToHeroesDamagedEvents()
     {
         //I could've gotten this done like an hour ago, but instead this code is *dynamic*

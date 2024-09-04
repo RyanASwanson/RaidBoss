@@ -14,15 +14,24 @@ public class ChronomancerHomingProjectiles : MonoBehaviour
     private HeroBase _ignoreHero;
     private bool _isHoming = false;
 
+    /// <summary>
+    /// Prepares the functionality of the homing
+    /// </summary>
+    /// <param name="ignoreHero"></param>
     public void SetupHoming(HeroBase ignoreHero)
     {
+        //Prevents the projectile from homing in on its owner
         _ignoreHero = ignoreHero;
+        //Unparents the homing from the projectile itself
         Detach();
+        //Starts following the exact position of the associated projectile
         StartCoroutine(FollowProjectile());
     }
 
     /// <summary>
     /// Causes the homing projectile to no longer be a child of the projectile
+    /// If it was attached the General Hero Damage area would use the
+    ///     trigger from the homing
     /// </summary>
     private void Detach()
     {
@@ -44,6 +53,10 @@ public class ChronomancerHomingProjectiles : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Checks for a target to home in on
+    /// </summary>
+    /// <param name="collision"></param>
     private void OnTriggerStay(Collider collision)
     {
         
@@ -74,6 +87,12 @@ public class ChronomancerHomingProjectiles : MonoBehaviour
         _associatedProjectile.SetHomingTarget(homingTransform);
     }
 
+    /// <summary>
+    /// Checks if the thing that was collided with is a hero 
+    ///     and that hero can receive healing
+    /// </summary>
+    /// <param name="collision"></param>
+    /// <returns></returns>
     private bool DoesColliderBelongToHero(Collider collision)
     {
         HeroBase hitHero = collision.GetComponentInParent<HeroBase>();

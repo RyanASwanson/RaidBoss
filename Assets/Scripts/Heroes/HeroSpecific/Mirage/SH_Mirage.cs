@@ -148,7 +148,8 @@ public class SH_Mirage : SpecificHeroFramework
     #endregion
 
     #region Passive Abilities
-
+    
+    //Passive is handled by the clone
     #endregion
 
     

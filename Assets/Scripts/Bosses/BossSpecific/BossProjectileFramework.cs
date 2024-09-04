@@ -10,6 +10,10 @@ public abstract class BossProjectileFramework : MonoBehaviour
     protected BossBase _myBossBase;
     protected SpecificBossFramework _mySpecificBoss;
 
+    /// <summary>
+    /// Tells the boss projectile it's owner
+    /// </summary>
+    /// <param name="bossBase"></param>
     public virtual void SetUpProjectile(BossBase bossBase)
     {
         _myBossBase = bossBase;

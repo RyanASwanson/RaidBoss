@@ -56,6 +56,7 @@ public class BossUIManager : GameUIChildrenFunctionality
 
 
     private BossManager _bossManager;
+    private BossBase _bossBase;
 
 
     #region Health Bar
@@ -189,7 +190,9 @@ public class BossUIManager : GameUIChildrenFunctionality
 
     public GameObject AddBossUIToHolder(GameObject bossUI)
     {
-        return Instantiate(bossUI, _bossSpecificUIHolder.transform);
+        GameObject newUI = Instantiate(bossUI, _bossSpecificUIHolder.transform);
+        //newUI.GetComponent<SpecificBossUIFramework>().SetupBossSpecificUIFunctionality(_myBossBase, this)
+        return newUI;
     }    
     #endregion
 
