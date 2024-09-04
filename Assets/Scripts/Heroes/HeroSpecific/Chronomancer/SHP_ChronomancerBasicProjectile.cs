@@ -83,15 +83,20 @@ public class SHP_ChronomancerBasicProjectile : HeroProjectileFramework
     }
 
 
+    /// <summary>
+    /// When the projectile comes into contact with a hero it activates
+    ///     the chronomancer's passive ability on the hero
+    /// </summary>
+    /// <param name="collider"></param>
     private void ReduceBasicCooldownOfTarget(Collider collider)
     {
-        //SpecificHeroFramework specificHeroFramework = collider.GetComponentInParent<HeroBase>().GetSpecificHeroScript();
+        //Gets the hero that it collided with
         HeroBase heroTarget = collider.GetComponentInParent<HeroBase>();
 
         if (heroTarget != null)
         {
+            //Activates the chronomancer's passive ability on the hero
             _chronomancerHero.PassiveReduceBasicCooldownOfHero(heroTarget);
-            //specificHeroFramework.AddToBasicAbilityChargeTime(_basicAbilityCooldownReduction);
         }
     }
 
@@ -104,6 +109,7 @@ public class SHP_ChronomancerBasicProjectile : HeroProjectileFramework
 
     public void AdditionalSetup(Vector3 direction, float cooldownReduction, SH_Chronomancer chrono)
     {
+        //Sets up initial values
         _currentProjectileSpeed = _projectileSpeed;
 
         _basicAbilityCooldownReduction = cooldownReduction;

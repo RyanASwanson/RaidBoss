@@ -192,6 +192,11 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         return Vector2.Distance(heroPos, bossPos) < attackRange;
     }
 
+    /// <summary>
+    /// Provides the functionality for the hero to deal damage to the boss.
+    /// All damage dealt by a hero goes through here
+    /// </summary>
+    /// <param name="damage"></param>
     public virtual void DamageBoss(float damage)
     {
         damage *= _myHeroBase.GetHeroStats().GetCurrentDamageMultiplier();
@@ -201,6 +206,10 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         _myHeroBase.InvokeHeroDealtDamageEvent(damage);
     }
 
+    /// <summary>
+    /// Provides the functionality for a hero to deal stagger to the boss
+    /// </summary>
+    /// <param name="stagger"></param>
     public virtual void StaggerBoss(float stagger)
     {
         stagger *= _myHeroBase.GetHeroStats().GetCurrentStaggerMultiplier();
@@ -210,25 +219,28 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         _myHeroBase.InvokeHeroDealtStaggerEvent(stagger);
     }
 
-    protected virtual void HeroTakeDamageOverride(float damage)
-    {
-
-    }
-
 
     #endregion
 
     public virtual void SetupSpecificHero(HeroBase heroBase, HeroSO heroSO)
     {
         _myHeroBase = heroBase;
+        GetManagers();
         SubscribeToEvents();
     }
 
+    /// <summary>
+    /// Causes the hero to start using their abilities and provides
+    /// an overridable battle started functionality specific to the hero
+    /// </summary>
     protected virtual void BattleStarted()
     {
         ActivateHeroSpecificActivity();
     }
 
+    /// <summary>
+    /// Provides an overridable death functionality specific to the hero
+    /// </summary>
     protected virtual void HeroDied()
     {
 
@@ -248,6 +260,14 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     {
         StopCooldownBasicAbility();
         StopCooldownManualAbility();
+    }
+
+    /// <summary>
+    /// Gets any needed managers that the script will need to use often
+    /// </summary>
+    protected virtual void GetManagers()
+    {
+
     }
 
     protected virtual void SubscribeToEvents()
