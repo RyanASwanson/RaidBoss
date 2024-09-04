@@ -45,12 +45,14 @@ public class ChronomancerHomingProjectiles : MonoBehaviour
     /// <returns></returns>
     private IEnumerator FollowProjectile()
     {
-        
         while(_associatedProjectile != null)
         {
             transform.position = _associatedProjectile.transform.position;
             yield return null;
         }
+
+        //Removes the homing functionality once the main projectile is destroyed
+        Destroy(gameObject);
     }
 
     /// <summary>

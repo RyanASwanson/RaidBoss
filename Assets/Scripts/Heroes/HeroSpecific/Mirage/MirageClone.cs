@@ -48,6 +48,7 @@ public class MirageClone : SpecificHeroFramework
 
     /// <summary>
     /// Disables the ability to cast the Mirage basic ability
+    /// Called when it stops moving
     /// </summary>
     private void EndBasicCastProcess()
     {

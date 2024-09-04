@@ -17,23 +17,30 @@ public class DifficultyDropdown : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        /* List<Sprite> diffIcons = UniversalManagers.Instance.GetSelectionManager().GetDifficultyIcons();
-
-         _dropdown.ClearOptions();
-
-         List<TMP_Dropdown.OptionData> difficultyIcons = new List<TMP_Dropdown.OptionData>();
-         //List<Dropdown.OptionData> difficultyIcons = new List<Dropdown.OptionData>();
-
-         foreach (var icon in diffIcons)
-         {
-             var iconOptions = new TMP_Dropdown.OptionData(icon.name, icon);
-             difficultyIcons.Add(iconOptions);
-         }
-         _dropdown.AddOptions(difficultyIcons);*/
-
         _selectionManager = UniversalManagers.Instance.GetSelectionManager();
 
         SetStartingDropdownValue();
+        SetStartingDropdownVisuals();
+    }
+
+    private void SetStartingDropdownVisuals()
+    {
+        List<string> diffNames = _selectionManager.GetDifficultyNames();
+        List<Sprite> diffIcons = _selectionManager.GetDifficultyIcons();
+
+        _dropdown.ClearOptions();
+
+        List<TMP_Dropdown.OptionData> difficultyIcons = new List<TMP_Dropdown.OptionData>();
+
+        for(int i = 0; i< diffIcons.Count; i++)
+        {
+            /*GameDifficulty difficulty = (GameDifficulty)i+1;
+
+            var iconOptions = new TMP_Dropdown.OptionData(difficulty.ToString().Replace("_", " "), diffIcons[i]);*/
+            var iconOptions = new TMP_Dropdown.OptionData(diffNames[i], diffIcons[i]);
+            difficultyIcons.Add(iconOptions);
+        }
+        _dropdown.AddOptions(difficultyIcons);
     }
 
     private void SetStartingDropdownValue()

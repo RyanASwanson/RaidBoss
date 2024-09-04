@@ -318,6 +318,16 @@ public class SelectionController : MonoBehaviour
         _maxCharactersSelected = false;
         _fightButton.interactable = false;
     }
+
+
+    /// <summary>
+    /// Causes the game to proceed to the currently selected level
+    /// Called by play button press
+    /// </summary>
+    public void PlayLevel()
+    {
+        UniversalManagers.Instance.GetSceneLoadManager().LoadCurrentlySelectedLevelSO();
+    }
     #endregion
 
     #region Center - Hero

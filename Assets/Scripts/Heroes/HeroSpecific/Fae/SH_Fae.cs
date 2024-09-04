@@ -82,7 +82,7 @@ public class SH_Fae : SpecificHeroFramework
         _currentManualDirection = new Vector3(_currentManualDirection.x, 0, _currentManualDirection.z).normalized;
 
         //Starts the manual ability functionality
-        StartCoroutine(ManualProcess());
+        _manualCoroutine = StartCoroutine(ManualProcess());
     }
 
 

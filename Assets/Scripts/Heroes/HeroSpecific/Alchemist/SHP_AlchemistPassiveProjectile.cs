@@ -4,7 +4,7 @@ using UnityEngine;
 
 /// <summary>
 /// Provides the functionality and movement for the passive projectile created by
-/// the alchemist
+/// the Alchemist
 /// </summary>
 public class SHP_AlchemistPassiveProjectile : HeroProjectileFramework
 {

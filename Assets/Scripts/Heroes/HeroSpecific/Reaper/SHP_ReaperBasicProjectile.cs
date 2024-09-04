@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Provides the functionality for the basic projectile create by
+///     the Reaper
+/// </summary>
 public class SHP_ReaperBasicProjectile : HeroProjectileFramework 
 {
     [SerializeField] private float _projectileSpeed;
@@ -34,28 +38,31 @@ public class SHP_ReaperBasicProjectile : HeroProjectileFramework
     }
 
     /// <summary>
-    /// Moves the projectile in a figure eight pattern around the player
-    /// Moves in local space. The main object is not moved
+    /// Moves the projectile in a figure eight pattern around the player.
+    /// Moves in local space. The main object is not moved.
     /// </summary>
-    /// <param name="projectileSpeed"></param>
-    /// <param name="movementVariability"></param>
     /// <returns></returns>
-    private IEnumerator MoveProjectile(float projectileSpeed, Vector2 movementVariability)
+    private IEnumerator MoveProjectile()
     {
         float time = 4.75f;
         float xPos, zPos;
 
         while (true)
         {
-            time += Time.deltaTime;
+            time += Time.deltaTime * _projectileSpeed;
             xPos = Mathf.Cos(time);
             zPos = Mathf.Sin(2 * time) / 2;
-            _childObject.transform.localPosition = new Vector3((xPos * movementVariability.x),
-                transform.position.y, (zPos * movementVariability.y));
+            _childObject.transform.localPosition = new Vector3((xPos * _movementVariability.x),
+                transform.position.y, (zPos * _movementVariability.y));
             yield return null;
         }
     }
 
+    /// <summary>
+    /// Rotates the visuals of the projectile.
+    /// </summary>
+    /// <param name="rotateSpeed"></param>
+    /// <returns></returns>
     private IEnumerator RotateProjectile(float rotateSpeed)
     {
         while(true)
@@ -81,7 +88,7 @@ public class SHP_ReaperBasicProjectile : HeroProjectileFramework
         base.SetUpProjectile(heroBase);
 
         StartCoroutine(FollowHero());
-        StartCoroutine(MoveProjectile(_projectileSpeed, _movementVariability));
+        StartCoroutine(MoveProjectile());
         StartCoroutine(RotateProjectile(_projectileYSpinSpeed));
     }
     #endregion

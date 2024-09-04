@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Provides the functionality for the hero pillars on the selection scene
+/// </summary>
 public class HeroPillar : MonoBehaviour
 {
     [SerializeField] private GameObject _heroSpawnPoint;

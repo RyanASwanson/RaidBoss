@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Provides the functionality for the Magma Lord's Lava Blast ability
+/// Provides the functionality for the Magma Lord's Lava Blast ability.
 /// Spawns a safe zone in the center, if no hero is in it when the ability starts
 ///     deals damage on the outer rim of the arena
 /// </summary>

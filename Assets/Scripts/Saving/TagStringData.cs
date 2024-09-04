@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Holds the constant strings for important tags
+/// </summary>
 public static class TagStringData
 {
     private const string HERO_HITBOX_TAG_NAME = "HeroHitbox";

@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Provides the functionality for the boss pillar on the selection scene
+/// </summary>
 public class BossPillar : MonoBehaviour
 {
     [SerializeField] private GameObject _bossSpawnPoint;

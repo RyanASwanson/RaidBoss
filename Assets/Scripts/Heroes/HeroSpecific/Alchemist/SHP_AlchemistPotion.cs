@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Provides the functionality for the potions created by the Alchemist
+/// </summary>
 public class SHP_AlchemistPotion : HeroProjectileFramework
 {
     [SerializeField] private float _moveTime;
@@ -92,35 +95,59 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
         _alchemist.ActivatePassiveAbilities(collider.transform.position);
     }
 
+    /// <summary>
+    /// Makes the potion apply a damage buff
+    /// </summary>
+    /// <param name="collider"></param>
     private void DamageBuff(Collider collider)
     {
         ApplyBuffToHero(collider.GetComponentInParent<HeroBase>().GetHeroStats(),
             HeroGeneralAdjustableStats.DamageMultiplier);
     }
 
+    /// <summary>
+    /// Makes the potion apply a stagger buff
+    /// </summary>
+    /// <param name="collider"></param>
     private void StaggerBuff(Collider collider)
     {
         ApplyBuffToHero(collider.GetComponentInParent<HeroBase>().GetHeroStats(),
             HeroGeneralAdjustableStats.StaggerMultiplier);
     }
 
+    /// <summary>
+    /// Makes the potion apply a speed buff
+    /// </summary>
+    /// <param name="collider"></param>
     private void SpeedBuff(Collider collider)
     {
         ApplyBuffToHero(collider.GetComponentInParent<HeroBase>().GetHeroStats(),
             HeroGeneralAdjustableStats.SpeedMultiplier);
     }
 
+    /// <summary>
+    /// Makes the potion apply a healing buff
+    /// </summary>
+    /// <param name="collider"></param>
     private void UtilityBuff(Collider collider)
     {
         ApplyBuffToHero(collider.GetComponentInParent<HeroBase>().GetHeroStats(),
             HeroGeneralAdjustableStats.HealingRecievedMultiplier);
     }
 
+    /// <summary>
+    /// Applies the desired buff to the target hero
+    /// </summary>
+    /// <param name="collider"></param>
     private void ApplyBuffToHero(HeroStats heroStats, HeroGeneralAdjustableStats stat)
     {
         heroStats.ApplyStatChangeForDuration(stat, _buffStrength,_secondaryBuffStrength, _buffDuration);
     }
 
+    /// <summary>
+    /// The process that delays the removal of the potion
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator RemovePotionTimer()
     {
         yield return new WaitForSeconds(_idleLifetime);

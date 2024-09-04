@@ -27,6 +27,7 @@ public class SelectionManager : BaseUniversalManager
     [Range(1, 2.5f)] [SerializeField] private float _mythicPlusStaggerMultiplier;
 
     [Space]
+    [SerializeField] private List<string> _difficultyNames;
     [SerializeField] private List<Sprite> _difficultyIcons;
 
     private Dictionary<GameDifficulty, float> _difficultyDamageMultiplierDictionary = new();
@@ -207,6 +208,7 @@ public class SelectionManager : BaseUniversalManager
     public float GetHealthMultiplierFromDifficulty() => _difficultyHealthMultiplierDictionary[_currentGameDifficulty];
     public float GetStaggerMultiplierFromDifficulty() => _difficultyHealthMultiplierDictionary[_currentGameDifficulty];
 
+    public List<string> GetDifficultyNames() => _difficultyNames;
     public List<Sprite> GetDifficultyIcons() => _difficultyIcons;
 
     public List<HeroSO> GetAllSelectedHeroes() => _selectedHeroes;
