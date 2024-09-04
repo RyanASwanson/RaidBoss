@@ -17,7 +17,11 @@ public class SHP_ReaperBasicProjectile : HeroProjectileFramework
     private const string HIT_ANIM_TRIGGER = "HitEnemy";
     private const string OUTRO_ANIM_TRIGGER = "Outro";
 
-
+    /// <summary>
+    /// Sets the position of the projectile's main object to be at the associated
+    ///     hero location
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator FollowHero()
     {
         while(_myHeroBase != null)
@@ -31,6 +35,7 @@ public class SHP_ReaperBasicProjectile : HeroProjectileFramework
 
     /// <summary>
     /// Moves the projectile in a figure eight pattern around the player
+    /// Moves in local space. The main object is not moved
     /// </summary>
     /// <param name="projectileSpeed"></param>
     /// <param name="movementVariability"></param>

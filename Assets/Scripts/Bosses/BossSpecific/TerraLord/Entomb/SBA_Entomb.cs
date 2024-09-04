@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Provides the functionality for the Terra Lord's Entomb ability
+/// </summary>
 public class SBA_Entomb : SpecificBossAbilityFramework
 {
     [SerializeField] private float _rotationAmount;

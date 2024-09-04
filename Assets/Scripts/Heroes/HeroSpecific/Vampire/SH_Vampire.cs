@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Specific hero script for the Vampire
+/// Provides the functionality for the Vampire hero
 /// </summary>
 public class SH_Vampire : SpecificHeroFramework
 {
@@ -76,7 +76,10 @@ public class SH_Vampire : SpecificHeroFramework
     #endregion
 
     #region Passive Abilities
-
+    /// <summary>
+    /// Stores damage dealt as healing and starts the process of activating it
+    /// </summary>
+    /// <param name="damageDealt"></param>
     public void AddToPassiveHealingCounter(float damageDealt)
     {
         _currentPassiveHealingStored += damageDealt * _passiveAbilityLifestealMultiplier;
@@ -86,6 +89,10 @@ public class SH_Vampire : SpecificHeroFramework
         _passiveProcess = StartCoroutine(PassiveProcess());
     }
 
+    /// <summary>
+    /// Delays the activation of the passive.
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator PassiveProcess()
     {
         yield return new WaitForSeconds(_passiveHealingDelay);
@@ -94,7 +101,9 @@ public class SH_Vampire : SpecificHeroFramework
         _passiveProcess = null;
     }
 
-
+    /// <summary>
+    /// The stored healing is used to heal the hero
+    /// </summary>
     public override void ActivatePassiveAbilities()
     {
         base.ActivatePassiveAbilities();

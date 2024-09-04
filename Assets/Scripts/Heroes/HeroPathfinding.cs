@@ -36,7 +36,7 @@ public class HeroPathfinding : HeroChildrenFunctionality
         if (_heroMovementCoroutine != null)
             StopCoroutine(_heroMovementCoroutine);
         else
-            myHeroBase.InvokeHeroStartedMovingEvent();
+            _myHeroBase.InvokeHeroStartedMovingEvent();
 
         _heroMovementCoroutine = StartCoroutine(MovingOnNavMesh());
     }
@@ -52,7 +52,7 @@ public class HeroPathfinding : HeroChildrenFunctionality
     {
         yield return null;
 
-        if (!myHeroBase.GetHeroStats().IsHeroDead())
+        if (!_myHeroBase.GetHeroStats().IsHeroDead())
         {
             _meshAgent.isStopped = false;
         }
@@ -69,7 +69,7 @@ public class HeroPathfinding : HeroChildrenFunctionality
 
     public void EnableAbilityToMove()
     {
-        HeroStats heroStats = myHeroBase.GetHeroStats();
+        HeroStats heroStats = _myHeroBase.GetHeroStats();
 
         if (heroStats.IsHeroDead()) return;
 
@@ -95,7 +95,7 @@ public class HeroPathfinding : HeroChildrenFunctionality
             if (_meshAgent.pathStatus == NavMeshPathStatus.PathInvalid || _meshAgent.pathStatus == NavMeshPathStatus.PathPartial)
                 print("cant find path end");
         }
-        myHeroBase.InvokeHeroStoppedMovingEvent();
+        _myHeroBase.InvokeHeroStoppedMovingEvent();
         _heroMovementCoroutine = null;
 
         HeroLookAtBoss();
@@ -125,7 +125,7 @@ public class HeroPathfinding : HeroChildrenFunctionality
     {
         float progress = 0;
         Quaternion startingRotation = _rotationObject.transform.rotation;
-        HeroStats heroStats = myHeroBase.GetHeroStats();
+        HeroStats heroStats = _myHeroBase.GetHeroStats();
 
         while (progress < 1)
         {
@@ -157,7 +157,8 @@ public class HeroPathfinding : HeroChildrenFunctionality
 
     public override void SubscribeToEvents()
     {
-        myHeroBase.GetHeroDiedEvent().AddListener(StopAbilityToMove);
+        base.SubscribeToEvents();
+        _myHeroBase.GetHeroDiedEvent().AddListener(StopAbilityToMove);
     }
     #endregion
 

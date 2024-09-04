@@ -2,15 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Provides the framework for specific functionality of heroes
+/// </summary>
 public abstract class HeroChildrenFunctionality : MonoBehaviour
 {
-    internal HeroBase myHeroBase;
+    protected HeroBase _myHeroBase;
 
     public virtual void ChildFuncSetup(HeroBase heroBase)
     {
-        myHeroBase = heroBase;
+        _myHeroBase = heroBase;
         SubscribeToEvents();
     }
-    public abstract void SubscribeToEvents();
+    public virtual void SubscribeToEvents()
+    {
+        _myHeroBase.GetSOSetEvent().AddListener(HeroSOAssigned);
+    }
+
+    protected virtual void HeroSOAssigned(HeroSO heroSO)
+    {
+
+    }
 
 }

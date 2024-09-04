@@ -20,7 +20,6 @@ public class SBA_Meteor : SpecificBossAbilityFramework
     private GameObject _storedMovingMeteor;
 
     
-
     protected IEnumerator FollowingDirectionalTargetZone(GameObject targetZone)
     {
         StartCoroutine(HideTargetZoneUntilNonZero(targetZone));

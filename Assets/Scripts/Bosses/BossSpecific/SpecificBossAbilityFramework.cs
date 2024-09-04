@@ -54,7 +54,7 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     }
 
     /// <summary>
-    /// Does the initial prep for the ability
+    /// Does the initial preparation for the ability to be used
     /// Shows the target zone if it has one
     /// </summary>
     /// <param name="targetLocation"></param>

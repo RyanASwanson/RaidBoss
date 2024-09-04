@@ -255,30 +255,17 @@ public class HeroVisuals : HeroChildrenFunctionality
     #region Hero Outline
     private void AddOutlineToHero()
     {
-        _addedOutline = myHeroBase.GetAssociatedHeroObject().AddComponent<Outline>();
+        _addedOutline = _myHeroBase.GetAssociatedHeroObject().AddComponent<Outline>();
 
         _addedOutline.OutlineWidth = _outlineWidth;
         _addedOutline.OutlineMode = _outlineMode;
     }
     #endregion
 
-    #region Events
-
-    private void HeroSOAssigned(HeroSO heroSO)
-    {
-        AssignHeroSpecificAnimator();
-
-        StartHeroSpecificIdleAnimation();
-
-        AddOutlineToHero();
-    }
-
-
-    #endregion
 
     private void AssignHeroSpecificAnimator()
     {
-        _heroSpecificAnimator = myHeroBase.GetSpecificHeroScript().GetSpecificHeroAnimator();
+        _heroSpecificAnimator = _myHeroBase.GetSpecificHeroScript().GetSpecificHeroAnimator();
     }
 
     #region Base Hero
@@ -291,22 +278,33 @@ public class HeroVisuals : HeroChildrenFunctionality
 
     public override void SubscribeToEvents()
     {
-        myHeroBase.GetSOSetEvent().AddListener(HeroSOAssigned);
+        base.SubscribeToEvents();
 
-        myHeroBase.GetHeroControlledBeginEvent().AddListener(HeroControlStart);
-        myHeroBase.GetHeroControlledEndEvent().AddListener(HeroControlStop);
+        _myHeroBase.GetHeroControlledBeginEvent().AddListener(HeroControlStart);
+        _myHeroBase.GetHeroControlledEndEvent().AddListener(HeroControlStop);
 
-        myHeroBase.GetHeroDamagedEvent().AddListener(HeroDamaged);
-        myHeroBase.GetHeroHealedEvent().AddListener(HeroHealed);
-        myHeroBase.GetHeroDiedEvent().AddListener(HeroDied);
+        _myHeroBase.GetHeroDamagedEvent().AddListener(HeroDamaged);
+        _myHeroBase.GetHeroHealedEvent().AddListener(HeroHealed);
+        _myHeroBase.GetHeroDiedEvent().AddListener(HeroDied);
 
-        myHeroBase.GetHeroHealedAboveHalfEvent().AddListener(HeroHealthAboveHalf);
-        myHeroBase.GetHeroHealedAboveQuarterEvent().AddListener(HeroInjured);
-        myHeroBase.GetHeroDamagedUnderHalfEvent().AddListener(HeroInjured);
-        myHeroBase.GetHeroDamagedUnderQuarterEvent().AddListener(HeroCritical);
+        _myHeroBase.GetHeroHealedAboveHalfEvent().AddListener(HeroHealthAboveHalf);
+        _myHeroBase.GetHeroHealedAboveQuarterEvent().AddListener(HeroInjured);
+        _myHeroBase.GetHeroDamagedUnderHalfEvent().AddListener(HeroInjured);
+        _myHeroBase.GetHeroDamagedUnderQuarterEvent().AddListener(HeroCritical);
 
-        myHeroBase.GetHeroStartedMovingEvent().AddListener(HeroStartedMoving);
-        myHeroBase.GetHeroStoppedMovingEvent().AddListener(HeroStoppedMoving);
+        _myHeroBase.GetHeroStartedMovingEvent().AddListener(HeroStartedMoving);
+        _myHeroBase.GetHeroStoppedMovingEvent().AddListener(HeroStoppedMoving);
+    }
+
+    protected override void HeroSOAssigned(HeroSO heroSO)
+    {
+        AssignHeroSpecificAnimator();
+
+        StartHeroSpecificIdleAnimation();
+
+        AddOutlineToHero();
+
+        base.HeroSOAssigned(heroSO);
     }
     #endregion
 

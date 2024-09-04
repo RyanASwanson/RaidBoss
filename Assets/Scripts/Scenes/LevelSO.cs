@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Stores the general information for all levels as scriptable objects
+/// </summary>
 [CreateAssetMenu(fileName = "LevelScriptableObject", menuName = "LevelScriptableObject", order = 2)]
 public class LevelSO : ScriptableObject
 {

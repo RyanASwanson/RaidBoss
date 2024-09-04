@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 /// <summary>
-/// Contains the basic functionality that all heroes will use
+/// Contains the basic functionality that all specific heroes will inherit from
 /// </summary>
 public abstract class SpecificHeroFramework : MonoBehaviour
 {
@@ -32,6 +32,9 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     protected Coroutine _manualAbilityCooldownCoroutine;
 
     #region Basic Abilities
+    /// <summary>
+    /// Starts the cooldown of the heroes basic ability and stores the coroutine
+    /// </summary>
     protected virtual void StartCooldownBasicAbility()
     {
         _basicAbilityCooldownCoroutine = StartCoroutine(CooldownBasicAbility());
@@ -48,7 +51,6 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         _basicAbilityCurrentCharge = 0;
         while (_basicAbilityCurrentCharge < _basicAbilityChargeTime)
         {
-            //AddToBasicAbilityChargeTime(Time.deltaTime);
             CooldownAddToBasicAbilityCharge(Time.deltaTime);
             yield return null;
         }
@@ -83,6 +85,11 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         ActivateBasicAbilities();
     }
 
+    /// <summary>
+    /// Provides the rules for what conditions have to be true in order
+    ///     for the basic ability to be used
+    /// </summary>
+    /// <returns></returns>
     public virtual bool ConditionsToActivateBasicAbilities()
     {
         return !_myHeroBase.GetPathfinding().IsHeroMoving();
@@ -105,8 +112,9 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     #endregion
 
     #region Manual Abilities
-    
-
+    /// <summary>
+    /// Starts the cooldown of the heroes manual ability and stores the coroutine
+    /// </summary>
     protected virtual void StartCooldownManualAbility()
     {
         _manualAbilityCooldownCoroutine = StartCoroutine(CooldownManualAbility());
@@ -254,6 +262,10 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         StartCooldownBasicAbility();
         StartCooldownManualAbility();
     }
+
+    /// <summary>
+    /// Stops all cooldowns from being used
+    /// </summary>
     public virtual void DeactivateHeroSpecificActivity()
     {
         StopCooldownBasicAbility();
@@ -268,6 +280,9 @@ public abstract class SpecificHeroFramework : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Provides an overridable event subscription function
+    /// </summary>
     protected virtual void SubscribeToEvents()
     {
         GameplayManagers.Instance.GetGameStateManager().GetStartOfBattleEvent().AddListener(BattleStarted);

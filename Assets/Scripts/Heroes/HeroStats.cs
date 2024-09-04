@@ -64,9 +64,9 @@ public class HeroStats : HeroChildrenFunctionality
         _currentDamageResistance = _heroDefaultDamageResistance;
 
         //Sets up the movement speed
-        myHeroBase.GetPathfinding().GetNavMeshAgent().speed = _currentMoveSpeed ;
-        myHeroBase.GetPathfinding().GetNavMeshAgent().angularSpeed = _currentAngularSpeed ;
-        myHeroBase.GetPathfinding().GetNavMeshAgent().acceleration = _currentAcceleration;
+        _myHeroBase.GetPathfinding().GetNavMeshAgent().speed = _currentMoveSpeed ;
+        _myHeroBase.GetPathfinding().GetNavMeshAgent().angularSpeed = _currentAngularSpeed ;
+        _myHeroBase.GetPathfinding().GetNavMeshAgent().acceleration = _currentAcceleration;
     }
 
     public void DealDamageToHero(float damage)
@@ -74,14 +74,14 @@ public class HeroStats : HeroChildrenFunctionality
         //Checks for a damage override before dealing damage
         if (ShouldOverrideDamage())
         {
-            myHeroBase.InvokeHeroDamageOverrideEvent(damage);
+            _myHeroBase.InvokeHeroDamageOverrideEvent(damage);
             return;
         }
 
         SetPreviousHealthValue();
         
         _currentHealth -= damage / _currentDamageResistance;
-        myHeroBase.InvokeHeroDamagedEvent(damage / _currentDamageResistance);
+        _myHeroBase.InvokeHeroDamagedEvent(damage / _currentDamageResistance);
         CheckIfHeroIsDead();
     }
 
@@ -90,7 +90,7 @@ public class HeroStats : HeroChildrenFunctionality
         //Checks for a healing override before healing
         if(ShouldOverrideHealing())
         {
-            myHeroBase.InvokeHeroHealedOverrideEvent(healing);
+            _myHeroBase.InvokeHeroHealedOverrideEvent(healing);
             return;
         }
 
@@ -113,7 +113,7 @@ public class HeroStats : HeroChildrenFunctionality
 
         //Find the difference between the starting and final health
         healthDifference = _currentHealth - healthDifference;
-        myHeroBase.InvokeHeroHealedEvent(healthDifference);
+        _myHeroBase.InvokeHeroHealedEvent(healthDifference);
         
     }
 
@@ -125,7 +125,7 @@ public class HeroStats : HeroChildrenFunctionality
         {
             if(ShouldOverrideDeath())
             {
-                myHeroBase.InvokeHeroDeathOverrideEvent();
+                _myHeroBase.InvokeHeroDeathOverrideEvent();
                 return;
             }
 
@@ -142,14 +142,14 @@ public class HeroStats : HeroChildrenFunctionality
         AddDamageTakenOverrideCounter();
 
         //Tells the hero base to invoke the death event
-        myHeroBase.InvokeHeroDiedEvent();
+        _myHeroBase.InvokeHeroDiedEvent();
         //Tells the heroes manager that this hero died
-        GameplayManagers.Instance.GetHeroesManager().HeroDied(myHeroBase);
+        GameplayManagers.Instance.GetHeroesManager().HeroDied(_myHeroBase);
     }
 
     public void ForceKillHero()
     {
-        myHeroBase.InvokeHeroDiedEvent();
+        _myHeroBase.InvokeHeroDiedEvent();
     }
 
     private void SetPreviousHealthValue()
@@ -244,12 +244,12 @@ public class HeroStats : HeroChildrenFunctionality
     {
         if (GetHeroHealthPercentage() < .5f)
         {
-            myHeroBase.InvokeHeroDamagedUnderHalfEvent();
+            _myHeroBase.InvokeHeroDamagedUnderHalfEvent();
 
-            myHeroBase.GetHeroDamagedEvent()?.RemoveListener(CheckHeroDamagedUnderHalf);
-            myHeroBase.GetHeroDamagedEvent().AddListener(CheckHeroDamagedUnderQuarter);
+            _myHeroBase.GetHeroDamagedEvent()?.RemoveListener(CheckHeroDamagedUnderHalf);
+            _myHeroBase.GetHeroDamagedEvent().AddListener(CheckHeroDamagedUnderQuarter);
 
-            myHeroBase.GetHeroHealedEvent().AddListener(CheckHeroHealedAboveHalf);
+            _myHeroBase.GetHeroHealedEvent().AddListener(CheckHeroHealedAboveHalf);
 
             CheckHeroDamagedUnderQuarter(damage);
         }
@@ -259,12 +259,12 @@ public class HeroStats : HeroChildrenFunctionality
     {
         if (GetHeroHealthPercentage() < .25f)
         {
-            myHeroBase.InvokeHeroDamagedUnderQuarterEvent();
+            _myHeroBase.InvokeHeroDamagedUnderQuarterEvent();
 
-            myHeroBase.GetHeroDamagedEvent()?.RemoveListener(CheckHeroDamagedUnderQuarter);
+            _myHeroBase.GetHeroDamagedEvent()?.RemoveListener(CheckHeroDamagedUnderQuarter);
 
-            myHeroBase.GetHeroHealedEvent().RemoveListener(CheckHeroHealedAboveHalf);
-            myHeroBase.GetHeroHealedEvent().AddListener(CheckHeroHealedAboveQuarter);
+            _myHeroBase.GetHeroHealedEvent().RemoveListener(CheckHeroHealedAboveHalf);
+            _myHeroBase.GetHeroHealedEvent().AddListener(CheckHeroHealedAboveQuarter);
         }
     }
 
@@ -272,12 +272,12 @@ public class HeroStats : HeroChildrenFunctionality
     {
         if (GetHeroHealthPercentage() > .5f)
         {
-            myHeroBase.InvokeHeroHealedAboveHalfEvent();
+            _myHeroBase.InvokeHeroHealedAboveHalfEvent();
 
-            myHeroBase.GetHeroHealedEvent()?.RemoveListener(CheckHeroHealedAboveHalf);
+            _myHeroBase.GetHeroHealedEvent()?.RemoveListener(CheckHeroHealedAboveHalf);
 
-            myHeroBase.GetHeroDamagedEvent()?.RemoveListener(CheckHeroDamagedUnderQuarter);
-            myHeroBase.GetHeroDamagedEvent().AddListener(CheckHeroDamagedUnderHalf);
+            _myHeroBase.GetHeroDamagedEvent()?.RemoveListener(CheckHeroDamagedUnderQuarter);
+            _myHeroBase.GetHeroDamagedEvent().AddListener(CheckHeroDamagedUnderHalf);
         }
     }
 
@@ -285,12 +285,12 @@ public class HeroStats : HeroChildrenFunctionality
     {
         if (GetHeroHealthPercentage() > .25f)
         {
-            myHeroBase.InvokeHeroHealedAboveQuarterEvent();
+            _myHeroBase.InvokeHeroHealedAboveQuarterEvent();
 
-            myHeroBase.GetHeroHealedEvent()?.RemoveListener(CheckHeroHealedAboveQuarter);
-            myHeroBase.GetHeroHealedEvent()?.AddListener(CheckHeroHealedAboveHalf);
+            _myHeroBase.GetHeroHealedEvent()?.RemoveListener(CheckHeroHealedAboveQuarter);
+            _myHeroBase.GetHeroHealedEvent()?.AddListener(CheckHeroHealedAboveHalf);
 
-            myHeroBase.GetHeroDamagedEvent().AddListener(CheckHeroDamagedUnderQuarter);
+            _myHeroBase.GetHeroDamagedEvent().AddListener(CheckHeroDamagedUnderQuarter);
 
             CheckHeroHealedAboveHalf(healing);
         }
@@ -372,7 +372,7 @@ public class HeroStats : HeroChildrenFunctionality
         // Tell the associated HeroUI manager to create a buff/debuff icon
         if (buffDebuffIconSprite != null && createBuffIcons)
         {
-            myHeroBase.GetHeroUIManager().CreateBuffDebuffIcon(buffDebuffIconSprite, changeValue > 0);
+            _myHeroBase.GetHeroUIManager().CreateBuffDebuffIcon(buffDebuffIconSprite, changeValue > 0);
         }
     }
 
@@ -404,21 +404,21 @@ public class HeroStats : HeroChildrenFunctionality
     {
         _currentMoveSpeed += changeValue;
 
-        myHeroBase.GetPathfinding().GetNavMeshAgent().speed = _currentMoveSpeed;
+        _myHeroBase.GetPathfinding().GetNavMeshAgent().speed = _currentMoveSpeed;
     }
 
     public void ChangeCurrentHeroAngularSpeed(float changeValue)
     {
         _currentAngularSpeed += changeValue;
 
-        myHeroBase.GetPathfinding().GetNavMeshAgent().angularSpeed = _currentAngularSpeed;
+        _myHeroBase.GetPathfinding().GetNavMeshAgent().angularSpeed = _currentAngularSpeed;
     }
 
     public void ChangeCurrentHeroAcceleration(float changeValue)
     {
         _currentAcceleration += changeValue;
 
-        myHeroBase.GetPathfinding().GetNavMeshAgent().acceleration = _currentAcceleration;
+        _myHeroBase.GetPathfinding().GetNavMeshAgent().acceleration = _currentAcceleration;
     }
 
     /// <summary>
@@ -440,14 +440,6 @@ public class HeroStats : HeroChildrenFunctionality
     }
     #endregion
 
-    #region Events
-    
-    private void HeroSOAssigned(HeroSO heroSO)
-    {
-        StatsSetup(heroSO);
-    }
-
-    #endregion
 
     #region Base Hero
     public override void ChildFuncSetup(HeroBase heroBase)
@@ -457,9 +449,15 @@ public class HeroStats : HeroChildrenFunctionality
 
     public override void SubscribeToEvents()
     {
-        myHeroBase.GetSOSetEvent().AddListener(HeroSOAssigned);
+        base.SubscribeToEvents();
 
-        myHeroBase.GetHeroDamagedEvent().AddListener(CheckHeroDamagedUnderHalf);
+        _myHeroBase.GetHeroDamagedEvent().AddListener(CheckHeroDamagedUnderHalf);
+    }
+
+    protected override void HeroSOAssigned(HeroSO heroSO)
+    {
+        StatsSetup(heroSO);
+        base.HeroSOAssigned(heroSO);
     }
 
     #endregion

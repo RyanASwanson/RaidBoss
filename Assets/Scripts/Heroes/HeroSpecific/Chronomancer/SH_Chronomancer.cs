@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Provides the functionality for the Chronomancer hero
+/// </summary>
 public class SH_Chronomancer : SpecificHeroFramework
 {
     [Space]
