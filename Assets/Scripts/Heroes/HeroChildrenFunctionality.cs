@@ -12,4 +12,5 @@ public abstract class HeroChildrenFunctionality : MonoBehaviour
         SubscribeToEvents();
     }
     public abstract void SubscribeToEvents();
+
 }

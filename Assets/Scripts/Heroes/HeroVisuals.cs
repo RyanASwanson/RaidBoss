@@ -54,13 +54,6 @@ public class HeroVisuals : HeroChildrenFunctionality
     private Outline _addedOutline;
 
 
-    public override void ChildFuncSetup(HeroBase heroBase)
-    {
-        base.ChildFuncSetup(heroBase);
-
-        HeroLevelIntroAnimation();
-    }
-
     #region Health Status
     private void HeroDamaged(float damage)
     {
@@ -106,8 +99,6 @@ public class HeroVisuals : HeroChildrenFunctionality
     }
 
     #endregion
-
-    
 
     #region Hero Animation
     /// <summary>
@@ -231,6 +222,36 @@ public class HeroVisuals : HeroChildrenFunctionality
 
     #endregion
 
+    #region Hero Control
+    /// <summary>
+    /// Shows the control shape under the hero
+    /// </summary>
+    private void HeroControlStart()
+    {
+        _controlIcon.enabled = true;
+    }
+
+    /// <summary>
+    /// Hides the control shape under the hero
+    /// </summary>
+    private void HeroControlStop()
+    {
+        _controlIcon.enabled = false;
+    }
+    #endregion
+
+    #region Hero Movement
+    private void HeroStartedMoving()
+    {
+        StartHeroSpecificWalkingAnimation();
+    }
+
+    private void HeroStoppedMoving()
+    {
+        StopHeroSpecificWalkingAnimation();
+    }
+    #endregion
+
     #region Hero Outline
     private void AddOutlineToHero()
     {
@@ -242,6 +263,32 @@ public class HeroVisuals : HeroChildrenFunctionality
     #endregion
 
     #region Events
+
+    private void HeroSOAssigned(HeroSO heroSO)
+    {
+        AssignHeroSpecificAnimator();
+
+        StartHeroSpecificIdleAnimation();
+
+        AddOutlineToHero();
+    }
+
+
+    #endregion
+
+    private void AssignHeroSpecificAnimator()
+    {
+        _heroSpecificAnimator = myHeroBase.GetSpecificHeroScript().GetSpecificHeroAnimator();
+    }
+
+    #region Base Hero
+    public override void ChildFuncSetup(HeroBase heroBase)
+    {
+        base.ChildFuncSetup(heroBase);
+
+        HeroLevelIntroAnimation();
+    }
+
     public override void SubscribeToEvents()
     {
         myHeroBase.GetSOSetEvent().AddListener(HeroSOAssigned);
@@ -260,45 +307,6 @@ public class HeroVisuals : HeroChildrenFunctionality
 
         myHeroBase.GetHeroStartedMovingEvent().AddListener(HeroStartedMoving);
         myHeroBase.GetHeroStoppedMovingEvent().AddListener(HeroStoppedMoving);
-    }
-    private void HeroSOAssigned(HeroSO heroSO)
-    {
-        AssignHeroSpecificAnimator();
-
-        StartHeroSpecificIdleAnimation();
-
-        AddOutlineToHero();
-    }
-
-    /// <summary>
-    /// Shows the control shape under the hero
-    /// </summary>
-    private void HeroControlStart()
-    {
-        _controlIcon.enabled = true;
-    }
-
-    /// <summary>
-    /// Hides the control shape under the hero
-    /// </summary>
-    private void HeroControlStop()
-    {
-        _controlIcon.enabled = false;
-    }
-
-    private void HeroStartedMoving()
-    {
-        StartHeroSpecificWalkingAnimation();
-    }
-
-    private void HeroStoppedMoving()
-    {
-        StopHeroSpecificWalkingAnimation();
-    }
-
-    private void AssignHeroSpecificAnimator()
-    {
-        _heroSpecificAnimator = myHeroBase.GetSpecificHeroScript().GetSpecificHeroAnimator();
     }
     #endregion
 

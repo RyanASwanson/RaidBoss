@@ -76,10 +76,14 @@ public class GeneralHeroHealArea : GeneralAbilityAreaFramework
 
     private void DealHealing(HeroBase heroBase, float abilityHealing)
     {
-        abilityHealing *= _myHeroBase.GetHeroStats().GetCurrentHealingDealtMultiplier();
+        //abilityHealing *= _myHeroBase.GetHeroStats().GetCurrentHealingDealtMultiplier();
 
         if (abilityHealing > 0)
-            heroBase.GetHeroStats().HealHero(abilityHealing);
+        {
+            _myHeroBase.GetSpecificHeroScript().HealTargetHero(abilityHealing, heroBase);
+            //heroBase.GetHeroStats().HealHero(abilityHealing);
+        }
+            
     }
 
 

@@ -86,15 +86,17 @@ public class GeneralHeroDamageArea : GeneralAbilityAreaFramework
     private void DealDamageAndStagger(float abilityDamage, float abilityStagger)
     {
         if (_myHeroBase == null)
+        {
             Debug.Log("Cant Find Hero Base");
+            return;
+        }
+            
 
         if (abilityDamage > 0)
             _myHeroBase.GetSpecificHeroScript().DamageBoss(abilityDamage * _damageMultiplier);
-            //bossBase.GetBossStats().DealDamageToBoss(abilityDamage);
 
         if (abilityStagger > 0)
             _myHeroBase.GetSpecificHeroScript().StaggerBoss(abilityStagger * _staggerMultiplier);
-            //bossBase.GetBossStats().DealStaggerToBoss(abilityStagger);
     }
 
     #endregion

@@ -139,8 +139,8 @@ public class SH_Chronomancer : SpecificHeroFramework
     /// Amount of time it can revert back is based on the manual rewind amount
     /// </summary>
     /// <param name="heroID"></param>
-    /// <param name="heroBase"></param>
-    private void RevertHeroHealth(int heroID, HeroBase heroBase)
+    /// <param name="targetHeroBase"></param>
+    private void RevertHeroHealth(int heroID, HeroBase targetHeroBase)
     {
         float currentHighestCheckedHealth = 0;
 
@@ -155,15 +155,15 @@ public class SH_Chronomancer : SpecificHeroFramework
         float healthDifference = 0;
 
         //Determines the difference between the current health and the highest found health
-        if (currentHighestCheckedHealth > heroBase.GetHeroStats().GetCurrentHealth())
+        if (currentHighestCheckedHealth > targetHeroBase.GetHeroStats().GetCurrentHealth())
         {
-            healthDifference = currentHighestCheckedHealth - heroBase.GetHeroStats().GetCurrentHealth();
+            healthDifference = currentHighestCheckedHealth - targetHeroBase.GetHeroStats().GetCurrentHealth();
         }
 
         if (healthDifference == 0) return;
 
         //Heal the hero for the difference in health
-        heroBase.GetHeroStats().HealHero(healthDifference);
+        HealTargetHero(healthDifference, targetHeroBase);
     }
 
     /// <summary>

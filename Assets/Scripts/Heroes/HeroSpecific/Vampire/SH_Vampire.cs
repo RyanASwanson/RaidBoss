@@ -99,7 +99,7 @@ public class SH_Vampire : SpecificHeroFramework
     {
         base.ActivatePassiveAbilities();
 
-        _myHeroBase.GetHeroStats().HealHero(_currentPassiveHealingStored);
+        HealTargetHero(_currentPassiveHealingStored,_myHeroBase);
         _currentPassiveHealingStored = 0;
     }
     #endregion
@@ -108,6 +108,6 @@ public class SH_Vampire : SpecificHeroFramework
     {
         base.SubscribeToEvents();
 
-        _heroDealtDamageEvent?.AddListener(AddToPassiveHealingCounter);
+        _myHeroBase.GetHeroDealtDamageEvent().AddListener(AddToPassiveHealingCounter);
     }
 }

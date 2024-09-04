@@ -18,11 +18,6 @@ public class HeroPathfinding : HeroChildrenFunctionality
 
     private Coroutine _heroMovementCoroutine = null;
 
-    public override void ChildFuncSetup(HeroBase heroBase)
-    {
-        base.ChildFuncSetup(heroBase);
-    }
-
     /// <summary>
     /// Makes a player walk to a destination
     /// </summary>
@@ -154,17 +149,15 @@ public class HeroPathfinding : HeroChildrenFunctionality
 
     #endregion
 
-    #region Events
-    public override void SubscribeToEvents()
+    #region Base Hero
+    public override void ChildFuncSetup(HeroBase heroBase)
     {
-        myHeroBase.GetSOSetEvent().AddListener(HeroSOAssigned);
-
-        myHeroBase.GetHeroDiedEvent().AddListener(StopAbilityToMove);
+        base.ChildFuncSetup(heroBase);
     }
 
-    private void HeroSOAssigned(HeroSO heroSO)
+    public override void SubscribeToEvents()
     {
-        
+        myHeroBase.GetHeroDiedEvent().AddListener(StopAbilityToMove);
     }
     #endregion
 

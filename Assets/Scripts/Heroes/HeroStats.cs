@@ -40,11 +40,6 @@ public class HeroStats : HeroChildrenFunctionality
     [SerializeField] private Sprite _speedBuffIcon;
     [SerializeField] private Sprite _healingBuffIcon;
 
-    public override void ChildFuncSetup(HeroBase heroBase)
-    {
-        base.ChildFuncSetup(heroBase);
-    }
-
 
     /// <summary>
     /// Assigns the values of the stats after the heroSO is assigned
@@ -52,6 +47,7 @@ public class HeroStats : HeroChildrenFunctionality
     /// <param name="heroSO"></param>
     private void StatsSetup(HeroSO heroSO)
     {
+        //Sets the starting default stat values
         _heroMaxHealth = heroSO.GetMaxHP();
         _heroDefaultMoveSpeed = heroSO.GetMoveSpeed();
         _heroDefaultAngularSpeed = heroSO.GetAngularSpeed();
@@ -59,7 +55,7 @@ public class HeroStats : HeroChildrenFunctionality
         _heroDefaultAggro = heroSO.GetAggro();
         _heroDefaultDamageResistance = heroSO.GetDamageResistance();
 
-
+        //Sets the starting current stat values
         _currentHealth = _heroMaxHealth;
         _currentMoveSpeed = _heroDefaultMoveSpeed;
         _currentAngularSpeed = _heroDefaultAngularSpeed;
@@ -100,16 +96,22 @@ public class HeroStats : HeroChildrenFunctionality
 
         if (healing == 0 || IsHeroMaxHealth()) return;
 
+        //Set the their health was prior to being healed
         SetPreviousHealthValue();
 
+        //Scale healing with healing receieved
         healing *= _currentHealingReceivedMultiplier;
 
+        //Store the health prior to being healed
         float healthDifference = _currentHealth;
 
+        //Increase the current health of the hero
         _currentHealth += healing;
 
+        //Clamps the health within regular bounds
         _currentHealth = Mathf.Clamp(_currentHealth, 0, _heroMaxHealth);
 
+        //Find the difference between the starting and final health
         healthDifference = _currentHealth - healthDifference;
         myHeroBase.InvokeHeroHealedEvent(healthDifference);
         
@@ -439,16 +441,25 @@ public class HeroStats : HeroChildrenFunctionality
     #endregion
 
     #region Events
+    
+    private void HeroSOAssigned(HeroSO heroSO)
+    {
+        StatsSetup(heroSO);
+    }
+
+    #endregion
+
+    #region Base Hero
+    public override void ChildFuncSetup(HeroBase heroBase)
+    {
+        base.ChildFuncSetup(heroBase);
+    }
+
     public override void SubscribeToEvents()
     {
         myHeroBase.GetSOSetEvent().AddListener(HeroSOAssigned);
 
         myHeroBase.GetHeroDamagedEvent().AddListener(CheckHeroDamagedUnderHalf);
-    }
-
-    private void HeroSOAssigned(HeroSO heroSO)
-    {
-        StatsSetup(heroSO);
     }
 
     #endregion

@@ -31,9 +31,6 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     protected Coroutine _basicAbilityCooldownCoroutine;
     protected Coroutine _manualAbilityCooldownCoroutine;
 
-    protected UnityEvent<float> _heroDealtDamageEvent = new UnityEvent<float>();
-    protected UnityEvent<float> _heroDealtStaggerEvent = new UnityEvent<float>();
-
     #region Basic Abilities
     protected virtual void StartCooldownBasicAbility()
     {
@@ -182,15 +179,6 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     #endregion
 
     #region GeneralAbilityFunctionality
-    protected virtual bool InAttackRangeOfBoss(float attackRange)
-    {
-        Vector2 heroPos = new Vector2(_myHeroBase.gameObject.transform.position.x, 
-            _myHeroBase.gameObject.transform.position.z);
-        Vector2 bossPos = new Vector2(GameplayManagers.Instance.GetBossManager().GetBossBase().transform.position.x,
-            GameplayManagers.Instance.GetBossManager().GetBossBase().transform.position.z);
-
-        return Vector2.Distance(heroPos, bossPos) < attackRange;
-    }
 
     /// <summary>
     /// Provides the functionality for the hero to deal damage to the boss.
@@ -219,6 +207,16 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         _myHeroBase.InvokeHeroDealtStaggerEvent(stagger);
     }
 
+    /// <summary>
+    /// Provides the functionality to heal a specific hero
+    /// </summary>
+    /// <param name="healing"></param>
+    /// <param name="target"></param>
+    public virtual void HealTargetHero(float healing, HeroBase target)
+    {
+        healing *= _myHeroBase.GetHeroStats().GetCurrentHealingDealtMultiplier();
+        target.GetHeroStats().HealHero(healing);
+    }
 
     #endregion
 
