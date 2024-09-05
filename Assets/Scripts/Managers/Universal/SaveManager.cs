@@ -232,12 +232,12 @@ public class GameSaveData
 
     [Space]
     [Header("Settings")]
-    [Range(0, 1)] private float _screenShakeStrength;
+    [Range(0, 1)] private float _screenShakeStrength = 1;
     private bool _heroClickAndDragMovementEnabled;
 
-    [Range(0, 1)] private float _masterVolume;
-    [Range(0, 1)] private float _musicVolume;
-    [Range(0, 1)] private float _sfxVolume;
+    [Range(0, 1)] private float _masterVolume = .5f;
+    [Range(0, 1)] private float _musicVolume = .5f;
+    [Range(0, 1)] private float _sfxVolume = .5f;
 
 
     #region Getters

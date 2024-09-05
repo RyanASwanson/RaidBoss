@@ -11,20 +11,28 @@ public class SelectionManager : BaseUniversalManager
     [Range(1, 2.5f)] [SerializeField] private float _normalHealthMultiplier;
     [Range(1, 2.5f)] [SerializeField] private float _normalStaggerMultiplier;
     [Space]
+    [Range(1, 5)] [SerializeField] private int _normalHeroLimit;
+    [Space]
     [Range(1, 2.5f)] [SerializeField] private float _heroicDamageMultiplier;
     [Range(1, 2.5f)] [SerializeField] private float _heroicSpeedMultiplier;
     [Range(1, 2.5f)] [SerializeField] private float _heroicHealthMultiplier;
     [Range(1, 2.5f)] [SerializeField] private float _heroicStaggerMultiplier;
+    [Space]
+    [Range(1, 5)] [SerializeField] private int _heroicHeroLimit;
     [Space]
     [Range(1, 2.5f)] [SerializeField] private float _mythicDamageMultiplier;
     [Range(1, 2.5f)] [SerializeField] private float _mythicSpeedMultiplier;
     [Range(1, 2.5f)] [SerializeField] private float _mythicHealthMultiplier;
     [Range(1, 2.5f)] [SerializeField] private float _mythicStaggerMultiplier;
     [Space]
+    [Range(1, 5)] [SerializeField] private int _mythicHeroLimit;
+    [Space]
     [Range(1, 2.5f)] [SerializeField] private float _mythicPlusDamageMultiplier;
     [Range(1, 2.5f)] [SerializeField] private float _mythicPlusSpeedMultiplier;
     [Range(1, 2.5f)] [SerializeField] private float _mythicPlusHealthMultiplier;
     [Range(1, 2.5f)] [SerializeField] private float _mythicPlusStaggerMultiplier;
+    [Space]
+    [Range(1, 5)] [SerializeField] private int _mythicPlusHeroLimit;
 
     [Space]
     [SerializeField] private List<string> _difficultyNames;
@@ -35,10 +43,13 @@ public class SelectionManager : BaseUniversalManager
     private Dictionary<GameDifficulty, float> _difficultyHealthMultiplierDictionary = new();
     private Dictionary<GameDifficulty, float> _difficultyStaggerMultiplierDictionary = new();
 
+    private Dictionary<GameDifficulty, int> _difficultyHeroLimit = new();
+
     private LevelSO _selectedLevel;
     private BossSO _selectedBoss;
 
     private List<HeroSO> _selectedHeroes = new List<HeroSO>();
+    private int _previousMaxHeroes = 3;
     private const int _maxHeroes = 5;
 
     private GameDifficulty _currentGameDifficulty = GameDifficulty.Normal;
@@ -64,20 +75,28 @@ public class SelectionManager : BaseUniversalManager
         _difficultyHealthMultiplierDictionary.Add(GameDifficulty.Normal, _normalHealthMultiplier);
         _difficultyStaggerMultiplierDictionary.Add(GameDifficulty.Normal, _normalStaggerMultiplier);
 
+        _difficultyHeroLimit.Add(GameDifficulty.Normal, _normalHeroLimit);
+
         _difficultyDamageMultiplierDictionary.Add(GameDifficulty.Heroic, _heroicDamageMultiplier);
         _difficultyAttackSpeedMultiplierDictionary.Add(GameDifficulty.Heroic, _heroicSpeedMultiplier);
         _difficultyHealthMultiplierDictionary.Add(GameDifficulty.Heroic, _heroicHealthMultiplier);
         _difficultyStaggerMultiplierDictionary.Add(GameDifficulty.Heroic, _heroicStaggerMultiplier);
+
+        _difficultyHeroLimit.Add(GameDifficulty.Heroic, _heroicHeroLimit);
 
         _difficultyDamageMultiplierDictionary.Add(GameDifficulty.Mythic, _mythicDamageMultiplier);
         _difficultyAttackSpeedMultiplierDictionary.Add(GameDifficulty.Mythic, _mythicSpeedMultiplier);
         _difficultyHealthMultiplierDictionary.Add(GameDifficulty.Mythic, _mythicHealthMultiplier);
         _difficultyStaggerMultiplierDictionary.Add(GameDifficulty.Mythic, _mythicStaggerMultiplier);
 
+        _difficultyHeroLimit.Add(GameDifficulty.Mythic, _mythicHeroLimit);
+
         _difficultyDamageMultiplierDictionary.Add(GameDifficulty.MythicPlus, _mythicPlusDamageMultiplier);
         _difficultyAttackSpeedMultiplierDictionary.Add(GameDifficulty.MythicPlus, _mythicPlusSpeedMultiplier);
         _difficultyHealthMultiplierDictionary.Add(GameDifficulty.MythicPlus, _mythicPlusHealthMultiplier);
         _difficultyStaggerMultiplierDictionary.Add(GameDifficulty.MythicPlus, _mythicPlusStaggerMultiplier);
+
+        _difficultyHeroLimit.Add(GameDifficulty.MythicPlus, _mythicPlusHeroLimit);
     }
 
     public void RemoveSelectedLevel()
@@ -148,6 +167,25 @@ public class SelectionManager : BaseUniversalManager
         //_currentGameDifficulty = GameDifficulty.Normal;
     }
 
+    private void UpdateHeroSelectionFromDifficultyChange()
+    {
+        if (GetHeroLimitFromDifficulty() < _previousMaxHeroes)
+        {
+            List<HeroSO> heroesToRemove = new();
+            for (int i = GetHeroLimitFromDifficulty(); i != _previousMaxHeroes; i++)
+            {
+                if(GetAllSelectedHeroes().Count >i)
+                    heroesToRemove.Add(GetAllSelectedHeroes()[i]);
+            }
+
+            foreach (HeroSO hero in heroesToRemove)
+            {
+                RemoveSpecificHero(hero);
+            }
+        }
+
+        _previousMaxHeroes = GetHeroLimitFromDifficulty();
+    }
 
     #region BaseManager
     public override void SetupManager()
@@ -208,14 +246,17 @@ public class SelectionManager : BaseUniversalManager
     public float GetHealthMultiplierFromDifficulty() => _difficultyHealthMultiplierDictionary[_currentGameDifficulty];
     public float GetStaggerMultiplierFromDifficulty() => _difficultyHealthMultiplierDictionary[_currentGameDifficulty];
 
+    public int GetHeroLimitFromDifficulty() => _difficultyHeroLimit[_currentGameDifficulty];
+
     public List<string> GetDifficultyNames() => _difficultyNames;
     public List<Sprite> GetDifficultyIcons() => _difficultyIcons;
 
     public List<HeroSO> GetAllSelectedHeroes() => _selectedHeroes;
     public HeroSO GetHeroAtValue(int val) => _selectedHeroes[val];
     public int GetSelectedHeroesCount() => _selectedHeroes.Count;
-    public int GetMaxHeroesCount() => _maxHeroes;
-    public bool AtMaxHeroesSelected() => _selectedHeroes.Count >= _maxHeroes;
+    //public int GetMaxHeroesCount() => _maxHeroes;
+    public int GetMaxHeroesCount() => GetHeroLimitFromDifficulty();
+    public bool AtMaxHeroesSelected() => _selectedHeroes.Count >= GetMaxHeroesCount();
 
     public BossSO GetSelectedBoss() => _selectedBoss;
     public LevelSO GetSelectedLevel() => _selectedLevel;
@@ -252,6 +293,7 @@ public class SelectionManager : BaseUniversalManager
     {
         _currentGameDifficulty = gameDifficulty;
         InvokeDifficultySelectionEvent(gameDifficulty);
+        UpdateHeroSelectionFromDifficultyChange();
     }
     #endregion
 }

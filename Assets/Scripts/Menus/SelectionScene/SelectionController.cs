@@ -95,19 +95,20 @@ public class SelectionController : MonoBehaviour
 
     [SerializeField] private List<SelectHeroButton> _heroSelectionButtons = new List<SelectHeroButton>();
 
+    private int _previousDifficultyLimit;
 
     private SelectionManager _selectionManager;
 
     // Start is called before the first frame update
     void Start()
     {
+        _selectionManager = UniversalManagers.Instance.GetSelectionManager();
+
         SubscribeToEvents();
 
         BossSideStart();
         CenterStart();
         HeroSideStart();
-
-        _selectionManager = UniversalManagers.Instance.GetSelectionManager();
     }
 
     #region Boss Side
@@ -519,7 +520,30 @@ public class SelectionController : MonoBehaviour
     #region Hero Side
     private void HeroSideStart()
     {
+        _previousDifficultyLimit = _selectionManager.GetHeroLimitFromDifficulty();
         MoveHeroPillar(0, true);
+    }
+
+    private void HeroLimitChanged(GameDifficulty difficulty)
+    {
+        /*int newHeroLimit = _selectionManager.GetHeroLimitFromDifficulty();
+        
+
+        if (_previousDifficultyLimit == newHeroLimit) return;
+
+        bool pillarDirection = newHeroLimit > _previousDifficultyLimit;
+
+        if(newHeroLimit < _previousDifficultyLimit)
+        {
+            for (int i = _previousDifficultyLimit; i != newHeroLimit; i--)
+            {
+
+            }
+        }
+        else
+            MoveHeroPillar(_previousDifficultyLimit, pillarDirection);
+
+        _previousDifficultyLimit = _selectionManager.GetHeroLimitFromDifficulty();*/
     }
 
     private void NewHeroAdded(HeroSO heroSO)
@@ -613,16 +637,18 @@ public class SelectionController : MonoBehaviour
 
     private void SubscribeToEvents()
     {
-        UniversalManagers.Instance.GetSelectionManager().GetBossSelectionEvent().AddListener(NewBossAdded);
-        UniversalManagers.Instance.GetSelectionManager().GetBossDeselectionEvent().AddListener(BossRemoved);
+        _selectionManager.GetBossSelectionEvent().AddListener(NewBossAdded);
+        _selectionManager.GetBossDeselectionEvent().AddListener(BossRemoved);
 
-        UniversalManagers.Instance.GetSelectionManager().GetBossHoveredOverEvent().AddListener(BossHoveredOver);
-        UniversalManagers.Instance.GetSelectionManager().GetBossNotHoveredOverEvent().AddListener(BossNotHoveredOver);
+        _selectionManager.GetBossHoveredOverEvent().AddListener(BossHoveredOver);
+        _selectionManager.GetBossNotHoveredOverEvent().AddListener(BossNotHoveredOver);
 
-        UniversalManagers.Instance.GetSelectionManager().GetHeroSelectionEvent().AddListener(NewHeroAdded);
-        UniversalManagers.Instance.GetSelectionManager().GetHeroDeselectionEvent().AddListener(HeroRemoved);
+        _selectionManager.GetHeroSelectionEvent().AddListener(NewHeroAdded);
+        _selectionManager.GetHeroDeselectionEvent().AddListener(HeroRemoved);
 
-        UniversalManagers.Instance.GetSelectionManager().GetHeroHoveredOverEvent().AddListener(HeroHoveredOver);
-        UniversalManagers.Instance.GetSelectionManager().GetHeroNotHoveredOverEvent().AddListener(HeroNotHoveredOver);
+        _selectionManager.GetHeroHoveredOverEvent().AddListener(HeroHoveredOver);
+        _selectionManager.GetHeroNotHoveredOverEvent().AddListener(HeroNotHoveredOver);
+
+        UniversalManagers.Instance.GetSelectionManager().GetDifficultySelectionEvent().AddListener(HeroLimitChanged);
     }
 }
