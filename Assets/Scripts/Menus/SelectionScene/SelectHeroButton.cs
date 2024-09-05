@@ -37,6 +37,7 @@ public class SelectHeroButton : MonoBehaviour
     private void SetButtonHeroIconVisuals()
     {
         _defaultColor = _iconVisuals.color;
+        //Sets the image to be the hero icon
         _iconVisuals.sprite = _associatedHero.GetHeroIcon();
 
         //Get the colorblock for the button
@@ -103,6 +104,10 @@ public class SelectHeroButton : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Sets the opacity of the difficulty icon
+    /// </summary>
+    /// <param name="newAlpha"></param>
     private void UpdateBestDifficultyBeatenIconAlpha(float newAlpha)
     {
         Color tempColor = _bestDifficultyBeatenIcon.color;

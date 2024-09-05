@@ -139,7 +139,7 @@ public class CameraGameManager : BaseGameplayManager
 
     private void StartingValues()
     {
-        _screenShakeMultiplier = UniversalManagers.Instance.GetSaveManager().GSD._screenShakeStrength;
+        _screenShakeMultiplier = UniversalManagers.Instance.GetSaveManager().GetScreenShakeIntensity();
 
         _multiChannelPerlin.m_AmplitudeGain = _minimumIntensity * _screenShakeMultiplier;
         _multiChannelPerlin.m_FrequencyGain = _minimumFrequency * _screenShakeMultiplier;

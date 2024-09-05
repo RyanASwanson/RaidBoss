@@ -20,25 +20,39 @@ public class OptionsMenu : MonoBehaviour
     private SaveManager _saveManager;
 
     private float _tempScreenShakeValue;
+    private bool _tempClickDragMovement;
 
     private float _tempMasterAudioValue;
     private float _tempMusicAudioValue;
     private float _tempSFXAudioValue;
 
+
     public void OptionsMenuOpened()
     {
         _saveManager = UniversalManagers.Instance.GetSaveManager();
-        SetSliderValuesOnOpen();
+        SetValuesOnOpen();
     }
 
-    void SetSliderValuesOnOpen()
+    /// <summary>
+    /// Sets up the settings options and sliders
+    /// </summary>
+    void SetValuesOnOpen()
     {
-        
-        _screenShakeSlider.value = _saveManager.GSD._screenShakeStrength;
+        //Sets the temporary setting value
+        _tempScreenShakeValue = _saveManager.GetScreenShakeIntensity();
+        //Sets the slider to be at the saved amount
+        _screenShakeSlider.value = _tempScreenShakeValue ;
 
-        _masterAudioSlider.value = _saveManager.GSD._masterVolume;
-        _musicAudioSlider.value = _saveManager.GSD._musicVolume;
-        _sfxAudioSlider.value = _saveManager.GSD._sfxVolume;
+        _tempClickDragMovement = _saveManager.GetClickAndDragEnabled();
+
+        _tempMasterAudioValue = _saveManager.GetMasterVolume();
+        _masterAudioSlider.value = _tempMasterAudioValue;
+
+        _tempMusicAudioValue = _saveManager.GetMusicVolume();
+        _musicAudioSlider.value = _tempMusicAudioValue;
+
+        _tempSFXAudioValue = _saveManager.GetSFXVolume();
+        _sfxAudioSlider.value = _tempSFXAudioValue ;
     }
 
     public void ScreenShakeSliderUpdated(float val)
@@ -60,14 +74,9 @@ public class OptionsMenu : MonoBehaviour
     }
 
 
-    public void ApplySettings()
+    public void ApplySettingsPressed()
     {
-        _saveManager.SetScreenShakeIntensity(_tempScreenShakeValue);
-
-        _saveManager.SetMasterAudioVolume(_tempMasterAudioValue);
-        _saveManager.SetMusicAudioVolume(_tempMusicAudioValue);
-        _saveManager.SetSFXAudioVolume(_tempSFXAudioValue);
-
-        _saveManager.SaveText();
+        _saveManager.SaveSettingsOptions(_tempScreenShakeValue, _tempClickDragMovement,
+            _tempMasterAudioValue, _tempMusicAudioValue, _tempSFXAudioValue);
     }
 }

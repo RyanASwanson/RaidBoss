@@ -35,11 +35,12 @@ public class SaveManager : BaseUniversalManager
         //Fills the GSD with default values when the file is created
         PopulateBossHeroDifficultyDictionary();
 
-        GSD._screenShakeStrength = 1;
+        GSD.SetGSDScreenShakeStrength(1);
+        GSD.SetGSDHeroClickAndDrag(false);
 
-        GSD._masterVolume = 1;
-        GSD._musicVolume = 1;
-        GSD._sfxVolume = 1;
+        GSD.SetGSDMasterVolume(.5f);
+        GSD.SetGSDMusicVolume(.5f);
+        GSD.SetGSDSFXVolume(.5f);
     }
 
     private void PopulateBossHeroDifficultyDictionary()
@@ -143,26 +144,26 @@ public class SaveManager : BaseUniversalManager
         return GSD._bossHeroBestDifficultyComplete[bossSO.GetBossName()][heroSO.GetHeroName()];
     }
 
-    public float GetScreenShakeIntensity() => GSD._screenShakeStrength;
+    public float GetScreenShakeIntensity() => GSD.GetGSDScreenShakeStrength();
 
-    public bool GetClickAndDragEnabled() => GSD._heroClickAndDragMovementEnabled;
+    public bool GetClickAndDragEnabled() => GSD.GetGSDHeroClickAndDragEnabled();
 
-    public float GetMasterVolume() => GSD._masterVolume;
-    public float GetMusicVolume() => GSD._musicVolume;
-    public float GetSFXVolume() => GSD._sfxVolume;
+    public float GetMasterVolume() => GSD.GetGSDMasterVolume();
+    public float GetMusicVolume() => GSD.GetGSDMusicVolume();
+    public float GetSFXVolume() => GSD.GetGSDSFXVolume();
 
     #endregion
 
     #region Setters
-    
+
 
     /// <summary>
     /// Saves the current screen shake intensity into the game save data
     /// </summary>
     /// <param name="val"></param>
-    public void SetScreenShakeIntensity(float val)
+    public void SetScreenShakeStrength(float val)
     {
-        GSD._screenShakeStrength = val;
+        GSD.SetGSDScreenShakeStrength(val);
     }
 
     /// <summary>
@@ -171,7 +172,7 @@ public class SaveManager : BaseUniversalManager
     /// <param name="volume"></param>
     public void SetMasterAudioVolume(float volume)
     {
-        GSD._masterVolume = volume;
+        GSD.SetGSDMasterVolume(volume);
     }
 
     /// <summary>
@@ -180,7 +181,7 @@ public class SaveManager : BaseUniversalManager
     /// <param name="volume"></param>
     public void SetMusicAudioVolume(float volume)
     {
-        GSD._musicVolume = volume;
+        GSD.SetGSDMusicVolume(volume);
     }
 
     /// <summary>
@@ -189,7 +190,27 @@ public class SaveManager : BaseUniversalManager
     /// <param name="volume"></param>
     public void SetSFXAudioVolume(float volume)
     {
-        GSD._sfxVolume = volume;
+        GSD.SetGSDSFXVolume(volume);
+    }
+
+    /// <summary>
+    /// Saves all settings at once
+    /// </summary>
+    /// <param name="screenShake"></param>
+    /// <param name="clickDrag"></param>
+    /// <param name="masterVol"></param>
+    /// <param name="musicVol"></param>
+    /// <param name="sfxVol"></param>
+    public void SaveSettingsOptions(float screenShake, bool clickDrag, float masterVol, float musicVol, float sfxVol)
+    {
+        GSD.SetGSDScreenShakeStrength(screenShake);
+        GSD.SetGSDHeroClickAndDrag(clickDrag);
+
+        GSD.SetGSDMasterVolume(masterVol);
+        GSD.SetGSDMusicVolume(musicVol);
+        GSD.SetGSDSFXVolume(sfxVol);
+
+        SaveText();
     }
     #endregion
 
@@ -199,16 +220,58 @@ public class SaveManager : BaseUniversalManager
 [System.Serializable]
 public class GameSaveData
 {
+    //String is hero name
+    public Dictionary<string, bool> _heroesUnlocked = new();
     //First string is boss name, second string is hero name
     //Represents the best difficulty each hero has beaten each boss at
     public Dictionary<string, Dictionary<string,GameDifficulty>> _bossHeroBestDifficultyComplete = new();
 
     [Space]
     [Header("Settings")]
-    [Range(0, 1)] public float _screenShakeStrength;
-    public bool _heroClickAndDragMovementEnabled;
+    [Range(0, 1)] private float _screenShakeStrength;
+    private bool _heroClickAndDragMovementEnabled;
 
-    [Range(0, 1)] public float _masterVolume;
-    [Range(0, 1)] public float _musicVolume;
-    [Range(0, 1)] public float _sfxVolume;
+    [Range(0, 1)] private float _masterVolume;
+    [Range(0, 1)] private float _musicVolume;
+    [Range(0, 1)] private float _sfxVolume;
+
+
+    #region Getters
+    public Dictionary<string, Dictionary<string, GameDifficulty>> GetGSDBossHeroBestDifficulty() => _bossHeroBestDifficultyComplete;
+
+    public float GetGSDScreenShakeStrength() => _screenShakeStrength;
+    public bool GetGSDHeroClickAndDragEnabled() => _heroClickAndDragMovementEnabled;
+
+    public float GetGSDMasterVolume() => _masterVolume;
+    public float GetGSDMusicVolume() => _musicVolume;
+    public float GetGSDSFXVolume() => _sfxVolume;
+
+    #endregion
+
+    #region Setters
+    public void SetGSDScreenShakeStrength(float screenShake)
+    {
+        _screenShakeStrength = screenShake;
+    }
+
+    public void SetGSDHeroClickAndDrag(bool clickDrag)
+    {
+        _heroClickAndDragMovementEnabled = clickDrag;
+    }
+
+    public void SetGSDMasterVolume(float volume)
+    {
+        _masterVolume = volume;
+    }
+    public void SetGSDMusicVolume(float volume)
+    {
+        _musicVolume = volume;
+    }
+
+    public void SetGSDSFXVolume(float volume)
+    {
+        _sfxVolume = volume;
+    }
+
+    #endregion
 }
