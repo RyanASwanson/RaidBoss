@@ -12,6 +12,10 @@ public class SaveManager : BaseUniversalManager
     [SerializeField] private List<BossSO> _bossesInGame = new();
     [SerializeField] private List<HeroSO> _heroesInGame = new();
 
+    [Space]
+
+    [SerializeField] private List<HeroSO> _heroesStartingUnlocked;
+
 
     /// <summary>
     /// Sets the path to create the save file
