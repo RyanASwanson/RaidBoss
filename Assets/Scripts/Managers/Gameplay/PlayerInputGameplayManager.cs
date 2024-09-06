@@ -141,7 +141,8 @@ public class PlayerInputGameplayManager : BaseGameplayManager
 
             foreach (HeroBase currentHero in _controlledHeroes)
             {
-                currentHero.InvokeHeroManualAbilityAttemptEvent(targetLoc);
+                currentHero.GetSpecificHeroScript().ActivateManualAbilities(targetLoc);
+                //currentHero.InvokeHeroManualAbilityUsedEvent(targetLoc);
             }
             
         }
@@ -200,16 +201,41 @@ public class PlayerInputGameplayManager : BaseGameplayManager
     {
         int pressNumVal = (int)context.ReadValue<float>();
 
-        HeroesManager heroesManager = GameplayManagers.Instance.GetHeroesManager();
 
-        //Returns if the number is more than the number of heroes
-        //Or if the hero in that slot doesn't exist
-        if (heroesManager.GetCurrentHeroes().Count <= pressNumVal
-            || heroesManager.GetCurrentHeroes()[pressNumVal] == null)
+        
+        if (IsInvalidHeroPress(pressNumVal))
             return;
 
-            NewControlledHero(heroesManager.GetCurrentHeroes()[pressNumVal]);
+            NewControlledHero(_heroesManager.GetCurrentHeroes()[pressNumVal]);
         
+    }
+
+    private void SpecificHeroAbilityPress(InputAction.CallbackContext context)
+    {
+        int pressNumVal = (int)context.ReadValue<float>();
+
+        if(IsInvalidHeroPress(pressNumVal))
+            return;
+
+        if (ClickOnPoint(_directClickLayerMask, out RaycastHit clickedOn))
+        {
+            Vector3 targetLoc = GameplayManagers.Instance.GetEnvironmentManager()
+                .GetClosestPointToFloor(clickedOn.point);
+
+            _heroesManager.GetCurrentHeroes()[pressNumVal].GetSpecificHeroScript().ActivateManualAbilities(targetLoc);
+        }
+    }
+
+    /// <summary>
+    /// Returns true if the number is more than the number of heroes,
+    /// or if the hero in that slot doesn't exist
+    /// </summary>
+    /// <param name="pressNumVal"></param>
+    /// <returns></returns>
+    private bool IsInvalidHeroPress(int pressNumVal)
+    {
+        return (_heroesManager.GetCurrentHeroes().Count <= pressNumVal
+            || _heroesManager.GetCurrentHeroes()[pressNumVal] == null);
     }
 
     private void MouseScroll(InputAction.CallbackContext context)
@@ -249,6 +275,7 @@ public class PlayerInputGameplayManager : BaseGameplayManager
         UPIA.GameplayActions.DirectClick.started += PlayerDirectClicked;
         UPIA.GameplayActions.ActiveAbility.started += HeroActiveButton;
         UPIA.GameplayActions.NumberPress.started += HeroNumberPress;
+        UPIA.GameplayActions.SpecificAbilityPress.started += SpecificHeroAbilityPress;
         UPIA.GameplayActions.MouseScroll.performed += MouseScroll;
         UPIA.GameplayActions.EscapePress.started += EscapePress;
 
@@ -262,7 +289,7 @@ public class PlayerInputGameplayManager : BaseGameplayManager
         UPIA.GameplayActions.DirectClick.started -= PlayerDirectClicked;
         UPIA.GameplayActions.ActiveAbility.started -= HeroActiveButton;
         UPIA.GameplayActions.NumberPress.started -= HeroNumberPress;
-        UPIA.GameplayActions.MouseScroll.started -= MouseScroll;
+        UPIA.GameplayActions.SpecificAbilityPress.started -= SpecificHeroAbilityPress;
         UPIA.GameplayActions.MouseScroll.performed -= MouseScroll;
         UPIA.GameplayActions.EscapePress.started -= EscapePress;
 

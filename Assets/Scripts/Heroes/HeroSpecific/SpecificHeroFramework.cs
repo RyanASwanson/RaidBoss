@@ -167,6 +167,8 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         TriggerManualAbilityAnimation();
 
         StartCooldownManualAbility();
+
+        _myHeroBase.InvokeHeroManualAbilityUsedEvent(attackLocation);
     }
     #endregion
 
@@ -286,8 +288,6 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     protected virtual void SubscribeToEvents()
     {
         GameplayManagers.Instance.GetGameStateManager().GetStartOfBattleEvent().AddListener(BattleStarted);
-
-        _myHeroBase.GetHeroManualAbilityAttemptEvent().AddListener(AttemptActivationOfManualAbility);
 
         _myHeroBase.GetHeroDiedEvent().AddListener(HeroDied);
     }

@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 [DisallowMultipleComponent]
 
@@ -103,11 +104,9 @@ public class Outline : MonoBehaviour {
     foreach (var renderer in renderers) {
             
             /*if(renderer.GetType() == UnityEngine.ParticleSystemRenderer)*/
-            if (renderer.GetComponent<ParticleSystem>() != null)
+            if (renderer.GetComponent<ParticleSystem>() != null || renderer.GetComponent<Image>() != null)
             {
                 continue;
-                /*print("hello");
-                print(renderer.GetType().ToString());*/
             }
                 
       // Append outline shaders

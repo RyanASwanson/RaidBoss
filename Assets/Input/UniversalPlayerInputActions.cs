@@ -64,6 +64,15 @@ public partial class @UniversalPlayerInputActions: IInputActionCollection2, IDis
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""SpecificAbilityPress"",
+                    ""type"": ""Button"",
+                    ""id"": ""bcf30fa4-425b-4033-915b-f69b1318430e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""EscapePress"",
                     ""type"": ""Button"",
                     ""id"": ""01be1bbf-92a0-455d-93da-39b2762a69da"",
@@ -258,6 +267,61 @@ public partial class @UniversalPlayerInputActions: IInputActionCollection2, IDis
                     ""action"": ""MouseScroll"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""67de583d-8d8d-44eb-8aa7-698deb483179"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=0)"",
+                    ""groups"": """",
+                    ""action"": ""SpecificAbilityPress"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d91b3f3b-b089-4ee0-bf53-fecfca4d29ad"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale"",
+                    ""groups"": """",
+                    ""action"": ""SpecificAbilityPress"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0783fd6d-670e-40d5-9957-4e5fff86d066"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=2)"",
+                    ""groups"": """",
+                    ""action"": ""SpecificAbilityPress"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e12c24ba-3fb3-4c48-acfd-d49a9c951cdc"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=3)"",
+                    ""groups"": """",
+                    ""action"": ""SpecificAbilityPress"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b69b4889-646d-4a09-a2e6-d90fd4555c30"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=4)"",
+                    ""groups"": """",
+                    ""action"": ""SpecificAbilityPress"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -270,6 +334,7 @@ public partial class @UniversalPlayerInputActions: IInputActionCollection2, IDis
         m_GameplayActions_DirectClick = m_GameplayActions.FindAction("DirectClick", throwIfNotFound: true);
         m_GameplayActions_ActiveAbility = m_GameplayActions.FindAction("ActiveAbility", throwIfNotFound: true);
         m_GameplayActions_NumberPress = m_GameplayActions.FindAction("NumberPress", throwIfNotFound: true);
+        m_GameplayActions_SpecificAbilityPress = m_GameplayActions.FindAction("SpecificAbilityPress", throwIfNotFound: true);
         m_GameplayActions_EscapePress = m_GameplayActions.FindAction("EscapePress", throwIfNotFound: true);
         m_GameplayActions_MouseScroll = m_GameplayActions.FindAction("MouseScroll", throwIfNotFound: true);
     }
@@ -337,6 +402,7 @@ public partial class @UniversalPlayerInputActions: IInputActionCollection2, IDis
     private readonly InputAction m_GameplayActions_DirectClick;
     private readonly InputAction m_GameplayActions_ActiveAbility;
     private readonly InputAction m_GameplayActions_NumberPress;
+    private readonly InputAction m_GameplayActions_SpecificAbilityPress;
     private readonly InputAction m_GameplayActions_EscapePress;
     private readonly InputAction m_GameplayActions_MouseScroll;
     public struct GameplayActionsActions
@@ -347,6 +413,7 @@ public partial class @UniversalPlayerInputActions: IInputActionCollection2, IDis
         public InputAction @DirectClick => m_Wrapper.m_GameplayActions_DirectClick;
         public InputAction @ActiveAbility => m_Wrapper.m_GameplayActions_ActiveAbility;
         public InputAction @NumberPress => m_Wrapper.m_GameplayActions_NumberPress;
+        public InputAction @SpecificAbilityPress => m_Wrapper.m_GameplayActions_SpecificAbilityPress;
         public InputAction @EscapePress => m_Wrapper.m_GameplayActions_EscapePress;
         public InputAction @MouseScroll => m_Wrapper.m_GameplayActions_MouseScroll;
         public InputActionMap Get() { return m_Wrapper.m_GameplayActions; }
@@ -370,6 +437,9 @@ public partial class @UniversalPlayerInputActions: IInputActionCollection2, IDis
             @NumberPress.started += instance.OnNumberPress;
             @NumberPress.performed += instance.OnNumberPress;
             @NumberPress.canceled += instance.OnNumberPress;
+            @SpecificAbilityPress.started += instance.OnSpecificAbilityPress;
+            @SpecificAbilityPress.performed += instance.OnSpecificAbilityPress;
+            @SpecificAbilityPress.canceled += instance.OnSpecificAbilityPress;
             @EscapePress.started += instance.OnEscapePress;
             @EscapePress.performed += instance.OnEscapePress;
             @EscapePress.canceled += instance.OnEscapePress;
@@ -392,6 +462,9 @@ public partial class @UniversalPlayerInputActions: IInputActionCollection2, IDis
             @NumberPress.started -= instance.OnNumberPress;
             @NumberPress.performed -= instance.OnNumberPress;
             @NumberPress.canceled -= instance.OnNumberPress;
+            @SpecificAbilityPress.started -= instance.OnSpecificAbilityPress;
+            @SpecificAbilityPress.performed -= instance.OnSpecificAbilityPress;
+            @SpecificAbilityPress.canceled -= instance.OnSpecificAbilityPress;
             @EscapePress.started -= instance.OnEscapePress;
             @EscapePress.performed -= instance.OnEscapePress;
             @EscapePress.canceled -= instance.OnEscapePress;
@@ -421,6 +494,7 @@ public partial class @UniversalPlayerInputActions: IInputActionCollection2, IDis
         void OnDirectClick(InputAction.CallbackContext context);
         void OnActiveAbility(InputAction.CallbackContext context);
         void OnNumberPress(InputAction.CallbackContext context);
+        void OnSpecificAbilityPress(InputAction.CallbackContext context);
         void OnEscapePress(InputAction.CallbackContext context);
         void OnMouseScroll(InputAction.CallbackContext context);
     }

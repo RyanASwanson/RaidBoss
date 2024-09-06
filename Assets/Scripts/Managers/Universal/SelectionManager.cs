@@ -157,35 +157,14 @@ public class SelectionManager : BaseUniversalManager
     }
 
     /// <summary>
-    /// Removes the currently selected heroes, boss, level, and difficulty
+    /// Removes the currently selected heroes, boss, level
+    /// Difficulty is not reset
     /// </summary>
     public void ResetSelectionData()
     {
         _selectedHeroes = new();
         _selectedBoss = null;
         _selectedLevel = null;
-        //_currentGameDifficulty = GameDifficulty.Normal;
-    }
-
-    private void UpdateHeroSelectionFromDifficultyChange()
-    {
-        /*if (GetHeroLimitFromDifficulty() < _previousMaxHeroes)
-        {
-            List<HeroSO> heroesToRemove = new();
-
-            for (int i = GetHeroLimitFromDifficulty(); i != _previousMaxHeroes; i++)
-            {
-                if(GetAllSelectedHeroes().Count >i)
-                    heroesToRemove.Add(GetAllSelectedHeroes()[i]);
-            }
-
-            foreach (HeroSO hero in heroesToRemove)
-            {
-                RemoveSpecificHero(hero);
-            }
-        }
-
-        _previousMaxHeroes = GetHeroLimitFromDifficulty();*/
     }
 
     #region BaseManager
@@ -294,7 +273,6 @@ public class SelectionManager : BaseUniversalManager
     {
         _currentGameDifficulty = gameDifficulty;
         InvokeDifficultySelectionEvent(gameDifficulty);
-        UpdateHeroSelectionFromDifficultyChange();
     }
     #endregion
 }

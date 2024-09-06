@@ -22,7 +22,7 @@ public class BossSO : ScriptableObject
 
     [SerializeField] private float _damageIncrementMultiplier;
 
-    [Range(.5f, 1)] [SerializeField] private float _damageResistanceChangeOnStagger;
+    [Range(0,.5f)] [SerializeField] private float _damageResistanceChangeOnStagger;
 
     [Header("Prefabs")]
     [SerializeField] private GameObject _bossPrefab;

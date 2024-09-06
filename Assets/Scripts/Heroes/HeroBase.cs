@@ -149,7 +149,7 @@ public class HeroBase : MonoBehaviour
     {
         _heroManualAbilityFullyCharged?.Invoke();
     }
-    public void InvokeHeroManualAbilityAttemptEvent(Vector3 activateLocation)
+    public void InvokeHeroManualAbilityUsedEvent(Vector3 activateLocation)
     {
         _heroManualAbilityAttempt?.Invoke(activateLocation);
     }

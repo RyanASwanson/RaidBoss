@@ -30,8 +30,8 @@ public class SHP_ReaperManualProjectile : HeroProjectileFramework
     #region Base Ability
     public override void SetUpProjectile(HeroBase heroBase)
     {
-        StartCoroutine(MoveProjectile());
         base.SetUpProjectile(heroBase);
+        StartCoroutine(MoveProjectile());
     }
     #endregion
 }
