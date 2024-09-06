@@ -76,6 +76,7 @@ public class Outline : MonoBehaviour {
   private List<ListVector3> bakeValues = new List<ListVector3>();
 
   private Renderer[] renderers;
+  private MeshRenderer[] meshRenderers;
   private Material outlineMaskMaterial;
   private Material outlineFillMaterial;
 
@@ -84,7 +85,9 @@ public class Outline : MonoBehaviour {
   void Awake() {
 
     // Cache renderers
-    renderers = GetComponentsInChildren<Renderer>();
+    //renderers = GetComponentsInChildren<Renderer>();
+    renderers = GetComponentsInChildren<MeshRenderer>();
+        //meshRenderers = GetComponentsInChildren<MeshRenderer>();
 
     // Instantiate outline materials
     outlineMaskMaterial = Instantiate(Resources.Load<Material>(@"Materials/OutlineMask"));
@@ -104,10 +107,10 @@ public class Outline : MonoBehaviour {
     foreach (var renderer in renderers) {
             
             /*if(renderer.GetType() == UnityEngine.ParticleSystemRenderer)*/
-            if (renderer.GetComponent<ParticleSystem>() != null || renderer.GetComponent<Image>() != null)
+            /*if (renderer.GetComponent<ParticleSystem>() != null || renderer.GetComponent<Image>() != null)
             {
                 continue;
-            }
+            }*/
                 
       // Append outline shaders
       var materials = renderer.sharedMaterials.ToList();
