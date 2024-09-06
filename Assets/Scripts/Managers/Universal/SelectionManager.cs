@@ -169,7 +169,7 @@ public class SelectionManager : BaseUniversalManager
 
     private void UpdateHeroSelectionFromDifficultyChange()
     {
-        if (GetHeroLimitFromDifficulty() < _previousMaxHeroes)
+        /*if (GetHeroLimitFromDifficulty() < _previousMaxHeroes)
         {
             List<HeroSO> heroesToRemove = new();
 
@@ -185,7 +185,7 @@ public class SelectionManager : BaseUniversalManager
             }
         }
 
-        _previousMaxHeroes = GetHeroLimitFromDifficulty();
+        _previousMaxHeroes = GetHeroLimitFromDifficulty();*/
     }
 
     #region BaseManager
