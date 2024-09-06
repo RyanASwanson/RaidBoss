@@ -95,7 +95,7 @@ public class SelectionController : MonoBehaviour
 
     [SerializeField] private List<SelectHeroButton> _heroSelectionButtons = new List<SelectHeroButton>();
 
-    private int _previousDifficultyLimit;
+    private int _previousMaxHeroes;
 
     private SelectionManager _selectionManager;
 
@@ -520,7 +520,7 @@ public class SelectionController : MonoBehaviour
     #region Hero Side
     private void HeroSideStart()
     {
-        _previousDifficultyLimit = _selectionManager.GetHeroLimitFromDifficulty();
+        _previousMaxHeroes = _selectionManager.GetHeroLimitFromDifficulty();
         MoveHeroPillar(0, true);
     }
 
@@ -544,15 +544,58 @@ public class SelectionController : MonoBehaviour
             MoveHeroPillar(_previousDifficultyLimit, pillarDirection);
 
         _previousDifficultyLimit = _selectionManager.GetHeroLimitFromDifficulty();*/
+
+        if (_selectionManager.GetHeroLimitFromDifficulty() < _previousMaxHeroes)
+            HeroLimitReduced();
+        else if (_selectionManager.GetHeroLimitFromDifficulty() > _previousMaxHeroes)
+            HeroLimitIncreased();
+
+        _previousMaxHeroes = _selectionManager.GetHeroLimitFromDifficulty();
+    }
+
+    private void HeroLimitReduced()
+    {
+        List<HeroSO> heroesToRemove = new();
+
+        for (int i = _selectionManager.GetHeroLimitFromDifficulty(); i != _previousMaxHeroes; i++)
+        {
+            if (_selectionManager.GetAllSelectedHeroes().Count > i)
+            {
+                heroesToRemove.Add(_selectionManager.GetAllSelectedHeroes()[i]);
+                
+            }
+            _heroPillars[i].MovePillar(false);
+
+        }
+
+        foreach (SelectHeroButton heroButton in _heroSelectionButtons)
+        {
+            HeroSO associatedHero = heroButton.GetAssociatedHero();
+            if (heroesToRemove.Contains(associatedHero))
+            {
+                heroButton.SelectHeroButtonPressed();
+                
+                heroesToRemove.Remove(associatedHero);
+            }
+
+        }
+    }
+
+    private void HeroLimitIncreased()
+    {
+        if(_selectionManager.GetSelectedHeroesCount() == _previousMaxHeroes)
+        {
+            _heroPillars[_previousMaxHeroes].MovePillar(true);
+        }
     }
 
     private void NewHeroAdded(HeroSO heroSO)
     {
-        int heroPillarNum = UniversalManagers.Instance.GetSelectionManager().GetSelectedHeroesCount();
+        int heroPillarNum = _selectionManager.GetSelectedHeroesCount();
 
         _heroPillars[heroPillarNum - 1].ShowHeroOnPillar(heroSO,false);
 
-        if (heroPillarNum < UniversalManagers.Instance.GetSelectionManager().GetMaxHeroesCount())
+        if (heroPillarNum < _selectionManager.GetMaxHeroesCount())
         {
             MoveHeroPillar(heroPillarNum, true);
 

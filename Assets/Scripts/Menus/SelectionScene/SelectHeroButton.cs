@@ -129,4 +129,8 @@ public class SelectHeroButton : MonoBehaviour
         UniversalManagers.Instance.GetSelectionManager().RemoveSpecificHero(_associatedHero);
         UpdateHeroIconColor(_defaultColor);
     }
+
+    #region Getters
+    public HeroSO GetAssociatedHero() => _associatedHero;
+    #endregion
 }

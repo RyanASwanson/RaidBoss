@@ -172,6 +172,7 @@ public class SelectionManager : BaseUniversalManager
         if (GetHeroLimitFromDifficulty() < _previousMaxHeroes)
         {
             List<HeroSO> heroesToRemove = new();
+
             for (int i = GetHeroLimitFromDifficulty(); i != _previousMaxHeroes; i++)
             {
                 if(GetAllSelectedHeroes().Count >i)
