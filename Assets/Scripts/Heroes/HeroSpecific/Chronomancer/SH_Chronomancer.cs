@@ -22,6 +22,8 @@ public class SH_Chronomancer : SpecificHeroFramework
     [SerializeField] private float _rewindTimeAmount;
     private List<Queue<float>> _heroPastHealthValues = new List<Queue<float>>();
     private List<float> _heroPreviousCheckedHealth = new List<float>(5);
+
+    private float _storedTotalRewindHealing;
     
     [Space]
     [SerializeField] private float _passiveAbilityBasicCooldownReduction;
@@ -178,6 +180,7 @@ public class SH_Chronomancer : SpecificHeroFramework
     {
         //At the position of the hero id the health value is added to the end of the queue
         _heroPastHealthValues[heroID].Enqueue(healthValue);
+
         //Starts the process of removing that value from the queue
         StartCoroutine(RemovePastHealthValueProcess(heroID));
     }
@@ -226,7 +229,13 @@ public class SH_Chronomancer : SpecificHeroFramework
             counter++;
         }
     }
+    
 
+    private void UpdateManualTotalStoredHealing(float changeAmount)
+    {
+        _storedTotalRewindHealing += changeAmount;
+        print(_storedTotalRewindHealing);
+    }
     #endregion
 
     #region Passive Abilities
