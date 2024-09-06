@@ -141,7 +141,7 @@ public class PlayerInputGameplayManager : BaseGameplayManager
 
             foreach (HeroBase currentHero in _controlledHeroes)
             {
-                currentHero.GetSpecificHeroScript().ActivateManualAbilities(targetLoc);
+                currentHero.GetSpecificHeroScript().AttemptActivationOfManualAbility(targetLoc);
                 //currentHero.InvokeHeroManualAbilityUsedEvent(targetLoc);
             }
             
@@ -222,7 +222,7 @@ public class PlayerInputGameplayManager : BaseGameplayManager
             Vector3 targetLoc = GameplayManagers.Instance.GetEnvironmentManager()
                 .GetClosestPointToFloor(clickedOn.point);
 
-            _heroesManager.GetCurrentHeroes()[pressNumVal].GetSpecificHeroScript().ActivateManualAbilities(targetLoc);
+            _heroesManager.GetCurrentHeroes()[pressNumVal].GetSpecificHeroScript().AttemptActivationOfManualAbility(targetLoc);
         }
     }
 

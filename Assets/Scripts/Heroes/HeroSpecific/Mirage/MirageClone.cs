@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class MirageClone : SpecificHeroFramework
 {
-    [Space]
-    private bool _canCastBasic;
-
     private SH_Mirage _mirageOwner;
     private BossBase _bossBase;
 
@@ -14,36 +11,26 @@ public class MirageClone : SpecificHeroFramework
     /// Starts the process of the clone casting it's own copy of the Mirage
     ///     basic ability
     /// </summary>
-    private void StartCloneCastBasic()
+    protected override void StartCooldownBasicAbility()
     {
-        StartCoroutine(BasicCastProcess());
+        base.StartCooldownBasicAbility();
     }
 
     /// <summary>
-    /// Continues casting the Mirage basic ability until it stops moving
+    /// Only allows for the clone to use its basic ability while moving
     /// </summary>
     /// <returns></returns>
-    private IEnumerator BasicCastProcess()
+    public override bool ConditionsToActivateBasicAbilities()
     {
-        _myHeroBase.GetHeroStoppedMovingEvent().AddListener(EndBasicCastProcess);
-        _canCastBasic = true;
-        float castCounter = 0;
+        return !base.ConditionsToActivateBasicAbilities();
+    }
 
-        while (_canCastBasic)
-        {
-            castCounter += Time.deltaTime;
 
-            if (castCounter >= _basicAbilityChargeTime)
-            {
-                castCounter -= _basicAbilityChargeTime;
+    public override void ActivateBasicAbilities()
+    {
+        base.ActivateBasicAbilities();
 
-                _mirageOwner.CloneBasicAbility();
-            }
-
-            yield return null;
-        }
-
-        _canCastBasic = false;
+        _mirageOwner.CloneBasicAbility();
     }
 
     /// <summary>
@@ -52,8 +39,7 @@ public class MirageClone : SpecificHeroFramework
     /// </summary>
     private void EndBasicCastProcess()
     {
-        _canCastBasic = false;
-        _myHeroBase.GetHeroStoppedMovingEvent().RemoveListener(EndBasicCastProcess);
+        StopCooldownBasicAbility();
     }
 
 
@@ -86,9 +72,19 @@ public class MirageClone : SpecificHeroFramework
         heroStats.AddHealingTakenOverrideCounter();
     }
 
+    public override void ActivateHeroSpecificActivity()
+    {
+        //Overrides the base to do nothing
+    }
+
     protected override void SubscribeToEvents()
     {
-        _myHeroBase.GetHeroStartedMovingEvent().AddListener(StartCloneCastBasic);
+        //_myHeroBase.GetHeroStartedMovingEvent().AddListener(StartCloneCastBasic);
+        _myHeroBase.GetHeroStartedMovingEvent().AddListener(StartCooldownBasicAbility);
+
+        //Stops the clone from using the basic ability after it stops moving
+        _myHeroBase.GetHeroStoppedMovingEvent().AddListener(EndBasicCastProcess);
+
         _bossBase.GetBossTargetsAssignedEvent().AddListener(AssignSelfAsBossTarget);
         base.SubscribeToEvents();
     }
