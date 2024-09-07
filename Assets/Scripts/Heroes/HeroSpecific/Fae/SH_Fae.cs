@@ -13,21 +13,29 @@ public class SH_Fae : SpecificHeroFramework
     [SerializeField] private GameObject _basicProjectile;
 
     [Space]
+    [SerializeField] private float _manualContactDamage;
+    [SerializeField] private float _manualContactStagger;
+    [Space]
     [SerializeField] private float _manualDuration;
+    [SerializeField] private float _accelerateTime;
     [SerializeField] private float _manualSpeedMultiplier;
     [SerializeField] private float _manualWallDistanceRange;
+    [Range(0,1)][SerializeField] private float _manualBossHoming;
     [SerializeField] private Vector3 _manualWallExtents;
 
     [SerializeField] private LayerMask _bounceLayers;
     private bool _manualActive = false;
 
     private Vector3 _currentManualDirection;
+    private float _currentAccelerationMultiplier;
 
     private Coroutine _manualCoroutine;
 
 
     [Space]
-    [SerializeField] private float _passiveBasicAttackSpeedChange;
+    [SerializeField] private float _passiveBasicAttackSpeedChangeWalking;
+    [SerializeField] private float _passiveBasicAttackSpeedChangeManual;
+
     private float _currentPassiveBasicAttackSpeed = 1;
 
     private HeroStats _heroStats;
@@ -83,6 +91,8 @@ public class SH_Fae : SpecificHeroFramework
 
         //Starts the manual ability functionality
         _manualCoroutine = StartCoroutine(ManualProcess());
+
+        StartCoroutine(ManualAccelerationAndDeceleration());
     }
 
 
@@ -95,6 +105,8 @@ public class SH_Fae : SpecificHeroFramework
         //Starts by stopping the pathfinding so that they aren't being moved by multiple sources
         _myHeroBase.GetPathfinding().StopAbilityToMove();
 
+        IncreaseBasicAttackSpeedOnManualStart();
+
         //The manual goes on until the duration has run out
         float manualProgress = 0;
         while (manualProgress < _manualDuration)
@@ -105,7 +117,7 @@ public class SH_Fae : SpecificHeroFramework
             //Moves the character in the manual direction
             //Speed determined by movement speed of the character and the multipler for the manual
             _myHeroBase.gameObject.transform.position += _currentManualDirection * 
-                _heroStats.GetCurrentSpeed() *_manualSpeedMultiplier * Time.deltaTime;
+                _heroStats.GetCurrentSpeed() *_manualSpeedMultiplier * _currentAccelerationMultiplier* Time.deltaTime;
 
             manualProgress += Time.deltaTime;
             yield return null;
@@ -115,6 +127,33 @@ public class SH_Fae : SpecificHeroFramework
         _myHeroBase.GetPathfinding().EnableAbilityToMove();
         //Makes sure that the hero doesn't try to continue any previous pathfinding
         _myHeroBase.GetPathfinding().DirectNavigationTo(_environmentManager.GetClosestPointToFloor(transform.position));
+
+        DecreaseBasicAttackSpeedOnManualEnd();
+
+        print("end1");
+    }
+
+    private IEnumerator ManualAccelerationAndDeceleration()
+    {
+        while (_currentAccelerationMultiplier < 1)
+        {
+            _currentAccelerationMultiplier += Time.deltaTime / _accelerateTime;
+            yield return null;
+        }
+        _currentAccelerationMultiplier = 1;
+
+        yield return new WaitForSeconds(_manualDuration - (2 * _accelerateTime));
+
+
+        while (_currentAccelerationMultiplier > 0)
+        {
+            _currentAccelerationMultiplier -= Time.deltaTime / _accelerateTime;
+            yield return null;
+        }
+        _currentAccelerationMultiplier = 0;
+
+        print("end2");
+
     }
 
     /// <summary>
@@ -129,24 +168,53 @@ public class SH_Fae : SpecificHeroFramework
         if(Physics.BoxCast(startPos,_manualWallExtents,_currentManualDirection, out RaycastHit rayHit, 
             Quaternion.identity,_manualWallDistanceRange,_bounceLayers))
         {
+
             //Reflect the direction that the manual ability is moving
             _currentManualDirection = Vector3.Reflect(_currentManualDirection, rayHit.normal);
+
+            if (ManualHitBoss(rayHit))
+            {
+                DamageBoss(_manualContactDamage);
+                StaggerBoss(_manualContactStagger);
+                return;
+            }
+                
+            
+
+            _currentManualDirection = Vector3.Lerp(_currentManualDirection, 
+                GameplayManagers.Instance.GetBossManager().GetDirectionToBoss(transform.position), _manualBossHoming).normalized;
         }
 
+    }
+
+    private bool ManualHitBoss(RaycastHit rayHit)
+    {
+        return rayHit.collider.gameObject.tag == TagStringData.GetBossHitboxTagName();
     }
 
     #endregion
 
     #region Passive Abilities
-    private void IncreaseBasicAttackSpeed()
+    private void IncreaseBasicAttackSpeedOnMoveStart()
     {
-        _currentPassiveBasicAttackSpeed += _passiveBasicAttackSpeedChange;
+        _currentPassiveBasicAttackSpeed += _passiveBasicAttackSpeedChangeWalking;
     }
 
-    private void DecreaseBasicAttackSpeed()
+    private void DecreaseBasicAttackSpeedOnMoveEnd()
     {
-        _currentPassiveBasicAttackSpeed -= _passiveBasicAttackSpeedChange;
+        _currentPassiveBasicAttackSpeed -= _passiveBasicAttackSpeedChangeWalking;
     }
+
+    private void IncreaseBasicAttackSpeedOnManualStart()
+    {
+        _currentPassiveBasicAttackSpeed += _passiveBasicAttackSpeedChangeManual;
+    }
+
+    private void DecreaseBasicAttackSpeedOnManualEnd()
+    {
+        _currentPassiveBasicAttackSpeed -= _passiveBasicAttackSpeedChangeManual;
+    }
+
     #endregion
 
 
@@ -165,8 +233,8 @@ public class SH_Fae : SpecificHeroFramework
     {
         base.SubscribeToEvents();
 
-        _myHeroBase.GetHeroStartedMovingEvent().AddListener(IncreaseBasicAttackSpeed);
-        _myHeroBase.GetHeroStoppedMovingEvent().AddListener(DecreaseBasicAttackSpeed);
+        _myHeroBase.GetHeroStartedMovingEvent().AddListener(IncreaseBasicAttackSpeedOnMoveStart);
+        _myHeroBase.GetHeroStoppedMovingEvent().AddListener(DecreaseBasicAttackSpeedOnMoveEnd);
     }
     #endregion
 }
