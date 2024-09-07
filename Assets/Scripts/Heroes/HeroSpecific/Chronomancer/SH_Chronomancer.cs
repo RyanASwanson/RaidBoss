@@ -21,7 +21,6 @@ public class SH_Chronomancer : SpecificHeroFramework
     [Space]
     [SerializeField] private float _rewindTimeAmount;
     private List<Queue<float>> _heroPastHealthValues = new List<Queue<float>>();
-    private List<float> _heroPreviousCheckedHealth = new List<float>(5);
 
     private float _storedTotalRewindHealing;
     
@@ -225,7 +224,6 @@ public class SH_Chronomancer : SpecificHeroFramework
             _heroPastHealthValues.Add(new Queue<float>());
 
             AddPastHealthValue(counter, heroBase.GetHeroStats().GetMaxHealth());
-            _heroPreviousCheckedHealth.Add(heroBase.GetHeroStats().GetMaxHealth());
             counter++;
         }
     }
