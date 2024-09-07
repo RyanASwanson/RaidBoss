@@ -105,12 +105,10 @@ public class Outline : MonoBehaviour {
 
   void OnEnable() {
     foreach (var renderer in renderers) {
-            
-            /*if(renderer.GetType() == UnityEngine.ParticleSystemRenderer)*/
-            /*if (renderer.GetComponent<ParticleSystem>() != null || renderer.GetComponent<Image>() != null)
-            {
+
+
+            if (renderer.GetComponent<OutlineIgnore>() != null)
                 continue;
-            }*/
                 
       // Append outline shaders
       var materials = renderer.sharedMaterials.ToList();

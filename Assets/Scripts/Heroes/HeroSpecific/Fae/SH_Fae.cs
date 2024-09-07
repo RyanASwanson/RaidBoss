@@ -23,6 +23,14 @@ public class SH_Fae : SpecificHeroFramework
     [Range(0,1)][SerializeField] private float _manualBossHoming;
     [SerializeField] private Vector3 _manualWallExtents;
 
+    [Space]
+    [SerializeField] private float _vfxWeaponSpawnRate;
+    [SerializeField] private float _vfxWeaponDuration;
+    [SerializeField] private float _vfxWeaponSpawnDistance;
+    [SerializeField] private Vector3 _vfxWeaponSpawnEulers;
+    [SerializeField] private GameObject _vfxWeapon;
+    [SerializeField] private Transform _vfxWeaponSpawnPoint;
+
     [SerializeField] private LayerMask _bounceLayers;
     private bool _manualActive = false;
 
@@ -91,7 +99,7 @@ public class SH_Fae : SpecificHeroFramework
 
         //Starts the manual ability functionality
         _manualCoroutine = StartCoroutine(ManualProcess());
-
+        StartCoroutine(WeaponVFXSpawnProcess());
         StartCoroutine(ManualAccelerationAndDeceleration());
     }
 
@@ -102,6 +110,8 @@ public class SH_Fae : SpecificHeroFramework
     /// <returns></returns>
     private IEnumerator ManualProcess()
     {
+        _manualActive = true;
+
         //Starts by stopping the pathfinding so that they aren't being moved by multiple sources
         _myHeroBase.GetPathfinding().StopAbilityToMove();
 
@@ -129,6 +139,8 @@ public class SH_Fae : SpecificHeroFramework
         _myHeroBase.GetPathfinding().DirectNavigationTo(_environmentManager.GetClosestPointToFloor(transform.position));
 
         DecreaseBasicAttackSpeedOnManualEnd();
+
+        _manualActive = false;
     }
 
     private IEnumerator ManualAccelerationAndDeceleration()
@@ -150,6 +162,28 @@ public class SH_Fae : SpecificHeroFramework
         }
         _currentAccelerationMultiplier = 0;
 
+    }
+
+    private IEnumerator WeaponVFXSpawnProcess()
+    {
+
+        while (_manualActive)
+        {
+            GameObject newestWeaponVFX = Instantiate(_vfxWeapon, _vfxWeaponSpawnPoint.transform);
+
+            Destroy(newestWeaponVFX, _vfxWeaponDuration);
+
+            Vector3 randomEulerRotation = new Vector3(Random.Range(-_vfxWeaponSpawnEulers.x, _vfxWeaponSpawnEulers.x),
+                Random.Range(-_vfxWeaponSpawnEulers.y, _vfxWeaponSpawnEulers.y),
+                Random.Range(-_vfxWeaponSpawnEulers.z, _vfxWeaponSpawnEulers.z));
+
+            //newestWeaponVFX.transform.rotation = Random.rotation;
+            newestWeaponVFX.transform.eulerAngles = randomEulerRotation;
+
+            newestWeaponVFX.transform.position += newestWeaponVFX.transform.forward * _vfxWeaponSpawnDistance;
+
+            yield return new WaitForSeconds(_vfxWeaponSpawnRate);
+        }
     }
 
     /// <summary>
