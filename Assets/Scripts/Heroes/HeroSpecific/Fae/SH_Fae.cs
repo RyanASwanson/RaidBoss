@@ -129,8 +129,6 @@ public class SH_Fae : SpecificHeroFramework
         _myHeroBase.GetPathfinding().DirectNavigationTo(_environmentManager.GetClosestPointToFloor(transform.position));
 
         DecreaseBasicAttackSpeedOnManualEnd();
-
-        print("end1");
     }
 
     private IEnumerator ManualAccelerationAndDeceleration()
@@ -151,8 +149,6 @@ public class SH_Fae : SpecificHeroFramework
             yield return null;
         }
         _currentAccelerationMultiplier = 0;
-
-        print("end2");
 
     }
 
