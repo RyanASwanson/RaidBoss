@@ -24,9 +24,12 @@ public class SH_Fae : SpecificHeroFramework
     [SerializeField] private Vector3 _manualWallExtents;
 
     [Space]
+    [SerializeField] private GameObject _swirlVFX;
+
     [SerializeField] private float _vfxWeaponSpawnRate;
     [SerializeField] private float _vfxWeaponDuration;
     [SerializeField] private float _vfxWeaponSpawnDistance;
+    [SerializeField] private float _vfxWeaponDelay;
     [SerializeField] private Vector3 _vfxWeaponSpawnEulers;
     [SerializeField] private GameObject _vfxWeapon;
     [SerializeField] private Transform _vfxWeaponSpawnPoint;
@@ -97,6 +100,8 @@ public class SH_Fae : SpecificHeroFramework
         //Makes sure there is no y value then normalizes
         _currentManualDirection = new Vector3(_currentManualDirection.x, 0, _currentManualDirection.z).normalized;
 
+        CreateSwirlVFX();
+
         //Starts the manual ability functionality
         _manualCoroutine = StartCoroutine(ManualProcess());
         StartCoroutine(WeaponVFXSpawnProcess());
@@ -164,8 +169,14 @@ public class SH_Fae : SpecificHeroFramework
 
     }
 
+    private void CreateSwirlVFX()
+    {
+        Instantiate(_swirlVFX, _vfxWeaponSpawnPoint.transform);
+    }
+
     private IEnumerator WeaponVFXSpawnProcess()
     {
+        yield return new WaitForSeconds(_vfxWeaponDelay);
 
         while (_manualActive)
         {
