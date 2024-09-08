@@ -57,6 +57,7 @@ public class SelectionManager : BaseUniversalManager
 
     private UnityEvent<BossSO> _bossSelectionEvent = new UnityEvent<BossSO>();
     private UnityEvent<BossSO> _bossDeselectionEvent = new UnityEvent<BossSO>();
+    private UnityEvent<BossSO> _bossSwapEvent = new UnityEvent<BossSO>();
     private UnityEvent<BossSO> _bossHoveredOverEvent = new UnityEvent<BossSO>();
     private UnityEvent<BossSO> _bossNotHoveredOverEvent = new UnityEvent<BossSO>();
 
@@ -184,6 +185,11 @@ public class SelectionManager : BaseUniversalManager
     {
         _bossDeselectionEvent?.Invoke(bossSO);
     }
+    public void InvokeBossSwapEvent(BossSO previousBoss)
+    {
+        _bossSwapEvent?.Invoke(previousBoss);
+    }
+
     public void InvokeBossHoveredOverEvent(BossSO bossSO)
     {
         _bossHoveredOverEvent?.Invoke(bossSO);
@@ -243,6 +249,7 @@ public class SelectionManager : BaseUniversalManager
 
     public UnityEvent<BossSO> GetBossSelectionEvent() => _bossSelectionEvent;
     public UnityEvent<BossSO> GetBossDeselectionEvent() => _bossDeselectionEvent;
+    public UnityEvent<BossSO> GetBossSwapEvent() => _bossSwapEvent;
     public UnityEvent<BossSO> GetBossHoveredOverEvent() => _bossHoveredOverEvent;
     public UnityEvent<BossSO> GetBossNotHoveredOverEvent() => _bossNotHoveredOverEvent;
 
@@ -258,7 +265,11 @@ public class SelectionManager : BaseUniversalManager
     #region Setters
     public void SetSelectedBoss(BossSO bossSO)
     {
-        if (AtMaxBossSelected()) return;
+        if (AtMaxBossSelected())
+        {
+            InvokeBossSwapEvent(_selectedBoss);
+        }
+        
 
         _selectedBoss = bossSO;
 

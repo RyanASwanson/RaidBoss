@@ -8,6 +8,8 @@ public class SelectionController : MonoBehaviour
     [Header("Boss")]
     [SerializeField] private BossPillar _bossPillar;
 
+    [SerializeField] private List<SelectBossLevelButton> _bossLevelSelectionButtons;
+
     [Space]
     [Header("Center")]
     [Header("Center-Boss")]
@@ -122,6 +124,7 @@ public class SelectionController : MonoBehaviour
         _bossPillar.ShowBossOnPillar(bossSO, false);
 
         CheckMaxCharactersSelected();
+
     }
 
     private void BossRemoved(BossSO bossSO)
@@ -129,6 +132,17 @@ public class SelectionController : MonoBehaviour
         _bossPillar.RemoveBossOnPillar();
 
         CheckMaxCharactersNoLongerSelected();
+    }
+
+    private void SwapBoss(BossSO previousBoss)
+    {
+        //Removes the previous boss
+        foreach (SelectBossLevelButton bossButton in _bossLevelSelectionButtons)
+        {
+            if(bossButton.GetAssociatedBoss() == previousBoss)
+                bossButton.SelectBossLevelButtonPressed();
+
+        }
     }
     #endregion
 
@@ -143,7 +157,8 @@ public class SelectionController : MonoBehaviour
 
     private void BossHoveredOver(BossSO bossSO)
     {
-        if (bossSO == _lastBossHoveredOver ||_selectionManager.AtMaxBossSelected()) return;
+        //if (bossSO == _lastBossHoveredOver ||_selectionManager.AtMaxBossSelected()) return;
+        if (bossSO == _lastBossHoveredOver) return;
 
         _lastHeroHoveredOver = null;
         _lastBossHoveredOver = bossSO;
@@ -172,11 +187,18 @@ public class SelectionController : MonoBehaviour
 
     private void BossNotHoveredOver(BossSO bossSO)
     {
-        if (_selectionManager.AtMaxBossSelected()) return;
+        //if (_selectionManager.AtMaxBossSelected()) return;
 
-        _bossPillar.AnimateOutBossOnPillar();
+        if (bossSO != _selectionManager.GetSelectedBoss())
+        {
+            _bossPillar.AnimateOutBossOnPillar();
+            _lastBossHoveredOver = _selectionManager.GetSelectedBoss();
+            BossHoveredOver(_selectionManager.GetSelectedBoss());
+            return;
+        }
 
         _lastBossHoveredOver = null;
+
     }
 
 
@@ -682,6 +704,8 @@ public class SelectionController : MonoBehaviour
     {
         _selectionManager.GetBossSelectionEvent().AddListener(NewBossAdded);
         _selectionManager.GetBossDeselectionEvent().AddListener(BossRemoved);
+
+        _selectionManager.GetBossSwapEvent().AddListener(SwapBoss);
 
         _selectionManager.GetBossHoveredOverEvent().AddListener(BossHoveredOver);
         _selectionManager.GetBossNotHoveredOverEvent().AddListener(BossNotHoveredOver);

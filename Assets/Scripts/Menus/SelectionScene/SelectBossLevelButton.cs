@@ -53,7 +53,7 @@ public class SelectBossLevelButton : MonoBehaviour
     {
         if (!_buttonHasBeenPressed)
         {
-            if (UniversalManagers.Instance.GetSelectionManager().AtMaxBossSelected()) return;
+            //if (UniversalManagers.Instance.GetSelectionManager().AtMaxBossSelected()) return;
             BossLevelSelect();
         }
         else
@@ -79,8 +79,9 @@ public class SelectBossLevelButton : MonoBehaviour
 
     private void BossLevelSelect()
     {
-        UniversalManagers.Instance.GetSelectionManager().SetSelectedLevel(_associatedLevel);
         UniversalManagers.Instance.GetSelectionManager().SetSelectedBoss(_associatedLevel.GetLevelBoss());
+        UniversalManagers.Instance.GetSelectionManager().SetSelectedLevel(_associatedLevel);
+        
         //UniversalManagers.Instance.GetSelectionManager().AddNewSelectedHero(_associatedHero);
 
         UpdateBossIconColor(_associatedLevel.GetLevelBoss().GetBossSelectedColor());
@@ -88,9 +89,15 @@ public class SelectBossLevelButton : MonoBehaviour
 
     private void BossLevelDeselect()
     {
-        UniversalManagers.Instance.GetSelectionManager().RemoveSelectedLevel();
         UniversalManagers.Instance.GetSelectionManager().RemoveSelectedBoss();
+        UniversalManagers.Instance.GetSelectionManager().RemoveSelectedLevel();
+        
 
         UpdateBossIconColor(_defaultColor);
     }
+
+    #region Getters
+    public LevelSO GetAssociatedLevel() => _associatedLevel;
+    public BossSO GetAssociatedBoss() => _associatedLevel.GetLevelBoss();
+    #endregion
 }
