@@ -7,9 +7,6 @@ using UnityEngine;
 /// </summary>
 public class SBA_Scorch : SpecificBossAbilityFramework
 {
-    [Space]
-    [SerializeField] private Vector3 _targetLocation;
-
     [SerializeField] private GameObject _scorch;
     [SerializeField] private GameObject _targetZone;
 
@@ -19,14 +16,14 @@ public class SBA_Scorch : SpecificBossAbilityFramework
 
     protected override void StartShowTargetZone()
     {
-        _currentTargetZones.Add(Instantiate(_targetZone, _targetLocation, Quaternion.identity));
+        _currentTargetZones.Add(Instantiate(_targetZone, _specificAreaTarget, Quaternion.identity));
         base.StartShowTargetZone();
     }
 
 
     protected override void AbilityStart()
     {
-        Instantiate(_scorch, _targetLocation, Quaternion.identity);
+        Instantiate(_scorch, _specificAreaTarget, Quaternion.identity);
 
         base.AbilityStart();
     }

@@ -250,15 +250,16 @@ public abstract class SpecificBossFramework : MonoBehaviour
 
     protected virtual IEnumerator UseNextAttackProcess(SpecificBossAbilityFramework currentAbility)
     {
-        //Determines the hero to attack
-        HeroBase newTarget = DetermineAggroTarget();
+        HeroBase newTarget;
+        //Determines where the boss is targetting based on the abilities target method
+        Vector3 targetLocation = DetermineBossTargetLocation(currentAbility, out newTarget);
 
         //Causes the boss to turn to look at the current location of their target
-        _myBossBase.GetBossVisuals().BossLookAt(newTarget.transform.position);
+        _myBossBase.GetBossVisuals().BossLookAt(targetLocation);
 
         //Uses the current ability
-        currentAbility.ActivateAbility(
-            ClosestFloorSpaceOfHeroTarget(newTarget), newTarget);
+        currentAbility.ActivateAbility(targetLocation, newTarget);
+
 
         _myBossBase.InvokeBossAbilityUsedEvent();
 
@@ -269,6 +270,24 @@ public abstract class SpecificBossFramework : MonoBehaviour
 
         //Uses the next ability to repeat the cycle
         StartNextAbility();
+    }
+
+    protected virtual Vector3 DetermineBossTargetLocation(SpecificBossAbilityFramework currentAbility, out HeroBase targetHero)
+    {
+        targetHero = null;
+
+        switch(currentAbility.GetTargetMethod())
+        {
+            case (BossAbilityTargetMethod._heroTarget):
+                targetHero = DetermineAggroTarget();
+                return ClosestFloorSpaceOfTarget(targetHero.gameObject);
+            case (BossAbilityTargetMethod._specificHeroTarget):
+
+            case (BossAbilityTargetMethod._specificAreaTarget):
+                return currentAbility.GetSpecificLookTarget();
+        }
+
+        return Vector3.zero;
     }
 
     /// <summary>
@@ -356,9 +375,9 @@ public abstract class SpecificBossFramework : MonoBehaviour
     #endregion
 
     #region Getters
-    public Vector3 ClosestFloorSpaceOfHeroTarget(HeroBase heroBase) =>
+    public Vector3 ClosestFloorSpaceOfTarget(GameObject target) =>
         GameplayManagers.Instance.GetEnvironmentManager().
-        GetClosestPointToFloor(heroBase.gameObject.transform.position);
+        GetClosestPointToFloor(target.transform.position);
 
     public GameObject GetBossVisualBase() => _bossVisualsBase;
 

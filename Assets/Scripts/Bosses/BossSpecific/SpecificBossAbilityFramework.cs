@@ -7,7 +7,11 @@ using UnityEngine;
 /// </summary>
 public abstract class SpecificBossAbilityFramework : MonoBehaviour
 {
-    [SerializeField] private bool _isTargeted;
+    [SerializeField] protected BossAbilityTargetMethod _targetMethod;
+
+    [Space]
+    [SerializeField] protected Vector3 _specificAreaTarget;
+    [SerializeField] protected Vector3 _specificLookTarget;
     [Space]
 
     [SerializeField] protected float _timeUntilNextAbility;
@@ -139,11 +143,31 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// Provides the target for an ability with a specific hero target
+    /// </summary>
+    /// <returns></returns>
+    protected virtual HeroBase GetSpecificHeroTarget()
+    {
+        return null;
+    }
+
+
     #region Getters
-    public bool GetIsTargeted() => _isTargeted;
+    public BossAbilityTargetMethod GetTargetMethod() => _targetMethod;
+    public Vector3 GetSpecificAreaTarget() => _specificAreaTarget;
+    public Vector3 GetSpecificLookTarget() => _specificLookTarget;
 
     public float GetTimeUntilNextAbility() => _timeUntilNextAbility;
     public float GetAbilityWindUpTime() => _abilityWindUpTime;
 
     #endregion
 }
+
+public enum BossAbilityTargetMethod
+{
+    _heroTarget,
+    _specificHeroTarget,
+    _specificAreaTarget,
+    
+};

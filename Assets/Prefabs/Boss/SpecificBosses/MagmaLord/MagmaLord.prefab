@@ -94,7 +94,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd801e819b281f9469c7a37e07610830, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isTargeted: 1
+  _targetMethod: 0
+  _specificAreaTarget: {x: 0, y: 0, z: 0}
+  _specificLookTarget: {x: 0, y: 0, z: 0}
   _timeUntilNextAbility: 7
   _targetZoneDuration: 3
   _abilityWindUpTime: 3
@@ -115,7 +117,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd3fea178f77d9148808259f6405f521, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isTargeted: 1
+  _targetMethod: 0
+  _specificAreaTarget: {x: 0, y: 0, z: 0}
+  _specificLookTarget: {x: 0, y: 0, z: 0}
   _timeUntilNextAbility: 7
   _targetZoneDuration: 3
   _abilityWindUpTime: 3
@@ -134,12 +138,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd43f85232f7360429a752b231728aae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isTargeted: 0
+  _targetMethod: 2
+  _specificAreaTarget: {x: 0, y: 0, z: 0}
+  _specificLookTarget: {x: 0, y: 0, z: -1}
   _timeUntilNextAbility: 7
   _targetZoneDuration: 3
   _abilityWindUpTime: 3
   _animationTriggerName: MagmaBlastAbility
-  _targetLocation: {x: 0, y: -0.75, z: 0}
   _lavaBlast: {fileID: 8404173106920906590, guid: f6f5c4b3853e51f499d7730b805b7c20, type: 3}
   _targetZone: {fileID: 169363956474427008, guid: e270951fa36051a4382b71d47853c6b5, type: 3}
   _failedVFX: {fileID: 1009709570266169288, guid: 7c4bf28e86ad5a64184f4b85007a7c50, type: 3}
@@ -155,12 +160,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f072c9eb47c8cac4ba8205fda5d98e11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isTargeted: 0
+  _targetMethod: 2
+  _specificAreaTarget: {x: 0, y: 0, z: 0}
+  _specificLookTarget: {x: 0, y: 0, z: -1}
   _timeUntilNextAbility: 7
   _targetZoneDuration: 3
   _abilityWindUpTime: 3
   _animationTriggerName: ScorchAbility
-  _targetLocation: {x: 0, y: -0.75, z: 0}
   _scorch: {fileID: 258438868437321791, guid: 26efc0bc94ce70b45862102c75d83a4e, type: 3}
   _targetZone: {fileID: 2799529881703815393, guid: f90289cd0f8e9c744955fdad85fb3c34, type: 3}
 --- !u!114 &4065764590218907969
@@ -175,7 +181,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a998c50a55e167345b34b75c8f2b9427, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isTargeted: 0
+  _targetMethod: 1
+  _specificAreaTarget: {x: 0, y: 0, z: 0}
+  _specificLookTarget: {x: 0, y: 0, z: -1}
   _timeUntilNextAbility: 7
   _targetZoneDuration: 4
   _abilityWindUpTime: 4

@@ -9,9 +9,6 @@ using UnityEngine;
 /// </summary>
 public class SBA_LavaBlast : SpecificBossAbilityFramework
 {
-    [Space]
-    [SerializeField] private Vector3 _targetLocation;
-
     [SerializeField] private GameObject _lavaBlast;
     [SerializeField] private GameObject _targetZone;
 
@@ -34,7 +31,7 @@ public class SBA_LavaBlast : SpecificBossAbilityFramework
     /// </summary>
     private void AbilityFailed()
     {
-        Instantiate(_failedVFX, _targetLocation, Quaternion.identity);
+        Instantiate(_failedVFX, _specificAreaTarget, Quaternion.identity);
     }
 
     #region Base Ability
@@ -44,7 +41,7 @@ public class SBA_LavaBlast : SpecificBossAbilityFramework
     /// </summary>
     protected override void StartShowTargetZone()
     {
-        GameObject newTargetZone = Instantiate(_targetZone, _targetLocation, Quaternion.identity);
+        GameObject newTargetZone = Instantiate(_targetZone, _specificAreaTarget, Quaternion.identity);
 
         _storedSafeZones.Enqueue(newTargetZone);
 
@@ -65,7 +62,7 @@ public class SBA_LavaBlast : SpecificBossAbilityFramework
         }
 
         //Spawn the damage zone
-        Instantiate(_lavaBlast, _targetLocation, Quaternion.identity);
+        Instantiate(_lavaBlast, _specificAreaTarget, Quaternion.identity);
 
         base.AbilityStart();
     }

@@ -116,6 +116,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2732601470398858852}
+  - component: {fileID: 5368276106232048624}
   m_Layer: 0
   m_Name: AttackFunctionality
   m_TagString: Untagged
@@ -138,6 +139,23 @@ Transform:
   m_Father: {fileID: 1438817367525158933}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5368276106232048624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8936730800719072827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 264d97c5ca52f6b40922a27d3ddf3ca4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isTargeted: 0
+  _timeUntilNextAbility: 0
+  _targetZoneDuration: 0
+  _abilityWindUpTime: 0
+  _animationTriggerName: 
 --- !u!1 &9073296549791956801
 GameObject:
   m_ObjectHideFlags: 0
