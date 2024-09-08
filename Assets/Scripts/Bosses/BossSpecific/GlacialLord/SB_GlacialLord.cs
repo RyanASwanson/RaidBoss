@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SB_GlacialLord : SpecificBossFramework
 {
+    [Space]
+    [Header("Ice Crown")]
     [SerializeField] private Vector3 _iceCrownSpawnLocation;
     [SerializeField] private GameObject _iceCrown;
 

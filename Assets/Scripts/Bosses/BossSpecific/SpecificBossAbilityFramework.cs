@@ -14,9 +14,10 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     [SerializeField] protected Vector3 _specificLookTarget;
     [Space]
 
-    [SerializeField] protected float _timeUntilNextAbility;
+    
     [SerializeField] protected float _targetZoneDuration;
     [SerializeField] protected float _abilityWindUpTime;
+    [SerializeField] protected float _timeUntilNextAbility;
 
     [Space]
     [SerializeField] protected string _animationTriggerName;

@@ -101,12 +101,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba65d028ddbdb6141baff32c22148d45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startingBossAbilities: []
-  _attackRepititionProtection: 2
+  _startingBossAbilities:
+  - {fileID: 5368276106232048624}
+  - {fileID: 6294826675874211549}
+  _attackRepititionProtection: 0
   _abilityLocked: {fileID: 0}
   _bossVisualsBase: {fileID: 4023705979124066978}
   _bossSpecificUI: {fileID: 0}
   _bossSpecificAnimator: {fileID: 6853814535601210447}
+  _iceCrownSpawnLocation: {x: 0, y: 0, z: -1}
+  _iceCrown: {fileID: 4862057392577835483, guid: 4d1f94ebcaea3ac4e8e3281c5b4ee262, type: 3}
 --- !u!1 &8936730800719072827
 GameObject:
   m_ObjectHideFlags: 0
@@ -117,6 +121,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2732601470398858852}
   - component: {fileID: 5368276106232048624}
+  - component: {fileID: 6294826675874211549}
   m_Layer: 0
   m_Name: AttackFunctionality
   m_TagString: Untagged
@@ -151,10 +156,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 264d97c5ca52f6b40922a27d3ddf3ca4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isTargeted: 0
-  _timeUntilNextAbility: 0
-  _targetZoneDuration: 0
-  _abilityWindUpTime: 0
+  _targetMethod: 0
+  _specificAreaTarget: {x: 0, y: 0, z: 0}
+  _specificLookTarget: {x: 0, y: 0, z: 0}
+  _targetZoneDuration: 4
+  _abilityWindUpTime: 4
+  _timeUntilNextAbility: 5
+  _animationTriggerName: 
+--- !u!114 &6294826675874211549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8936730800719072827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 264d97c5ca52f6b40922a27d3ddf3ca4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _targetMethod: 0
+  _specificAreaTarget: {x: 0, y: 0, z: 0}
+  _specificLookTarget: {x: 0, y: 0, z: 0}
+  _targetZoneDuration: 4
+  _abilityWindUpTime: 4
+  _timeUntilNextAbility: 5
   _animationTriggerName: 
 --- !u!1 &9073296549791956801
 GameObject:
