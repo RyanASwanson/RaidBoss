@@ -10,6 +10,7 @@ using UnityEngine;
 public class SBA_LavaBlast : SpecificBossAbilityFramework
 {
     [SerializeField] private GameObject _lavaBlast;
+    [SerializeField] private GameObject _safeZone;
     [SerializeField] private GameObject _targetZone;
 
     [SerializeField] private GameObject _failedVFX;
@@ -41,10 +42,12 @@ public class SBA_LavaBlast : SpecificBossAbilityFramework
     /// </summary>
     protected override void StartShowTargetZone()
     {
+        GameObject newSafeZone = Instantiate(_safeZone, _specificAreaTarget, Quaternion.identity);
         GameObject newTargetZone = Instantiate(_targetZone, _specificAreaTarget, Quaternion.identity);
 
-        _storedSafeZones.Enqueue(newTargetZone);
+        _storedSafeZones.Enqueue(newSafeZone);
 
+        _currentTargetZones.Add(newSafeZone);
         _currentTargetZones.Add(newTargetZone);
 
         base.StartShowTargetZone();
