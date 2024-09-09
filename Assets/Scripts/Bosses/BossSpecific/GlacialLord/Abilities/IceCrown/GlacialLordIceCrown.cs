@@ -10,14 +10,16 @@ public class GlacialLordIceCrown : MonoBehaviour
 
     private HeroBase _heroOwner;
 
+    private EnvironmentManager _environmentManager;
+
     public void Setup()
     {
 
+        _environmentManager = GameplayManagers.Instance.GetEnvironmentManager();
     }
 
     private void HeroPickUpCrown(HeroBase newOwner)
     {
-        print("pickup");
         _heroOwner = newOwner;
 
         StartCoroutine(FollowOwner());
@@ -51,4 +53,13 @@ public class GlacialLordIceCrown : MonoBehaviour
     {
         return collision.gameObject.CompareTag(TagStringData.GetHeroHitboxTagName());
     }
+
+
+    #region Getters
+    public bool DoesCrownHaveOwner() => _heroOwner != null;
+
+    public HeroBase GetCrownHeroOwner() => _heroOwner;
+
+    public Vector3 GetClosestCrownLocationToFloor() => _environmentManager.GetClosestPointToFloor(transform.position);
+    #endregion
 }
