@@ -20,6 +20,12 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     [SerializeField] protected float _timeUntilNextAbility;
 
     [Space]
+    [SerializeField] protected bool _hasScreenShake;
+    [SerializeField] protected float _screenShakeIntensity;
+    [SerializeField] protected float _screenShakeFrequency;
+    [SerializeField] protected float _screenShakeDuration;
+
+    [Space]
     [SerializeField] protected string _animationTriggerName;
 
     protected List<GameObject> _currentTargetZones = new List<GameObject>();
@@ -140,7 +146,20 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     /// </summary>
     protected virtual void AbilityStart()
     {
-        
+        ScreenShakeCheck();
+    }
+
+
+    protected virtual void ScreenShakeCheck()
+    {
+        if (_hasScreenShake)
+            AbilityScreenShake();
+    }
+
+    protected virtual void AbilityScreenShake()
+    {
+        GameplayManagers.Instance.GetCameraManager().StartCameraShake
+            (_screenShakeIntensity, _screenShakeFrequency, _screenShakeDuration);
     }
 
 
@@ -168,6 +187,7 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
 public enum BossAbilityTargetMethod
 {
     _heroTarget,
+    _heroTargetWithIgnore,
     _specificHeroTarget,
     _specificAreaTarget,
     

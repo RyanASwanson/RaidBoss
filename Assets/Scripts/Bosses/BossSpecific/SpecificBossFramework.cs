@@ -105,11 +105,34 @@ public abstract class SpecificBossFramework : MonoBehaviour
     /// <returns></returns>
     public virtual HeroBase DetermineAggroTarget()
     {
-        //If there is no aggro override just check the current living heroes
+        /*//If there is no aggro override just check the current living heroes
         if (_aggroOverrides.Count < 1)
-            return DetermineAggroFromList(_bossAttackTargets);
+            return DetermineAggroFromHeroes(_bossAttackTargets);
         //If there are aggro overrides just check them
-        return DetermineAggroFromList(_aggroOverrides);
+        return DetermineAggroFromHeroes(_aggroOverrides);*/
+        return DetermineAggroTargetFromLists(_bossAttackTargets, _aggroOverrides);
+    }
+
+    public virtual HeroBase DetermineAggroTargetWithoutHero(HeroBase removeHero)
+    {
+        List<HeroBase> newBossAttackTargets = new List<HeroBase>(_bossAttackTargets);
+        List<HeroBase> newAggroOverrides = new List<HeroBase>(_aggroOverrides);
+
+        newBossAttackTargets.Remove(removeHero);
+        newAggroOverrides?.Remove(removeHero);
+
+
+        return DetermineAggroTargetFromLists(newBossAttackTargets, newAggroOverrides);
+    }
+
+
+    public virtual HeroBase DetermineAggroTargetFromLists(List<HeroBase> attackTargets, List<HeroBase> overrideTargets)
+    {
+        //If there is no aggro override just check the current living heroes
+        if (overrideTargets.Count < 1)
+            return DetermineAggroFromHeroes(attackTargets);
+        //If there are aggro overrides just check them
+        return DetermineAggroFromHeroes(overrideTargets);
     }
 
     /// <summary>
@@ -117,7 +140,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
     /// </summary>
     /// <param name="aggroTargetBases"></param>
     /// <returns></returns>
-    public virtual HeroBase DetermineAggroFromList(List<HeroBase> aggroTargetBases)
+    public virtual HeroBase DetermineAggroFromHeroes(List<HeroBase> aggroTargetBases)
     {
         //Adds the aggro of all living heroes to a total value
         float totalAggroWeight = 0;
@@ -281,6 +304,8 @@ public abstract class SpecificBossFramework : MonoBehaviour
             case (BossAbilityTargetMethod._heroTarget):
                 targetHero = DetermineAggroTarget();
                 return ClosestFloorSpaceOfTarget(targetHero.gameObject);
+            case (BossAbilityTargetMethod._heroTargetWithIgnore):
+
             case (BossAbilityTargetMethod._specificHeroTarget):
 
             case (BossAbilityTargetMethod._specificAreaTarget):
