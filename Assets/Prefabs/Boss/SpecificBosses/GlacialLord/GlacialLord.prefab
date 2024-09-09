@@ -111,6 +111,8 @@ MonoBehaviour:
   _bossSpecificAnimator: {fileID: 6853814535601210447}
   _iceCrownSpawnLocation: {x: 0, y: -0.5, z: -1.5}
   _iceCrown: {fileID: 4862057392577835483, guid: 4d1f94ebcaea3ac4e8e3281c5b4ee262, type: 3}
+  _passiveAttack: {fileID: 2769744358176553590, guid: c48cc88c0217ac74b9a6ecfd63dd2f61, type: 3}
+  _passiveAttackTargetZone: {fileID: 0}
 --- !u!1 &8936730800719072827
 GameObject:
   m_ObjectHideFlags: 0
@@ -162,6 +164,10 @@ MonoBehaviour:
   _targetZoneDuration: 4
   _abilityWindUpTime: 4
   _timeUntilNextAbility: 5
+  _hasScreenShake: 0
+  _screenShakeIntensity: 0
+  _screenShakeFrequency: 0
+  _screenShakeDuration: 0
   _animationTriggerName: 
 --- !u!114 &6294826675874211549
 MonoBehaviour:
@@ -181,6 +187,10 @@ MonoBehaviour:
   _targetZoneDuration: 4
   _abilityWindUpTime: 4
   _timeUntilNextAbility: 5
+  _hasScreenShake: 0
+  _screenShakeIntensity: 0
+  _screenShakeFrequency: 0
+  _screenShakeDuration: 0
   _animationTriggerName: 
 --- !u!1 &9073296549791956801
 GameObject:

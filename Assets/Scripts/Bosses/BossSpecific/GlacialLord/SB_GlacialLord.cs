@@ -11,10 +11,6 @@ public class SB_GlacialLord : SpecificBossFramework
 
     private GlacialLordIceCrown _currentIceCrown;
 
-    [Header("Passive Attack (Name Pending)")]
-    [SerializeField] private GameObject _passiveAttack;
-    [SerializeField] private GameObject _passiveAttackTargetZone;
-
     protected override void StartFight()
     {
         CreateIceCrown();
@@ -34,6 +30,25 @@ public class SB_GlacialLord : SpecificBossFramework
 
     #region Passive Attack (NAME PENDING)
     
+/*    private void TempSpawnAttack()
+    {
+        _currentPassiveAttack = Instantiate(_passiveAttack, transform.position, Quaternion.identity);
+
+        StartCoroutine(TempLookAt());
+    }
+
+    private IEnumerator TempLookAt()
+    {
+        while(true)
+        {
+            *//*Vector3 lookLocation = CrownLocationClosestToFloor();
+            lookLocation = new Vector3(-lookLocation.x, lookLocation.y, -lookLocation.z);*//*
+            _currentPassiveAttack.transform.LookAt(CrownLocationClosestToFloor());
+            _currentPassiveAttack.transform.eulerAngles = new Vector3(0, _currentPassiveAttack.transform.eulerAngles.y, 0);
+            yield return null;
+        }
+        
+    }*/
     #endregion
 
 

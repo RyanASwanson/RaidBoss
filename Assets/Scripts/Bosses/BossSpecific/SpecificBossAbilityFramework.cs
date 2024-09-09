@@ -162,6 +162,14 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
             (_screenShakeIntensity, _screenShakeFrequency, _screenShakeDuration);
     }
 
+    /// <summary>
+    /// Provides the target for an ability with a hero target with an ignore
+    /// </summary>
+    /// <returns></returns>
+    protected virtual HeroBase GetIgnoreHeroTarget()
+    {
+        return null;
+    }
 
     /// <summary>
     /// Provides the target for an ability with a specific hero target
