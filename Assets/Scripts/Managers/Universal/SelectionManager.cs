@@ -51,6 +51,7 @@ public class SelectionManager : BaseUniversalManager
     private List<HeroSO> _selectedHeroes = new List<HeroSO>();
     private int _previousMaxHeroes = 3;
     private const int _maxHeroes = 5;
+    private int _indexOfLastRemovedHero;
 
     private GameDifficulty _currentGameDifficulty = GameDifficulty.Normal;
 
@@ -65,6 +66,7 @@ public class SelectionManager : BaseUniversalManager
 
     private UnityEvent<HeroSO> _heroSelectionEvent = new UnityEvent<HeroSO>();
     private UnityEvent<HeroSO> _heroDeselectionEvent = new UnityEvent<HeroSO>();
+    private UnityEvent<HeroSO> _heroSwapEvent = new UnityEvent<HeroSO>();
     private UnityEvent<HeroSO> _heroHoveredOverEvent = new UnityEvent<HeroSO>();
     private UnityEvent<HeroSO> _heroNotHoveredOverEvent = new UnityEvent<HeroSO>();
 
@@ -118,7 +120,10 @@ public class SelectionManager : BaseUniversalManager
     /// <param name="newHeroSO"></param>
     public void AddNewSelectedHero(HeroSO newHeroSO)
     {
-        if (AtMaxHeroesSelected()) return;
+        if (AtMaxHeroesSelected())
+        {
+            InvokeHeroSwapEvent(_selectedHeroes[GetMaxHeroesCount()-1]);
+        }
 
         _selectedHeroes.Add(newHeroSO);
         InvokeHeroSelectionEvent(newHeroSO);
@@ -134,6 +139,8 @@ public class SelectionManager : BaseUniversalManager
     {
         if (!_selectedHeroes.Contains(removingHero))
             return;
+
+        _indexOfLastRemovedHero = _selectedHeroes.IndexOf(removingHero);
 
         _selectedHeroes.Remove(removingHero);
         InvokeHeroDeselectionEvent(removingHero);
@@ -213,6 +220,10 @@ public class SelectionManager : BaseUniversalManager
     {
         _heroDeselectionEvent?.Invoke(heroSO);
     }
+    public void InvokeHeroSwapEvent(HeroSO previousHero)
+    {
+        _heroSwapEvent?.Invoke(previousHero);
+    }
 
     public void InvokeHeroHoveredOverEvent(HeroSO heroSO)
     {
@@ -239,10 +250,13 @@ public class SelectionManager : BaseUniversalManager
 
     public List<HeroSO> GetAllSelectedHeroes() => _selectedHeroes;
     public HeroSO GetHeroAtValue(int val) => _selectedHeroes[val];
+    public HeroSO GetHeroAtLastPostion() => GetHeroAtValue(GetSelectedHeroesCount() - 1);
     public int GetSelectedHeroesCount() => _selectedHeroes.Count;
     //public int GetMaxHeroesCount() => _maxHeroes;
     public int GetMaxHeroesCount() => GetHeroLimitFromDifficulty();
     public bool AtMaxHeroesSelected() => _selectedHeroes.Count >= GetMaxHeroesCount();
+    public int GetIndexOfLastHeroRemoved() => _indexOfLastRemovedHero;
+    
 
     public BossSO GetSelectedBoss() => _selectedBoss;
     public LevelSO GetSelectedLevel() => _selectedLevel;
@@ -258,6 +272,7 @@ public class SelectionManager : BaseUniversalManager
 
     public UnityEvent<HeroSO> GetHeroSelectionEvent() => _heroSelectionEvent;
     public UnityEvent<HeroSO> GetHeroDeselectionEvent() => _heroDeselectionEvent;
+    public UnityEvent<HeroSO> GetHeroSwapEvent() => _heroSwapEvent;
     public UnityEvent<HeroSO> GetHeroHoveredOverEvent() => _heroHoveredOverEvent;
     public UnityEvent<HeroSO> GetHeroNotHoveredOverEvent() => _heroNotHoveredOverEvent;
     #endregion
