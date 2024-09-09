@@ -193,11 +193,12 @@ public class SelectionController : MonoBehaviour
             //Start the animation of removing the boss
             _bossPillar.AnimateOutBossOnPillar();
             //Hover over the selected boss
-            BossHoveredOver(_selectionManager.GetSelectedBoss());
+            if (_selectionManager.AtMaxBossSelected())
+                BossHoveredOver(_selectionManager.GetSelectedBoss());
             return;
         }
 
-        _lastBossHoveredOver = null;
+        //_lastBossHoveredOver = null;
 
     }
 
