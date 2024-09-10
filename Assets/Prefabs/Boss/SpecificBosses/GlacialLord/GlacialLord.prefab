@@ -111,8 +111,6 @@ MonoBehaviour:
   _bossSpecificAnimator: {fileID: 6853814535601210447}
   _iceCrownSpawnLocation: {x: 0, y: -0.5, z: -1.5}
   _iceCrown: {fileID: 4862057392577835483, guid: 4d1f94ebcaea3ac4e8e3281c5b4ee262, type: 3}
-  _passiveAttack: {fileID: 2769744358176553590, guid: c48cc88c0217ac74b9a6ecfd63dd2f61, type: 3}
-  _passiveAttackTargetZone: {fileID: 0}
 --- !u!1 &8936730800719072827
 GameObject:
   m_ObjectHideFlags: 0
@@ -169,6 +167,16 @@ MonoBehaviour:
   _screenShakeFrequency: 0
   _screenShakeDuration: 0
   _animationTriggerName: 
+  _projectileSpeed: 3
+  _targetZone: {fileID: 2769744358176553590, guid: c48cc88c0217ac74b9a6ecfd63dd2f61, type: 3}
+  _shatterProjectile: {fileID: 6668052978544086994, guid: 3623411d4177a5f4ab1e135517db4c97, type: 3}
+  _iceShard: {fileID: 1825673205479245400, guid: 7fd9fbe2afd23684884ae0872378240a, type: 3}
+  _iceCrystalLocations:
+  - {x: 5, y: 0, z: 0}
+  - {x: -5, y: 0, z: 0}
+  - {x: 0, y: 0, z: 5}
+  - {x: 0, y: 0, z: -5}
+  _glacialLord: {fileID: 940798147238340511}
 --- !u!114 &6294826675874211549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,6 +200,16 @@ MonoBehaviour:
   _screenShakeFrequency: 0
   _screenShakeDuration: 0
   _animationTriggerName: 
+  _projectileSpeed: 3
+  _targetZone: {fileID: 2769744358176553590, guid: c48cc88c0217ac74b9a6ecfd63dd2f61, type: 3}
+  _shatterProjectile: {fileID: 6668052978544086994, guid: 3623411d4177a5f4ab1e135517db4c97, type: 3}
+  _iceShard: {fileID: 1825673205479245400, guid: 7fd9fbe2afd23684884ae0872378240a, type: 3}
+  _iceCrystalLocations:
+  - {x: 5, y: 0, z: 0}
+  - {x: -5, y: 0, z: 0}
+  - {x: 0, y: 0, z: 5}
+  - {x: 0, y: 0, z: -5}
+  _glacialLord: {fileID: 940798147238340511}
 --- !u!1 &9073296549791956801
 GameObject:
   m_ObjectHideFlags: 0
