@@ -9888,6 +9888,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5475221931633705528}
   - component: {fileID: 1363074811641175534}
+  - component: {fileID: 1585486842394208373}
   - component: {fileID: 4669301485436307850}
   - component: {fileID: 303021910059902716}
   - component: {fileID: 3792738821635077185}
@@ -9948,6 +9949,19 @@ MonoBehaviour:
   _exitEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1585486842394208373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6668052978544086994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6761040130f9d774bb47b09cd3ed3bc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _projectileSpeed: 3
 --- !u!54 &4669301485436307850
 Rigidbody:
   m_ObjectHideFlags: 0

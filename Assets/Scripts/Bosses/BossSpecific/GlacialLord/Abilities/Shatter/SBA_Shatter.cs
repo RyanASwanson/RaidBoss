@@ -5,9 +5,6 @@ using UnityEngine;
 public class SBA_Shatter : SpecificBossAbilityFramework
 {
     [Space]
-    [SerializeField] private float _projectileSpeed;
-
-    [Space]
     [SerializeField] private GameObject _targetZone;
     [SerializeField] private GameObject _shatterProjectile;
     private GameObject _currentFollowingTargetZone;
@@ -62,18 +59,10 @@ public class SBA_Shatter : SpecificBossAbilityFramework
 
         _currentShatterProjectile.transform.LookAt(_glacialLord.CrownLocationClosestToFloor());
         _currentShatterProjectile.transform.eulerAngles =
-            new Vector3(0, _currentShatterProjectile.transform.eulerAngles.y, 0);
+            new Vector3(0, -_currentShatterProjectile.transform.eulerAngles.y, 0);
 
-        StartCoroutine(MoveProjectile());
+        _currentShatterProjectile.GetComponent<SBP_Shatter>().SetUpProjectile(_myBossBase);
     }
 
-    protected IEnumerator MoveProjectile()
-    {
-
-        while (_currentShatterProjectile != null)
-        {
-            _currentShatterProjectile.transform.position += _currentShatterProjectile.transform.forward * _projectileSpeed * Time.deltaTime ;
-            yield return null;
-        }
-    }
+    
 }
