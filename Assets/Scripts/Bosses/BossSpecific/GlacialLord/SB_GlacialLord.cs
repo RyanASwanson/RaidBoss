@@ -6,16 +6,17 @@ public class SB_GlacialLord : SpecificBossFramework
 {
     [Space]
     [SerializeField] private float _delayBetweenFiendSpawns;
+    [Space]
+    [SerializeField] private float _minionFreezeDuration;
 
     [Space]
     [SerializeField] private GameObject _frostFiend;
     [SerializeField] private List<Vector3> _frostFiendSpawnLocations;
     private List<GlacialLord_FrostFiend> _allFrostFiends = new();
 
-
-    protected override void SetupReadyBossAbilities()
+    public override void SetupSpecificBoss(BossBase bossBase)
     {
-        base.SetupReadyBossAbilities();
+        base.SetupSpecificBoss(bossBase);
         StartCoroutine(SpawnStartingFrostFiends());
     }
 

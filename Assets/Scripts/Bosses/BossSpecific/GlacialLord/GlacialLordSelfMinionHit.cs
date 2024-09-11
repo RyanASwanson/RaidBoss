@@ -4,15 +4,32 @@ using UnityEngine;
 
 public class GlacialLordSelfMinionHit : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private bool _contactOnCollision;
+
+    [Space]
+    [SerializeField] private Vector3 _halfExtents;
+    [SerializeField] private float _detectionDistance;
+
+
+    [SerializeField] private LayerMask _minionLayer;
+
+
+    public bool MinionContactInSquare()
     {
-        
+        if(Physics.BoxCast(transform.position, _halfExtents, transform.forward, out RaycastHit rayHit,
+            Quaternion.identity.normalized, _detectionDistance,  _minionLayer))
+        {
+            rayHit.collider.GetComponentInParent<GlacialLord_FrostFiend>().FreezeMinion();
+
+            return true;
+        }
+
+        return false;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter(Collider collider)
     {
-        
+        if (!_contactOnCollision)
+            return;
     }
 }

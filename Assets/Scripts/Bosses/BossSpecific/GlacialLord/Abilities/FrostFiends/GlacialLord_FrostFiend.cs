@@ -4,15 +4,34 @@ using UnityEngine;
 
 public class GlacialLord_FrostFiend : BossMinionBase
 {
-    // Start is called before the first frame update
-    void Start()
+    private bool _minionFrozen;
+    private float _freezeDuration;
+
+    public void AdditionalSetup()
     {
-        
+
     }
 
-    // Update is called once per frame
-    void Update()
+    public void FreezeMinion()
     {
-        
+        if (_minionFrozen) return;
+
+        _minionFrozen = true;
+        StartCoroutine(FreezeProcess());
     }
+
+    private IEnumerator FreezeProcess()
+    {
+        yield return new WaitForSeconds(_freezeDuration);
+        UnfreezeMinion();
+    }
+
+    private void UnfreezeMinion()
+    {
+        _minionFrozen = false;
+    }
+
+    #region Getters
+    public bool IsMinionFrozen() => _minionFrozen;
+    #endregion
 }

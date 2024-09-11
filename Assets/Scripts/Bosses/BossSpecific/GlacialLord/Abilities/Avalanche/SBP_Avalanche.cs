@@ -38,7 +38,7 @@ public class SBP_Avalanche : BossProjectileFramework
     {
 
         transform.LookAt(lookLocation);
-        transform.eulerAngles = new Vector3(0, -transform.eulerAngles.y, 0);
+        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
     }
 
 
