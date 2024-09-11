@@ -45,7 +45,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
     /// <summary>
     /// Adds the starting abilities into the list of ready attacks
     /// </summary>
-    private void SetupReadyBossAbilities()
+    protected virtual void SetupReadyBossAbilities()
     {
         foreach(SpecificBossAbilityFramework sbaf in _startingBossAbilities)
         {

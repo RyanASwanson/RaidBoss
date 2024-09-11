@@ -12,10 +12,10 @@ public class SB_GlacialLord : SpecificBossFramework
     [SerializeField] private List<Vector3> _frostFiendSpawnLocations;
     private List<GlacialLord_FrostFiend> _allFrostFiends = new();
 
-    protected override void StartFight()
-    {
-        base.StartFight();
 
+    protected override void SetupReadyBossAbilities()
+    {
+        base.SetupReadyBossAbilities();
         StartCoroutine(SpawnStartingFrostFiends());
     }
 

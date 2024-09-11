@@ -15,7 +15,6 @@ public class SBA_MagmaWave : SpecificBossAbilityFramework
     private Vector3 _edgeOfMap;
 
 
-
     #region Base Ability
     protected override void AbilityPrep()
     {
