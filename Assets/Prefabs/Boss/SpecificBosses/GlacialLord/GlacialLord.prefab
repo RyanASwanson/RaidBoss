@@ -102,15 +102,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _startingBossAbilities:
-  - {fileID: 5368276106232048624}
-  - {fileID: 6294826675874211549}
+  - {fileID: 0}
+  - {fileID: 0}
   _attackRepititionProtection: 0
   _abilityLocked: {fileID: 0}
   _bossVisualsBase: {fileID: 4023705979124066978}
   _bossSpecificUI: {fileID: 0}
   _bossSpecificAnimator: {fileID: 6853814535601210447}
-  _iceCrownSpawnLocation: {x: 0, y: -0.5, z: -1.5}
-  _iceCrown: {fileID: 4862057392577835483, guid: 4d1f94ebcaea3ac4e8e3281c5b4ee262, type: 3}
+  _delayBetweenFiendSpawns: 0.2
+  _frostFiend: {fileID: 4319846792845351859, guid: 8be3f146f99a44a40b078f1c62c6a543, type: 3}
+  _frostFiendSpawnLocations:
+  - {x: 5, y: 0, z: 5}
+  - {x: 5, y: 0, z: -5}
+  - {x: -5, y: 0, z: -5}
+  - {x: -5, y: 0, z: 5}
 --- !u!1 &8936730800719072827
 GameObject:
   m_ObjectHideFlags: 0
@@ -120,8 +125,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2732601470398858852}
-  - component: {fileID: 5368276106232048624}
-  - component: {fileID: 6294826675874211549}
   m_Layer: 0
   m_Name: AttackFunctionality
   m_TagString: Untagged
@@ -144,72 +147,6 @@ Transform:
   m_Father: {fileID: 1438817367525158933}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5368276106232048624
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8936730800719072827}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 264d97c5ca52f6b40922a27d3ddf3ca4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _targetMethod: 0
-  _specificAreaTarget: {x: 0, y: 0, z: 0}
-  _specificLookTarget: {x: 0, y: 0, z: 0}
-  _targetZoneDuration: 4
-  _abilityWindUpTime: 4
-  _timeUntilNextAbility: 5
-  _hasScreenShake: 0
-  _screenShakeIntensity: 0
-  _screenShakeFrequency: 0
-  _screenShakeDuration: 0
-  _animationTriggerName: 
-  _projectileSpeed: 3
-  _targetZone: {fileID: 2769744358176553590, guid: c48cc88c0217ac74b9a6ecfd63dd2f61, type: 3}
-  _shatterProjectile: {fileID: 6668052978544086994, guid: 3623411d4177a5f4ab1e135517db4c97, type: 3}
-  _iceShard: {fileID: 1825673205479245400, guid: 7fd9fbe2afd23684884ae0872378240a, type: 3}
-  _iceCrystalLocations:
-  - {x: 5, y: 0, z: 0}
-  - {x: -5, y: 0, z: 0}
-  - {x: 0, y: 0, z: 5}
-  - {x: 0, y: 0, z: -5}
-  _glacialLord: {fileID: 940798147238340511}
---- !u!114 &6294826675874211549
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8936730800719072827}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 264d97c5ca52f6b40922a27d3ddf3ca4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _targetMethod: 0
-  _specificAreaTarget: {x: 0, y: 0, z: 0}
-  _specificLookTarget: {x: 0, y: 0, z: 0}
-  _targetZoneDuration: 4
-  _abilityWindUpTime: 4
-  _timeUntilNextAbility: 5
-  _hasScreenShake: 0
-  _screenShakeIntensity: 0
-  _screenShakeFrequency: 0
-  _screenShakeDuration: 0
-  _animationTriggerName: 
-  _projectileSpeed: 3
-  _targetZone: {fileID: 2769744358176553590, guid: c48cc88c0217ac74b9a6ecfd63dd2f61, type: 3}
-  _shatterProjectile: {fileID: 6668052978544086994, guid: 3623411d4177a5f4ab1e135517db4c97, type: 3}
-  _iceShard: {fileID: 1825673205479245400, guid: 7fd9fbe2afd23684884ae0872378240a, type: 3}
-  _iceCrystalLocations:
-  - {x: 5, y: 0, z: 0}
-  - {x: -5, y: 0, z: 0}
-  - {x: 0, y: 0, z: 5}
-  - {x: 0, y: 0, z: -5}
-  _glacialLord: {fileID: 940798147238340511}
 --- !u!1 &9073296549791956801
 GameObject:
   m_ObjectHideFlags: 0

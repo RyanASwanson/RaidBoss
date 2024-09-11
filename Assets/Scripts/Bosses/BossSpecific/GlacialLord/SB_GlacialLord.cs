@@ -5,71 +5,40 @@ using UnityEngine;
 public class SB_GlacialLord : SpecificBossFramework
 {
     [Space]
-    [Header("Ice Crown")]
-    [SerializeField] private Vector3 _iceCrownSpawnLocation;
-    [SerializeField] private GameObject _iceCrown;
+    [SerializeField] private float _delayBetweenFiendSpawns;
 
-    private GlacialLordIceCrown _currentIceCrown;
+    [Space]
+    [SerializeField] private GameObject _frostFiend;
+    [SerializeField] private List<Vector3> _frostFiendSpawnLocations;
+    private List<GlacialLord_FrostFiend> _allFrostFiends = new();
 
     protected override void StartFight()
     {
-        CreateIceCrown();
         base.StartFight();
+
+        StartCoroutine(SpawnStartingFrostFiends());
     }
 
-    #region Ice Crown
-    private void CreateIceCrown()
+
+    #region Frost Fiends
+    private IEnumerator SpawnStartingFrostFiends()
     {
-        GameObject crown = Instantiate(_iceCrown, _iceCrownSpawnLocation, Quaternion.identity);
-
-        _currentIceCrown = crown.GetComponent<GlacialLordIceCrown>();
-
-        _currentIceCrown.Setup();
-    }
-    #endregion
-
-    #region Passive Attack (NAME PENDING)
-    
-/*    private void TempSpawnAttack()
-    {
-        _currentPassiveAttack = Instantiate(_passiveAttack, transform.position, Quaternion.identity);
-
-        StartCoroutine(TempLookAt());
-    }
-
-    private IEnumerator TempLookAt()
-    {
-        while(true)
+        foreach(Vector3 spawnLocation in _frostFiendSpawnLocations)
         {
-            *//*Vector3 lookLocation = CrownLocationClosestToFloor();
-            lookLocation = new Vector3(-lookLocation.x, lookLocation.y, -lookLocation.z);*//*
-            _currentPassiveAttack.transform.LookAt(CrownLocationClosestToFloor());
-            _currentPassiveAttack.transform.eulerAngles = new Vector3(0, _currentPassiveAttack.transform.eulerAngles.y, 0);
-            yield return null;
+            SpawnFrostFiend(spawnLocation);
+            yield return new WaitForSeconds(_delayBetweenFiendSpawns);
         }
-        
-    }*/
-    #endregion
+    }
 
+    private void SpawnFrostFiend(Vector3 spawnLocation)
+    {
+        GameObject newFiend = Instantiate(_frostFiend, spawnLocation, Quaternion.identity);
+        _allFrostFiends.Add(newFiend.GetComponent<GlacialLord_FrostFiend>());
+    }
+
+    #endregion
 
     #region Getters
-    public Vector3 GetIceCrownDirection()
-    {
-        Vector3 crownPos = _currentIceCrown.transform.position;
-        Vector3 bossPos = transform.position;
-
-        crownPos = new Vector3(crownPos.x, 0, crownPos.z);
-        bossPos = new Vector3(bossPos.x, 0, bossPos.z);
-
-        return (crownPos - bossPos).normalized;
-    }
-
-    public bool DoesIceCrownHaveHeroOwner() =>_currentIceCrown.DoesCrownHaveOwner();
-
-    public HeroBase GetIceCrownHeroOwner() => _currentIceCrown.GetCrownHeroOwner();
-
-
-    public Vector3 CrownLocationClosestToFloor() => _currentIceCrown.GetClosestCrownLocationToFloor();
 
     #endregion
 }
