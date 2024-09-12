@@ -7,8 +7,9 @@ public abstract class BossMinionBase : MonoBehaviour
     private BossBase _myBossBase;
     private SpecificBossFramework _mySpecificBoss;
 
-    public virtual void SetupMinion()
+    public virtual void SetupMinion(BossBase bossBase, SpecificBossFramework specificBoss)
     {
-
+        _myBossBase = bossBase;
+        _mySpecificBoss = specificBoss;
     }
 }

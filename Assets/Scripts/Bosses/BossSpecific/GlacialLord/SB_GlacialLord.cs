@@ -33,7 +33,12 @@ public class SB_GlacialLord : SpecificBossFramework
 
     private void SpawnFrostFiend(Vector3 spawnLocation)
     {
-        GameObject newFiend = Instantiate(_frostFiend, spawnLocation, Quaternion.identity);
+        GlacialLord_FrostFiend newFiend = 
+            Instantiate(_frostFiend, spawnLocation, Quaternion.identity).GetComponent<GlacialLord_FrostFiend>();
+
+        newFiend.SetupMinion(_myBossBase, this);
+        newFiend.AdditionalSetup(_minionFreezeDuration);
+
         _allFrostFiends.Add(newFiend.GetComponent<GlacialLord_FrostFiend>());
     }
 

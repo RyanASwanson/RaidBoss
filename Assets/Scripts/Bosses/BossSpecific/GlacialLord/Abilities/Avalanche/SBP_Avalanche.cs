@@ -6,6 +6,15 @@ public class SBP_Avalanche : BossProjectileFramework
 {
     [SerializeField] private float _projectileSpeed;
 
+    [Space]
+    [SerializeField] private float _wallContactDistance;
+    [SerializeField] private Vector3 _wallContactHalfExtents;
+    [SerializeField] private LayerMask _edgeOfMapLayer;
+
+    [Space]
+    [SerializeField] private GlacialLordSelfMinionHit _minionHit;
+
+
 
     /// <summary>
     /// Makes the projectile look at the target hero and start moving 
@@ -25,6 +34,7 @@ public class SBP_Avalanche : BossProjectileFramework
         while (true)
         {
             transform.position += transform.forward * _projectileSpeed * Time.deltaTime;
+            CheckForEnd();
             yield return null;
         }
 
@@ -39,6 +49,20 @@ public class SBP_Avalanche : BossProjectileFramework
 
         transform.LookAt(lookLocation);
         transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+    }
+
+    private void CheckForEnd()
+    {
+        if(Physics.BoxCast(transform.position,_wallContactHalfExtents,
+            transform.forward,Quaternion.identity,_wallContactDistance,_edgeOfMapLayer))
+        {
+            AtEndOfPath();
+        }
+    }
+
+    private void AtEndOfPath()
+    {
+
     }
 
 
