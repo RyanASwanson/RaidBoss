@@ -75,7 +75,6 @@ public class SBP_Avalanche : BossProjectileFramework
     public override void SetUpProjectile(BossBase bossBase)
     {
         base.SetUpProjectile(bossBase);
-
     }
 
     public void AdditionalSetup(Vector3 lookDirection)

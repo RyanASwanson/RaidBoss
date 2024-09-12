@@ -103,6 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _startingBossAbilities:
   - {fileID: 440319309441542833}
+  - {fileID: 2974168280922480658}
   _attackRepititionProtection: 0
   _abilityLocked: {fileID: 0}
   _bossVisualsBase: {fileID: 4023705979124066978}
@@ -112,10 +113,10 @@ MonoBehaviour:
   _minionFreezeDuration: 16
   _frostFiend: {fileID: 4319846792845351859, guid: 8be3f146f99a44a40b078f1c62c6a543, type: 3}
   _frostFiendSpawnLocations:
-  - {x: 5, y: 0, z: 5}
-  - {x: 5, y: 0, z: -5}
-  - {x: -5, y: 0, z: -5}
-  - {x: -5, y: 0, z: 5}
+  - {x: 4, y: 0, z: 4}
+  - {x: 4, y: 0, z: -4}
+  - {x: -4, y: 0, z: -4}
+  - {x: -4, y: 0, z: 4}
 --- !u!1 &8936730800719072827
 GameObject:
   m_ObjectHideFlags: 0
@@ -197,8 +198,8 @@ MonoBehaviour:
   _screenShakeFrequency: 0
   _screenShakeDuration: 0
   _animationTriggerName: 
-  _targetZone: {fileID: 0}
-  _frostBite: {fileID: 0}
+  _targetZone: {fileID: 2211366326432838849, guid: d36208d6aa1560b419e84a731dd44436, type: 3}
+  _frostBite: {fileID: 1821317826140332785, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
 --- !u!1 &9073296549791956801
 GameObject:
   m_ObjectHideFlags: 0

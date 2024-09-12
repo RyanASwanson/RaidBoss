@@ -49,7 +49,6 @@ public class SBA_Avalanche : SpecificBossAbilityFramework
 
     protected override void AbilityStart()
     {
-        //Spawns the magma wave damage zone
         _storedAvalanche = Instantiate(_avalanche, transform.position, Quaternion.identity);
         //Sets up the projectile
         SBP_Avalanche avalanche = _storedAvalanche.GetComponent<SBP_Avalanche>();

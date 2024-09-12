@@ -24,8 +24,10 @@ public class SBA_Frostbite : SpecificBossAbilityFramework
         {
             if (frostFiend.IsMinionFrozen()) continue;
 
-            GameObject newTargetZone = Instantiate(_targetZone, frostFiend.transform.position,
-                Quaternion.Euler(_bossManager.GetDirectionToBoss(transform.position)));
+            GameObject newTargetZone = Instantiate(_targetZone, frostFiend.transform.position,Quaternion.identity);
+
+            newTargetZone.transform.LookAt(_glacialLord.transform);
+            newTargetZone.transform.eulerAngles = new Vector3(0, newTargetZone.transform.eulerAngles.y, 0);
 
             _currentTargetZones.Add(newTargetZone);
         }    
@@ -33,18 +35,20 @@ public class SBA_Frostbite : SpecificBossAbilityFramework
 
     protected override void AbilityStart()
     {
-        foreach(GameObject targetZone in _currentTargetZones)
+        foreach (GlacialLord_FrostFiend frostFiend in _glacialLord.GetAllFrostFiends())
         {
-            //Spawns the magma wave damage zone
-            GameObject newFrostbite = Instantiate(_frostBite, targetZone.transform.position, targetZone.transform.rotation);
-            //Sets up the projectile
-            /*SBP_Avalanche avalanche = _storedAvalanche.GetComponent<SBP_Avalanche>();
-            avalanche.SetUpProjectile(_myBossBase);
-            avalanche.AdditionalSetup(_storedTarget.transform.position);*/
+            if (frostFiend.IsMinionFrozen()) continue;
+
+            GameObject newFrostbite = Instantiate(_frostBite, frostFiend.transform.position, Quaternion.identity);
+            SBP_Frostbite frostbiteFunc = newFrostbite.GetComponent<SBP_Frostbite>();
+            frostbiteFunc.SetUpProjectile(_myBossBase);
+
+            newFrostbite.transform.LookAt(_glacialLord.transform);
+            newFrostbite.transform.eulerAngles = new Vector3(0, newFrostbite.transform.eulerAngles.y, 0);
         }
-        
 
         base.AbilityStart();
+
     }
 
 }
