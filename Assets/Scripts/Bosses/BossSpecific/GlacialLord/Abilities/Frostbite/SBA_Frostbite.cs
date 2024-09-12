@@ -8,13 +8,11 @@ public class SBA_Frostbite : SpecificBossAbilityFramework
     [SerializeField] private GameObject _frostBite;
 
     private SB_GlacialLord _glacialLord;
-    private BossManager _bossManager;
 
     public override void AbilitySetup(BossBase bossBase)
     {
         base.AbilitySetup(bossBase);
         _glacialLord = (SB_GlacialLord)_mySpecificBoss;
-        _bossManager = GameplayManagers.Instance.GetBossManager();
     }
 
     protected override void StartShowTargetZone()
@@ -25,6 +23,9 @@ public class SBA_Frostbite : SpecificBossAbilityFramework
             if (frostFiend.IsMinionFrozen()) continue;
 
             GameObject newTargetZone = Instantiate(_targetZone, frostFiend.transform.position,Quaternion.identity);
+
+            newTargetZone.transform.position = new Vector3(newTargetZone.transform.position.x,
+                _specificAreaTarget.y, newTargetZone.transform.position.z);
 
             newTargetZone.transform.LookAt(_glacialLord.transform);
             newTargetZone.transform.eulerAngles = new Vector3(0, newTargetZone.transform.eulerAngles.y, 0);
@@ -42,6 +43,9 @@ public class SBA_Frostbite : SpecificBossAbilityFramework
             GameObject newFrostbite = Instantiate(_frostBite, frostFiend.transform.position, Quaternion.identity);
             SBP_Frostbite frostbiteFunc = newFrostbite.GetComponent<SBP_Frostbite>();
             frostbiteFunc.SetUpProjectile(_myBossBase);
+
+            newFrostbite.transform.position = new Vector3(newFrostbite.transform.position.x,
+                _specificAreaTarget.y, newFrostbite.transform.position.z);
 
             newFrostbite.transform.LookAt(_glacialLord.transform);
             newFrostbite.transform.eulerAngles = new Vector3(0, newFrostbite.transform.eulerAngles.y, 0);

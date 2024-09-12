@@ -148,8 +148,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _areaColliders:
   - {fileID: 5904793133596729851}
-  _hasLifetime: 1
-  _lifetime: 1.8
+  _hasLifetime: 0
+  _lifetime: 0
   _hitCenteredVFX: {fileID: 0}
   _lifeTimeEndEvent:
     m_PersistentCalls:
@@ -180,6 +180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _projectileSpeed: 3
+  _distanceThreshold: 1
 --- !u!54 &361273980580521129
 Rigidbody:
   m_ObjectHideFlags: 0

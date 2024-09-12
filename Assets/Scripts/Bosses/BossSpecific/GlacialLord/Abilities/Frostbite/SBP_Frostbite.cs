@@ -6,6 +6,8 @@ public class SBP_Frostbite : BossProjectileFramework
 {
     [SerializeField] private float _projectileSpeed;
 
+    [SerializeField] private float _distanceThreshold;
+
 
     /// <summary>
     /// Makes the projectile move towards the boss
@@ -22,13 +24,29 @@ public class SBP_Frostbite : BossProjectileFramework
     /// <returns></returns>
     private IEnumerator MoveProjectile()
     {
-        print("startmovement");
         while (true)
         {
+            CheckBossDistance();
             transform.position += transform.forward * _projectileSpeed * Time.deltaTime;
             yield return null;
         }
 
+    }
+
+    /// <summary>
+    /// Checks if the projectile is close enough to remove
+    /// </summary>
+    private void CheckBossDistance()
+    {
+        if (Vector3.Distance(transform.position, _myBossBase.transform.position) < _distanceThreshold)
+        {
+            ProjectileReachedEndOfPath();
+        }
+    }
+
+    private void ProjectileReachedEndOfPath()
+    {
+        Destroy(gameObject);
     }
 
 
