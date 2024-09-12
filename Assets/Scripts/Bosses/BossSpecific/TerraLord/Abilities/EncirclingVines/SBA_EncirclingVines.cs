@@ -8,8 +8,8 @@ using UnityEngine;
 public class SBA_EncirclingVines : SpecificBossAbilityFramework
 {
     [Space]
-    [SerializeField] private GameObject _encirclingVines;
     [SerializeField] private GameObject _targetZone;
+    [SerializeField] private GameObject _encirclingVines;
 
     private GameObject _newestTargetZone;
 

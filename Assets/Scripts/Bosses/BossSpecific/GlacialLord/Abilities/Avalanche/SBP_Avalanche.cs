@@ -62,6 +62,7 @@ public class SBP_Avalanche : BossProjectileFramework
 
     private void AtEndOfPath()
     {
+        _minionHit.MinionContactInSquare();
         Destroy(gameObject);
     }
 

@@ -7,8 +7,8 @@ using UnityEngine;
 /// </summary>
 public class SBA_Scorch : SpecificBossAbilityFramework
 {
-    [SerializeField] private GameObject _scorch;
     [SerializeField] private GameObject _targetZone;
+    [SerializeField] private GameObject _scorch;
 
 
 

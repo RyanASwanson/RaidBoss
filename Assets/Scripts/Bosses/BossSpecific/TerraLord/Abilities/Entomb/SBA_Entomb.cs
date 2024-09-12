@@ -11,9 +11,8 @@ public class SBA_Entomb : SpecificBossAbilityFramework
 
     private Quaternion _storedTargetRotation;
 
-    [SerializeField] private GameObject _entomb;
-
     [SerializeField] private GameObject _targetZone;
+    [SerializeField] private GameObject _entomb;
 
     
     /// <summary>

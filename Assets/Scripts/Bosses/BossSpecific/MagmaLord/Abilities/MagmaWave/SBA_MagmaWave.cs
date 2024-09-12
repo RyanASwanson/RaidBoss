@@ -8,8 +8,8 @@ using UnityEngine;
 public class SBA_MagmaWave : SpecificBossAbilityFramework
 {
     [Space]
-    [SerializeField] private GameObject _magmaWave;
     [SerializeField] private GameObject _targetZone;
+    [SerializeField] private GameObject _magmaWave;
 
     private GameObject _storedMagmaWave;
     private Vector3 _edgeOfMap;

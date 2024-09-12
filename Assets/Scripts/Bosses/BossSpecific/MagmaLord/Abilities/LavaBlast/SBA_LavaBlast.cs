@@ -9,9 +9,10 @@ using UnityEngine;
 /// </summary>
 public class SBA_LavaBlast : SpecificBossAbilityFramework
 {
-    [SerializeField] private GameObject _lavaBlast;
     [SerializeField] private GameObject _safeZone;
     [SerializeField] private GameObject _targetZone;
+    [SerializeField] private GameObject _lavaBlast;
+    
 
     [SerializeField] private GameObject _failedVFX;
 

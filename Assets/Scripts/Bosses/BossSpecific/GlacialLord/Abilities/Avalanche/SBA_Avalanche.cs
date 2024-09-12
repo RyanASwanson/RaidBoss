@@ -5,8 +5,8 @@ using UnityEngine;
 public class SBA_Avalanche : SpecificBossAbilityFramework
 {
     [Space]
-    [SerializeField] private GameObject _avalanche;
     [SerializeField] private GameObject _targetZone;
+    [SerializeField] private GameObject _avalanche;
 
     private GameObject _storedTargetZone;
 

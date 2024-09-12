@@ -15,8 +15,8 @@ public class SBA_Volcano : SpecificBossAbilityFramework
     private const float _rotationAmount = 90;
     private const float _maxRotations = 3;
 
-    [SerializeField] private GameObject _volcanoDamageZone;
     [SerializeField] private GameObject _targetZone;
+    [SerializeField] private GameObject _volcanoDamageZone;
 
     private List<GameObject> _storedDamageZones = new List<GameObject>();
     private List<Vector3> _targetLocations;

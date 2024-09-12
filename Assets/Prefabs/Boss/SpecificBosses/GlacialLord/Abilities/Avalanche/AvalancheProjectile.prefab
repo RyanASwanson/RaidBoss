@@ -4868,6 +4868,7 @@ GameObject:
   - component: {fileID: 3835101503523086041}
   - component: {fileID: 7793616011216568591}
   - component: {fileID: 9197833209164022834}
+  - component: {fileID: 2317208844631602424}
   - component: {fileID: 4471601501245625707}
   - component: {fileID: 8860390244558322205}
   - component: {fileID: 5359392360895588512}
@@ -4941,6 +4942,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _projectileSpeed: 2.5
+  _wallContactDistance: 0.5
+  _wallContactHalfExtents: {x: 0.2, y: 0.2, z: 0.2}
+  _edgeOfMapLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  _minionHit: {fileID: 2317208844631602424}
+--- !u!114 &2317208844631602424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2471156726173324083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de8dec2a29df871489d7cf2d619f4f75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _contactOnCollision: 0
+  _halfExtents: {x: 10, y: 10, z: 10}
+  _detectionDistance: 10
+  _minionLayer:
+    serializedVersion: 2
+    m_Bits: 2048
 --- !u!54 &4471601501245625707
 Rigidbody:
   m_ObjectHideFlags: 0

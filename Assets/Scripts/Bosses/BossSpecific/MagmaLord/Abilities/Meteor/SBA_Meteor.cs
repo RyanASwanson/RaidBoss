@@ -8,9 +8,9 @@ using UnityEngine;
 public class SBA_Meteor : SpecificBossAbilityFramework
 {
     [Space]
+    [SerializeField] private GameObject _targetZone;
     [SerializeField] private GameObject _fallingMeteor;
     [SerializeField] private GameObject _movingMeteor;
-    [SerializeField] private GameObject _targetZone;
 
     [SerializeField] private GameObject _directionalTargetZone;
 

@@ -7,8 +7,8 @@ using UnityEngine;
 /// </summary>
 public class SBA_Tremor : SpecificBossAbilityFramework
 {
-    [SerializeField] private GameObject _tremor;
     [SerializeField] private GameObject _targetZone;
+    [SerializeField] private GameObject _tremor;
 
     #region Base Ability
     protected override void StartShowTargetZone()

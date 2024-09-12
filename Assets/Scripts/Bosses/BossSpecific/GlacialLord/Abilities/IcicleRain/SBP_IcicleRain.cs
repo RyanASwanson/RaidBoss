@@ -18,7 +18,7 @@ public class SBP_IcicleRain : BossProjectileFramework
 
             setCounter++;
 
-            if(setCounter >= _iciclesPerSet)
+            if(setCounter > _iciclesPerSet)
             {
                 setCounter = 1;
                 yield return new WaitForSeconds(_iciclesSeperationTime);

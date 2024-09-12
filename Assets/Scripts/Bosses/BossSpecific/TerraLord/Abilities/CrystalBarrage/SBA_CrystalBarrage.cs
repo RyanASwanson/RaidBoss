@@ -27,9 +27,9 @@ public class SBA_CrystalBarrage : SpecificBossAbilityFramework
     [SerializeField] private float _spawnYEulerVariance;
 
     [Space]
+    [SerializeField] private GameObject _targetZone;
     [SerializeField] private GameObject _crystalBarrage;
     [SerializeField] private GameObject _barrageUpwardsVisual;
-    [SerializeField] private GameObject _targetZone;
 
     [Space]
     [SerializeField] private GameObject _upwardsCrystalSource;

@@ -49,10 +49,11 @@ public class SBA_IcicleRain : SpecificBossAbilityFramework
     protected override void AbilityStart()
     {
         //Spawns the damaging ability
-        GameObject newestVines = Instantiate(_icicleRain, _newestTargetZone.transform.position, Quaternion.identity);
+        GameObject newestIcicleRain = Instantiate(_icicleRain, _newestTargetZone.transform.position, Quaternion.identity);
 
-        //Makes the ability follow the hero that is being targetted
-        StartCoroutine(FollowHeroTarget(newestVines));
+        SBP_IcicleRain icicleFunc = newestIcicleRain.GetComponent<SBP_IcicleRain>();
+        icicleFunc.SetUpProjectile(_myBossBase);
+
         base.AbilityStart();
     }
     #endregion
