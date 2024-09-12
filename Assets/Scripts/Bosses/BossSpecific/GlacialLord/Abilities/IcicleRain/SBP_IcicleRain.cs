@@ -28,9 +28,10 @@ public class SBP_IcicleRain : BossProjectileFramework
     }
 
 
-    private void SpawnIcicle(GameObject spike)
+    private void SpawnIcicle(GameObject icicle)
     {
-        spike.SetActive(true);
+        icicle.GetComponent<SBP_Icicle>().SetUpProjectile(_myBossBase);
+        icicle.SetActive(true);
     }
 
 

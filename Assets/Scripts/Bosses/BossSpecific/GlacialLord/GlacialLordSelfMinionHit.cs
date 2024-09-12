@@ -7,36 +7,20 @@ public class GlacialLordSelfMinionHit : MonoBehaviour
     [SerializeField] private bool _contactOnCollision;
 
     [Space]
-    [SerializeField] private Vector3 _halfExtents;
-    [SerializeField] private float _detectionDistance;
+    [SerializeField] private float _distance;
 
-
-    [SerializeField] private LayerMask _minionLayer;
-
-
-
-    public bool MinionContactInRay()
+    public bool MinionContactFromDistance()
     {
-        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit rayHit, _detectionDistance, _minionLayer))
+        SB_GlacialLord glacialLord =(SB_GlacialLord)GameplayManagers.Instance.GetBossManager().GetBossBase().GetSpecificBossScript();
+
+        foreach(GlacialLord_FrostFiend fiend in glacialLord.GetAllFrostFiends())
         {
-            rayHit.collider.GetComponentInParent<GlacialLord_FrostFiend>().FreezeMinion();
-            return true;
-        }
-        return false;
-    }
-
-
-    public bool MinionContactInSquare()
-    {
-
-
-        if (Physics.BoxCast(transform.position, _halfExtents, transform.forward, out RaycastHit rayHit,
-            Quaternion.identity, _detectionDistance, _minionLayer))
-        {
-            print("hit");
-            rayHit.collider.GetComponentInParent<GlacialLord_FrostFiend>().FreezeMinion();
-            print("hitminion");
-            return true;
+            if (Vector3.Distance(transform.position, fiend.transform.position) < _distance)
+            {
+                fiend.FreezeMinion();
+                return true;
+            }
+                
         }
 
         return false;
