@@ -109,7 +109,7 @@ MonoBehaviour:
   _bossSpecificUI: {fileID: 0}
   _bossSpecificAnimator: {fileID: 6853814535601210447}
   _delayBetweenFiendSpawns: 0.2
-  _minionFreezeDuration: 15
+  _minionFreezeDuration: 16
   _frostFiend: {fileID: 4319846792845351859, guid: 8be3f146f99a44a40b078f1c62c6a543, type: 3}
   _frostFiendSpawnLocations:
   - {x: 5, y: 0, z: 5}
@@ -126,6 +126,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2732601470398858852}
   - component: {fileID: 440319309441542833}
+  - component: {fileID: 2974168280922480658}
   m_Layer: 0
   m_Name: AttackFunctionality
   m_TagString: Untagged
@@ -165,7 +166,7 @@ MonoBehaviour:
   _specificLookTarget: {x: 0, y: 0, z: 0}
   _targetZoneDuration: 3.5
   _abilityWindUpTime: 3.5
-  _timeUntilNextAbility: 7
+  _timeUntilNextAbility: 6.5
   _hasScreenShake: 0
   _screenShakeIntensity: 0
   _screenShakeFrequency: 0
@@ -173,6 +174,31 @@ MonoBehaviour:
   _animationTriggerName: 
   _avalanche: {fileID: 2471156726173324083, guid: 8ebc3a21d78da014997cba6692c4cdc5, type: 3}
   _targetZone: {fileID: 3605259648855355395, guid: 5ea109a33bb35e745b5a02f408b4bd62, type: 3}
+--- !u!114 &2974168280922480658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8936730800719072827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaa90ce2a49ee394896daf4c14bc8daf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _targetMethod: 3
+  _specificAreaTarget: {x: 0, y: 0, z: 0}
+  _specificLookTarget: {x: 0, y: 0, z: -1}
+  _targetZoneDuration: 4
+  _abilityWindUpTime: 4
+  _timeUntilNextAbility: 7
+  _hasScreenShake: 0
+  _screenShakeIntensity: 0
+  _screenShakeFrequency: 0
+  _screenShakeDuration: 0
+  _animationTriggerName: 
+  _targetZone: {fileID: 0}
+  _frostBite: {fileID: 0}
 --- !u!1 &9073296549791956801
 GameObject:
   m_ObjectHideFlags: 0

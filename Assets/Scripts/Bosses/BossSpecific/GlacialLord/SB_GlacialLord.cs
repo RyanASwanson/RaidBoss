@@ -45,6 +45,7 @@ public class SB_GlacialLord : SpecificBossFramework
     #endregion
 
     #region Getters
-
+    public List<Vector3> GetFrostFiendSpawnLocations() => _frostFiendSpawnLocations;
+    public List<GlacialLord_FrostFiend> GetAllFrostFiends() => _allFrostFiends;
     #endregion
 }

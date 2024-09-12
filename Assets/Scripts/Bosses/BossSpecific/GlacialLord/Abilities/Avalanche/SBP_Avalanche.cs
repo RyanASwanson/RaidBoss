@@ -62,7 +62,7 @@ public class SBP_Avalanche : BossProjectileFramework
 
     private void AtEndOfPath()
     {
-
+        Destroy(gameObject);
     }
 
 
