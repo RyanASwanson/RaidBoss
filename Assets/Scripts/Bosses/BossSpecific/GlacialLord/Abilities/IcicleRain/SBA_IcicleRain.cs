@@ -2,18 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// Provides the functionality for the Terra Lord's Encircling Vines ability
-/// </summary>
-public class SBA_EncirclingVines : SpecificBossAbilityFramework
+public class SBA_IcicleRain : SpecificBossAbilityFramework
 {
     [Space]
-    [SerializeField] private GameObject _encirclingVines;
+    [SerializeField] private GameObject _icicleRain;
     [SerializeField] private GameObject _targetZone;
 
     private GameObject _newestTargetZone;
 
-    
+
     /// <summary>
     /// Makes the target zone and attack follow the hero it is targetting
     /// </summary>
@@ -21,18 +18,18 @@ public class SBA_EncirclingVines : SpecificBossAbilityFramework
     /// <returns></returns>
     protected IEnumerator FollowHeroTarget(GameObject followingObject)
     {
-        while(followingObject != null && _storedTarget != null)
+        while (followingObject != null && _storedTarget != null)
         {
             //Set the position of the object to be at the location of the current target
             //The Y remains consistent
-            followingObject.transform.position =  
+            followingObject.transform.position =
                 new Vector3(_storedTarget.transform.position.x, _specificAreaTarget.y, _storedTarget.transform.position.z);
 
             yield return null;
         }
     }
 
-    
+
 
     #region Base Ability
     protected override void StartShowTargetZone()
@@ -52,8 +49,8 @@ public class SBA_EncirclingVines : SpecificBossAbilityFramework
     protected override void AbilityStart()
     {
         //Spawns the damaging ability
-        GameObject newestVines = Instantiate(_encirclingVines, _newestTargetZone.transform.position, Quaternion.identity);
-        
+        GameObject newestVines = Instantiate(_icicleRain, _newestTargetZone.transform.position, Quaternion.identity);
+
         //Makes the ability follow the hero that is being targetted
         StartCoroutine(FollowHeroTarget(newestVines));
         base.AbilityStart();
