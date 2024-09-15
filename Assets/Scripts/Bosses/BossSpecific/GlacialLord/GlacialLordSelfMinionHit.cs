@@ -17,6 +17,8 @@ public class GlacialLordSelfMinionHit : MonoBehaviour
         {
             if (Vector3.Distance(transform.position, fiend.transform.position) < _distance)
             {
+                //if (fiend.IsMinionFrozen()) return false;
+
                 fiend.FreezeMinion();
                 return true;
             }
