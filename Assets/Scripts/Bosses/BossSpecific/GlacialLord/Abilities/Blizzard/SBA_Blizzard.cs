@@ -8,12 +8,12 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
     [SerializeField] private GameObject _targetZone;
     [SerializeField] private GameObject _blizzard;
 
-    [SerializeField] private List<BlizzardTargets> _verticalTargets;
-    [SerializeField] private List<BlizzardTargets> _horizontalTargets;
-
-    private bool _targetDirectionVertical = false;
+    [SerializeField] private List<BlizzardTargets> _allTargets;
+    private int _setupTargetsCounter = 0;
+    private bool _verticalTarget;
 
     private SB_GlacialLord _glacialLord;
+
 
 
     #region Base Ability
@@ -21,31 +21,22 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
     {
         base.AbilitySetup(bossBase);
         _glacialLord = (SB_GlacialLord)_mySpecificBoss;
-        SetupTargets();
+
+        _glacialLord.GetFrostFiendSpawnedEvent().AddListener(FrostFiendSpawned);
     }
 
-    private void SetupTargets()
+    private void FrostFiendSpawned(GlacialLord_FrostFiend newFiend)
     {
-        List<GlacialLord_FrostFiend> allFiends = _glacialLord.GetAllFrostFiends();
+        int currentTarget = _setupTargetsCounter;
 
-        List<BlizzardTargets> allTargets = new();
+        _allTargets[currentTarget].AddFrostFiendToList(newFiend);
 
-        foreach(BlizzardTargets target in _verticalTargets)
-        {
-            allTargets.Add(target);
-        }
-        foreach(BlizzardTargets target in _horizontalTargets)
-        {
-            allTargets.Add(target);
-        }
+        currentTarget--;
+        if (currentTarget < 0) currentTarget = 3;
 
-        for(int i = 0; i < allTargets.Count; i++)
-        {
-            if (i % 2 == 0)
-                _verticalTargets[i].AddFrostFiendToList(allFiends[i]);
-            else
-                _horizontalTargets[i].AddFrostFiendToList(allFiends[i]);
-        }
+        _allTargets[currentTarget].AddFrostFiendToList(newFiend);
+
+        _setupTargetsCounter++;
     }
 
 
@@ -53,23 +44,30 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
     {
         base.StartShowTargetZone();
 
-        List<BlizzardTargets> currentTargets = DetermineTargetsForAttack();
-
-        foreach(BlizzardTargets target in currentTargets)
+        foreach(BlizzardTargets targets in DetermineTargets())
         {
-            if(target.AreAllMinionsNotFrozen())
-            {
-                CreateTargetZone(target.GetAttackLocation());
-            }
-        }
+            if (targets.AreAnyMinionsFrozen()) continue;
 
+            CreateTargetZone(targets.GetAttackLocation());
+        }
         
     }
 
-    private List<BlizzardTargets> DetermineTargetsForAttack()
+    private List<BlizzardTargets> DetermineTargets()
     {
-        return _targetDirectionVertical ? _verticalTargets : _verticalTargets;
+        List<BlizzardTargets> newTargets = new();
+
+        for(int i = 0; i < _allTargets.Count; i++)
+        {
+            if ((i % 2 == 0) == _verticalTarget)
+                newTargets.Add(_allTargets[i]);
+        }
+
+        _verticalTarget = !_verticalTarget;
+
+        return newTargets;
     }
+
 
     private void CreateTargetZone(Vector3 location)
     {
@@ -83,18 +81,18 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
 public class BlizzardTargets
 {
     [SerializeField] private Vector3 _attackLocation;
-    private List<GlacialLord_FrostFiend> _associatedFiends;
+    private List<GlacialLord_FrostFiend> _associatedFiends = new();
 
     public Vector3 GetAttackLocation() => _attackLocation;
     public List<GlacialLord_FrostFiend> GetAssociatedFiends() => _associatedFiends;
 
-    public bool AreAllMinionsNotFrozen()
+    public bool AreAnyMinionsFrozen()
     {
         foreach (GlacialLord_FrostFiend fiend in _associatedFiends)
         {
-            if (fiend.IsMinionFrozen()) return false;
+            if (fiend.IsMinionFrozen()) return true;
         }
-        return true;
+        return false;
     }
 
     public void AddFrostFiendToList(GlacialLord_FrostFiend fiend)

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SB_GlacialLord : SpecificBossFramework
 {
@@ -14,6 +15,8 @@ public class SB_GlacialLord : SpecificBossFramework
     [SerializeField] private List<Vector3> _frostFiendSpawnLocations;
     private List<GlacialLord_FrostFiend> _allFrostFiends = new();
 
+    private UnityEvent<GlacialLord_FrostFiend> _frostFiendSpawned = new();
+
     public override void SetupSpecificBoss(BossBase bossBase)
     {
         base.SetupSpecificBoss(bossBase);
@@ -24,6 +27,7 @@ public class SB_GlacialLord : SpecificBossFramework
     #region Frost Fiends
     private IEnumerator SpawnStartingFrostFiends()
     {
+        yield return new WaitForSeconds(_delayBetweenFiendSpawns);
         foreach(Vector3 spawnLocation in _frostFiendSpawnLocations)
         {
             SpawnFrostFiend(spawnLocation);
@@ -40,12 +44,23 @@ public class SB_GlacialLord : SpecificBossFramework
         newFiend.AdditionalSetup(_minionFreezeDuration);
 
         _allFrostFiends.Add(newFiend.GetComponent<GlacialLord_FrostFiend>());
+
+        InvokeFrostFiendSpawned(newFiend);
     }
 
+    #endregion
+
+    #region Events
+    private void InvokeFrostFiendSpawned(GlacialLord_FrostFiend frostFiend)
+    {
+        _frostFiendSpawned?.Invoke(frostFiend);
+    }
     #endregion
 
     #region Getters
     public List<Vector3> GetFrostFiendSpawnLocations() => _frostFiendSpawnLocations;
     public List<GlacialLord_FrostFiend> GetAllFrostFiends() => _allFrostFiends;
+
+    public UnityEvent<GlacialLord_FrostFiend> GetFrostFiendSpawnedEvent() => _frostFiendSpawned;
     #endregion
 }
