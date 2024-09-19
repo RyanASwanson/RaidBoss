@@ -8,8 +8,8 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
     [SerializeField] private GameObject _targetZone;
     [SerializeField] private GameObject _blizzard;
 
-    [SerializeField] private List<BlizzardTargets> _horizontalTargets;
     [SerializeField] private List<BlizzardTargets> _verticalTargets;
+    [SerializeField] private List<BlizzardTargets> _horizontalTargets;
 
     private bool _targetDirectionVertical = false;
 
@@ -21,6 +21,31 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
     {
         base.AbilitySetup(bossBase);
         _glacialLord = (SB_GlacialLord)_mySpecificBoss;
+        SetupTargets();
+    }
+
+    private void SetupTargets()
+    {
+        List<GlacialLord_FrostFiend> allFiends = _glacialLord.GetAllFrostFiends();
+
+        List<BlizzardTargets> allTargets = new();
+
+        foreach(BlizzardTargets target in _verticalTargets)
+        {
+            allTargets.Add(target);
+        }
+        foreach(BlizzardTargets target in _horizontalTargets)
+        {
+            allTargets.Add(target);
+        }
+
+        for(int i = 0; i < allTargets.Count; i++)
+        {
+            if (i % 2 == 0)
+                _verticalTargets[i].AddFrostFiendToList(allFiends[i]);
+            else
+                _horizontalTargets[i].AddFrostFiendToList(allFiends[i]);
+        }
     }
 
 
@@ -43,7 +68,7 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
 
     private List<BlizzardTargets> DetermineTargetsForAttack()
     {
-        return _targetDirectionVertical ? _horizontalTargets : _verticalTargets;
+        return _targetDirectionVertical ? _verticalTargets : _verticalTargets;
     }
 
     private void CreateTargetZone(Vector3 location)
@@ -54,10 +79,11 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
     #endregion
 }
 
+[System.Serializable]
 public class BlizzardTargets
 {
     [SerializeField] private Vector3 _attackLocation;
-    [SerializeField] private List<GlacialLord_FrostFiend> _associatedFiends;
+    private List<GlacialLord_FrostFiend> _associatedFiends;
 
     public Vector3 GetAttackLocation() => _attackLocation;
     public List<GlacialLord_FrostFiend> GetAssociatedFiends() => _associatedFiends;
@@ -69,5 +95,10 @@ public class BlizzardTargets
             if (fiend.IsMinionFrozen()) return false;
         }
         return true;
+    }
+
+    public void AddFrostFiendToList(GlacialLord_FrostFiend fiend)
+    {
+        _associatedFiends.Add(fiend);
     }
 }
