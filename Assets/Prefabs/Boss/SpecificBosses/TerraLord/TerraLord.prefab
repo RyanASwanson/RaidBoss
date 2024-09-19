@@ -159,7 +159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _targetMethod: 0
-  _specificAreaTarget: {x: 0, y: 0, z: 0}
+  _specificAreaTarget: {x: 0, y: -0.75, z: 0}
   _specificLookTarget: {x: 0, y: 0, z: 0}
   _targetZoneDuration: 4
   _abilityWindUpTime: 4
@@ -176,9 +176,9 @@ MonoBehaviour:
   _targetWidth: 2.45
   _targetDistance: 3.5
   _spawnYEulerVariance: 15
+  _targetZone: {fileID: 2799529881703815393, guid: 213c795acd17d1d4e9fe7c0439d07369, type: 3}
   _crystalBarrage: {fileID: 556531669479417168, guid: 91dfd24925c211c4cab12e37a81439f0, type: 3}
   _barrageUpwardsVisual: {fileID: 6225732918274928790, guid: a7851b0d2ab44844dbc71de82933f4fb, type: 3}
-  _targetZone: {fileID: 2799529881703815393, guid: 213c795acd17d1d4e9fe7c0439d07369, type: 3}
   _upwardsCrystalSource: {fileID: 9120983975902129946}
 --- !u!114 &3475215520520948729
 MonoBehaviour:
@@ -203,8 +203,8 @@ MonoBehaviour:
   _screenShakeFrequency: 0
   _screenShakeDuration: 0
   _animationTriggerName: TremorUsed
-  _tremor: {fileID: 8560503281689201346, guid: e43707f02a3737f4e9566ead060d5b55, type: 3}
   _targetZone: {fileID: 4462416459843073010, guid: 6506bab34c4c66f42aa413b51a4a942c, type: 3}
+  _tremor: {fileID: 8560503281689201346, guid: e43707f02a3737f4e9566ead060d5b55, type: 3}
 --- !u!114 &1777365495296129283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -229,8 +229,8 @@ MonoBehaviour:
   _screenShakeDuration: 0
   _animationTriggerName: EntombUsed
   _rotationAmount: 45
-  _entomb: {fileID: 6957617552280463618, guid: f07ff2d9d0e0e4e4da9b3e574c458e60, type: 3}
   _targetZone: {fileID: 1062582142837617367, guid: 8c02a47f78d84624ca931dfcc3cba973, type: 3}
+  _entomb: {fileID: 6957617552280463618, guid: f07ff2d9d0e0e4e4da9b3e574c458e60, type: 3}
 --- !u!114 &280044508746416317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,8 +254,8 @@ MonoBehaviour:
   _screenShakeFrequency: 0
   _screenShakeDuration: 0
   _animationTriggerName: EncirclingVinesUsed
-  _encirclingVines: {fileID: 5689458550558832625, guid: 7ca7480609fd18b48be3def648c774d3, type: 3}
   _targetZone: {fileID: 1433578388064543568, guid: 5bc2b4850d852f34bb9f9d51540763f0, type: 3}
+  _encirclingVines: {fileID: 5689458550558832625, guid: 7ca7480609fd18b48be3def648c774d3, type: 3}
 --- !u!1 &501763576293021200
 GameObject:
   m_ObjectHideFlags: 0

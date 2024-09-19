@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 440319309441542833}
   - component: {fileID: 2974168280922480658}
   - component: {fileID: 7847041170561106996}
+  - component: {fileID: 8772614239871078561}
   m_Layer: 0
   m_Name: AttackFunctionality
   m_TagString: Untagged
@@ -175,8 +176,8 @@ MonoBehaviour:
   _screenShakeFrequency: 0
   _screenShakeDuration: 0
   _animationTriggerName: 
-  _avalanche: {fileID: 2471156726173324083, guid: 8ebc3a21d78da014997cba6692c4cdc5, type: 3}
   _targetZone: {fileID: 3605259648855355395, guid: 5ea109a33bb35e745b5a02f408b4bd62, type: 3}
+  _avalanche: {fileID: 2471156726173324083, guid: 8ebc3a21d78da014997cba6692c4cdc5, type: 3}
 --- !u!114 &2974168280922480658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,6 +228,31 @@ MonoBehaviour:
   _animationTriggerName: 
   _icicleRain: {fileID: 6168952705891034285, guid: ae7d4aea0c8fb354a83741959dca9aac, type: 3}
   _targetZone: {fileID: 7689631090584172797, guid: e96247fc7a6c48444bf412931ec24820, type: 3}
+--- !u!114 &8772614239871078561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8936730800719072827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce05481e7cd5994297070ab24f2c19f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _targetMethod: 3
+  _specificAreaTarget: {x: 0, y: -0.75, z: 0}
+  _specificLookTarget: {x: 0, y: 0, z: 0}
+  _targetZoneDuration: 4
+  _abilityWindUpTime: 4
+  _timeUntilNextAbility: 7
+  _hasScreenShake: 0
+  _screenShakeIntensity: 0
+  _screenShakeFrequency: 0
+  _screenShakeDuration: 0
+  _animationTriggerName: 
+  _targetZone: {fileID: 0}
+  _blizzard: {fileID: 0}
 --- !u!1 &9073296549791956801
 GameObject:
   m_ObjectHideFlags: 0

@@ -21,7 +21,6 @@ public class SBA_CrystalBarrage : SpecificBossAbilityFramework
     private Vector3 _currentTargetLocation;
 
     private Vector3[] _targetDirections = { Vector3.forward, Vector3.left, Vector3.back,Vector3.right};
-    private const float _targetHeight = -.75f;
 
     [Space]
     [SerializeField] private float _spawnYEulerVariance;
@@ -47,7 +46,7 @@ public class SBA_CrystalBarrage : SpecificBossAbilityFramework
             //Multiply the direction by the distance
             _targetDirections[i] *= _targetDistance;
             //Keep the y value consistent
-            _targetDirections[i] = new Vector3(_targetDirections[i].x, _targetHeight, _targetDirections[i].z);
+            _targetDirections[i] = new Vector3(_targetDirections[i].x, _specificAreaTarget.y, _targetDirections[i].z);
         }
             
 
