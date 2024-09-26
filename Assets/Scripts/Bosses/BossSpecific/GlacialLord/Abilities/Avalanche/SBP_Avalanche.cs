@@ -5,6 +5,10 @@ using UnityEngine;
 public class SBP_Avalanche : BossProjectileFramework
 {
     [SerializeField] private float _projectileSpeed;
+    [SerializeField] private float _accelerationTime;
+    [SerializeField] private AnimationCurve _speedCurve;
+
+    private float _projectileAcceleration = 0;
 
     [Space]
     [SerializeField] private float _wallContactDistance;
@@ -13,6 +17,8 @@ public class SBP_Avalanche : BossProjectileFramework
 
     [Space]
     [SerializeField] private GlacialLordSelfMinionHit _minionHit;
+    [Space]
+    [SerializeField] private GeneralBossDamageArea _damageArea;
 
 
 
@@ -22,6 +28,7 @@ public class SBP_Avalanche : BossProjectileFramework
     /// <param name="heroBase"></param>
     private void StartProjectileMovement()
     {
+        StartCoroutine(ProjectileAcceleration());
         StartCoroutine(MoveProjectile());
     }
 
@@ -33,11 +40,25 @@ public class SBP_Avalanche : BossProjectileFramework
     {
         while (true)
         {
-            transform.position += transform.forward * _projectileSpeed * Time.deltaTime;
+            transform.position += transform.forward * _projectileSpeed * _projectileAcceleration * Time.deltaTime;
             CheckForEnd();
             yield return null;
         }
 
+    }
+
+    private IEnumerator ProjectileAcceleration()
+    {
+        float timeCounter = 0;
+
+        while (timeCounter < 1)
+        {
+            timeCounter += Time.deltaTime / _accelerationTime;
+            _projectileAcceleration = _speedCurve.Evaluate(timeCounter);
+            yield return null;
+        }
+
+        _projectileAcceleration = 1;
     }
 
     /// <summary>
@@ -63,7 +84,7 @@ public class SBP_Avalanche : BossProjectileFramework
     private void AtEndOfPath()
     {
         _minionHit.MinionContactFromDistance();
-        Destroy(gameObject);
+        _damageArea.DestroyProjectile();
     }
 
 

@@ -5,6 +5,8 @@ using UnityEngine;
 public class SBA_Avalanche : SpecificBossAbilityFramework
 {
     [Space]
+    [SerializeField] private float _spawnDistance;
+    [Space]
     [SerializeField] private GameObject _targetZone;
     [SerializeField] private GameObject _avalanche;
 
@@ -68,13 +70,26 @@ public class SBA_Avalanche : SpecificBossAbilityFramework
 
     protected override void AbilityStart()
     {
-        _storedAvalanche = Instantiate(_avalanche, transform.position, Quaternion.identity);
+        _storedAvalanche = Instantiate(_avalanche, GetProjectileSpawnLocation(), Quaternion.identity);
         //Sets up the projectile
         SBP_Avalanche avalanche = _storedAvalanche.GetComponent<SBP_Avalanche>();
         avalanche.SetUpProjectile(_myBossBase);
         avalanche.AdditionalSetup(_storedTarget.transform.position);
 
         base.AbilityStart();
+    }
+
+
+    private Vector3 GetProjectileSpawnLocation()
+    {
+        Vector3 spawnLocation = transform.position;
+
+        Vector3 dir = _storedTarget.transform.position - transform.position;
+        dir = new Vector3(dir.x, 0, dir.z).normalized;
+
+        spawnLocation += dir * _spawnDistance;
+
+        return spawnLocation;
     }
 
     #endregion
