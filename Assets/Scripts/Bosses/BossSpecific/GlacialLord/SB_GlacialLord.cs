@@ -40,6 +40,9 @@ public class SB_GlacialLord : SpecificBossFramework
         GlacialLord_FrostFiend newFiend = 
             Instantiate(_frostFiend, spawnLocation, Quaternion.identity).GetComponent<GlacialLord_FrostFiend>();
 
+        newFiend.transform.LookAt(transform);
+        newFiend.transform.eulerAngles = new Vector3(0, newFiend.transform.eulerAngles.y, 0);
+
         newFiend.SetupMinion(_myBossBase, this);
         newFiend.AdditionalSetup(_minionFreezeDuration);
 

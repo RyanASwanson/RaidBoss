@@ -12,9 +12,31 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
     private int _setupTargetsCounter = 0;
     private bool _verticalTarget;
 
+    private List<BlizzardTargets> _currentTargets = new();
+
     private SB_GlacialLord _glacialLord;
 
+    private List<BlizzardTargets> DetermineTargets()
+    {
+        List<BlizzardTargets> newTargets = new();
 
+        for (int i = 0; i < _allTargets.Count; i++)
+        {
+            if ((i % 2 == 0) == _verticalTarget)
+                newTargets.Add(_allTargets[i]);
+        }
+
+        _verticalTarget = !_verticalTarget;
+
+        return newTargets;
+    }
+
+
+    private void CreateTargetZone(Vector3 location)
+    {
+        GameObject newTargetZone = Instantiate(_targetZone, location, Quaternion.identity);
+        _currentTargetZones.Add(newTargetZone);
+    }
 
     #region Base Ability
     public override void AbilitySetup(BossBase bossBase)
@@ -44,7 +66,9 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
     {
         base.StartShowTargetZone();
 
-        foreach(BlizzardTargets targets in DetermineTargets())
+        _currentTargets = DetermineTargets();
+
+        foreach(BlizzardTargets targets in _currentTargets)
         {
             if (targets.AreAnyMinionsFrozen()) continue;
 
@@ -53,26 +77,18 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
         
     }
 
-    private List<BlizzardTargets> DetermineTargets()
-    {
-        List<BlizzardTargets> newTargets = new();
 
-        for(int i = 0; i < _allTargets.Count; i++)
+
+    protected override void AbilityStart()
+    {
+        base.AbilityStart();
+
+        foreach (BlizzardTargets targets in _currentTargets)
         {
-            if ((i % 2 == 0) == _verticalTarget)
-                newTargets.Add(_allTargets[i]);
+            if (targets.AreAnyMinionsFrozen()) continue;
+
+            Instantiate(_blizzard, targets.GetAttackLocation(), Quaternion.identity);
         }
-
-        _verticalTarget = !_verticalTarget;
-
-        return newTargets;
-    }
-
-
-    private void CreateTargetZone(Vector3 location)
-    {
-        GameObject newTargetZone = Instantiate(_targetZone, location, Quaternion.identity) ;
-        _currentTargetZones.Add(newTargetZone);
     }
     #endregion
 }
