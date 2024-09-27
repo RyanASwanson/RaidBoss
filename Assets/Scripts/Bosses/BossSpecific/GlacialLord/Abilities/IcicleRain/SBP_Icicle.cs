@@ -6,6 +6,8 @@ public class SBP_Icicle : BossProjectileFramework
 {
     [SerializeField] private float _groundCheckDistance;
     [SerializeField] private LayerMask _groundLayer;
+
+    [SerializeField] private GeneralBossDamageArea _damageArea;
     
     [SerializeField] private GlacialLordSelfMinionHit _minionHit;
 
@@ -20,9 +22,8 @@ public class SBP_Icicle : BossProjectileFramework
 
     private void DestructionCheck()
     {
-        print(_didHitMinion + " " + GroundHit());
-        if(_didHitMinion || GroundHit())
-            Destroy(gameObject);
+        if (_didHitMinion || GroundHit())
+            _damageArea.DestroyProjectile();
     }
 
     private bool GroundHit()

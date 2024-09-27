@@ -92,6 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1576982304561034477}
+  - component: {fileID: 6075090313147983682}
   - component: {fileID: 2523175900126946985}
   - component: {fileID: 4970211216856081247}
   - component: {fileID: 1576982304561034478}
@@ -120,6 +121,38 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6075090313147983682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1576982304561034476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43a32c0522af3ff4db1e2d43d0e55468, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _areaColliders: []
+  _hasLifetime: 0
+  _lifetime: 0
+  _hitCenteredVFX: {fileID: 8649062953180881343, guid: b0f3b566d6a0cb5478959566c3190b33, type: 3}
+  _lifeTimeEndEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _preventReHitDuration: 0
+  _enterDamage: 0
+  _enterEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _stayDamagePerTick: 0
+  _stayEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _exitDamage: 0
+  _exitEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &2523175900126946985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,6 +169,7 @@ MonoBehaviour:
   _groundLayer:
     serializedVersion: 2
     m_Bits: 512
+  _damageArea: {fileID: 6075090313147983682}
   _minionHit: {fileID: 4970211216856081247}
 --- !u!114 &4970211216856081247
 MonoBehaviour:
