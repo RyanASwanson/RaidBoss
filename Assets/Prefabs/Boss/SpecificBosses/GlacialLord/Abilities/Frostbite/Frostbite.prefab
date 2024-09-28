@@ -1,0 +1,303 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4952030211282154280
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2220228644073231067}
+  - component: {fileID: 7327044677908386374}
+  - component: {fileID: 6240422329406722910}
+  m_Layer: 0
+  m_Name: Frostbite
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2220228644073231067
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4952030211282154280}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2230314226130879735}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7327044677908386374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4952030211282154280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 588fff28e420d8c4b983e3289d57feab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _projectileInterval: 0
+  _projectileStartVFX: {fileID: 0}
+  _projectiles: []
+--- !u!114 &6240422329406722910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4952030211282154280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43a32c0522af3ff4db1e2d43d0e55468, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _areaColliders: []
+  _hasLifetime: 1
+  _lifetime: 3
+  _hitCenteredVFX: {fileID: 0}
+  _lifeTimeEndEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _preventReHitDuration: 0
+  _enterDamage: 0
+  _enterEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _stayDamagePerTick: 0
+  _stayEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _exitDamage: 0
+  _exitEvent:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!1 &5709587340531174739
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2230314226130879735}
+  m_Layer: 0
+  m_Name: Holder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2230314226130879735
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5709587340531174739}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7482066454093459980}
+  - {fileID: 7125169154991511233}
+  - {fileID: 3664567301653997779}
+  m_Father: {fileID: 2220228644073231067}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &4391007363983263688
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2230314226130879735}
+    m_Modifications:
+    - target: {fileID: 1023677646543908635, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1023677646543908635, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1023677646543908635, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1023677646543908635, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1023677646543908635, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1023677646543908635, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1023677646543908635, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1023677646543908635, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1023677646543908635, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1023677646543908635, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1023677646543908635, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821317826140332785, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+      propertyPath: m_Name
+      value: FrostbiteProjectile (2)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+--- !u!4 &3664567301653997779 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1023677646543908635, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+  m_PrefabInstance: {fileID: 4391007363983263688}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7629509712112426263
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2230314226130879735}
+    m_Modifications:
+    - target: {fileID: 1023677646543908635, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1023677646543908635, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1023677646543908635, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1023677646543908635, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1023677646543908635, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1023677646543908635, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1023677646543908635, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1023677646543908635, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1023677646543908635, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1023677646543908635, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1023677646543908635, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821317826140332785, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+      propertyPath: m_Name
+      value: FrostbiteProjectile
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+--- !u!4 &7482066454093459980 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1023677646543908635, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+  m_PrefabInstance: {fileID: 7629509712112426263}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7842309553870289370
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2230314226130879735}
+    m_Modifications:
+    - target: {fileID: 1023677646543908635, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1023677646543908635, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1023677646543908635, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1023677646543908635, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1023677646543908635, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1023677646543908635, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1023677646543908635, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1023677646543908635, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1023677646543908635, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1023677646543908635, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1023677646543908635, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821317826140332785, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+      propertyPath: m_Name
+      value: FrostbiteProjectile (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+--- !u!4 &7125169154991511233 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1023677646543908635, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+  m_PrefabInstance: {fileID: 7842309553870289370}
+  m_PrefabAsset: {fileID: 0}

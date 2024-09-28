@@ -4,51 +4,44 @@ using UnityEngine;
 
 public class SBP_Frostbite : BossProjectileFramework
 {
-    [SerializeField] private float _projectileSpeed;
+    [SerializeField] private float _projectileInterval;
 
-    [SerializeField] private float _distanceThreshold;
+    [SerializeField] private GameObject _projectileStartVFX;
+
+    [SerializeField] private List<GameObject> _projectiles;
 
 
-    /// <summary>
-    /// Makes the projectile move towards the boss
-    /// </summary>
-    /// <param name="heroBase"></param>
-    private void StartProjectileMovement()
-    {
-        StartCoroutine(MoveProjectile());
-    }
-
-    /// <summary>
-    /// Moves the projectile along the path to the boss
+    // <summary>
+    /// The process by which the individual spikes appear from the ground
     /// </summary>
     /// <returns></returns>
-    private IEnumerator MoveProjectile()
+    private IEnumerator SpikeSpawningProcess()
     {
-        while (true)
+        for (int i = 0; i <= _projectiles.Count - 1; i++)
         {
-            CheckBossDistance();
-            transform.position += transform.forward * _projectileSpeed * Time.deltaTime;
-            yield return null;
+            SpawnProjectile(_projectiles[i]);
+            yield return new WaitForSeconds(_projectileInterval);
         }
-
     }
 
     /// <summary>
-    /// Checks if the projectile is close enough to remove
+    /// Spawns the individual projectile
     /// </summary>
-    private void CheckBossDistance()
+    /// <param name="spike"></param>
+    private void SpawnProjectile(GameObject projectile)
     {
-        if (Vector3.Distance(transform.position, _myBossBase.transform.position) < _distanceThreshold)
-        {
-            ProjectileReachedEndOfPath();
-        }
+        projectile.SetActive(true);
+
+        CreateProjectileStartVFX(projectile);
     }
 
-    private void ProjectileReachedEndOfPath()
+    /// <summary>
+    /// Creates vfx at the base of the spike
+    /// </summary>
+    private void CreateProjectileStartVFX(GameObject spike)
     {
-        Destroy(gameObject);
+        Instantiate(_projectileStartVFX, spike.transform.position, Quaternion.identity);
     }
-
 
     #region Base Ability
     /// <summary>
@@ -59,8 +52,6 @@ public class SBP_Frostbite : BossProjectileFramework
     public override void SetUpProjectile(BossBase bossBase)
     {
         base.SetUpProjectile(bossBase);
-        StartProjectileMovement();
     }
-
     #endregion
 }
