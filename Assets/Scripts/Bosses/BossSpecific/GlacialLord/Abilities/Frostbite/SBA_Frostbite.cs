@@ -40,7 +40,9 @@ public class SBA_Frostbite : SpecificBossAbilityFramework
         {
             if (frostFiend.IsMinionFrozen()) continue;
 
-            GameObject newFrostbite = Instantiate(_frostBite, frostFiend.transform.position, Quaternion.identity);
+            Vector3 spawnLoc = new Vector3(frostFiend.transform.position.x, _specificAreaTarget.y, frostFiend.transform.position.z);
+
+            GameObject newFrostbite = Instantiate(_frostBite, spawnLoc, Quaternion.identity);
             SBP_Frostbite frostbiteFunc = newFrostbite.GetComponent<SBP_Frostbite>();
             frostbiteFunc.SetUpProjectile(_myBossBase);
 

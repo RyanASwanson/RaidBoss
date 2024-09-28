@@ -46,9 +46,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 588fff28e420d8c4b983e3289d57feab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectileInterval: 0
-  _projectileStartVFX: {fileID: 0}
-  _projectiles: []
+  _projectileInterval: 0.4
+  _projectileStartVFX: {fileID: 7638835145899312396, guid: 3f53ef9a9bd7bf74bbf59a7a458ab79f, type: 3}
+  _projectiles:
+  - {fileID: 8117712218339213286}
+  - {fileID: 8472366102510918443}
+  - {fileID: 2713809132627338553}
 --- !u!114 &6240422329406722910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,8 +173,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: FrostbiteProjectile (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1821317826140332785, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+--- !u!1 &2713809132627338553 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1821317826140332785, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+  m_PrefabInstance: {fileID: 4391007363983263688}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3664567301653997779 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1023677646543908635, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
@@ -232,11 +244,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: FrostbiteProjectile
       objectReference: {fileID: 0}
+    - target: {fileID: 1821317826140332785, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
 --- !u!4 &7482066454093459980 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1023677646543908635, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+  m_PrefabInstance: {fileID: 7629509712112426263}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8117712218339213286 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1821317826140332785, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
   m_PrefabInstance: {fileID: 7629509712112426263}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7842309553870289370
@@ -294,10 +315,19 @@ PrefabInstance:
       propertyPath: m_Name
       value: FrostbiteProjectile (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1821317826140332785, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
 --- !u!4 &7125169154991511233 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1023677646543908635, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
+  m_PrefabInstance: {fileID: 7842309553870289370}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8472366102510918443 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1821317826140332785, guid: e5720b5c7c0e7ca428259e724e074f4f, type: 3}
   m_PrefabInstance: {fileID: 7842309553870289370}
   m_PrefabAsset: {fileID: 0}

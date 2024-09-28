@@ -10,6 +10,10 @@ public class SBP_Frostbite : BossProjectileFramework
 
     [SerializeField] private List<GameObject> _projectiles;
 
+    private void StartSpikeSpawningProcess()
+    {
+        StartCoroutine(SpikeSpawningProcess());
+    }
 
     // <summary>
     /// The process by which the individual spikes appear from the ground
@@ -52,6 +56,7 @@ public class SBP_Frostbite : BossProjectileFramework
     public override void SetUpProjectile(BossBase bossBase)
     {
         base.SetUpProjectile(bossBase);
+        StartSpikeSpawningProcess();
     }
     #endregion
 }
