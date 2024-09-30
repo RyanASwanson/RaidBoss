@@ -11,31 +11,49 @@ public abstract class GeneralAbilityAreaFramework : MonoBehaviour
     [SerializeField] private float _lifetime;
 
     [Space]
+
+    [SerializeField] private bool _hasColliderLifetime;
+    [SerializeField] private float _colliderLifetime;
+
+    [Space]
     [SerializeField] private GameObject _hitCenteredVFX;
 
-    [SerializeField] private UnityEvent _lifeTimeEndEvent;
+    [SerializeField] private UnityEvent _lifetimeEndEvent;
+
+    [SerializeField] private UnityEvent _colliderLifetimeEndEvent;
 
     // Start is called before the first frame update
 
     protected virtual void Start()
     {
-        StartLifeTime();
+        StartLifeTimes();
     }
 
     /// <summary>
     /// Remove the area after its life time if it has one
     /// </summary>
-    protected virtual void StartLifeTime()
+    protected virtual void StartLifeTimes()
     {
         if (_hasLifetime)
-            StartCoroutine(LifeTimeDestruction());
+            StartCoroutine(LifetimeDestruction());
+
+        if (_hasColliderLifetime)
+            StartCoroutine(ColliderLifetime());
+
     }
 
-    protected virtual IEnumerator LifeTimeDestruction()
+    protected virtual IEnumerator LifetimeDestruction()
     {
         yield return new WaitForSeconds(_lifetime);
-        _lifeTimeEndEvent?.Invoke();
+        InvokeDestructionEvent();
         Destroy(gameObject);
+    }
+
+    protected virtual IEnumerator ColliderLifetime()
+    {
+        yield return new WaitForSeconds(_colliderLifetime);
+        InvokeColliderLifetimeEvent();
+        ToggleProjectileCollider(false);
     }
 
 
@@ -69,4 +87,20 @@ public abstract class GeneralAbilityAreaFramework : MonoBehaviour
         CreateDestructionVFX();
         Destroy(gameObject);
     }
+
+    #region Events
+    private void InvokeDestructionEvent()
+    {
+        _lifetimeEndEvent?.Invoke();
+    }
+    private void InvokeColliderLifetimeEvent()
+    {
+        _colliderLifetimeEndEvent?.Invoke();
+    }
+    #endregion
+
+    #region Getters
+    public UnityEvent GetLifetimeEndEvent() => _lifetimeEndEvent;
+    public UnityEvent GetColliderLifetimeEvent() => _colliderLifetimeEndEvent;
+    #endregion
 }
