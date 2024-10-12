@@ -9,6 +9,9 @@ public class GlacialLord_FrostFiend : BossMinionBase
     private const string _fiendFrozenAnimTrigger = "FiendFrozen";
     private const string _fiendUnfrozenAnimTrigger = "FiendUnfrozen";
 
+    private const string _fiendBlizzardAnimTrigger = "BlizzardAttack";
+    private const string _fiendFrostbiteAnimTrigger = "FrostbiteAttack";
+
     private bool _minionFrozen;
     private float _freezeDuration;
 
@@ -17,13 +20,23 @@ public class GlacialLord_FrostFiend : BossMinionBase
         _freezeDuration = freezeDuration;
     }
 
+    public void BlizzardAttack()
+    {
+        BlizzardAttackAnim();
+    }
+
+    public void FrostbiteAttack()
+    {
+        FrostbiteAttackAnim();
+    }
+
     #region Freezing
     public void FreezeMinion()
     {
         if (_minionFrozen) return;
 
         _minionFrozen = true;
-        FreezeAnimationTrigger();
+        FreezeAnim();
 
         StartCoroutine(FreezeProcess());
     }
@@ -37,17 +50,27 @@ public class GlacialLord_FrostFiend : BossMinionBase
     private void UnfreezeMinion()
     {
         _minionFrozen = false;
-        UnfreezeAnimationTrigger();
+        UnfreezeAnim();
     }
 
-    private void FreezeAnimationTrigger()
+    private void FreezeAnim()
     {
         _frostFiendAnimator.SetTrigger(_fiendFrozenAnimTrigger);
     }
 
-    private void UnfreezeAnimationTrigger()
+    private void UnfreezeAnim()
     {
         _frostFiendAnimator.SetTrigger(_fiendUnfrozenAnimTrigger);
+    }
+
+    private void BlizzardAttackAnim()
+    {
+        _frostFiendAnimator.SetTrigger(_fiendBlizzardAnimTrigger);
+    }
+
+    private void FrostbiteAttackAnim()
+    {
+        _frostFiendAnimator.SetTrigger(_fiendFrostbiteAnimTrigger);
     }
 
     #endregion

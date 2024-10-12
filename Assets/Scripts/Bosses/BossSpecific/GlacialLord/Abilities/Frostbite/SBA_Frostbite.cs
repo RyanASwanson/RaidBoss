@@ -48,6 +48,8 @@ public class SBA_Frostbite : SpecificBossAbilityFramework
 
             newFrostbite.transform.LookAt(_glacialLord.transform);
             newFrostbite.transform.eulerAngles = new Vector3(0, newFrostbite.transform.eulerAngles.y, 0);
+
+            frostFiend.FrostbiteAttack();
         }
 
         base.AbilityStart();

@@ -77,8 +77,6 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
         
     }
 
-
-
     protected override void AbilityStart()
     {
         base.AbilityStart();
@@ -88,6 +86,8 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
             if (targets.AreAnyMinionsFrozen()) continue;
 
             Instantiate(_blizzard, targets.GetAttackLocation(), Quaternion.identity);
+
+            targets.CallBlizzardAttackOnMinions();
         }
     }
     #endregion
@@ -109,6 +109,14 @@ public class BlizzardTargets
             if (fiend.IsMinionFrozen()) return true;
         }
         return false;
+    }
+
+    public void CallBlizzardAttackOnMinions()
+    {
+        foreach (GlacialLord_FrostFiend fiend in _associatedFiends)
+        {
+            fiend.BlizzardAttack();
+        }
     }
 
     public void AddFrostFiendToList(GlacialLord_FrostFiend fiend)
