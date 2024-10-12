@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &720772806750983131
+--- !u!1 &5639738150376085723
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,46 +8,46 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6695267120723531889}
-  - component: {fileID: 1441529698688028034}
-  - component: {fileID: 716069910141864398}
+  - component: {fileID: 4869152015429649337}
+  - component: {fileID: 1064035718818977627}
+  - component: {fileID: 1594584815613382234}
   m_Layer: 0
-  m_Name: FrostFiendTestFreeze
+  m_Name: FrostFiendFreeze
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6695267120723531889
+--- !u!4 &4869152015429649337
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 720772806750983131}
+  m_GameObject: {fileID: 5639738150376085723}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.11000001, y: 0.11000001, z: 0.11000001}
+  m_LocalScale: {x: 0.12, y: 0.12, z: 0.12}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 145095764764379365}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &1441529698688028034
+--- !u!33 &1064035718818977627
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 720772806750983131}
-  m_Mesh: {fileID: 9005565765527474712, guid: 94aa1d5f7e8fd8b4695ced3262310ade, type: 3}
---- !u!23 &716069910141864398
+  m_GameObject: {fileID: 5639738150376085723}
+  m_Mesh: {fileID: -7433575846420905454, guid: fa527d561b4aafa4e9f303ec82d89017, type: 3}
+--- !u!23 &1594584815613382234
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 720772806750983131}
+  m_GameObject: {fileID: 5639738150376085723}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -111,7 +111,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 6695267120723531889}
+  - {fileID: 4869152015429649337}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
