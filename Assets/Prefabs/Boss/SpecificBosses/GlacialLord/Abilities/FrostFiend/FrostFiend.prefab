@@ -388,6 +388,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4319846792845351860}
   - component: {fileID: 8986339661293735458}
+  - component: {fileID: 2535172192572996261}
   m_Layer: 0
   m_Name: FrostFiend
   m_TagString: Untagged
@@ -409,6 +410,7 @@ Transform:
   m_Children:
   - {fileID: 4319846793182936090}
   - {fileID: 4319846792139540759}
+  - {fileID: 5650141003453692597}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -424,6 +426,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b808916816e5e70419992a88978ea0f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _frostFiendAnimator: {fileID: 2535172192572996261}
+--- !u!95 &2535172192572996261
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4319846792845351859}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a11dcd194afd2314c889ce93be7fe8a0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4319846793182936089
 GameObject:
   m_ObjectHideFlags: 0
@@ -501,6 +525,38 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &4931017759713728514
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4867441761409619840}
+  m_Layer: 0
+  m_Name: Holder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4867441761409619840
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4931017759713728514}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1109594868802345740}
+  m_Father: {fileID: 5650141003453692597}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8301564129402942771
 GameObject:
   m_ObjectHideFlags: 0
@@ -534,6 +590,38 @@ Transform:
   m_Father: {fileID: 4319846791971229840}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8522072795408361714
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5650141003453692597}
+  m_Layer: 0
+  m_Name: FrozenEffects
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5650141003453692597
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8522072795408361714}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4867441761409619840}
+  m_Father: {fileID: 4319846792845351860}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9010921085834718788
 GameObject:
   m_ObjectHideFlags: 0
@@ -566,3 +654,65 @@ Transform:
   m_Father: {fileID: 6641158781755745455}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &965293638634345449
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 4867441761409619840}
+    m_Modifications:
+    - target: {fileID: 145095764764379365, guid: ab3e00b4ef5bd62488485f170dd5c633, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 145095764764379365, guid: ab3e00b4ef5bd62488485f170dd5c633, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 145095764764379365, guid: ab3e00b4ef5bd62488485f170dd5c633, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 145095764764379365, guid: ab3e00b4ef5bd62488485f170dd5c633, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 145095764764379365, guid: ab3e00b4ef5bd62488485f170dd5c633, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 145095764764379365, guid: ab3e00b4ef5bd62488485f170dd5c633, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 145095764764379365, guid: ab3e00b4ef5bd62488485f170dd5c633, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 145095764764379365, guid: ab3e00b4ef5bd62488485f170dd5c633, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 145095764764379365, guid: ab3e00b4ef5bd62488485f170dd5c633, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 145095764764379365, guid: ab3e00b4ef5bd62488485f170dd5c633, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 145095764764379365, guid: ab3e00b4ef5bd62488485f170dd5c633, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8651576434378706810, guid: ab3e00b4ef5bd62488485f170dd5c633, type: 3}
+      propertyPath: m_Name
+      value: FrostFiendFrozenEffect
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ab3e00b4ef5bd62488485f170dd5c633, type: 3}
+--- !u!4 &1109594868802345740 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 145095764764379365, guid: ab3e00b4ef5bd62488485f170dd5c633, type: 3}
+  m_PrefabInstance: {fileID: 965293638634345449}
+  m_PrefabAsset: {fileID: 0}
