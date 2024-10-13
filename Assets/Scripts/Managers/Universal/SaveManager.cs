@@ -13,7 +13,7 @@ public class SaveManager : BaseUniversalManager
     [SerializeField] private List<HeroSO> _heroesInGame = new();
 
     [Space]
-
+    [SerializeField] private List<BossSO> _bossesStartingUnlocked;
     [SerializeField] private List<HeroSO> _heroesStartingUnlocked;
 
 
@@ -37,6 +37,8 @@ public class SaveManager : BaseUniversalManager
     private void StartingValues()
     {
         //Fills the GSD with default values when the file is created
+        PopulateUnlockedBosses();
+        PopulateUnlockedHeroes();
         PopulateBossHeroDifficultyDictionary();
 
         GSD.SetGSDScreenShakeStrength(1);
@@ -45,6 +47,24 @@ public class SaveManager : BaseUniversalManager
         GSD.SetGSDMasterVolume(.5f);
         GSD.SetGSDMusicVolume(.5f);
         GSD.SetGSDSFXVolume(.5f);
+    }
+
+    private void PopulateUnlockedBosses()
+    {
+        foreach (BossSO bossSO in _bossesInGame)
+        {
+            print(bossSO.GetBossName() + _bossesStartingUnlocked.Contains(bossSO));
+            GSD._bossesUnlocked.Add(bossSO.GetBossName(), _bossesStartingUnlocked.Contains(bossSO));
+        }
+    }
+
+    private void PopulateUnlockedHeroes()
+    {
+        foreach(HeroSO heroSO in _heroesInGame)
+        {
+            print(heroSO.GetHeroName() + _heroesStartingUnlocked.Contains(heroSO));
+            GSD._heroesUnlocked.Add(heroSO.GetHeroName(), _heroesStartingUnlocked.Contains(heroSO));
+        }
     }
 
     private void PopulateBossHeroDifficultyDictionary()
@@ -127,10 +147,57 @@ public class SaveManager : BaseUniversalManager
     {
         //Resets the best difficulties beaten
         PopulateBossHeroDifficultyDictionary();
-        
+
         //Saves the changes into the text file
         SaveText();
     }
+
+    #region Character Unlocks
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.O))
+        {
+            UnlockNextBoss();
+        }
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            UnlockNextHero();
+        }
+    }
+    #region Boss Unlocks
+    private void UnlockNextBoss()
+    {
+        if (GSD._bossesUnlocked[_bossesInGame[_bossesInGame.Count - 1].GetBossName()])
+            return;
+
+        foreach (BossSO bossSO in _bossesInGame)
+        {
+            if (GSD._bossesUnlocked[bossSO.GetBossName()] == false)
+            {
+                GSD._bossesUnlocked[bossSO.GetBossName()] = true;
+                break;
+            }
+        }
+    }
+    #endregion
+
+    #region Hero Unlocks
+    private void UnlockNextHero()
+    {
+        if (GSD._heroesUnlocked[_heroesInGame[_heroesInGame.Count-1].GetHeroName()])
+                return;
+
+        foreach(HeroSO heroSO in _heroesInGame)
+        {
+            if (GSD._heroesUnlocked[heroSO.GetHeroName()] == false)
+            {
+                GSD._heroesUnlocked[heroSO.GetHeroName()] = true;
+                break;
+            }
+        }
+    }
+    #endregion
+    #endregion
 
     #region BaseManager
     public override void SetupManager()
@@ -224,6 +291,7 @@ public class SaveManager : BaseUniversalManager
 [System.Serializable]
 public class GameSaveData
 {
+    public Dictionary<string, bool> _bossesUnlocked = new();
     //String is hero name
     public Dictionary<string, bool> _heroesUnlocked = new();
     //First string is boss name, second string is hero name
