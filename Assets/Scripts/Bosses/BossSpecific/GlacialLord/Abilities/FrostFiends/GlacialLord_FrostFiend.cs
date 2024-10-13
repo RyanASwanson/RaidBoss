@@ -10,6 +10,7 @@ public class GlacialLord_FrostFiend : BossMinionBase
     private const string _fiendUnfrozenAnimTrigger = "FiendUnfrozen";
 
     private const string _fiendBlizzardAnimTrigger = "BlizzardAttack";
+    private const string _fiendBlizzardFailedAnimTrigger = "BlizzardFailed";
     private const string _fiendFrostbiteAnimTrigger = "FrostbiteAttack";
 
     private bool _minionFrozen;
@@ -23,6 +24,11 @@ public class GlacialLord_FrostFiend : BossMinionBase
     public void BlizzardAttack()
     {
         BlizzardAttackAnim();
+    }
+
+    public void BlizzardFailed()
+    {
+        BlizzardFailedAnim();
     }
 
     public void FrostbiteAttack()
@@ -66,6 +72,11 @@ public class GlacialLord_FrostFiend : BossMinionBase
     private void BlizzardAttackAnim()
     {
         _frostFiendAnimator.SetTrigger(_fiendBlizzardAnimTrigger);
+    }
+
+    private void BlizzardFailedAnim()
+    {
+        _frostFiendAnimator.SetTrigger(_fiendBlizzardFailedAnimTrigger);
     }
 
     private void FrostbiteAttackAnim()

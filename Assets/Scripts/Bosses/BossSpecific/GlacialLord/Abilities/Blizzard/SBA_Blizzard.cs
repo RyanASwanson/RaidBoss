@@ -9,10 +9,12 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
     [SerializeField] private GameObject _blizzard;
 
     [SerializeField] private List<BlizzardTargets> _allTargets;
+
     private int _setupTargetsCounter = 0;
     private bool _verticalTarget;
 
     private List<BlizzardTargets> _currentTargets = new();
+    private List<BlizzardTargets> _activeTargets = new();
 
     private SB_GlacialLord _glacialLord;
 
@@ -30,7 +32,6 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
 
         return newTargets;
     }
-
 
     private void CreateTargetZone(Vector3 location)
     {
@@ -61,7 +62,6 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
         _setupTargetsCounter++;
     }
 
-
     protected override void StartShowTargetZone()
     {
         base.StartShowTargetZone();
@@ -70,25 +70,32 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
 
         foreach(BlizzardTargets targets in _currentTargets)
         {
-            if (targets.AreAnyMinionsFrozen()) continue;
+            if (targets.AreAnyMinionsFrozen())
+            {
+                targets.CallFailedOnUnfrozenMinions();
+                continue;
+            }
 
             CreateTargetZone(targets.GetAttackLocation());
+
+            targets.CallBlizzardAttackOnMinions();
+
+            _activeTargets.Add(targets);
         }
-        
     }
 
     protected override void AbilityStart()
     {
         base.AbilityStart();
 
-        foreach (BlizzardTargets targets in _currentTargets)
+        foreach (BlizzardTargets targets in _activeTargets)
         {
             if (targets.AreAnyMinionsFrozen()) continue;
 
             Instantiate(_blizzard, targets.GetAttackLocation(), Quaternion.identity);
-
-            targets.CallBlizzardAttackOnMinions();
         }
+
+        _activeTargets.Clear();
     }
     #endregion
 }
@@ -111,11 +118,32 @@ public class BlizzardTargets
         return false;
     }
 
+    public GlacialLord_FrostFiend GetUnfrozenFiend()
+    {
+        foreach(GlacialLord_FrostFiend fiend in _associatedFiends)
+        {
+            if (!fiend.IsMinionFrozen())
+                return fiend;
+        }
+        return null;
+    }
+
     public void CallBlizzardAttackOnMinions()
     {
         foreach (GlacialLord_FrostFiend fiend in _associatedFiends)
         {
             fiend.BlizzardAttack();
+        }
+    }
+
+    public void CallFailedOnUnfrozenMinions()
+    {
+        foreach (GlacialLord_FrostFiend fiend in _associatedFiends)
+        {
+            if(!fiend.IsMinionFrozen())
+            {
+                fiend.BlizzardFailed();
+            }
         }
     }
 

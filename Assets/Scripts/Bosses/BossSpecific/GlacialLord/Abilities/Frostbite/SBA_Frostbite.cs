@@ -7,6 +7,8 @@ public class SBA_Frostbite : SpecificBossAbilityFramework
     [SerializeField] private GameObject _targetZone;
     [SerializeField] private GameObject _frostBite;
 
+    private List<GlacialLord_FrostFiend> _attackingFiends = new();
+
     private SB_GlacialLord _glacialLord;
 
     public override void AbilitySetup(BossBase bossBase)
@@ -31,12 +33,16 @@ public class SBA_Frostbite : SpecificBossAbilityFramework
             newTargetZone.transform.eulerAngles = new Vector3(0, newTargetZone.transform.eulerAngles.y, 0);
 
             _currentTargetZones.Add(newTargetZone);
+
+            _attackingFiends.Add(frostFiend);
+
+            frostFiend.FrostbiteAttack();
         }    
     }
 
     protected override void AbilityStart()
     {
-        foreach (GlacialLord_FrostFiend frostFiend in _glacialLord.GetAllFrostFiends())
+        foreach (GlacialLord_FrostFiend frostFiend in _attackingFiends)
         {
             if (frostFiend.IsMinionFrozen()) continue;
 
@@ -48,12 +54,10 @@ public class SBA_Frostbite : SpecificBossAbilityFramework
 
             newFrostbite.transform.LookAt(_glacialLord.transform);
             newFrostbite.transform.eulerAngles = new Vector3(0, newFrostbite.transform.eulerAngles.y, 0);
-
-            frostFiend.FrostbiteAttack();
         }
 
         base.AbilityStart();
 
+        _attackingFiends.Clear();
     }
-
 }
