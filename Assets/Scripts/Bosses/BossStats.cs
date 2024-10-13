@@ -22,9 +22,11 @@ public class BossStats : BossChildrenFunctionality
 
     private bool _bossStaggered = false;
 
-    private float _bossDamageMultiplier = 1;
+    private float _baseBossDamageMultiplier = 1;
     private float _bossDamageResistanceMultiplier =1;
-   
+
+
+    private float _bossEnrageDamageMultiplier = 1;
 
     private void StatsSetup(BossSO bossSO)
     {
@@ -46,7 +48,7 @@ public class BossStats : BossChildrenFunctionality
         _bossDamageResistanceChangeOnStagger = bossSO.GetDamageResistanceChangeOnStagger();
         
         //Sets the damage dealt multiplier based on the difficulty
-        _bossDamageMultiplier = UniversalManagers.Instance.
+        _baseBossDamageMultiplier = UniversalManagers.Instance.
                 GetSelectionManager().GetDamageMultiplierFromDifficulty();
     }
 
@@ -202,7 +204,11 @@ public class BossStats : BossChildrenFunctionality
 
     public float GetStaggerDuration() => _bossStaggerDuration;
 
-    public float GetBossDamageMultiplier() => _bossDamageMultiplier;
+    public float GetBaseBossDamageMultiplier() => _baseBossDamageMultiplier;
+
+    public float GetBossEnrageDamageMultiplier() => _bossEnrageDamageMultiplier;
+
+    public float GetCombinedBossDamageMultiplier() => _baseBossDamageMultiplier * _bossEnrageDamageMultiplier;
     #endregion
 
     #region Setters
@@ -224,7 +230,7 @@ public class BossStats : BossChildrenFunctionality
 
     public void MultiplyBossDamageMultiplier(float amount)
     {
-        _bossDamageMultiplier *= amount;
+        _baseBossDamageMultiplier *= amount;
     }
     #endregion
 }

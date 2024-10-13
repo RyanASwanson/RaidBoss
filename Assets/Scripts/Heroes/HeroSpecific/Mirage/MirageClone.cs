@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class MirageClone : SpecificHeroFramework
 {
+    private Coroutine _basicAttackCooldownProcess;
+
     private SH_Mirage _mirageOwner;
     private BossBase _bossBase;
 
-    /// <summary>
+    #region Basic
+    /*/// <summary>
     /// Starts the process of the clone casting it's own copy of the Mirage
     ///     basic ability
     /// </summary>
@@ -25,14 +28,6 @@ public class MirageClone : SpecificHeroFramework
         return !base.ConditionsToActivateBasicAbilities();
     }
 
-
-    public override void ActivateBasicAbilities()
-    {
-        base.ActivateBasicAbilities();
-
-        _mirageOwner.CloneBasicAbility();
-    }
-
     /// <summary>
     /// Disables the ability to cast the Mirage basic ability
     /// Called when it stops moving
@@ -40,8 +35,40 @@ public class MirageClone : SpecificHeroFramework
     private void EndBasicCastProcess()
     {
         StopCooldownBasicAbility();
+    }*/
+
+    private IEnumerator ReHitCooldown()
+    {
+        yield return new WaitForSeconds(_basicAbilityChargeTime);
+        _basicAbilityCooldownCoroutine = null;
+    }
+    #endregion
+
+    #region Manual
+    public void CloneSwap(Transform heroTransform)
+    {
+        TriggerManualAbilityAnimation();
+
+        _myHeroBase.transform.position = heroTransform.position;
+        _myHeroBase.transform.rotation = heroTransform.rotation;
     }
 
+    private void CloneCounterAttack(float damage)
+    {
+        if(_basicAbilityCooldownCoroutine == null)
+        {
+            ActivateBasicAbilities();
+            _basicAbilityCooldownCoroutine = StartCoroutine(ReHitCooldown());
+        }
+    }
+
+    public override void ActivateBasicAbilities()
+    {
+        //base.ActivateBasicAbilities();
+        TriggerBasicAbilityAnimation();
+        _mirageOwner.CloneBasicAbility();
+    }
+    #endregion
 
     /// <summary>
     /// The mirage clone adds itself as a possible target for boss attacks
@@ -51,8 +78,6 @@ public class MirageClone : SpecificHeroFramework
     {
         GameplayManagers.Instance.GetBossManager().GetBossBase().GetSpecificBossScript().AddHeroTarget(_myHeroBase);
     }
-
-
 
     #region Base Hero
     public override void SetupSpecificHero(HeroBase heroBase, HeroSO heroSO)
@@ -79,13 +104,14 @@ public class MirageClone : SpecificHeroFramework
 
     protected override void SubscribeToEvents()
     {
-        //_myHeroBase.GetHeroStartedMovingEvent().AddListener(StartCloneCastBasic);
-        _myHeroBase.GetHeroStartedMovingEvent().AddListener(StartCooldownBasicAbility);
+        //_myHeroBase.GetHeroStartedMovingEvent().AddListener(StartCooldownBasicAbility);
 
         //Stops the clone from using the basic ability after it stops moving
-        _myHeroBase.GetHeroStoppedMovingEvent().AddListener(EndBasicCastProcess);
+        //_myHeroBase.GetHeroStoppedMovingEvent().AddListener(EndBasicCastProcess);
 
         _bossBase.GetBossTargetsAssignedEvent().AddListener(AssignSelfAsBossTarget);
+
+        _myHeroBase.GetHeroDamagedOverrideEvent().AddListener(CloneCounterAttack);
         base.SubscribeToEvents();
     }
     #endregion

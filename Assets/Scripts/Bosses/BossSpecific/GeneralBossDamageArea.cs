@@ -121,7 +121,7 @@ public class GeneralBossDamageArea : GeneralAbilityAreaFramework
     private void DealDamage(HeroBase heroBase, float abilityDamage)
     {
         if (abilityDamage > 0)
-            heroBase.GetHeroStats().DealDamageToHero(abilityDamage * _myBossStats.GetBossDamageMultiplier());
+            heroBase.GetHeroStats().DealDamageToHero(abilityDamage * _myBossStats.GetCombinedBossDamageMultiplier());
     }
     #endregion
 

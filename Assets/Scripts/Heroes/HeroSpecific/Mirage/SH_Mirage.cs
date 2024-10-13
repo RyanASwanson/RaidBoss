@@ -24,7 +24,7 @@ public class SH_Mirage : SpecificHeroFramework
     private const float _cloneSpawnOffset = -2;
 
     private HeroBase _cloneBase;
-
+    private MirageClone _cloneFunc;
 
     #region Basic Abilities
     /// <summary>
@@ -101,17 +101,30 @@ public class SH_Mirage : SpecificHeroFramework
         _cloneBase = GameplayManagers.Instance.GetHeroesManager().CreateHeroBase(spawnLocation,
             _myHeroBase.transform.rotation, _cloneSO);
 
-        ((MirageClone)_cloneBase.GetSpecificHeroScript()).AdditionalSetup(this);
+        _cloneFunc = ((MirageClone)_cloneBase.GetSpecificHeroScript());
+        _cloneFunc.AdditionalSetup(this);
     }
 
     public override void ActivateManualAbilities(Vector3 attackLocation)
     {
         base.ActivateManualAbilities(attackLocation);
-        MoveClone(attackLocation);
+        //CloneSwap();
+        //MoveClone(attackLocation);
     }
 
+    public void CloneSwap()
+    {
+        Vector3 storedCloneLocation = _cloneFunc.transform.position;
+        Quaternion storedCloneRotation = _cloneFunc.transform.rotation;
+        _cloneFunc.CloneSwap(_myHeroBase.transform);
 
-    /// <summary>
+        _myHeroBase.transform.position = storedCloneLocation;
+        _myHeroBase.transform.rotation = storedCloneRotation;
+
+        _myHeroBase.GetPathfinding().BriefStopCurrentMovement();
+    }
+
+    /*/// <summary>
     /// Directs the pathfinding of the clone to move to the target location
     /// </summary>
     /// <param name="moveLocation"></param>
@@ -129,7 +142,7 @@ public class SH_Mirage : SpecificHeroFramework
     {
         location = GameplayManagers.Instance.GetPlayerInputManager().CalculateDirectIconLocation(location);
         Instantiate(_cloneDirectIcon, location, Quaternion.identity);
-    }
+    }*/
 
 
     /// <summary>

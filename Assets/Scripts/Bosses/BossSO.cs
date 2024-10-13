@@ -24,6 +24,9 @@ public class BossSO : ScriptableObject
 
     [Range(0,.5f)] [SerializeField] private float _damageResistanceChangeOnStagger;
 
+    [SerializeField] private float _enrageTime;
+    [SerializeField] private float _enrageDamageMultiplier;
+
     [Header("Prefabs")]
     [SerializeField] private GameObject _bossPrefab;
 
@@ -48,6 +51,9 @@ public class BossSO : ScriptableObject
     public float GetBossRotationSpeed() => _rotationSpeed;
     public float GetBossDamageIncrementMultiplier() => _damageIncrementMultiplier;
     public float GetDamageResistanceChangeOnStagger() => _damageResistanceChangeOnStagger;
+
+    public float GetEnrageTime() => _enrageTime;
+    public float GetEnrageDamageMultiplier() => _enrageDamageMultiplier;
 
     public GameObject GetBossPrefab() => _bossPrefab;
 

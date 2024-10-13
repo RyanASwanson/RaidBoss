@@ -341,8 +341,6 @@ public abstract class SpecificBossFramework : MonoBehaviour
         _myBossBase.InvokeBossNoLongerStaggeredEvent();
     }
 
-
-
     #endregion
 
     protected virtual void BossStaggerOccured()
