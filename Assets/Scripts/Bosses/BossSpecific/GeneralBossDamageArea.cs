@@ -111,6 +111,7 @@ public class GeneralBossDamageArea : GeneralAbilityAreaFramework
         }
         return false;
     }
+    #endregion
 
     /// <summary>
     /// Inflicts damage to the hero that it hit
@@ -123,8 +124,6 @@ public class GeneralBossDamageArea : GeneralAbilityAreaFramework
         if (abilityDamage > 0)
             heroBase.GetHeroStats().DealDamageToHero(abilityDamage * _myBossStats.GetCombinedBossDamageMultiplier());
     }
-    #endregion
-
 
     /// <summary>
     /// Prevents damage from being dealt to a hero for a duration

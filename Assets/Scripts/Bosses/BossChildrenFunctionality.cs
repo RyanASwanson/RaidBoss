@@ -4,11 +4,11 @@ using UnityEngine;
 
 public abstract class BossChildrenFunctionality : MonoBehaviour
 {
-    internal BossBase myBossBase;
+    protected BossBase _myBossBase;
 
     public virtual void ChildFuncSetup(BossBase bossBase)
     {
-        myBossBase = bossBase;
+        _myBossBase = bossBase;
         SubscribeToEvents();
     }
 

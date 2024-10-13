@@ -25,8 +25,11 @@ public class BossStats : BossChildrenFunctionality
     private float _baseBossDamageMultiplier = 1;
     private float _bossDamageResistanceMultiplier =1;
 
-
     private float _bossEnrageDamageMultiplier = 1;
+    private float _storedEnrageMultiplier;
+
+    private float _currentTimeUntilEnrage;
+    private Coroutine _enrageCoroutine;
 
     private void StatsSetup(BossSO bossSO)
     {
@@ -50,6 +53,9 @@ public class BossStats : BossChildrenFunctionality
         //Sets the damage dealt multiplier based on the difficulty
         _baseBossDamageMultiplier = UniversalManagers.Instance.
                 GetSelectionManager().GetDamageMultiplierFromDifficulty();
+
+        _currentTimeUntilEnrage = bossSO.GetEnrageTime();
+        _storedEnrageMultiplier = bossSO.GetEnrageDamageMultiplier();
     }
 
     
@@ -72,7 +78,8 @@ public class BossStats : BossChildrenFunctionality
     private void BossStaggered()
     {
         _bossStaggered = true;
-        myBossBase.InvokeBossStaggeredEvent();
+        StopEnrageTimer();
+        _myBossBase.InvokeBossStaggeredEvent();
 
         DecreaseBossDamageResOnStagger();
     }
@@ -84,6 +91,7 @@ public class BossStats : BossChildrenFunctionality
     private void BossNoLongerStaggered()
     {
         _bossStaggered = false;
+        StartEnrageTimer();
         _currentStaggerCounter = 0;
 
         IncreaseBossDamageResAfterStagger();
@@ -94,11 +102,11 @@ public class BossStats : BossChildrenFunctionality
         if(GetBossHealthPercentage() < .5f)
         {
             //Invokes any necessary functionality for reaching half health
-            myBossBase.InvokeBossHalfHealthEvent();
+            _myBossBase.InvokeBossHalfHealthEvent();
             IncreaseBossStatsAtHealthThreshholds();
 
-            myBossBase.GetBossDamagedEvent().RemoveListener(CheckBossIsUnderHalf);
-            myBossBase.GetBossDamagedEvent().AddListener(CheckBossIsUnderQuarter);
+            _myBossBase.GetBossDamagedEvent().RemoveListener(CheckBossIsUnderHalf);
+            _myBossBase.GetBossDamagedEvent().AddListener(CheckBossIsUnderQuarter);
 
             CheckBossIsUnderQuarter(damage);
         }
@@ -109,14 +117,14 @@ public class BossStats : BossChildrenFunctionality
         if (GetBossHealthPercentage() < .25f)
         {
             //Invokes any necessary functionality for reaching quarter health
-            myBossBase.InvokeBossQuarterHealthEvent();
+            _myBossBase.InvokeBossQuarterHealthEvent();
             //Increases boss stats
             IncreaseBossStatsAtHealthThreshholds();
 
             //No longer listens for damage event
-            myBossBase.GetBossDamagedEvent().RemoveListener(CheckBossIsUnderQuarter);
+            _myBossBase.GetBossDamagedEvent().RemoveListener(CheckBossIsUnderQuarter);
             //Causes the 10 percent health check to listen for the damage event
-            myBossBase.GetBossDamagedEvent().AddListener(CheckBossIsUnderTenth);
+            _myBossBase.GetBossDamagedEvent().AddListener(CheckBossIsUnderTenth);
 
             CheckBossIsUnderTenth(damage);
         }
@@ -127,14 +135,14 @@ public class BossStats : BossChildrenFunctionality
         if (GetBossHealthPercentage() < .1f)
         {
             //Invokes any necessary functionality for reaching tenth health
-            myBossBase.InvokeBossTenthHealthEvent();
+            _myBossBase.InvokeBossTenthHealthEvent();
             //Increases boss stats
             IncreaseBossStatsAtHealthThreshholds();
 
             //No longer listens for damage event
-            myBossBase.GetBossDamagedEvent().RemoveListener(CheckBossIsUnderTenth);
+            _myBossBase.GetBossDamagedEvent().RemoveListener(CheckBossIsUnderTenth);
             //Causes the death check to listen for the damage event
-            myBossBase.GetBossDamagedEvent().AddListener(CheckIfBossIsDead);
+            _myBossBase.GetBossDamagedEvent().AddListener(CheckIfBossIsDead);
 
             CheckIfBossIsDead(damage);
         }
@@ -150,10 +158,43 @@ public class BossStats : BossChildrenFunctionality
 
     protected virtual void IncreaseBossStatsAtHealthThreshholds()
     {
-        myBossBase.GetBossStats().MultiplyBossDamageMultiplier(_bossDamageIncrementMultiplier);
+        _myBossBase.GetBossStats().MultiplyBossDamageMultiplier(_bossDamageIncrementMultiplier);
     }
 
+    #region Enrage
+    private void StartEnrageTimer()
+    {
+        if (_enrageCoroutine == null)
+        {
+            _enrageCoroutine = StartCoroutine(BossEnrageCounter());
+        }
+    }
 
+    private void StopEnrageTimer()
+    {
+        if (_enrageCoroutine != null)
+        {
+            StopCoroutine(_enrageCoroutine);
+        }
+    }
+
+    private IEnumerator BossEnrageCounter()
+    {
+        while(_currentTimeUntilEnrage > 0)
+        {
+            _currentTimeUntilEnrage -= Time.deltaTime;
+            yield return null;
+        }
+
+        EnrageMax();
+    }
+
+    private void EnrageMax()
+    {
+        _bossEnrageDamageMultiplier = _storedEnrageMultiplier;
+        _myBossBase.InvokeBossEnragedEvent();
+    }
+    #endregion
 
     #region Stat Changes
 
@@ -180,11 +221,13 @@ public class BossStats : BossChildrenFunctionality
     #region Events
     public override void SubscribeToEvents()
     {
-        myBossBase.GetSOSetEvent().AddListener(BossSOAssigned);
+        _myBossBase.GetSOSetEvent().AddListener(BossSOAssigned);
 
-        myBossBase.GetBossNoLongerStaggeredEvent().AddListener(BossNoLongerStaggered);
+        _myBossBase.GetBossNoLongerStaggeredEvent().AddListener(BossNoLongerStaggered);
 
-        myBossBase.GetBossDamagedEvent().AddListener(CheckBossIsUnderHalf);
+        _myBossBase.GetBossDamagedEvent().AddListener(CheckBossIsUnderHalf);
+
+        GameplayManagers.Instance.GetGameStateManager().GetStartOfBattleEvent().AddListener(StartEnrageTimer);
     }
 
     private void BossSOAssigned(BossSO bossSO)
@@ -216,7 +259,7 @@ public class BossStats : BossChildrenFunctionality
     {
         damage /= _bossDamageResistanceMultiplier;
         _currentHealth -= damage;
-        myBossBase.InvokeBossDamagedEvent(damage);
+        _myBossBase.InvokeBossDamagedEvent(damage);
     }
 
     public void DealStaggerToBoss(float stagger)
@@ -224,7 +267,7 @@ public class BossStats : BossChildrenFunctionality
         if (_bossStaggered) return;
 
         _currentStaggerCounter += stagger;
-        myBossBase.InvokeBossStaggerDealt(stagger);
+        _myBossBase.InvokeBossStaggerDealt(stagger);
         CheckIfBossIsStaggered();
     }
 

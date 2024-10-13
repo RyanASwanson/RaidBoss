@@ -137,20 +137,20 @@ public class BossVisuals : BossChildrenFunctionality
 
     private void SetFromSO(BossSO bossSO)
     {
-        _rotateSpeed = myBossBase.GetBossSO().GetBossRotationSpeed();
+        _rotateSpeed = _myBossBase.GetBossSO().GetBossRotationSpeed();
 
-        _bossSpecificAnimator = myBossBase.GetSpecificBossScript().GetBossSpecificAnimator();
+        _bossSpecificAnimator = _myBossBase.GetSpecificBossScript().GetBossSpecificAnimator();
 
         BossSpecificLevelIntroTrigger();
     }
 
     public override void SubscribeToEvents()
     {
-        myBossBase.GetSOSetEvent().AddListener(SetFromSO);
+        _myBossBase.GetSOSetEvent().AddListener(SetFromSO);
 
-        myBossBase.GetBossDamagedEvent().AddListener(BossTookDamage);
+        _myBossBase.GetBossDamagedEvent().AddListener(BossTookDamage);
 
-        myBossBase.GetBossStaggeredEvent().AddListener(BossFullyStaggered);
+        _myBossBase.GetBossStaggeredEvent().AddListener(BossFullyStaggered);
 
         GameplayManagers.Instance.GetGameStateManager().GetBattleWonEvent().AddListener(BattleWon);
     }
