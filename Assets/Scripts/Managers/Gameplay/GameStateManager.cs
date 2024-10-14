@@ -73,8 +73,9 @@ public class GameStateManager : BaseGameplayManager
         //Slows time
         UniversalManagers.Instance.GetTimeManager().BossDiedTimeSlow();
 
+        //Unlocks the next boss and hero
         //Saves the best difficulty beaten for each hero
-        UniversalManagers.Instance.GetSaveManager().SaveBossDifficultyHeroesDictionary();
+        UniversalManagers.Instance.GetSaveManager().BossDead();
         InvokeBattleWonEvent();
     }
 

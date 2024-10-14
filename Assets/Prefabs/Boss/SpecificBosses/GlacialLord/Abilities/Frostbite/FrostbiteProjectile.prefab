@@ -233,8 +233,13 @@ MonoBehaviour:
   - {fileID: 5904793133596729851}
   _hasLifetime: 0
   _lifetime: 0
+  _hasColliderLifetime: 0
+  _colliderLifetime: 0
   _hitCenteredVFX: {fileID: 0}
-  _lifeTimeEndEvent:
+  _lifetimeEndEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _colliderLifetimeEndEvent:
     m_PersistentCalls:
       m_Calls: []
   _preventReHitDuration: 0.5
@@ -242,7 +247,7 @@ MonoBehaviour:
   _enterEvent:
     m_PersistentCalls:
       m_Calls: []
-  _stayDamagePerTick: 2
+  _stayDamagePerTick: 2.5
   _stayEvent:
     m_PersistentCalls:
       m_Calls: []

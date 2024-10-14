@@ -25,9 +25,6 @@ public class SHP_VampireBasicProjectile : HeroProjectileFramework
 
     private SH_Vampire _vampireHero;
 
-    
-
-
     /// <summary>
     /// Triggers different animations based on if the projectile is the original
     /// or a split copy
@@ -58,7 +55,6 @@ public class SHP_VampireBasicProjectile : HeroProjectileFramework
     /// </summary>
     public void SplitProjectile()
     {
-
         for(int i = 0; i < _splitProjectileCount; i++)
         {
             float tempRot = Mathf.Lerp(-_splitAngle, _splitAngle, i / (_splitProjectileCount-1));

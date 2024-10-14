@@ -5367,12 +5367,17 @@ MonoBehaviour:
   - {fileID: 4546887292678307195}
   _hasLifetime: 1
   _lifetime: 1.5
-  _lifeTimeEndEvent:
+  _hasColliderLifetime: 0
+  _colliderLifetime: 0
+  _hitCenteredVFX: {fileID: 0}
+  _lifetimeEndEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _colliderLifetimeEndEvent:
     m_PersistentCalls:
       m_Calls: []
   _preventReHitDuration: 3
-  _hitCenteredVFX: {fileID: 0}
-  _enterDamage: 8
+  _enterDamage: 10
   _enterEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -5449,3 +5454,4 @@ MonoBehaviour:
   _lifeTime: 3
   _hasDetachTime: 1
   _detachTime: 1.4
+  _particleSystems: []

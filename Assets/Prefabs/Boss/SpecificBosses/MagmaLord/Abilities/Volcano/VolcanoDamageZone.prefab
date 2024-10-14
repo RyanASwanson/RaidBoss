@@ -114,6 +114,7 @@ MonoBehaviour:
   _lifeTime: 4
   _hasDetachTime: 1
   _detachTime: 1.4
+  _particleSystems: []
 --- !u!1 &4322066119214513456
 GameObject:
   m_ObjectHideFlags: 0
@@ -5285,16 +5286,21 @@ MonoBehaviour:
   - {fileID: 2651889579369377654}
   _hasLifetime: 0
   _lifetime: 0
-  _lifeTimeEndEvent:
+  _hasColliderLifetime: 0
+  _colliderLifetime: 0
+  _hitCenteredVFX: {fileID: 0}
+  _lifetimeEndEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _colliderLifetimeEndEvent:
     m_PersistentCalls:
       m_Calls: []
   _preventReHitDuration: 0.5
-  _hitCenteredVFX: {fileID: 0}
   _enterDamage: 0
   _enterEvent:
     m_PersistentCalls:
       m_Calls: []
-  _stayDamagePerTick: 2
+  _stayDamagePerTick: 2.5
   _stayEvent:
     m_PersistentCalls:
       m_Calls: []

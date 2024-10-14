@@ -113,6 +113,14 @@ public class SaveManager : BaseUniversalManager
         }
     }
 
+    public void BossDead()
+    {
+        SaveBossDifficultyHeroesDictionary();
+        UnlockNextBoss();
+        UnlockNextHero();
+        SaveText();
+    }
+
     /// <summary>
     /// Saves the heroes best difficulty beaten on a boss
     /// </summary>
@@ -134,9 +142,6 @@ public class SaveManager : BaseUniversalManager
                     [currentTempHero.GetHeroName()] = tempDifficulty;
             }
         }
-
-        //Saves the changes to the save file
-        SaveText();
     }
 
     /// <summary>
@@ -153,17 +158,6 @@ public class SaveManager : BaseUniversalManager
     }
 
     #region Character Unlocks
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.O))
-        {
-            UnlockNextBoss();
-        }
-        if(Input.GetKeyDown(KeyCode.P))
-        {
-            UnlockNextHero();
-        }
-    }
     #region Boss Unlocks
     private void UnlockNextBoss()
     {
