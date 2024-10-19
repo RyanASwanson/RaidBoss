@@ -20,9 +20,10 @@ public class SH_Fae : SpecificHeroFramework
     [SerializeField] private float _accelerateTime;
     [SerializeField] private float _manualSpeedMultiplier;
     [SerializeField] private float _manualWallDistanceRange;
+    [SerializeField] private float _manualDamageCooldown;
     [Range(0,1)][SerializeField] private float _manualBossHoming;
     [SerializeField] private Vector3 _manualWallExtents;
-
+    private bool _manualCanDamage = true;
     [Space]
     [SerializeField] private GameObject _swirlVFX;
 
@@ -215,8 +216,12 @@ public class SH_Fae : SpecificHeroFramework
 
             if (ManualHitBoss(rayHit))
             {
-                DamageBoss(_manualContactDamage);
-                StaggerBoss(_manualContactStagger);
+                if(_manualCanDamage)
+                {
+                    DamageBoss(_manualContactDamage);
+                    StaggerBoss(_manualContactStagger);
+                    StartCoroutine(ManualDamageCooldown());
+                }
                 return;
             }
                 
@@ -226,6 +231,13 @@ public class SH_Fae : SpecificHeroFramework
                 GameplayManagers.Instance.GetBossManager().GetDirectionToBoss(transform.position), _manualBossHoming).normalized;
         }
 
+    }
+
+    private IEnumerator ManualDamageCooldown()
+    {
+        _manualCanDamage = false;
+        yield return new WaitForSeconds(_manualDamageCooldown);
+        _manualCanDamage = true;
     }
 
     private bool ManualHitBoss(RaycastHit rayHit)

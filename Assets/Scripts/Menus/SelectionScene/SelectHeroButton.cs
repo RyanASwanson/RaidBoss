@@ -10,7 +10,6 @@ using UnityEngine.UI;
 public class SelectHeroButton : MonoBehaviour
 {
     [SerializeField] private HeroSO _associatedHero;
-    [SerializeField] private bool _heroEnabled;
     [Space]
 
     [SerializeField] private Image _iconVisuals;
@@ -20,6 +19,8 @@ public class SelectHeroButton : MonoBehaviour
     private Color _defaultColor;
 
     [SerializeField] private Image _bestDifficultyBeatenIcon;
+
+    [SerializeField] private GameObject _lockVisuals;
 
 
     // Start is called before the first frame update
@@ -31,7 +32,11 @@ public class SelectHeroButton : MonoBehaviour
 
     private void UpdateButtonInteractability()
     {
-        _heroButton.interactable = _heroEnabled;
+        bool heroUnlocked = UniversalManagers.Instance.GetSaveManager().
+            GSD._heroesUnlocked[_associatedHero.GetHeroName()];
+
+        _heroButton.interactable = heroUnlocked;
+        _lockVisuals.SetActive(!heroUnlocked);
     }
 
     private void SetButtonHeroIconVisuals()

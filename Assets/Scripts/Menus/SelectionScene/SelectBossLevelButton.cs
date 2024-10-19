@@ -19,6 +19,8 @@ public class SelectBossLevelButton : MonoBehaviour
 
     private Color _defaultColor;
 
+    [SerializeField] private GameObject _lockVisuals;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +30,11 @@ public class SelectBossLevelButton : MonoBehaviour
 
     private void UpdateButtonInteractability()
     {
-        _levelBossButton.interactable = _bossEnabled;
+        bool heroUnlocked = UniversalManagers.Instance.GetSaveManager().
+            GSD._bossesUnlocked[_associatedLevel.GetLevelBoss().GetBossName()];
+
+        _levelBossButton.interactable = heroUnlocked;
+        _lockVisuals.SetActive(!heroUnlocked);
     }
 
     private void SetButtonBossIconVisuals()
