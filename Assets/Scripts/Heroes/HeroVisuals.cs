@@ -28,7 +28,16 @@ public class HeroVisuals : HeroChildrenFunctionality
     [SerializeField] private RectTransform _buffDebuffOrigin;
     [SerializeField] private RectTransform _abilityReChargedPopupIconOrigin;
 
-    private const string HEALTH_STATUS_ANIM_INT = "HealthStatus";
+    [Space]
+    [SerializeField] private Transform _recentHealthOrigin;
+    [SerializeField] private Image _recentHealthPopUp;
+    [SerializeField] private Gradient _recentHealthPopUpGradient;
+    [SerializeField] private AnimationCurve _scaleCurve;
+    [SerializeField] private Animator _recentHealthPopupAnimator;
+
+    private const string SHOW_RECENT_HEALTH_POP_UP_ANIM_TRIGGER = "PopUpRecentHealth";
+
+    private const string GROUND_HEALTH_STATUS_ANIM_INT = "HealthStatus";
 
     [Space]
     [SerializeField] private Animator _heroGeneralAnimator;
@@ -59,12 +68,14 @@ public class HeroVisuals : HeroChildrenFunctionality
     {
         CreateHeroDamagedVFX();
         HeroDamagedAnimation();
+        ShowHealthPopUp();
     }
 
     private void HeroHealed(float healing)
     {
         CreateHeroHealedVFX();
         HeroHealedAnimation();
+        ShowHealthPopUp();
     }
 
     private void CreateHeroDamagedVFX()
@@ -77,6 +88,27 @@ public class HeroVisuals : HeroChildrenFunctionality
         Instantiate(_heroHealedVFX, transform.position, Quaternion.identity);
     }
 
+    private void ShowHealthPopUp()
+    {
+        float healthPercent = _myHeroBase.GetHeroStats().GetHeroHealthPercentage();
+
+        _recentHealthPopUp.color = DetermineHealthPopUpColor(healthPercent);
+        _recentHealthPopupAnimator.SetTrigger(SHOW_RECENT_HEALTH_POP_UP_ANIM_TRIGGER);
+
+        float newScale = DetermineRecentHealthPopUpScale(healthPercent);
+        _recentHealthOrigin.transform.localScale = new Vector3(newScale, newScale, newScale);
+    }
+
+    private Color DetermineHealthPopUpColor(float percent)
+    {
+        return _recentHealthPopUpGradient.Evaluate(percent);
+    }
+
+    private float DetermineRecentHealthPopUpScale(float percent)
+    {
+        return 1 + _scaleCurve.Evaluate(percent);
+    }
+
     private void HeroDied()
     {
         HeroDeathAnimation();
@@ -85,17 +117,17 @@ public class HeroVisuals : HeroChildrenFunctionality
     
     private void HeroHealthAboveHalf()
     {
-        _healthStatusIcon.GetComponent<Animator>().SetInteger(HEALTH_STATUS_ANIM_INT, 0);
+        _healthStatusIcon.GetComponent<Animator>().SetInteger(GROUND_HEALTH_STATUS_ANIM_INT, 0);
     }
 
     private void HeroInjured()
     {
-        _healthStatusIcon.GetComponent<Animator>().SetInteger(HEALTH_STATUS_ANIM_INT, 1);
+        _healthStatusIcon.GetComponent<Animator>().SetInteger(GROUND_HEALTH_STATUS_ANIM_INT, 1);
     }
 
     private void HeroCritical()
     {
-        _healthStatusIcon.GetComponent<Animator>().SetInteger(HEALTH_STATUS_ANIM_INT, 2);
+        _healthStatusIcon.GetComponent<Animator>().SetInteger(GROUND_HEALTH_STATUS_ANIM_INT, 2);
     }
 
     #endregion

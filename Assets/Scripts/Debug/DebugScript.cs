@@ -17,6 +17,8 @@ public class DebugScript : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+#if UNITY_EDITOR
     // Update is called once per frame
     void Update()
     {
@@ -26,3 +28,4 @@ public class DebugScript : MonoBehaviour
         }
     }
 }
+#endif
