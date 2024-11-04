@@ -27,5 +27,6 @@ public class DebugScript : MonoBehaviour
             UniversalManagers.Instance.GetSaveManager().BossDead();
         }
     }
-}
 #endif
+}
+
