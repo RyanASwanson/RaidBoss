@@ -68,6 +68,7 @@ public class SH_Reaper : SpecificHeroFramework
     #region Passive Abilities
     public override void ActivatePassiveAbilities()
     {
+        base.ActivatePassiveAbilities();
         StartCoroutine(PassiveProcess());
     }
 
