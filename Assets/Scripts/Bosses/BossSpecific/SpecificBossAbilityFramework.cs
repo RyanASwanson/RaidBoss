@@ -149,11 +149,15 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
         ScreenShakeCheck();
     }
 
-
+    /// <summary>
+    /// Checks if the ability has screen shake on it. If it does it plays a screen shake
+    /// </summary>
     protected virtual void ScreenShakeCheck()
     {
         if (_hasScreenShake)
+        {
             AbilityScreenShake();
+        }
     }
 
     protected virtual void AbilityScreenShake()
