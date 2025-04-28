@@ -6,7 +6,7 @@ using Cinemachine;
 /// <summary>
 /// Controls the functionality of the camera during gameplay
 /// </summary>
-public class CameraGameManager : BaseGameplayManager
+public class CameraGameManager : MainGameplayManagerFramework
 {
     [SerializeField] private Camera _gameplayCamera;
     [SerializeField] private CinemachineVirtualCamera _virtualCamera;
@@ -135,8 +135,6 @@ public class CameraGameManager : BaseGameplayManager
         _virtualCamRotationCoroutine = null;
     }
 
-    
-
     private void StartingValues()
     {
         _screenShakeMultiplier = UniversalManagers.Instance.GetSaveManager().GetScreenShakeIntensity();
@@ -145,18 +143,17 @@ public class CameraGameManager : BaseGameplayManager
         _multiChannelPerlin.m_FrequencyGain = _minimumFrequency * _screenShakeMultiplier;
     }
 
-
     #region BaseManager
-    public override void SetupManager()
-    {
-        base.SetupManager();
 
+    public override void SetUpMainManager()
+    {
+        base.SetUpMainManager();
+        
         _multiChannelPerlin = _virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
 
         StartingValues();
-
     }
-
+    
     protected override void SubscribeToEvents()
     {
         GameplayManagers.Instance.GetBossManager().GetBossBase()

@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Performs general management of the boss
 /// </summary>
-public class BossManager : BaseGameplayManager
+public class BossManager : MainGameplayManagerFramework
 {
     [SerializeField] private BossBase _bossBase;
 
@@ -17,9 +17,9 @@ public class BossManager : BaseGameplayManager
     /// <summary>
     /// Sets up the manager then sets up the specific boss
     /// </summary>
-    public override void SetupManager()
+    public override void SetUpMainManager()
     {
-        base.SetupManager();
+        base.SetUpMainManager();
         _bossGameObject = _bossBase.gameObject;
 
         //Sets up the boss base by giving it the BossSO

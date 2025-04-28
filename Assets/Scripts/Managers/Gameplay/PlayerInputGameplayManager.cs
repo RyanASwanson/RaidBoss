@@ -7,7 +7,7 @@ using UnityEngine.Events;
 /// <summary>
 /// Handles player input while in a gameplay scene
 /// </summary>
-public class PlayerInputGameplayManager : BaseGameplayManager
+public class PlayerInputGameplayManager : MainGameplayManagerFramework
 {
     [SerializeField] private float _scrollCooldown;
     private bool _clickAndDragEnabled;
@@ -304,20 +304,13 @@ public class PlayerInputGameplayManager : BaseGameplayManager
     }
     #endregion
 
-
-
     #region BaseManager
-    public override void SetupManager()
+
+    public override void SetUpMainManager()
     {
-        base.SetupManager();
-        GetManagers();
+        base.SetUpMainManager();
         SetupClickAndDrag();
         SubscribeToPlayerInput();
-    }
-
-    protected override void GetManagers()
-    {
-        _heroesManager = GameplayManagers.Instance.GetHeroesManager();
     }
 
     protected override void SubscribeToEvents()

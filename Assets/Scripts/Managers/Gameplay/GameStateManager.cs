@@ -7,7 +7,7 @@ using UnityEngine.Events;
 /// Provides the functionality for the game state throughout gameplay scenes
 /// Battle starts in the pre battle state
 /// </summary>
-public class GameStateManager : BaseGameplayManager
+public class GameStateManager : MainGameplayManagerFramework
 {
     [SerializeField] private float _timeToStart;
 
@@ -80,14 +80,14 @@ public class GameStateManager : BaseGameplayManager
     }
 
     #region BaseManager
-    public override void SetupManager()
+
+    public override void SetUpMainManager()
     {
-        base.SetupManager();
+        base.SetUpMainManager();
         StartCoroutine(ProgressToStart());
     }
     #endregion
-
-
+    
     #region Events
     public void InvokeStartOfBattleEvent()
     {
@@ -120,8 +120,7 @@ public class GameStateManager : BaseGameplayManager
         _battleWonOrLostEvent?.Invoke();
     }
     #endregion
-
-
+    
     #region Getters
     public bool GetIsFightOver() => _currentGameplayState >= GameplayStates.PostBattleLost;
 

@@ -7,7 +7,7 @@ using UnityEngine;
 /// Spawns heroes into the environment
 /// 
 /// </summary>
-public class HeroesManager : BaseGameplayManager
+public class HeroesManager : MainGameplayManagerFramework
 {
     [SerializeField] private GameObject _baseHeroPrefab;
     [Space]
@@ -105,13 +105,12 @@ public class HeroesManager : BaseGameplayManager
         {
             _currentLivingHeroes[0].GetHeroStats().KillHero();
         }
-
     }
 
     #region BaseManager
-    public override void SetupManager()
+    public override void SetUpMainManager()
     {
-        base.SetupManager();
+        base.SetUpMainManager();
         StartCoroutine(SpawnHeroesAtSpawnPoints());
     }
     #endregion

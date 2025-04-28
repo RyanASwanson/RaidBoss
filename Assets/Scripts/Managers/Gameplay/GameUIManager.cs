@@ -6,7 +6,7 @@ using UnityEngine;
 /// Handles the Ui for the gameplay
 /// Holds all other needed UI Managers for gameplay for more specific needs
 /// </summary>
-public class GameUIManager : BaseGameplayManager
+public class GameUIManager : MainGameplayManagerFramework
 {
     [SerializeField] private BossUIManager _bossUIManager;
 
@@ -30,9 +30,9 @@ public class GameUIManager : BaseGameplayManager
     }
 
     #region BaseManager
-    public override void SetupManager()
+    public override void SetUpMainManager()
     {
-        base.SetupManager();
+        base.SetUpMainManager();
         SetupChildrenUIManagers();
     }
 

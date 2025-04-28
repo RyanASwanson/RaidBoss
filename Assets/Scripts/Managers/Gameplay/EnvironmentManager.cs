@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnvironmentManager : BaseGameplayManager
+public class EnvironmentManager : MainGameplayManagerFramework
 {
     [SerializeField] private float _mapRadius;
 
@@ -14,15 +14,13 @@ public class EnvironmentManager : BaseGameplayManager
 
     private const float _distanceToEdgeOfMap = 25;
 
-
-
     #region BaseManager
-    public override void SetupManager()
+    public override void SetUpMainManager()
     {
-        base.SetupManager();
+        base.SetUpMainManager();
     }
-    #endregion
 
+    #endregion
 
     #region Getters
     public float GetMapRadius() => _mapRadius;

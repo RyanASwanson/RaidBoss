@@ -6,7 +6,7 @@ using UnityEngine.Events;
 /// <summary>
 /// Handles the speed at which the game plays
 /// </summary>
-public class TimeManager : BaseUniversalManager
+public class TimeManager : MainUniversalManagerFramework
 {
     private List<float> _appliedSlowedTimeVariations = new List<float>();
 
@@ -49,8 +49,8 @@ public class TimeManager : BaseUniversalManager
     /// <summary>
     /// Starts process of taking into account new time variation
     /// </summary>
-    /// <param name="timeVariation"></param> the speed the time is being set to
-    /// <param name="duration"></param> duration is relative to the current time scale
+    /// <param name="timeVariation"> The speed the time is being set to </param> 
+    /// <param name="duration"> The duration is relative to the current time scale</param> 
     public void AddNewTimeVariationForDuration(float timeVariation, float duration)
     {
         if (!_canUpdateTimeVariation) return;
@@ -141,7 +141,7 @@ public class TimeManager : BaseUniversalManager
     /// <summary>
     /// Sets the speed at which the game plays
     /// </summary>
-    /// <param name="scale"></param>
+    /// <param name="scale"> The new speed we are setting time to. 1 is the default speed </param>
     public void SetTimeScale(float scale)
     {
         Time.timeScale = scale;
@@ -182,15 +182,14 @@ public class TimeManager : BaseUniversalManager
     {
         _canUpdateTimeVariation = true;
     }
-
-
+    
     #region BaseManager
-    public override void SetupManager()
+
+    public override void SetUpMainManager()
     {
-        base.SetupManager();
+        base.SetUpMainManager();
     }
-
-
+    
     protected override void SubscribeToEvents()
     {
         UniversalManagers.Instance.GetSceneLoadManager().GetStartOfSceneLoadEvent().AddListener(SceneLoadStart);

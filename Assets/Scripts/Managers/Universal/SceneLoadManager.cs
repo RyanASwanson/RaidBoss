@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 
-public class SceneLoadManager : BaseUniversalManager
+public class SceneLoadManager : MainUniversalManagerFramework
 {
     [Header("SceneTransitions")]
     [SerializeField] private Animator _sceneTransitionAnimator;

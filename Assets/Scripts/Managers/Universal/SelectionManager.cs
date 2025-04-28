@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class SelectionManager : BaseUniversalManager
+public class SelectionManager : MainUniversalManagerFramework
 {
     [Header("Difficulty")]
     [Range(1, 5)] [SerializeField] private float _normalDamageMultiplier;
@@ -176,9 +176,9 @@ public class SelectionManager : BaseUniversalManager
     }
 
     #region BaseManager
-    public override void SetupManager()
+    public override void SetUpMainManager()
     {
-        base.SetupManager();
+        base.SetUpMainManager();
         SetupDifficultyDictionaries();
     }
     #endregion

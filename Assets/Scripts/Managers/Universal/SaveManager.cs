@@ -4,7 +4,7 @@ using UnityEngine;
 using System.IO;
 using Newtonsoft.Json;
 
-public class SaveManager : BaseUniversalManager
+public class SaveManager : MainUniversalManagerFramework
 {
     public GameSaveData GSD;
     private string _path;
@@ -194,9 +194,9 @@ public class SaveManager : BaseUniversalManager
     #endregion
 
     #region BaseManager
-    public override void SetupManager()
+    public override void SetUpMainManager()
     {
-        base.SetupManager();
+        base.SetUpMainManager();  
         EstablishPath();
         Load();
     }
