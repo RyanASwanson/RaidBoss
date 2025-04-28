@@ -2,20 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Performs functionality needed for the win lose screen
+/// </summary>
 public class WinLoseScreenFunctionality : MonoBehaviour
 {
     public void RetryLevel()
     {
-        UniversalManagers.Instance.GetSceneLoadManager().ReloadCurrentScene();
+        SceneLoadManager.Instance.ReloadCurrentScene();
     }
 
     public void BackToSelectionScreen()
     {
-        UniversalManagers.Instance.GetSceneLoadManager().LoadSelectionScene();
+        SceneLoadManager.Instance.LoadSelectionScene();
     }
 
     public void BackToMainMenu()
     {
-        UniversalManagers.Instance.GetSceneLoadManager().LoadMainMenuScene();
+        SceneLoadManager.Instance.LoadMainMenuScene();
     }
 }

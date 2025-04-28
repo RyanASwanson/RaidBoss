@@ -5,6 +5,8 @@ using UnityEngine.Events;
 
 public class SelectionManager : MainUniversalManagerFramework
 {
+    public static SelectionManager Instance;
+    
     [Header("Difficulty")]
     [Range(1, 5)] [SerializeField] private float _normalDamageMultiplier;
     [Range(1, 3)] [SerializeField] private float _normalSpeedMultiplier;
@@ -181,6 +183,13 @@ public class SelectionManager : MainUniversalManagerFramework
         base.SetUpMainManager();
         SetupDifficultyDictionaries();
     }
+
+    public override void SetUpInstance()
+    {
+        base.SetUpInstance();
+        Instance = this;
+    }
+
     #endregion
 
     #region Events

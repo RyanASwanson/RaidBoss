@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Contains the functionality to set up and manage all universal managers
+/// </summary>
 public class UniversalManagers : CoreManagersFramework
 {
     [SerializeField] private SceneLoadManager _sceneLoadManager;
@@ -10,7 +13,7 @@ public class UniversalManagers : CoreManagersFramework
     [SerializeField] private SaveManager _saveManager;
 
     /// <summary>
-    /// Contains all managers to setup. Order of managers is order of setup.
+    /// Contains all managers to set up. Order of managers is order of setup.
     /// </summary>
     private MainUniversalManagerFramework[] _allMainManagers;
     public static UniversalManagers Instance;
@@ -21,7 +24,7 @@ public class UniversalManagers : CoreManagersFramework
     /// <summary>
     /// Sets up the singleton
     /// </summary>
-    /// <returns></returns>
+    /// <returns> If the Instance was successfully created </returns>
     protected override bool EstablishInstance()
     {
         //If no other version exists
@@ -47,7 +50,7 @@ public class UniversalManagers : CoreManagersFramework
     }
 
     /// <summary>
-    /// Tells all main gameplay managers to setup in the order of the main managers list
+    /// Tells all main gameplay managers to set up in the order of the main managers list
     /// </summary>
     protected override void SetupMainManagers()
     {
@@ -60,7 +63,7 @@ public class UniversalManagers : CoreManagersFramework
             mainManager.SetUpInstance();
         }
 
-        //Thens sets them up
+        //Then it sets them up
         //They are instanced first so that if any manager needs to access any other manager in it's setup
         //  then the order doesn't matter
         foreach (MainUniversalManagerFramework mainManager in _allMainManagers)
@@ -71,7 +74,7 @@ public class UniversalManagers : CoreManagersFramework
     }
 
     /*/// <summary>
-    /// Sets up the object pooling parent by establishing it's instance
+    /// Sets up the object pooling parent by establishing its instance
     /// This is done here to make certain it happens before anything else
     /// </summary>
     private void SetupObjectPoolingParent()

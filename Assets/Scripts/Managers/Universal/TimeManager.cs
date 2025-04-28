@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Handles the speed at which the game plays
 /// </summary>
 public class TimeManager : MainUniversalManagerFramework
 {
+    public static TimeManager Instance;
+    
     private List<float> _appliedSlowedTimeVariations = new List<float>();
 
     private bool _canUpdateTimeVariation = true;
@@ -189,11 +192,17 @@ public class TimeManager : MainUniversalManagerFramework
     {
         base.SetUpMainManager();
     }
-    
+
+    public override void SetUpInstance()
+    {
+        base.SetUpInstance();
+        Instance = this;
+    }
+
     protected override void SubscribeToEvents()
     {
-        UniversalManagers.Instance.GetSceneLoadManager().GetStartOfSceneLoadEvent().AddListener(SceneLoadStart);
-        UniversalManagers.Instance.GetSceneLoadManager().GetEndOfSceneLoadEvent().AddListener(SceneLoadEnd);
+        SceneLoadManager.Instance.GetStartOfSceneLoadEvent().AddListener(SceneLoadStart);
+        SceneLoadManager.Instance.GetEndOfSceneLoadEvent().AddListener(SceneLoadEnd);
     }
     #endregion
 

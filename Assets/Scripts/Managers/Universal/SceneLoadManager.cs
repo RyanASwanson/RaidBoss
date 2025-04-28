@@ -4,8 +4,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 
+/// <summary>
+/// Performs the functionality for loading scenes
+/// </summary>
 public class SceneLoadManager : MainUniversalManagerFramework
 {
+    public static SceneLoadManager Instance;
+    
     [Header("SceneTransitions")]
     [SerializeField] private Animator _sceneTransitionAnimator;
 
@@ -69,7 +74,7 @@ public class SceneLoadManager : MainUniversalManagerFramework
     }
 
     /// <summary>
-    /// Loads a scene based on which 
+    /// Loads a scene based on which one is currently selected
     /// </summary>
     public void LoadCurrentlySelectedLevelSO()
     {
@@ -93,7 +98,11 @@ public class SceneLoadManager : MainUniversalManagerFramework
     }
 
     #region BaseManager
-
+    public override void SetUpInstance()
+    {
+        base.SetUpInstance();
+        Instance = this;
+    }
     #endregion
 
     #region Events
