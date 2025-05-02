@@ -50,6 +50,6 @@ public class DifficultyDropdown : MonoBehaviour
 
     public void UpdateDifficulty()
     {
-        _selectionManager.SetSelectedDifficulty((GameDifficulty)_dropdown.value+1);
+        _selectionManager.SetSelectedDifficulty((EGameDifficulty)_dropdown.value+1);
     }
 }

@@ -50,7 +50,7 @@ public class SB_TerraLord : SpecificBossFramework
     private void SetStartingPassiveWeightMultiplier()
     {
         //Gets the difficulty
-        GameDifficulty selectedDifficulty = UniversalManagers.Instance.GetSelectionManager().GetSelectedDifficulty();
+        EGameDifficulty selectedDifficulty = UniversalManagers.Instance.GetSelectionManager().GetSelectedDifficulty();
         //Scales the speed of the passive based on the difficulty
         _passiveHeroWeightMultiplier = _difficultyWeightMultiplier[(int)selectedDifficulty-1];
     }

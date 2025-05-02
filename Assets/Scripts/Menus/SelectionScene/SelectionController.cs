@@ -579,7 +579,7 @@ public class SelectionController : MonoBehaviour
         MoveHeroPillar(0, true);
     }
 
-    private void HeroLimitChanged(GameDifficulty difficulty)
+    private void HeroLimitChanged(EGameDifficulty difficulty)
     {
         //Determine if the hero limit went up or down
 

@@ -40,12 +40,12 @@ public class SelectionManager : MainUniversalManagerFramework
     [SerializeField] private List<string> _difficultyNames;
     [SerializeField] private List<Sprite> _difficultyIcons;
 
-    private Dictionary<GameDifficulty, float> _difficultyDamageMultiplierDictionary = new();
-    private Dictionary<GameDifficulty, float> _difficultyAttackSpeedMultiplierDictionary = new();
-    private Dictionary<GameDifficulty, float> _difficultyHealthMultiplierDictionary = new();
-    private Dictionary<GameDifficulty, float> _difficultyStaggerMultiplierDictionary = new();
+    private Dictionary<EGameDifficulty, float> _difficultyDamageMultiplierDictionary = new();
+    private Dictionary<EGameDifficulty, float> _difficultyAttackSpeedMultiplierDictionary = new();
+    private Dictionary<EGameDifficulty, float> _difficultyHealthMultiplierDictionary = new();
+    private Dictionary<EGameDifficulty, float> _difficultyStaggerMultiplierDictionary = new();
 
-    private Dictionary<GameDifficulty, int> _difficultyHeroLimit = new();
+    private Dictionary<EGameDifficulty, int> _difficultyHeroLimit = new();
 
     private LevelSO _selectedLevel;
     private BossSO _selectedBoss;
@@ -55,7 +55,7 @@ public class SelectionManager : MainUniversalManagerFramework
     private const int _maxHeroes = 5;
     private int _indexOfLastRemovedHero;
 
-    private GameDifficulty _currentGameDifficulty = GameDifficulty.Normal;
+    private EGameDifficulty currentEGameDifficulty = EGameDifficulty.Normal;
 
 
     private UnityEvent<BossSO> _bossSelectionEvent = new UnityEvent<BossSO>();
@@ -64,7 +64,7 @@ public class SelectionManager : MainUniversalManagerFramework
     private UnityEvent<BossSO> _bossHoveredOverEvent = new UnityEvent<BossSO>();
     private UnityEvent<BossSO> _bossNotHoveredOverEvent = new UnityEvent<BossSO>();
 
-    private UnityEvent<GameDifficulty> _difficultySelectionEvent = new UnityEvent<GameDifficulty>();
+    private UnityEvent<EGameDifficulty> _difficultySelectionEvent = new UnityEvent<EGameDifficulty>();
 
     private UnityEvent<HeroSO> _heroSelectionEvent = new UnityEvent<HeroSO>();
     private UnityEvent<HeroSO> _heroDeselectionEvent = new UnityEvent<HeroSO>();
@@ -75,33 +75,33 @@ public class SelectionManager : MainUniversalManagerFramework
 
     private void SetupDifficultyDictionaries()
     {
-        _difficultyDamageMultiplierDictionary.Add(GameDifficulty.Normal, _normalDamageMultiplier);
-        _difficultyAttackSpeedMultiplierDictionary.Add(GameDifficulty.Normal, _normalSpeedMultiplier);
-        _difficultyHealthMultiplierDictionary.Add(GameDifficulty.Normal, _normalHealthMultiplier);
-        _difficultyStaggerMultiplierDictionary.Add(GameDifficulty.Normal, _normalStaggerMultiplier);
+        _difficultyDamageMultiplierDictionary.Add(EGameDifficulty.Normal, _normalDamageMultiplier);
+        _difficultyAttackSpeedMultiplierDictionary.Add(EGameDifficulty.Normal, _normalSpeedMultiplier);
+        _difficultyHealthMultiplierDictionary.Add(EGameDifficulty.Normal, _normalHealthMultiplier);
+        _difficultyStaggerMultiplierDictionary.Add(EGameDifficulty.Normal, _normalStaggerMultiplier);
 
-        _difficultyHeroLimit.Add(GameDifficulty.Normal, _normalHeroLimit);
+        _difficultyHeroLimit.Add(EGameDifficulty.Normal, _normalHeroLimit);
 
-        _difficultyDamageMultiplierDictionary.Add(GameDifficulty.Heroic, _heroicDamageMultiplier);
-        _difficultyAttackSpeedMultiplierDictionary.Add(GameDifficulty.Heroic, _heroicSpeedMultiplier);
-        _difficultyHealthMultiplierDictionary.Add(GameDifficulty.Heroic, _heroicHealthMultiplier);
-        _difficultyStaggerMultiplierDictionary.Add(GameDifficulty.Heroic, _heroicStaggerMultiplier);
+        _difficultyDamageMultiplierDictionary.Add(EGameDifficulty.Heroic, _heroicDamageMultiplier);
+        _difficultyAttackSpeedMultiplierDictionary.Add(EGameDifficulty.Heroic, _heroicSpeedMultiplier);
+        _difficultyHealthMultiplierDictionary.Add(EGameDifficulty.Heroic, _heroicHealthMultiplier);
+        _difficultyStaggerMultiplierDictionary.Add(EGameDifficulty.Heroic, _heroicStaggerMultiplier);
 
-        _difficultyHeroLimit.Add(GameDifficulty.Heroic, _heroicHeroLimit);
+        _difficultyHeroLimit.Add(EGameDifficulty.Heroic, _heroicHeroLimit);
 
-        _difficultyDamageMultiplierDictionary.Add(GameDifficulty.Mythic, _mythicDamageMultiplier);
-        _difficultyAttackSpeedMultiplierDictionary.Add(GameDifficulty.Mythic, _mythicSpeedMultiplier);
-        _difficultyHealthMultiplierDictionary.Add(GameDifficulty.Mythic, _mythicHealthMultiplier);
-        _difficultyStaggerMultiplierDictionary.Add(GameDifficulty.Mythic, _mythicStaggerMultiplier);
+        _difficultyDamageMultiplierDictionary.Add(EGameDifficulty.Mythic, _mythicDamageMultiplier);
+        _difficultyAttackSpeedMultiplierDictionary.Add(EGameDifficulty.Mythic, _mythicSpeedMultiplier);
+        _difficultyHealthMultiplierDictionary.Add(EGameDifficulty.Mythic, _mythicHealthMultiplier);
+        _difficultyStaggerMultiplierDictionary.Add(EGameDifficulty.Mythic, _mythicStaggerMultiplier);
 
-        _difficultyHeroLimit.Add(GameDifficulty.Mythic, _mythicHeroLimit);
+        _difficultyHeroLimit.Add(EGameDifficulty.Mythic, _mythicHeroLimit);
 
-        _difficultyDamageMultiplierDictionary.Add(GameDifficulty.MythicPlus, _mythicPlusDamageMultiplier);
-        _difficultyAttackSpeedMultiplierDictionary.Add(GameDifficulty.MythicPlus, _mythicPlusSpeedMultiplier);
-        _difficultyHealthMultiplierDictionary.Add(GameDifficulty.MythicPlus, _mythicPlusHealthMultiplier);
-        _difficultyStaggerMultiplierDictionary.Add(GameDifficulty.MythicPlus, _mythicPlusStaggerMultiplier);
+        _difficultyDamageMultiplierDictionary.Add(EGameDifficulty.MythicPlus, _mythicPlusDamageMultiplier);
+        _difficultyAttackSpeedMultiplierDictionary.Add(EGameDifficulty.MythicPlus, _mythicPlusSpeedMultiplier);
+        _difficultyHealthMultiplierDictionary.Add(EGameDifficulty.MythicPlus, _mythicPlusHealthMultiplier);
+        _difficultyStaggerMultiplierDictionary.Add(EGameDifficulty.MythicPlus, _mythicPlusStaggerMultiplier);
 
-        _difficultyHeroLimit.Add(GameDifficulty.MythicPlus, _mythicPlusHeroLimit);
+        _difficultyHeroLimit.Add(EGameDifficulty.MythicPlus, _mythicPlusHeroLimit);
     }
 
     public void RemoveSelectedLevel()
@@ -215,9 +215,9 @@ public class SelectionManager : MainUniversalManagerFramework
         _bossNotHoveredOverEvent?.Invoke(bossSO);
     }
 
-    public void InvokeDifficultySelectionEvent(GameDifficulty gameDifficulty)
+    public void InvokeDifficultySelectionEvent(EGameDifficulty eGameDifficulty)
     {
-        _difficultySelectionEvent?.Invoke(gameDifficulty);
+        _difficultySelectionEvent?.Invoke(eGameDifficulty);
     }
 
     public void InvokeHeroSelectionEvent(HeroSO heroSO)
@@ -247,12 +247,12 @@ public class SelectionManager : MainUniversalManagerFramework
     #region Getters
     public bool AtMaxBossSelected() => _selectedBoss != null;
 
-    public float GetDamageMultiplierFromDifficulty() => _difficultyDamageMultiplierDictionary[_currentGameDifficulty];
-    public float GetSpeedMultiplierFromDifficulty() => _difficultyAttackSpeedMultiplierDictionary[_currentGameDifficulty];
-    public float GetHealthMultiplierFromDifficulty() => _difficultyHealthMultiplierDictionary[_currentGameDifficulty];
-    public float GetStaggerMultiplierFromDifficulty() => _difficultyHealthMultiplierDictionary[_currentGameDifficulty];
+    public float GetDamageMultiplierFromDifficulty() => _difficultyDamageMultiplierDictionary[currentEGameDifficulty];
+    public float GetSpeedMultiplierFromDifficulty() => _difficultyAttackSpeedMultiplierDictionary[currentEGameDifficulty];
+    public float GetHealthMultiplierFromDifficulty() => _difficultyHealthMultiplierDictionary[currentEGameDifficulty];
+    public float GetStaggerMultiplierFromDifficulty() => _difficultyHealthMultiplierDictionary[currentEGameDifficulty];
 
-    public int GetHeroLimitFromDifficulty() => _difficultyHeroLimit[_currentGameDifficulty];
+    public int GetHeroLimitFromDifficulty() => _difficultyHeroLimit[currentEGameDifficulty];
 
     public List<string> GetDifficultyNames() => _difficultyNames;
     public List<Sprite> GetDifficultyIcons() => _difficultyIcons;
@@ -276,8 +276,8 @@ public class SelectionManager : MainUniversalManagerFramework
     public UnityEvent<BossSO> GetBossHoveredOverEvent() => _bossHoveredOverEvent;
     public UnityEvent<BossSO> GetBossNotHoveredOverEvent() => _bossNotHoveredOverEvent;
 
-    public GameDifficulty GetSelectedDifficulty() => _currentGameDifficulty;
-    public UnityEvent<GameDifficulty> GetDifficultySelectionEvent() => _difficultySelectionEvent;
+    public EGameDifficulty GetSelectedDifficulty() => currentEGameDifficulty;
+    public UnityEvent<EGameDifficulty> GetDifficultySelectionEvent() => _difficultySelectionEvent;
 
     public UnityEvent<HeroSO> GetHeroSelectionEvent() => _heroSelectionEvent;
     public UnityEvent<HeroSO> GetHeroDeselectionEvent() => _heroDeselectionEvent;
@@ -304,15 +304,15 @@ public class SelectionManager : MainUniversalManagerFramework
     {
         _selectedLevel = levelSO;
     }
-    public void SetSelectedDifficulty(GameDifficulty gameDifficulty)
+    public void SetSelectedDifficulty(EGameDifficulty eGameDifficulty)
     {
-        _currentGameDifficulty = gameDifficulty;
-        InvokeDifficultySelectionEvent(gameDifficulty);
+        currentEGameDifficulty = eGameDifficulty;
+        InvokeDifficultySelectionEvent(eGameDifficulty);
     }
     #endregion
 }
 
-public enum GameDifficulty
+public enum EGameDifficulty
 {
     Empty,
     Normal,

@@ -12,18 +12,18 @@ public class PauseScreenFunctionality : MonoBehaviour
     public void RetryLevel()
     {
         //GameplayManagers.Instance.GetPauseManager().ResumeTime();
-        UniversalManagers.Instance.GetSceneLoadManager().ReloadCurrentScene();
+        SceneLoadManager.Instance.ReloadCurrentScene();
     }
 
     public void BackToSelectionScreen()
     {
         //GameplayManagers.Instance.GetPauseManager().ResumeTime();
-        UniversalManagers.Instance.GetSceneLoadManager().LoadSelectionScene();
+        SceneLoadManager.Instance.LoadSelectionScene();
     }
 
     public void BackToMainMenu()
     {
         //GameplayManagers.Instance.GetPauseManager().ResumeTime();
-        UniversalManagers.Instance.GetSceneLoadManager().LoadMainMenuScene();
+        SceneLoadManager.Instance.LoadMainMenuScene();
     }
 }

@@ -94,13 +94,13 @@ public class SelectHeroButton : MonoBehaviour
         SaveManager saveManager = UniversalManagers.Instance.GetSaveManager();
         SelectionManager selectionManager = UniversalManagers.Instance.GetSelectionManager();
 
-        GameDifficulty gameDifficulty = saveManager.
+        EGameDifficulty eGameDifficulty = saveManager.
             GetBestDifficultyBeatenOnHeroForBoss(hoveredBoss, _associatedHero);
 
 
-        if ((int)gameDifficulty > 0)
+        if ((int)eGameDifficulty > 0)
         {
-            _bestDifficultyBeatenIcon.sprite = selectionManager.GetDifficultyIcons()[(int)gameDifficulty - 1];
+            _bestDifficultyBeatenIcon.sprite = selectionManager.GetDifficultyIcons()[(int)eGameDifficulty - 1];
             UpdateBestDifficultyBeatenIconAlpha(1);
         }
         else

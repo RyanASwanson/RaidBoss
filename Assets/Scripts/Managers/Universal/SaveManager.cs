@@ -76,12 +76,12 @@ public class SaveManager : MainUniversalManagerFramework
         foreach(BossSO bossSO in _bossesInGame)
         {
 
-            GSD._bossHeroBestDifficultyComplete.Add(bossSO.GetBossName(), new Dictionary<string, GameDifficulty>());
+            GSD._bossHeroBestDifficultyComplete.Add(bossSO.GetBossName(), new Dictionary<string, EGameDifficulty>());
 
             foreach(HeroSO heroSO in _heroesInGame)
             {
                 //Sets each best difficulty beaten to empty
-                GSD._bossHeroBestDifficultyComplete[bossSO.GetBossName()].Add(heroSO.GetHeroName(), GameDifficulty.Empty);
+                GSD._bossHeroBestDifficultyComplete[bossSO.GetBossName()].Add(heroSO.GetHeroName(), EGameDifficulty.Empty);
             }
         }
     }
@@ -128,7 +128,7 @@ public class SaveManager : MainUniversalManagerFramework
     {
         SelectionManager tempSelectionManager = UniversalManagers.Instance.GetSelectionManager();
         BossSO tempBoss = tempSelectionManager.GetSelectedBoss();
-        GameDifficulty tempDifficulty = tempSelectionManager.GetSelectedDifficulty();
+        EGameDifficulty tempDifficulty = tempSelectionManager.GetSelectedDifficulty();
         List<HeroSO> tempHeroes = tempSelectionManager.GetAllSelectedHeroes();
 
         //Iterate through the heroes that are in play
@@ -204,7 +204,7 @@ public class SaveManager : MainUniversalManagerFramework
 
     #region Getters
 
-    public GameDifficulty GetBestDifficultyBeatenOnHeroForBoss(BossSO bossSO, HeroSO heroSO)
+    public EGameDifficulty GetBestDifficultyBeatenOnHeroForBoss(BossSO bossSO, HeroSO heroSO)
     {
         return GSD._bossHeroBestDifficultyComplete[bossSO.GetBossName()][heroSO.GetHeroName()];
     }
@@ -290,7 +290,7 @@ public class GameSaveData
     public Dictionary<string, bool> _heroesUnlocked = new();
     //First string is boss name, second string is hero name
     //Represents the best difficulty each hero has beaten each boss at
-    public Dictionary<string, Dictionary<string,GameDifficulty>> _bossHeroBestDifficultyComplete = new();
+    public Dictionary<string, Dictionary<string,EGameDifficulty>> _bossHeroBestDifficultyComplete = new();
 
     [Space]
     [Header("Settings")]
@@ -303,7 +303,7 @@ public class GameSaveData
 
 
     #region Getters
-    public Dictionary<string, Dictionary<string, GameDifficulty>> GetGSDBossHeroBestDifficulty() => _bossHeroBestDifficultyComplete;
+    public Dictionary<string, Dictionary<string, EGameDifficulty>> GetGSDBossHeroBestDifficulty() => _bossHeroBestDifficultyComplete;
 
     public float GetGSDScreenShakeStrength() => _screenShakeStrength;
     public bool GetGSDHeroClickAndDragEnabled() => _heroClickAndDragMovementEnabled;

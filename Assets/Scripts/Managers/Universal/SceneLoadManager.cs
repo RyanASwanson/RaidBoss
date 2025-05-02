@@ -18,8 +18,8 @@ public class SceneLoadManager : MainUniversalManagerFramework
 
     private const float _sceneTransitionTime = 1;
 
-    private const int _mainMenuSceneID = 0;
-    private const int _selectionSceneID = 1;
+    private const int MAIN_MENU_SCENE_ID = 0;
+    private const int SELECTION_SCENE_ID = 1;
 
     private Coroutine _sceneTransitionCoroutine;
 
@@ -83,13 +83,13 @@ public class SceneLoadManager : MainUniversalManagerFramework
 
     public void LoadMainMenuScene()
     {
-        LoadSceneByID(_mainMenuSceneID);
+        LoadSceneByID(MAIN_MENU_SCENE_ID);
     }
 
     public void LoadSelectionScene()
     {
         UniversalManagers.Instance.GetSelectionManager().ResetSelectionData();
-        LoadSceneByID(_selectionSceneID);
+        LoadSceneByID(SELECTION_SCENE_ID);
     }
 
     public void ReloadCurrentScene()
