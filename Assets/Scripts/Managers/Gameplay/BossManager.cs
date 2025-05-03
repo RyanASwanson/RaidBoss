@@ -10,9 +10,7 @@ public class BossManager : MainGameplayManagerFramework
     [SerializeField] private BossBase _bossBase;
 
     private GameObject _bossGameObject;
-
-
-
+    
     #region BaseManager
     /// <summary>
     /// Sets up the manager then sets up the specific boss
@@ -23,7 +21,7 @@ public class BossManager : MainGameplayManagerFramework
         _bossGameObject = _bossBase.gameObject;
 
         //Sets up the boss base by giving it the BossSO
-        _bossBase.Setup(UniversalManagers.Instance.GetSelectionManager().GetSelectedBoss());
+        _bossBase.Setup(SelectionManager.Instance.GetSelectedBoss());
     }
     #endregion
 
@@ -44,10 +42,5 @@ public class BossManager : MainGameplayManagerFramework
 
         return returnVector;
     }
-
-    #endregion
-
-    #region Setters
-
     #endregion
 }

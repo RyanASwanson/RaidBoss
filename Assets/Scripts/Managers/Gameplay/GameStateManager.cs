@@ -11,7 +11,7 @@ public class GameStateManager : MainGameplayManagerFramework
 {
     [SerializeField] private float _timeToStart;
 
-    private GameplayStates _currentGameplayState = GameplayStates.PreBattle;
+    private EGameplayStates currentEGameplayState = EGameplayStates.PreBattle;
 
     private UnityEvent _startOfBattleEvent = new UnityEvent();
 
@@ -19,8 +19,6 @@ public class GameStateManager : MainGameplayManagerFramework
     private UnityEvent _battleWonEvent = new UnityEvent();
 
     private UnityEvent _battleWonOrLostEvent = new UnityEvent();
-
-    
 
     /// <summary>
     /// Starts the battle
@@ -30,28 +28,28 @@ public class GameStateManager : MainGameplayManagerFramework
     {
         //Waits for a brief period before the battle is started
         yield return new WaitForSeconds(_timeToStart);
-        SetGameplayState(GameplayStates.Battle);
+        SetGameplayState(EGameplayStates.Battle);
     }
 
     /// <summary>
     /// Changes which state the gameplay is to another one and invokes events for that state
     /// </summary>
-    /// <param name="newGameplayState"></param>
-    public void SetGameplayState(GameplayStates newGameplayState)
+    /// <param name="newEGameplayState"></param>
+    public void SetGameplayState(EGameplayStates newEGameplayState)
     {
-        if (_currentGameplayState == newGameplayState || _currentGameplayState >= GameplayStates.PostBattleLost) return;
+        if (currentEGameplayState == newEGameplayState || currentEGameplayState >= EGameplayStates.PostBattleLost) return;
 
-        _currentGameplayState = newGameplayState;
+        currentEGameplayState = newEGameplayState;
 
-        switch(_currentGameplayState)
+        switch(currentEGameplayState)
         {
-            case (GameplayStates.Battle):
+            case (EGameplayStates.Battle):
                 InvokeStartOfBattleEvent();
                 break;
-            case (GameplayStates.PostBattleLost):
+            case (EGameplayStates.PostBattleLost):
                 BattleLost();
                 break;
-            case (GameplayStates.PostBattleWon):
+            case (EGameplayStates.PostBattleWon):
                 BattleWon();
                 break;
         }
@@ -122,7 +120,7 @@ public class GameStateManager : MainGameplayManagerFramework
     #endregion
     
     #region Getters
-    public bool GetIsFightOver() => _currentGameplayState >= GameplayStates.PostBattleLost;
+    public bool GetIsFightOver() => currentEGameplayState >= EGameplayStates.PostBattleLost;
 
     public UnityEvent GetStartOfBattleEvent() => _startOfBattleEvent;
     public UnityEvent GetBattleLostEvent() => _battleLostEvent;
@@ -131,7 +129,7 @@ public class GameStateManager : MainGameplayManagerFramework
     #endregion
 }
 
-public enum GameplayStates
+public enum EGameplayStates
 {
     PreBattle,
     Battle,

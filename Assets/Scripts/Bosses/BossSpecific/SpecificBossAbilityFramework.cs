@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public abstract class SpecificBossAbilityFramework : MonoBehaviour
 {
-    [SerializeField] protected BossAbilityTargetMethod _targetMethod;
+    [SerializeField] protected EBossAbilityTargetMethod _targetMethod;
 
     [Space]
     [SerializeField] protected Vector3 _specificAreaTarget;
@@ -45,7 +45,7 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
         _myBossBase = bossBase;
         _mySpecificBoss = bossBase.GetSpecificBossScript();
 
-        _timeUntilNextAbility /= UniversalManagers.Instance.GetSelectionManager().GetSpeedMultiplierFromDifficulty();
+        _timeUntilNextAbility /= SelectionManager.Instance.GetSpeedMultiplierFromDifficulty();
     }
 
     /// <summary>
@@ -68,7 +68,6 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     /// Does the initial preparation for the ability to be used
     /// Shows the target zone if it has one
     /// </summary>
-    /// <param name="targetLocation"></param>
     protected virtual void AbilityPrep()
     {
         StartShowTargetZone();
@@ -120,10 +119,9 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     #endregion
 
     /// <summary>
-    /// Starts the actual activation of the ability
-    /// Happens after any prep that is needed such as targeting zones
+    /// Starts the actual activation of the ability.
+    /// Happens after any prep that is needed such as targeting zones.
     /// </summary>
-    /// <param name="targetLocation"></param>
     protected virtual void StartAbilityWindUp()
     {
         StartCoroutine(AbilityWindUp());
@@ -166,6 +164,8 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
             (_screenShakeIntensity, _screenShakeFrequency, _screenShakeDuration);
     }
 
+    #region RETIRED Targeting
+
     /// <summary>
     /// Provides the target for an ability with a hero target with an ignore
     /// </summary>
@@ -184,9 +184,10 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
         return null;
     }
 
+    #endregion
 
     #region Getters
-    public BossAbilityTargetMethod GetTargetMethod() => _targetMethod;
+    public EBossAbilityTargetMethod GetTargetMethod() => _targetMethod;
     public Vector3 GetSpecificAreaTarget() => _specificAreaTarget;
     public Vector3 GetSpecificLookTarget() => _specificLookTarget;
 
@@ -196,11 +197,10 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     #endregion
 }
 
-public enum BossAbilityTargetMethod
+public enum EBossAbilityTargetMethod
 {
     _heroTarget,
     _heroTargetWithIgnore,
     _specificHeroTarget,
     _specificAreaTarget,
-    
 };

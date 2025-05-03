@@ -301,14 +301,14 @@ public abstract class SpecificBossFramework : MonoBehaviour
 
         switch(currentAbility.GetTargetMethod())
         {
-            case (BossAbilityTargetMethod._heroTarget):
+            case (EBossAbilityTargetMethod._heroTarget):
                 targetHero = DetermineAggroTarget();
                 return ClosestFloorSpaceOfTarget(targetHero.gameObject);
-            case (BossAbilityTargetMethod._heroTargetWithIgnore):
+            case (EBossAbilityTargetMethod._heroTargetWithIgnore):
 
-            case (BossAbilityTargetMethod._specificHeroTarget):
+            case (EBossAbilityTargetMethod._specificHeroTarget):
 
-            case (BossAbilityTargetMethod._specificAreaTarget):
+            case (EBossAbilityTargetMethod._specificAreaTarget):
                 return currentAbility.GetSpecificLookTarget();
         }
 

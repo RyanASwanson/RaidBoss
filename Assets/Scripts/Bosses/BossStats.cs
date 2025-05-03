@@ -35,9 +35,9 @@ public class BossStats : BossChildrenFunctionality
     {
         //Set the boss max health to be the max hp from the SO and multiplied by the difficulty modifier
         _bossMaxHealth = bossSO.GetMaxHP() * 
-            UniversalManagers.Instance.GetSelectionManager().GetHealthMultiplierFromDifficulty();
+            SelectionManager.Instance.GetHealthMultiplierFromDifficulty();
         _bossDefaultStaggerMax = bossSO.GetBaseStaggerMax() *
-            UniversalManagers.Instance.GetSelectionManager().GetStaggerMultiplierFromDifficulty();
+            SelectionManager.Instance.GetStaggerMultiplierFromDifficulty();
         
         //Sets the starting health and stagger values
         _currentHealth = _bossMaxHealth;
@@ -51,14 +51,11 @@ public class BossStats : BossChildrenFunctionality
         _bossDamageResistanceChangeOnStagger = bossSO.GetDamageResistanceChangeOnStagger();
         
         //Sets the damage dealt multiplier based on the difficulty
-        _baseBossDamageMultiplier = UniversalManagers.Instance.
-                GetSelectionManager().GetDamageMultiplierFromDifficulty();
+        _baseBossDamageMultiplier = SelectionManager.Instance.GetDamageMultiplierFromDifficulty();
 
         _currentTimeUntilEnrage = bossSO.GetEnrageTime();
         _storedEnrageMultiplier = bossSO.GetEnrageDamageMultiplier();
     }
-
-    
     
     /// <summary>
     /// Checks if the boss is above their stagger cap
@@ -152,7 +149,7 @@ public class BossStats : BossChildrenFunctionality
     {
         if (_currentHealth <= 0)
         {
-            GameplayManagers.Instance.GetGameStateManager().SetGameplayState(GameplayStates.PostBattleWon);
+            GameplayManagers.Instance.GetGameStateManager().SetGameplayState(EGameplayStates.PostBattleWon);
         }
     }
 

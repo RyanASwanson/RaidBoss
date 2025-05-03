@@ -4,10 +4,10 @@ using UnityEngine;
 using UnityEngine.Events;
 
 /// <summary>
-/// Holds the base functionality for the hero
-/// Holds the children functionality scripts
-/// Holds the specific hero framework
-/// Holds all events relating to the hero
+/// Holds the base functionality for the hero.
+/// Holds the children functionality scripts.
+/// Holds the specific hero framework.
+/// Holds all events relating to the hero.
 /// </summary>
 public class HeroBase : MonoBehaviour
 {
@@ -63,13 +63,13 @@ public class HeroBase : MonoBehaviour
     private UnityEvent _heroDiedEvent = new UnityEvent();
     private UnityEvent _heroDeathOverrideEvent = new UnityEvent();
 
-    public void Setup(HeroSO newSO, int heroID)
+    public void SetUp(HeroSO newSO, int heroID)
     {
-        Setup(newSO);
+        SetUp(newSO);
         SetHeroID(heroID);
     }
 
-    public void Setup(HeroSO newSO)
+    public void SetUp(HeroSO newSO)
     {
         CreateHeroPrefab(newSO);
 
@@ -81,12 +81,11 @@ public class HeroBase : MonoBehaviour
     }
 
     /// <summary>
-    /// Creates the gameobject for the specific hero and saves needed data
+    /// Creates the game object for the specific hero and saves needed data
     /// </summary>
     /// <param name="newSO"></param>
     private void CreateHeroPrefab(HeroSO newSO)
     {
-
         _associatedHeroGameObject = Instantiate(newSO.GetHeroPrefab(), _heroSpecificsGO.transform);
 
         _associatedHeroScript = _associatedHeroGameObject.GetComponentInChildren<SpecificHeroFramework>();
@@ -114,8 +113,7 @@ public class HeroBase : MonoBehaviour
     {
         _associatedHeroUIManager = GameplayManagers.Instance.GetGameUIManager().SetAssociatedHeroUIManager(this);
     }
-
-
+    
     #region Events
     private void InvokeSetHeroSO(HeroSO heroSO)
     {
@@ -131,7 +129,6 @@ public class HeroBase : MonoBehaviour
         _heroDealtStaggerEvent?.Invoke(stagger);
     }
 
-
     public void InvokeHeroControlledBegin()
     {
         _heroControlledStartEvent?.Invoke();
@@ -145,32 +142,39 @@ public class HeroBase : MonoBehaviour
     {
         _heroManualAbilityCharging?.Invoke();
     }
+    
     public void InvokeHeroManualAbilityFullyChargedEvent()
     {
         _heroManualAbilityFullyCharged?.Invoke();
     }
+    
     public void InvokeHeroManualAbilityUsedEvent(Vector3 activateLocation)
     {
         _heroManualAbilityAttempt?.Invoke(activateLocation);
     }
+    
     public void InvokeHeroStartedMovingEvent()
     {
         _heroStartedMovingOnMeshEvent?.Invoke();
     }
+    
     public void InvokeHeroStoppedMovingEvent()
     {
         _heroStoppedMovingOnMeshEvent?.Invoke();
     }
+    
     public void InvokeHeroDamagedEvent(float damageAmount)
     {
         _heroDamagedEvent?.Invoke(damageAmount);
 
         InvokeHeroHealthChangedEvent();
     }
+    
     public void InvokeHeroDamageOverrideEvent(float damageAmount)
     {
         _heroDamagedOverrideEvent?.Invoke(damageAmount);
     }
+    
     public void InvokeHeroHealedEvent(float healAmount)
     {
         _heroHealedEvent?.Invoke(healAmount);
@@ -281,6 +285,5 @@ public class HeroBase : MonoBehaviour
     {
         _clickCollider.enabled = status;
     }
-
     #endregion
 }

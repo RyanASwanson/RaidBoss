@@ -15,20 +15,16 @@ public class SB_TerraLord : SpecificBossFramework
     [SerializeField] private float _zRotationMultiplier;
 
     [Space]
-
     [SerializeField] private List<float> _difficultyWeightMultiplier;
     private float _passiveHeroWeightMultiplier;
 
     private float _passiveCounterValue = 0;
-
 
     private HeroesManager _heroesManager;
     private Coroutine _passiveProcessCoroutine;
 
     //Invokes the passive counter value scaled from -1 to 1
     private UnityEvent<float> _passivePercentUpdated = new UnityEvent<float>();
-
-
 
     #region Passive
 
@@ -50,7 +46,7 @@ public class SB_TerraLord : SpecificBossFramework
     private void SetStartingPassiveWeightMultiplier()
     {
         //Gets the difficulty
-        EGameDifficulty selectedDifficulty = UniversalManagers.Instance.GetSelectionManager().GetSelectedDifficulty();
+        EGameDifficulty selectedDifficulty = SelectionManager.Instance.GetSelectedDifficulty();
         //Scales the speed of the passive based on the difficulty
         _passiveHeroWeightMultiplier = _difficultyWeightMultiplier[(int)selectedDifficulty-1];
     }
@@ -66,7 +62,6 @@ public class SB_TerraLord : SpecificBossFramework
             yield return new WaitForSeconds(_passiveTickRate);
             PassiveTick();
         }
-        
     }
 
     /// <summary>
@@ -113,7 +108,6 @@ public class SB_TerraLord : SpecificBossFramework
         CheckPassiveMax();
     }
 
-
     /// <summary>
     /// Gets a value from -1 to 1 of how far the balance is in either direction
     /// </summary>
@@ -150,7 +144,9 @@ public class SB_TerraLord : SpecificBossFramework
     private void CheckPassiveMax()
     {
         if (Mathf.Abs(_passiveCounterValue) >= _passiveMaxValue)
+        {
             PassiveMax();
+        }
     }
 
     /// <summary>
@@ -191,23 +187,13 @@ public class SB_TerraLord : SpecificBossFramework
 
         StartPassiveProcess();
     }
-
-    public override void SubscribeToEvents()
-    {
-        base.SubscribeToEvents();
-
-
-    }
     #endregion
 
     #region Events
-
-
     private void InvokePassivePercentUpdate()
     {
         _passivePercentUpdated?.Invoke(GetPassiveCounterPercent());
     }
-
     #endregion
 
     #region Getters

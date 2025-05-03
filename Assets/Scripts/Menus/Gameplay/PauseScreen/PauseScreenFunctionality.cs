@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Functionality associated with the pause screen
+/// </summary>
 public class PauseScreenFunctionality : MonoBehaviour
 {
     public void ResumeGame()
     {
-        UniversalManagers.Instance.GetTimeManager().PressGamePauseButton();
+        TimeManager.Instance.PressGamePauseButton();
     }
 
     public void RetryLevel()

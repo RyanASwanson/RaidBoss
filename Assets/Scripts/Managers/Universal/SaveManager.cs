@@ -8,7 +8,7 @@ public class SaveManager : MainUniversalManagerFramework
 {
     public static SaveManager Instance;
     
-    public GameSaveData GSD;
+    public GameSaveData GSD {get; set;}
     private string _path;
 
     [SerializeField] private List<BossSO> _bossesInGame = new();
@@ -17,7 +17,6 @@ public class SaveManager : MainUniversalManagerFramework
     [Space]
     [SerializeField] private List<BossSO> _bossesStartingUnlocked;
     [SerializeField] private List<HeroSO> _heroesStartingUnlocked;
-
 
     /// <summary>
     /// Sets the path to create the save file
@@ -32,9 +31,8 @@ public class SaveManager : MainUniversalManagerFramework
         }
     }
 
-
     /// <summary>
-    /// Fills the save data with it's initial values
+    /// Fills the save data with its initial values
     /// </summary>
     private void StartingValues()
     {
@@ -51,6 +49,9 @@ public class SaveManager : MainUniversalManagerFramework
         GSD.SetGSDSFXVolume(.5f);
     }
 
+    /// <summary>
+    /// Adds the starting bosses which are unlocked on new save data
+    /// </summary>
     private void PopulateUnlockedBosses()
     {
         foreach (BossSO bossSO in _bossesInGame)
@@ -60,6 +61,9 @@ public class SaveManager : MainUniversalManagerFramework
         }
     }
 
+    /// <summary>
+    /// Adds the starting heroes which are unlocked on new save data
+    /// </summary>
     private void PopulateUnlockedHeroes()
     {
         foreach(HeroSO heroSO in _heroesInGame)
@@ -77,7 +81,6 @@ public class SaveManager : MainUniversalManagerFramework
         //Iterate through the boss scriptable objects
         foreach(BossSO bossSO in _bossesInGame)
         {
-
             GSD._bossHeroBestDifficultyComplete.Add(bossSO.GetBossName(), new Dictionary<string, EGameDifficulty>());
 
             foreach(HeroSO heroSO in _heroesInGame)
@@ -88,6 +91,9 @@ public class SaveManager : MainUniversalManagerFramework
         }
     }
 
+    /// <summary>
+    /// Saves all data into the Json file.
+    /// </summary>
     public void SaveText()
     {
         //Writes all variables in the Game Save Data class into Json
@@ -96,6 +102,9 @@ public class SaveManager : MainUniversalManagerFramework
         File.WriteAllText(_path + "Data.json", convertedJson);
     }
 
+    /// <summary>
+    /// Loads all data from the Json file
+    /// </summary>
     public void Load()
     {
         //Loads all variables in Json into the Game Save Data class
@@ -115,6 +124,9 @@ public class SaveManager : MainUniversalManagerFramework
         }
     }
 
+    /// <summary>
+    /// Called when the boss dies. Saves any needed information as a result.
+    /// </summary>
     public void BossDead()
     {
         SaveBossDifficultyHeroesDictionary();
@@ -128,10 +140,9 @@ public class SaveManager : MainUniversalManagerFramework
     /// </summary>
     public void SaveBossDifficultyHeroesDictionary()
     {
-        SelectionManager tempSelectionManager = UniversalManagers.Instance.GetSelectionManager();
-        BossSO tempBoss = tempSelectionManager.GetSelectedBoss();
-        EGameDifficulty tempDifficulty = tempSelectionManager.GetSelectedDifficulty();
-        List<HeroSO> tempHeroes = tempSelectionManager.GetAllSelectedHeroes();
+        BossSO tempBoss = SelectionManager.Instance.GetSelectedBoss();
+        EGameDifficulty tempDifficulty = SelectionManager.Instance.GetSelectedDifficulty();
+        List<HeroSO> tempHeroes = SelectionManager.Instance.GetAllSelectedHeroes();
 
         //Iterate through the heroes that are in play
         foreach (HeroSO currentTempHero in tempHeroes)
@@ -229,8 +240,6 @@ public class SaveManager : MainUniversalManagerFramework
     #endregion
 
     #region Setters
-
-
     /// <summary>
     /// Saves the current screen shake intensity into the game save data
     /// </summary>
@@ -287,8 +296,6 @@ public class SaveManager : MainUniversalManagerFramework
         SaveText();
     }
     #endregion
-
-    
 }
 
 [System.Serializable]
@@ -309,8 +316,7 @@ public class GameSaveData
     [Range(0, 1)] private float _masterVolume = .5f;
     [Range(0, 1)] private float _musicVolume = .5f;
     [Range(0, 1)] private float _sfxVolume = .5f;
-
-
+    
     #region Getters
     public Dictionary<string, Dictionary<string, EGameDifficulty>> GetGSDBossHeroBestDifficulty() => _bossHeroBestDifficultyComplete;
 

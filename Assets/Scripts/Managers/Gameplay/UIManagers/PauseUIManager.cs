@@ -33,13 +33,6 @@ public class PauseUIManager : GameUIChildrenFunctionality
 
     #region BaseManager
 
-    public override void ChildFuncSetup()
-    {
-        _timeManager = UniversalManagers.Instance.GetTimeManager();
-        base.ChildFuncSetup();
-    }
-
-
     protected override void SubscribeToEvents()
     {
         _timeManager.GetGamePausedEvent().AddListener(GamePausedUI);

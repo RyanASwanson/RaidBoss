@@ -255,7 +255,7 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
 
     private void EscapePress(InputAction.CallbackContext context)
     {
-        UniversalManagers.Instance.GetTimeManager().PressGamePauseButton();
+        TimeManager.Instance.PressGamePauseButton();
     }
 
     private void SubscribeToPlayerInput()

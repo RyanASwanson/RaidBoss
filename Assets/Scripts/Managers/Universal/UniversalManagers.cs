@@ -91,6 +91,5 @@ public class UniversalManagers : CoreManagersFramework
 
     #region Getters - Managers
     public SelectionManager GetSelectionManager() => _selectionManager;
-    public TimeManager GetTimeManager() => _timeManager;
     #endregion
 }

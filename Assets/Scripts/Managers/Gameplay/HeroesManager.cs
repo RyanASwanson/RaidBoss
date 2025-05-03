@@ -5,18 +5,18 @@ using UnityEngine;
 /// <summary>
 /// Provides the functionality for general management of heroes
 /// Spawns heroes into the environment
-/// 
 /// </summary>
 public class HeroesManager : MainGameplayManagerFramework
 {
+    [Tooltip("The base prefab that is used that all heroes are based off of")]
     [SerializeField] private GameObject _baseHeroPrefab;
     [Space]
-
+    
+    [Tooltip("The time between each hero being initially spawned")]
     [SerializeField] private float _heroSpawnInterval;
 
     private List<HeroBase> _currentHeroes = new List<HeroBase>();
     private List<HeroBase> _currentLivingHeroes = new List<HeroBase>();
-
 
     /// <summary>
     /// Spawns all selected heroes from the selection manager
@@ -24,7 +24,7 @@ public class HeroesManager : MainGameplayManagerFramework
     /// </summary>
     private IEnumerator SpawnHeroesAtSpawnPoints()
     {
-        List<HeroSO> heroSOs = UniversalManagers.Instance.GetSelectionManager().GetAllSelectedHeroes();
+        List<HeroSO> heroSOs = SelectionManager.Instance.GetAllSelectedHeroes();
         List<GameObject> spawnLocations = GameplayManagers.Instance.GetEnvironmentManager().GetSpawnLocations();
 
         for (int i = 0; i < heroSOs.Count; i++)
@@ -53,7 +53,7 @@ public class HeroesManager : MainGameplayManagerFramework
         GameObject newHero = Instantiate(_baseHeroPrefab,
             spawnTransform.transform.position, spawnTransform.transform.rotation);
         HeroBase heroBase = newHero.GetComponent<HeroBase>();
-        heroBase.Setup(heroSO, heroID);
+        heroBase.SetUp(heroSO, heroID);
 
         return heroBase;
     }
@@ -64,7 +64,7 @@ public class HeroesManager : MainGameplayManagerFramework
             spawnLocation, spawnRotation);
         HeroBase heroBase = newHero.GetComponent<HeroBase>();
 
-        heroBase.Setup(heroSO);
+        heroBase.SetUp(heroSO);
 
         return heroBase;
     }
@@ -72,7 +72,7 @@ public class HeroesManager : MainGameplayManagerFramework
     /// <summary>
     /// Called by a hero when they die
     /// </summary>
-    /// <param name="deadHero"></param> The hero that called this function
+    /// <param name="deadHero"> The hero that called this function </param> 
     public void HeroDied(HeroBase deadHero)
     {
         //Removes the hero from the list of living heroes
@@ -81,9 +81,8 @@ public class HeroesManager : MainGameplayManagerFramework
         CheckIfAllHeroesDead();
 
         GameplayManagers.Instance.GetBossManager().GetBossBase().GetSpecificBossScript().HeroDied(deadHero);
-        UniversalManagers.Instance.GetTimeManager().HeroDiedTimeSlow();
+        TimeManager.Instance.HeroDiedTimeSlow();
     }
-
 
     /// <summary>
     /// Performs a check for if all heroes are dead
@@ -92,7 +91,7 @@ public class HeroesManager : MainGameplayManagerFramework
     private void CheckIfAllHeroesDead()
     {
         if (_currentLivingHeroes.Count == 0)
-            GameplayManagers.Instance.GetGameStateManager().SetGameplayState(GameplayStates.PostBattleLost);
+            GameplayManagers.Instance.GetGameStateManager().SetGameplayState(EGameplayStates.PostBattleLost);
     }
 
     /// <summary>
