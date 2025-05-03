@@ -150,7 +150,7 @@ public class SelectionController : MonoBehaviour
 
     private void CenterStart()
     {
-        FightButtonStartingInteractablity();
+        FightButtonStartingInteractability();
     }
 
     #region Center - Boss
@@ -185,6 +185,10 @@ public class SelectionController : MonoBehaviour
         _bossPillar.ShowBossOnPillar(bossSO, true);
     }
 
+    /// <summary>
+    /// Called when a boss is no longer hovered over
+    /// </summary>
+    /// <param name="bossSO"> The scriptable object of the boss no longer hovered over</param>
     private void BossNotHoveredOver(BossSO bossSO)
     {
         //Check if the boss is not the selected boss
@@ -195,11 +199,12 @@ public class SelectionController : MonoBehaviour
             //Hover over the selected boss
             if (_selectionManager.AtMaxBossSelected())
                 BossHoveredOver(_selectionManager.GetSelectedBoss());
-            return;
+            {
+                return;
+            }
         }
 
         //_lastBossHoveredOver = null;
-
     }
 
 
@@ -310,21 +315,26 @@ public class SelectionController : MonoBehaviour
     #endregion
 
     #region Center - General
-    private void FightButtonStartingInteractablity()
+    private void FightButtonStartingInteractability()
     {
         _fightButton.interactable = !_requiresMaxCharacters;
 
     }
 
+    /// <summary>
+    /// Checks if the player has selected all the heroes and the boss
+    /// </summary>
     private void CheckMaxCharactersSelected()
     {
-
         if (_selectionManager.AtMaxBossSelected() && _selectionManager.AtMaxHeroesSelected() && _requiresMaxCharacters)
         {
             MaxCharactersSelected();
         }
     }
 
+    /// <summary>
+    /// Called when all characters, both heroes and bosses, and selected.
+    /// </summary>
     private void MaxCharactersSelected()
     {
         _maxCharactersSelected = true;
@@ -350,7 +360,7 @@ public class SelectionController : MonoBehaviour
     /// </summary>
     public void PlayLevel()
     {
-        UniversalManagers.Instance.GetSceneLoadManager().LoadCurrentlySelectedLevelSO();
+        SceneLoadManager.Instance.LoadCurrentlySelectedLevelSO();
     }
     #endregion
 
@@ -361,7 +371,6 @@ public class SelectionController : MonoBehaviour
         if (heroSO == _lastHeroHoveredOver) return;
         //Stop if the hero is selected already
         if (_selectionManager.GetAllSelectedHeroes().Contains(heroSO) && _selectionManager.GetHeroAtLastPostion() != heroSO) return;
-
 
         _lastBossHoveredOver = null;
         _lastHeroHoveredOver = heroSO;
@@ -493,8 +502,7 @@ public class SelectionController : MonoBehaviour
     {
         HideHeroAbilityDescription();
     }
-
-
+    
     public void ShowHeroAbilityDescription(int abilityID)
     {
         _currentHeroAbilityID = abilityID;
@@ -568,8 +576,7 @@ public class SelectionController : MonoBehaviour
     }
 
     #endregion
-
-
+    
     #endregion
 
     #region Hero Side
@@ -731,7 +738,7 @@ public class SelectionController : MonoBehaviour
 
     public void BackToMainMenu()
     {
-        UniversalManagers.Instance.GetSceneLoadManager().LoadMainMenuScene();
+        SceneLoadManager.Instance.LoadMainMenuScene();
     }
 
     #endregion

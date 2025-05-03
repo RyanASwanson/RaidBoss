@@ -71,11 +71,11 @@ public class GameStateManager : MainGameplayManagerFramework
     private void BattleWon()
     {
         //Slows time
-        UniversalManagers.Instance.GetTimeManager().BossDiedTimeSlow();
+        TimeManager.Instance.BossDiedTimeSlow();
 
         //Unlocks the next boss and hero
         //Saves the best difficulty beaten for each hero
-        UniversalManagers.Instance.GetSaveManager().BossDead();
+        SaveManager.Instance.BossDead();
         InvokeBattleWonEvent();
     }
 

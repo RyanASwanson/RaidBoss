@@ -40,16 +40,10 @@ public class MainMenuController : MonoBehaviour
     [Header("Credits")]
     [SerializeField] private GameObject _creditsCanvas;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     #region Buttons
     public void PlayButtonPressed()
     {
-        UniversalManagers.Instance.GetSceneLoadManager().LoadSelectionScene();
+        SceneLoadManager.Instance.LoadSelectionScene();
     }
 
     #region How To Play
@@ -109,9 +103,12 @@ public class MainMenuController : MonoBehaviour
         _optionsCanvas.SetActive(false);
     }
 
+    /// <summary>
+    /// Informs the save manager to reset all save data
+    /// </summary>
     public void ResetSaveData()
     {
-        UniversalManagers.Instance.GetSaveManager().ResetSaveData();
+        SaveManager.Instance.ResetSaveData();
     }
     #endregion
 
@@ -131,6 +128,5 @@ public class MainMenuController : MonoBehaviour
     {
         Application.Quit();
     }
-
     #endregion
 }

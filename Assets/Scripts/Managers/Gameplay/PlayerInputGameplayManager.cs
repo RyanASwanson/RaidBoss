@@ -30,11 +30,11 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     private bool _subscribedToInput = false;
 
     private HeroesManager _heroesManager;
-
-
+    
+    
     private void SetupClickAndDrag()
     {
-        _clickAndDragEnabled = UniversalManagers.Instance.GetSaveManager().GetClickAndDragEnabled();
+        _clickAndDragEnabled = SaveManager.Instance.GetClickAndDragEnabled();
     }
 
     /// <summary>
@@ -77,7 +77,6 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
 
     private void ScrollControlledHero(int direction)
     {
-
         if(_controlledHeroes.Count == 0)
         {
             HeroBase heroBase = _heroesManager.GetCurrentLivingHeroes()[0];
@@ -86,10 +85,7 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
                 NewControlledHero(heroBase);
                 return;
             }
-                
-
         }
-
 
         HeroBase heroToControl;
         do
@@ -109,6 +105,7 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
         
     }
 
+    //TODO function for if we ever want to select multiple heroes
     private void NewControlledHeroes()
     {
 
@@ -144,11 +141,7 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
                 currentHero.GetSpecificHeroScript().AttemptActivationOfManualAbility(targetLoc);
                 //currentHero.InvokeHeroManualAbilityUsedEvent(targetLoc);
             }
-            
         }
-
-        
-
     }
     #endregion
 
@@ -160,7 +153,6 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
             NewControlledHero(clickedOn.collider.gameObject.GetComponentInParent<HeroBase>());
         }
     }
-
 
     private void PlayerDirectClicked(InputAction.CallbackContext context)
     {
@@ -178,9 +170,13 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
 
         location = CalculateDirectIconLocation(location);
         Instantiate(_heroDirectIcon, location, Quaternion.identity);
-        
     }
 
+    /// <summary>
+    /// Determines where the icon for the direct click should appear on the ground
+    /// </summary>
+    /// <param name="location"></param>
+    /// <returns></returns>
     public Vector3 CalculateDirectIconLocation(Vector3 location)
     {
         location = GameplayManagers.Instance.GetEnvironmentManager().GetClosestPointToFloor(location);
@@ -200,14 +196,11 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     private void HeroNumberPress(InputAction.CallbackContext context)
     {
         int pressNumVal = (int)context.ReadValue<float>();
-
-
         
         if (IsInvalidHeroPress(pressNumVal))
             return;
 
-            NewControlledHero(_heroesManager.GetCurrentHeroes()[pressNumVal]);
-        
+        NewControlledHero(_heroesManager.GetCurrentHeroes()[pressNumVal]);
     }
 
     private void SpecificHeroAbilityPress(InputAction.CallbackContext context)
@@ -242,8 +235,7 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     {
         if (_scrollCooldownCoroutine != null)
             return;
-
-
+        
         int storedDirection = (int)context.ReadValue<float>();
         if (storedDirection > 0)
             storedDirection = 1;
@@ -281,6 +273,7 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
 
         _subscribedToInput = true;
     }
+    
     private void UnsubscribeToPlayerInput()
     {
         if (!_subscribedToInput) return;
@@ -297,15 +290,9 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
 
         _subscribedToInput = false;
     }
-
-    private void OnDestroy()
-    {
-        UnsubscribeToPlayerInput();
-    }
     #endregion
 
     #region BaseManager
-
     public override void SetUpMainManager()
     {
         base.SetUpMainManager();
@@ -317,6 +304,12 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     {
         //Prevents the player from performing any actions after the game ends
         GameplayManagers.Instance.GetGameStateManager().GetBattleWonOrLostEvent().AddListener(UnsubscribeToPlayerInput);
+    }
+    
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        UnsubscribeToPlayerInput();
     }
     #endregion
 

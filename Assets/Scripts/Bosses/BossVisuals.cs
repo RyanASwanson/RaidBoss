@@ -95,7 +95,7 @@ public class BossVisuals : BossChildrenFunctionality
 
     private void BossFullyStaggered()
     {
-        UniversalManagers.Instance.GetTimeManager().BossStaggeredTimeSlow();
+        TimeManager.Instance.BossStaggeredTimeSlow();
         BossSpecificStaggerAnimTrigger();
     }
 
@@ -123,7 +123,6 @@ public class BossVisuals : BossChildrenFunctionality
     {
 
     }
-
 
     public override void ChildFuncSetup(BossBase bossBase)
     {
@@ -154,7 +153,6 @@ public class BossVisuals : BossChildrenFunctionality
 
         GameplayManagers.Instance.GetGameStateManager().GetBattleWonEvent().AddListener(BattleWon);
     }
-
 
     #region Getters
 

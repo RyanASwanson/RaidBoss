@@ -32,7 +32,7 @@ public class SelectHeroButton : MonoBehaviour
 
     private void UpdateButtonInteractability()
     {
-        bool heroUnlocked = UniversalManagers.Instance.GetSaveManager().
+        bool heroUnlocked = SaveManager.Instance.
             GSD._heroesUnlocked[_associatedHero.GetHeroName()];
 
         _heroButton.interactable = heroUnlocked;
@@ -91,22 +91,20 @@ public class SelectHeroButton : MonoBehaviour
 
     public void SetBestDifficultyBeatenIcon(BossSO hoveredBoss)
     {
-        SaveManager saveManager = UniversalManagers.Instance.GetSaveManager();
         SelectionManager selectionManager = UniversalManagers.Instance.GetSelectionManager();
 
-        EGameDifficulty eGameDifficulty = saveManager.
+        EGameDifficulty eGameDifficulty = SaveManager.Instance.
             GetBestDifficultyBeatenOnHeroForBoss(hoveredBoss, _associatedHero);
-
-
+        
         if ((int)eGameDifficulty > 0)
         {
             _bestDifficultyBeatenIcon.sprite = selectionManager.GetDifficultyIcons()[(int)eGameDifficulty - 1];
             UpdateBestDifficultyBeatenIconAlpha(1);
         }
         else
+        {
             UpdateBestDifficultyBeatenIconAlpha(0);
-        
-
+        }
     }
 
     /// <summary>
@@ -124,7 +122,6 @@ public class SelectHeroButton : MonoBehaviour
 
     private void HeroSelect()
     {
-
         UniversalManagers.Instance.GetSelectionManager().AddNewSelectedHero(_associatedHero);
         UpdateHeroIconColor(_associatedHero.GetHeroSelectedColor());
     }

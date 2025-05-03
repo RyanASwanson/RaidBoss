@@ -25,9 +25,7 @@ public class SceneLoadManager : MainUniversalManagerFramework
 
     private UnityEvent _startOfSceneLoadEvent = new UnityEvent();
     private UnityEvent _endOfSceneLoadEvent = new UnityEvent();
-
-
-
+    
     /// <summary>
     /// Loads a scene using the build ID
     /// </summary>
@@ -37,7 +35,6 @@ public class SceneLoadManager : MainUniversalManagerFramework
         if(CanLoadScene())
             _sceneTransitionCoroutine = StartCoroutine(SceneLoadProcess(id));
     }
-
 
     /// <summary>
     /// Returns if a scene load can occur.

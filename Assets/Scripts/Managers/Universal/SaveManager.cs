@@ -6,6 +6,8 @@ using Newtonsoft.Json;
 
 public class SaveManager : MainUniversalManagerFramework
 {
+    public static SaveManager Instance;
+    
     public GameSaveData GSD;
     private string _path;
 
@@ -200,6 +202,13 @@ public class SaveManager : MainUniversalManagerFramework
         EstablishPath();
         Load();
     }
+
+    public override void SetUpInstance()
+    {
+        base.SetUpInstance();
+        Instance = this;
+    }
+
     #endregion
 
     #region Getters

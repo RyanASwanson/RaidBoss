@@ -10,9 +10,7 @@ public class CameraGameManager : MainGameplayManagerFramework
 {
     [SerializeField] private Camera _gameplayCamera;
     [SerializeField] private CinemachineVirtualCamera _virtualCamera;
-
     
-
     float _screenShakeMultiplier = 1;
 
     [Space]
@@ -59,9 +57,7 @@ public class CameraGameManager : MainGameplayManagerFramework
             StopCoroutine(_cameraShakeCoroutine);
         if (_cameraShakeDecayCoroutine != null)
             StopCoroutine(_cameraShakeDecayCoroutine);
-
         
-
         _multiChannelPerlin.m_AmplitudeGain += intensity * _screenShakeMultiplier;
         _multiChannelPerlin.m_FrequencyGain += frequency * _screenShakeMultiplier;
 
@@ -135,9 +131,12 @@ public class CameraGameManager : MainGameplayManagerFramework
         _virtualCamRotationCoroutine = null;
     }
 
+    /// <summary>
+    /// Sets the starting values for this script
+    /// </summary>
     private void StartingValues()
     {
-        _screenShakeMultiplier = UniversalManagers.Instance.GetSaveManager().GetScreenShakeIntensity();
+        _screenShakeMultiplier = SaveManager.Instance.GetScreenShakeIntensity();
 
         _multiChannelPerlin.m_AmplitudeGain = _minimumIntensity * _screenShakeMultiplier;
         _multiChannelPerlin.m_FrequencyGain = _minimumFrequency * _screenShakeMultiplier;

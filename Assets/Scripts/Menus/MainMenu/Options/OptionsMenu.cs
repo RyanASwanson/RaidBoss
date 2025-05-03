@@ -17,8 +17,6 @@ public class OptionsMenu : MonoBehaviour
     [SerializeField] private Slider _musicAudioSlider;
     [SerializeField] private Slider _sfxAudioSlider;
 
-    private SaveManager _saveManager;
-
     private float _tempScreenShakeValue;
     private bool _tempClickDragMovement;
 
@@ -29,7 +27,6 @@ public class OptionsMenu : MonoBehaviour
 
     public void OptionsMenuOpened()
     {
-        _saveManager = UniversalManagers.Instance.GetSaveManager();
         SetValuesOnOpen();
     }
 
@@ -39,19 +36,19 @@ public class OptionsMenu : MonoBehaviour
     void SetValuesOnOpen()
     {
         //Sets the temporary setting value
-        _tempScreenShakeValue = _saveManager.GetScreenShakeIntensity();
+        _tempScreenShakeValue = SaveManager.Instance.GetScreenShakeIntensity();
         //Sets the slider to be at the saved amount
         _screenShakeSlider.value = _tempScreenShakeValue ;
 
-        _tempClickDragMovement = _saveManager.GetClickAndDragEnabled();
+        _tempClickDragMovement = SaveManager.Instance.GetClickAndDragEnabled();
 
-        _tempMasterAudioValue = _saveManager.GetMasterVolume();
+        _tempMasterAudioValue = SaveManager.Instance.GetMasterVolume();
         _masterAudioSlider.value = _tempMasterAudioValue;
 
-        _tempMusicAudioValue = _saveManager.GetMusicVolume();
+        _tempMusicAudioValue = SaveManager.Instance.GetMusicVolume();
         _musicAudioSlider.value = _tempMusicAudioValue;
 
-        _tempSFXAudioValue = _saveManager.GetSFXVolume();
+        _tempSFXAudioValue = SaveManager.Instance.GetSFXVolume();
         _sfxAudioSlider.value = _tempSFXAudioValue ;
     }
 
@@ -73,10 +70,12 @@ public class OptionsMenu : MonoBehaviour
         _tempSFXAudioValue = val;
     }
 
-
+    /// <summary>
+    /// Called when the apply settings button is pressed
+    /// </summary>
     public void ApplySettingsPressed()
     {
-        _saveManager.SaveSettingsOptions(_tempScreenShakeValue, _tempClickDragMovement,
+        SaveManager.Instance.SaveSettingsOptions(_tempScreenShakeValue, _tempClickDragMovement,
             _tempMasterAudioValue, _tempMusicAudioValue, _tempSFXAudioValue);
     }
 }

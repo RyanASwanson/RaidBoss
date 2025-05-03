@@ -24,7 +24,7 @@ public class DebugScript : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.U))
         {
-            UniversalManagers.Instance.GetSaveManager().BossDead();
+            SaveManager.Instance.BossDead();
         }
     }
 #endif

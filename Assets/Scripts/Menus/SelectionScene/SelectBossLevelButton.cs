@@ -30,7 +30,7 @@ public class SelectBossLevelButton : MonoBehaviour
 
     private void UpdateButtonInteractability()
     {
-        bool heroUnlocked = UniversalManagers.Instance.GetSaveManager().
+        bool heroUnlocked = SaveManager.Instance.
             GSD._bossesUnlocked[_associatedLevel.GetLevelBoss().GetBossName()];
 
         _levelBossButton.interactable = heroUnlocked;
@@ -87,8 +87,6 @@ public class SelectBossLevelButton : MonoBehaviour
     {
         UniversalManagers.Instance.GetSelectionManager().SetSelectedBoss(_associatedLevel.GetLevelBoss());
         UniversalManagers.Instance.GetSelectionManager().SetSelectedLevel(_associatedLevel);
-        
-        //UniversalManagers.Instance.GetSelectionManager().AddNewSelectedHero(_associatedHero);
 
         UpdateBossIconColor(_associatedLevel.GetLevelBoss().GetBossSelectedColor());
     }
@@ -97,7 +95,6 @@ public class SelectBossLevelButton : MonoBehaviour
     {
         UniversalManagers.Instance.GetSelectionManager().RemoveSelectedBoss();
         UniversalManagers.Instance.GetSelectionManager().RemoveSelectedLevel();
-        
 
         UpdateBossIconColor(_defaultColor);
     }

@@ -90,10 +90,7 @@ public class UniversalManagers : CoreManagersFramework
     }*/
 
     #region Getters - Managers
-    public SceneLoadManager GetSceneLoadManager() => _sceneLoadManager;
     public SelectionManager GetSelectionManager() => _selectionManager;
     public TimeManager GetTimeManager() => _timeManager;
-    public SaveManager GetSaveManager() => _saveManager;
-
     #endregion
 }
