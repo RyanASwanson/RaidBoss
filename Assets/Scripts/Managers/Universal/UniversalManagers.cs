@@ -88,8 +88,4 @@ public class UniversalManagers : CoreManagersFramework
         _fModSfxEvents = GetComponentInChildren<FmodSfxEvents>();
         _fModSfxEvents.SetUpInstance();
     }*/
-
-    #region Getters - Managers
-    public SelectionManager GetSelectionManager() => _selectionManager;
-    #endregion
 }
