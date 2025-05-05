@@ -75,7 +75,7 @@ public class SceneLoadManager : MainUniversalManagerFramework
     /// </summary>
     public void LoadCurrentlySelectedLevelSO()
     {
-        LoadSceneByLevelSO(UniversalManagers.Instance.GetSelectionManager().GetSelectedLevel());
+        LoadSceneByLevelSO(SelectionManager.Instance.GetSelectedLevel());
     }
 
     public void LoadMainMenuScene()
@@ -85,7 +85,7 @@ public class SceneLoadManager : MainUniversalManagerFramework
 
     public void LoadSelectionScene()
     {
-        UniversalManagers.Instance.GetSelectionManager().ResetSelectionData();
+        SelectionManager.Instance.ResetSelectionData();
         LoadSceneByID(SELECTION_SCENE_ID);
     }
 

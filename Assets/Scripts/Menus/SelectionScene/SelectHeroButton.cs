@@ -76,12 +76,12 @@ public class SelectHeroButton : MonoBehaviour
 
     public void SelectHeroButtonHoverBegin()
     {
-        UniversalManagers.Instance.GetSelectionManager().HeroHoveredOver(_associatedHero);
+        SelectionManager.Instance.HeroHoveredOver(_associatedHero);
     }
 
     public void SelectHeroButtonHoverEnd()
     {
-        UniversalManagers.Instance.GetSelectionManager().HeroNotHoveredOver(_associatedHero);
+        SelectionManager.Instance.HeroNotHoveredOver(_associatedHero);
     }
 
     private void UpdateHeroIconColor(Color newColor)
@@ -91,14 +91,12 @@ public class SelectHeroButton : MonoBehaviour
 
     public void SetBestDifficultyBeatenIcon(BossSO hoveredBoss)
     {
-        SelectionManager selectionManager = UniversalManagers.Instance.GetSelectionManager();
-
         EGameDifficulty eGameDifficulty = SaveManager.Instance.
             GetBestDifficultyBeatenOnHeroForBoss(hoveredBoss, _associatedHero);
         
         if ((int)eGameDifficulty > 0)
         {
-            _bestDifficultyBeatenIcon.sprite = selectionManager.GetDifficultyIcons()[(int)eGameDifficulty - 1];
+            _bestDifficultyBeatenIcon.sprite = SelectionManager.Instance.GetDifficultyIcons()[(int)eGameDifficulty - 1];
             UpdateBestDifficultyBeatenIconAlpha(1);
         }
         else
@@ -122,13 +120,13 @@ public class SelectHeroButton : MonoBehaviour
 
     private void HeroSelect()
     {
-        UniversalManagers.Instance.GetSelectionManager().AddNewSelectedHero(_associatedHero);
+        SelectionManager.Instance.AddNewSelectedHero(_associatedHero);
         UpdateHeroIconColor(_associatedHero.GetHeroSelectedColor());
     }
 
     private void HeroDeselect()
     {
-        UniversalManagers.Instance.GetSelectionManager().RemoveSpecificHero(_associatedHero);
+        SelectionManager.Instance.RemoveSpecificHero(_associatedHero);
         UpdateHeroIconColor(_defaultColor);
     }
 

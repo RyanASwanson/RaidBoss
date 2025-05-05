@@ -99,13 +99,9 @@ public class SelectionController : MonoBehaviour
 
     private int _previousMaxHeroes;
 
-    private SelectionManager _selectionManager;
-
     // Start is called before the first frame update
     void Start()
     {
-        _selectionManager = UniversalManagers.Instance.GetSelectionManager();
-
         SubscribeToEvents();
 
         BossSideStart();
@@ -192,13 +188,13 @@ public class SelectionController : MonoBehaviour
     private void BossNotHoveredOver(BossSO bossSO)
     {
         //Check if the boss is not the selected boss
-        if (bossSO != _selectionManager.GetSelectedBoss())
+        if (bossSO != SelectionManager.Instance.GetSelectedBoss())
         {
             //Start the animation of removing the boss
             _bossPillar.AnimateOutBossOnPillar();
             //Hover over the selected boss
-            if (_selectionManager.AtMaxBossSelected())
-                BossHoveredOver(_selectionManager.GetSelectedBoss());
+            if (SelectionManager.Instance.AtMaxBossSelected())
+                BossHoveredOver(SelectionManager.Instance.GetSelectedBoss());
             {
                 return;
             }
@@ -281,9 +277,6 @@ public class SelectionController : MonoBehaviour
 
         UpdateBossAbilityDescriptionText(_bossUIToDisplay.GetBossAbilityInformation()
             [_currentBossAbilityID]._abilityDescription);
-
-        
-
     }
 
     /// <summary>
@@ -318,7 +311,6 @@ public class SelectionController : MonoBehaviour
     private void FightButtonStartingInteractability()
     {
         _fightButton.interactable = !_requiresMaxCharacters;
-
     }
 
     /// <summary>
@@ -326,7 +318,7 @@ public class SelectionController : MonoBehaviour
     /// </summary>
     private void CheckMaxCharactersSelected()
     {
-        if (_selectionManager.AtMaxBossSelected() && _selectionManager.AtMaxHeroesSelected() && _requiresMaxCharacters)
+        if (SelectionManager.Instance.AtMaxBossSelected() && SelectionManager.Instance.AtMaxHeroesSelected() && _requiresMaxCharacters)
         {
             MaxCharactersSelected();
         }
@@ -370,7 +362,11 @@ public class SelectionController : MonoBehaviour
         //Stop if it is the same hero as the previous
         if (heroSO == _lastHeroHoveredOver) return;
         //Stop if the hero is selected already
-        if (_selectionManager.GetAllSelectedHeroes().Contains(heroSO) && _selectionManager.GetHeroAtLastPostion() != heroSO) return;
+        if (SelectionManager.Instance.GetAllSelectedHeroes().Contains(heroSO) &&
+            SelectionManager.Instance.GetHeroAtLastPostion() != heroSO)
+        {
+            return;
+        }
 
         _lastBossHoveredOver = null;
         _lastHeroHoveredOver = heroSO;
@@ -397,10 +393,12 @@ public class SelectionController : MonoBehaviour
 
         DisplayAbilityIconsForHero(heroSO);
 
-        int heroPillarNum = UniversalManagers.Instance.GetSelectionManager().GetSelectedHeroesCount();
+        int heroPillarNum = SelectionManager.Instance.GetSelectedHeroesCount();
 
-        if (_selectionManager.AtMaxHeroesSelected())
+        if (SelectionManager.Instance.AtMaxHeroesSelected())
+        {
             heroPillarNum--;
+        }
 
         _heroPillars[heroPillarNum ].ShowHeroOnPillar(heroSO, true);
     }
@@ -436,18 +434,18 @@ public class SelectionController : MonoBehaviour
 
 
 
-        if (_selectionManager.GetAllSelectedHeroes().Contains(heroSO)) return;
+        if (SelectionManager.Instance.GetAllSelectedHeroes().Contains(heroSO)) return;
 
-        int heroPillarNum = UniversalManagers.Instance.GetSelectionManager().GetSelectedHeroesCount();
-        if (_selectionManager.AtMaxHeroesSelected() && _selectionManager.GetHeroAtLastPostion() != heroSO)
+        int heroPillarNum = SelectionManager.Instance.GetSelectedHeroesCount();
+        if (SelectionManager.Instance.AtMaxHeroesSelected() && SelectionManager.Instance.GetHeroAtLastPostion() != heroSO)
             heroPillarNum--;
 
         _heroPillars[heroPillarNum].AnimateOutHeroOnPillar();
 
         _lastHeroHoveredOver = null;
 
-        if (_selectionManager.AtMaxHeroesSelected() && _selectionManager.GetHeroAtLastPostion() != heroSO)
-            NewHeroHoveredOver(_selectionManager.GetHeroAtLastPostion());
+        if (SelectionManager.Instance.AtMaxHeroesSelected() && SelectionManager.Instance.GetHeroAtLastPostion() != heroSO)
+            NewHeroHoveredOver(SelectionManager.Instance.GetHeroAtLastPostion());
     }
 
     private void DisplayStatsForHero(HeroSO heroSO)
@@ -552,9 +550,7 @@ public class SelectionController : MonoBehaviour
                 UpdateHeroAbilityTypeText(HeroAbilityType.Passive.ToString());
                 UpdateHeroAbilityDescriptionText(_heroUIToDisplay.GetHeroPassiveAbilityDescription());
                 return;
-
         }
-            
     }
 
     private void SwapHeroAbilityDescription(int abilityID)
@@ -582,7 +578,7 @@ public class SelectionController : MonoBehaviour
     #region Hero Side
     private void HeroSideStart()
     {
-        _previousMaxHeroes = _selectionManager.GetMaxHeroesCount();
+        _previousMaxHeroes = SelectionManager.Instance.GetMaxHeroesCount();
         MoveHeroPillar(0, true);
     }
 
@@ -591,24 +587,24 @@ public class SelectionController : MonoBehaviour
         //Determine if the hero limit went up or down
 
         //Hero limit went down
-        if (_selectionManager.GetMaxHeroesCount() < _previousMaxHeroes)
+        if (SelectionManager.Instance.GetMaxHeroesCount() < _previousMaxHeroes)
             HeroLimitReduced();
         //Hero limit went up
-        else if (_selectionManager.GetMaxHeroesCount() > _previousMaxHeroes)
+        else if (SelectionManager.Instance.GetMaxHeroesCount() > _previousMaxHeroes)
             HeroLimitIncreased();
 
-        _previousMaxHeroes = _selectionManager.GetMaxHeroesCount();
+        _previousMaxHeroes = SelectionManager.Instance.GetMaxHeroesCount();
     }
 
     private void HeroLimitReduced()
     {
         List<HeroSO> heroesToRemove = new();
 
-        for (int i = _selectionManager.GetMaxHeroesCount(); i != _previousMaxHeroes; i++)
+        for (int i = SelectionManager.Instance.GetMaxHeroesCount(); i != _previousMaxHeroes; i++)
         {
-            if (_selectionManager.GetAllSelectedHeroes().Count > i)
+            if (SelectionManager.Instance.GetAllSelectedHeroes().Count > i)
             {
-                heroesToRemove.Add(_selectionManager.GetAllSelectedHeroes()[i]);
+                heroesToRemove.Add(SelectionManager.Instance.GetAllSelectedHeroes()[i]);
                 
             }
             _heroPillars[i].MovePillar(false);
@@ -624,13 +620,12 @@ public class SelectionController : MonoBehaviour
                 
                 heroesToRemove.Remove(associatedHero);
             }
-
         }
     }
 
     private void HeroLimitIncreased()
     {
-        if(_selectionManager.GetSelectedHeroesCount() == _previousMaxHeroes)
+        if(SelectionManager.Instance.GetSelectedHeroesCount() == _previousMaxHeroes)
         {
             _heroPillars[_previousMaxHeroes].MovePillar(true);
         }
@@ -638,18 +633,17 @@ public class SelectionController : MonoBehaviour
 
     private void NewHeroAdded(HeroSO heroSO)
     {
-        int heroPillarNum = _selectionManager.GetSelectedHeroesCount();
+        int heroPillarNum = SelectionManager.Instance.GetSelectedHeroesCount();
 
         _heroPillars[heroPillarNum - 1].ShowHeroOnPillar(heroSO,false);
 
-        if (heroPillarNum < _selectionManager.GetMaxHeroesCount())
+        if (heroPillarNum < SelectionManager.Instance.GetMaxHeroesCount())
         {
             MoveHeroPillar(heroPillarNum, true);
 
         }
 
         CheckMaxCharactersSelected();
-
     }
 
 
@@ -659,16 +653,16 @@ public class SelectionController : MonoBehaviour
     /// <param name="heroSO"></param>
     private void HeroRemoved(HeroSO heroSO)
     {
-        int heroPillarNum = _selectionManager.GetSelectedHeroesCount() + 1;
+        int heroPillarNum = SelectionManager.Instance.GetSelectedHeroesCount() + 1;
 
         if (heroPillarNum > 0 &&
-            heroPillarNum < _selectionManager.GetMaxHeroesCount())
+            heroPillarNum < SelectionManager.Instance.GetMaxHeroesCount())
         {
             MoveHeroPillar(heroPillarNum, false);
         }
 
         //Remove the hero on the pillar that had a hero removed
-        _heroPillars[_selectionManager.GetIndexOfLastHeroRemoved()].RemoveHeroOnPillar();
+        _heroPillars[SelectionManager.Instance.GetIndexOfLastHeroRemoved()].RemoveHeroOnPillar();
         RearrangeHeroesOnPillars();
 
         CheckMaxCharactersNoLongerSelected();
@@ -708,7 +702,7 @@ public class SelectionController : MonoBehaviour
 
     private void MoveNextHeroBackToCurrentPillar(int pillarNum)
     {
-        if (pillarNum + 1 >= UniversalManagers.Instance.GetSelectionManager().GetMaxHeroesCount()) return;
+        if (pillarNum + 1 >= SelectionManager.Instance.GetMaxHeroesCount()) return;
 
         if(!_heroPillars[pillarNum].HasStoredHero() && _heroPillars[pillarNum+1].HasStoredHero())
         {
@@ -745,22 +739,22 @@ public class SelectionController : MonoBehaviour
 
     private void SubscribeToEvents()
     {
-        _selectionManager.GetBossSelectionEvent().AddListener(NewBossAdded);
-        _selectionManager.GetBossDeselectionEvent().AddListener(BossRemoved);
+        SelectionManager.Instance.GetBossSelectionEvent().AddListener(NewBossAdded);
+        SelectionManager.Instance.GetBossDeselectionEvent().AddListener(BossRemoved);
 
-        _selectionManager.GetBossSwapEvent().AddListener(SwapBoss);
+        SelectionManager.Instance.GetBossSwapEvent().AddListener(SwapBoss);
 
-        _selectionManager.GetBossHoveredOverEvent().AddListener(BossHoveredOver);
-        _selectionManager.GetBossNotHoveredOverEvent().AddListener(BossNotHoveredOver);
+        SelectionManager.Instance.GetBossHoveredOverEvent().AddListener(BossHoveredOver);
+        SelectionManager.Instance.GetBossNotHoveredOverEvent().AddListener(BossNotHoveredOver);
 
-        _selectionManager.GetHeroSelectionEvent().AddListener(NewHeroAdded);
-        _selectionManager.GetHeroDeselectionEvent().AddListener(HeroRemoved);
+        SelectionManager.Instance.GetHeroSelectionEvent().AddListener(NewHeroAdded);
+        SelectionManager.Instance.GetHeroDeselectionEvent().AddListener(HeroRemoved);
 
-        _selectionManager.GetHeroSwapEvent().AddListener(SwapHero);
+        SelectionManager.Instance.GetHeroSwapEvent().AddListener(SwapHero);
 
-        _selectionManager.GetHeroHoveredOverEvent().AddListener(HeroHoveredOver);
-        _selectionManager.GetHeroNotHoveredOverEvent().AddListener(HeroNotHoveredOver);
+        SelectionManager.Instance.GetHeroHoveredOverEvent().AddListener(HeroHoveredOver);
+        SelectionManager.Instance.GetHeroNotHoveredOverEvent().AddListener(HeroNotHoveredOver);
 
-        UniversalManagers.Instance.GetSelectionManager().GetDifficultySelectionEvent().AddListener(HeroLimitChanged);
+        SelectionManager.Instance.GetDifficultySelectionEvent().AddListener(HeroLimitChanged);
     }
 }

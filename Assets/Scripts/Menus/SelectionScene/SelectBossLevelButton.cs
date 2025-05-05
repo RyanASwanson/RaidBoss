@@ -70,12 +70,12 @@ public class SelectBossLevelButton : MonoBehaviour
 
     public void SelectBossButtonHoverBegin()
     {
-        UniversalManagers.Instance.GetSelectionManager().BossHoveredOver(_associatedLevel.GetLevelBoss());
+        SelectionManager.Instance.BossHoveredOver(_associatedLevel.GetLevelBoss());
     }
 
     public void SelectBossButtonHoverEnd()
     {
-        UniversalManagers.Instance.GetSelectionManager().BossNotHoveredOver(_associatedLevel.GetLevelBoss());
+        SelectionManager.Instance.BossNotHoveredOver(_associatedLevel.GetLevelBoss());
     }
 
     private void UpdateBossIconColor(Color newColor)
@@ -85,16 +85,16 @@ public class SelectBossLevelButton : MonoBehaviour
 
     private void BossLevelSelect()
     {
-        UniversalManagers.Instance.GetSelectionManager().SetSelectedBoss(_associatedLevel.GetLevelBoss());
-        UniversalManagers.Instance.GetSelectionManager().SetSelectedLevel(_associatedLevel);
+        SelectionManager.Instance.SetSelectedBoss(_associatedLevel.GetLevelBoss());
+        SelectionManager.Instance.SetSelectedLevel(_associatedLevel);
 
         UpdateBossIconColor(_associatedLevel.GetLevelBoss().GetBossSelectedColor());
     }
 
     private void BossLevelDeselect()
     {
-        UniversalManagers.Instance.GetSelectionManager().RemoveSelectedBoss();
-        UniversalManagers.Instance.GetSelectionManager().RemoveSelectedLevel();
+        SelectionManager.Instance.RemoveSelectedBoss();
+        SelectionManager.Instance.RemoveSelectedLevel();
 
         UpdateBossIconColor(_defaultColor);
     }

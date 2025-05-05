@@ -47,21 +47,9 @@ public class HeroStats : HeroChildrenFunctionality
     /// <param name="heroSO"></param>
     private void StatsSetup(HeroSO heroSO)
     {
-        //Sets the starting default stat values
-        _heroMaxHealth = heroSO.GetMaxHP();
-        _heroDefaultMoveSpeed = heroSO.GetMoveSpeed();
-        _heroDefaultAngularSpeed = heroSO.GetAngularSpeed();
-        _heroDefaultAcceleration = heroSO.GetMoveAcceleration();
-        _heroDefaultAggro = heroSO.GetAggro();
-        _heroDefaultDamageResistance = heroSO.GetDamageResistance();
+        SetUpDefaultStats(heroSO);
 
-        //Sets the starting current stat values
-        _currentHealth = _heroMaxHealth;
-        _currentMoveSpeed = _heroDefaultMoveSpeed;
-        _currentAngularSpeed = _heroDefaultAngularSpeed;
-        _currentAcceleration = _heroDefaultAcceleration;
-        _currentAggro = _heroDefaultAggro;
-        _currentDamageResistance = _heroDefaultDamageResistance;
+        SetUpCurrentStats(heroSO);
 
         //Sets up the movement speed
         _myHeroBase.GetPathfinding().GetNavMeshAgent().speed = _currentMoveSpeed ;
@@ -69,6 +57,42 @@ public class HeroStats : HeroChildrenFunctionality
         _myHeroBase.GetPathfinding().GetNavMeshAgent().acceleration = _currentAcceleration;
     }
 
+    #region Stats Set Up
+    /// <summary>
+    /// Performs set up for the default stat values
+    /// </summary>
+    /// <param name="heroSO"></param>
+    private void SetUpDefaultStats(HeroSO heroSO)
+    {
+        //Sets the starting default stat values
+        _heroMaxHealth = heroSO.GetMaxHP();
+        _heroDefaultMoveSpeed = heroSO.GetMoveSpeed();
+        _heroDefaultAngularSpeed = heroSO.GetAngularSpeed();
+        _heroDefaultAcceleration = heroSO.GetMoveAcceleration();
+        _heroDefaultAggro = heroSO.GetAggro();
+        _heroDefaultDamageResistance = heroSO.GetDamageResistance();
+    }
+
+    /// <summary>
+    /// Performs set up for the current stat values
+    /// </summary>
+    /// <param name="heroSO"></param>
+    private void SetUpCurrentStats(HeroSO heroSO)
+    {
+        //Sets the starting current stat values
+        _currentHealth = _heroMaxHealth;
+        _currentMoveSpeed = _heroDefaultMoveSpeed;
+        _currentAngularSpeed = _heroDefaultAngularSpeed;
+        _currentAcceleration = _heroDefaultAcceleration;
+        _currentAggro = _heroDefaultAggro;
+        _currentDamageResistance = _heroDefaultDamageResistance;
+    }
+    #endregion
+
+    /// <summary>
+    /// Called to deal damage to the hero
+    /// </summary>
+    /// <param name="damage"> The amount of damage </param>
     public void DealDamageToHero(float damage)
     {
         //Checks for a damage override before dealing damage
@@ -85,6 +109,10 @@ public class HeroStats : HeroChildrenFunctionality
         CheckIfHeroIsDead();
     }
 
+    /// <summary>
+    /// Called to heal a hero
+    /// </summary>
+    /// <param name="healing"> The amount of healing </param>
     public void HealHero(float healing)
     {
         //Checks for a healing override before healing
@@ -96,10 +124,10 @@ public class HeroStats : HeroChildrenFunctionality
 
         if (healing == 0 || IsHeroMaxHealth()) return;
 
-        //Set the their health was prior to being healed
+        //Set the previous health to what it was prior to being healed
         SetPreviousHealthValue();
 
-        //Scale healing with healing receieved
+        //Scale healing with healing received
         healing *= _currentHealingReceivedMultiplier;
 
         //Store the health prior to being healed
@@ -118,7 +146,9 @@ public class HeroStats : HeroChildrenFunctionality
     }
 
 
-    //Checks if the hero has died after taking damage
+    /// <summary>
+    /// Checks if the hero has died after taking damage
+    /// </summary>
     private void CheckIfHeroIsDead()
     {
         if (_currentHealth <= 0)
@@ -439,8 +469,7 @@ public class HeroStats : HeroChildrenFunctionality
         _currentDamageResistance += changeValue;
     }
     #endregion
-
-
+    
     #region Base Hero
     public override void ChildFuncSetup(HeroBase heroBase)
     {

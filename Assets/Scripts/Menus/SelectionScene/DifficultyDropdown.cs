@@ -11,22 +11,17 @@ public class DifficultyDropdown : MonoBehaviour
     [Space]
     [SerializeField] private Image _currentDifficultyIcon;
 
-    private SelectionManager _selectionManager;
-
-
     // Start is called before the first frame update
     void Start()
     {
-        _selectionManager = UniversalManagers.Instance.GetSelectionManager();
-
         SetStartingDropdownValue();
         SetStartingDropdownVisuals();
     }
 
     private void SetStartingDropdownVisuals()
     {
-        List<string> diffNames = _selectionManager.GetDifficultyNames();
-        List<Sprite> diffIcons = _selectionManager.GetDifficultyIcons();
+        List<string> diffNames = SelectionManager.Instance.GetDifficultyNames();
+        List<Sprite> diffIcons = SelectionManager.Instance.GetDifficultyIcons();
 
         _dropdown.ClearOptions();
 
@@ -45,11 +40,11 @@ public class DifficultyDropdown : MonoBehaviour
 
     private void SetStartingDropdownValue()
     {
-        _dropdown.value = (int)_selectionManager.GetSelectedDifficulty() - 1;
+        _dropdown.value = (int)SelectionManager.Instance.GetSelectedDifficulty() - 1;
     }
 
     public void UpdateDifficulty()
     {
-        _selectionManager.SetSelectedDifficulty((EGameDifficulty)_dropdown.value+1);
+        SelectionManager.Instance.SetSelectedDifficulty((EGameDifficulty)_dropdown.value+1);
     }
 }
