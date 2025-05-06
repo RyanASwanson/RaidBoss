@@ -66,7 +66,7 @@ public class GameplayManagers : CoreManagersFramework
         }
 
         //Informs the scene manager that a gameplay scene was loaded
-        SceneLoadManager.Instance.InvokeOnGameplaySceneLoaded();
+        SceneLoadManager.Instance.GameplaySceneLoaded();
     }
 
     #region Getters - Managers
