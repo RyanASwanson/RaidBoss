@@ -8,6 +8,8 @@ using Cinemachine;
 /// </summary>
 public class CameraGameManager : MainGameplayManagerFramework
 {
+    public static CameraGameManager Instance;
+    
     [SerializeField] private Camera _gameplayCamera;
     [SerializeField] private CinemachineVirtualCamera _virtualCamera;
     
@@ -143,7 +145,18 @@ public class CameraGameManager : MainGameplayManagerFramework
     }
 
     #region BaseManager
-
+    /// <summary>
+    /// Establishes the instance for the CameraGameManager
+    /// </summary>
+    public override void SetUpInstance()
+    {
+        base.SetUpInstance();
+        Instance = this;
+    }
+    
+    /// <summary>
+    /// Performs the needed set up on the CameraGameManager
+    /// </summary>
     public override void SetUpMainManager()
     {
         base.SetUpMainManager();
@@ -152,19 +165,18 @@ public class CameraGameManager : MainGameplayManagerFramework
 
         StartingValues();
     }
-    
+
     protected override void SubscribeToEvents()
     {
-        GameplayManagers.Instance.GetBossManager().GetBossBase()
+        BossManager.Instance.GetBossBase()
             .GetBossStaggeredEvent().AddListener(CameraShakeOnBossStagger);
-        GameplayManagers.Instance.GetGameStateManager().GetBattleWonEvent()
+        
+        GameStateManager.Instance.GetBattleWonEvent()
             .AddListener(CameraShakeOnBossDeath);
     }
     #endregion
 
     #region Getters
     public Camera GetGameplayCamera() => _gameplayCamera;
-
-    
     #endregion
 }

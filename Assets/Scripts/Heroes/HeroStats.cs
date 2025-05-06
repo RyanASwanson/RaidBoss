@@ -174,7 +174,7 @@ public class HeroStats : HeroChildrenFunctionality
         //Tells the hero base to invoke the death event
         _myHeroBase.InvokeHeroDiedEvent();
         //Tells the heroes manager that this hero died
-        GameplayManagers.Instance.GetHeroesManager().HeroDied(_myHeroBase);
+        HeroesManager.Instance.HeroDied(_myHeroBase);
     }
 
     public void ForceKillHero()

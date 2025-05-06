@@ -36,7 +36,7 @@ public class PauseUIManager : GameUIChildrenFunctionality
         TimeManager.Instance.GetGamePausedEvent().AddListener(GamePausedUI);
         TimeManager.Instance.GetGameUnpausedEvent().AddListener(GameUnpausedUI);
 
-        GameplayManagers.Instance.GetGameStateManager().GetBattleWonOrLostEvent().AddListener(GameWonOrLost);
+        GameStateManager.Instance.GetBattleWonOrLostEvent().AddListener(GameWonOrLost);
     }
 
     #endregion

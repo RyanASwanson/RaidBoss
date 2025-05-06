@@ -160,7 +160,7 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
 
     protected virtual void AbilityScreenShake()
     {
-        GameplayManagers.Instance.GetCameraManager().StartCameraShake
+        CameraGameManager.Instance.StartCameraShake
             (_screenShakeIntensity, _screenShakeFrequency, _screenShakeDuration);
     }
 
@@ -199,8 +199,8 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
 
 public enum EBossAbilityTargetMethod
 {
-    _heroTarget,
-    _heroTargetWithIgnore,
-    _specificHeroTarget,
-    _specificAreaTarget,
+    HeroTarget,
+    HeroTargetWithIgnore,
+    SpecificHeroTarget,
+    SpecificAreaTarget,
 };

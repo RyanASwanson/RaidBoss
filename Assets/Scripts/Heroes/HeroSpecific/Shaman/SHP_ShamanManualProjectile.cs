@@ -16,12 +16,9 @@ public class SHP_ShamanManualProjectile : HeroProjectileFramework
     [SerializeField] private Transform _vfxLightningSpawnPoint;
     //private List<GameObject> _spawnedVFXLightning
 
-
     private Queue<GameObject> _targetsNotGoneTo = new Queue<GameObject>();
 
     private SH_Shaman _ownerShaman;
-
-    
 
     /// <summary>
     /// Determines the order to go between each hero
@@ -31,7 +28,7 @@ public class SHP_ShamanManualProjectile : HeroProjectileFramework
         //Add all living heroes to the hero object list except for the shaman
         List<GameObject> travelToObjects = new List<GameObject>();
         
-        foreach(HeroBase hb in GameplayManagers.Instance.GetHeroesManager().GetCurrentLivingHeroes())
+        foreach(HeroBase hb in HeroesManager.Instance.GetCurrentLivingHeroes())
         {
             if (hb.GetSpecificHeroScript() == _mySpecificHero) continue;
 
@@ -108,6 +105,7 @@ public class SHP_ShamanManualProjectile : HeroProjectileFramework
     {
         while(true)
         {
+            //TODO rework this to use unity VFX instead of spawning game objects
             yield return new WaitForSeconds(_vfxLightningSpawnRate);
 
             GameObject newestLighting = Instantiate(_vfxLightning, _vfxLightningSpawnPoint.transform);

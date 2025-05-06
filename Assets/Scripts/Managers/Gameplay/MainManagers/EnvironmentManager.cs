@@ -2,8 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Performs general management of the environment and provides accessibility to other scripts to certain functionality
+/// </summary>
 public class EnvironmentManager : MainGameplayManagerFramework
 {
+    public static EnvironmentManager Instance;
+    
     [SerializeField] private float _mapRadius;
 
     [SerializeField] private LayerMask _mapBorderLayer;
@@ -12,26 +17,29 @@ public class EnvironmentManager : MainGameplayManagerFramework
 
     [SerializeField] private Collider _floorCollider;
 
+    [Tooltip("The max distance that is checked to find the edge of the map")]
     private const float _distanceToEdgeOfMap = 25;
 
     #region BaseManager
-    public override void SetUpMainManager()
+    /// <summary>
+    /// Establishes the Instance for the Environment manager
+    /// </summary>
+    public override void SetUpInstance()
     {
-        base.SetUpMainManager();
+        base.SetUpInstance();
+        Instance = this;
     }
-
     #endregion
 
     #region Getters
     public float GetMapRadius() => _mapRadius;
     public LayerMask GetMapBorderLayer() => _mapBorderLayer;
 
-    public List<GameObject> GetSpawnLocations() => _heroSpawnLocations;
+    public List<GameObject> GetHeroSpawnLocations() => _heroSpawnLocations;
 
     #region Raycasts
     public Vector3 GetClosestPointToFloor(Vector3 startPoint) => Physics.ClosestPoint(startPoint, 
         _floorCollider, _floorCollider.gameObject.transform.position, _floorCollider.gameObject.transform.rotation);
-
 
     /// <summary>
     /// Raycasts with a specific layer, aligning the y values of start and direction
@@ -77,9 +85,7 @@ public class EnvironmentManager : MainGameplayManagerFramework
     public bool GetEdgeOfMapWithDistanceAndDirection(Vector3 startPoint, Vector3 direction, float distance, out RaycastHit raycastHit)
     {
         return GetLayerRayHit(startPoint, direction, distance, _mapBorderLayer, out raycastHit);
-        
     }
-    
 
     public float DistanceToEdgeOfMap(Vector3 startPoint, Vector3 direction)
     {

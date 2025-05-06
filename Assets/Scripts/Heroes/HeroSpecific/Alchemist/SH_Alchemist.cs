@@ -19,8 +19,6 @@ public class SH_Alchemist : SpecificHeroFramework
     [Space]
     [SerializeField] private float _potionDistanceMultiplier;
 
-    private EnvironmentManager _environmentManager;
-
     #region Basic Abilities
     public override void ActivateBasicAbilities()
     {
@@ -46,7 +44,7 @@ public class SH_Alchemist : SpecificHeroFramework
         targetPosition += new Vector3(randomVector.x, 0, randomVector.y) * _potionDistanceMultiplier;
 
         //Gets the closest valid point in the environment to where the target position is
-        targetPosition = _environmentManager.GetClosestPointToFloor(targetPosition);
+        targetPosition = EnvironmentManager.Instance.GetClosestPointToFloor(targetPosition);
         //Keeps the y value consistent
         targetPosition = new Vector3(targetPosition.x, transform.position.y, targetPosition.z);
 
@@ -116,13 +114,7 @@ public class SH_Alchemist : SpecificHeroFramework
     #endregion
 
     #region Base Hero
-
-    protected override void GetManagers()
-    {
-        _environmentManager = GameplayManagers.Instance.GetEnvironmentManager();
-        base.GetManagers();
-    }
-
+    
     #endregion
 }
 

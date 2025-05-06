@@ -51,7 +51,7 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     /// <returns> Returns if something was clicked </returns> 
     private bool ClickOnPoint(LayerMask detectionLayerMask, out RaycastHit rayHit)
     {
-        Camera mainCam = GameplayManagers.Instance.GetCameraManager().GetGameplayCamera();
+        Camera mainCam = CameraGameManager.Instance.GetGameplayCamera();
 
         Ray clickRay = mainCam.ScreenPointToRay(Mouse.current.position.ReadValue());
 
@@ -144,7 +144,6 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
             foreach (HeroBase currentHero in _controlledHeroes)
             {
                 currentHero.GetSpecificHeroScript().AttemptActivationOfManualAbility(targetLoc);
-                //currentHero.InvokeHeroManualAbilityUsedEvent(targetLoc);
             }
         }
     }
@@ -298,6 +297,18 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     #endregion
 
     #region BaseManager
+    /// <summary>
+    /// Establishes the Instance for the PlayerInputGameplayManager
+    /// </summary>
+    public override void SetUpInstance()
+    {
+        base.SetUpInstance();
+        Instance = this;
+    }
+    
+    /// <summary>
+    /// Performs any needed set up on the PlayerInputGameplayManager
+    /// </summary>
     public override void SetUpMainManager()
     {
         base.SetUpMainManager();
@@ -305,16 +316,13 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
         SubscribeToPlayerInput();
     }
 
-    public override void SetUpInstance()
-    {
-        base.SetUpInstance();
-        Instance = this;
-    }
-
+    /// <summary>
+    /// Subscribes to all needed events for the PlayerInputGameplayManager
+    /// </summary>
     protected override void SubscribeToEvents()
     {
         //Prevents the player from performing any actions after the game ends
-        GameplayManagers.Instance.GetGameStateManager().GetBattleWonOrLostEvent().AddListener(UnsubscribeToPlayerInput);
+        GameStateManager.Instance.GetBattleWonOrLostEvent().AddListener(UnsubscribeToPlayerInput);
     }
     
     protected override void OnDestroy()

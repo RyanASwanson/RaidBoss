@@ -8,6 +8,8 @@ using UnityEngine;
 /// </summary>
 public class GameUIManager : MainGameplayManagerFramework
 {
+    public static GameUIManager Instance;
+    
     [SerializeField] private BossUIManager _bossUIManager;
 
     [SerializeField] private List<HeroUIManager> _heroUIManagers;
@@ -30,12 +32,20 @@ public class GameUIManager : MainGameplayManagerFramework
     }
 
     #region BaseManager
+    /// <summary>
+    /// Establishes the Instance for the GameUIManager
+    /// </summary>
+    public override void SetUpInstance()
+    {
+        base.SetUpInstance();
+        Instance = this;
+    }
+
     public override void SetUpMainManager()
     {
         base.SetUpMainManager();
         SetupChildrenUIManagers();
     }
-
     #endregion
 
     #region Getters

@@ -8,6 +8,8 @@ using UnityEngine;
 /// </summary>
 public class HeroesManager : MainGameplayManagerFramework
 {
+    public static HeroesManager Instance;
+    
     [Tooltip("The base prefab that is used that all heroes are based off of")]
     [SerializeField] private GameObject _baseHeroPrefab;
     [Space]
@@ -25,7 +27,7 @@ public class HeroesManager : MainGameplayManagerFramework
     private IEnumerator SpawnHeroesAtSpawnPoints()
     {
         List<HeroSO> heroSOs = SelectionManager.Instance.GetAllSelectedHeroes();
-        List<GameObject> spawnLocations = GameplayManagers.Instance.GetEnvironmentManager().GetSpawnLocations();
+        List<GameObject> spawnLocations = GameplayManagers.Instance.GetEnvironmentManager().GetHeroSpawnLocations();
 
         for (int i = 0; i < heroSOs.Count; i++)
         {
@@ -91,14 +93,16 @@ public class HeroesManager : MainGameplayManagerFramework
     private void CheckIfAllHeroesDead()
     {
         if (_currentLivingHeroes.Count == 0)
-            GameplayManagers.Instance.GetGameStateManager().SetGameplayState(EGameplayStates.PostBattleLost);
+        {
+            GameStateManager.Instance.SetGameplayState(EGameplayStates.PostBattleLost);
+        }
     }
 
     /// <summary>
     /// Kills all heroes that are currently alive.
     /// Ignores all heroes death overrides.
     /// </summary>
-    public void KillAllHeroes()
+    public void ForceKillAllHeroes()
     {
         while (_currentLivingHeroes.Count > 0)
         {
@@ -107,6 +111,15 @@ public class HeroesManager : MainGameplayManagerFramework
     }
 
     #region BaseManager
+    /// <summary>
+    /// Establishes the Instance for the HeroesManager
+    /// </summary>
+    public override void SetUpInstance()
+    {
+        base.SetUpInstance();
+        Instance = this;
+    }
+
     public override void SetUpMainManager()
     {
         base.SetUpMainManager();

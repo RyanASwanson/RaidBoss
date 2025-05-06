@@ -37,10 +37,13 @@ public class GameStateManager : MainGameplayManagerFramework
     /// <summary>
     /// Changes which state the gameplay is to another one and invokes events for that state
     /// </summary>
-    /// <param name="newEGameplayState"></param>
+    /// <param name="newEGameplayState"> The state we are setting the gameplay to </param>
     public void SetGameplayState(EGameplayStates newEGameplayState)
     {
-        if (_currentEGameplayState == newEGameplayState || _currentEGameplayState >= EGameplayStates.PostBattleLost) return;
+        if (_currentEGameplayState == newEGameplayState || _currentEGameplayState >= EGameplayStates.PostBattleLost)
+        {
+            return;
+        }
 
         _currentEGameplayState = newEGameplayState;
 
@@ -81,16 +84,18 @@ public class GameStateManager : MainGameplayManagerFramework
     }
 
     #region BaseManager
-    public override void SetUpMainManager()
-    {
-        base.SetUpMainManager();
-        StartCoroutine(ProgressToStart());
-    }
-
+    /// <summary>
+    /// Establishes the Instance for the GameStateManager
+    /// </summary>
     public override void SetUpInstance()
     {
         base.SetUpInstance();
         Instance = this;
+    }
+    public override void SetUpMainManager()
+    {
+        base.SetUpMainManager();
+        StartCoroutine(ProgressToStart());
     }
     #endregion
     

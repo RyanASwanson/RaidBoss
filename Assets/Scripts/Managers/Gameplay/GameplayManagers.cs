@@ -70,9 +70,6 @@ public class GameplayManagers : CoreManagersFramework
     }
 
     #region Getters - Managers
-    public GameStateManager GetGameStateManager() => _gameStateManager;
-    public CameraGameManager GetCameraManager() => _cameraManager;
-    public HeroesManager GetHeroesManager() => _heroesManager;
     public EnvironmentManager GetEnvironmentManager() => _environmentManager;
     public GameUIManager GetGameUIManager() => _gameUIManager;
     public BossManager GetBossManager() => _bossManager;

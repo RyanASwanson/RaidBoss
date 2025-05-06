@@ -98,7 +98,7 @@ public class SH_Mirage : SpecificHeroFramework
     {
         Vector3 spawnLocation = _myHeroBase.transform.position + (_myHeroBase.transform.forward * _cloneSpawnOffset);
 
-        _cloneBase = GameplayManagers.Instance.GetHeroesManager().CreateHeroBase(spawnLocation,
+        _cloneBase = HeroesManager.Instance.CreateHeroBase(spawnLocation,
             _myHeroBase.transform.rotation, _cloneSO);
 
         _cloneFunc = ((MirageClone)_cloneBase.GetSpecificHeroScript());
@@ -153,7 +153,6 @@ public class SH_Mirage : SpecificHeroFramework
         CreateBasicAbilityProjectile();
     }
 
-
     /// <summary>
     /// Kills the clone when the Mirage dies
     /// </summary>
@@ -164,12 +163,8 @@ public class SH_Mirage : SpecificHeroFramework
     #endregion
 
     #region Passive Abilities
-    
     //Passive is handled by the clone
     #endregion
-
-    
-
 
     #region Base Hero
     public override void SetupSpecificHero(HeroBase heroBase, HeroSO heroSO)

@@ -207,19 +207,18 @@ public class SaveManager : MainUniversalManagerFramework
     #endregion
 
     #region BaseManager
+    public override void SetUpInstance()
+    {
+        base.SetUpInstance();
+        Instance = this;
+    }
+    
     public override void SetUpMainManager()
     {
         base.SetUpMainManager();  
         EstablishPath();
         Load();
     }
-
-    public override void SetUpInstance()
-    {
-        base.SetUpInstance();
-        Instance = this;
-    }
-
     #endregion
 
     #region Getters

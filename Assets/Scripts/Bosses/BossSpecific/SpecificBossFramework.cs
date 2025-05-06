@@ -73,7 +73,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
     /// </summary>
     protected virtual void AssignInitialHeroTargets()
     {
-        _bossAttackTargets = new List<HeroBase>(GameplayManagers.Instance.GetHeroesManager().GetCurrentHeroes());
+        _bossAttackTargets = new List<HeroBase>(HeroesManager.Instance.GetCurrentHeroes());
 
         _myBossBase.InvokeBossTargetsAssignedEvent();
     }
@@ -86,7 +86,6 @@ public abstract class SpecificBossFramework : MonoBehaviour
     {
         _bossAttackTargets.Add(heroBase);
     }
-
 
     /// <summary>
     /// Removes a specific hero from the list of heroes that can be targeted
@@ -120,8 +119,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
 
         newBossAttackTargets.Remove(removeHero);
         newAggroOverrides?.Remove(removeHero);
-
-
+        
         return DetermineAggroTargetFromLists(newBossAttackTargets, newAggroOverrides);
     }
 
@@ -136,9 +134,9 @@ public abstract class SpecificBossFramework : MonoBehaviour
     }
 
     /// <summary>
-    /// Checks
+    /// Determines what hero to target based on their aggro
     /// </summary>
-    /// <param name="aggroTargetBases"></param>
+    /// <param name="aggroTargetBases"> The viable targets for attacking </param>
     /// <returns></returns>
     public virtual HeroBase DetermineAggroFromHeroes(List<HeroBase> aggroTargetBases)
     {
@@ -162,7 +160,6 @@ public abstract class SpecificBossFramework : MonoBehaviour
             {
                 return hb;
             }
-
         }
 
         return null;
@@ -303,14 +300,14 @@ public abstract class SpecificBossFramework : MonoBehaviour
 
         switch(currentAbility.GetTargetMethod())
         {
-            case (EBossAbilityTargetMethod._heroTarget):
+            case (EBossAbilityTargetMethod.HeroTarget):
                 targetHero = DetermineAggroTarget();
                 return ClosestFloorSpaceOfTarget(targetHero.gameObject);
-            case (EBossAbilityTargetMethod._heroTargetWithIgnore):
+            case (EBossAbilityTargetMethod.HeroTargetWithIgnore):
 
-            case (EBossAbilityTargetMethod._specificHeroTarget):
+            case (EBossAbilityTargetMethod.SpecificHeroTarget):
 
-            case (EBossAbilityTargetMethod._specificAreaTarget):
+            case (EBossAbilityTargetMethod.SpecificAreaTarget):
                 return currentAbility.GetSpecificLookTarget();
         }
 
@@ -361,7 +358,12 @@ public abstract class SpecificBossFramework : MonoBehaviour
     /// </summary>
     protected virtual void UnlockNewAbility()
     {
-        if (_abilityLocked == null) return;
+        //Checks to see if there actually is an ability to unlock
+        if (_abilityLocked == null)
+        {
+            return;
+        }
+        
         AddAbilityToBossReadyAttacks(_abilityLocked);
     }
 

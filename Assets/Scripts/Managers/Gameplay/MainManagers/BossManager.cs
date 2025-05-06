@@ -3,15 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Performs general management of the boss
+/// Performs general management of the boss and provides accessibility to other scripts to certain functionality
 /// </summary>
 public class BossManager : MainGameplayManagerFramework
 {
+    public static BossManager Instance;
+    
     [SerializeField] private BossBase _bossBase;
 
     private GameObject _bossGameObject;
     
     #region BaseManager
+    /// <summary>
+    /// Establishes the instance for the BossManager
+    /// </summary>
+    public override void SetUpInstance()
+    {
+        base.SetUpInstance();
+        Instance = this;
+    }
+
     /// <summary>
     /// Sets up the manager then sets up the specific boss
     /// </summary>

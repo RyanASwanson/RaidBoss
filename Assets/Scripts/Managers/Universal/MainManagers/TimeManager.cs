@@ -187,12 +187,6 @@ public class TimeManager : MainUniversalManagerFramework
     }
     
     #region BaseManager
-
-    public override void SetUpMainManager()
-    {
-        base.SetUpMainManager();
-    }
-
     public override void SetUpInstance()
     {
         base.SetUpInstance();

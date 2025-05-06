@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 /// <summary>
-/// Handles the ui of the game state in gamepaly such as win/lose
+/// Handles the ui of the game state in gameplay such as win/lose
 /// </summary>
 public class GameStateUIManager : GameUIChildrenFunctionality
 {
@@ -46,8 +46,8 @@ public class GameStateUIManager : GameUIChildrenFunctionality
 
     protected override void SubscribeToEvents()
     {
-        GameplayManagers.Instance.GetGameStateManager().GetBattleWonEvent().AddListener(BattleWinUI);
-        GameplayManagers.Instance.GetGameStateManager().GetBattleLostEvent().AddListener(BattleLoseUI);
+        GameStateManager.Instance.GetBattleWonEvent().AddListener(BattleWinUI);
+        GameStateManager.Instance.GetBattleLostEvent().AddListener(BattleLoseUI);
     }
     #endregion
 

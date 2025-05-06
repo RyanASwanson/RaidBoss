@@ -178,18 +178,17 @@ public class SelectionManager : MainUniversalManagerFramework
     }
 
     #region BaseManager
-    public override void SetUpMainManager()
-    {
-        base.SetUpMainManager();
-        SetupDifficultyDictionaries();
-    }
-
     public override void SetUpInstance()
     {
         base.SetUpInstance();
         Instance = this;
     }
-
+    
+    public override void SetUpMainManager()
+    {
+        base.SetUpMainManager();
+        SetupDifficultyDictionaries();
+    }
     #endregion
 
     #region Events

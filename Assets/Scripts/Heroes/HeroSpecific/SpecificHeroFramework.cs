@@ -233,7 +233,6 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     public virtual void SetupSpecificHero(HeroBase heroBase, HeroSO heroSO)
     {
         _myHeroBase = heroBase;
-        GetManagers();
         SubscribeToEvents();
     }
 
@@ -253,8 +252,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     {
 
     }
-
-
+    
     /// <summary>
     /// Starts the cooldowns for abilities
     /// Called at the start of the battle
@@ -275,23 +273,14 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     }
 
     /// <summary>
-    /// Gets any needed managers that the script will need to use often
-    /// </summary>
-    protected virtual void GetManagers()
-    {
-
-    }
-
-    /// <summary>
     /// Provides an overridable event subscription function
     /// </summary>
     protected virtual void SubscribeToEvents()
     {
-        GameplayManagers.Instance.GetGameStateManager().GetStartOfBattleEvent().AddListener(BattleStarted);
+        GameStateManager.Instance.GetStartOfBattleEvent().AddListener(BattleStarted);
 
         _myHeroBase.GetHeroDiedEvent().AddListener(HeroDied);
     }
-
 
     #region Getters
     public float GetBasicAbilityChargeTime() => _basicAbilityChargeTime;
@@ -300,7 +289,4 @@ public abstract class SpecificHeroFramework : MonoBehaviour
 
     public Animator GetSpecificHeroAnimator() => _heroSpecificAnimator;
     #endregion
-
-    
-
 }

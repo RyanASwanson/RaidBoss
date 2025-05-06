@@ -537,17 +537,17 @@ public class SelectionController : MonoBehaviour
         {
             case (0):
                 UpdateHeroAbilityNameText(_heroUIToDisplay.GetHeroBasicAbilityName());
-                UpdateHeroAbilityTypeText(HeroAbilityType.Basic.ToString());
+                UpdateHeroAbilityTypeText(EHeroAbilityType.Basic.ToString());
                 UpdateHeroAbilityDescriptionText(_heroUIToDisplay.GetHeroBasicAbilityDescription());
                 return;
             case (1):
                 UpdateHeroAbilityNameText(_heroUIToDisplay.GetHeroManualAbilityName());
-                UpdateHeroAbilityTypeText(HeroAbilityType.Manual.ToString());
+                UpdateHeroAbilityTypeText(EHeroAbilityType.Manual.ToString());
                 UpdateHeroAbilityDescriptionText(_heroUIToDisplay.GetHeroManualAbilityDescription());
                 return;
             case (2):
                 UpdateHeroAbilityNameText(_heroUIToDisplay.GetHeroPassiveAbilityName());
-                UpdateHeroAbilityTypeText(HeroAbilityType.Passive.ToString());
+                UpdateHeroAbilityTypeText(EHeroAbilityType.Passive.ToString());
                 UpdateHeroAbilityDescriptionText(_heroUIToDisplay.GetHeroPassiveAbilityDescription());
                 return;
         }
