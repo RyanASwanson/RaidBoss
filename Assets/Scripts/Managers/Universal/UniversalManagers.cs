@@ -7,10 +7,10 @@ using UnityEngine;
 /// </summary>
 public class UniversalManagers : CoreManagersFramework
 {
-    [SerializeField] private SceneLoadManager _sceneLoadManager;
-    [SerializeField] private SelectionManager _selectionManager;
-    [SerializeField] private TimeManager _timeManager;
-    [SerializeField] private SaveManager _saveManager;
+    private SceneLoadManager _sceneLoadManager;
+    private SelectionManager _selectionManager;
+    private TimeManager _timeManager;
+    private SaveManager _saveManager;
 
     /// <summary>
     /// Contains all managers to set up. Order of managers is order of setup.
