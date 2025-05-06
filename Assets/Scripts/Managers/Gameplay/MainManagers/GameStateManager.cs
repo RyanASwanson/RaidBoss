@@ -9,9 +9,12 @@ using UnityEngine.Events;
 /// </summary>
 public class GameStateManager : MainGameplayManagerFramework
 {
+    public static GameStateManager Instance; 
+    
+    [Tooltip("The time before the battle begins")]
     [SerializeField] private float _timeToStart;
 
-    private EGameplayStates currentEGameplayState = EGameplayStates.PreBattle;
+    private EGameplayStates _currentEGameplayState = EGameplayStates.PreBattle;
 
     private UnityEvent _startOfBattleEvent = new UnityEvent();
 
@@ -21,7 +24,7 @@ public class GameStateManager : MainGameplayManagerFramework
     private UnityEvent _battleWonOrLostEvent = new UnityEvent();
 
     /// <summary>
-    /// Starts the battle
+    /// Starts the battle with a delay
     /// </summary>
     /// <returns></returns>
     private IEnumerator ProgressToStart()
@@ -37,11 +40,11 @@ public class GameStateManager : MainGameplayManagerFramework
     /// <param name="newEGameplayState"></param>
     public void SetGameplayState(EGameplayStates newEGameplayState)
     {
-        if (currentEGameplayState == newEGameplayState || currentEGameplayState >= EGameplayStates.PostBattleLost) return;
+        if (_currentEGameplayState == newEGameplayState || _currentEGameplayState >= EGameplayStates.PostBattleLost) return;
 
-        currentEGameplayState = newEGameplayState;
+        _currentEGameplayState = newEGameplayState;
 
-        switch(currentEGameplayState)
+        switch(_currentEGameplayState)
         {
             case (EGameplayStates.Battle):
                 InvokeStartOfBattleEvent();
@@ -78,11 +81,16 @@ public class GameStateManager : MainGameplayManagerFramework
     }
 
     #region BaseManager
-
     public override void SetUpMainManager()
     {
         base.SetUpMainManager();
         StartCoroutine(ProgressToStart());
+    }
+
+    public override void SetUpInstance()
+    {
+        base.SetUpInstance();
+        Instance = this;
     }
     #endregion
     
@@ -120,7 +128,7 @@ public class GameStateManager : MainGameplayManagerFramework
     #endregion
     
     #region Getters
-    public bool GetIsFightOver() => currentEGameplayState >= EGameplayStates.PostBattleLost;
+    public bool GetIsFightOver() => _currentEGameplayState >= EGameplayStates.PostBattleLost;
 
     public UnityEvent GetStartOfBattleEvent() => _startOfBattleEvent;
     public UnityEvent GetBattleLostEvent() => _battleLostEvent;

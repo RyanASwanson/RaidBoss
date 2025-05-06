@@ -149,7 +149,7 @@ public class BossStats : BossChildrenFunctionality
     {
         if (_currentHealth <= 0)
         {
-            GameplayManagers.Instance.GetGameStateManager().SetGameplayState(EGameplayStates.PostBattleWon);
+            GameStateManager.Instance.SetGameplayState(EGameplayStates.PostBattleWon);
         }
     }
 
@@ -224,7 +224,7 @@ public class BossStats : BossChildrenFunctionality
 
         _myBossBase.GetBossDamagedEvent().AddListener(CheckBossIsUnderHalf);
 
-        GameplayManagers.Instance.GetGameStateManager().GetStartOfBattleEvent().AddListener(StartEnrageTimer);
+        GameStateManager.Instance.GetStartOfBattleEvent().AddListener(StartEnrageTimer);
     }
 
     private void BossSOAssigned(BossSO bossSO)

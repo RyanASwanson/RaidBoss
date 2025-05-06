@@ -9,6 +9,9 @@ using UnityEngine.Events;
 /// </summary>
 public class PlayerInputGameplayManager : MainGameplayManagerFramework
 {
+    public static PlayerInputGameplayManager Instance;
+    
+    [Tooltip("The time between mouse scrolling switching heroes")]
     [SerializeField] private float _scrollCooldown;
     private bool _clickAndDragEnabled;
 
@@ -18,21 +21,24 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     [SerializeField] private LayerMask _selectClickLayerMask;
     [SerializeField] private LayerMask _directClickLayerMask;
 
-    private const float _playerClickRange = 50;
+    [Tooltip("The range the raycast from the camera checks for heroes")]
+    private const float PLAYER_CLICK_RANGE = 50;
 
     private List<HeroBase> _controlledHeroes = new List<HeroBase>();
 
     [Space]
     [SerializeField] private GameObject _heroDirectIcon;
 
-    private UniversalPlayerInputActions UPIA;
+    private UniversalPlayerInputActions _universalPlayerInputActions;
 
-    private bool _subscribedToInput = false;
+    private bool _isSubscribedToInput = false;
 
     private HeroesManager _heroesManager;
     
-    
-    private void SetupClickAndDrag()
+    /// <summary>
+    /// Sets the click and drag based on what it is set in the save manager
+    /// </summary>
+    private void SetClickAndDragFromSave()
     {
         _clickAndDragEnabled = SaveManager.Instance.GetClickAndDragEnabled();
     }
@@ -40,20 +46,19 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     /// <summary>
     /// Finds the object in 3D space at the location in which you clicked
     /// </summary>
-    /// <param name="detectionLayerMask"></param> The layer/layers that can be clicked on
-    /// <param name="rayHit"></param> Out variable for the object the ray hit
-    /// <returns></returns> Returns if something was clicked
+    /// <param name="detectionLayerMask"> The layer/layers that can be clicked on </param> 
+    /// <param name="rayHit"> Out variable for the object the ray hit </param> 
+    /// <returns> Returns if something was clicked </returns> 
     private bool ClickOnPoint(LayerMask detectionLayerMask, out RaycastHit rayHit)
     {
         Camera mainCam = GameplayManagers.Instance.GetCameraManager().GetGameplayCamera();
 
         Ray clickRay = mainCam.ScreenPointToRay(Mouse.current.position.ReadValue());
 
-        if (Physics.Raycast(clickRay, out rayHit, _playerClickRange,detectionLayerMask))
+        if (Physics.Raycast(clickRay, out rayHit, PLAYER_CLICK_RANGE,detectionLayerMask))
         {
             return true;
         }
-
         return false;
     }
 
@@ -260,35 +265,35 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
 
     private void SubscribeToPlayerInput()
     {
-        UPIA = new UniversalPlayerInputActions();
-        UPIA.GameplayActions.Enable();
+        _universalPlayerInputActions = new UniversalPlayerInputActions();
+        _universalPlayerInputActions.GameplayActions.Enable();
 
-        UPIA.GameplayActions.SelectClick.started += PlayerSelectClicked;
-        UPIA.GameplayActions.DirectClick.started += PlayerDirectClicked;
-        UPIA.GameplayActions.ActiveAbility.started += HeroActiveButton;
-        UPIA.GameplayActions.NumberPress.started += HeroNumberPress;
-        UPIA.GameplayActions.SpecificAbilityPress.started += SpecificHeroAbilityPress;
-        UPIA.GameplayActions.MouseScroll.performed += MouseScroll;
-        UPIA.GameplayActions.EscapePress.started += EscapePress;
+        _universalPlayerInputActions.GameplayActions.SelectClick.started += PlayerSelectClicked;
+        _universalPlayerInputActions.GameplayActions.DirectClick.started += PlayerDirectClicked;
+        _universalPlayerInputActions.GameplayActions.ActiveAbility.started += HeroActiveButton;
+        _universalPlayerInputActions.GameplayActions.NumberPress.started += HeroNumberPress;
+        _universalPlayerInputActions.GameplayActions.SpecificAbilityPress.started += SpecificHeroAbilityPress;
+        _universalPlayerInputActions.GameplayActions.MouseScroll.performed += MouseScroll;
+        _universalPlayerInputActions.GameplayActions.EscapePress.started += EscapePress;
 
-        _subscribedToInput = true;
+        _isSubscribedToInput = true;
     }
     
     private void UnsubscribeToPlayerInput()
     {
-        if (!_subscribedToInput) return;
+        if (!_isSubscribedToInput) return;
 
-        UPIA.GameplayActions.SelectClick.started -= PlayerSelectClicked;
-        UPIA.GameplayActions.DirectClick.started -= PlayerDirectClicked;
-        UPIA.GameplayActions.ActiveAbility.started -= HeroActiveButton;
-        UPIA.GameplayActions.NumberPress.started -= HeroNumberPress;
-        UPIA.GameplayActions.SpecificAbilityPress.started -= SpecificHeroAbilityPress;
-        UPIA.GameplayActions.MouseScroll.performed -= MouseScroll;
-        UPIA.GameplayActions.EscapePress.started -= EscapePress;
+        _universalPlayerInputActions.GameplayActions.SelectClick.started -= PlayerSelectClicked;
+        _universalPlayerInputActions.GameplayActions.DirectClick.started -= PlayerDirectClicked;
+        _universalPlayerInputActions.GameplayActions.ActiveAbility.started -= HeroActiveButton;
+        _universalPlayerInputActions.GameplayActions.NumberPress.started -= HeroNumberPress;
+        _universalPlayerInputActions.GameplayActions.SpecificAbilityPress.started -= SpecificHeroAbilityPress;
+        _universalPlayerInputActions.GameplayActions.MouseScroll.performed -= MouseScroll;
+        _universalPlayerInputActions.GameplayActions.EscapePress.started -= EscapePress;
 
-        UPIA.Disable();
+        _universalPlayerInputActions.Disable();
 
-        _subscribedToInput = false;
+        _isSubscribedToInput = false;
     }
     #endregion
 
@@ -296,8 +301,14 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     public override void SetUpMainManager()
     {
         base.SetUpMainManager();
-        SetupClickAndDrag();
+        SetClickAndDragFromSave();
         SubscribeToPlayerInput();
+    }
+
+    public override void SetUpInstance()
+    {
+        base.SetUpInstance();
+        Instance = this;
     }
 
     protected override void SubscribeToEvents()
@@ -311,8 +322,5 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
         base.OnDestroy();
         UnsubscribeToPlayerInput();
     }
-    #endregion
-
-    #region Getters
     #endregion
 }

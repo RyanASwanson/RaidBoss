@@ -24,7 +24,7 @@ public class SB_TerraLord : SpecificBossFramework
     private Coroutine _passiveProcessCoroutine;
 
     //Invokes the passive counter value scaled from -1 to 1
-    private UnityEvent<float> _passivePercentUpdated = new UnityEvent<float>();
+    private UnityEvent<float> _onPassivePercentUpdated = new UnityEvent<float>();
 
     #region Passive
 
@@ -192,11 +192,11 @@ public class SB_TerraLord : SpecificBossFramework
     #region Events
     private void InvokePassivePercentUpdate()
     {
-        _passivePercentUpdated?.Invoke(GetPassiveCounterPercent());
+        _onPassivePercentUpdated?.Invoke(GetPassiveCounterPercent());
     }
     #endregion
 
     #region Getters
-    public UnityEvent<float> GetPassivePercentUpdatedEvent() => _passivePercentUpdated;
+    public UnityEvent<float> GetPassivePercentUpdatedEvent() => _onPassivePercentUpdated;
     #endregion
 }

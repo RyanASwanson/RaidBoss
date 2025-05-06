@@ -16,7 +16,7 @@ public class GameplayManagers : CoreManagersFramework
     [SerializeField] private BossManager _bossManager;
 
     /// <summary>
-    /// Contains all managers to setup. Order of managers is order of setup.
+    /// Contains all managers to set up. Order of managers is order of setup.
     /// </summary>
     private MainGameplayManagerFramework[] _allMainGameplayManagers;
 
@@ -47,7 +47,7 @@ public class GameplayManagers : CoreManagersFramework
     }
 
     /// <summary>
-    /// Tells all main gameplay managers to setup in the order of the main managers list
+    /// Tells all main gameplay managers to set up in the order of the main managers list
     /// </summary>
     protected override void SetupMainManagers()
     {
@@ -66,11 +66,10 @@ public class GameplayManagers : CoreManagersFramework
         }
 
         //Informs the scene manager that a gameplay scene was loaded
-        //SceneLoadManager.Instance.InvokeOnGameplaySceneLoaded();
+        SceneLoadManager.Instance.InvokeOnGameplaySceneLoaded();
     }
 
     #region Getters - Managers
-    public PlayerInputGameplayManager GetPlayerInputManager() => _playerInputManager;
     public GameStateManager GetGameStateManager() => _gameStateManager;
     public CameraGameManager GetCameraManager() => _cameraManager;
     public HeroesManager GetHeroesManager() => _heroesManager;

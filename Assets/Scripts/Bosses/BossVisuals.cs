@@ -151,7 +151,9 @@ public class BossVisuals : BossChildrenFunctionality
 
         _myBossBase.GetBossStaggeredEvent().AddListener(BossFullyStaggered);
 
-        GameplayManagers.Instance.GetGameStateManager().GetBattleWonEvent().AddListener(BattleWon);
+        GameStateManager.Instance.GetBattleWonEvent().AddListener(BattleWon);
+        
+        GameStateManager.Instance.GetBattleLostEvent().AddListener(BattleWon);
     }
 
     #region Getters

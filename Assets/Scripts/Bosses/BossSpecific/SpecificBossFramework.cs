@@ -218,13 +218,12 @@ public abstract class SpecificBossFramework : MonoBehaviour
     private void AddAbilityToEndOfCooldownQueue(SpecificBossAbilityFramework newAbility)
     {
         _readyBossAttacks?.Remove(newAbility);
-
-
+        
         _bossCooldownQueue.Enqueue(newAbility);
     }
 
     /// <summary>
-    /// For the first few abilities used iterate a counter 
+    /// For the first few abilities used iterate a counter.
     /// Counter prevents the ability from immediately moving right back into the ready list
     /// When the counter is at max call RepitionCounterAtMax
     /// </summary>
@@ -232,7 +231,9 @@ public abstract class SpecificBossFramework : MonoBehaviour
     {
         _attackRepitionCounter++;
         if (_attackRepitionCounter >= _attackRepititionProtection)
+        {
             RepitionCounterAtMax();
+        }
     }
 
     /// <summary>
@@ -249,10 +250,12 @@ public abstract class SpecificBossFramework : MonoBehaviour
     /// <summary>
     /// Activates the next ability for the boss to use
     /// </summary>
-    /// <param name="nextAbility"></param>
     protected virtual void StartNextAbility()
     {
-        if (GameplayManagers.Instance.GetGameStateManager().GetIsFightOver()) return;
+        if (GameStateManager.Instance.GetIsFightOver())
+        {
+            return;
+        }
 
         SpecificBossAbilityFramework nextAbility = SelectNextAbility();
         AddAbilityToEndOfCooldownQueue(nextAbility);
@@ -263,7 +266,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
     /// <summary>
     /// Randomly selected an ability from the list of readied abilities
     /// </summary>
-    /// <returns></returns>
+    /// <returns> The next ability selected</returns>
     protected SpecificBossAbilityFramework SelectNextAbility()
     {
         int randomAbility = Random.Range(0, _readyBossAttacks.Count);
@@ -282,8 +285,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
 
         //Uses the current ability
         currentAbility.ActivateAbility(targetLocation, newTarget);
-
-
+        
         _myBossBase.InvokeBossAbilityUsedEvent();
 
         //Waits for a specified amount of time determined by the current ability
@@ -382,7 +384,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
     #region Events
     public virtual void SubscribeToEvents()
     {
-        GameplayManagers.Instance.GetGameStateManager().GetStartOfBattleEvent().AddListener(StartFight);
+        GameStateManager.Instance.GetStartOfBattleEvent().AddListener(StartFight);
 
         //Listens for when the boss uses an ability
         _myBossBase.GetBossAbilityUsedEvent().AddListener(IterateRepitionCounter);

@@ -7,10 +7,11 @@ using UnityEngine;
 /// </summary>
 public class IndividualHeroUIExtraFunctionality : MonoBehaviour
 {
+    [Tooltip("The id of the associated hero")]
     [SerializeField] private int _heroID;
 
     public void HeroUIPressed()
     {
-        GameplayManagers.Instance.GetPlayerInputManager().NewControlledHeroByID(_heroID);
+        PlayerInputGameplayManager.Instance.NewControlledHeroByID(_heroID);
     }
 }
