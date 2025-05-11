@@ -43,7 +43,6 @@ public class SH_Fae : SpecificHeroFramework
 
     private Coroutine _manualCoroutine;
 
-
     [Space]
     [SerializeField] private float _passiveBasicAttackSpeedChangeWalking;
     [SerializeField] private float _passiveBasicAttackSpeedChangeManual;
@@ -51,7 +50,6 @@ public class SH_Fae : SpecificHeroFramework
     private float _currentPassiveBasicAttackSpeed = 1;
 
     private HeroStats _heroStats;
-    private EnvironmentManager _environmentManager;
 
     #region Basic Abilities
 
@@ -131,7 +129,7 @@ public class SH_Fae : SpecificHeroFramework
             CheckManualRedirect();
 
             //Moves the character in the manual direction
-            //Speed determined by movement speed of the character and the multipler for the manual
+            //Speed determined by movement speed of the character and the multiplier for the manual
             _myHeroBase.gameObject.transform.position += _currentManualDirection * 
                 _heroStats.GetCurrentSpeed() *_manualSpeedMultiplier * _currentAccelerationMultiplier* Time.deltaTime;
 
@@ -139,18 +137,26 @@ public class SH_Fae : SpecificHeroFramework
             yield return null;
         }
 
-        //Reenables the pathfinding functionality
+        //Re-enables the pathfinding functionality
         _myHeroBase.GetPathfinding().EnableAbilityToMove();
         //Makes sure that the hero doesn't try to continue any previous pathfinding
-        _myHeroBase.GetPathfinding().DirectNavigationTo(_environmentManager.GetClosestPointToFloor(transform.position));
+        _myHeroBase.GetPathfinding().DirectNavigationTo(
+            EnvironmentManager.Instance.GetClosestPointToFloor(transform.position));
 
         DecreaseBasicAttackSpeedOnManualEnd();
 
         _manualActive = false;
+        
+        _manualCoroutine = null;
     }
 
+    /// <summary>
+    /// Accelerates and decelerates the manual ability speed
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator ManualAccelerationAndDeceleration()
     {
+        //TODO Switch to using animation curve
         while (_currentAccelerationMultiplier < 1)
         {
             _currentAccelerationMultiplier += Time.deltaTime / _accelerateTime;
@@ -170,8 +176,12 @@ public class SH_Fae : SpecificHeroFramework
 
     }
 
+    /// <summary>
+    /// Creates the swirl effect on the Fae manual ability
+    /// </summary>
     private void CreateSwirlVFX()
     {
+        //TODO check for deletion
         Instantiate(_swirlVFX, _vfxWeaponSpawnPoint.transform);
     }
 
@@ -181,6 +191,7 @@ public class SH_Fae : SpecificHeroFramework
 
         while (_manualActive)
         {
+            //TODO Switch to Unity VFX system instead of spawning game objects
             GameObject newestWeaponVFX = Instantiate(_vfxWeapon, _vfxWeaponSpawnPoint.transform);
 
             Destroy(newestWeaponVFX, _vfxWeaponDuration);
@@ -224,15 +235,16 @@ public class SH_Fae : SpecificHeroFramework
                 }
                 return;
             }
-                
             
-
             _currentManualDirection = Vector3.Lerp(_currentManualDirection, 
                 GameplayManagers.Instance.GetBossManager().GetDirectionToBoss(transform.position), _manualBossHoming).normalized;
         }
-
     }
 
+    /// <summary>
+    /// Provides a delay that prevents the manual ability from landing several hits in a short time 
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator ManualDamageCooldown()
     {
         _manualCanDamage = false;
@@ -242,9 +254,8 @@ public class SH_Fae : SpecificHeroFramework
 
     private bool ManualHitBoss(RaycastHit rayHit)
     {
-        return rayHit.collider.gameObject.tag == TagStringData.GetBossHitboxTagName();
+        return rayHit.collider.gameObject.CompareTag(TagStringData.GetBossHitboxTagName());
     }
-
     #endregion
 
     #region Passive Abilities
@@ -269,19 +280,23 @@ public class SH_Fae : SpecificHeroFramework
     }
 
     #endregion
-
-
-
-
+    
     #region Base Hero
+    /// <summary>
+    /// Performs setup for the specific hero
+    /// </summary>
+    /// <param name="heroBase"></param>
+    /// <param name="heroSO"></param>
     public override void SetupSpecificHero(HeroBase heroBase, HeroSO heroSO)
     {
         _heroStats = heroBase.GetHeroStats();
-        _environmentManager = GameplayManagers.Instance.GetEnvironmentManager();
 
         base.SetupSpecificHero(heroBase, heroSO);
     }
 
+    /// <summary>
+    /// Subscribes to any needed events
+    /// </summary>
     protected override void SubscribeToEvents()
     {
         base.SubscribeToEvents();

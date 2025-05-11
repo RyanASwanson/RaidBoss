@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SBA_Avalanche : SpecificBossAbilityFramework
@@ -43,10 +44,10 @@ public class SBA_Avalanche : SpecificBossAbilityFramework
     private IEnumerator UpdateTargetZone()
     {
         Vector3 lastCheckedDirection = Vector3.zero;
-        while(_storedTargetZone != null)
+        while(!_storedTargetZone.IsUnityNull())
         {
             Vector3 currentDirection = _storedTarget.transform.position - Vector3.zero;
-            _edgeOfMap = GameplayManagers.Instance.GetEnvironmentManager().GetEdgeOfMapLoc(transform.position,
+            _edgeOfMap =  EnvironmentManager.Instance.GetEdgeOfMapLoc(transform.position,
                 (currentDirection).normalized);
 
             if (lastCheckedDirection == currentDirection)

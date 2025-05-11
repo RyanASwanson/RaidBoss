@@ -370,12 +370,16 @@ public abstract class SpecificBossFramework : MonoBehaviour
     /// <summary>
     /// Removes the dead hero from the list of targets
     /// </summary>
-    /// <param name="heroBase"></param>
+    /// <param name="heroBase"> The base of the hero that died </param>
     public virtual void HeroDied(HeroBase heroBase)
     {
         RemoveHeroTarget(heroBase);
     }
 
+    /// <summary>
+    /// Performs any setup that is unique to the boss
+    /// </summary>
+    /// <param name="bossBase"> The base of the boss </param>
     public virtual void SetupSpecificBoss(BossBase bossBase)
     {
         _myBossBase = bossBase;
@@ -403,8 +407,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
 
     #region Getters
     public Vector3 ClosestFloorSpaceOfTarget(GameObject target) =>
-        GameplayManagers.Instance.GetEnvironmentManager().
-        GetClosestPointToFloor(target.transform.position);
+        EnvironmentManager.Instance.GetClosestPointToFloor(target.transform.position);
 
     public GameObject GetBossVisualBase() => _bossVisualsBase;
 

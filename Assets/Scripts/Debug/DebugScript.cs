@@ -1,13 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
+/// <summary>
+/// Script purely used for testing misc functionality. Is not active in builds.
+/// </summary>
 public class DebugScript : MonoBehaviour
 {
     public static DebugScript Instance;
+    
     private void Start()
     {
-        if(Instance == null)
+        if(Instance.IsUnityNull())
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);

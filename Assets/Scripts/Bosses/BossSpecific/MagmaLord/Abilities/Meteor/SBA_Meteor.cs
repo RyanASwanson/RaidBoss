@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -24,7 +25,7 @@ public class SBA_Meteor : SpecificBossAbilityFramework
     {
         StartCoroutine(HideTargetZoneUntilNonZero(targetZone));
 
-        while(targetZone != null && _storedTarget != null)
+        while(!targetZone.IsUnityNull() && !_storedTarget.IsUnityNull())
         {
             targetZone.transform.LookAt(_storedTarget.transform.position);
             targetZone.transform.eulerAngles = new Vector3(0, targetZone.transform.eulerAngles.y, 0);

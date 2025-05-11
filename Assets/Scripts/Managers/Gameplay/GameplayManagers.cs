@@ -73,6 +73,5 @@ public class GameplayManagers : CoreManagersFramework
     public EnvironmentManager GetEnvironmentManager() => _environmentManager;
     public GameUIManager GetGameUIManager() => _gameUIManager;
     public BossManager GetBossManager() => _bossManager;
-        
     #endregion
 }

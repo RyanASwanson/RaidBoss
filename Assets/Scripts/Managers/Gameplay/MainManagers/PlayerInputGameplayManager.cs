@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
@@ -32,8 +33,6 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     private UniversalPlayerInputActions _universalPlayerInputActions;
 
     private bool _isSubscribedToInput = false;
-
-    private HeroesManager _heroesManager;
     
     /// <summary>
     /// Sets the click and drag based on what it is set in the save manager
@@ -77,15 +76,15 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
 
     public void NewControlledHeroByID(int id)
     {
-        NewControlledHero(_heroesManager.GetCurrentHeroes()[id]);
+        NewControlledHero(HeroesManager.Instance.GetCurrentHeroes()[id]);
     }
 
     private void ScrollControlledHero(int direction)
     {
         if(_controlledHeroes.Count == 0)
         {
-            HeroBase heroBase = _heroesManager.GetCurrentLivingHeroes()[0];
-            if (heroBase != null)
+            HeroBase heroBase = HeroesManager.Instance.GetCurrentLivingHeroes()[0];
+            if (!heroBase.IsUnityNull())
             {
                 NewControlledHero(heroBase);
                 return;
@@ -97,12 +96,12 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
         {
             direction += _controlledHeroes[0].GetHeroID();
 
-            if (direction > _heroesManager.GetCurrentHeroes().Count - 1)
+            if (direction > HeroesManager.Instance.GetCurrentHeroes().Count - 1)
                 direction = 0;
             else if (direction < 0)
-                direction = _heroesManager.GetCurrentHeroes().Count - 1;
+                direction = HeroesManager.Instance.GetCurrentHeroes().Count - 1;
 
-            heroToControl = _heroesManager.GetCurrentHeroes()[direction];
+            heroToControl = HeroesManager.Instance.GetCurrentHeroes()[direction];
         }
         while (heroToControl.GetHeroStats().IsHeroDead());
 
@@ -204,7 +203,7 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
         if (IsInvalidHeroPress(pressNumVal))
             return;
 
-        NewControlledHero(_heroesManager.GetCurrentHeroes()[pressNumVal]);
+        NewControlledHero(HeroesManager.Instance.GetCurrentHeroes()[pressNumVal]);
     }
 
     private void SpecificHeroAbilityPress(InputAction.CallbackContext context)
@@ -219,7 +218,8 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
             Vector3 targetLoc = GameplayManagers.Instance.GetEnvironmentManager()
                 .GetClosestPointToFloor(clickedOn.point);
 
-            _heroesManager.GetCurrentHeroes()[pressNumVal].GetSpecificHeroScript().AttemptActivationOfManualAbility(targetLoc);
+            HeroesManager.Instance.GetCurrentHeroes()
+                [pressNumVal].GetSpecificHeroScript().AttemptActivationOfManualAbility(targetLoc);
         }
     }
 
@@ -231,8 +231,8 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     /// <returns></returns>
     private bool IsInvalidHeroPress(int pressNumVal)
     {
-        return (_heroesManager.GetCurrentHeroes().Count <= pressNumVal
-            || _heroesManager.GetCurrentHeroes()[pressNumVal] == null);
+        return (HeroesManager.Instance.GetCurrentHeroes().Count <= pressNumVal
+            || HeroesManager.Instance.GetCurrentHeroes()[pressNumVal] == null);
     }
 
     private void MouseScroll(InputAction.CallbackContext context)
@@ -325,6 +325,9 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
         GameStateManager.Instance.GetBattleWonOrLostEvent().AddListener(UnsubscribeToPlayerInput);
     }
     
+    /// <summary>
+    /// Unsubscribes player input and any other needed clean up
+    /// </summary>
     protected override void OnDestroy()
     {
         base.OnDestroy();

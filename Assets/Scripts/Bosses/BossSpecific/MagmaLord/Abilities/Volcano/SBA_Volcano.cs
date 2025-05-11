@@ -21,50 +21,59 @@ public class SBA_Volcano : SpecificBossAbilityFramework
     private List<GameObject> _storedDamageZones = new List<GameObject>();
     private List<Vector3> _targetLocations;
 
-
-    
-
+    /// <summary>
+    /// Determines where the attacks should occur
+    /// </summary>
     private void DetermineAttackLocations()
     {
         _targetLocations = new List<Vector3>();
 
+        //Iterate for the amount of projectiles this attack spawns
         for(int i = 0; i < _projectileCount; i++)
         {
+            //Determines where the attack should take place
             _targetLocations.Add(GenerateNewAttackLocation(0));
         }
     }
 
+    /// <summary>
+    /// Creates a new location for the attack to spawn
+    /// </summary>
+    /// <param name="attempt"> The amount of attempts it has spent trying to spawn it away from other projectiles </param>
+    /// <returns></returns>
     private Vector3 GenerateNewAttackLocation(int attempt)
     {
         Vector3 currentTestLocation;
-        float mapRadius = GameplayManagers.Instance.GetEnvironmentManager().GetMapRadius() - _mapRadiusOffset;
-
+        float mapRadius = EnvironmentManager.Instance.GetMapRadius() - _mapRadiusOffset;
         
         currentTestLocation = new Vector3(Random.Range(-mapRadius, mapRadius), 
             transform.position.y, Random.Range(-mapRadius, mapRadius));
 
-        currentTestLocation = GameplayManagers.Instance.GetEnvironmentManager().
-                GetClosestPointToFloor(currentTestLocation);
+        currentTestLocation = EnvironmentManager.Instance.GetClosestPointToFloor(currentTestLocation);
 
         foreach (Vector3 target in _targetLocations)
         {
+            //Checks if the projectile is too close to the current other projectiles
+            //Only checks if the amount of attempts is less that a designated number to prevent going forever
             if (Vector3.Distance(target, currentTestLocation) < _minimumProjectileDistance && attempt < 5)
-                return GenerateNewAttackLocation(attempt++);
+            {
+                return GenerateNewAttackLocation(attempt+1);
+            }
         }
 
         return currentTestLocation;
     }
-
-
     
-
+    //TODO Delay the activations to be one after another
     /*protected IEnumerator CreateVolcanoDamageZonesProcess()
     {
 
     }*/
-
-
+    
     #region Base Ability
+    /// <summary>
+    /// Spawns in all the target zones
+    /// </summary>
     protected override void StartShowTargetZone()
     {
         DetermineAttackLocations();
@@ -72,13 +81,14 @@ public class SBA_Volcano : SpecificBossAbilityFramework
         foreach (Vector3 attackLoc in _targetLocations)
         {
             _currentTargetZones.Add(Instantiate(_targetZone, attackLoc, Quaternion.identity));
-            //Instantiate(_targetZone, attackLoc, Quaternion.identity);
         }
-
-
+        
         base.StartShowTargetZone();
     }
 
+    /// <summary>
+    /// Starts the ability and spawns in the damaging volcano zones
+    /// </summary>
     protected override void AbilityStart()
     {
         foreach (Vector3 attackLoc in _targetLocations)

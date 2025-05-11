@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -25,7 +26,9 @@ public class BossAbilitySafeZone : BossProjectileFramework
     public void RemoveHeroInRange(HeroBase exitHero)
     {
         if (_heroesInRange.Contains(exitHero))
+        {
             _heroesInRange.Remove(exitHero);
+        }
     }
 
     /// <summary>
@@ -45,8 +48,10 @@ public class BossAbilitySafeZone : BossProjectileFramework
     private void OnTriggerEnter(Collider collision)
     {
         HeroBase tempHero = collision.GetComponentInParent<HeroBase>();
-        if (tempHero != null)
+        if (!tempHero.IsUnityNull())
+        {
             AddHeroInRange(tempHero);
+        }
     }
 
     /// <summary>
@@ -56,8 +61,10 @@ public class BossAbilitySafeZone : BossProjectileFramework
     private void OnTriggerExit(Collider collision)
     {
         HeroBase tempHero = collision.GetComponentInParent<HeroBase>();
-        if (tempHero != null)
+        if (!tempHero.IsUnityNull())
+        {
             RemoveHeroInRange(tempHero);
+        }
     }
 
     #endregion

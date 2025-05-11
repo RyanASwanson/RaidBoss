@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -16,7 +17,6 @@ public class SBP_Entomb : BossProjectileFramework
     [SerializeField] private List<GeneralBossDamageArea> _closingWalls;
 
     [Space]
-
     [SerializeField] private GameObject _closedParticleVFX;
 
     [Space]
@@ -26,8 +26,6 @@ public class SBP_Entomb : BossProjectileFramework
 
     private const string REMOVE_PROJECTILE_ANIM_TRIGGER = "RemoveEntomb";
 
-    
-
     private IEnumerator AbilityProcess()
     {
         yield return new WaitForSeconds(_entombCompleteDelay);
@@ -35,6 +33,9 @@ public class SBP_Entomb : BossProjectileFramework
         EntombComplete();
     }
 
+    /// <summary>
+    /// Called when entomb is complete to determine what to do next
+    /// </summary>
     private void EntombComplete()
     {
         DisableHitboxes();
@@ -44,40 +45,59 @@ public class SBP_Entomb : BossProjectileFramework
             CreateNavMeshObstacle();
             Instantiate(_closedParticleVFX, new Vector3(transform.position.x,0,transform.position.z), transform.rotation);
         }
-            
         else
+        {
             DestroyRemainingWall();
-
+        }
     }
     
+    /// <summary>
+    /// Disables the hit boxes of the closing walls
+    /// </summary>
     private void DisableHitboxes()
     {
         foreach (GeneralBossDamageArea damageArea in _closingWalls)
         {
-            if(damageArea != null)
+            if (!damageArea.IsUnityNull())
+            {
                 damageArea.enabled = false;
+            }
         }
     }
 
+    /// <summary>
+    /// Determines if an obstacle can be created based on if both walls are still active
+    /// </summary>
+    /// <returns></returns>
     private bool CanCreateObstacle()
     {
         foreach(GeneralBossDamageArea damageArea in _closingWalls)
         {
-            if (damageArea == null)
+            if (damageArea.IsUnityNull())
+            {
                 return false;
+            }
         }
         return true;
     }
 
+    /// <summary>
+    /// Destroys any walls that are still remaining
+    /// </summary>
     private void DestroyRemainingWall()
     {
         foreach (GeneralBossDamageArea damageArea in _closingWalls)
         {
-            if (damageArea != null)
+            if (!damageArea.IsUnityNull())
+            {
                 damageArea.DestroyProjectile();
+            }
         }
     }
 
+    /// <summary>
+    /// Creates the obstacle in the environment that heroes must navigate around
+    /// </summary>
     private void CreateNavMeshObstacle()
     {
         _navMeshObstacle.enabled = true;
@@ -85,6 +105,10 @@ public class SBP_Entomb : BossProjectileFramework
         StartCoroutine(RemovalProcess());
     }
 
+    /// <summary>
+    /// The process of removing the entomb obstacle
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator RemovalProcess()
     {
         yield return new WaitForSeconds(_entombPersistantTime);
