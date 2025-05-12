@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using Unity.VisualScripting;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// Controls the functionality of the camera during gameplay
@@ -45,8 +47,17 @@ public class CameraGameManager : MainGameplayManagerFramework
 
     [SerializeField] private Transform _virtualCameraTransform;
     private Coroutine _virtualCamRotationCoroutine;
+    
+    [Space]
+    [Header("Camera Zoom")]
+    [SerializeField] private float _maxCameraZoom;
+    [SerializeField] private float _cameraZoomRate;
+    [SerializeField] private AnimationCurve _cameraZoomCurve;
+    
+    private float _baseCameraZoom;
+    private Coroutine _cameraZoomCoroutine;
 
-
+    #region Camera Shake
     /// <summary>
     /// Initiates the camera shake process
     /// </summary>
@@ -109,7 +120,9 @@ public class CameraGameManager : MainGameplayManagerFramework
     {
         StartCameraShake(_bossDeathIntensity, _bossDeathFrequency, _bossDeathDuration);
     }
+    #endregion
 
+    #region Camera Rotation
     public void StartRotateCinemachineCamera(float directionMultiplier, float processTime)
     {
         if (_virtualCamRotationCoroutine != null)
@@ -132,6 +145,33 @@ public class CameraGameManager : MainGameplayManagerFramework
 
         _virtualCamRotationCoroutine = null;
     }
+    #endregion
+    
+    #region Camera Zoom
+
+    /*private void StartCameraZoomProcess()
+    {
+        if (!_cameraZoomCoroutine.IsUnityNull())
+        {
+            StopCoroutine(_cameraZoomCoroutine);
+        }
+        StartCoroutine(CameraZoomProcess());
+    }
+
+    private IEnumerator CameraZoomProcess()
+    {
+        yield return null;
+    }
+    
+    /// <summary>
+    /// Calculates the zoom of the camera
+    /// </summary>
+    private void CalculateCameraZoom()
+    {
+        _virtualCamera.m_Lens.OrthographicSize = 
+            _baseCameraZoom * Mathf.Lerp(1,0,BossManager.Instance.GetBossBase().GetBossStats().GetBossHealthPercentage());
+    }*/
+    #endregion
 
     /// <summary>
     /// Sets the starting values for this script
@@ -142,9 +182,11 @@ public class CameraGameManager : MainGameplayManagerFramework
 
         _multiChannelPerlin.m_AmplitudeGain = _minimumIntensity * _screenShakeMultiplier;
         _multiChannelPerlin.m_FrequencyGain = _minimumFrequency * _screenShakeMultiplier;
+        
+        _baseCameraZoom = _virtualCamera.m_Lens.OrthographicSize;
     }
 
-    #region BaseManager
+    #region Base Manager
     /// <summary>
     /// Establishes the instance for the CameraGameManager
     /// </summary>

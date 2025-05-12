@@ -133,12 +133,14 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
         }
     }
 
+    /// <summary>
+    /// Activates the manual abilities of all controlled heroes
+    /// </summary>
     private void ActivateAllManualAbilities()
     {
         if(ClickOnPoint(_directClickLayerMask, out RaycastHit clickedOn))
         {
-            Vector3 targetLoc = GameplayManagers.Instance.GetEnvironmentManager()
-                .GetClosestPointToFloor(clickedOn.point);
+            Vector3 targetLoc = EnvironmentManager.Instance.GetClosestPointToFloor(clickedOn.point);
 
             foreach (HeroBase currentHero in _controlledHeroes)
             {
@@ -206,6 +208,10 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
         NewControlledHero(HeroesManager.Instance.GetCurrentHeroes()[pressNumVal]);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="context"> The context of the button pressed</param>
     private void SpecificHeroAbilityPress(InputAction.CallbackContext context)
     {
         int pressNumVal = (int)context.ReadValue<float>();

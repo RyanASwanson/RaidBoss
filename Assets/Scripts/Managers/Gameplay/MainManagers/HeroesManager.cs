@@ -27,7 +27,7 @@ public class HeroesManager : MainGameplayManagerFramework
     private IEnumerator SpawnHeroesAtSpawnPoints()
     {
         List<HeroSO> heroSOs = SelectionManager.Instance.GetAllSelectedHeroes();
-        List<GameObject> spawnLocations = GameplayManagers.Instance.GetEnvironmentManager().GetHeroSpawnLocations();
+        List<GameObject> spawnLocations = EnvironmentManager.Instance.GetHeroSpawnLocations();
 
         for (int i = 0; i < heroSOs.Count; i++)
         {

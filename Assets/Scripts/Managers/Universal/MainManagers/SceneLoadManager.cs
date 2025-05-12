@@ -128,7 +128,6 @@ public class SceneLoadManager : MainUniversalManagerFramework
     #region Getters
     public UnityEvent GetOnStartOfSceneLoad() => _onStartOfSceneLoad;
     public UnityEvent GetOnEndOfSceneLoad() => _onEndOfSceneLoad;
-    
     public UnityEvent GetOnGameplaySceneLoaded() => _onGameplaySceneLoaded;
     #endregion
 }
