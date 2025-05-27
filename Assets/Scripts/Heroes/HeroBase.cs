@@ -111,7 +111,7 @@ public class HeroBase : MonoBehaviour
 
     private void AssignSelfToUI()
     {
-        _associatedHeroUIManager = GameplayManagers.Instance.GetGameUIManager().SetAssociatedHeroUIManager(this);
+        _associatedHeroUIManager = GameUIManager.Instance.SetAssociatedHeroUIManager(this);
     }
     
     #region Events

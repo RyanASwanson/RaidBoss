@@ -237,7 +237,7 @@ public class SH_Fae : SpecificHeroFramework
             }
             
             _currentManualDirection = Vector3.Lerp(_currentManualDirection, 
-                GameplayManagers.Instance.GetBossManager().GetDirectionToBoss(transform.position), _manualBossHoming).normalized;
+                BossManager.Instance.GetDirectionToBoss(transform.position), _manualBossHoming).normalized;
         }
     }
 

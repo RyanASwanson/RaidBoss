@@ -29,14 +29,14 @@ public class SH_Astromancer : SpecificHeroFramework
         CreateBasicAttackProjectiles();
     }
 
-    protected void CreateBasicAttackProjectiles()
+    private void CreateBasicAttackProjectiles()
     {
         GameObject spawnedProjectile = Instantiate(_basicProjectile, transform.position, Quaternion.identity);
 
         SHP_AstromancerBasicProjectile projectileFunc = spawnedProjectile.GetComponent<SHP_AstromancerBasicProjectile>();
         projectileFunc.SetUpProjectile(_myHeroBase);
 
-        Vector3 storedProjectileDirection = GameplayManagers.Instance.GetBossManager().GetDirectionToBoss(transform.position);
+        Vector3 storedProjectileDirection = BossManager.Instance.GetDirectionToBoss(transform.position);
         projectileFunc.AdditionalSetup(this, storedProjectileDirection);
 
         //Performs the setup for the damage area so that it knows it's owner
@@ -82,7 +82,7 @@ public class SH_Astromancer : SpecificHeroFramework
 
         _myHeroBase.GetHeroStartedMovingEvent().RemoveListener(EndManualAbility);
 
-        _storedManual.StopLaser();
+        _storedManual.StopManual();
 
         _myHeroBase.GetHeroStats().ChangeCurrentHeroAngularSpeed(-_increasedManualRotationalSpeed);
 

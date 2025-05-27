@@ -76,13 +76,13 @@ public class MirageClone : SpecificHeroFramework
     /// </summary>
     private void AssignSelfAsBossTarget()
     {
-        GameplayManagers.Instance.GetBossManager().GetBossBase().GetSpecificBossScript().AddHeroTarget(_myHeroBase);
+        BossManager.Instance.GetBossBase().GetSpecificBossScript().AddHeroTarget(_myHeroBase);
     }
 
     #region Base Hero
     public override void SetupSpecificHero(HeroBase heroBase, HeroSO heroSO)
     {
-        _bossBase = GameplayManagers.Instance.GetBossManager().GetBossBase();
+        _bossBase = BossManager.Instance.GetBossBase();
         base.SetupSpecificHero(heroBase, heroSO);
     }
 

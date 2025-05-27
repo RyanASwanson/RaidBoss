@@ -11,7 +11,8 @@ public class GlacialLordSelfMinionHit : MonoBehaviour
 
     public bool MinionContactFromDistance()
     {
-        SB_GlacialLord glacialLord =(SB_GlacialLord)GameplayManagers.Instance.GetBossManager().GetBossBase().GetSpecificBossScript();
+        //TODO Rework this line by instancing the Glacial Lord
+        SB_GlacialLord glacialLord =(SB_GlacialLord)BossManager.Instance.GetBossBase().GetSpecificBossScript();
 
         foreach(GlacialLord_FrostFiend fiend in glacialLord.GetAllFrostFiends())
         {
@@ -28,6 +29,7 @@ public class GlacialLordSelfMinionHit : MonoBehaviour
         return false;
     }
 
+    //TODO finish this
     private void OnTriggerEnter(Collider collider)
     {
         if (!_contactOnCollision)

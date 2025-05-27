@@ -184,7 +184,7 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     /// <returns></returns>
     public Vector3 CalculateDirectIconLocation(Vector3 location)
     {
-        location = GameplayManagers.Instance.GetEnvironmentManager().GetClosestPointToFloor(location);
+        location = EnvironmentManager.Instance.GetClosestPointToFloor(location);
         location = new Vector3(location.x, -.75f, location.z);
         return location;
     }
@@ -221,8 +221,7 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
 
         if (ClickOnPoint(_directClickLayerMask, out RaycastHit clickedOn))
         {
-            Vector3 targetLoc = GameplayManagers.Instance.GetEnvironmentManager()
-                .GetClosestPointToFloor(clickedOn.point);
+            Vector3 targetLoc = EnvironmentManager.Instance.GetClosestPointToFloor(clickedOn.point);
 
             HeroesManager.Instance.GetCurrentHeroes()
                 [pressNumVal].GetSpecificHeroScript().AttemptActivationOfManualAbility(targetLoc);

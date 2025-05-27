@@ -36,7 +36,7 @@ public class SH_Vampire : SpecificHeroFramework
         //Creates the projectile at the hero location
         GameObject spawnedProjectile = Instantiate(_basicProjectile, transform.position, Quaternion.identity);
 
-        spawnedProjectile.transform.LookAt(GameplayManagers.Instance.GetBossManager().GetBossBaseGameObject().transform);
+        spawnedProjectile.transform.LookAt(BossManager.Instance.GetBossBaseGameObject().transform);
         spawnedProjectile.transform.eulerAngles = new Vector3(0, spawnedProjectile.transform.eulerAngles.y, 0);
 
         //Does the universal projectile setup

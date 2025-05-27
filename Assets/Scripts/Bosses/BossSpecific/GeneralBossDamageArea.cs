@@ -26,19 +26,11 @@ public class GeneralBossDamageArea : GeneralAbilityAreaFramework
 
     private List<HeroBase> _heroesToIgnore = new List<HeroBase>();
 
-    private BossBase _myBossBase;
-
-    protected override void Start()
-    {
-        base.Start();
-        _myBossBase = GameplayManagers.Instance.GetBossManager().GetBossBase();
-    }
-
     #region Collision
     /// <summary>
     /// Checks if the target hit is a hero
     /// </summary>
-    /// <param name="collision"></param>
+    /// <param name="collision"> The collider that we are checking </param>
     /// <returns></returns>
     private bool DoesColliderBelongToHero(Collider collision)
     {

@@ -78,11 +78,16 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     {
         _attemptingBasicAbilitiesCoroutine = StartCoroutine(CheckingToAttemptBasicAbilities());
     }
+    
     public virtual IEnumerator CheckingToAttemptBasicAbilities()
     {
         while (!ConditionsToActivateBasicAbilities())
+        {
             yield return new WaitForFixedUpdate();
+        }
+
         ActivateBasicAbilities();
+        _attemptingBasicAbilitiesCoroutine = null;
     }
 
     /// <summary>

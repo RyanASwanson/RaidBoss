@@ -68,10 +68,4 @@ public class GameplayManagers : CoreManagersFramework
         //Informs the scene manager that a gameplay scene was loaded
         SceneLoadManager.Instance.GameplaySceneLoaded();
     }
-
-    #region Getters - Managers
-    public EnvironmentManager GetEnvironmentManager() => _environmentManager;
-    public GameUIManager GetGameUIManager() => _gameUIManager;
-    public BossManager GetBossManager() => _bossManager;
-    #endregion
 }

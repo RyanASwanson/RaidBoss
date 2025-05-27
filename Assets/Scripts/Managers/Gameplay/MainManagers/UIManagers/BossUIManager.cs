@@ -53,12 +53,9 @@ public class BossUIManager : GameUIChildrenFunctionality
     private const string STAGGER_AVERAGE_ANIM_TRIGGER = "AverageStagger";
     private const string DAMAGE_STRONG_ANIM_TRIGGER = "StrongDamage";
     private const string STAGGER_STRONG_ANIM_TRIGGER = "StrongStagger";
-
-
-    private BossManager _bossManager;
+    
     private BossBase _bossBase;
-
-
+    
     #region Health Bar
     private void BossTookDamage(float damage)
     {
@@ -264,10 +261,9 @@ public class BossUIManager : GameUIChildrenFunctionality
 
     protected override void SubscribeToEvents()
     {
-        _bossManager = GameplayManagers.Instance.GetBossManager();
-        _bossManager.GetBossBase().GetBossDamagedEvent().AddListener(BossTookDamage);
-        _bossManager.GetBossBase().GetBossStaggerDealtEvent().AddListener(BossTookStagger);
-        _bossManager.GetBossBase().GetBossStaggeredEvent().AddListener(BossFullyStaggered);
-        _bossManager.GetBossBase().GetBossNoLongerStaggeredEvent().AddListener(ResetStaggerBar);
+        BossManager.Instance.GetBossBase().GetBossDamagedEvent().AddListener(BossTookDamage);
+        BossManager.Instance.GetBossBase().GetBossStaggerDealtEvent().AddListener(BossTookStagger);
+        BossManager.Instance.GetBossBase().GetBossStaggeredEvent().AddListener(BossFullyStaggered);
+        BossManager.Instance.GetBossBase().GetBossNoLongerStaggeredEvent().AddListener(ResetStaggerBar);
     }
 }

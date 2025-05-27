@@ -103,12 +103,18 @@ public class HeroPathfinding : HeroChildrenFunctionality
 
 
     #region Hero Rotation
-
+    /// <summary>
+    /// Rotates the hero to look in the direction of the boss
+    /// </summary>
     private void HeroLookAtBoss()
     {
-        HeroLookAt(GameplayManagers.Instance.GetBossManager().GetBossBaseGameObject().transform.position);
+        HeroLookAt(BossManager.Instance.GetBossBaseGameObject().transform.position);
     }
 
+    /// <summary>
+    /// Rotates the hero to look at a specific location
+    /// </summary>
+    /// <param name="lookLocation"> The location to look at </param>
     public void HeroLookAt(Vector3 lookLocation)
     {
         _heroRotationCoroutine = StartCoroutine(LookAtProcess(lookLocation));
@@ -146,7 +152,6 @@ public class HeroPathfinding : HeroChildrenFunctionality
         }
 
     }
-
     #endregion
 
     #region Base Hero
