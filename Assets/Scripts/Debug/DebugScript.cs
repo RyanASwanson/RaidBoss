@@ -27,9 +27,14 @@ public class DebugScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.U))
+        if(Input.GetKeyDown(KeyCode.Y))
         {
             SaveManager.Instance.BossDead();
+        }
+
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            //BossManager.Instance.
         }
     }
 #endif
