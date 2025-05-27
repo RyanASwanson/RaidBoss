@@ -338,6 +338,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
         while (timer < stopDuration)
         {
             timer += Time.deltaTime;
+            BossManager.Instance.GetBossBase().InvokeBossStaggerProcess(timer/stopDuration);
             yield return null;
         }
         

@@ -115,7 +115,7 @@ public class BossUIManager : GameUIChildrenFunctionality
 
     private void BossTookStagger(float stagger)
     {
-        SetStaggerBarPercentage(stagger);
+        SetStaggerBarPercentage();
         StartRecentStaggerBarDrain();
 
         CreateDamageStaggerNumber(false, stagger, _staggerNumber, _staggerNumbersOrigin);
@@ -149,13 +149,16 @@ public class BossUIManager : GameUIChildrenFunctionality
         SetRecentStaggerBarPercentage(0);
     }
     #endregion
-
-    private void SetStaggerBarPercentage(float stagger)
+    private void SetStaggerBarPercentage()
     {
-        float fillPercent = BossStats.Instance.GetBossStaggerPercentage();
+        SetStaggerBarPercentage(BossStats.Instance.GetBossStaggerPercentage());
+    }
+    
+    private void SetStaggerBarPercentage(float percent)
+    {
         foreach (Image bar in _staggerBars)
         {
-            bar.fillAmount = fillPercent;
+            bar.fillAmount = percent;
         }
     }
 
@@ -192,9 +195,9 @@ public class BossUIManager : GameUIChildrenFunctionality
         }
     }
     
-    private void SetStaggerBarToStaggerDurationPercentage(float staggerPercent)
+    private void SetRecentStaggerBarToStaggerDurationPercentage(float staggerPercent)
     {
-        SetStaggerBarPercentage(1-staggerPercent);
+        SetRecentStaggerBarPercentage(1-staggerPercent);
     }
     #endregion
 
@@ -273,7 +276,7 @@ public class BossUIManager : GameUIChildrenFunctionality
         BossManager.Instance.GetBossBase().GetBossDamagedEvent().AddListener(BossTookDamage);
         BossManager.Instance.GetBossBase().GetBossStaggerDealtEvent().AddListener(BossTookStagger);
         BossManager.Instance.GetBossBase().GetBossStaggeredEvent().AddListener(BossFullyStaggered);
-        BossManager.Instance.GetBossBase().GetBossStaggerProcessEvent().AddListener(SetStaggerBarToStaggerDurationPercentage);
+        BossManager.Instance.GetBossBase().GetBossStaggerProcessEvent().AddListener(SetRecentStaggerBarToStaggerDurationPercentage);
         BossManager.Instance.GetBossBase().GetBossNoLongerStaggeredEvent().AddListener(ResetAllStaggerBars);
     }
 }
