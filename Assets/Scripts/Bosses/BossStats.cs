@@ -9,6 +9,8 @@ using UnityEngine;
 /// </summary>
 public class BossStats : BossChildrenFunctionality
 {
+    public static BossStats Instance;
+    
     private float _bossMaxHealth;
     private float _currentHealth;
 
@@ -31,6 +33,15 @@ public class BossStats : BossChildrenFunctionality
     private float _currentTimeUntilEnrage;
     private Coroutine _enrageCoroutine;
 
+    /// <summary>
+    /// Called when the Scriptable Object for the boss is assigned
+    /// </summary>
+    /// <param name="bossSO"></param>
+    private void BossSOAssigned(BossSO bossSO)
+    {
+        StatsSetup(bossSO);
+    }
+    
     private void StatsSetup(BossSO bossSO)
     {
         //Set the boss max health to be the max hp from the SO and multiplied by the difficulty modifier
@@ -155,7 +166,7 @@ public class BossStats : BossChildrenFunctionality
 
     protected virtual void IncreaseBossStatsAtHealthThreshholds()
     {
-        _myBossBase.GetBossStats().MultiplyBossDamageMultiplier(_bossDamageIncrementMultiplier);
+        MultiplyBossDamageMultiplier(_bossDamageIncrementMultiplier);
     }
 
     #region Enrage
@@ -215,7 +226,19 @@ public class BossStats : BossChildrenFunctionality
     }
     #endregion
 
-    #region Events
+    #region Base Children Functionality
+    /// <summary>
+    /// Establishes the instance for the Boss Stats
+    /// </summary>
+    protected override void SetUpInstance()
+    {
+        base.SetUpInstance();
+        Instance = this;
+    }
+
+    /// <summary>
+    /// Subscribes to any needed events
+    /// </summary>
     public override void SubscribeToEvents()
     {
         _myBossBase.GetSOSetEvent().AddListener(BossSOAssigned);
@@ -225,11 +248,6 @@ public class BossStats : BossChildrenFunctionality
         _myBossBase.GetBossDamagedEvent().AddListener(CheckBossIsUnderHalf);
 
         GameStateManager.Instance.GetStartOfBattleEvent().AddListener(StartEnrageTimer);
-    }
-
-    private void BossSOAssigned(BossSO bossSO)
-    {
-        StatsSetup(bossSO);
     }
     #endregion
 

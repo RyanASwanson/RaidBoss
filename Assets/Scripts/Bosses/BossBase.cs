@@ -33,11 +33,11 @@ public class BossBase : MonoBehaviour
 
     protected UnityEvent _bossEnragedEvent = new UnityEvent();
 
-    public void Setup(BossSO newSO)
+    public void SetUp(BossSO newSO)
     {
         CreateBossPrefab(newSO);
 
-        SetupChildren();
+        SetUpChildren();
 
         SetUpAbilities();
 
@@ -45,9 +45,9 @@ public class BossBase : MonoBehaviour
     }
 
     /// <summary>
-    /// Creates the gameobject for the specific boss and saves needed data
+    /// Creates the game object for the specific boss and saves needed data
     /// </summary>
-    /// <param name="newSO"></param>
+    /// <param name="newSO"> The scriptable object of the boss </param>
     private void CreateBossPrefab(BossSO newSO)
     {
         _associatedBossGameObject = Instantiate(newSO.GetBossPrefab(), _bossSpecificsGO.transform);
@@ -60,12 +60,17 @@ public class BossBase : MonoBehaviour
     /// <summary>
     /// Sets up all scripts that inherit from BossChildrenFunctionality
     /// </summary>
-    private void SetupChildren()
+    private void SetUpChildren()
     {
         foreach (BossChildrenFunctionality childFunc in GetComponentsInChildren<BossChildrenFunctionality>())
+        {
             childFunc.ChildFuncSetup(this);
+        }
     }
 
+    /// <summary>
+    /// Sets up all abilities the boss has
+    /// </summary>
     private void SetUpAbilities()
     {
         foreach(SpecificBossAbilityFramework bossAbility in GetComponentsInChildren<SpecificBossAbilityFramework>())
@@ -127,16 +132,11 @@ public class BossBase : MonoBehaviour
     #endregion
 
     #region Getters
-    public BossVisuals GetBossVisuals() => _bossVisuals;
-    public BossStats GetBossStats() => _bossStats;
-
     public BossSO GetBossSO() => _associatedBoss;
 
     public GameObject GetAssociatedBossObject() => _bossSpecificsGO;
     public SpecificBossFramework GetSpecificBossScript() => _associatedBossScript;
-
-
-
+    
     public UnityEvent<BossSO> GetSOSetEvent() => _bossSOSetEvent;
     public UnityEvent GetBossTargetsAssignedEvent() => _bossTargetsAssigned;
 

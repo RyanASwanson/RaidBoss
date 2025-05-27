@@ -278,7 +278,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
         Vector3 targetLocation = DetermineBossTargetLocation(currentAbility, out newTarget);
 
         //Causes the boss to turn to look at the current location of their target
-        _myBossBase.GetBossVisuals().BossLookAt(targetLocation);
+        BossVisuals.Instance.BossLookAt(targetLocation);
 
         //Uses the current ability
         currentAbility.ActivateAbility(targetLocation, newTarget);
@@ -345,7 +345,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
     protected virtual void BossStaggerOccured()
     {
         _preventAttacksCoroutine = StartCoroutine(StaggerBossForDuration
-            (_myBossBase.GetBossStats().GetStaggerDuration()));
+            (BossStats.Instance.GetStaggerDuration()));
     }
 
     protected virtual void BossNoLongerStaggeredOccured()

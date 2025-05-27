@@ -32,7 +32,7 @@ public class BossManager : MainGameplayManagerFramework
         _bossGameObject = _bossBase.gameObject;
 
         //Sets up the boss base by giving it the BossSO
-        _bossBase.Setup(SelectionManager.Instance.GetSelectedBoss());
+        _bossBase.SetUp(SelectionManager.Instance.GetSelectedBoss());
     }
     #endregion
 

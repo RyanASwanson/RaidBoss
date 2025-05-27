@@ -34,7 +34,12 @@ public class DebugScript : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.U))
         {
-            //BossManager.Instance.
+            BossStats.Instance.DealDamageToBoss(99999);
+        }
+        
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            BossStats.Instance.DealStaggerToBoss(99999);
         }
     }
 #endif

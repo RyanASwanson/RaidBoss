@@ -27,13 +27,11 @@ public class GeneralBossDamageArea : GeneralAbilityAreaFramework
     private List<HeroBase> _heroesToIgnore = new List<HeroBase>();
 
     private BossBase _myBossBase;
-    private BossStats _myBossStats;
 
     protected override void Start()
     {
         base.Start();
         _myBossBase = GameplayManagers.Instance.GetBossManager().GetBossBase();
-        _myBossStats = _myBossBase.GetBossStats();
     }
 
     #region Collision
@@ -117,18 +115,21 @@ public class GeneralBossDamageArea : GeneralAbilityAreaFramework
     /// Inflicts damage to the hero that it hit
     /// Damage dealt is scaled by difficulty
     /// </summary>
-    /// <param name="heroBase"></param>
-    /// <param name="abilityDamage"></param>
+    /// <param name="heroBase"> The hero we are dealing damage to </param>
+    /// <param name="abilityDamage"> The amount of damage being dealt </param>
     private void DealDamage(HeroBase heroBase, float abilityDamage)
     {
         if (abilityDamage > 0)
-            heroBase.GetHeroStats().DealDamageToHero(abilityDamage * _myBossStats.GetCombinedBossDamageMultiplier());
+        {
+            heroBase.GetHeroStats()
+                .DealDamageToHero(abilityDamage * BossStats.Instance.GetCombinedBossDamageMultiplier());
+        }
     }
 
     /// <summary>
     /// Prevents damage from being dealt to a hero for a duration
     /// </summary>
-    /// <param name="heroBase"></param>
+    /// <param name="heroBase"> The hero to ignore </param>
     /// <returns></returns>
     private IEnumerator IgnoreHeroForDuration(HeroBase heroBase)
     {

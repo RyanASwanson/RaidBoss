@@ -1,8 +1,13 @@
 using System.Collections;
 using UnityEngine;
 
+/// <summary>
+/// Controls the functionality of the visuals of the boss
+/// </summary>
 public class BossVisuals : BossChildrenFunctionality
 {
+    public static BossVisuals Instance;
+    
     private float _rotateSpeed;
 
     private GameObject _visualObjectBase;
@@ -20,7 +25,7 @@ public class BossVisuals : BossChildrenFunctionality
     private const string BOSS_STAGGER_ANIM_TRIGGER = "G_BossStagger";
     private const string BOSS_DEATH_ANIM_TRIGGER = "G_BossDeath";
 
-
+    #region Directional Look
     /// <summary>
     /// Causes the boss to start looking at a desired target location
     /// </summary>
@@ -63,6 +68,8 @@ public class BossVisuals : BossChildrenFunctionality
         }
         
     }
+    #endregion
+    
 
     private void BossTookDamage(float damageTaken)
     {
@@ -143,6 +150,17 @@ public class BossVisuals : BossChildrenFunctionality
         BossSpecificLevelIntroTrigger();
     }
 
+    #region Base Children Functionality
+
+    /// <summary>
+    /// Establishes the instance for the Boss Visuals
+    /// </summary>
+    protected override void SetUpInstance()
+    {
+        base.SetUpInstance();
+        Instance = this;
+    }
+    
     public override void SubscribeToEvents()
     {
         _myBossBase.GetSOSetEvent().AddListener(SetFromSO);
@@ -155,6 +173,7 @@ public class BossVisuals : BossChildrenFunctionality
         
         GameStateManager.Instance.GetBattleLostEvent().AddListener(BattleWon);
     }
+    #endregion
 
     #region Getters
 

@@ -79,7 +79,7 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     /// </summary>
     protected virtual void StartBossAbilityAnimation()
     {
-        _myBossBase.GetBossVisuals().StartBossSpecificAnimationTrigger(_animationTriggerName);
+        BossVisuals.Instance.StartBossSpecificAnimationTrigger(_animationTriggerName);
     }
 
     #region Target Zone

@@ -71,8 +71,7 @@ public class BossUIManager : GameUIChildrenFunctionality
 
     private void SetHealthBarPercentage(float damage)
     {
-        float fillPercent = GameplayManagers.Instance.
-                GetBossManager().GetBossBase().GetBossStats().GetBossHealthPercentage();
+        float fillPercent = BossStats.Instance.GetBossHealthPercentage();
 
         foreach (Image bar in _healthBars)
         {
@@ -132,19 +131,25 @@ public class BossUIManager : GameUIChildrenFunctionality
         SetRecentStaggerBarPercentage(1);
     }
 
-
+    /// <summary>
+    /// Resets the stagger bars and the recent stagger bars to their starting values
+    /// </summary>
     private void ResetStaggerBar()
     {
         foreach (Image bar in _staggerBars)
+        {
             bar.fillAmount = 0;
+        }
+
         foreach (Image bar in _staggerRecentBars)
+        {
             bar.fillAmount = 0;
+        }
     }
 
     private void SetStaggerBarPercentage(float stagger)
     {
-        float fillPercent = GameplayManagers.Instance.
-                GetBossManager().GetBossBase().GetBossStats().GetBossStaggerPercentage();
+        float fillPercent = BossStats.Instance.GetBossStaggerPercentage();
         foreach (Image bar in _staggerBars)
         {
             bar.fillAmount = fillPercent;
@@ -184,6 +189,7 @@ public class BossUIManager : GameUIChildrenFunctionality
         }
     }
 
+    //TODO BOSS STAGGER UI DECAY ON STAGGER
     #endregion
 
     #region Boss Specific UI
