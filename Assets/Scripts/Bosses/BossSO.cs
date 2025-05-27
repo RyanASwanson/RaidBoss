@@ -24,6 +24,8 @@ public class BossSO : ScriptableObject
 
     [Range(0,.5f)] [SerializeField] private float _damageResistanceChangeOnStagger;
 
+    [SerializeField] private float _fightStartDelay;
+    
     [SerializeField] private float _enrageTime;
     [SerializeField] private float _enrageDamageMultiplier;
 
@@ -52,6 +54,8 @@ public class BossSO : ScriptableObject
     public float GetBossDamageIncrementMultiplier() => _damageIncrementMultiplier;
     public float GetDamageResistanceChangeOnStagger() => _damageResistanceChangeOnStagger;
 
+    public float GetFightStartDelay() => _fightStartDelay;
+    
     public float GetEnrageTime() => _enrageTime;
     public float GetEnrageDamageMultiplier() => _enrageDamageMultiplier;
 

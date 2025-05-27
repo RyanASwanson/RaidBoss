@@ -35,17 +35,23 @@ public abstract class SpecificBossFramework : MonoBehaviour
     #region Fight Start
     protected virtual void StartFight()
     {
-        SetupReadyBossAbilities();
+        SetUpReadyBossAbilities();
 
         AssignInitialHeroTargets();
 
+        StartCoroutine(InitialAttackDelay());
+    }
+
+    private IEnumerator InitialAttackDelay()
+    {
+        yield return new WaitForSeconds(_myBossBase.GetBossSO().GetFightStartDelay());
         StartNextAbility();
     }
 
     /// <summary>
     /// Adds the starting abilities into the list of ready attacks
     /// </summary>
-    protected virtual void SetupReadyBossAbilities()
+    protected virtual void SetUpReadyBossAbilities()
     {
         foreach(SpecificBossAbilityFramework sbaf in _startingBossAbilities)
         {
