@@ -33,10 +33,11 @@ public class BossStats : BossChildrenFunctionality
     private float _currentTimeUntilEnrage;
     private Coroutine _enrageCoroutine;
 
+    #region Set Up
     /// <summary>
     /// Called when the Scriptable Object for the boss is assigned
     /// </summary>
-    /// <param name="bossSO"></param>
+    /// <param name="bossSO"> The scriptable object of the boss </param>
     private void BossSOAssigned(BossSO bossSO)
     {
         StatsSetup(bossSO);
@@ -67,44 +68,9 @@ public class BossStats : BossChildrenFunctionality
         _currentTimeUntilEnrage = bossSO.GetEnrageTime();
         _storedEnrageMultiplier = bossSO.GetEnrageDamageMultiplier();
     }
-    
-    /// <summary>
-    /// Checks if the boss is above their stagger cap
-    /// If they are the boss becomes staggered
-    /// </summary>
-    private void CheckIfBossIsStaggered()
-    {
-        if (_currentStaggerCounter >= _bossDefaultStaggerMax)
-        {
-            BossStaggered();
-        }
-    }
+#endregion
 
-    /// <summary>
-    /// Staggers the boss and shoots out the event
-    /// </summary>
-    private void BossStaggered()
-    {
-        _bossStaggered = true;
-        StopEnrageTimer();
-        _myBossBase.InvokeBossStaggeredEvent();
-
-        DecreaseBossDamageResOnStagger();
-    }
-
-    /// <summary>
-    /// Activated by event
-    /// Occurs when the boss stagger has run out
-    /// </summary>
-    private void BossNoLongerStaggered()
-    {
-        _bossStaggered = false;
-        StartEnrageTimer();
-        _currentStaggerCounter = 0;
-
-        IncreaseBossDamageResAfterStagger();
-    }
-
+    #region Health
     private void CheckBossIsUnderHalf(float damage)
     {
         if(GetBossHealthPercentage() < .5f)
@@ -168,6 +134,48 @@ public class BossStats : BossChildrenFunctionality
     {
         MultiplyBossDamageMultiplier(_bossDamageIncrementMultiplier);
     }
+    #endregion
+
+    #region Stagger
+
+    /// <summary>
+    /// Checks if the boss is above their stagger cap
+    /// If they are the boss becomes staggered
+    /// </summary>
+    private void CheckIfBossIsStaggered()
+    {
+        if (_currentStaggerCounter >= _bossDefaultStaggerMax)
+        {
+            BossStaggered();
+        }
+    }
+
+    /// <summary>
+    /// Staggers the boss and shoots out the event
+    /// </summary>
+    private void BossStaggered()
+    {
+        _bossStaggered = true;
+        StopEnrageTimer();
+        _myBossBase.InvokeBossStaggeredEvent();
+
+        DecreaseBossDamageResistanceOnStagger();
+    }
+
+    /// <summary>
+    /// Activated by event
+    /// Occurs when the boss stagger has run out
+    /// </summary>
+    private void BossNoLongerStaggered()
+    {
+        _bossStaggered = false;
+        StartEnrageTimer();
+        _currentStaggerCounter = 0;
+
+        IncreaseBossDamageResistanceAfterStagger();
+    }
+
+    #endregion
 
     #region Enrage
     private void StartEnrageTimer()
@@ -215,12 +223,12 @@ public class BossStats : BossChildrenFunctionality
         _bossDamageResistanceMultiplier+= changeValue;
     }
 
-    private void DecreaseBossDamageResOnStagger()
+    private void DecreaseBossDamageResistanceOnStagger()
     {
         ChangeBossDamageResistance(-_bossDamageResistanceChangeOnStagger);
     }
 
-    private void IncreaseBossDamageResAfterStagger()
+    private void IncreaseBossDamageResistanceAfterStagger()
     {
         ChangeBossDamageResistance(_bossDamageResistanceChangeOnStagger);
     }

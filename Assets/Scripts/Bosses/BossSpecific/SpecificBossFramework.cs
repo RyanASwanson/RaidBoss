@@ -325,14 +325,22 @@ public abstract class SpecificBossFramework : MonoBehaviour
     /// <summary>
     /// Stuns the boss and prevents them from attacking
     /// </summary>
-    /// <param name="stopDuration"></param>
+    /// <param name="stopDuration"> The duration of the stagger </param>
     /// <returns></returns>
     protected virtual IEnumerator StaggerBossForDuration(float stopDuration)
     {
+        float timer = 0;
+        
         //Prevents the next attack from being used
         StopNextAttackProcess();
+
         //Waits for the boss stagger duration
-        yield return new WaitForSeconds(stopDuration);
+        while (timer < stopDuration)
+        {
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        
         //Starts up the process of using abilities again
         StartNextAbility();
 

@@ -25,6 +25,7 @@ public class BossBase : MonoBehaviour
     protected UnityEvent _bossAbilityUsedEvent = new UnityEvent();
 
     private UnityEvent _bossStaggeredEvent = new UnityEvent();
+    private UnityEvent<float> _bossStaggerProcessEvent = new UnityEvent<float>();
     private UnityEvent _bossNoLongerStaggeredEvent = new UnityEvent();
 
     protected UnityEvent _bossReachedHalfHealthEvent = new UnityEvent();
@@ -107,6 +108,12 @@ public class BossBase : MonoBehaviour
     {
         _bossStaggeredEvent?.Invoke();
     }
+
+    public void InvokeBossStaggerProcess(float percentage)
+    {
+        _bossStaggerProcessEvent?.Invoke(percentage);
+    }
+    
     public void InvokeBossNoLongerStaggeredEvent()
     {
         _bossNoLongerStaggeredEvent.Invoke();
@@ -146,6 +153,7 @@ public class BossBase : MonoBehaviour
     public UnityEvent GetBossAbilityUsedEvent() => _bossAbilityUsedEvent;
 
     public UnityEvent GetBossStaggeredEvent() => _bossStaggeredEvent;
+    public UnityEvent<float> GetBossStaggerProcessEvent() => _bossStaggerProcessEvent;
     public UnityEvent GetBossNoLongerStaggeredEvent() => _bossNoLongerStaggeredEvent;
 
     public UnityEvent GetBossHalfHealthEvent() => _bossReachedHalfHealthEvent;
