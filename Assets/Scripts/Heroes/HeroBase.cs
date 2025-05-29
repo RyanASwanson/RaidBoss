@@ -90,7 +90,7 @@ public class HeroBase : MonoBehaviour
 
         _associatedHeroScript = _associatedHeroGameObject.GetComponentInChildren<SpecificHeroFramework>();
 
-        _associatedHeroScript.SetupSpecificHero(this, newSO);
+        _associatedHeroScript.SetUpSpecificHero(this, newSO);
     }
 
     /// <summary>

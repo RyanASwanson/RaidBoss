@@ -287,11 +287,11 @@ public class SH_Fae : SpecificHeroFramework
     /// </summary>
     /// <param name="heroBase"></param>
     /// <param name="heroSO"></param>
-    public override void SetupSpecificHero(HeroBase heroBase, HeroSO heroSO)
+    public override void SetUpSpecificHero(HeroBase heroBase, HeroSO heroSO)
     {
         _heroStats = heroBase.GetHeroStats();
 
-        base.SetupSpecificHero(heroBase, heroSO);
+        base.SetUpSpecificHero(heroBase, heroSO);
     }
 
     /// <summary>

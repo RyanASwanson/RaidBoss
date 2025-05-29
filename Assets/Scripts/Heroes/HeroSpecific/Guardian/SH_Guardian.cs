@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -15,17 +16,13 @@ public class SH_Guardian : SpecificHeroFramework
 
     [Space]
     [SerializeField] private float _heroPassiveAbilityDuration;
-    [SerializeField] private float _heroPassiveDamageResistance;
+    [Range(0,1)][SerializeField] private float _heroPassiveDamageResistance;
+    private WaitForSeconds _heroPassiveWait;
 
     [SerializeField] private List<ParticleSystem> _passiveEyeVFX;
     private Coroutine _passiveCoroutine;
 
     #region Basic Abilities
-    public override bool ConditionsToActivateBasicAbilities()
-    {
-        return !_myHeroBase.GetPathfinding().IsHeroMoving();  
-    }
-
     /// <summary>
     /// Spawns the projectile that deals damage
     /// </summary>
@@ -44,17 +41,22 @@ public class SH_Guardian : SpecificHeroFramework
     #region Manual Abilities
     public override void ActivateManualAbilities(Vector3 attackLocation)
     {
-        BossManager.Instance.GetBossBase().GetSpecificBossScript()
-            .StartHeroOverrideAggro(_myHeroBase, _heroManualAbilityDuration);
+        BossBase.Instance.GetSpecificBossScript().StartHeroOverrideAggro(_myHeroBase, _heroManualAbilityDuration);
 
         base.ActivateManualAbilities(attackLocation);
     }
     #endregion
 
     #region Passive Abilities
-    public void ActivatePassiveAbilities(float damageTaken)
+    /// <summary>
+    /// Activates the passive ability of the Guardian
+    /// </summary>
+    public override void ActivatePassiveAbilities()
     {
-        if (_passiveCoroutine != null)
+        base.ActivatePassiveAbilities();
+        
+        // If the passive is already active
+        if (!_passiveCoroutine.IsUnityNull())
         {
             _myHeroBase.GetHeroStats().ChangeCurrentHeroDamageResistance(-_heroPassiveDamageResistance);
             StopCoroutine(_passiveCoroutine);
@@ -67,12 +69,15 @@ public class SH_Guardian : SpecificHeroFramework
     {
         _myHeroBase.GetHeroStats().ChangeCurrentHeroDamageResistance(_heroPassiveDamageResistance);
         ActivatePassiveVFX();
-        yield return new WaitForSeconds(_heroPassiveAbilityDuration);
+        yield return _heroPassiveWait;
         _myHeroBase.GetHeroStats().ChangeCurrentHeroDamageResistance(-_heroPassiveDamageResistance);
 
         _passiveCoroutine = null;
     }
 
+    /// <summary>
+    /// Activates the visual effects of the passive
+    /// </summary>
     private void ActivatePassiveVFX()
     {
         foreach (ParticleSystem particleSystem in _passiveEyeVFX)
@@ -82,15 +87,29 @@ public class SH_Guardian : SpecificHeroFramework
     }
     #endregion
 
-
     #region Base Hero
+    /// <summary>
+    /// Performs set up for the hero
+    /// </summary>
+    /// <param name="heroBase"></param>
+    /// <param name="heroSO"></param>
+    public override void SetUpSpecificHero(HeroBase heroBase, HeroSO heroSO)
+    {
+        base.SetUpSpecificHero(heroBase, heroSO);
+        
+        // Saves the WaitForSeconds of the passive to avoid needing to use new in the coroutine
+        _heroPassiveWait = new WaitForSeconds(_heroPassiveAbilityDuration);
+    }
+
+    /// <summary>
+    /// Subscribes to any needed events
+    /// </summary>
     protected override void SubscribeToEvents()
     {
         base.SubscribeToEvents();
-
-        _myHeroBase.GetHeroDamagedEvent().AddListener(ActivatePassiveAbilities);
+        
+        _myHeroBase.GetHeroDamagedEvent().AddListener(delegate{ActivatePassiveAbilities();});
     }
 
     #endregion
-
 }

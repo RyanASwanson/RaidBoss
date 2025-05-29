@@ -12,7 +12,7 @@ public class GlacialLordSelfMinionHit : MonoBehaviour
     public bool MinionContactFromDistance()
     {
         //TODO Rework this line by instancing the Glacial Lord
-        SB_GlacialLord glacialLord =(SB_GlacialLord)BossManager.Instance.GetBossBase().GetSpecificBossScript();
+        SB_GlacialLord glacialLord =(SB_GlacialLord)BossBase.Instance.GetSpecificBossScript();
 
         foreach(GlacialLord_FrostFiend fiend in glacialLord.GetAllFrostFiends())
         {

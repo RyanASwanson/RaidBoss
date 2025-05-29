@@ -158,6 +158,9 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Starts the screen shake of the ability if the ability has screen shake
+    /// </summary>
     protected virtual void AbilityScreenShake()
     {
         CameraGameManager.Instance.StartCameraShake

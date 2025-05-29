@@ -399,6 +399,7 @@ public class HeroUIManager : GameUIChildrenFunctionality
     #region BaseManager
     public override void ChildFuncSetup()
     {
+        //TODO Why is this commented out
         //base.ChildFuncSetup();
     }
 

@@ -235,7 +235,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
 
     #endregion
 
-    public virtual void SetupSpecificHero(HeroBase heroBase, HeroSO heroSO)
+    public virtual void SetUpSpecificHero(HeroBase heroBase, HeroSO heroSO)
     {
         _myHeroBase = heroBase;
         SubscribeToEvents();

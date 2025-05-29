@@ -167,9 +167,9 @@ public class SH_Mirage : SpecificHeroFramework
     #endregion
 
     #region Base Hero
-    public override void SetupSpecificHero(HeroBase heroBase, HeroSO heroSO)
+    public override void SetUpSpecificHero(HeroBase heroBase, HeroSO heroSO)
     {
-        base.SetupSpecificHero(heroBase, heroSO);
+        base.SetUpSpecificHero(heroBase, heroSO);
 
         //Spawn the clone at a delay
         Invoke(nameof(CreateClone), _cloneSpawnDelay);

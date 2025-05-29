@@ -1,7 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
+/// <summary>
+/// The functionality for the Mirage clone.
+/// Treated as if it was a hero
+/// </summary>
 public class MirageClone : SpecificHeroFramework
 {
     private Coroutine _basicAttackCooldownProcess;
@@ -55,7 +60,7 @@ public class MirageClone : SpecificHeroFramework
 
     private void CloneCounterAttack(float damage)
     {
-        if(_basicAbilityCooldownCoroutine == null)
+        if(_basicAbilityCooldownCoroutine.IsUnityNull())
         {
             ActivateBasicAbilities();
             _basicAbilityCooldownCoroutine = StartCoroutine(ReHitCooldown());
@@ -80,12 +85,21 @@ public class MirageClone : SpecificHeroFramework
     }
 
     #region Base Hero
-    public override void SetupSpecificHero(HeroBase heroBase, HeroSO heroSO)
+    /// <summary>
+    /// Performs the set up needed for the clone
+    /// </summary>
+    /// <param name="heroBase"></param>
+    /// <param name="heroSO"></param>
+    public override void SetUpSpecificHero(HeroBase heroBase, HeroSO heroSO)
     {
         _bossBase = BossManager.Instance.GetBossBase();
-        base.SetupSpecificHero(heroBase, heroSO);
+        base.SetUpSpecificHero(heroBase, heroSO);
     }
 
+    /// <summary>
+    /// Performs set up unique to the mirage
+    /// </summary>
+    /// <param name="mirage"> The hero associated with the clone </param>
     public void AdditionalSetup(SH_Mirage mirage)
     {
         _mirageOwner = mirage;

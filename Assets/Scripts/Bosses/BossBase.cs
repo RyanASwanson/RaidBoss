@@ -5,6 +5,8 @@ using UnityEngine.Events;
 
 public class BossBase : MonoBehaviour
 {
+    public static BossBase Instance;
+    
     [Header("Child Functionality")]
     [SerializeField] private BossVisuals _bossVisuals;
     [SerializeField] private BossStats _bossStats;
@@ -34,8 +36,14 @@ public class BossBase : MonoBehaviour
 
     protected UnityEvent _bossEnragedEvent = new UnityEvent();
 
+    /// <summary>
+    /// Performs the set up needed for the boss
+    /// </summary>
+    /// <param name="newSO"></param>
     public void SetUp(BossSO newSO)
     {
+        SetUpInstance();
+        
         CreateBossPrefab(newSO);
 
         SetUpChildren();
@@ -43,6 +51,14 @@ public class BossBase : MonoBehaviour
         SetUpAbilities();
 
         SetBossSO(newSO);
+    }
+    
+    /// <summary>
+    /// Establishes the instance for the BossBase
+    /// </summary>
+    public void SetUpInstance()
+    {
+        Instance = this;
     }
 
     /// <summary>

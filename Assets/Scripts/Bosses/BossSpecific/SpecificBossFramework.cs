@@ -277,7 +277,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
         SpecificBossAbilityFramework nextAbility = SelectNextAbility();
         AddAbilityToEndOfCooldownQueue(nextAbility);
 
-        _nextAttackProcess = StartCoroutine(UseNextAttackProcess(nextAbility));
+        _nextAttackProcess = StartCoroutine(UseNextAbilityProcess(nextAbility));
     }
 
     /// <summary>
@@ -291,7 +291,12 @@ public abstract class SpecificBossFramework : MonoBehaviour
         return _readyBossAttacks[randomAbility];
     }
 
-    protected virtual IEnumerator UseNextAttackProcess(SpecificBossAbilityFramework currentAbility)
+    /// <summary>
+    /// The process by which the boss uses the next ability
+    /// </summary>
+    /// <param name="currentAbility"> The ability to use </param>
+    /// <returns></returns>
+    protected virtual IEnumerator UseNextAbilityProcess(SpecificBossAbilityFramework currentAbility)
     {
         //Determines where the boss is targeting based on the abilities target method
         Vector3 targetLocation = DetermineBossTargetLocation(currentAbility, out HeroBase newTarget);
@@ -380,7 +385,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
         while (timer < stopDuration)
         {
             timer += Time.deltaTime;
-            BossManager.Instance.GetBossBase().InvokeBossStaggerProcess(timer/stopDuration);
+            BossBase.Instance.InvokeBossStaggerProcess(timer/stopDuration);
             yield return null;
         }
         
