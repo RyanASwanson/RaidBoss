@@ -108,7 +108,7 @@ public class HeroPathfinding : HeroChildrenFunctionality
     /// </summary>
     private void HeroLookAtBoss()
     {
-        HeroLookAt(BossManager.Instance.GetBossBaseGameObject().transform.position);
+        HeroLookAt(BossBase.Instance.transform.position);
     }
 
     /// <summary>

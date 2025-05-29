@@ -36,7 +36,7 @@ public class SHP_AstromancerManualProjectile : HeroProjectileFramework
             _myHeroBase.transform.position.y + _yOffset, _myHeroBase.transform.position.z);
         
 
-        Vector3 bossLoc = BossManager.Instance.GetBossBaseGameObject().transform.position;
+        Vector3 bossLoc = BossBase.Instance.transform.position;
         bossLoc = new Vector3(bossLoc.x, 0, bossLoc.z);
 
         float length = Vector3.Distance(heroLoc, bossLoc);

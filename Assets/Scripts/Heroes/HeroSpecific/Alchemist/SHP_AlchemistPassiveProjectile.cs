@@ -22,7 +22,7 @@ public class SHP_AlchemistPassiveProjectile : HeroProjectileFramework
     /// <returns></returns>
     private IEnumerator MoveProcess()
     {
-        Vector3 targetLoc = BossManager.Instance.GetBossBaseGameObject().transform.position;
+        Vector3 targetLoc = BossBase.Instance.transform.position;
         Vector3 startLoc = transform.position;
 
         float moveTimer = 0;

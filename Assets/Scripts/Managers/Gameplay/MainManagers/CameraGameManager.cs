@@ -210,11 +210,9 @@ public class CameraGameManager : MainGameplayManagerFramework
 
     protected override void SubscribeToEvents()
     {
-        BossManager.Instance.GetBossBase()
-            .GetBossStaggeredEvent().AddListener(CameraShakeOnBossStagger);
+        BossBase.Instance.GetBossStaggeredEvent().AddListener(CameraShakeOnBossStagger);
         
-        GameStateManager.Instance.GetBattleWonEvent()
-            .AddListener(CameraShakeOnBossDeath);
+        GameStateManager.Instance.GetBattleWonEvent().AddListener(CameraShakeOnBossDeath);
     }
     #endregion
 

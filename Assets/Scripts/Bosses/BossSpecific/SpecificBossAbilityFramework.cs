@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -14,12 +15,13 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     [SerializeField] protected Vector3 _specificLookTarget;
     [Space]
 
-    
+    [Tooltip("The duration of the target zones")]
     [SerializeField] protected float _targetZoneDuration;
     [SerializeField] protected float _abilityWindUpTime;
     [SerializeField] protected float _timeUntilNextAbility;
 
     [Space]
+    [Tooltip("If the ability has any screen shake")]
     [SerializeField] protected bool _hasScreenShake;
     [SerializeField] protected float _screenShakeIntensity;
     [SerializeField] protected float _screenShakeFrequency;
@@ -29,7 +31,7 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     [SerializeField] protected string _animationTriggerName;
 
     protected List<GameObject> _currentTargetZones = new List<GameObject>();
-
+    
     protected Vector3 _storedTargetLocation;
     protected HeroBase _storedTarget;
 
@@ -56,8 +58,10 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     public virtual void ActivateAbility(Vector3 targetLocation, HeroBase targetHeroBase)
     {
         _storedTargetLocation = targetLocation;
-        if (targetHeroBase != null)
+        if (!targetHeroBase.IsUnityNull())
+        {
             _storedTarget = targetHeroBase;
+        }
 
         AbilityPrep();
 
@@ -86,7 +90,6 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     /// <summary>
     /// Starts the process of visualizing the target zone
     /// </summary>
-    /// <param name="targetLocation"></param>
     protected virtual void StartShowTargetZone()
     {
         StartCoroutine(TargetZonesProcess());

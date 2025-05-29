@@ -146,7 +146,7 @@ public class SH_Mirage : SpecificHeroFramework
 
 
     /// <summary>
-    /// The version of the basic ability casted by the clone
+    /// The version of the basic ability cast by the clone
     /// </summary>
     public void CloneBasicAbility()
     {
@@ -167,6 +167,11 @@ public class SH_Mirage : SpecificHeroFramework
     #endregion
 
     #region Base Hero
+    /// <summary>
+    /// Performs the set up for the Mirage
+    /// </summary>
+    /// <param name="heroBase"> The hero base associated with the Mirage </param>
+    /// <param name="heroSO"> The scriptable object of the Mirage </param>
     public override void SetUpSpecificHero(HeroBase heroBase, HeroSO heroSO)
     {
         base.SetUpSpecificHero(heroBase, heroSO);
@@ -184,6 +189,9 @@ public class SH_Mirage : SpecificHeroFramework
         base.BattleStarted();
     }
 
+    /// <summary>
+    /// Subscribes to any needed events
+    /// </summary>
     protected override void SubscribeToEvents()
     {
         base.SubscribeToEvents();

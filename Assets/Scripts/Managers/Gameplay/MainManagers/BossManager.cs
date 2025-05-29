@@ -10,8 +10,6 @@ public class BossManager : MainGameplayManagerFramework
     public static BossManager Instance;
     
     [SerializeField] private BossBase _bossBase;
-
-    private GameObject _bossGameObject;
     
     #region BaseManager
     /// <summary>
@@ -29,25 +27,21 @@ public class BossManager : MainGameplayManagerFramework
     public override void SetUpMainManager()
     {
         base.SetUpMainManager();
-        _bossGameObject = _bossBase.gameObject;
 
-        //Sets up the boss base by giving it the BossSO
+        // Sets up the boss base by giving it the BossSO
         _bossBase.SetUp(SelectionManager.Instance.GetSelectedBoss());
     }
     #endregion
 
     #region Getters
-    public BossBase GetBossBase() => _bossBase;
-    public GameObject GetBossBaseGameObject() => _bossGameObject;
-
     /// <summary>
     /// Returns the direction from the input vector to the boss normalized
     /// </summary>
-    /// <param name="startLocation"></param>
+    /// <param name="startLocation"> The location we are checking the direction to boss from </param>
     /// <returns></returns>
     public Vector3 GetDirectionToBoss(Vector3 startLocation)
     {
-        Vector3 returnVector = _bossGameObject.transform.position - startLocation;
+        Vector3 returnVector = _bossBase.transform.position - startLocation;
         returnVector = new Vector3(returnVector.x, 0, returnVector.z);
         returnVector.Normalize();
 

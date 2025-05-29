@@ -12,7 +12,6 @@ public class MirageClone : SpecificHeroFramework
     private Coroutine _basicAttackCooldownProcess;
 
     private SH_Mirage _mirageOwner;
-    private BossBase _bossBase;
 
     #region Basic
     /*/// <summary>
@@ -81,21 +80,10 @@ public class MirageClone : SpecificHeroFramework
     /// </summary>
     private void AssignSelfAsBossTarget()
     {
-        BossManager.Instance.GetBossBase().GetSpecificBossScript().AddHeroTarget(_myHeroBase);
+        BossBase.Instance.GetSpecificBossScript().AddHeroTarget(_myHeroBase);
     }
 
     #region Base Hero
-    /// <summary>
-    /// Performs the set up needed for the clone
-    /// </summary>
-    /// <param name="heroBase"></param>
-    /// <param name="heroSO"></param>
-    public override void SetUpSpecificHero(HeroBase heroBase, HeroSO heroSO)
-    {
-        _bossBase = BossManager.Instance.GetBossBase();
-        base.SetUpSpecificHero(heroBase, heroSO);
-    }
-
     /// <summary>
     /// Performs set up unique to the mirage
     /// </summary>
@@ -105,10 +93,9 @@ public class MirageClone : SpecificHeroFramework
         _mirageOwner = mirage;
 
         _myHeroBase.SetClickColliderStatus(false);
-        HeroStats heroStats = _myHeroBase.GetHeroStats();
-
-        heroStats.AddDamageTakenOverrideCounter();
-        heroStats.AddHealingTakenOverrideCounter();
+        
+        _myHeroBase.GetHeroStats().AddDamageTakenOverrideCounter();
+        _myHeroBase.GetHeroStats().AddHealingTakenOverrideCounter();
     }
 
     public override void ActivateHeroSpecificActivity()
@@ -123,7 +110,7 @@ public class MirageClone : SpecificHeroFramework
         //Stops the clone from using the basic ability after it stops moving
         //_myHeroBase.GetHeroStoppedMovingEvent().AddListener(EndBasicCastProcess);
 
-        _bossBase.GetBossTargetsAssignedEvent().AddListener(AssignSelfAsBossTarget);
+        BossBase.Instance.GetBossTargetsAssignedEvent().AddListener(AssignSelfAsBossTarget);
 
         _myHeroBase.GetHeroDamagedOverrideEvent().AddListener(CloneCounterAttack);
         base.SubscribeToEvents();

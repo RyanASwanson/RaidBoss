@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -7,13 +8,13 @@ using UnityEngine;
 /// </summary>
 public class GameplayManagers : CoreManagersFramework
 {
+    [SerializeField] private BossManager _bossManager;
     [SerializeField] private PlayerInputGameplayManager _playerInputManager;
     [SerializeField] private GameStateManager _gameStateManager;
     [SerializeField] private CameraGameManager _cameraManager;
     [SerializeField] private HeroesManager _heroesManager;
     [SerializeField] private EnvironmentManager _environmentManager;
     [SerializeField] private GameUIManager _gameUIManager;
-    [SerializeField] private BossManager _bossManager;
 
     /// <summary>
     /// Contains all managers to set up. Order of managers is order of setup.
@@ -29,7 +30,7 @@ public class GameplayManagers : CoreManagersFramework
     protected override bool EstablishInstance()
     {
         //If no other version exists
-        if (Instance == null)
+        if (Instance.IsUnityNull())
         {
             //This is the new singleton
             Instance = this;

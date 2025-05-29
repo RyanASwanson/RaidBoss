@@ -273,10 +273,10 @@ public class BossUIManager : GameUIChildrenFunctionality
 
     protected override void SubscribeToEvents()
     {
-        BossManager.Instance.GetBossBase().GetBossDamagedEvent().AddListener(BossTookDamage);
-        BossManager.Instance.GetBossBase().GetBossStaggerDealtEvent().AddListener(BossTookStagger);
-        BossManager.Instance.GetBossBase().GetBossStaggeredEvent().AddListener(BossFullyStaggered);
-        BossManager.Instance.GetBossBase().GetBossStaggerProcessEvent().AddListener(SetRecentStaggerBarToStaggerDurationPercentage);
-        BossManager.Instance.GetBossBase().GetBossNoLongerStaggeredEvent().AddListener(ResetAllStaggerBars);
+        BossBase.Instance.GetBossDamagedEvent().AddListener(BossTookDamage);
+        BossBase.Instance.GetBossStaggerDealtEvent().AddListener(BossTookStagger);
+        BossBase.Instance.GetBossStaggeredEvent().AddListener(BossFullyStaggered);
+        BossBase.Instance.GetBossStaggerProcessEvent().AddListener(SetRecentStaggerBarToStaggerDurationPercentage);
+        BossBase.Instance.GetBossNoLongerStaggeredEvent().AddListener(ResetAllStaggerBars);
     }
 }
