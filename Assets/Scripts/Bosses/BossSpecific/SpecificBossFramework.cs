@@ -1,13 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
+/// <summary>
+/// Provides the functionality specific to each boss that can be overriden
+/// </summary>
 public abstract class SpecificBossFramework : MonoBehaviour
 {
     [Header("Attacks")]
     [SerializeField] protected List<SpecificBossAbilityFramework> _startingBossAbilities;
     [SerializeField] protected int _attackRepititionProtection;
-    protected int _attackRepitionCounter = 0;
+    protected int _attackRepetitionCounter = 0;
 
     [Space]
     [SerializeField] protected SpecificBossAbilityFramework _abilityLocked;
@@ -33,6 +37,9 @@ public abstract class SpecificBossFramework : MonoBehaviour
     [SerializeField] private Animator _bossSpecificAnimator;
 
     #region Fight Start
+    /// <summary>
+    /// Called when the fight begins to start boss functionality
+    /// </summary>
     protected virtual void StartFight()
     {
         SetUpReadyBossAbilities();
@@ -42,6 +49,10 @@ public abstract class SpecificBossFramework : MonoBehaviour
         StartCoroutine(InitialAttackDelay());
     }
 
+    /// <summary>
+    /// Adds a delay to the initial actions of the boss
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator InitialAttackDelay()
     {
         yield return new WaitForSeconds(_myBossBase.GetBossSO().GetFightStartDelay());
@@ -53,9 +64,10 @@ public abstract class SpecificBossFramework : MonoBehaviour
     /// </summary>
     protected virtual void SetUpReadyBossAbilities()
     {
-        foreach(SpecificBossAbilityFramework sbaf in _startingBossAbilities)
+        // Iterates through each ability
+        foreach(SpecificBossAbilityFramework ability in _startingBossAbilities)
         {
-            AddAbilityToBossReadyAttacks(sbaf);
+            AddAbilityToBossReadyAttacks(ability);
         }
     }
 
@@ -64,7 +76,9 @@ public abstract class SpecificBossFramework : MonoBehaviour
     /// </summary>
     protected virtual void CreateBossSpecificUI()
     {
+        // Stops if there is no boss specific UI
         if (_bossSpecificUI == null) return;
+        
         _storedBossUI = GameUIManager.Instance.GetBossUIManager().AddBossUIToHolder(_bossSpecificUI);
 
         _storedBossUI.GetComponent<SpecificBossUIFramework>().SetupBossSpecificUIFunctionality(_myBossBase, this);
@@ -227,24 +241,25 @@ public abstract class SpecificBossFramework : MonoBehaviour
     /// <summary>
     /// For the first few abilities used iterate a counter.
     /// Counter prevents the ability from immediately moving right back into the ready list
-    /// When the counter is at max call RepitionCounterAtMax
+    /// When the counter is at max call RepetitionCounterAtMax
     /// </summary>
-    protected void IterateRepitionCounter()
+    protected void IterateRepetitionCounter()
     {
-        _attackRepitionCounter++;
-        if (_attackRepitionCounter >= _attackRepititionProtection)
+        // Increment the repetition counter
+        _attackRepetitionCounter++;
+        if (_attackRepetitionCounter >= _attackRepititionProtection)
         {
-            RepitionCounterAtMax();
+            RepetitionCounterAtMax();
         }
     }
 
     /// <summary>
-    /// Removes the iteration repition counter
+    /// Removes the iteration repetition counter
     /// Replaces it with TakeAbilityFromQueueToReady
     /// </summary>
-    protected void RepitionCounterAtMax()
+    protected void RepetitionCounterAtMax()
     {
-        _myBossBase.GetBossAbilityUsedEvent().RemoveListener(IterateRepitionCounter);
+        _myBossBase.GetBossAbilityUsedEvent().RemoveListener(IterateRepetitionCounter);
         _myBossBase.GetBossAbilityUsedEvent().AddListener(TakeAbilityFromQueueToReady);
     }
 
@@ -278,9 +293,8 @@ public abstract class SpecificBossFramework : MonoBehaviour
 
     protected virtual IEnumerator UseNextAttackProcess(SpecificBossAbilityFramework currentAbility)
     {
-        HeroBase newTarget;
-        //Determines where the boss is targetting based on the abilities target method
-        Vector3 targetLocation = DetermineBossTargetLocation(currentAbility, out newTarget);
+        //Determines where the boss is targeting based on the abilities target method
+        Vector3 targetLocation = DetermineBossTargetLocation(currentAbility, out HeroBase newTarget);
 
         //Causes the boss to turn to look at the current location of their target
         BossVisuals.Instance.BossLookAt(targetLocation);
@@ -299,23 +313,39 @@ public abstract class SpecificBossFramework : MonoBehaviour
         StartNextAbility();
     }
 
+    /// <summary>
+    /// Determines where or who the boss will attack based on the current ability
+    /// </summary>
+    /// <param name="currentAbility"> The ability to determine the location for </param>
+    /// <param name="targetHero"> The out variable for a hero if there is one </param>
+    /// <returns></returns>
     protected virtual Vector3 DetermineBossTargetLocation(SpecificBossAbilityFramework currentAbility, out HeroBase targetHero)
     {
         targetHero = null;
 
+        // Uses a different way to determine the target location based on the ability target method
         switch(currentAbility.GetTargetMethod())
         {
+            // If the ability targets heroes
             case (EBossAbilityTargetMethod.HeroTarget):
                 targetHero = DetermineAggroTarget();
                 return ClosestFloorSpaceOfTarget(targetHero.gameObject);
+            
+            // If the ability targets heroes with a specific ignore
+            // Currently has no functionality
             case (EBossAbilityTargetMethod.HeroTargetWithIgnore):
-
+                
+            // If the ability targets a specific hero
+            // Currently has no functionality
             case (EBossAbilityTargetMethod.SpecificHeroTarget):
-
+                
+            // If the ability targets a specific location
             case (EBossAbilityTargetMethod.SpecificAreaTarget):
                 return currentAbility.GetSpecificLookTarget();
         }
 
+        // In case the ability were to not fall into anything above
+        Debug.LogError("Boss was unable to determine target location or hero");
         return Vector3.zero;
     }
 
@@ -324,6 +354,12 @@ public abstract class SpecificBossFramework : MonoBehaviour
     /// </summary>
     protected virtual void StopNextAttackProcess()
     {
+        if (_nextAttackProcess.IsUnityNull())
+        {
+            Debug.LogError("Boss was unable to stop next attack process");
+            return;
+        }
+        
         StopCoroutine(_nextAttackProcess);
         _nextAttackProcess = null;
     }
@@ -337,10 +373,10 @@ public abstract class SpecificBossFramework : MonoBehaviour
     {
         float timer = 0;
         
-        //Prevents the next attack from being used
+        // Prevents the next attack from being used
         StopNextAttackProcess();
 
-        //Waits for the boss stagger duration
+        // Waits for the boss stagger duration
         while (timer < stopDuration)
         {
             timer += Time.deltaTime;
@@ -348,20 +384,31 @@ public abstract class SpecificBossFramework : MonoBehaviour
             yield return null;
         }
         
-        //Starts up the process of using abilities again
+        // Starts up the process of using abilities again
         StartNextAbility();
 
+        // Invokes the event for the boss no longer staggered
         _myBossBase.InvokeBossNoLongerStaggeredEvent();
     }
 
     #endregion
 
+    /// <summary>
+    /// Called when the boss is staggered.
+    /// Starts the boss stagger duration.
+    /// Virtual to allow for it to be overridden by specific bosses
+    /// </summary>
     protected virtual void BossStaggerOccured()
     {
+        // Starts the coroutine for the boss stagger
         _preventAttacksCoroutine = StartCoroutine(StaggerBossForDuration
             (BossStats.Instance.GetStaggerDuration()));
     }
 
+    /// <summary>
+    /// Called when the boss is no longer staggered
+    /// Virtual to allow for it to be overridden by specific bosses
+    /// </summary>
     protected virtual void BossNoLongerStaggeredOccured()
     {
 
@@ -372,8 +419,8 @@ public abstract class SpecificBossFramework : MonoBehaviour
     /// </summary>
     protected virtual void UnlockNewAbility()
     {
-        //Checks to see if there actually is an ability to unlock
-        if (_abilityLocked == null)
+        // Checks to see if there actually is an ability to unlock
+        if (_abilityLocked.IsUnityNull())
         {
             return;
         }
@@ -402,12 +449,15 @@ public abstract class SpecificBossFramework : MonoBehaviour
     }
 
     #region Events
+    /// <summary>
+    /// Subscribes to any needed events for the specific boss
+    /// </summary>
     public virtual void SubscribeToEvents()
     {
         GameStateManager.Instance.GetStartOfBattleEvent().AddListener(StartFight);
 
         //Listens for when the boss uses an ability
-        _myBossBase.GetBossAbilityUsedEvent().AddListener(IterateRepitionCounter);
+        _myBossBase.GetBossAbilityUsedEvent().AddListener(IterateRepetitionCounter);
 
         //Listens for when the boss is staggered
         _myBossBase.GetBossStaggeredEvent().AddListener(BossStaggerOccured);
@@ -416,7 +466,6 @@ public abstract class SpecificBossFramework : MonoBehaviour
         
         _myBossBase.GetBossHalfHealthEvent().AddListener(UnlockNewAbility);
     }
-
     #endregion
 
     #region Getters
