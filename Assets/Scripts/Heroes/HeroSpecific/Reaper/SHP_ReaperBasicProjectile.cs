@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -28,7 +29,7 @@ public class SHP_ReaperBasicProjectile : HeroProjectileFramework
     /// <returns></returns>
     private IEnumerator FollowHero()
     {
-        while(_myHeroBase != null)
+        while(!_myHeroBase.IsUnityNull())
         {
             transform.position = _myHeroBase.transform.position;
             yield return null;

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -29,8 +30,10 @@ public class BossPillar : MonoBehaviour
 
     public void ShowBossOnPillar(BossSO bossSO,bool newBoss)
     {
-        if (_currentBossVisual != null)
+        if (!_currentBossVisual.IsUnityNull())
+        {
             RemoveBossOnPillar();
+        }
 
         _currentBossVisual = Instantiate(bossSO.GetBossPrefab(), _bossSpawnPoint.transform);
         _currentBossVisual.transform.eulerAngles += new Vector3(0, 315, 0);

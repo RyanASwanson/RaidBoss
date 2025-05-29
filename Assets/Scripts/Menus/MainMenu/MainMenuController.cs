@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -69,7 +70,10 @@ public class MainMenuController : MonoBehaviour
 
     public void CloseHowToPlaySublayer()
     {
-        if (_currentSublayer == null) return;
+        if (_currentSublayer.IsUnityNull())
+        {
+            return;
+        }
 
         _currentSublayer.SetActive(false);
         _universalSublayer.SetActive(false);

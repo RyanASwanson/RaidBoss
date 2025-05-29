@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -81,8 +82,11 @@ public class SH_Vampire : SpecificHeroFramework
     public void AddToPassiveHealingCounter(float damageDealt)
     {
         _currentPassiveHealingStored += damageDealt * _passiveAbilityLifestealMultiplier;
-        
-        if (_passiveProcess != null) StopCoroutine(_passiveProcess);
+
+        if (!_passiveProcess.IsUnityNull())
+        {
+            StopCoroutine(_passiveProcess);
+        }
 
         _passiveProcess = StartCoroutine(PassiveProcess());
     }

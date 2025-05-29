@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -11,12 +12,12 @@ public class HeroCanvasFollow : MonoBehaviour
 
     [Space]
     [SerializeField] private GameObject _followHero;
-    private const float xRotation = 35;
+    private const float CANVAS_X_ROTATION = 35;
 
     private void Start()
     {
         transform.SetParent(null, false);
-        transform.eulerAngles = new Vector3(xRotation, 0, 0);
+        transform.eulerAngles = new Vector3(CANVAS_X_ROTATION, 0, 0);
         StartCoroutine(FollowAssociatedHero());
     }
 
@@ -26,7 +27,7 @@ public class HeroCanvasFollow : MonoBehaviour
     /// <returns></returns>
     private IEnumerator FollowAssociatedHero()
     {
-        while(_followHero != null)
+        while(!_followHero.IsUnityNull())
         {
             transform.position = _followHero.transform.position;
             yield return null;

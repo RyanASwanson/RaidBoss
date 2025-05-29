@@ -43,13 +43,17 @@ public class SBA_Meteor : SpecificBossAbilityFramework
         targetZone.SetActive(false);
 
         //If that direction is close to zero choose a random direction instead
-        while (targetZone != null &&
-            (Mathf.Abs(targetZone.transform.position.x - _storedTarget.transform.position.x) < .1f &&
-            Mathf.Abs(targetZone.transform.position.z - _storedTarget.transform.position.z) < .1f))
+        while (targetZone.IsUnityNull() &&
+               (Mathf.Abs(targetZone.transform.position.x - _storedTarget.transform.position.x) < .1f &&
+                Mathf.Abs(targetZone.transform.position.z - _storedTarget.transform.position.z) < .1f))
+        {
             yield return null;
+        }
 
-        if (targetZone != null)
+        if (!targetZone.IsUnityNull())
+        {
             targetZone.SetActive(true);
+        }
     }
 
     /// <summary>
@@ -61,11 +65,10 @@ public class SBA_Meteor : SpecificBossAbilityFramework
         Destroy(_storedFallingMeteor);
     }
 
-
-    
-
     #region Base Ability
-
+    /// <summary>
+    /// Displays the target zone of the ability
+    /// </summary>
     protected override void StartShowTargetZone()
     {
         _currentTargetZones.Add(Instantiate(_targetZone, _storedTargetLocation, Quaternion.identity));
@@ -80,6 +83,9 @@ public class SBA_Meteor : SpecificBossAbilityFramework
         base.StartShowTargetZone();
     }
 
+    /// <summary>
+    /// Starts the wind up of the ability
+    /// </summary>
     protected override void StartAbilityWindUp()
     {
         _storedFallingMeteor = Instantiate(_fallingMeteor, _storedTargetLocation, _fallingMeteor.transform.rotation);
@@ -88,6 +94,9 @@ public class SBA_Meteor : SpecificBossAbilityFramework
         base.StartAbilityWindUp();
     }
 
+    /// <summary>
+    /// Starts teh ability
+    /// </summary>
     protected override void AbilityStart()
     {
         FallingMeteorContact();

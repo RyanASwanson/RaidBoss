@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -28,15 +29,22 @@ public class SHP_ShamanManualProjectile : HeroProjectileFramework
         //Add all living heroes to the hero object list except for the shaman
         List<GameObject> travelToObjects = new List<GameObject>();
         
+        // Iterate through each living hero
         foreach(HeroBase hb in HeroesManager.Instance.GetCurrentLivingHeroes())
         {
-            if (hb.GetSpecificHeroScript() == _mySpecificHero) continue;
-
+            if (hb.GetSpecificHeroScript() == _mySpecificHero)
+            {
+                continue;
+            }
             travelToObjects.Add(hb.gameObject);
         }
 
-        if (totem != null)
+        // Check if a totem exists
+        if (!totem.IsUnityNull())
+        {
+            // Add the totem to targets that the projectile can travel to
             travelToObjects.Add(totem.gameObject);
+        }
 
         //Goes through the list of living heroes to determine which is the next target
         //Remove the hero from the list of heroObjects after find the target
@@ -78,7 +86,7 @@ public class SHP_ShamanManualProjectile : HeroProjectileFramework
         while(_targetsNotGoneTo.Count > 0)
         {
             //Makes sure there is a next hero in the list
-            if(_targetsNotGoneTo.Peek() != null)
+            if(!_targetsNotGoneTo.Peek().IsUnityNull())
             {
                 //Moves the projectile towards the next hero so long as it isn't too close
                 if(Vector3.Distance(gameObject.transform.position,_targetsNotGoneTo.Peek().transform.position) > .2f)
@@ -125,8 +133,7 @@ public class SHP_ShamanManualProjectile : HeroProjectileFramework
 
         _targetsNotGoneTo.Dequeue();
     }
-
-
+    
     #region Base Ability
     public override void SetUpProjectile(HeroBase heroBase)
     {

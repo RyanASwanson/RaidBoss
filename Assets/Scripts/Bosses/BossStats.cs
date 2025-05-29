@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -23,6 +24,7 @@ public class BossStats : BossChildrenFunctionality
     private float _bossDamageResistanceChangeOnStagger;
 
     private bool _bossStaggered = false;
+    private bool _isBossEnraged = false;
 
     private float _baseBossDamageMultiplier = 1;
     private float _bossDamageResistanceMultiplier =1;
@@ -178,22 +180,47 @@ public class BossStats : BossChildrenFunctionality
     #endregion
 
     #region Enrage
+    /// <summary>
+    /// Starts the enrage timer for the boss
+    /// </summary>
     private void StartEnrageTimer()
     {
-        if (_enrageCoroutine == null)
+        // Checks if the boss is already enraged
+        if (_isBossEnraged)
         {
+            // Stop as we don't need to start the enrage timer if the boss is already enraged
+            return;
+        }
+        
+        // Checks if the enrage timer is already active
+        if (_enrageCoroutine.IsUnityNull())
+        {
+            // Start the timer as the timer isn't active yet
             _enrageCoroutine = StartCoroutine(BossEnrageCounter());
+        }
+        else
+        {
+            Debug.LogWarning("Cannot start Enrage timer while it is already active");
         }
     }
 
+    /// <summary>
+    /// Stops the enrage timer
+    /// </summary>
     private void StopEnrageTimer()
     {
-        if (_enrageCoroutine != null)
+        // Check if the enrage process is active
+        if (!_enrageCoroutine.IsUnityNull())
         {
+            // Stop the enrage timer
             StopCoroutine(_enrageCoroutine);
         }
     }
 
+    /// <summary>
+    /// The process of counting down until the boss enrages
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator BossEnrageCounter()
     {
         while(_currentTimeUntilEnrage > 0)
@@ -205,6 +232,9 @@ public class BossStats : BossChildrenFunctionality
         EnrageMax();
     }
 
+    /// <summary>
+    /// Called when the boss reaches max enrage
+    /// </summary>
     private void EnrageMax()
     {
         _bossEnrageDamageMultiplier = _storedEnrageMultiplier;
@@ -287,7 +317,11 @@ public class BossStats : BossChildrenFunctionality
 
     public void DealStaggerToBoss(float stagger)
     {
-        if (_bossStaggered) return;
+        // Stop if the boss is already staggered
+        if (_bossStaggered)
+        {
+            return;
+        }
 
         _currentStaggerCounter += stagger;
         _myBossBase.InvokeBossStaggerDealt(stagger);

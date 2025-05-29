@@ -77,7 +77,10 @@ public abstract class SpecificBossFramework : MonoBehaviour
     protected virtual void CreateBossSpecificUI()
     {
         // Stops if there is no boss specific UI
-        if (_bossSpecificUI == null) return;
+        if (_bossSpecificUI.IsUnityNull())
+        {
+            return;
+        }
         
         _storedBossUI = GameUIManager.Instance.GetBossUIManager().AddBossUIToHolder(_bossSpecificUI);
 

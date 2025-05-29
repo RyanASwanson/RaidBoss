@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -57,19 +58,18 @@ public class SH_Shaman : SpecificHeroFramework
     #endregion
 
     #region Passive Abilities
+    /// <summary>
+    /// Activates the Shaman passive and spawns a totem
+    /// </summary>
     public override void ActivatePassiveAbilities()
     {
-        if (_currentTotem != null)
+        if (!_currentTotem.IsUnityNull())
+        {
+            // TODO replace with totem have a vanish animation
             Destroy(_currentTotem);
+        }
 
         _currentTotem = Instantiate(_totem, transform.position, Quaternion.identity);
     }
     #endregion
-
-
-
-    protected override void SubscribeToEvents()
-    {
-        base.SubscribeToEvents();
-    }
 }

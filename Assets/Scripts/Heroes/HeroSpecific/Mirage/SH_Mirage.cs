@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -44,7 +45,7 @@ public class SH_Mirage : SpecificHeroFramework
     /// <returns></returns>
     private IEnumerator MoveBasicTargetZone()
     {
-        while(this != null && _currentBasicTargetZone != null)
+        while(!this.IsUnityNull() && !_currentBasicTargetZone.IsUnityNull())
         {
             _currentBasicTargetZone.transform.position = FindHeroCloneMidpoint();
 
@@ -89,7 +90,6 @@ public class SH_Mirage : SpecificHeroFramework
     #endregion
 
     #region Manual Abilities
-
     /// <summary>
     /// Spawns the clone and sets them up with the needed functionality
     /// Called at the start of the battle

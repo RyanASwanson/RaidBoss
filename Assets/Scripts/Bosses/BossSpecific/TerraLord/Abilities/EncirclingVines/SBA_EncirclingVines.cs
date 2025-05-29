@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -12,7 +13,6 @@ public class SBA_EncirclingVines : SpecificBossAbilityFramework
     [SerializeField] private GameObject _encirclingVines;
 
     private GameObject _newestTargetZone;
-
     
     /// <summary>
     /// Makes the target zone and attack follow the hero it is targetting
@@ -21,7 +21,7 @@ public class SBA_EncirclingVines : SpecificBossAbilityFramework
     /// <returns></returns>
     protected IEnumerator FollowHeroTarget(GameObject followingObject)
     {
-        while(followingObject != null && _storedTarget != null)
+        while(!followingObject.IsUnityNull() && !_storedTarget.IsUnityNull())
         {
             //Set the position of the object to be at the location of the current target
             //The Y remains consistent
@@ -31,8 +31,6 @@ public class SBA_EncirclingVines : SpecificBossAbilityFramework
             yield return null;
         }
     }
-
-    
 
     #region Base Ability
     protected override void StartShowTargetZone()

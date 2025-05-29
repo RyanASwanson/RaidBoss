@@ -78,9 +78,8 @@ public class SHP_AstromancerManualProjectile : HeroProjectileFramework
 
     private IEnumerator UpdateVisuals()
     {
-        while(gameObject != null)
+        while(!gameObject.IsUnityNull())
         {
-            
             _visualsHolder.transform.Rotate(new Vector3(0, 0, Time.deltaTime * _rotationSpeed));
             yield return null;
         }

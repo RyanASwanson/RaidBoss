@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +11,7 @@ using UnityEngine.UI;
 public class StatCounter : MonoBehaviour
 {
     [SerializeField] private float _delayBetweenNodes;
+    private WaitForSeconds _waitBetweenNodes;
 
     [SerializeField] private List<Animator> _statNodes;
 
@@ -19,6 +22,19 @@ public class StatCounter : MonoBehaviour
     private const string RESET_NODE_ANIM_TRIGGER = "ResetNode";
 
     private Coroutine _showNodeCoroutine;
+
+    private void Start()
+    {
+        SetStartingValues();
+    }
+
+    /// <summary>
+    /// Sets any values that need to be set in start
+    /// </summary>
+    private void SetStartingValues()
+    {
+        _waitBetweenNodes = new WaitForSeconds(_delayBetweenNodes);
+    }
 
     /// <summary>
     /// Starts the process of showing stat nodes
@@ -39,37 +55,43 @@ public class StatCounter : MonoBehaviour
         for (int i = 0; i < _statNodes.Count; i++)
         {
             SpecificNodeAction(statNumber, i);
-            yield return new WaitForSeconds(_delayBetweenNodes);
-            
+            yield return _waitBetweenNodes;
         }
 
         _showNodeCoroutine = null;
     }
-
 
     /// <summary>
     /// Stops the process of showing nodes
     /// </summary>
     public void StopShowNodeProcess()
     {
-        if(_showNodeCoroutine != null)
+        if (!_showNodeCoroutine.IsUnityNull())
+        {
             StopCoroutine(_showNodeCoroutine);
+        }
     }
 
     /// <summary>
     /// Performs animations based on comparing the heroes stat and current position in loop
     /// </summary>
-    /// <param name="statNumber"></param> How much the hero has in the current stat
-    /// <param name="currentPos"></param> What position we are in the for loop
+    /// <param name="statNumber"> How much the hero has in the current stat </param> 
+    /// <param name="currentPos"> What position we are in the for loop </param> 
     private void SpecificNodeAction(int statNumber, int currentPos)
     {
         _statNodes[currentPos].SetTrigger(RESET_NODE_ANIM_TRIGGER);
 
-        if (currentPos == statNumber-1)
+        if (currentPos == statNumber - 1)
+        {
             _statNodes[currentPos].SetTrigger(HIGHLIGHT_NODE_FILL_ANIM_TRIGGER);
+        }
         else if (currentPos < statNumber)
+        {
             _statNodes[currentPos].SetTrigger(SHOW_NODE_FILL_ANIM_TRIGGER);
+        }
         else
+        {
             _statNodes[currentPos].SetTrigger(SHOW_NODE_EMPTY_ANIM_TRIGGER);
+        }
     }
 }

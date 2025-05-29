@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -85,18 +86,23 @@ public class GeneralHeroDamageArea : GeneralAbilityAreaFramework
 
     private void DealDamageAndStagger(float abilityDamage, float abilityStagger)
     {
-        if (_myHeroBase == null)
+        if (_myHeroBase.IsUnityNull())
         {
             Debug.Log("Cant Find Hero Base");
             return;
         }
-            
 
+        // Check if damage is more than 0 to prevent negative damage
         if (abilityDamage > 0)
+        {
             _myHeroBase.GetSpecificHeroScript().DamageBoss(abilityDamage * _damageMultiplier);
+        }
 
+        // Check if stagger is more than 0 to prevent negative damage
         if (abilityStagger > 0)
+        {
             _myHeroBase.GetSpecificHeroScript().StaggerBoss(abilityStagger * _staggerMultiplier);
+        }
     }
 
     #endregion

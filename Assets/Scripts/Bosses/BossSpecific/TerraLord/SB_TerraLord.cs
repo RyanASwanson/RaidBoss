@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -34,7 +35,10 @@ public class SB_TerraLord : SpecificBossFramework
     {
         SetStartingPassiveWeightMultiplier();
 
-        if (_passiveProcessCoroutine != null) return;
+        if (!_passiveProcessCoroutine.IsUnityNull())
+        {
+            return;
+        }
 
         _passiveProcessCoroutine = StartCoroutine(PassiveProcess());
     }
@@ -121,7 +125,12 @@ public class SB_TerraLord : SpecificBossFramework
     /// </summary>
     private void StopPassiveProcess()
     {
-        if (_passiveProcessCoroutine == null) return;
+        // Check if the passive is in process
+        if (_passiveProcessCoroutine.IsUnityNull())
+        {
+            // Stop as there is no passive to stop
+            return;
+        }
 
         StopCoroutine(_passiveProcessCoroutine);
         _passiveProcessCoroutine = null;
@@ -158,6 +167,9 @@ public class SB_TerraLord : SpecificBossFramework
     #endregion
 
     #region Base Boss
+    /// <summary>
+    /// Called when the fight begins.
+    /// </summary>
     protected override void StartFight()
     {
         base.StartFight();

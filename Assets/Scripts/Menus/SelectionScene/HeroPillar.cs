@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -34,8 +35,10 @@ public class HeroPillar : MonoBehaviour
     public void ShowHeroOnPillar(HeroSO heroSO, bool newHero)
     {
         //If there is a hero on the pillar remove them
-        if (_currentHeroVisual != null)
+        if (!_currentHeroVisual.IsUnityNull())
+        {
             RemoveHeroOnPillar();
+        }
 
         //Spawn the hero onto the pillar
         _currentHeroVisual = Instantiate(heroSO.GetHeroPrefab(), _heroSpawnPoint.transform);

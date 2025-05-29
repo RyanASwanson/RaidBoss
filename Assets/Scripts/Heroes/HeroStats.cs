@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -400,7 +401,7 @@ public class HeroStats : HeroChildrenFunctionality
 
         // If the stat has an icon associated with it and creating icons is allowed
         // Tell the associated HeroUI manager to create a buff/debuff icon
-        if (buffDebuffIconSprite != null && createBuffIcons)
+        if (!buffDebuffIconSprite.IsUnityNull() && createBuffIcons)
         {
             _myHeroBase.GetHeroUIManager().CreateBuffDebuffIcon(buffDebuffIconSprite, changeValue > 0);
         }

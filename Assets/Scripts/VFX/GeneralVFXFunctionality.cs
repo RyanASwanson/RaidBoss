@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Contains general functionality for visual effects to use
+/// </summary>
 public class GeneralVFXFunctionality : MonoBehaviour
 {
     [SerializeField] private bool _hasLifeTime;
