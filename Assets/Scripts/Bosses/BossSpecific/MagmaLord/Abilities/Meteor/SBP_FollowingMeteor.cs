@@ -82,7 +82,7 @@ public class SBP_FollowingMeteor : BossProjectileFramework
     /// Provides the projectile with any additional information it may need
     /// </summary>
     /// <param name="heroBase"></param>
-    public void AdditionalSetup(HeroBase heroBase)
+    public void AdditionalSetUp(HeroBase heroBase)
     {
         StartProjectileMovement(heroBase);
     }

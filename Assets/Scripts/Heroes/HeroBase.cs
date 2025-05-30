@@ -73,11 +73,11 @@ public class HeroBase : MonoBehaviour
     {
         CreateHeroPrefab(newSO);
 
-        SetupChildren();
+        SetUpChildren();
 
         SetHeroSO(newSO);
 
-        UIManagerSetup();
+        UIManagerSetUp();
     }
 
     /// <summary>
@@ -96,13 +96,13 @@ public class HeroBase : MonoBehaviour
     /// <summary>
     /// Sets up all scripts that inherit from HeroChildrenFunctionality
     /// </summary>
-    public void SetupChildren()
+    public void SetUpChildren()
     {
         foreach (HeroChildrenFunctionality childFunc in GetComponentsInChildren<HeroChildrenFunctionality>())
-            childFunc.ChildFuncSetup(this);
+            childFunc.ChildFuncSetUp(this);
     }
 
-    private void UIManagerSetup()
+    private void UIManagerSetUp()
     {
         if (!_associatedSO.GetHasUIManager()) return;
 

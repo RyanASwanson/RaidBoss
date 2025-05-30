@@ -88,7 +88,7 @@ public class MirageClone : SpecificHeroFramework
     /// Performs set up unique to the mirage
     /// </summary>
     /// <param name="mirage"> The hero associated with the clone </param>
-    public void AdditionalSetup(SH_Mirage mirage)
+    public void AdditionalSetUp(SH_Mirage mirage)
     {
         _mirageOwner = mirage;
 

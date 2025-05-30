@@ -17,9 +17,9 @@ public class SB_GlacialLord : SpecificBossFramework
 
     private UnityEvent<GlacialLord_FrostFiend> _frostFiendSpawned = new();
 
-    public override void SetupSpecificBoss(BossBase bossBase)
+    public override void SetUpSpecificBoss(BossBase bossBase)
     {
-        base.SetupSpecificBoss(bossBase);
+        base.SetUpSpecificBoss(bossBase);
         StartCoroutine(SpawnStartingFrostFiends());
     }
 
@@ -43,8 +43,8 @@ public class SB_GlacialLord : SpecificBossFramework
         newFiend.transform.LookAt(transform);
         newFiend.transform.eulerAngles = new Vector3(0, newFiend.transform.eulerAngles.y, 0);
 
-        newFiend.SetupMinion(_myBossBase, this);
-        newFiend.AdditionalSetup(_minionFreezeDuration);
+        newFiend.SetUpMinion(_myBossBase, this);
+        newFiend.AdditionalSetUp(_minionFreezeDuration);
 
         _allFrostFiends.Add(newFiend.GetComponent<GlacialLord_FrostFiend>());
 

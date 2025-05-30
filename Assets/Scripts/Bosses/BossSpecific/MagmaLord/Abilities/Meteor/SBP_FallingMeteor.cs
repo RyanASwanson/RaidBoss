@@ -24,7 +24,7 @@ public class SBP_FallingMeteor : BossProjectileFramework
 
     #region Base Ability
 
-    public void AdditionalSetup(GameObject target)
+    public void AdditionalSetUp(GameObject target)
     {
         StartCoroutine(LookAtTarget(target));
     }

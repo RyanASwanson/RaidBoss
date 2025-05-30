@@ -42,10 +42,10 @@ public class BossStats : BossChildrenFunctionality
     /// <param name="bossSO"> The scriptable object of the boss </param>
     private void BossSOAssigned(BossSO bossSO)
     {
-        StatsSetup(bossSO);
+        StatsSetUp(bossSO);
     }
     
-    private void StatsSetup(BossSO bossSO)
+    private void StatsSetUp(BossSO bossSO)
     {
         //Set the boss max health to be the max hp from the SO and multiplied by the difficulty modifier
         _bossMaxHealth = bossSO.GetMaxHP() * 

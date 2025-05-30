@@ -46,7 +46,7 @@ public class HeroStats : HeroChildrenFunctionality
     /// Assigns the values of the stats after the heroSO is assigned
     /// </summary>
     /// <param name="heroSO"></param>
-    private void StatsSetup(HeroSO heroSO)
+    private void StatsSetUp(HeroSO heroSO)
     {
         SetUpDefaultStats(heroSO);
 
@@ -472,9 +472,9 @@ public class HeroStats : HeroChildrenFunctionality
     #endregion
     
     #region Base Hero
-    public override void ChildFuncSetup(HeroBase heroBase)
+    public override void ChildFuncSetUp(HeroBase heroBase)
     {
-        base.ChildFuncSetup(heroBase);
+        base.ChildFuncSetUp(heroBase);
     }
 
     public override void SubscribeToEvents()
@@ -486,7 +486,7 @@ public class HeroStats : HeroChildrenFunctionality
 
     protected override void HeroSOAssigned(HeroSO heroSO)
     {
-        StatsSetup(heroSO);
+        StatsSetUp(heroSO);
         base.HeroSOAssigned(heroSO);
     }
 

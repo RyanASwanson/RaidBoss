@@ -4,7 +4,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
-/// Provides the functionality for the Astromancer's manual ability
+/// Provides the functionality for the Astromancers manual ability.
+/// SHP stands for Specific Hero Projectile
 /// </summary>
 public class SHP_AstromancerManualProjectile : HeroProjectileFramework
 {
@@ -120,13 +121,17 @@ public class SHP_AstromancerManualProjectile : HeroProjectileFramework
             //Stops the looping of the vfx
             generalVFX.SetLoopOfParticleSystems(false);
             //Makes the vfx not childed to the ability
-            generalVFX.Detach();
+            generalVFX.DetachVisualEffect();
             //Starts the destruction of the vfx
             generalVFX.StartDelayedLifetime();
         }
     }
 
     #region Base Ability
+    /// <summary>
+    /// Performs the needed set up for the projectile
+    /// </summary>
+    /// <param name="heroBase"></param>
     public override void SetUpProjectile(HeroBase heroBase)
     {
         base.SetUpProjectile(heroBase);
@@ -135,10 +140,12 @@ public class SHP_AstromancerManualProjectile : HeroProjectileFramework
         StartProcesses();
     }
 
+    /// <summary>
+    /// Subscribes to any needed events
+    /// </summary>
     private void SubscribeToEvents()
     {
         _myHeroBase.GetHeroStartedMovingEvent().AddListener(StopManual);
     }
-
     #endregion
 }

@@ -149,9 +149,9 @@ public class SBA_CrystalBarrage : SpecificBossAbilityFramework
     #endregion
 
     #region Base Ability
-    public override void AbilitySetup(BossBase bossBase)
+    public override void AbilitySetUp(BossBase bossBase)
     {
-        base.AbilitySetup(bossBase);
+        base.AbilitySetUp(bossBase);
         CalculateTargetLocations();
     }
 

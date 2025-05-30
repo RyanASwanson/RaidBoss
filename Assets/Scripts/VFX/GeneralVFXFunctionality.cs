@@ -11,7 +11,9 @@ public class GeneralVFXFunctionality : MonoBehaviour
     [SerializeField] private float _lifeTime;
 
     [Space]
+    [Tooltip("If the visual effect detaches from its parent")]
     [SerializeField] private bool _hasDetachTime;
+    [Tooltip("The time before the visual effect detaches from its parent")]
     [SerializeField] private float _detachTime;
 
     [Space]
@@ -21,29 +23,24 @@ public class GeneralVFXFunctionality : MonoBehaviour
     void Start()
     {
         if (_hasLifeTime)
+        {
             DestroyOverLifeTime();
+        }
 
         if (_hasDetachTime)
         {
             if (_detachTime == 0)
-                Detach();
+            {
+                DetachVisualEffect();
+            }
             else
+            {
                 StartCoroutine(DetachProcess());
+            }
         }
-            
     }
 
-    private IEnumerator DetachProcess()
-    {
-        yield return new WaitForSeconds(_detachTime);
-        Detach();
-    }
-
-    public void Detach()
-    {
-        transform.SetParent(null);
-    }
-
+    #region Visual Effect Destruction
 
     public void StartDelayedLifetime()
     {
@@ -54,6 +51,29 @@ public class GeneralVFXFunctionality : MonoBehaviour
     {
         Destroy(gameObject, _lifeTime);
     }
+
+    #endregion
+
+    #region Visual Effect Detaching
+    /// <summary>
+    /// Waits before detaching the visual effect from its parent
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator DetachProcess()
+    {
+        yield return new WaitForSeconds(_detachTime);
+        DetachVisualEffect();
+    }
+
+    /// <summary>
+    /// Detaches the visual effect from its parent
+    /// </summary>
+    public void DetachVisualEffect()
+    {
+        transform.SetParent(null);
+    }
+    
+    #endregion
 
     public void SetLoopOfParticleSystems(bool shouldLoop)
     {

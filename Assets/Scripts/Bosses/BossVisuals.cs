@@ -131,9 +131,9 @@ public class BossVisuals : BossChildrenFunctionality
 
     }
 
-    public override void ChildFuncSetup(BossBase bossBase)
+    public override void ChildFuncSetUp(BossBase bossBase)
     {
-        base.ChildFuncSetup(bossBase);
+        base.ChildFuncSetUp(bossBase);
 
         SetVisualObjectBase(bossBase.GetSpecificBossScript().GetBossVisualBase());
         _visualObjectBase.transform.eulerAngles = new Vector3(0, 180, 0);

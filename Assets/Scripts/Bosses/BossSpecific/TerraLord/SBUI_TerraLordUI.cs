@@ -94,7 +94,6 @@ public class SBUI_TerraLordUI : SpecificBossUIFramework
             _passiveBars[barPos].ResetTrigger(PASSIVE_BAR_SHOW_ANIM_TRIGGER);
             _passiveBars[barPos].SetTrigger(PASSIVE_BAR_HIDE_ANIM_TRIGGER);
         }
-            
     }
 
     /// <summary>
@@ -134,10 +133,8 @@ public class SBUI_TerraLordUI : SpecificBossUIFramework
             
     }
 
-
-
     #region Base Boss UI
-    public override void SetupBossSpecificUIFunctionality(BossBase bossBase, SpecificBossFramework specificBoss)
+    public override void SetUpBossSpecificUIFunctionality(BossBase bossBase, SpecificBossFramework specificBoss)
     {
         _terraLordFunctionality = (SB_TerraLord)specificBoss;
 
@@ -145,9 +142,8 @@ public class SBUI_TerraLordUI : SpecificBossUIFramework
         _startingPassiveBarValue = (_passiveBars.Count - 1) / 2;
         _previousPassiveBarValue = _startingPassiveBarValue;
 
-        base.SetupBossSpecificUIFunctionality(bossBase, specificBoss);
+        base.SetUpBossSpecificUIFunctionality(bossBase, specificBoss);
     }
-
 
     protected override void SubscribeToEvents()
     {

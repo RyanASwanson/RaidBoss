@@ -80,7 +80,7 @@ public class SH_Fae : SpecificHeroFramework
 
             newestProjectile.GetComponent<SHP_FaeBasicProjectile>().SetUpProjectile(_myHeroBase);
 
-            //Performs the setup for the damage area so that it knows it's owner
+            //Performs the set up for the damage area so that it knows it's owner
             newestProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(_myHeroBase);
         }
     }
@@ -283,7 +283,7 @@ public class SH_Fae : SpecificHeroFramework
     
     #region Base Hero
     /// <summary>
-    /// Performs setup for the specific hero
+    /// Performs set up for the specific hero
     /// </summary>
     /// <param name="heroBase"></param>
     /// <param name="heroSO"></param>

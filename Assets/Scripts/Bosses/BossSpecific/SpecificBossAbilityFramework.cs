@@ -42,7 +42,7 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     /// Sets up the ability with the boss base and specific boss framework
     /// </summary>
     /// <param name="bossBase"></param>
-    public virtual void AbilitySetup(BossBase bossBase)
+    public virtual void AbilitySetUp(BossBase bossBase)
     {
         _myBossBase = bossBase;
         _mySpecificBoss = bossBase.GetSpecificBossScript();

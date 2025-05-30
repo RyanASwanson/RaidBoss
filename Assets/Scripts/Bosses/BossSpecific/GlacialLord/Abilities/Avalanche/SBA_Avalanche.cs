@@ -75,7 +75,7 @@ public class SBA_Avalanche : SpecificBossAbilityFramework
         //Sets up the projectile
         SBP_Avalanche avalanche = _storedAvalanche.GetComponent<SBP_Avalanche>();
         avalanche.SetUpProjectile(_myBossBase);
-        avalanche.AdditionalSetup(_storedTarget.transform.position);
+        avalanche.AdditionalSetUp(_storedTarget.transform.position);
 
         base.AbilityStart();
     }

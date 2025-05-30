@@ -6,7 +6,7 @@ public abstract class BossChildrenFunctionality : MonoBehaviour
 {
     protected BossBase _myBossBase;
     
-    public virtual void ChildFuncSetup(BossBase bossBase)
+    public virtual void ChildFuncSetUp(BossBase bossBase)
     {
         _myBossBase = bossBase;
         SetUpInstance();

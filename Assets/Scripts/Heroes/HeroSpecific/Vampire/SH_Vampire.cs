@@ -40,7 +40,7 @@ public class SH_Vampire : SpecificHeroFramework
         spawnedProjectile.transform.LookAt(BossBase.Instance.transform);
         spawnedProjectile.transform.eulerAngles = new Vector3(0, spawnedProjectile.transform.eulerAngles.y, 0);
 
-        //Does the universal projectile setup
+        //Does the universal projectile set up
         SHP_VampireBasicProjectile projectileFunc = spawnedProjectile.GetComponent<SHP_VampireBasicProjectile>();
         projectileFunc.SetUpProjectile(_myHeroBase);
         projectileFunc.AdditionalSetup(this);

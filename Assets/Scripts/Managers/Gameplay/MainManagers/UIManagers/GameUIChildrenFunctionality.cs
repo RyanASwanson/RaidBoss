@@ -14,6 +14,18 @@ public abstract class GameUIChildrenFunctionality : MonoBehaviour
     {
         SubscribeToEvents();
     }
+
+    /// <summary>
+    /// Establishes the Instance for any script inheriting from this script
+    /// </summary>
+    protected virtual void SetUpInstance()
+    {
+        
+    }
+    
+    /// <summary>
+    /// Subscribes to any events
+    /// </summary>
     protected abstract void SubscribeToEvents();
 
 }

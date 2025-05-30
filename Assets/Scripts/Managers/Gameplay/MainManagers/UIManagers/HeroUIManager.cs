@@ -86,7 +86,7 @@ public class HeroUIManager : GameUIChildrenFunctionality
         _associatedHeroBase = heroBase;
 
         GeneralSetup();
-        SetupBackground();
+        SetUpBackground();
         SetUpHeroIcons();
         GeneralUIIntroAnimation();
         SubscribeToEvents();
@@ -106,18 +106,15 @@ public class HeroUIManager : GameUIChildrenFunctionality
 
         _heroControlledIcon.color = _associatedHeroBase.GetHeroSO().GetHeroUIColor();
 
-
-
         _damageNumbersOrigin = heroVisuals.GetDamageNumbersOrigin();
         _healingNumbersOrigin = heroVisuals.GetHealingNumbersOrigin();
         _buffDebuffOrigin = heroVisuals.GetBuffDebuffOrigin();
         _abilityChargedOrigin = heroVisuals.GetAbilityReChargedPopupIconOrigin();
     }
 
-    private void SetupBackground()
+    private void SetUpBackground()
     {
         _backgroundImage.color = _associatedHeroBase.GetHeroSO().GetHeroUIColor();
-
     }
 
     private void SetUpHeroIcons()

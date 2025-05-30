@@ -135,12 +135,7 @@ public class SHP_ShamanManualProjectile : HeroProjectileFramework
     }
     
     #region Base Ability
-    public override void SetUpProjectile(HeroBase heroBase)
-    {
-        base.SetUpProjectile(heroBase);
-    }
-
-    public void AdditionalSetup(GameObject totem)
+    public void AdditionalSetUp(GameObject totem)
     {
         DetermineTargetOrder(totem);
 

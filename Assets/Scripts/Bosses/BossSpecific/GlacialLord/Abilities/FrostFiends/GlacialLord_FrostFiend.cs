@@ -16,7 +16,7 @@ public class GlacialLord_FrostFiend : BossMinionBase
     private bool _minionFrozen;
     private float _freezeDuration;
 
-    public void AdditionalSetup(float freezeDuration)
+    public void AdditionalSetUp(float freezeDuration)
     {
         _freezeDuration = freezeDuration;
     }

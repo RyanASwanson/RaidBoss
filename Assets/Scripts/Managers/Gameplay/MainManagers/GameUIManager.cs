@@ -24,7 +24,7 @@ public class GameUIManager : MainGameplayManagerFramework
     /// <summary>
     /// Sets up all scripts that inherit from GameUIChildrenFunctionality
     /// </summary>
-    private void SetupChildrenUIManagers()
+    private void SetUpChildrenUIManagers()
     {
         foreach (GameUIChildrenFunctionality gameUIChildrenFunctionality
             in GetComponentsInChildren<GameUIChildrenFunctionality>())
@@ -44,7 +44,7 @@ public class GameUIManager : MainGameplayManagerFramework
     public override void SetUpMainManager()
     {
         base.SetUpMainManager();
-        SetupChildrenUIManagers();
+        SetUpChildrenUIManagers();
     }
     #endregion
 
@@ -64,3 +64,13 @@ public class GameUIManager : MainGameplayManagerFramework
     }    
     #endregion
 }
+
+/// <summary>
+/// Provides an enum to be used for the numbers that appear after damage/stagger/healing/etc.
+/// </summary>
+public enum EDamageNumberType
+{
+    Damage,
+    Stagger,
+    Healing
+};

@@ -84,7 +84,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
         
         _storedBossUI = GameUIManager.Instance.GetBossUIManager().AddBossUIToHolder(_bossSpecificUI);
 
-        _storedBossUI.GetComponent<SpecificBossUIFramework>().SetupBossSpecificUIFunctionality(_myBossBase, this);
+        _storedBossUI.GetComponent<SpecificBossUIFramework>().SetUpBossSpecificUIFunctionality(_myBossBase, this);
     }
 
     #endregion
@@ -446,10 +446,10 @@ public abstract class SpecificBossFramework : MonoBehaviour
     }
 
     /// <summary>
-    /// Performs any setup that is unique to the boss
+    /// Performs any set up that is unique to the boss
     /// </summary>
     /// <param name="bossBase"> The base of the boss </param>
-    public virtual void SetupSpecificBoss(BossBase bossBase)
+    public virtual void SetUpSpecificBoss(BossBase bossBase)
     {
         _myBossBase = bossBase;
         CreateBossSpecificUI();

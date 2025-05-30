@@ -301,9 +301,9 @@ public class HeroVisuals : HeroChildrenFunctionality
     }
 
     #region Base Hero
-    public override void ChildFuncSetup(HeroBase heroBase)
+    public override void ChildFuncSetUp(HeroBase heroBase)
     {
-        base.ChildFuncSetup(heroBase);
+        base.ChildFuncSetUp(heroBase);
 
         HeroLevelIntroAnimation();
     }

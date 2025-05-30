@@ -99,7 +99,7 @@ public class SBP_Avalanche : BossProjectileFramework
         base.SetUpProjectile(bossBase);
     }
 
-    public void AdditionalSetup(Vector3 lookDirection)
+    public void AdditionalSetUp(Vector3 lookDirection)
     {
         ProjectileLookAt(lookDirection);
         StartProjectileMovement();

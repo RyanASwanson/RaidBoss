@@ -11,9 +11,9 @@ public class SBA_Frostbite : SpecificBossAbilityFramework
 
     private SB_GlacialLord _glacialLord;
 
-    public override void AbilitySetup(BossBase bossBase)
+    public override void AbilitySetUp(BossBase bossBase)
     {
-        base.AbilitySetup(bossBase);
+        base.AbilitySetUp(bossBase);
         _glacialLord = (SB_GlacialLord)_mySpecificBoss;
     }
 

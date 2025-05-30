@@ -71,7 +71,7 @@ public class BossBase : MonoBehaviour
         _associatedBossScript = _associatedBossGameObject.GetComponent<SpecificBossFramework>();
 
         //Tells the specific boss script to set up
-        _associatedBossScript.SetupSpecificBoss(this);
+        _associatedBossScript.SetUpSpecificBoss(this);
     }
 
     /// <summary>
@@ -81,7 +81,7 @@ public class BossBase : MonoBehaviour
     {
         foreach (BossChildrenFunctionality childFunc in GetComponentsInChildren<BossChildrenFunctionality>())
         {
-            childFunc.ChildFuncSetup(this);
+            childFunc.ChildFuncSetUp(this);
         }
     }
 
@@ -92,7 +92,7 @@ public class BossBase : MonoBehaviour
     {
         foreach(SpecificBossAbilityFramework bossAbility in GetComponentsInChildren<SpecificBossAbilityFramework>())
         {
-            bossAbility.AbilitySetup(this);
+            bossAbility.AbilitySetUp(this);
         }
     }
 

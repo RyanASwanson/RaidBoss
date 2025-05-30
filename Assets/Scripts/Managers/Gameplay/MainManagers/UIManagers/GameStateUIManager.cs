@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 /// <summary>
 /// Handles the ui of the game state in gameplay such as win/lose
 /// </summary>
@@ -36,7 +35,6 @@ public class GameStateUIManager : GameUIChildrenFunctionality
         yield return new WaitForSeconds(_loseUIDelay);
         _loseUI.SetActive(true);
     }
-
 
     #region BaseManager
     public override void ChildFuncSetup()

@@ -9,7 +9,7 @@ public abstract class HeroChildrenFunctionality : MonoBehaviour
 {
     protected HeroBase _myHeroBase;
 
-    public virtual void ChildFuncSetup(HeroBase heroBase)
+    public virtual void ChildFuncSetUp(HeroBase heroBase)
     {
         _myHeroBase = heroBase;
         SubscribeToEvents();
