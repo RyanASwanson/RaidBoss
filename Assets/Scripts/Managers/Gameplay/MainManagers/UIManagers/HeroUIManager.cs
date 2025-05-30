@@ -9,6 +9,8 @@ using UnityEngine.UI;
 /// </summary>
 public class HeroUIManager : GameUIChildrenFunctionality
 {
+    public static HeroUIManager[] Instances = new HeroUIManager[5];
+    
     [Header("Bottom UI")]
     [SerializeField] private Animator _heroUIGeneralAnimator;
 
@@ -394,9 +396,12 @@ public class HeroUIManager : GameUIChildrenFunctionality
     }
 
     #region BaseManager
-    public override void ChildFuncSetup()
+    /// <summary>
+    /// Performs the initial set up on the Hero UI Manager
+    /// </summary>
+    public override void ChildFuncSetUp()
     {
-        //TODO Why is this commented out
+        // Overridden to not call base.ChildFuncSetUp so the event subscription happens later
         //base.ChildFuncSetup();
     }
 

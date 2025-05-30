@@ -13,7 +13,6 @@ public class SHP_AlchemistPassiveProjectile : HeroProjectileFramework
 
     [Space]
     [SerializeField] private float _moveTime;
-
     
     /// <summary>
     /// The process of moving the passive projectile from where its created

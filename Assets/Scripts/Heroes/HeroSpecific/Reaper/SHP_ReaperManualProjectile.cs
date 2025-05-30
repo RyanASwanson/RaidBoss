@@ -11,8 +11,7 @@ using UnityEngine;
 public class SHP_ReaperManualProjectile : HeroProjectileFramework
 {
     [SerializeField] private float _projectileSpeed;
-
-
+    
     private IEnumerator MoveProjectile()
     {
         while (true)
@@ -21,13 +20,16 @@ public class SHP_ReaperManualProjectile : HeroProjectileFramework
                 _myHeroBase.gameObject.transform.position, _projectileSpeed * Time.deltaTime);
 
             transform.LookAt(_myHeroBase.gameObject.transform.position);
-            transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+            transform.eulerAngles.Set(0, transform.eulerAngles.y, 0);
             yield return null;
         }
     }
 
-
     #region Base Ability
+    /// <summary>
+    /// Performs needed set up on the projectile
+    /// </summary>
+    /// <param name="heroBase"> The associated hero </param>
     public override void SetUpProjectile(HeroBase heroBase)
     {
         base.SetUpProjectile(heroBase);

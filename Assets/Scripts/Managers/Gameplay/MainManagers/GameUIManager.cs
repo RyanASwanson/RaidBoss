@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,7 +20,6 @@ public class GameUIManager : MainGameplayManagerFramework
     [SerializeField] private GameStateUIManager _gameStateUIManager;
 
     private int _heroUIManagersAssigned = 0;
-
     
     /// <summary>
     /// Sets up all scripts that inherit from GameUIChildrenFunctionality
@@ -27,13 +27,15 @@ public class GameUIManager : MainGameplayManagerFramework
     private void SetUpChildrenUIManagers()
     {
         foreach (GameUIChildrenFunctionality gameUIChildrenFunctionality
-            in GetComponentsInChildren<GameUIChildrenFunctionality>())
-            gameUIChildrenFunctionality.ChildFuncSetup() ;
+                 in GetComponentsInChildren<GameUIChildrenFunctionality>())
+        {
+            gameUIChildrenFunctionality.ChildFuncSetUp();
+        }
     }
 
     #region BaseManager
     /// <summary>
-    /// Establishes the Instance for the GameUIManager
+    /// Establishes the Instance for the Game UI Manager
     /// </summary>
     public override void SetUpInstance()
     {
@@ -41,6 +43,9 @@ public class GameUIManager : MainGameplayManagerFramework
         Instance = this;
     }
 
+    /// <summary>
+    /// Performs the set up for the Game UI Manager
+    /// </summary>
     public override void SetUpMainManager()
     {
         base.SetUpMainManager();
@@ -48,16 +53,11 @@ public class GameUIManager : MainGameplayManagerFramework
     }
     #endregion
 
-    #region Getters
-    public BossUIManager GetBossUIManager() => _bossUIManager;
-    public HeroUIManager GetHeroUIManagerAt(int pos) => _heroUIManagers[pos];
-    public PauseUIManager GetPauseManager() => _pauseUIManager;
-    public GameStateUIManager GetGameStateUIManager() => _gameStateUIManager;
-    #endregion
-
     #region Setters
     public HeroUIManager SetAssociatedHeroUIManager(HeroBase heroBase)
     {
+        HeroUIManager.Instances[_heroUIManagersAssigned] = _heroUIManagers[_heroUIManagersAssigned];
+        
         _heroUIManagers[_heroUIManagersAssigned++].AssignSpecificHero(heroBase);
 
         return _heroUIManagers[_heroUIManagersAssigned-1];

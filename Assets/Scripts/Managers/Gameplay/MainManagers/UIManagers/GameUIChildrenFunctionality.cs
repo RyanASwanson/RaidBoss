@@ -10,7 +10,7 @@ using TMPro;
 /// </summary>
 public abstract class GameUIChildrenFunctionality : MonoBehaviour
 {
-    public virtual void ChildFuncSetup()
+    public virtual void ChildFuncSetUp()
     {
         SubscribeToEvents();
     }

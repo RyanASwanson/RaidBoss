@@ -7,6 +7,8 @@ using UnityEngine;
 /// </summary>
 public class GameStateUIManager : GameUIChildrenFunctionality
 {
+    public static GameStateUIManager Instance;
+    
     [Header("Game Conclusion")]
     [SerializeField] private GameObject _winUI;
     [SerializeField] private float _winUIDelay;
@@ -37,19 +39,22 @@ public class GameStateUIManager : GameUIChildrenFunctionality
     }
 
     #region BaseManager
-    public override void ChildFuncSetup()
+    /// <summary>
+    /// Establishes the Instance for the Game State UI Manager
+    /// </summary>
+    protected override void SetUpInstance()
     {
-        base.ChildFuncSetup();
+        base.SetUpInstance();
+        Instance = this;
     }
 
+    /// <summary>
+    /// Subscribes to all needed events
+    /// </summary>
     protected override void SubscribeToEvents()
     {
         GameStateManager.Instance.GetBattleWonEvent().AddListener(BattleWinUI);
         GameStateManager.Instance.GetBattleLostEvent().AddListener(BattleLoseUI);
     }
-    #endregion
-
-    #region Getters
-
     #endregion
 }

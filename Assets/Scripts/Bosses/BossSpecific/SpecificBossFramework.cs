@@ -82,7 +82,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
             return;
         }
         
-        _storedBossUI = GameUIManager.Instance.GetBossUIManager().AddBossUIToHolder(_bossSpecificUI);
+        _storedBossUI = BossUIManager.Instance.AddBossUIToHolder(_bossSpecificUI);
 
         _storedBossUI.GetComponent<SpecificBossUIFramework>().SetUpBossSpecificUIFunctionality(_myBossBase, this);
     }
@@ -115,7 +115,10 @@ public abstract class SpecificBossFramework : MonoBehaviour
     /// <param name="heroBase"></param>
     protected virtual void RemoveHeroTarget(HeroBase heroBase)
     {
-        if (!_bossAttackTargets.Contains(heroBase)) return;
+        if (!_bossAttackTargets.Contains(heroBase))
+        {
+            return;
+        }
 
         _bossAttackTargets.Remove(heroBase);
     }
@@ -150,7 +153,9 @@ public abstract class SpecificBossFramework : MonoBehaviour
     {
         //If there is no aggro override just check the current living heroes
         if (overrideTargets.Count < 1)
+        {
             return DetermineAggroFromHeroes(attackTargets);
+        }
         //If there are aggro overrides just check them
         return DetermineAggroFromHeroes(overrideTargets);
     }

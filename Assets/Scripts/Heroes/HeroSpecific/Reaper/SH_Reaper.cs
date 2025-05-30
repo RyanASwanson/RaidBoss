@@ -23,8 +23,8 @@ public class SH_Reaper : SpecificHeroFramework
 
     public override void ActivateBasicAbilities()
     {
-        //Doesn't use base.basic ability
-
+        //Doesn't use base.ActivateBasicAbilities to not start a new cooldown
+        
         CreateBasicAbilityProjectile();
     }
 
@@ -72,7 +72,7 @@ public class SH_Reaper : SpecificHeroFramework
     }
 
     /// <summary>
-    /// Upon the death override ocurring the Reaper stops taking damage and healing,
+    /// Upon the death override occurring the Reaper stops taking damage and healing,
     /// persists for a set period of time, then has the death override removed and dies
     /// </summary>
     /// <returns></returns>
@@ -85,7 +85,6 @@ public class SH_Reaper : SpecificHeroFramework
         _myHeroBase.GetHeroStats().KillHero();
     }
     #endregion
-    
     
     protected override void BattleStarted()
     {
