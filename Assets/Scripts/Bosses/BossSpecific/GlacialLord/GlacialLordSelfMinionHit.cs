@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Functionality for the Glacial Lord Minions to get frozen by boss attacks
+/// </summary>
 public class GlacialLordSelfMinionHit : MonoBehaviour
 {
     [SerializeField] private bool _contactOnCollision;
@@ -18,12 +21,9 @@ public class GlacialLordSelfMinionHit : MonoBehaviour
         {
             if (Vector3.Distance(transform.position, fiend.transform.position) < _distance)
             {
-                //if (fiend.IsMinionFrozen()) return false;
-
                 fiend.FreezeMinion();
                 return true;
             }
-                
         }
 
         return false;

@@ -50,7 +50,7 @@ public class HeroStats : HeroChildrenFunctionality
     {
         SetUpDefaultStats(heroSO);
 
-        SetUpCurrentStats(heroSO);
+        SetUpCurrentStats();
 
         //Sets up the movement speed
         _myHeroBase.GetPathfinding().GetNavMeshAgent().speed = _currentMoveSpeed ;
@@ -77,8 +77,7 @@ public class HeroStats : HeroChildrenFunctionality
     /// <summary>
     /// Performs set up for the current stat values
     /// </summary>
-    /// <param name="heroSO"></param>
-    private void SetUpCurrentStats(HeroSO heroSO)
+    private void SetUpCurrentStats()
     {
         //Sets the starting current stat values
         _currentHealth = _heroMaxHealth;
@@ -143,9 +142,7 @@ public class HeroStats : HeroChildrenFunctionality
         //Find the difference between the starting and final health
         healthDifference = _currentHealth - healthDifference;
         _myHeroBase.InvokeHeroHealedEvent(healthDifference);
-        
     }
-
 
     /// <summary>
     /// Checks if the hero has died after taking damage
@@ -472,11 +469,6 @@ public class HeroStats : HeroChildrenFunctionality
     #endregion
     
     #region Base Hero
-    public override void ChildFuncSetUp(HeroBase heroBase)
-    {
-        base.ChildFuncSetUp(heroBase);
-    }
-
     public override void SubscribeToEvents()
     {
         base.SubscribeToEvents();

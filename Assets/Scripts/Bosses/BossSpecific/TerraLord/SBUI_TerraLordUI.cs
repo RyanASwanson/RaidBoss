@@ -130,10 +130,14 @@ public class SBUI_TerraLordUI : SpecificBossUIFramework
             _rightWarningIcon.SetInteger(WARNING_ICON_ANIM_INT, 0);
             _leftWarningIcon.SetInteger(WARNING_ICON_ANIM_INT, 0);
         }
-            
     }
 
     #region Base Boss UI
+    /// <summary>
+    /// Performs set up for boss ui
+    /// </summary>
+    /// <param name="bossBase"></param>
+    /// <param name="specificBoss"></param>
     public override void SetUpBossSpecificUIFunctionality(BossBase bossBase, SpecificBossFramework specificBoss)
     {
         _terraLordFunctionality = (SB_TerraLord)specificBoss;
@@ -145,6 +149,9 @@ public class SBUI_TerraLordUI : SpecificBossUIFramework
         base.SetUpBossSpecificUIFunctionality(bossBase, specificBoss);
     }
 
+    /// <summary>
+    /// Subscribes to any events
+    /// </summary>
     protected override void SubscribeToEvents()
     {
         _terraLordFunctionality.GetPassivePercentUpdatedEvent().AddListener(UpdatePassiveBars);

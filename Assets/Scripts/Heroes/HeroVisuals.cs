@@ -61,9 +61,12 @@ public class HeroVisuals : HeroChildrenFunctionality
     [SerializeField] private float _outlineWidth;
     [SerializeField] private Outline.Mode _outlineMode;
     private Outline _addedOutline;
-
-
+    
     #region Health Status
+    /// <summary>
+    /// Called when the hero takes damage
+    /// </summary>
+    /// <param name="damage"> The amount of damage </param>
     private void HeroDamaged(float damage)
     {
         CreateHeroDamagedVFX();
@@ -71,6 +74,10 @@ public class HeroVisuals : HeroChildrenFunctionality
         ShowHealthPopUp();
     }
 
+    /// <summary>
+    /// Called when the hero gets healed
+    /// </summary>
+    /// <param name="healing"> The amount of healing</param>
     private void HeroHealed(float healing)
     {
         CreateHeroHealedVFX();
@@ -113,7 +120,6 @@ public class HeroVisuals : HeroChildrenFunctionality
     {
         HeroDeathAnimation();
     }
-
     
     private void HeroHealthAboveHalf()
     {
@@ -293,7 +299,6 @@ public class HeroVisuals : HeroChildrenFunctionality
         _addedOutline.OutlineMode = _outlineMode;
     }
     #endregion
-
 
     private void AssignHeroSpecificAnimator()
     {

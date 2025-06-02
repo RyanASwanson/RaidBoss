@@ -24,7 +24,7 @@ public class GeneralBossDamageArea : GeneralAbilityAreaFramework
     [SerializeField] private float _exitDamage;
     [SerializeField] private UnityEvent<Collider> _exitEvent;
 
-    private List<HeroBase> _heroesToIgnore = new List<HeroBase>();
+    private List<HeroBase> _heroesToIgnore = new();
 
     #region Collision
     /// <summary>
@@ -43,7 +43,10 @@ public class GeneralBossDamageArea : GeneralAbilityAreaFramework
     /// <param name="collision"></param>
     private void OnTriggerEnter(Collider collision)
     {
-        if (!enabled) return;
+        if (!enabled)
+        {
+            return;
+        }
 
         HitHero(collision, _enterEvent, _enterDamage);
     }
@@ -54,7 +57,10 @@ public class GeneralBossDamageArea : GeneralAbilityAreaFramework
     /// <param name="collision"></param>
     private void OnTriggerStay(Collider collision)
     {
-        if (!enabled) return;
+        if (!enabled)
+        {
+            return;
+        }
 
         HitHero(collision, _stayEvent, _stayDamagePerTick);
     }
@@ -65,7 +71,10 @@ public class GeneralBossDamageArea : GeneralAbilityAreaFramework
     /// <param name="collision"></param>
     private void OnTriggerExit(Collider collision)
     {
-        if (!enabled) return;
+        if (!enabled)
+        {
+            return;
+        }
 
         HitHero(collision, _exitEvent, _exitDamage);
     }

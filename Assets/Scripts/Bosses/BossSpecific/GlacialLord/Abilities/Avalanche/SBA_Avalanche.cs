@@ -30,7 +30,7 @@ public class SBA_Avalanche : SpecificBossAbilityFramework
     protected override void StartShowTargetZone()
     {
         _storedTargetZone = Instantiate(_targetZone, transform.position, Quaternion.identity);
-        _storedTargetZone.transform.position = new Vector3(_storedTargetZone.transform.position.x,
+        _storedTargetZone.transform.position.Set(_storedTargetZone.transform.position.x,
             _specificAreaTarget.y, _storedTargetZone.transform.position.z);
 
         //Adds the newly spawn target zone into the list of target zones currently active
@@ -79,8 +79,7 @@ public class SBA_Avalanche : SpecificBossAbilityFramework
 
         base.AbilityStart();
     }
-
-
+    
     private Vector3 GetProjectileSpawnLocation()
     {
         Vector3 spawnLocation = transform.position;
@@ -92,6 +91,5 @@ public class SBA_Avalanche : SpecificBossAbilityFramework
 
         return spawnLocation;
     }
-
     #endregion
 }

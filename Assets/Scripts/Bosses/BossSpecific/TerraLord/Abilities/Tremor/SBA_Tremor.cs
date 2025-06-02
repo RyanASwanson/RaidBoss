@@ -11,12 +11,18 @@ public class SBA_Tremor : SpecificBossAbilityFramework
     [SerializeField] private GameObject _tremor;
 
     #region Base Ability
+    /// <summary>
+    /// Starts showing the target zone for the ability
+    /// </summary>
     protected override void StartShowTargetZone()
     {
         _currentTargetZones.Add(Instantiate(_targetZone, _specificAreaTarget, Quaternion.identity));
         base.StartShowTargetZone();
     }
 
+    /// <summary>
+    /// Starts the ability
+    /// </summary>
     protected override void AbilityStart()
     {
         GameObject storedTremor = Instantiate(_tremor, _specificAreaTarget, Quaternion.identity);

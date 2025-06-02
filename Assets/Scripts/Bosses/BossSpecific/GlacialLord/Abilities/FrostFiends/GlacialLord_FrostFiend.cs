@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GlacialLord_FrostFiend : BossMinionBase
 {
+    [SerializeField] private bool _canBeFrozenDuringFreeze;
+    
     [SerializeField] private Animator _frostFiendAnimator;
 
     private const string _fiendFrozenAnimTrigger = "FiendFrozen";
@@ -15,10 +17,13 @@ public class GlacialLord_FrostFiend : BossMinionBase
 
     private bool _minionFrozen;
     private float _freezeDuration;
+    
+    private WaitForSeconds _freezeWait;
 
     public void AdditionalSetUp(float freezeDuration)
     {
         _freezeDuration = freezeDuration;
+        _freezeWait = new WaitForSeconds(_freezeDuration);
     }
 
     public void BlizzardAttack()
@@ -39,7 +44,10 @@ public class GlacialLord_FrostFiend : BossMinionBase
     #region Freezing
     public void FreezeMinion()
     {
-        if (_minionFrozen) return;
+        if (!_canBeFrozenDuringFreeze && _minionFrozen)
+        {
+            return;
+        }
 
         _minionFrozen = true;
         FreezeAnim();
@@ -49,7 +57,7 @@ public class GlacialLord_FrostFiend : BossMinionBase
 
     private IEnumerator FreezeProcess()
     {
-        yield return new WaitForSeconds(_freezeDuration);
+        yield return _freezeWait;
         UnfreezeMinion();
     }
 

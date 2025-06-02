@@ -208,7 +208,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
     /// <param name="heroBase"></param>
     /// <param name="duration"></param>
     /// <returns></returns>
-    public virtual IEnumerator AggroOverride(HeroBase heroBase, float duration)
+    protected virtual IEnumerator AggroOverride(HeroBase heroBase, float duration)
     {
         _aggroOverrides.Add(heroBase);
         yield return new WaitForSeconds(duration);
@@ -221,7 +221,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
     /// Adds an ability to the list of attacks that the boss can randomly pick to use
     /// </summary>
     /// <param name="newAbility"></param>
-    private void AddAbilityToBossReadyAttacks(SpecificBossAbilityFramework newAbility)
+    protected virtual void AddAbilityToBossReadyAttacks(SpecificBossAbilityFramework newAbility)
     {
         _readyBossAttacks.Add(newAbility);
     }
@@ -230,7 +230,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
     /// Removes the next ability from the cooldown queue and adds it back into the list of
     /// available abilities that the boss can use
     /// </summary>
-    private void TakeAbilityFromQueueToReady()
+    protected virtual void TakeAbilityFromQueueToReady()
     {
         AddAbilityToBossReadyAttacks(_bossCooldownQueue.Dequeue());
     }
@@ -238,8 +238,8 @@ public abstract class SpecificBossFramework : MonoBehaviour
     /// <summary>
     /// Removes the ability that was just used and puts it at the end of the cooldown queue
     /// </summary>
-    /// <param name="newAbility"></param>
-    private void AddAbilityToEndOfCooldownQueue(SpecificBossAbilityFramework newAbility)
+    /// <param name="newAbility"> The ability we are removing from ready and into cooldown </param>
+    protected virtual void AddAbilityToEndOfCooldownQueue(SpecificBossAbilityFramework newAbility)
     {
         _readyBossAttacks?.Remove(newAbility);
         
@@ -251,7 +251,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
     /// Counter prevents the ability from immediately moving right back into the ready list
     /// When the counter is at max call RepetitionCounterAtMax
     /// </summary>
-    protected void IterateRepetitionCounter()
+    protected virtual void IterateRepetitionCounter()
     {
         // Increment the repetition counter
         _attackRepetitionCounter++;
@@ -265,7 +265,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
     /// Removes the iteration repetition counter
     /// Replaces it with TakeAbilityFromQueueToReady
     /// </summary>
-    protected void RepetitionCounterAtMax()
+    protected virtual void RepetitionCounterAtMax()
     {
         _myBossBase.GetBossAbilityUsedEvent().RemoveListener(IterateRepetitionCounter);
         _myBossBase.GetBossAbilityUsedEvent().AddListener(TakeAbilityFromQueueToReady);

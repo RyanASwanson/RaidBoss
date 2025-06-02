@@ -13,7 +13,6 @@ public class SBA_Entomb : SpecificBossAbilityFramework
 
     [SerializeField] private GameObject _targetZone;
     [SerializeField] private GameObject _entomb;
-
     
     /// <summary>
     /// Calculates the Y rotation of the target zone and attack
@@ -38,7 +37,6 @@ public class SBA_Entomb : SpecificBossAbilityFramework
         
         //Set the rotation of the attack
         _storedTargetRotation = Quaternion.Euler(new Vector3(0, randomYRotation, 0));
-
     }
 
     #region Base Ability
