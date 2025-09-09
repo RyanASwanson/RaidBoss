@@ -22,6 +22,7 @@ public class BossVisuals : BossChildrenFunctionality
     private Animator _bossSpecificAnimator;
 
     private const string SPECIFIC_BOSS_LEVEL_INTRO_ANIM_TRIGGER = "G_BossIntro";
+    private const string SPECIFIC_BOSS_IDLE_ANIM_TRIGGER = "G_BossIdle";
     private const string BOSS_STAGGER_ANIM_TRIGGER = "G_BossStagger";
     private const string BOSS_DEATH_ANIM_TRIGGER = "G_BossDeath";
 
@@ -111,6 +112,11 @@ public class BossVisuals : BossChildrenFunctionality
         StartBossSpecificAnimationTrigger(SPECIFIC_BOSS_LEVEL_INTRO_ANIM_TRIGGER);
     }
 
+    private void BossSpecificIdleAnimation()
+    {
+        StartBossSpecificAnimationTrigger(SPECIFIC_BOSS_IDLE_ANIM_TRIGGER);
+    }
+
     private void BossSpecificStaggerAnimTrigger()
     {
         StartBossSpecificAnimationTrigger(BOSS_STAGGER_ANIM_TRIGGER);
@@ -148,6 +154,8 @@ public class BossVisuals : BossChildrenFunctionality
         _bossSpecificAnimator = _myBossBase.GetSpecificBossScript().GetBossSpecificAnimator();
 
         BossSpecificLevelIntroTrigger();
+        
+        BossSpecificIdleAnimation();
     }
 
     #region Base Children Functionality

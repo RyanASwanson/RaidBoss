@@ -42,7 +42,7 @@ public class GameStateUIManager : GameUIChildrenFunctionality
     /// <summary>
     /// Establishes the Instance for the Game State UI Manager
     /// </summary>
-    protected override void SetUpInstance()
+    public override void SetUpInstance()
     {
         base.SetUpInstance();
         Instance = this;

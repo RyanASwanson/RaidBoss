@@ -11,6 +11,8 @@ public class GameUIManager : MainGameplayManagerFramework
 {
     public static GameUIManager Instance;
     
+    private GameUIChildrenFunctionality[] _childrenUIFunctionality;
+    
     [SerializeField] private BossUIManager _bossUIManager;
 
     [SerializeField] private List<HeroUIManager> _heroUIManagers;
@@ -20,6 +22,18 @@ public class GameUIManager : MainGameplayManagerFramework
     [SerializeField] private GameStateUIManager _gameStateUIManager;
 
     private int _heroUIManagersAssigned = 0;
+
+    /// <summary>
+    /// Sets up the instances for the scripts that inherit from GameUIChildrenFunctionality
+    /// </summary>
+    private void SetUpChildrenUIInstances()
+    {
+        foreach (GameUIChildrenFunctionality gameUIChildrenFunctionality
+                 in _childrenUIFunctionality)
+        {
+            gameUIChildrenFunctionality.SetUpInstance();
+        }
+    }
     
     /// <summary>
     /// Sets up all scripts that inherit from GameUIChildrenFunctionality
@@ -27,7 +41,7 @@ public class GameUIManager : MainGameplayManagerFramework
     private void SetUpChildrenUIManagers()
     {
         foreach (GameUIChildrenFunctionality gameUIChildrenFunctionality
-                 in GetComponentsInChildren<GameUIChildrenFunctionality>())
+                 in _childrenUIFunctionality)
         {
             gameUIChildrenFunctionality.ChildFuncSetUp();
         }
@@ -41,6 +55,9 @@ public class GameUIManager : MainGameplayManagerFramework
     {
         base.SetUpInstance();
         Instance = this;
+        _childrenUIFunctionality = GetComponentsInChildren<GameUIChildrenFunctionality>();
+        
+        SetUpChildrenUIInstances();
     }
 
     /// <summary>

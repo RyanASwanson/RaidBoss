@@ -324,7 +324,7 @@ public class BossUIManager : GameUIChildrenFunctionality
     /// <summary>
     /// Establishes the instance for the Boss UI Manager
     /// </summary>
-    protected override void SetUpInstance()
+    public override void SetUpInstance()
     {
         base.SetUpInstance();
         Instance = this;

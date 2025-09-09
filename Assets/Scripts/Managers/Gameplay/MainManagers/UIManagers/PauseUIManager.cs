@@ -42,7 +42,7 @@ public class PauseUIManager : GameUIChildrenFunctionality
     /// <summary>
     /// Establishes the Instance for the Pause UI Manager
     /// </summary>
-    protected override void SetUpInstance()
+    public override void SetUpInstance()
     {
         base.SetUpInstance();
         Instance = this;

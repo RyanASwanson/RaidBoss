@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class SBA_IcicleRain : SpecificBossAbilityFramework
 {
     [Space]
-    [SerializeField] private GameObject _icicleRain;
     [SerializeField] private GameObject _targetZone;
+    [SerializeField] private GameObject _icicleRain;
+    [SerializeField] private GameObject _icicleRainUpwardsVisual;
+    
 
     private GameObject _newestTargetZone;
 
@@ -36,6 +39,8 @@ public class SBA_IcicleRain : SpecificBossAbilityFramework
         _newestTargetZone = Instantiate(_targetZone, _storedTargetLocation, Quaternion.identity);
         //Adds the target area to the list of target areas
         _currentTargetZones.Add(_newestTargetZone);
+        
+        _newestTargetZone = Instantiate(_icicleRainUpwardsVisual, transform.position, Quaternion.identity);
 
         //Makes the target area follow the hero that is being targetted
         StartCoroutine(FollowHeroTarget(_newestTargetZone));

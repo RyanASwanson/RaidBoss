@@ -18,7 +18,7 @@ public abstract class GameUIChildrenFunctionality : MonoBehaviour
     /// <summary>
     /// Establishes the Instance for any script inheriting from this script
     /// </summary>
-    protected virtual void SetUpInstance()
+    public virtual void SetUpInstance()
     {
         
     }
