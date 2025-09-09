@@ -33,21 +33,25 @@ public class SBA_IcicleRain : SpecificBossAbilityFramework
     }
     
     #region Base Ability
+    protected override void AbilityPrep()
+    {
+        Instantiate(_icicleRainUpwardsVisual, transform.position, Quaternion.identity);
+        base.AbilityPrep();
+    }
+    
+    
     protected override void StartShowTargetZone()
     {
         //Spawns the target area
         _newestTargetZone = Instantiate(_targetZone, _storedTargetLocation, Quaternion.identity);
         //Adds the target area to the list of target areas
         _currentTargetZones.Add(_newestTargetZone);
-        
-        _newestTargetZone = Instantiate(_icicleRainUpwardsVisual, transform.position, Quaternion.identity);
 
         //Makes the target area follow the hero that is being targetted
         StartCoroutine(FollowHeroTarget(_newestTargetZone));
 
         base.StartShowTargetZone();
     }
-
 
     protected override void AbilityStart()
     {
