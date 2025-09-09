@@ -12,14 +12,8 @@ public class GameUIManager : MainGameplayManagerFramework
     public static GameUIManager Instance;
     
     private GameUIChildrenFunctionality[] _childrenUIFunctionality;
-    
-    [SerializeField] private BossUIManager _bossUIManager;
 
     [SerializeField] private List<HeroUIManager> _heroUIManagers;
-
-    [SerializeField] private PauseUIManager _pauseUIManager;
-
-    [SerializeField] private GameStateUIManager _gameStateUIManager;
 
     private int _heroUIManagersAssigned = 0;
 
