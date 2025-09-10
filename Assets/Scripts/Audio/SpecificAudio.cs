@@ -10,16 +10,62 @@ using UnityEngine;
 [System.Serializable]
 public class SpecificAudio
 {
+    public string AudioName;
+
+    public ESpecificAudioTrackChoice DefaultAudioChoice;
+    
     public EventReference[] AudioTracks;
 
     #region Getters
+    /// <summary>
+    /// Returns an audio track based on what the default audio choice is for this specific audio
+    /// </summary>
+    /// <returns></returns>
+    public EventReference GetAudioTrackFromDefault()
+    {
+        return GetAudioTrackFromTrackChoice(DefaultAudioChoice);
+    }
+    
+    /// <summary>
+    /// Returns an audio track based on an inputted 
+    /// </summary>
+    /// <param name="choice"></param>
+    /// <returns></returns>
+    public EventReference GetAudioTrackFromTrackChoice(ESpecificAudioTrackChoice choice)
+    {
+        switch (choice)
+        {
+            case ESpecificAudioTrackChoice.First:
+                return GetFirstAudioTrack();
+            case ESpecificAudioTrackChoice.Random:
+                return GetRandomAudioTrack();
+            default:
+                return new EventReference();
+        }
+    }
+    
+    /// <summary>
+    /// Gets the first audio in the track
+    /// </summary>
+    /// <returns></returns>
     public EventReference GetFirstAudioTrack()
     {
         return AudioTracks[0];
     }
+    
+    /// <summary>
+    /// Gets a random audio in the track
+    /// </summary>
+    /// <returns></returns>
     public EventReference GetRandomAudioTrack()
     {
         return AudioTracks[Random.Range(0, AudioTracks.Length)];
     }
     #endregion
 }
+
+public enum ESpecificAudioTrackChoice
+{
+    First,
+    Random
+};

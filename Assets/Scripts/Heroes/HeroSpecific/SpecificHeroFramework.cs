@@ -107,6 +107,11 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         _myHeroBase.GetHeroVisuals().TriggerBasicAbilityAnimation();
     }
 
+    protected virtual void PlayBasicAbilityAudio()
+    {
+        AudioManager.Instance.PlaySpecificAudioAsOneShot(AudioManager.Instance);
+    }
+
     public virtual void ActivateBasicAbilities()
     {
         TriggerBasicAbilityAnimation();

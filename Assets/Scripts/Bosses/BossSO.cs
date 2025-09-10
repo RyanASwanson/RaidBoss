@@ -11,6 +11,7 @@ public class BossSO : ScriptableObject
 {
     [Header("General")]
     [SerializeField] private string _name;
+    [SerializeField] private int _bossID;
 
     [Header("Stats")]
     [SerializeField] private float _maxHP;
@@ -45,6 +46,7 @@ public class BossSO : ScriptableObject
 
     #region Getters
     public string GetBossName() => _name;
+    public int GetBossID() => _bossID;
     public float GetMaxHP() => _maxHP;
     public float GetBaseStaggerMax() => _baseStaggerMax;
 

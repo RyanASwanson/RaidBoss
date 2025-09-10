@@ -9,6 +9,8 @@ using UnityEngine;
 [System.Serializable]
 public class SpecificHeroAudio
 {
+    public string AssociatedHero;
+    
     public SpecificAudio BasicAbilityUsed;
     public SpecificAudio ManualAbilityUsed;
     public SpecificAudio PassiveAbilityUsed;
