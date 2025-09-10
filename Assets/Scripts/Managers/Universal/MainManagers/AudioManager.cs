@@ -34,11 +34,35 @@ public class AudioManager : MainUniversalManagerFramework
 
     
     #region CreateInstance
-    public bool CreateInstanceFromSpecificAudio(SpecificAudio specificAudio, out EventInstance eventInstance, ESpecificAudioTrackChoice trackChoice)
+    /// <summary>
+    /// Creates an event instance from a specific audio using the default track choice.
+    /// </summary>
+    /// <param name="specificAudio"></param>
+    /// <param name="eventInstance"></param>
+    /// <returns> If the Event Instance was successfully created. </returns>
+    public bool CreateInstanceFromSpecificAudio(SpecificAudio specificAudio, out EventInstance eventInstance)
+    {
+        return CreateInstanceFromReference(specificAudio.GetAudioTrackFromDefault(), out eventInstance);
+    }
+    
+    /// <summary>
+    /// Creates an event instance from a specific audio using a specific track choice.
+    /// </summary>
+    /// <param name="specificAudio"></param>
+    /// <param name="trackChoice"></param>
+    /// <param name="eventInstance"></param>
+    /// <returns> If the Event Instance was successfully created. </returns>
+    public bool CreateInstanceFromSpecificAudio(SpecificAudio specificAudio, ESpecificAudioTrackChoice trackChoice, out EventInstance eventInstance)
     {
         return CreateInstanceFromReference(specificAudio.GetAudioTrackFromTrackChoice(trackChoice), out eventInstance);
     }
     
+    /// <summary>
+    /// Creates an event reference
+    /// </summary>
+    /// <param name="reference"></param>
+    /// <param name="eventInstance"></param>
+    /// <returns> If the Event Instance was successfully created. </returns>
     public bool CreateInstanceFromReference(EventReference reference, out EventInstance eventInstance)
     {
         if (reference.IsUnityNull())
@@ -54,17 +78,26 @@ public class AudioManager : MainUniversalManagerFramework
     #endregion CreateInstance
 
     #region OneShot
+    public bool PlayOneShotFromSpecificAudio(SpecificAudio specificAudio)
+    {
+        return PlaySpecificAudioAsOneShot(specificAudio.GetAudioTrackFromDefault());
+    }
     
+    public bool PlayOneShotFromSpecificAudio(SpecificAudio specificAudio, ESpecificAudioTrackChoice trackChoice)
+    {
+        return PlaySpecificAudioAsOneShot(specificAudio.GetAudioTrackFromTrackChoice(trackChoice));
+    }
     
-    public void PlaySpecificAudioAsOneShot(EventReference eventReference)
+    public bool PlaySpecificAudioAsOneShot(EventReference eventReference)
     {
         if (eventReference.IsUnityNull())
         {
             AudioDebug("No reference found when playing one shot: " + eventReference.Guid);
-            return;
+            return false;
         }
         
         RuntimeManager.PlayOneShot(eventReference);
+        return true;
     }
     #endregion OneShot
 
@@ -82,6 +115,43 @@ public class AudioManager : MainUniversalManagerFramework
             eventInstance.start();
         }
 
+        return true;
+    }
+
+    public bool PlaySpecificAudio(SpecificAudio specificAudio, out EventInstance eventInstance)
+    {
+        return PlaySpecificAudio(specificAudio,specificAudio.DefaultPlayType,specificAudio.DefaultAudioChoice, out eventInstance);
+    }
+
+    public bool PlaySpecificAudio(SpecificAudio specificAudio, ESpecificAudioPlayType playType,
+        ESpecificAudioTrackChoice trackChoice, out EventInstance eventInstance)
+    {
+        switch (playType)
+        {
+            case ESpecificAudioPlayType.OneShot:
+                eventInstance = new EventInstance();
+                return PlayOneShotFromSpecificAudio(specificAudio, trackChoice);
+            case ESpecificAudioPlayType.Instance:
+                if (CreateInstanceFromReference(specificAudio.GetAudioTrackFromTrackChoice(trackChoice),
+                        out eventInstance))
+                {
+                    return StartSpecificAudioInstance(eventInstance);
+                }
+                return false;
+        }
+        eventInstance = new EventInstance();
+        return false;
+    }
+
+    public bool StartSpecificAudioInstance(EventInstance eventInstance)
+    {
+        if (eventInstance.IsUnityNull())
+        {
+            AudioDebug("No instance found when starting specific audio");
+            return false;
+        }
+        
+        eventInstance.start();
         return true;
     }
 

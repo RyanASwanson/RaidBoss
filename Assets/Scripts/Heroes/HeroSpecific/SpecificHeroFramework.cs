@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using FMOD.Studio;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -109,12 +110,24 @@ public abstract class SpecificHeroFramework : MonoBehaviour
 
     protected virtual void PlayBasicAbilityAudio()
     {
-        AudioManager.Instance.PlaySpecificAudioAsOneShot(AudioManager.Instance);
+        if (AudioManager.Instance.PlaySpecificAudio(
+                AudioManager.Instance.AllHeroAudio[_myHeroBase.GetHeroSO().GetHeroID()].BasicAbilityUsed,
+                out EventInstance eventInstance))
+        {
+            BasicAbilityAudioPlayed(eventInstance);
+        }
+    }
+
+    protected virtual void BasicAbilityAudioPlayed(EventInstance eventInstance)
+    {
+        Debug.Log("Played basic ability audio");
     }
 
     public virtual void ActivateBasicAbilities()
     {
         TriggerBasicAbilityAnimation();
+        
+        PlayBasicAbilityAudio();
 
         StartCooldownBasicAbility();
     }

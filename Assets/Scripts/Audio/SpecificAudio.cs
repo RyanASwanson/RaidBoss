@@ -12,6 +12,8 @@ public class SpecificAudio
 {
     public string AudioName;
 
+    public ESpecificAudioPlayType DefaultPlayType;
+    
     public ESpecificAudioTrackChoice DefaultAudioChoice;
     
     public EventReference[] AudioTracks;
@@ -62,6 +64,12 @@ public class SpecificAudio
         return AudioTracks[Random.Range(0, AudioTracks.Length)];
     }
     #endregion
+}
+
+public enum ESpecificAudioPlayType
+{
+    OneShot,
+    Instance
 }
 
 public enum ESpecificAudioTrackChoice

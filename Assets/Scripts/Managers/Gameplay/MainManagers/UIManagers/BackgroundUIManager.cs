@@ -47,7 +47,6 @@ public class BackgroundUIManager : GameUIChildrenFunctionality
         _targetClosingBackgroundScale = Mathf.Lerp(_startingCloseScale, _minimumCloseScaleFromBossHealthDecrease,
             _closingBackgroundScaleCurve.Evaluate(1-BossStats.Instance.GetBossHealthPercentage()))
             - (_closeScalePerDeadHero * HeroesManager.Instance.GetAmountOfDeadHeroes());
-        Debug.Log(_targetClosingBackgroundScale);
     }
 
     private IEnumerator ClosingBackgroundCloseProcess()
