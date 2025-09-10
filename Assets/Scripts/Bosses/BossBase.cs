@@ -51,6 +51,8 @@ public class BossBase : MonoBehaviour
         SetUpAbilities();
 
         SetBossSO(newSO);
+        
+        PlayBossFightMusic();
     }
     
     /// <summary>
@@ -94,6 +96,12 @@ public class BossBase : MonoBehaviour
         {
             bossAbility.AbilitySetUp(this);
         }
+    }
+
+    // Plays the music associated with the boss fight
+    private void PlayBossFightMusic()
+    {
+        AudioManager.Instance.PlayMusic(_associatedBoss.GetBossMusicID(), true);
     }
 
     #region Events

@@ -45,28 +45,124 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _doesShowAudioDebug: 0
-  TestAudio:
-    AudioName: 
-    DefaultPlayType: 0
-    DefaultAudioChoice: 0
-    AudioTracks: []
-  AllBossAudio:
-  - BossMusic:
-      Guid:
-        Data1: 0
-        Data2: 0
-        Data3: 0
-        Data4: 0
-      Path: 
-    MiscellaneousBossAudio:
-    - AudioName: 
+  AllSpecificBossAudio:
+  - AssociatedBoss: Magma Lord
+    FirstAbilityUsed:
+      AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
-  AllHeroAudio:
+    SecondAbilityUsed:
+      AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
+      DefaultPlayType: 0
+      DefaultAudioChoice: 0
+      AudioTracks: []
+    ThirdAbilityUsed:
+      AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
+      DefaultPlayType: 0
+      DefaultAudioChoice: 0
+      AudioTracks: []
+    FourthAbilityUsed:
+      AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
+      DefaultPlayType: 0
+      DefaultAudioChoice: 0
+      AudioTracks: []
+    FifthAbilityUsed:
+      AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
+      DefaultPlayType: 0
+      DefaultAudioChoice: 0
+      AudioTracks: []
+    MiscellaneousBossAudio: []
+  - AssociatedBoss: Terra Lord
+    FirstAbilityUsed:
+      AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
+      DefaultPlayType: 0
+      DefaultAudioChoice: 0
+      AudioTracks: []
+    SecondAbilityUsed:
+      AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
+      DefaultPlayType: 0
+      DefaultAudioChoice: 0
+      AudioTracks: []
+    ThirdAbilityUsed:
+      AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
+      DefaultPlayType: 0
+      DefaultAudioChoice: 0
+      AudioTracks: []
+    FourthAbilityUsed:
+      AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
+      DefaultPlayType: 0
+      DefaultAudioChoice: 0
+      AudioTracks: []
+    FifthAbilityUsed:
+      AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
+      DefaultPlayType: 0
+      DefaultAudioChoice: 0
+      AudioTracks: []
+    MiscellaneousBossAudio: []
+  - AssociatedBoss: Glacial Lord
+    FirstAbilityUsed:
+      AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
+      DefaultPlayType: 0
+      DefaultAudioChoice: 0
+      AudioTracks: []
+    SecondAbilityUsed:
+      AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
+      DefaultPlayType: 0
+      DefaultAudioChoice: 0
+      AudioTracks: []
+    ThirdAbilityUsed:
+      AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
+      DefaultPlayType: 0
+      DefaultAudioChoice: 0
+      AudioTracks: []
+    FourthAbilityUsed:
+      AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
+      DefaultPlayType: 0
+      DefaultAudioChoice: 0
+      AudioTracks: []
+    FifthAbilityUsed:
+      AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
+      DefaultPlayType: 0
+      DefaultAudioChoice: 0
+      AudioTracks: []
+    MiscellaneousBossAudio: []
+  AllSpecificHeroAudio:
   - AssociatedHero: Guardian
     BasicAbilityUsed:
-      AudioName: 
+      AudioName: Shield Slam
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks:
@@ -78,11 +174,15 @@ MonoBehaviour:
         Path: event:/SoundEffect/Heroes/SpecificHeroes/Guardian/GuardianShieldSlam
     ManualAbilityUsed:
       AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
     PassiveAbilityUsed:
       AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
@@ -90,16 +190,22 @@ MonoBehaviour:
   - AssociatedHero: Samurai
     BasicAbilityUsed:
       AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
     ManualAbilityUsed:
       AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
     PassiveAbilityUsed:
       AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
@@ -107,16 +213,22 @@ MonoBehaviour:
   - AssociatedHero: Reaper
     BasicAbilityUsed:
       AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
     ManualAbilityUsed:
       AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
     PassiveAbilityUsed:
       AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
@@ -124,16 +236,22 @@ MonoBehaviour:
   - AssociatedHero: Shaman
     BasicAbilityUsed:
       AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
     ManualAbilityUsed:
       AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
     PassiveAbilityUsed:
       AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
@@ -141,16 +259,22 @@ MonoBehaviour:
   - AssociatedHero: Chronomancer
     BasicAbilityUsed:
       AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
     ManualAbilityUsed:
       AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
     PassiveAbilityUsed:
       AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
@@ -158,85 +282,134 @@ MonoBehaviour:
   - AssociatedHero: Vampire
     BasicAbilityUsed:
       AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
     ManualAbilityUsed:
       AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
     PassiveAbilityUsed:
       AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
     MiscellaneousHeroAudio: []
-  - AssociatedHero: Fae
+  - AssociatedHero: 
     BasicAbilityUsed:
       AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
     ManualAbilityUsed:
       AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
     PassiveAbilityUsed:
       AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
     MiscellaneousHeroAudio: []
-  - AssociatedHero: Astromancer
+  - AssociatedHero: 
     BasicAbilityUsed:
       AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
     ManualAbilityUsed:
       AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
     PassiveAbilityUsed:
       AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
     MiscellaneousHeroAudio: []
-  - AssociatedHero: Mirage
+  - AssociatedHero: 
     BasicAbilityUsed:
       AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
     ManualAbilityUsed:
       AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
     PassiveAbilityUsed:
       AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
     MiscellaneousHeroAudio: []
-  - AssociatedHero: Alchemist
+  - AssociatedHero: 
     BasicAbilityUsed:
       AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
     ManualAbilityUsed:
       AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
     PassiveAbilityUsed:
       AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
     MiscellaneousHeroAudio: []
+  AllMusic:
+  - AudioName: Temp
+    DefaultInstanceFadeInTime: 0
+    DefaultInstanceFadeOutTime: 0
+    DefaultPlayType: 1
+    DefaultAudioChoice: 0
+    AudioTracks: []
+  - AudioName: Basic Boss Music
+    DefaultInstanceFadeInTime: 2
+    DefaultInstanceFadeOutTime: 2
+    DefaultPlayType: 1
+    DefaultAudioChoice: 0
+    AudioTracks:
+    - Guid:
+        Data1: -1026133778
+        Data2: 1237879241
+        Data3: -1616860529
+        Data4: -763068705
+      Path: event:/Music/BossMusic/TempBossMusic

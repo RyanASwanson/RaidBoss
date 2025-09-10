@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using FMODUnity;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// Contains an array of audio tracks with getters
@@ -12,10 +13,16 @@ public class SpecificAudio
 {
     public string AudioName;
 
+    public float DefaultInstanceFadeInTime;
+
+    public float DefaultInstanceFadeOutTime;
+    
+    [Space]
     public ESpecificAudioPlayType DefaultPlayType;
     
     public ESpecificAudioTrackChoice DefaultAudioChoice;
     
+    [Space]
     public EventReference[] AudioTracks;
 
     #region Getters
@@ -63,6 +70,9 @@ public class SpecificAudio
     {
         return AudioTracks[Random.Range(0, AudioTracks.Length)];
     }
+
+    public bool HasAudioTracks() => AudioTracks.Length > 0;
+
     #endregion
 }
 

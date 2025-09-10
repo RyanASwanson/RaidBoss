@@ -9,7 +9,17 @@ using UnityEngine;
 [System.Serializable]
 public class SpecificBossAudio
 {
-    public EventReference BossMusic;
+    public string AssociatedBoss;
+    
+    public SpecificAudio FirstAbilityUsed;
+    
+    public SpecificAudio SecondAbilityUsed;
+    
+    public SpecificAudio ThirdAbilityUsed;
+    
+    public SpecificAudio FourthAbilityUsed;
+
+    public SpecificAudio FifthAbilityUsed;
     
     public SpecificAudio[] MiscellaneousBossAudio;
 }

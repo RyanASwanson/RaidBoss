@@ -111,7 +111,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     protected virtual void PlayBasicAbilityAudio()
     {
         if (AudioManager.Instance.PlaySpecificAudio(
-                AudioManager.Instance.AllHeroAudio[_myHeroBase.GetHeroSO().GetHeroID()].BasicAbilityUsed,
+                AudioManager.Instance.AllSpecificHeroAudio[_myHeroBase.GetHeroSO().GetHeroID()].BasicAbilityUsed,
                 out EventInstance eventInstance))
         {
             BasicAbilityAudioPlayed(eventInstance);
@@ -120,7 +120,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
 
     protected virtual void BasicAbilityAudioPlayed(EventInstance eventInstance)
     {
-        Debug.Log("Played basic ability audio");
+        
     }
 
     public virtual void ActivateBasicAbilities()
