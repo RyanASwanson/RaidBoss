@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using Newtonsoft.Json;
+using UnityEngine.Serialization;
 
 public class SaveManager : MainUniversalManagerFramework
 {
@@ -262,6 +263,21 @@ public class SaveManager : MainUniversalManagerFramework
     public float GetMusicVolume() => GSD.GetGSDMusicVolume();
     public float GetSFXVolume() => GSD.GetGSDSFXVolume();
 
+    public float GetVolumeFromAudioVCAType(EAudioVCAType audioType)
+    {
+        switch (audioType)
+        {
+            case(EAudioVCAType.Master):
+                return GSD.GetGSDMasterVolume();
+            case(EAudioVCAType.Music):
+                return GSD.GetGSDMusicVolume();
+            case(EAudioVCAType.SoundEffect):
+                return GSD.GetGSDSFXVolume();
+            default:
+                return 0;
+        }
+    }
+
     #endregion
 
     #region Setters
@@ -272,6 +288,7 @@ public class SaveManager : MainUniversalManagerFramework
     public void SetScreenShakeStrength(float val)
     {
         GSD.SetGSDScreenShakeStrength(val);
+        SaveText();
     }
 
     /// <summary>
@@ -281,6 +298,7 @@ public class SaveManager : MainUniversalManagerFramework
     public void SetMasterAudioVolume(float volume)
     {
         GSD.SetGSDMasterVolume(volume);
+        SaveText();
     }
 
     /// <summary>
@@ -290,6 +308,7 @@ public class SaveManager : MainUniversalManagerFramework
     public void SetMusicAudioVolume(float volume)
     {
         GSD.SetGSDMusicVolume(volume);
+        SaveText();
     }
 
     /// <summary>
@@ -299,6 +318,25 @@ public class SaveManager : MainUniversalManagerFramework
     public void SetSFXAudioVolume(float volume)
     {
         GSD.SetGSDSFXVolume(volume);
+        SaveText();
+    }
+
+    public void SetVolumeFromAudioVCAType(EAudioVCAType audioType, float volume)
+    {
+        switch (audioType)
+        {
+            case (EAudioVCAType.Master):
+                SetMasterAudioVolume(volume);
+                return;
+            case (EAudioVCAType.Music):
+                SetMusicAudioVolume(volume);
+                return;
+            case (EAudioVCAType.SoundEffect):
+                SetSFXAudioVolume(volume);
+                return;
+            default:
+                return;
+        }
     }
 
     /// <summary>
@@ -336,51 +374,51 @@ public class GameSaveData
     //First string is boss name, second string is hero name
     //Represents the best difficulty each hero has beaten each boss at
     public Dictionary<string, Dictionary<string,EGameDifficulty>> _bossHeroBestDifficultyComplete = new();
-
+    
     [Space]
     [Header("Settings")]
-    [Range(0, 1)] private float _screenShakeStrength = 1;
-    private bool _heroClickAndDragMovementEnabled;
+    [Range(0, 1)] public float ScreenShakeStrength = 1;
+    private bool HeroClickAndDragMovementEnabled;
 
-    [Range(0, 1)] private float _masterVolume = .5f;
-    [Range(0, 1)] private float _musicVolume = .5f;
-    [Range(0, 1)] private float _sfxVolume = .5f;
+    [Range(0, 1)] public float MasterVolume = .5f;
+    [Range(0, 1)] public float MusicVolume = .5f;
+    [Range(0, 1)] public float SfxVolume = .5f;
     
     #region Getters
     public Dictionary<string, Dictionary<string, EGameDifficulty>> GetGSDBossHeroBestDifficulty() => _bossHeroBestDifficultyComplete;
 
-    public float GetGSDScreenShakeStrength() => _screenShakeStrength;
-    public bool GetGSDHeroClickAndDragEnabled() => _heroClickAndDragMovementEnabled;
+    public float GetGSDScreenShakeStrength() => ScreenShakeStrength;
+    public bool GetGSDHeroClickAndDragEnabled() => HeroClickAndDragMovementEnabled;
 
-    public float GetGSDMasterVolume() => _masterVolume;
-    public float GetGSDMusicVolume() => _musicVolume;
-    public float GetGSDSFXVolume() => _sfxVolume;
+    public float GetGSDMasterVolume() => MasterVolume;
+    public float GetGSDMusicVolume() => MusicVolume;
+    public float GetGSDSFXVolume() => SfxVolume;
 
     #endregion
 
     #region Setters
     public void SetGSDScreenShakeStrength(float screenShake)
     {
-        _screenShakeStrength = screenShake;
+        ScreenShakeStrength = screenShake;
     }
 
     public void SetGSDHeroClickAndDrag(bool clickDrag)
     {
-        _heroClickAndDragMovementEnabled = clickDrag;
+        HeroClickAndDragMovementEnabled = clickDrag;
     }
 
     public void SetGSDMasterVolume(float volume)
     {
-        _masterVolume = volume;
+        MasterVolume = volume;
     }
     public void SetGSDMusicVolume(float volume)
     {
-        _musicVolume = volume;
+        MusicVolume = volume;
     }
 
     public void SetGSDSFXVolume(float volume)
     {
-        _sfxVolume = volume;
+        SfxVolume = volume;
     }
 
     #endregion

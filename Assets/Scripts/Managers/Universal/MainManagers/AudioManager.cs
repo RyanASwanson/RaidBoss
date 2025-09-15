@@ -16,6 +16,12 @@ public class AudioManager : MainUniversalManagerFramework
 
     [SerializeField] private bool _doesShowAudioDebug;
 
+    [SerializeField] private string _masterVCAPath;
+    [SerializeField] private string _musicVCAPath;
+    [SerializeField] private string _soundEffectVCAPath;
+    
+    private const string DEFAULT_VCA_PATH = "vca:/";
+
     #region AudioReferences
     
     [Space]
@@ -330,7 +336,6 @@ public class AudioManager : MainUniversalManagerFramework
         #endif
     }
     
-    
     #region BaseManager
     /// <summary>
     /// Establishes the Instance of the Audio Manager
@@ -340,5 +345,29 @@ public class AudioManager : MainUniversalManagerFramework
         base.SetUpInstance();
         Instance = this;
     }
+    #endregion
+
+    #region Getters
+
+    public string GetVCAPathFromAudioVCAType(EAudioVCAType audioType)
+    {
+        switch (audioType)
+        {
+            case(EAudioVCAType.Master):
+                return DEFAULT_VCA_PATH + _masterVCAPath;
+            case(EAudioVCAType.Music):
+                return DEFAULT_VCA_PATH + _musicVCAPath;
+            case(EAudioVCAType.SoundEffect):
+                return DEFAULT_VCA_PATH + _soundEffectVCAPath;
+            default:
+                return string.Empty;
+        }
+    }
+
+    public VCA GetVCAFromAudioVCAType(EAudioVCAType audioType)
+    {
+        return FMODUnity.RuntimeManager.GetVCA(GetVCAPathFromAudioVCAType(audioType));
+    }
+
     #endregion
 }
