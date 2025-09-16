@@ -13,6 +13,12 @@ public class SpecificAudio
 {
     public string AudioName;
 
+    [Space]
+    [Header("Delays")] 
+    public float DefaultStartDelay;
+    
+    [Space]
+    [Header("Fade Times")]
     public float DefaultInstanceFadeInTime;
 
     public float DefaultInstanceFadeOutTime;

@@ -10,16 +10,16 @@ using UnityEngine;
 public class SpecificBossAudio
 {
     public string AssociatedBoss;
-    
-    public SpecificAudio FirstAbilityUsed;
-    
-    public SpecificAudio SecondAbilityUsed;
-    
-    public SpecificAudio ThirdAbilityUsed;
-    
-    public SpecificAudio FourthAbilityUsed;
 
-    public SpecificAudio FifthAbilityUsed;
+    public SpecificBossAbilityAudio[] BossAbilityAudio;
     
     public SpecificAudio[] MiscellaneousBossAudio;
+}
+
+[System.Serializable]
+public class SpecificBossAbilityAudio
+{
+    public string AbilityName;
+    
+    public SpecificAudio AbilityUsed;
 }

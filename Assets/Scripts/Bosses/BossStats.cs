@@ -159,6 +159,9 @@ public class BossStats : BossChildrenFunctionality
     {
         _bossStaggered = true;
         StopEnrageTimer();
+        
+        AudioManager.Instance.PlaySpecificAudio(AudioManager.Instance.GeneralBossAudio.HealthStaggerAudio.BossStaggered);
+        
         _myBossBase.InvokeBossStaggeredEvent();
 
         DecreaseBossDamageResistanceOnStagger();

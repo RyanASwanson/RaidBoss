@@ -16,16 +16,17 @@ public class AudioManager : MainUniversalManagerFramework
 
     [SerializeField] private bool _doesShowAudioDebug;
 
+    [SerializeField] private string _generalStartingVCAPath;
     [SerializeField] private string _masterVCAPath;
     [SerializeField] private string _musicVCAPath;
     [SerializeField] private string _soundEffectVCAPath;
-    
-    private const string DEFAULT_VCA_PATH = "vca:/";
 
+    // vca:/
     #region AudioReferences
     
     [Space]
     [Header("Boss Audio")]
+    public GeneralBossAudio GeneralBossAudio;
     public SpecificBossAudio[] AllSpecificBossAudio;
     
     [Space]
@@ -101,6 +102,17 @@ public class AudioManager : MainUniversalManagerFramework
         return PlaySpecificAudioAsOneShot(specificAudio.GetAudioTrackFromTrackChoice(trackChoice));
     }
     
+    public Coroutine PlayOneShotFromSpecificAudioDelayed(SpecificAudio specificAudio, ESpecificAudioTrackChoice trackChoice, float startDelay)
+    {
+        return StartCoroutine(DelayPlayingAudio(specificAudio,  trackChoice, startDelay));
+    }
+
+    private IEnumerator DelayPlayingAudio(SpecificAudio specificAudio, ESpecificAudioTrackChoice trackChoice, float startDelay)
+    {
+        yield return new WaitForSeconds(startDelay);
+        PlayOneShotFromSpecificAudio(specificAudio, trackChoice);
+    }
+    
     public bool PlaySpecificAudioAsOneShot(EventReference eventReference)
     {
         if (eventReference.IsUnityNull())
@@ -132,6 +144,11 @@ public class AudioManager : MainUniversalManagerFramework
         return true;
     }
 
+    public bool PlaySpecificAudio(SpecificAudio specificAudio)
+    {
+        return PlaySpecificAudio(specificAudio, out EventInstance eventInstance);
+    }
+
     public bool PlaySpecificAudio(SpecificAudio specificAudio, out EventInstance eventInstance)
     {
         if (!specificAudio.HasAudioTracks())
@@ -157,7 +174,6 @@ public class AudioManager : MainUniversalManagerFramework
         eventInstance = new EventInstance();
         return false;
     }
-    
     #endregion PlayAudio
 
     public bool StartSpecificAudioInstance(SpecificAudio specificAudio,ESpecificAudioTrackChoice trackChoice,
@@ -354,11 +370,11 @@ public class AudioManager : MainUniversalManagerFramework
         switch (audioType)
         {
             case(EAudioVCAType.Master):
-                return DEFAULT_VCA_PATH + _masterVCAPath;
+                return _generalStartingVCAPath + _masterVCAPath;
             case(EAudioVCAType.Music):
-                return DEFAULT_VCA_PATH + _musicVCAPath;
+                return _generalStartingVCAPath + _musicVCAPath;
             case(EAudioVCAType.SoundEffect):
-                return DEFAULT_VCA_PATH + _soundEffectVCAPath;
+                return _generalStartingVCAPath + _soundEffectVCAPath;
             default:
                 return string.Empty;
         }

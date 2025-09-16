@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using FMOD.Studio;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ using UnityEngine;
 /// </summary>
 public abstract class SpecificBossAbilityFramework : MonoBehaviour
 {
+    [SerializeField] protected int _abilityID;
     [SerializeField] protected EBossAbilityTargetMethod _targetMethod;
 
     [Space]
@@ -148,6 +150,7 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     protected virtual void AbilityStart()
     {
         ScreenShakeCheck();
+        PlayAbilityStartAudio();
     }
 
     /// <summary>
@@ -168,6 +171,24 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     {
         CameraGameManager.Instance.StartCameraShake
             (_screenShakeIntensity, _screenShakeFrequency, _screenShakeDuration);
+    }
+
+    /// <summary>
+    /// Plays the audio associated with the ability being started
+    /// </summary>
+    protected virtual void PlayAbilityStartAudio()
+    {
+        if (AudioManager.Instance.PlaySpecificAudio(
+                AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].BossAbilityAudio[_abilityID].AbilityUsed,
+                out EventInstance eventInstance))
+        {
+            AbilityAudioPlayed(eventInstance);
+        }
+    }
+
+    protected virtual void AbilityAudioPlayed(EventInstance eventInstance)
+    {
+        
     }
 
     #region RETIRED Targeting
