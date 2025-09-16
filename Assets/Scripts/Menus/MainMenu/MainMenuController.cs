@@ -41,6 +41,11 @@ public class MainMenuController : MonoBehaviour
     [Header("Credits")]
     [SerializeField] private GameObject _creditsCanvas;
 
+    /*private void Start()
+    {
+        AudioManager.Instance
+    }*/
+    
     #region Buttons
     public void PlayButtonPressed()
     {

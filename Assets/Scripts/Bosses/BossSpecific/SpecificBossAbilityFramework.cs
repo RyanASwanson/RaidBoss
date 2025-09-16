@@ -77,6 +77,7 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     protected virtual void AbilityPrep()
     {
         StartShowTargetZone();
+        PlayAbilityPrepAudio();
         StartAbilityWindUp();
     }
 
@@ -173,23 +174,43 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
             (_screenShakeIntensity, _screenShakeFrequency, _screenShakeDuration);
     }
 
+    #region AbilityAudio
+
+    protected virtual void PlayAbilityPrepAudio()
+    {
+        if (AudioManager.Instance.PlaySpecificAudio(
+                AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].BossAbilityAudio[_abilityID].AbilityPrep,
+                out EventInstance eventInstance))
+        {
+            AbilityAudioPrepPlayed(eventInstance);
+        }
+    }
+
+    protected virtual void AbilityAudioPrepPlayed(EventInstance eventInstance)
+    {
+        
+    }
+    
+    
     /// <summary>
     /// Plays the audio associated with the ability being started
     /// </summary>
     protected virtual void PlayAbilityStartAudio()
     {
         if (AudioManager.Instance.PlaySpecificAudio(
-                AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].BossAbilityAudio[_abilityID].AbilityUsed,
+                AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].BossAbilityAudio[_abilityID].AbilityStart,
                 out EventInstance eventInstance))
         {
-            AbilityAudioPlayed(eventInstance);
+            AbilityAudioStartPlayed(eventInstance);
         }
     }
 
-    protected virtual void AbilityAudioPlayed(EventInstance eventInstance)
+    protected virtual void AbilityAudioStartPlayed(EventInstance eventInstance)
     {
         
     }
+    
+    #endregion AbilityAudio
 
     #region RETIRED Targeting
 

@@ -20,10 +20,14 @@ public class SpecificAudio
     [Space]
     [Header("Fade Times")]
     public float DefaultInstanceFadeInTime;
-
     public float DefaultInstanceFadeOutTime;
     
     [Space]
+    [Header("Duplicate Protection")]
+    public bool DoesCancelPreviousInstancesOfSpecificAudioOnPlay;
+    
+    [Space]
+    [Header("PlayRulesAndChoices")]
     public ESpecificAudioPlayType DefaultPlayType;
     
     public ESpecificAudioTrackChoice DefaultAudioChoice;
@@ -78,6 +82,8 @@ public class SpecificAudio
     }
 
     public bool HasAudioTracks() => AudioTracks.Length > 0;
+    public bool HasDefaultDelay() => DefaultStartDelay > 0;
+    public bool ShouldUseAudioDelay() => HasDefaultDelay() && DefaultPlayType == ESpecificAudioPlayType.OneShot;
 
     #endregion
 }

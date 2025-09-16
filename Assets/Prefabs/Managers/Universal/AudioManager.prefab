@@ -45,10 +45,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _doesShowAudioDebug: 0
-  _generalStartingVCAPath: 
+  _generalStartingVCAPath: vca:/
   _masterVCAPath: MasterVCA
   _musicVCAPath: MusicVCA
   _soundEffectVCAPath: SoundEffectVCA
+  _generalStartingBusPath: bus:/
+  _pausableBusPath: Pausable
+  _unpausableBusPath: Unpausable
   GeneralBossAudio:
     HealthStaggerAudio:
       BossTookDamage:
@@ -56,6 +59,7 @@ MonoBehaviour:
         DefaultStartDelay: 0
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
         DefaultPlayType: 0
         DefaultAudioChoice: 0
         AudioTracks: []
@@ -64,6 +68,7 @@ MonoBehaviour:
         DefaultStartDelay: 0
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
         DefaultPlayType: 0
         DefaultAudioChoice: 0
         AudioTracks:
@@ -77,47 +82,103 @@ MonoBehaviour:
   - AssociatedBoss: Magma Lord
     BossAbilityAudio:
     - AbilityName: Meteor
-      AbilityUsed:
+      AbilityPrep:
+        AudioName: 
+        DefaultStartDelay: 2.7
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: 848938344
+            Data2: 1276483682
+            Data3: 368963483
+            Data4: 1034002974
+          Path: event:/SoundEffect/Bosses/Specific/MagmaLord/Abilities/Meteor/MagmaLordMeteorImpact
+      AbilityStart:
         AudioName: 
         DefaultStartDelay: 0
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
         DefaultPlayType: 0
         DefaultAudioChoice: 0
         AudioTracks: []
     - AbilityName: MagmaWave
-      AbilityUsed:
+      AbilityPrep:
         AudioName: 
         DefaultStartDelay: 0
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks: []
+      AbilityStart:
+        AudioName: 
+        DefaultStartDelay: 0
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
         DefaultPlayType: 0
         DefaultAudioChoice: 0
         AudioTracks: []
     - AbilityName: LavaBlast
-      AbilityUsed:
+      AbilityPrep:
         AudioName: 
         DefaultStartDelay: 0
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks: []
+      AbilityStart:
+        AudioName: 
+        DefaultStartDelay: 0
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
         DefaultPlayType: 0
         DefaultAudioChoice: 0
         AudioTracks: []
     - AbilityName: Scorch
-      AbilityUsed:
+      AbilityPrep:
         AudioName: 
         DefaultStartDelay: 0
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks: []
+      AbilityStart:
+        AudioName: 
+        DefaultStartDelay: 0
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
         DefaultPlayType: 0
         DefaultAudioChoice: 0
         AudioTracks: []
     - AbilityName: Volcano
-      AbilityUsed:
+      AbilityPrep:
         AudioName: 
         DefaultStartDelay: 0
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks: []
+      AbilityStart:
+        AudioName: 
+        DefaultStartDelay: 0
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
         DefaultPlayType: 0
         DefaultAudioChoice: 0
         AudioTracks: []
@@ -125,38 +186,78 @@ MonoBehaviour:
   - AssociatedBoss: Terra Lord
     BossAbilityAudio:
     - AbilityName: 
-      AbilityUsed:
+      AbilityPrep:
         AudioName: 
         DefaultStartDelay: 0
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks: []
+      AbilityStart:
+        AudioName: 
+        DefaultStartDelay: 0
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
         DefaultPlayType: 0
         DefaultAudioChoice: 0
         AudioTracks: []
     - AbilityName: 
-      AbilityUsed:
+      AbilityPrep:
         AudioName: 
         DefaultStartDelay: 0
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks: []
+      AbilityStart:
+        AudioName: 
+        DefaultStartDelay: 0
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
         DefaultPlayType: 0
         DefaultAudioChoice: 0
         AudioTracks: []
     - AbilityName: 
-      AbilityUsed:
+      AbilityPrep:
         AudioName: 
         DefaultStartDelay: 0
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks: []
+      AbilityStart:
+        AudioName: 
+        DefaultStartDelay: 0
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
         DefaultPlayType: 0
         DefaultAudioChoice: 0
         AudioTracks: []
     - AbilityName: 
-      AbilityUsed:
+      AbilityPrep:
         AudioName: 
         DefaultStartDelay: 0
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks: []
+      AbilityStart:
+        AudioName: 
+        DefaultStartDelay: 0
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
         DefaultPlayType: 0
         DefaultAudioChoice: 0
         AudioTracks: []
@@ -164,42 +265,108 @@ MonoBehaviour:
   - AssociatedBoss: Glacial Lord
     BossAbilityAudio:
     - AbilityName: 
-      AbilityUsed:
+      AbilityPrep:
         AudioName: 
         DefaultStartDelay: 0
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks: []
+      AbilityStart:
+        AudioName: 
+        DefaultStartDelay: 0
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
         DefaultPlayType: 0
         DefaultAudioChoice: 0
         AudioTracks: []
     - AbilityName: 
-      AbilityUsed:
+      AbilityPrep:
         AudioName: 
         DefaultStartDelay: 0
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks: []
+      AbilityStart:
+        AudioName: 
+        DefaultStartDelay: 0
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
         DefaultPlayType: 0
         DefaultAudioChoice: 0
         AudioTracks: []
     - AbilityName: 
-      AbilityUsed:
+      AbilityPrep:
         AudioName: 
         DefaultStartDelay: 0
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks: []
+      AbilityStart:
+        AudioName: 
+        DefaultStartDelay: 0
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
         DefaultPlayType: 0
         DefaultAudioChoice: 0
         AudioTracks: []
     - AbilityName: 
-      AbilityUsed:
+      AbilityPrep:
         AudioName: 
         DefaultStartDelay: 0
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks: []
+      AbilityStart:
+        AudioName: 
+        DefaultStartDelay: 0
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
         DefaultPlayType: 0
         DefaultAudioChoice: 0
         AudioTracks: []
     MiscellaneousBossAudio: []
+  GeneralHeroAudio:
+    HealthAudio:
+      HeroTookDamage:
+        AudioName: 
+        DefaultStartDelay: 0
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks: []
+      HeroTookHealing:
+        AudioName: HeroHealed
+        DefaultStartDelay: 0
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 1
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: -141551241
+            Data2: 1190307843
+            Data3: 1732163760
+            Data4: -148630131
+          Path: event:/SoundEffect/Heroes/GeneralHeroes/Health/Healing/HeroHealed
   AllSpecificHeroAudio:
   - AssociatedHero: Guardian
     BasicAbilityUsed:
@@ -207,6 +374,7 @@ MonoBehaviour:
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks:
@@ -221,6 +389,7 @@ MonoBehaviour:
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
@@ -229,6 +398,7 @@ MonoBehaviour:
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
@@ -239,14 +409,22 @@ MonoBehaviour:
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
-      AudioTracks: []
+      AudioTracks:
+      - Guid:
+          Data1: -1640560335
+          Data2: 1209515671
+          Data3: 1401592246
+          Data4: -1286522777
+        Path: event:/SoundEffect/Heroes/SpecificHeroes/Samurai/Basic/SamuraiIaijutsu
     ManualAbilityUsed:
       AudioName: 
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
@@ -255,16 +433,26 @@ MonoBehaviour:
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
-    MiscellaneousHeroAudio: []
+    MiscellaneousHeroAudio:
+    - AudioName: Parry
+      DefaultStartDelay: 0
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+      DefaultPlayType: 0
+      DefaultAudioChoice: 0
+      AudioTracks: []
   - AssociatedHero: Reaper
     BasicAbilityUsed:
       AudioName: 
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
@@ -273,6 +461,7 @@ MonoBehaviour:
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
@@ -281,6 +470,7 @@ MonoBehaviour:
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
@@ -291,6 +481,7 @@ MonoBehaviour:
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
@@ -299,6 +490,7 @@ MonoBehaviour:
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
@@ -307,6 +499,7 @@ MonoBehaviour:
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
@@ -317,6 +510,7 @@ MonoBehaviour:
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
@@ -325,6 +519,7 @@ MonoBehaviour:
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
@@ -333,6 +528,7 @@ MonoBehaviour:
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
@@ -343,6 +539,7 @@ MonoBehaviour:
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
@@ -351,6 +548,7 @@ MonoBehaviour:
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
@@ -359,6 +557,7 @@ MonoBehaviour:
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
@@ -369,6 +568,7 @@ MonoBehaviour:
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
@@ -377,6 +577,7 @@ MonoBehaviour:
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
@@ -385,6 +586,7 @@ MonoBehaviour:
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
@@ -395,6 +597,7 @@ MonoBehaviour:
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
@@ -403,6 +606,7 @@ MonoBehaviour:
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
@@ -411,6 +615,7 @@ MonoBehaviour:
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
@@ -421,6 +626,7 @@ MonoBehaviour:
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
@@ -429,6 +635,7 @@ MonoBehaviour:
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
@@ -437,6 +644,7 @@ MonoBehaviour:
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
@@ -447,6 +655,7 @@ MonoBehaviour:
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
@@ -455,6 +664,7 @@ MonoBehaviour:
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
@@ -463,15 +673,25 @@ MonoBehaviour:
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
     MiscellaneousHeroAudio: []
   AllMusic:
-  - AudioName: Temp
+  - AudioName: MainMenu
     DefaultStartDelay: 0
     DefaultInstanceFadeInTime: 0
     DefaultInstanceFadeOutTime: 0
+    DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+    DefaultPlayType: 1
+    DefaultAudioChoice: 0
+    AudioTracks: []
+  - AudioName: Selection
+    DefaultStartDelay: 0
+    DefaultInstanceFadeInTime: 2
+    DefaultInstanceFadeOutTime: 2
+    DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
     DefaultPlayType: 1
     DefaultAudioChoice: 0
     AudioTracks: []
@@ -479,6 +699,7 @@ MonoBehaviour:
     DefaultStartDelay: 0
     DefaultInstanceFadeInTime: 2
     DefaultInstanceFadeOutTime: 2
+    DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
     DefaultPlayType: 1
     DefaultAudioChoice: 0
     AudioTracks:

@@ -142,6 +142,9 @@ public class HeroStats : HeroChildrenFunctionality
         //Find the difference between the starting and final health
         healthDifference = _currentHealth - healthDifference;
         _myHeroBase.InvokeHeroHealedEvent(healthDifference);
+        
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.GeneralHeroAudio.HealthAudio.HeroTookHealing);
     }
 
     /// <summary>

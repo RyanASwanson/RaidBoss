@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using FMODUnity;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// Holds the audio unique to a boss
@@ -20,6 +21,7 @@ public class SpecificBossAudio
 public class SpecificBossAbilityAudio
 {
     public string AbilityName;
-    
-    public SpecificAudio AbilityUsed;
+
+    public SpecificAudio AbilityPrep;
+    public SpecificAudio AbilityStart;
 }

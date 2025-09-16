@@ -16,12 +16,19 @@ public class AudioManager : MainUniversalManagerFramework
 
     [SerializeField] private bool _doesShowAudioDebug;
 
+    [Space]
+    [Header("VCA Paths")]
     [SerializeField] private string _generalStartingVCAPath;
     [SerializeField] private string _masterVCAPath;
     [SerializeField] private string _musicVCAPath;
     [SerializeField] private string _soundEffectVCAPath;
-
-    // vca:/
+    
+    [Space]
+    [Header("Bus Paths")]
+    [SerializeField] private string _generalStartingBusPath;
+    [SerializeField] private string _pausableBusPath;
+    [SerializeField] private string _unpausableBusPath;
+    
     #region AudioReferences
     
     [Space]
@@ -31,6 +38,7 @@ public class AudioManager : MainUniversalManagerFramework
     
     [Space]
     [Header("Hero Audio")]
+    public GeneralHeroAudio GeneralHeroAudio;
     public SpecificHeroAudio[] AllSpecificHeroAudio;
 
     [Space] 
@@ -44,8 +52,11 @@ public class AudioManager : MainUniversalManagerFramework
     
     private Dictionary<EventInstance, Coroutine> _changeInstanceVolumeDictionary = new Dictionary<EventInstance, Coroutine>();
     
-    #endregion
+    private Dictionary<SpecificAudio, EventInstance> _referenceInstanceDictionary = new Dictionary<SpecificAudio, EventInstance>();
 
+    private Bus _pausableAudioBus;
+    
+    #endregion
     
     #region CreateInstance
     /// <summary>
@@ -99,18 +110,12 @@ public class AudioManager : MainUniversalManagerFramework
     
     public bool PlayOneShotFromSpecificAudio(SpecificAudio specificAudio, ESpecificAudioTrackChoice trackChoice)
     {
+        if (specificAudio.HasDefaultDelay())
+        {
+            PlayOneShotFromSpecificAudioDelayed(specificAudio, trackChoice, specificAudio.DefaultStartDelay);
+            return true;
+        }
         return PlaySpecificAudioAsOneShot(specificAudio.GetAudioTrackFromTrackChoice(trackChoice));
-    }
-    
-    public Coroutine PlayOneShotFromSpecificAudioDelayed(SpecificAudio specificAudio, ESpecificAudioTrackChoice trackChoice, float startDelay)
-    {
-        return StartCoroutine(DelayPlayingAudio(specificAudio,  trackChoice, startDelay));
-    }
-
-    private IEnumerator DelayPlayingAudio(SpecificAudio specificAudio, ESpecificAudioTrackChoice trackChoice, float startDelay)
-    {
-        yield return new WaitForSeconds(startDelay);
-        PlayOneShotFromSpecificAudio(specificAudio, trackChoice);
     }
     
     public bool PlaySpecificAudioAsOneShot(EventReference eventReference)
@@ -123,6 +128,17 @@ public class AudioManager : MainUniversalManagerFramework
         
         RuntimeManager.PlayOneShot(eventReference);
         return true;
+    }
+    
+    public Coroutine PlayOneShotFromSpecificAudioDelayed(SpecificAudio specificAudio, ESpecificAudioTrackChoice trackChoice, float startDelay)
+    {
+        return StartCoroutine(DelayPlayingAudio(specificAudio,  trackChoice, startDelay));
+    }
+
+    private IEnumerator DelayPlayingAudio(SpecificAudio specificAudio, ESpecificAudioTrackChoice trackChoice, float startDelay)
+    {
+        yield return new WaitForSeconds(startDelay);
+        PlaySpecificAudioAsOneShot(specificAudio.GetAudioTrackFromTrackChoice(trackChoice));
     }
     #endregion OneShot
 
@@ -151,25 +167,40 @@ public class AudioManager : MainUniversalManagerFramework
 
     public bool PlaySpecificAudio(SpecificAudio specificAudio, out EventInstance eventInstance)
     {
-        if (!specificAudio.HasAudioTracks())
-        {
-            AudioDebug("No audio tracks found when playing specific audio");
-            eventInstance = new EventInstance();
-            return false;
-        }
         return PlaySpecificAudio(specificAudio,specificAudio.DefaultPlayType,specificAudio.DefaultAudioChoice, true, out eventInstance);
     }
 
     public bool PlaySpecificAudio(SpecificAudio specificAudio, ESpecificAudioPlayType playType,
         ESpecificAudioTrackChoice trackChoice, bool doesAddToVolumeAdjustmentDictionary, out EventInstance eventInstance)
     {
+        if (!specificAudio.HasAudioTracks())
+        {
+            AudioDebug("No audio tracks found when playing specific audio");
+            eventInstance = new EventInstance();
+            return false;
+        }
+        
         switch (playType)
         {
             case ESpecificAudioPlayType.OneShot:
                 eventInstance = new EventInstance();
                 return PlayOneShotFromSpecificAudio(specificAudio, trackChoice);
             case ESpecificAudioPlayType.Instance:
-                return StartSpecificAudioInstance(specificAudio, trackChoice,doesAddToVolumeAdjustmentDictionary,out eventInstance);
+                bool succeeded = StartSpecificAudioInstance(specificAudio, trackChoice,doesAddToVolumeAdjustmentDictionary,out eventInstance);
+                
+                // If this audio cancels previous instances of itself on play
+                if (specificAudio.DoesCancelPreviousInstancesOfSpecificAudioOnPlay)
+                {
+                    // If the previous instance exists in the dictionary
+                    if (_referenceInstanceDictionary.TryGetValue(specificAudio, out EventInstance previousInstance))
+                    {
+                        StopAndReleaseAudioInstance(previousInstance);
+                    }
+                    // Add the new value into the dictionary
+                    _referenceInstanceDictionary[specificAudio] = eventInstance;
+                }
+
+                return succeeded;
         }
         eventInstance = new EventInstance();
         return false;
@@ -196,10 +227,12 @@ public class AudioManager : MainUniversalManagerFramework
 
     public bool StopSpecificAudioInstance(EventInstance eventInstance, bool releaseAfter)
     {
-        if (eventInstance.IsUnityNull())
+        if (eventInstance.IsUnityNull() || !eventInstance.isValid())
         {
             AudioDebug("No instance found when stopping specific audio");
+            return false;
         }
+        
 
         eventInstance.stop(STOP_MODE.IMMEDIATE);
         if (releaseAfter)
@@ -210,6 +243,17 @@ public class AudioManager : MainUniversalManagerFramework
         return true;
     }
 
+    public void StopAndReleaseAudioInstance(EventInstance eventInstance)
+    {
+        if (!eventInstance.isValid())
+        {
+            AudioDebug("No instance found when stopping and releasing specific audio");
+            return;
+        }
+        
+        eventInstance.stop(STOP_MODE.IMMEDIATE);
+        eventInstance.release();
+    }
     
     public void StartFadeOutStopInstance(EventInstance eventInstance, SpecificAudio specificAudio)
     {
@@ -312,8 +356,7 @@ public class AudioManager : MainUniversalManagerFramework
         {
             Debug.Log("Failed " + _currentMusicID);
         }
-
-        Debug.Log("Attempting to play specific audio");
+        
         if (PlaySpecificAudio(specificAudio,out EventInstance eventInstance))
         {
             Debug.Log("Setting new music ID: " + newMusicID);
@@ -334,7 +377,22 @@ public class AudioManager : MainUniversalManagerFramework
     {
         return musicID == _currentMusicID && !allowSameSong;
     }
+    
     #endregion
+    
+    #region Pausing
+
+    public void PausePausableAudio()
+    {
+        _pausableAudioBus.setPaused(true);
+    }
+
+    public void UnpausePausableAudio()
+    {
+        _pausableAudioBus.setPaused(false);
+    }
+    #endregion Pausing
+    
 
     /// <summary>
     /// Provides debug statements to better fix bugs
@@ -360,7 +418,18 @@ public class AudioManager : MainUniversalManagerFramework
     {
         base.SetUpInstance();
         Instance = this;
+        FMODUnity.RuntimeManager.StudioSystem.getBus(_generalStartingBusPath + _pausableBusPath, out _pausableAudioBus);
     }
+
+    protected override void SubscribeToEvents()
+    {
+        base.SubscribeToEvents();
+        TimeManager.Instance.GetGamePausedEvent().AddListener(PausePausableAudio);
+        TimeManager.Instance.GetGameUnpausedEvent().AddListener(UnpausePausableAudio);
+        //SceneLoadManager.Instance.GetOnStartOfSceneLoad().AddListener(UnpausePausableAudio);
+        SceneLoadManager.Instance.GetOnEndOfSceneLoad().AddListener(UnpausePausableAudio);
+    }
+
     #endregion
 
     #region Getters

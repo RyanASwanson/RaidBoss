@@ -23,6 +23,8 @@ public class SH_Samurai : SpecificHeroFramework
 
     private const string PARRY_SUCCESS_ANIM_TRIGGER = "ParrySuccess";
 
+    private const int PARRY_SUCCESS_AUDIO_ID = 0;
+
     #region Basic Abilities
 
     /// <summary>
@@ -100,8 +102,16 @@ public class SH_Samurai : SpecificHeroFramework
         ActivatePassiveAbilities();
 
         SuccessfulParryAnimation();
+        PlayParryAudio();
 
         StartSuccessfulParryIFrames();
+    }
+
+    private void PlayParryAudio()
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificHeroAudio[_myHeroBase.GetHeroSO().GetHeroID()]
+                .MiscellaneousHeroAudio[PARRY_SUCCESS_AUDIO_ID]);
     }
 
     private void StartSuccessfulParryIFrames()
@@ -130,20 +140,10 @@ public class SH_Samurai : SpecificHeroFramework
     /// On hitting the boss with an attack the samurai charges his manual ability
     /// </summary>
     /// <param name="cooldownAmount"></param>
-
-
     public override void ActivatePassiveAbilities()
     {
         AddToManualAbilityChargeTime(_passiveRechargeManualAmount);
     }
     #endregion
-
-
-
-    protected override void SubscribeToEvents()
-    {
-        base.SubscribeToEvents();
-    }
-
     
 }
