@@ -108,14 +108,20 @@ MonoBehaviour:
         AudioTracks: []
     - AbilityName: MagmaWave
       AbilityPrep:
-        AudioName: 
-        DefaultStartDelay: 0
+        AudioName: MagmaWave
+        DefaultStartDelay: 1.5
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
         DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
         DefaultPlayType: 0
         DefaultAudioChoice: 0
-        AudioTracks: []
+        AudioTracks:
+        - Guid:
+            Data1: 565047187
+            Data2: 1139880263
+            Data3: 1006355349
+            Data4: -412346200
+          Path: event:/SoundEffect/Bosses/Specific/MagmaLord/Abilities/MagmaWave/MagmaLordMagmaWave
       AbilityStart:
         AudioName: 
         DefaultStartDelay: 0
@@ -146,14 +152,20 @@ MonoBehaviour:
         AudioTracks: []
     - AbilityName: Scorch
       AbilityPrep:
-        AudioName: 
-        DefaultStartDelay: 0
+        AudioName: Scorch
+        DefaultStartDelay: 1.7
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
         DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
         DefaultPlayType: 0
         DefaultAudioChoice: 0
-        AudioTracks: []
+        AudioTracks:
+        - Guid:
+            Data1: 402473349
+            Data2: 1074510128
+            Data3: 597126299
+            Data4: 1946140181
+          Path: event:/SoundEffect/Bosses/Specific/MagmaLord/Abilities/Scorch/MagmaLordScorch
       AbilityStart:
         AudioName: 
         DefaultStartDelay: 0
@@ -445,7 +457,13 @@ MonoBehaviour:
       DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
-      AudioTracks: []
+      AudioTracks:
+      - Guid:
+          Data1: 1866334415
+          Data2: 1167904590
+          Data3: 1983043206
+          Data4: 1878568347
+        Path: event:/SoundEffect/Heroes/SpecificHeroes/Samurai/Active/SamuraiParry
   - AssociatedHero: Reaper
     BasicAbilityUsed:
       AudioName: 
@@ -477,14 +495,20 @@ MonoBehaviour:
     MiscellaneousHeroAudio: []
   - AssociatedHero: Shaman
     BasicAbilityUsed:
-      AudioName: 
+      AudioName: Tornado
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
       DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
-      AudioTracks: []
+      AudioTracks:
+      - Guid:
+          Data1: -1769760230
+          Data2: 1157131682
+          Data3: -2118552423
+          Data4: -1042376132
+        Path: event:/SoundEffect/Heroes/SpecificHeroes/Shaman/Basic/ShamanTornado
     ManualAbilityUsed:
       AudioName: 
       DefaultStartDelay: 0
