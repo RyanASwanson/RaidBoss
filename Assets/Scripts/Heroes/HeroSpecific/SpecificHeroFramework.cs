@@ -180,6 +180,21 @@ public abstract class SpecificHeroFramework : MonoBehaviour
 
         _myHeroBase.GetHeroVisuals().TriggerManualAbilityAnimation();
     }
+    
+    protected virtual void PlayManualAbilityAudio()
+    {
+        if (AudioManager.Instance.PlaySpecificAudio(
+                AudioManager.Instance.AllSpecificHeroAudio[_myHeroBase.GetHeroSO().GetHeroID()].ManualAbilityUsed,
+                out EventInstance eventInstance))
+        {
+            ManualAbilityAudioPlayed(eventInstance);
+        }
+    }
+
+    protected virtual void ManualAbilityAudioPlayed(EventInstance eventInstance)
+    {
+        
+    }
 
     public virtual void ActivateManualAbilities(Vector3 attackLocation)
     {
@@ -188,6 +203,8 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         _manualAbilityCooldownCoroutine = null;
 
         TriggerManualAbilityAnimation();
+        
+        PlayManualAbilityAudio();
 
         StartCooldownManualAbility();
 
@@ -203,10 +220,27 @@ public abstract class SpecificHeroFramework : MonoBehaviour
 
         _myHeroBase.GetHeroVisuals().TriggerPassiveAbilityAnimation();
     }
+    
+    protected virtual void PlayPassiveAbilityAudio()
+    {
+        if (AudioManager.Instance.PlaySpecificAudio(
+                AudioManager.Instance.AllSpecificHeroAudio[_myHeroBase.GetHeroSO().GetHeroID()].PassiveAbilityUsed,
+                out EventInstance eventInstance))
+        {
+            PassiveAbilityAudioPlayed(eventInstance);
+        }
+    }
+
+    protected virtual void PassiveAbilityAudioPlayed(EventInstance eventInstance)
+    {
+        
+    }
 
     public virtual void ActivatePassiveAbilities()
     {
         TriggerPassiveAbilityAnimation();
+        
+        PlayPassiveAbilityAudio();
     }
 
     #endregion

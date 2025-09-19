@@ -55,16 +55,22 @@ MonoBehaviour:
   GeneralBossAudio:
     HealthStaggerAudio:
       BossTookDamage:
-        AudioName: 
+        AudioName: BossDamaged
         DefaultStartDelay: 0
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
         DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
         DefaultPlayType: 0
         DefaultAudioChoice: 0
-        AudioTracks: []
+        AudioTracks:
+        - Guid:
+            Data1: -120838734
+            Data2: 1331514759
+            Data3: -1609876092
+            Data4: -858032935
+          Path: event:/SoundEffect/Bosses/GeneralBosses/Health/Damage/BossDamaged
       BossStaggered:
-        AudioName: Boss Staggered
+        AudioName: BossStaggered
         DefaultStartDelay: 0
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
@@ -106,6 +112,7 @@ MonoBehaviour:
         DefaultPlayType: 0
         DefaultAudioChoice: 0
         AudioTracks: []
+      GeneralAbilityAudio: []
     - AbilityName: MagmaWave
       AbilityPrep:
         AudioName: MagmaWave
@@ -131,6 +138,7 @@ MonoBehaviour:
         DefaultPlayType: 0
         DefaultAudioChoice: 0
         AudioTracks: []
+      GeneralAbilityAudio: []
     - AbilityName: LavaBlast
       AbilityPrep:
         AudioName: 
@@ -143,6 +151,21 @@ MonoBehaviour:
         AudioTracks: []
       AbilityStart:
         AudioName: 
+        DefaultStartDelay: 0
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: 1064364865
+            Data2: 1120357882
+            Data3: 154823097
+            Data4: -883029358
+          Path: event:/SoundEffect/Bosses/Specific/MagmaLord/Abilities/LavaBlast/MagmaLordLavaBlast
+      GeneralAbilityAudio:
+      - AudioName: LavaBlastFailed
         DefaultStartDelay: 0
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
@@ -175,6 +198,7 @@ MonoBehaviour:
         DefaultPlayType: 0
         DefaultAudioChoice: 0
         AudioTracks: []
+      GeneralAbilityAudio: []
     - AbilityName: Volcano
       AbilityPrep:
         AudioName: 
@@ -194,6 +218,7 @@ MonoBehaviour:
         DefaultPlayType: 0
         DefaultAudioChoice: 0
         AudioTracks: []
+      GeneralAbilityAudio: []
     MiscellaneousBossAudio: []
   - AssociatedBoss: Terra Lord
     BossAbilityAudio:
@@ -216,6 +241,7 @@ MonoBehaviour:
         DefaultPlayType: 0
         DefaultAudioChoice: 0
         AudioTracks: []
+      GeneralAbilityAudio: []
     - AbilityName: 
       AbilityPrep:
         AudioName: 
@@ -235,6 +261,7 @@ MonoBehaviour:
         DefaultPlayType: 0
         DefaultAudioChoice: 0
         AudioTracks: []
+      GeneralAbilityAudio: []
     - AbilityName: 
       AbilityPrep:
         AudioName: 
@@ -254,6 +281,7 @@ MonoBehaviour:
         DefaultPlayType: 0
         DefaultAudioChoice: 0
         AudioTracks: []
+      GeneralAbilityAudio: []
     - AbilityName: 
       AbilityPrep:
         AudioName: 
@@ -273,6 +301,7 @@ MonoBehaviour:
         DefaultPlayType: 0
         DefaultAudioChoice: 0
         AudioTracks: []
+      GeneralAbilityAudio: []
     MiscellaneousBossAudio: []
   - AssociatedBoss: Glacial Lord
     BossAbilityAudio:
@@ -295,6 +324,7 @@ MonoBehaviour:
         DefaultPlayType: 0
         DefaultAudioChoice: 0
         AudioTracks: []
+      GeneralAbilityAudio: []
     - AbilityName: 
       AbilityPrep:
         AudioName: 
@@ -314,6 +344,7 @@ MonoBehaviour:
         DefaultPlayType: 0
         DefaultAudioChoice: 0
         AudioTracks: []
+      GeneralAbilityAudio: []
     - AbilityName: 
       AbilityPrep:
         AudioName: 
@@ -333,6 +364,7 @@ MonoBehaviour:
         DefaultPlayType: 0
         DefaultAudioChoice: 0
         AudioTracks: []
+      GeneralAbilityAudio: []
     - AbilityName: 
       AbilityPrep:
         AudioName: 
@@ -352,18 +384,25 @@ MonoBehaviour:
         DefaultPlayType: 0
         DefaultAudioChoice: 0
         AudioTracks: []
+      GeneralAbilityAudio: []
     MiscellaneousBossAudio: []
   GeneralHeroAudio:
     HealthAudio:
       HeroTookDamage:
-        AudioName: 
+        AudioName: HeroDamaged
         DefaultStartDelay: 0
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
-        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 1
         DefaultPlayType: 0
         DefaultAudioChoice: 0
-        AudioTracks: []
+        AudioTracks:
+        - Guid:
+            Data1: -1828744960
+            Data2: 1234300092
+            Data3: -2097148781
+            Data4: 1428227289
+          Path: event:/SoundEffect/Heroes/GeneralHeroes/Health/Damage/HeroDamaged
       HeroTookHealing:
         AudioName: HeroHealed
         DefaultStartDelay: 0
@@ -517,7 +556,13 @@ MonoBehaviour:
       DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
-      AudioTracks: []
+      AudioTracks:
+      - Guid:
+          Data1: -355141211
+          Data2: 1134098937
+          Data3: -1698947404
+          Data4: 207657292
+        Path: event:/SoundEffect/Heroes/SpecificHeroes/Shaman/Active/BallLightning
     PassiveAbilityUsed:
       AudioName: 
       DefaultStartDelay: 0
@@ -586,7 +631,7 @@ MonoBehaviour:
       DefaultAudioChoice: 0
       AudioTracks: []
     MiscellaneousHeroAudio: []
-  - AssociatedHero: 
+  - AssociatedHero: Fae
     BasicAbilityUsed:
       AudioName: 
       DefaultStartDelay: 0
@@ -615,7 +660,7 @@ MonoBehaviour:
       DefaultAudioChoice: 0
       AudioTracks: []
     MiscellaneousHeroAudio: []
-  - AssociatedHero: 
+  - AssociatedHero: Astromancer
     BasicAbilityUsed:
       AudioName: 
       DefaultStartDelay: 0
@@ -644,7 +689,7 @@ MonoBehaviour:
       DefaultAudioChoice: 0
       AudioTracks: []
     MiscellaneousHeroAudio: []
-  - AssociatedHero: 
+  - AssociatedHero: Mirage
     BasicAbilityUsed:
       AudioName: 
       DefaultStartDelay: 0
@@ -673,25 +718,37 @@ MonoBehaviour:
       DefaultAudioChoice: 0
       AudioTracks: []
     MiscellaneousHeroAudio: []
-  - AssociatedHero: 
+  - AssociatedHero: Alchemist
     BasicAbilityUsed:
-      AudioName: 
+      AudioName: PotionThrow
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
       DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
-      AudioTracks: []
+      AudioTracks:
+      - Guid:
+          Data1: 1453305038
+          Data2: 1317327233
+          Data3: 581798037
+          Data4: -25474861
+        Path: event:/SoundEffect/Heroes/SpecificHeroes/Alchemist/General/AlchemistPotionThrow
     ManualAbilityUsed:
-      AudioName: 
+      AudioName: PotionThrow
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
       DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
-      AudioTracks: []
+      AudioTracks:
+      - Guid:
+          Data1: 1453305038
+          Data2: 1317327233
+          Data3: 581798037
+          Data4: -25474861
+        Path: event:/SoundEffect/Heroes/SpecificHeroes/Alchemist/General/AlchemistPotionThrow
     PassiveAbilityUsed:
       AudioName: 
       DefaultStartDelay: 0

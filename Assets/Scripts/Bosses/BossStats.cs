@@ -316,6 +316,8 @@ public class BossStats : BossChildrenFunctionality
         damage /= _bossDamageResistanceMultiplier;
         _currentHealth -= damage;
         _myBossBase.InvokeBossDamagedEvent(damage);
+        
+        AudioManager.Instance.PlaySpecificAudio(AudioManager.Instance.GeneralBossAudio.HealthStaggerAudio.BossTookDamage);
     }
 
     public void DealStaggerToBoss(float stagger)

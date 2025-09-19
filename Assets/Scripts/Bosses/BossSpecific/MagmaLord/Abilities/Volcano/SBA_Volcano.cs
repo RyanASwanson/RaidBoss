@@ -9,8 +9,11 @@ public class SBA_Volcano : SpecificBossAbilityFramework
 {
     [Space]
     [SerializeField] private int _projectileCount;
+    [SerializeField] private float _projectileDelay;
     [SerializeField] private float _minimumProjectileDistance;
     [SerializeField] private float _mapRadiusOffset;
+
+    private WaitForSeconds _projectileDelayWaitForSeconds;
 
     private const float _rotationAmount = 90;
     private const float _maxRotations = 3;
@@ -64,6 +67,30 @@ public class SBA_Volcano : SpecificBossAbilityFramework
         return currentTestLocation;
     }
     
+    private IEnumerator VolcanoTargetZoneCreationProcess()
+    {
+        foreach (Vector3 attackLoc in _targetLocations)
+        {
+            _currentTargetZones.Add(Instantiate(_targetZone, attackLoc, Quaternion.identity));
+            
+            yield return _projectileDelayWaitForSeconds;
+        }
+    }
+    
+    private IEnumerator VolcanoDamageCreationProcess()
+    {
+        foreach (Vector3 attackLoc in _targetLocations)
+        {
+            GameObject newestDamageZone = Instantiate(_volcanoDamageZone, attackLoc, Quaternion.identity);
+
+            newestDamageZone.transform.eulerAngles += new Vector3(0, _rotationAmount *
+                                                                     Mathf.RoundToInt(Random.Range(0, _maxRotations)), 0);
+            _storedDamageZones.Add(newestDamageZone);
+            
+            yield return _projectileDelayWaitForSeconds;
+        }
+    }
+    
     //TODO Delay the activations to be one after another
     /*protected IEnumerator CreateVolcanoDamageZonesProcess()
     {
@@ -71,17 +98,21 @@ public class SBA_Volcano : SpecificBossAbilityFramework
     }*/
     
     #region Base Ability
+
+    public override void AbilitySetUp(BossBase bossBase)
+    {
+        base.AbilitySetUp(bossBase);
+        _projectileDelayWaitForSeconds = new WaitForSeconds(_projectileDelay);
+    }
+
     /// <summary>
     /// Spawns in all the target zones
     /// </summary>
     protected override void StartShowTargetZone()
     {
         DetermineAttackLocations();
-
-        foreach (Vector3 attackLoc in _targetLocations)
-        {
-            _currentTargetZones.Add(Instantiate(_targetZone, attackLoc, Quaternion.identity));
-        }
+        
+        StartCoroutine(VolcanoTargetZoneCreationProcess());
         
         base.StartShowTargetZone();
     }
@@ -91,14 +122,7 @@ public class SBA_Volcano : SpecificBossAbilityFramework
     /// </summary>
     protected override void AbilityStart()
     {
-        foreach (Vector3 attackLoc in _targetLocations)
-        {
-            GameObject newestDamageZone = Instantiate(_volcanoDamageZone, attackLoc, Quaternion.identity);
-
-            newestDamageZone.transform.eulerAngles += new Vector3(0, _rotationAmount *
-                Mathf.RoundToInt(Random.Range(0, _maxRotations)), 0);
-            _storedDamageZones.Add(newestDamageZone);
-        }
+        StartCoroutine(VolcanoDamageCreationProcess());
 
         base.AbilityStart();
     }

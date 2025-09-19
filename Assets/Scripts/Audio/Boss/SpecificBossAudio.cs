@@ -24,4 +24,6 @@ public class SpecificBossAbilityAudio
 
     public SpecificAudio AbilityPrep;
     public SpecificAudio AbilityStart;
+    
+    public SpecificAudio[] GeneralAbilityAudio;
 }

@@ -106,6 +106,10 @@ public class HeroStats : HeroChildrenFunctionality
         
         _currentHealth -= damage / _currentDamageResistance;
         _myHeroBase.InvokeHeroDamagedEvent(damage / _currentDamageResistance);
+        
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.GeneralHeroAudio.HealthAudio.HeroTookDamage);
+        
         CheckIfHeroIsDead();
     }
 
