@@ -90,14 +90,17 @@ public class SH_Fae : SpecificHeroFramework
 
     #region Manual Abilities
 
-    public override void ActivateManualAbilities(Vector3 attackLocation)
+    public override void ActivateManualAbilities()
     {
-        base.ActivateManualAbilities(attackLocation);
+        base.ActivateManualAbilities();
 
-        //Determines the direction between the hero and the location they used the manual at
+        // Old way to target boss
+        /*//Determines the direction between the hero and the location they used the manual at
         _currentManualDirection = attackLocation - transform.position;
         //Makes sure there is no y value then normalizes
-        _currentManualDirection = new Vector3(_currentManualDirection.x, 0, _currentManualDirection.z).normalized;
+        _currentManualDirection = new Vector3(_currentManualDirection.x, 0, _currentManualDirection.z).normalized;*/
+
+        _currentManualDirection = BossManager.Instance.GetDirectionToBoss(transform.position);
 
         CreateSwirlVFX();
 
@@ -235,10 +238,15 @@ public class SH_Fae : SpecificHeroFramework
                 }
                 return;
             }
-            
-            _currentManualDirection = Vector3.Lerp(_currentManualDirection, 
-                BossManager.Instance.GetDirectionToBoss(transform.position), _manualBossHoming).normalized;
+
+            _currentManualDirection = ManualDirectionToBoss();
         }
+    }
+
+    private Vector3 ManualDirectionToBoss()
+    {
+        return  Vector3.Lerp(_currentManualDirection, 
+            BossManager.Instance.GetDirectionToBoss(transform.position), _manualBossHoming).normalized;
     }
 
     /// <summary>

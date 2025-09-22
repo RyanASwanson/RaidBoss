@@ -56,9 +56,9 @@ public class SH_Samurai : SpecificHeroFramework
     /// Called when manual button is pressed
     /// </summary>
     /// <param name="attackLocation"></param>
-    public override void ActivateManualAbilities(Vector3 attackLocation)
+    public override void ActivateManualAbilities()
     {
-        base.ActivateManualAbilities(attackLocation);
+        base.ActivateManualAbilities();
 
         _parryCoroutine = StartCoroutine(ParryProcess());
     }

@@ -48,7 +48,7 @@ public class SH_Astromancer : SpecificHeroFramework
     #endregion
 
     #region Manual Abilities
-    public override void ActivateManualAbilities(Vector3 attackLocation)
+    public override void ActivateManualAbilities()
     {
         _manualActive = true;
 

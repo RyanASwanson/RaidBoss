@@ -43,15 +43,15 @@ public class SH_Reaper : SpecificHeroFramework
     #endregion
 
     #region Manual Abilities
-    public override void ActivateManualAbilities(Vector3 attackLocation)
+    public override void ActivateManualAbilities()
     {
-        base.ActivateManualAbilities(attackLocation);
-        CreateManualAbilityProjectile(attackLocation);
+        base.ActivateManualAbilities();
+        CreateManualAbilityProjectile();
     }
 
-    private void CreateManualAbilityProjectile(Vector3 attackLocation)
+    private void CreateManualAbilityProjectile()
     {
-        attackLocation.Set(attackLocation.x, transform.position.y, attackLocation.z);
+        Vector3 attackLocation = new Vector3(-transform.position.x, transform.position.y, -transform.position.z);
 
         //Creates the projectile where the mouse is
         GameObject spawnedProjectile = Instantiate(_manualProjectile, attackLocation, Quaternion.identity);

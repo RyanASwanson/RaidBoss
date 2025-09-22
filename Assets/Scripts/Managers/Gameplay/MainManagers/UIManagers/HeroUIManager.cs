@@ -386,7 +386,7 @@ public class HeroUIManager : GameUIChildrenFunctionality
         HeroIconOnUIFlash();
     }
 
-    private void ManualUsed(Vector3 manualLoc)
+    private void ManualUsed()
     {
         ShowManualAbilityChargedIconAboveHero(false);
     }

@@ -25,43 +25,20 @@ public class SH_Alchemist : SpecificHeroFramework
         base.ActivateBasicAbilities();
 
         //Throws a healing potion at the target location
-        CreatePotion(_basicProjectile, GetBasicPotionTargetLocation());
-    }
-
-    /// <summary>
-    /// Determines where the basic projectile should be targeted at
-    /// </summary>
-    /// <returns></returns>
-    protected Vector3 GetBasicPotionTargetLocation()
-    {
-        //Finds a random point on the edge of a circle
-        Vector2 randomVector = Random.insideUnitCircle.normalized;
-        
-        //Sets the center of the circle to be at the starting location of the potion
-        Vector3 targetPosition = transform.position;
-        //Converts the circle into 3D space having it in the X and Z directions
-        //Multiplies the how far away the edge of the circle is by the potion distance multiplier
-        targetPosition += new Vector3(randomVector.x, 0, randomVector.y) * _potionDistanceMultiplier;
-
-        //Gets the closest valid point in the environment to where the target position is
-        targetPosition = EnvironmentManager.Instance.GetClosestPointToFloor(targetPosition);
-        //Keeps the y value consistent
-        targetPosition = new Vector3(targetPosition.x, transform.position.y, targetPosition.z);
-
-        return targetPosition;
+        CreatePotion(_basicProjectile, GetRandomPotionTargetLocation());
     }
 
     #endregion
 
     #region Manual Abilities
-    public override void ActivateManualAbilities(Vector3 attackLocation)
+    public override void ActivateManualAbilities()
     {
-        base.ActivateManualAbilities(attackLocation);
+        base.ActivateManualAbilities();
 
-        //Keeps the y value the same
-        attackLocation = new Vector3(attackLocation.x, transform.position.y, attackLocation.z);
+        /*//Keeps the y value the same
+        attackLocation = new Vector3(attackLocation.x, transform.position.y, attackLocation.z);*/
         //Creates a random potion from the manual options and sets its end location
-        CreatePotion(PickManualPotion(), attackLocation);
+        CreatePotion(PickManualPotion(), GetRandomPotionTargetLocation());
     }
 
     /// <summary>
@@ -93,6 +70,29 @@ public class SH_Alchemist : SpecificHeroFramework
     #endregion
 
     #region General Abilities
+    /// <summary>
+    /// Determines where the basic projectile should be targeted at
+    /// </summary>
+    /// <returns></returns>
+    protected Vector3 GetRandomPotionTargetLocation()
+    {
+        //Finds a random point on the edge of a circle
+        Vector2 randomVector = Random.insideUnitCircle.normalized;
+        
+        //Sets the center of the circle to be at the starting location of the potion
+        Vector3 targetPosition = transform.position;
+        //Converts the circle into 3D space having it in the X and Z directions
+        //Multiplies the how far away the edge of the circle is by the potion distance multiplier
+        targetPosition += new Vector3(randomVector.x, 0, randomVector.y) * _potionDistanceMultiplier;
+
+        //Gets the closest valid point in the environment to where the target position is
+        targetPosition = EnvironmentManager.Instance.GetClosestPointToFloor(targetPosition);
+        //Keeps the y value consistent
+        targetPosition = new Vector3(targetPosition.x, transform.position.y, targetPosition.z);
+
+        return targetPosition;
+    }
+    
     /// <summary>
     /// Provides the general functionality to create any potion
     /// </summary>

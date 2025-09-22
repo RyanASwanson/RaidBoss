@@ -105,11 +105,10 @@ public class SH_Mirage : SpecificHeroFramework
         _cloneFunc.AdditionalSetUp(this);
     }
 
-    public override void ActivateManualAbilities(Vector3 attackLocation)
+    public override void ActivateManualAbilities()
     {
-        base.ActivateManualAbilities(attackLocation);
-        //CloneSwap();
-        //MoveClone(attackLocation);
+        base.ActivateManualAbilities();
+        //This doesn't do any override as the animation has a trigger on it which calls CloneSwap
     }
 
     public void CloneSwap()

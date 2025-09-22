@@ -109,13 +109,11 @@ public class BossTargetZone : BossProjectileFramework
 
     protected void SetTargetZonesToTargetInRange()
     {
-        Debug.Log("Setting to Target");
         SetAllTargetZonesToMaterial(_targetInRangeMat);
     }
 
     protected void SetTargetZonesToNoTarget()
     {
-        Debug.Log("Setting to no Target");
         SetAllTargetZonesToMaterial(_noTargetInRangeMat);
     }
 

@@ -40,7 +40,7 @@ public class HeroBase : MonoBehaviour
 
     private UnityEvent _heroManualAbilityCharging = new UnityEvent();
     private UnityEvent _heroManualAbilityFullyCharged = new UnityEvent();
-    private UnityEvent<Vector3> _heroManualAbilityAttempt = new UnityEvent<Vector3>();
+    private UnityEvent _heroManualAbilityAttempt = new UnityEvent();
 
     private UnityEvent _heroStartedMovingOnMeshEvent = new UnityEvent();
     private UnityEvent _heroStoppedMovingOnMeshEvent = new UnityEvent();
@@ -148,9 +148,9 @@ public class HeroBase : MonoBehaviour
         _heroManualAbilityFullyCharged?.Invoke();
     }
     
-    public void InvokeHeroManualAbilityUsedEvent(Vector3 activateLocation)
+    public void InvokeHeroManualAbilityUsedEvent()
     {
-        _heroManualAbilityAttempt?.Invoke(activateLocation);
+        _heroManualAbilityAttempt?.Invoke();
     }
     
     public void InvokeHeroStartedMovingEvent()
@@ -249,7 +249,7 @@ public class HeroBase : MonoBehaviour
 
     public UnityEvent GetHeroManualAbilityChargingEvent() => _heroManualAbilityCharging;
     public UnityEvent GetHeroManualAbilityFullyChargedEvent() => _heroManualAbilityFullyCharged;
-    public UnityEvent<Vector3> GetHeroManualAbilityAttemptEvent() => _heroManualAbilityAttempt;
+    public UnityEvent GetHeroManualAbilityAttemptEvent() => _heroManualAbilityAttempt;
 
     public UnityEvent GetHeroStartedMovingEvent() => _heroStartedMovingOnMeshEvent;
     public UnityEvent GetHeroStoppedMovingEvent() => _heroStoppedMovingOnMeshEvent;

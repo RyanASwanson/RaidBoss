@@ -138,14 +138,9 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     /// </summary>
     private void ActivateAllManualAbilities()
     {
-        if(ClickOnPoint(_directClickLayerMask, out RaycastHit clickedOn))
+        foreach (HeroBase currentHero in _controlledHeroes)
         {
-            Vector3 targetLoc = EnvironmentManager.Instance.GetClosestPointToFloor(clickedOn.point);
-
-            foreach (HeroBase currentHero in _controlledHeroes)
-            {
-                currentHero.GetSpecificHeroScript().AttemptActivationOfManualAbility(targetLoc);
-            }
+            currentHero.GetSpecificHeroScript().AttemptActivationOfManualAbility();
         }
     }
     #endregion
@@ -218,14 +213,9 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
 
         if(IsInvalidHeroPress(pressNumVal))
             return;
-
-        if (ClickOnPoint(_directClickLayerMask, out RaycastHit clickedOn))
-        {
-            Vector3 targetLoc = EnvironmentManager.Instance.GetClosestPointToFloor(clickedOn.point);
-
-            HeroesManager.Instance.GetCurrentHeroes()
-                [pressNumVal].GetSpecificHeroScript().AttemptActivationOfManualAbility(targetLoc);
-        }
+        
+        HeroesManager.Instance.GetCurrentHeroes()
+            [pressNumVal].GetSpecificHeroScript().AttemptActivationOfManualAbility();
     }
 
     /// <summary>

@@ -54,9 +54,9 @@ public class SH_Vampire : SpecificHeroFramework
 
     #region Manual Abilities
 
-    public override void ActivateManualAbilities(Vector3 attackLocation)
+    public override void ActivateManualAbilities()
     {
-        base.ActivateManualAbilities(attackLocation);
+        base.ActivateManualAbilities();
 
         StartCoroutine(ManualAbilityProcess());
     }

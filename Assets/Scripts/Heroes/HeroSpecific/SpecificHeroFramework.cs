@@ -166,11 +166,11 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         _myHeroBase.InvokeHeroManualAbilityChargingEvent();
     }
 
-    public virtual void AttemptActivationOfManualAbility(Vector3 activateLocation)
+    public virtual void AttemptActivationOfManualAbility()
     {
         if(_manualAbilityCurrentCharge >= _manualAbilityChargeTime)
         {
-            ActivateManualAbilities(activateLocation);
+            ActivateManualAbilities();
         }
     }
 
@@ -196,7 +196,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         
     }
 
-    public virtual void ActivateManualAbilities(Vector3 attackLocation)
+    public virtual void ActivateManualAbilities()
     {
         _manualAbilityCurrentCharge = 0;
 
@@ -208,7 +208,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
 
         StartCooldownManualAbility();
 
-        _myHeroBase.InvokeHeroManualAbilityUsedEvent(attackLocation);
+        _myHeroBase.InvokeHeroManualAbilityUsedEvent();
     }
     #endregion
 
