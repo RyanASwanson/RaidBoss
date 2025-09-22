@@ -280,7 +280,6 @@ public class HeroBase : MonoBehaviour
     public void SetHeroID(int id)
     {
         _myHeroID = id;
-        Debug.Log("Setting Hero to " + id);
     }
 
     public void SetClickColliderStatus(bool status)
