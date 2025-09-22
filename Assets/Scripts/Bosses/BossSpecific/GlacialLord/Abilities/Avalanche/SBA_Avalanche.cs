@@ -16,7 +16,28 @@ public class SBA_Avalanche : SpecificBossAbilityFramework
     private GameObject _storedAvalanche;
     private Vector3 _edgeOfMap;
 
+    public const int AVALANCHE_END_AUDIO_ID = 0;
+    
+    
+    private Vector3 GetProjectileSpawnLocation()
+    {
+        Vector3 spawnLocation = transform.position;
 
+        Vector3 dir = _storedTarget.transform.position - transform.position;
+        dir = new Vector3(dir.x, 0, dir.z).normalized;
+
+        spawnLocation += dir * _spawnDistance;
+
+        return spawnLocation;
+    }
+
+    public void ProjectileReachedEndOfPath()
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
+                BossAbilityAudio[_abilityID].GeneralAbilityAudio[AVALANCHE_END_AUDIO_ID]);
+    }
+    
     #region Base Ability
     protected override void AbilityPrep()
     {
@@ -75,21 +96,9 @@ public class SBA_Avalanche : SpecificBossAbilityFramework
         //Sets up the projectile
         SBP_Avalanche avalanche = _storedAvalanche.GetComponent<SBP_Avalanche>();
         avalanche.SetUpProjectile(_myBossBase);
-        avalanche.AdditionalSetUp(_storedTarget.transform.position);
+        avalanche.AdditionalSetUp(_storedTarget.transform.position, this);
 
         base.AbilityStart();
-    }
-    
-    private Vector3 GetProjectileSpawnLocation()
-    {
-        Vector3 spawnLocation = transform.position;
-
-        Vector3 dir = _storedTarget.transform.position - transform.position;
-        dir = new Vector3(dir.x, 0, dir.z).normalized;
-
-        spawnLocation += dir * _spawnDistance;
-
-        return spawnLocation;
     }
     #endregion
 }

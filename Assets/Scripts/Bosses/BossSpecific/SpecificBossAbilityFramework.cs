@@ -235,6 +235,8 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     #endregion
 
     #region Getters
+
+    public int GetAbilityID() => _abilityID;
     public EBossAbilityTargetMethod GetTargetMethod() => _targetMethod;
     public Vector3 GetSpecificAreaTarget() => _specificAreaTarget;
     public Vector3 GetSpecificLookTarget() => _specificLookTarget;

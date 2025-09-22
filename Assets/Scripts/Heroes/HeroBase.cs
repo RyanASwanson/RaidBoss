@@ -65,8 +65,8 @@ public class HeroBase : MonoBehaviour
 
     public void SetUp(HeroSO newSO, int heroID)
     {
-        SetUp(newSO);
         SetHeroID(heroID);
+        SetUp(newSO);
     }
 
     public void SetUp(HeroSO newSO)
@@ -237,6 +237,7 @@ public class HeroBase : MonoBehaviour
     public HeroUIManager GetHeroUIManager() => _associatedHeroUIManager;
 
     public int GetHeroID() => _myHeroID;
+    public int GetHeroIDStartOne() => _myHeroID + 1;
 
     public UnityEvent<HeroSO> GetSOSetEvent() => _heroSOSetEvent;
 
@@ -279,6 +280,7 @@ public class HeroBase : MonoBehaviour
     public void SetHeroID(int id)
     {
         _myHeroID = id;
+        Debug.Log("Setting Hero to " + id);
     }
 
     public void SetClickColliderStatus(bool status)

@@ -305,7 +305,41 @@ MonoBehaviour:
     MiscellaneousBossAudio: []
   - AssociatedBoss: Glacial Lord
     BossAbilityAudio:
-    - AbilityName: 
+    - AbilityName: Avalanche
+      AbilityPrep:
+        AudioName: 
+        DefaultStartDelay: 0
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks: []
+      AbilityStart:
+        AudioName: 
+        DefaultStartDelay: 0
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks: []
+      GeneralAbilityAudio:
+      - AudioName: 
+        DefaultStartDelay: 0
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: 1147553792
+            Data2: 1317690109
+            Data3: 1551506360
+            Data4: -1183196043
+          Path: event:/SoundEffect/Bosses/Specific/GlacialLord/Abilities/Avalanche/GlacialLordAvalancheEnd
+    - AbilityName: Frostbite
       AbilityPrep:
         AudioName: 
         DefaultStartDelay: 0
@@ -325,7 +359,7 @@ MonoBehaviour:
         DefaultAudioChoice: 0
         AudioTracks: []
       GeneralAbilityAudio: []
-    - AbilityName: 
+    - AbilityName: IcicleRain
       AbilityPrep:
         AudioName: 
         DefaultStartDelay: 0
@@ -345,7 +379,7 @@ MonoBehaviour:
         DefaultAudioChoice: 0
         AudioTracks: []
       GeneralAbilityAudio: []
-    - AbilityName: 
+    - AbilityName: Blizzard
       AbilityPrep:
         AudioName: 
         DefaultStartDelay: 0
@@ -365,7 +399,7 @@ MonoBehaviour:
         DefaultAudioChoice: 0
         AudioTracks: []
       GeneralAbilityAudio: []
-    - AbilityName: 
+    - AbilityName: FrostFiends
       AbilityPrep:
         AudioName: 
         DefaultStartDelay: 0

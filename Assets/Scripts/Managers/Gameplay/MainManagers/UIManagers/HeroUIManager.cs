@@ -67,13 +67,19 @@ public class HeroUIManager : GameUIChildrenFunctionality
 
     private Animator _abilityChargedIconAnimator;
     private Image _abilityChargedManualIcon;
-
+    
     private const string SHOW_ABILITY_RECHARGED_HOLDER_ANIM_BOOL = "ShowRechargedIcon";
 
+    [Header("HeroControl")]
     private Animator _heroControlledIconAnimator;
     private Image _heroControlledIcon;
 
     private const string SHOW_HERO_CONTROLLED_HOLDER_ANIM_BOOL = "ShowControlledIcon";
+
+    [SerializeField] private bool _doesUseHeroColorForNotControlledNumber;
+    private Animator _heroNotControlledNumberAnimator;
+    
+    private const string SHOW_HERO_NOT_CONTROLLED_NUMBER_HOLDER_ANIM_BOOL = "ShowNumberIcon";
 
     private RectTransform _damageNumbersOrigin;
     private RectTransform _healingNumbersOrigin;
@@ -107,6 +113,16 @@ public class HeroUIManager : GameUIChildrenFunctionality
         _heroControlledIcon = heroVisuals.GetHeroControlledIcon();
 
         _heroControlledIcon.color = _associatedHeroBase.GetHeroSO().GetHeroUIColor();
+        
+        _heroNotControlledNumberAnimator = heroVisuals.GetHeroNotControlledNumberAnimator();
+        heroVisuals.GetHeroNotControlledNumberTextBackground().text = _associatedHeroBase.GetHeroIDStartOne().ToString();
+        heroVisuals.GetHeroNotControlledNumberText().text = _associatedHeroBase.GetHeroIDStartOne().ToString();
+        if (_doesUseHeroColorForNotControlledNumber)
+        {
+            heroVisuals.GetHeroNotControlledNumberText().color = _associatedHeroBase.GetHeroSO().GetHeroUIColor();
+        }
+
+        ShowHeroNotControlledNumber(true);
 
         _damageNumbersOrigin = heroVisuals.GetDamageNumbersOrigin();
         _healingNumbersOrigin = heroVisuals.GetHealingNumbersOrigin();
@@ -146,7 +162,13 @@ public class HeroUIManager : GameUIChildrenFunctionality
 
     private void ShowControlIconAboveHero(bool show)
     {
+        ShowHeroNotControlledNumber(!show);
         _heroControlledIconAnimator.SetBool(SHOW_HERO_CONTROLLED_HOLDER_ANIM_BOOL, show);
+    }
+
+    private void ShowHeroNotControlledNumber(bool show)
+    {
+        _heroNotControlledNumberAnimator.SetBool(SHOW_HERO_NOT_CONTROLLED_NUMBER_HOLDER_ANIM_BOOL,show);
     }
 
     private void ShowControlUIBackground(bool show)

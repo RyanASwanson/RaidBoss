@@ -23,6 +23,8 @@ public class SBP_Avalanche : BossProjectileFramework
     [SerializeField] private GlacialLordSelfMinionHit _minionHit;
     [Space]
     [SerializeField] private GeneralBossDamageArea _damageArea;
+
+    private SBA_Avalanche _specificBossAbility;
     
     /// <summary>
     /// Makes the projectile look at the target hero and start moving 
@@ -90,6 +92,7 @@ public class SBP_Avalanche : BossProjectileFramework
     /// </summary>
     private void AtEndOfPath()
     {
+        _specificBossAbility.ProjectileReachedEndOfPath();
         _minionHit.MinionContactFromDistance();
         _damageArea.DestroyProjectile();
     }
@@ -105,8 +108,9 @@ public class SBP_Avalanche : BossProjectileFramework
         base.SetUpProjectile(bossBase);
     }
 
-    public void AdditionalSetUp(Vector3 lookDirection)
+    public void AdditionalSetUp(Vector3 lookDirection, SBA_Avalanche specificAbility)
     {
+        _specificBossAbility = specificAbility;
         ProjectileLookAt(lookDirection);
         StartProjectileMovement();
     }

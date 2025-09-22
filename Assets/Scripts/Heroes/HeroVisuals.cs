@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,6 +22,11 @@ public class HeroVisuals : HeroChildrenFunctionality
     [SerializeField] private RectTransform _heroControlledOrigin;
     [SerializeField] private Animator _heroControlledAnimator;
     [SerializeField] private Image _heroControlledIcon;
+
+    [Space] 
+    [SerializeField] private Animator _heroNotControllerNumberAnimator;
+    [SerializeField] private Text _heroNotControllerNumberTextBackground;
+    [SerializeField] private TMP_Text _heroNotControllerNumberText;
 
     [Space]
     [SerializeField] private RectTransform _damageNumbersOrigin;
@@ -353,6 +359,10 @@ public class HeroVisuals : HeroChildrenFunctionality
     public RectTransform GetHeroControlledOrigin() => _heroControlledOrigin;
     public Animator GetHeroControlledAnimator() => _heroControlledAnimator;
     public Image GetHeroControlledIcon() => _heroControlledIcon;
+
+    public Animator GetHeroNotControlledNumberAnimator() => _heroNotControllerNumberAnimator;
+    public Text GetHeroNotControlledNumberTextBackground() => _heroNotControllerNumberTextBackground;
+    public TMP_Text GetHeroNotControlledNumberText() => _heroNotControllerNumberText;
 
     public RectTransform GetDamageNumbersOrigin() => _damageNumbersOrigin;
     public RectTransform GetHealingNumbersOrigin() => _healingNumbersOrigin;
