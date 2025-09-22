@@ -12,6 +12,10 @@ public class SHP_ReaperManualProjectile : HeroProjectileFramework
 {
     [SerializeField] private float _projectileSpeed;
     
+    private Animator _projectileAnimator;
+
+    private const string HIT_ANIM_TRIGGER = "HitEnemy";
+    
     private IEnumerator MoveProjectile()
     {
         while (true)
@@ -25,6 +29,11 @@ public class SHP_ReaperManualProjectile : HeroProjectileFramework
         }
     }
 
+    public void PlayProjectileHitFlickerAnimation()
+    {
+        _projectileAnimator.SetTrigger(HIT_ANIM_TRIGGER);
+    }
+
     #region Base Ability
     /// <summary>
     /// Performs needed set up on the projectile
@@ -33,6 +42,7 @@ public class SHP_ReaperManualProjectile : HeroProjectileFramework
     public override void SetUpProjectile(HeroBase heroBase)
     {
         base.SetUpProjectile(heroBase);
+        _projectileAnimator = GetComponentInChildren<Animator>();
         StartCoroutine(MoveProjectile());
     }
     #endregion

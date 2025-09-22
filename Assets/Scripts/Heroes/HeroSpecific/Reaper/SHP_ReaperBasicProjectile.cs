@@ -73,7 +73,7 @@ public class SHP_ReaperBasicProjectile : HeroProjectileFramework
         }
     }
 
-    public void TriggerHitVFX()
+    public void TriggerHitAnimation()
     {
         _hitAnimator.SetTrigger(HIT_ANIM_TRIGGER);
     }
