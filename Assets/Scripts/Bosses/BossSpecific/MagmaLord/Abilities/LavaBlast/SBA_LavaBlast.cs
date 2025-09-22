@@ -26,7 +26,7 @@ public class SBA_LavaBlast : SpecificBossAbilityFramework
     /// <returns></returns>
     private bool IsHeroInSafeZone()
     {
-        return _storedSafeZones.Dequeue().GetComponent<BossAbilitySafeZone>().DoesSafeZoneContainHero();
+        return _storedSafeZones.Dequeue().GetComponentInChildren<BossAbilitySafeZone>().DoesZoneContainHero();
     }
 
     /// <summary>
