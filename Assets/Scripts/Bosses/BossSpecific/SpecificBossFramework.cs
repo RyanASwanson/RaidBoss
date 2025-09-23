@@ -315,23 +315,23 @@ public abstract class SpecificBossFramework : MonoBehaviour
     /// <returns></returns>
     protected virtual IEnumerator UseNextAbilityProcess(SpecificBossAbilityFramework currentAbility)
     {
-        //Determines where the boss is targeting based on the abilities target method
+        // Determines where the boss is targeting based on the abilities target method
         Vector3 targetLocation = DetermineBossTargetLocation(currentAbility, out HeroBase newTarget);
 
-        //Causes the boss to turn to look at the current location of their target
+        // Causes the boss to turn to look at the current location of their target
         BossVisuals.Instance.BossLookAt(targetLocation);
 
-        //Uses the current ability
+        // Uses the current ability
         currentAbility.ActivateAbility(targetLocation, newTarget);
         
         _myBossBase.InvokeBossAbilityUsedEvent();
 
-        //Waits for a specified amount of time determined by the current ability
+        // Waits for a specified amount of time determined by the current ability
         yield return new WaitForSeconds(currentAbility.GetTimeUntilNextAbility());
 
         _nextAttackProcess = null;
 
-        //Uses the next ability to repeat the cycle
+        // Uses the next ability to repeat the cycle
         StartNextAbility();
     }
 
