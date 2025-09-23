@@ -14,8 +14,10 @@ public class BossPillar : MonoBehaviour
     private GameObject _currentBossVisual;
 
     private BossSO _storedBoss;
+    
+    private const string BOSS_SELECTED_ANIM_TRIGGER = "G_BossSelected";
+    
     [Space]
-
     [SerializeField] private Animator _pillarAnimator;
 
     private const string BOSS_PILLAR_MOVE_ANIM_BOOL = "PillarUp";
@@ -39,9 +41,22 @@ public class BossPillar : MonoBehaviour
         _currentBossVisual.transform.eulerAngles += new Vector3(0, 315, 0);
         _storedBoss = bossSO;
 
-        if (!newBoss) return;
+        if (!newBoss)
+        {
+            Animator animator = _currentBossVisual.GetComponentInChildren<Animator>();
+            if(!animator.IsUnityNull())
+            {
+                StartBossSelectedAnimation(animator);
+            }
+            return;
+        }
         _bossSpawnAnimator.SetTrigger(NEW_BOSS_HOVER_ANIM_TRIGGER);
         _bossSpawnAnimator.ResetTrigger(REMOVE_BOSS_ON_PILLAR_ANIM_TRIGGER);
+    }
+    
+    public void StartBossSelectedAnimation(Animator animator)
+    {
+        animator.SetTrigger(BOSS_SELECTED_ANIM_TRIGGER);
     }
 
     public void RemoveBossOnPillar()

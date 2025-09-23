@@ -640,8 +640,6 @@ public class SelectionController : MonoBehaviour
         int heroPillarNum = SelectionManager.Instance.GetSelectedHeroesCount();
 
         _heroPillars[heroPillarNum - 1].ShowHeroOnPillar(heroSO,false);
-        
-        Debug.Log("New Hero Added");
 
         if (heroPillarNum < SelectionManager.Instance.GetMaxHeroesCount())
         {
