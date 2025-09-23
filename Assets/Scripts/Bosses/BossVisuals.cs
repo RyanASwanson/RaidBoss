@@ -35,6 +35,11 @@ public class BossVisuals : BossChildrenFunctionality
     {
         StartCoroutine(LookAtProcess(lookLocation));
     }
+
+    public void BossLookAt(GameObject lookTarget, float duration)
+    {
+        StartCoroutine(LookAtProcess(lookTarget, duration));
+    }
     
     /// <summary>
     /// Rotates the boss to look at a target location
@@ -65,6 +70,31 @@ public class BossVisuals : BossChildrenFunctionality
             //Makes certain that only the Y euler angle was adjusted
             _visualObjectBase.transform.eulerAngles = new Vector3(0, _visualObjectBase.transform.eulerAngles.y, 0);
 
+            yield return null;
+        }
+        
+    }
+
+    private IEnumerator LookAtProcess(GameObject lookTarget, float duration)
+    {
+        float progress = 0;
+        Quaternion startingRotation = _visualObjectBase.transform.rotation;
+        
+        while (progress < duration)
+        {
+            //Converts the position of the look location and boss location into a direction
+            Vector3 lookDir = lookTarget.transform.position - _visualObjectBase.transform.position;
+
+            //Converts the direction into a quaternion
+            Quaternion toRotation = Quaternion.LookRotation(lookDir);
+            
+            _visualObjectBase.transform.rotation = Quaternion.Lerp
+                (startingRotation, toRotation, progress);
+            
+            _visualObjectBase.transform.eulerAngles = new Vector3(0, _visualObjectBase.transform.eulerAngles.y, 0);
+            
+            //transform.LookAt(target.transform.position);
+            progress += Time.deltaTime;
             yield return null;
         }
         

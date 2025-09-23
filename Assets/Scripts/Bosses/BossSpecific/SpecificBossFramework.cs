@@ -318,8 +318,15 @@ public abstract class SpecificBossFramework : MonoBehaviour
         // Determines where the boss is targeting based on the abilities target method
         Vector3 targetLocation = DetermineBossTargetLocation(currentAbility, out HeroBase newTarget);
 
-        // Causes the boss to turn to look at the current location of their target
-        BossVisuals.Instance.BossLookAt(targetLocation);
+        if (currentAbility.GetDoesBossFollowTarget())
+        {
+            BossVisuals.Instance.BossLookAt(newTarget.gameObject, currentAbility.GetAbilityWindUpTime());
+        }
+        else
+        {
+            // Causes the boss to turn to look at the current location of their target
+            BossVisuals.Instance.BossLookAt(targetLocation);
+        }
 
         // Uses the current ability
         currentAbility.ActivateAbility(targetLocation, newTarget);

@@ -11,6 +11,7 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
 {
     [SerializeField] protected int _abilityID;
     [SerializeField] protected EBossAbilityTargetMethod _targetMethod;
+    [SerializeField] protected bool _doesBossFollowTarget;
 
     [Space]
     [SerializeField] protected Vector3 _specificAreaTarget;
@@ -238,6 +239,7 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
 
     public int GetAbilityID() => _abilityID;
     public EBossAbilityTargetMethod GetTargetMethod() => _targetMethod;
+    public bool GetDoesBossFollowTarget() => _doesBossFollowTarget;
     public Vector3 GetSpecificAreaTarget() => _specificAreaTarget;
     public Vector3 GetSpecificLookTarget() => _specificLookTarget;
 
