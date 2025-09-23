@@ -262,7 +262,7 @@ public class SH_Fae : SpecificHeroFramework
 
     private bool ManualHitBoss(RaycastHit rayHit)
     {
-        return rayHit.collider.gameObject.CompareTag(TagStringData.GetBossHitboxTagName());
+        return TagStringData.DoesColliderBelongToBoss(rayHit.collider);
     }
     #endregion
 

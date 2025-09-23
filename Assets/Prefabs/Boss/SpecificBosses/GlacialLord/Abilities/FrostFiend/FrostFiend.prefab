@@ -426,6 +426,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b808916816e5e70419992a88978ea0f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _canBeFrozenDuringFreeze: 0
   _frostFiendAnimator: {fileID: 2535172192572996261}
 --- !u!95 &2535172192572996261
 Animator:
@@ -492,7 +493,7 @@ GameObject:
   - component: {fileID: 4319846793576399713}
   m_Layer: 11
   m_Name: Hitbox
-  m_TagString: Untagged
+  m_TagString: BossMinionHitbox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -523,7 +524,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1, y: 2, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4931017759713728514
 GameObject:

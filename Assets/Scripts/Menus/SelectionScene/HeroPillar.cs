@@ -14,8 +14,10 @@ public class HeroPillar : MonoBehaviour
     private GameObject _currentHeroVisual;
 
     private HeroSO _storedHero;
-    [Space]
 
+    private const string HERO_SELECTED_ANIM_TRIGGER = "G_HeroSelected";
+    
+    [Space]
     [SerializeField] private Animator _pillarAnimator;
 
     private const string HERO_PILLAR_MOVE_ANIM_BOOL = "PillarUp";
@@ -48,10 +50,22 @@ public class HeroPillar : MonoBehaviour
         //Sets the stored hero
         _storedHero = heroSO;
 
-        if (!newHero) return;
+        if (!newHero)
+        {
+            if(_currentHeroVisual.TryGetComponent<Animator>(out Animator animator))
+            {
+                StartHeroSelectedAnimation(animator);
+            }
+            return;
+        }
 
         _heroSpawnAnimator.SetTrigger(NEW_HERO_HOVER_ANIM_TRIGGER);
         _heroSpawnAnimator.ResetTrigger(REMOVE_HERO_ON_PILLAR_ANIM_TRIGGER);
+    }
+    
+    public void StartHeroSelectedAnimation(Animator animator)
+    {
+        animator.SetTrigger(HERO_SELECTED_ANIM_TRIGGER);
     }
 
     /// <summary>

@@ -55,7 +55,7 @@ public class HeroVisuals : HeroChildrenFunctionality
 
 
     private Animator _heroSpecificAnimator;
-
+    
     private const string HERO_IDLE_ANIM_TRIGGER = "G_HeroIdle";
     private const string HERO_WALKING_ANIM_BOOL = "G_HeroWalking";
 

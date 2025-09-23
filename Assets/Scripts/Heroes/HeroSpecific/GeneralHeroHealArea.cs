@@ -28,12 +28,6 @@ public class GeneralHeroHealArea : GeneralAbilityAreaFramework
         _myHeroBase = heroBase;
     }
 
-
-    private bool DoesColliderBelongToHero(Collider collision)
-    {
-        return collision.gameObject.CompareTag(TagStringData.GetHeroHitboxTagName());
-    }
-
     private void OnTriggerEnter(Collider collision)
     {
         if (!enabled) return;
@@ -60,14 +54,23 @@ public class GeneralHeroHealArea : GeneralAbilityAreaFramework
 
     private bool HitHero(Collider collision, UnityEvent<Collider> hitEvent, float abilityHealing)
     {
-        if (DoesColliderBelongToHero(collision) 
-            && !collision.GetComponentInParent<HeroBase>().GetHeroStats().ShouldOverrideHealing())
+        if (TagStringData.DoesColliderBelongToHero(collision))
         {
-            if (_ignoreFullHealth && collision.GetComponentInParent<HeroBase>().GetHeroStats().IsHeroMaxHealth()) return false;
+            HeroBase heroBase = collision.GetComponentInParent<HeroBase>();
+            
+            if (heroBase.GetHeroStats().ShouldOverrideHealing())
+            {
+                return false;
+            }
+            
+            if (_ignoreFullHealth && heroBase.GetHeroStats().IsHeroMaxHealth())
+            {
+                return false;
+            }
 
             hitEvent?.Invoke(collision);
 
-            DealHealing(collision.GetComponentInParent<HeroBase>(), abilityHealing);
+            DealHealing(heroBase, abilityHealing);
 
             return true;
         }
@@ -76,12 +79,9 @@ public class GeneralHeroHealArea : GeneralAbilityAreaFramework
 
     private void DealHealing(HeroBase heroBase, float abilityHealing)
     {
-        //abilityHealing *= _myHeroBase.GetHeroStats().GetCurrentHealingDealtMultiplier();
-
         if (abilityHealing > 0)
         {
             _myHeroBase.GetSpecificHeroScript().HealTargetHero(abilityHealing, heroBase);
-            //heroBase.GetHeroStats().HealHero(abilityHealing);
         }
             
     }

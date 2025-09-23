@@ -7,8 +7,8 @@ using UnityEngine.Serialization;
 
 public class BossTargetZone : BossProjectileFramework
 {
-    [SerializeField] private Material _noTargetInRangeMat;
-    [SerializeField] private Material _targetInRangeMat;
+    [SerializeField] protected Material _noHeroInRangeMat;
+    [SerializeField] protected Material _heroInRangeMat;
 
     [SerializeField] private EBossTargetZoneAppearType _targetZoneAppearType;
     [SerializeField] private float _targetZoneAppearSpeedMultiplier;
@@ -53,11 +53,11 @@ public class BossTargetZone : BossProjectileFramework
         _isDelayingMaterialChange = false;
         if (DoesZoneContainHero())
         {
-            SetTargetZonesToTargetInRange();
+            SetTargetZonesToHeroInRange();
         }
         else
         {
-            SetTargetZonesToNoTarget();
+            SetTargetZonesToNoHero();
         }
     }
 
@@ -67,7 +67,7 @@ public class BossTargetZone : BossProjectileFramework
     /// <param name="enterHero"></param>
     protected void AddHeroInRange(HeroBase enterHero)
     {
-        _heroesInRange.Add(enterHero.gameObject.GetComponent<HeroBase>());
+        _heroesInRange.Add(enterHero);
         if (_heroesInRange.Count == 1)
         {
             FirstHeroInRange();
@@ -77,9 +77,9 @@ public class BossTargetZone : BossProjectileFramework
     /// <summary>
     /// Called when the first hero is added to the range
     /// </summary>
-    protected void FirstHeroInRange()
+    protected virtual void FirstHeroInRange()
     {
-        SetTargetZonesToTargetInRange();
+        SetTargetZonesToHeroInRange();
     }
 
     /// <summary>
@@ -102,19 +102,19 @@ public class BossTargetZone : BossProjectileFramework
     /// <summary>
     /// Called when all heroes in range are removed
     /// </summary>
-    protected void NoMoreHeroesInRange()
+    protected virtual void NoMoreHeroesInRange()
     {
-        SetTargetZonesToNoTarget();
+        SetTargetZonesToNoHero();
     }
 
-    protected void SetTargetZonesToTargetInRange()
+    protected virtual void SetTargetZonesToHeroInRange()
     {
-        SetAllTargetZonesToMaterial(_targetInRangeMat);
+        SetAllTargetZonesToMaterial(_heroInRangeMat);
     }
 
-    protected void SetTargetZonesToNoTarget()
+    protected virtual void SetTargetZonesToNoHero()
     {
-        SetAllTargetZonesToMaterial(_noTargetInRangeMat);
+        SetAllTargetZonesToMaterial(_noHeroInRangeMat);
     }
 
     protected void SetAllTargetZonesToMaterial(Material newMaterial)
@@ -134,26 +134,34 @@ public class BossTargetZone : BossProjectileFramework
     /// When a hero enters the target zone they are added to the list of heroes in range
     /// </summary>
     /// <param name="collision"></param>
-    protected void OnTriggerEnter(Collider collision)
+    protected virtual void OnTriggerEnter(Collider collision)
     {
-        HeroBase tempHero = collision.GetComponentInParent<HeroBase>();
-        if (!tempHero.IsUnityNull())
+        if (TagStringData.DoesColliderBelongToHero(collision))
         {
-            AddHeroInRange(tempHero);
+            HeroBase tempHero = collision.GetComponentInParent<HeroBase>();
+            if (!tempHero.IsUnityNull())
+            {
+                AddHeroInRange(tempHero);
+            }
         }
+        
     }
 
     /// <summary>
     /// When a hero leaves the target zone they are removed from the list of heroes in range
     /// </summary>
     /// <param name="collision"></param>
-    protected void OnTriggerExit(Collider collision)
+    protected virtual void OnTriggerExit(Collider collision)
     {
-        HeroBase tempHero = collision.GetComponentInParent<HeroBase>();
-        if (!tempHero.IsUnityNull())
+        if (TagStringData.DoesColliderBelongToHero(collision))
         {
-            RemoveHeroInRange(tempHero);
+            HeroBase tempHero = collision.GetComponentInParent<HeroBase>();
+            if (!tempHero.IsUnityNull())
+            {
+                RemoveHeroInRange(tempHero);
+            }
         }
+        
     }
     #endregion
     

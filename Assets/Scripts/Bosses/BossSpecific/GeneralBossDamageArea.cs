@@ -28,16 +28,6 @@ public class GeneralBossDamageArea : GeneralAbilityAreaFramework
 
     #region Collision
     /// <summary>
-    /// Checks if the target hit is a hero
-    /// </summary>
-    /// <param name="collision"> The collider that we are checking </param>
-    /// <returns></returns>
-    private bool DoesColliderBelongToHero(Collider collision)
-    {
-        return collision.gameObject.CompareTag(TagStringData.GetHeroHitboxTagName());
-    }
-
-    /// <summary>
     /// Deals damage when a hero enters the trigger
     /// </summary>
     /// <param name="collision"></param>
@@ -90,7 +80,7 @@ public class GeneralBossDamageArea : GeneralAbilityAreaFramework
     private bool HitHero(Collider collision, UnityEvent<Collider> hitEvent, float abilityDamage)
     {
         //Checks if the attack hit a hero
-        if (DoesColliderBelongToHero(collision))
+        if (TagStringData.DoesColliderBelongToHero(collision))
         {
             //If the hero should be ignored then return
             HeroBase heroBase = collision.GetComponentInParent<HeroBase>();
@@ -101,7 +91,9 @@ public class GeneralBossDamageArea : GeneralAbilityAreaFramework
 
             //Ignores the hero for a duration
             if (_preventReHitDuration > 0 && abilityDamage > 0)
-                StartCoroutine(IgnoreHeroForDuration(collision.gameObject.GetComponentInParent<HeroBase>()));
+            {
+                StartCoroutine(IgnoreHeroForDuration(heroBase));
+            }
 
             //Deals damage to the hero
             DealDamage(heroBase, abilityDamage);

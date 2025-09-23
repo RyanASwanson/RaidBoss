@@ -41,10 +41,6 @@ public class GeneralHeroDamageArea : GeneralAbilityAreaFramework
     }
 
     #region Collision
-    private bool DoesColliderBelongToBoss(Collider collision)
-    {
-        return collision.gameObject.CompareTag(TagStringData.GetBossHitboxTagName());
-    }
 
     private void OnTriggerEnter(Collider collision)
     {
@@ -73,7 +69,7 @@ public class GeneralHeroDamageArea : GeneralAbilityAreaFramework
 
     private bool HitBoss(Collider collision, UnityEvent<Collider> hitEvent, float abilityDamage, float abilityStagger)
     {
-        if(DoesColliderBelongToBoss(collision))
+        if(TagStringData.DoesColliderBelongToBoss(collision))
         {
             hitEvent?.Invoke(collision);
 

@@ -588,11 +588,15 @@ public class SelectionController : MonoBehaviour
 
         //Hero limit went down
         if (SelectionManager.Instance.GetMaxHeroesCount() < _previousMaxHeroes)
+        {
             HeroLimitReduced();
+        }
         //Hero limit went up
         else if (SelectionManager.Instance.GetMaxHeroesCount() > _previousMaxHeroes)
+        {
             HeroLimitIncreased();
-
+        }
+            
         _previousMaxHeroes = SelectionManager.Instance.GetMaxHeroesCount();
     }
 
@@ -636,11 +640,12 @@ public class SelectionController : MonoBehaviour
         int heroPillarNum = SelectionManager.Instance.GetSelectedHeroesCount();
 
         _heroPillars[heroPillarNum - 1].ShowHeroOnPillar(heroSO,false);
+        
+        Debug.Log("New Hero Added");
 
         if (heroPillarNum < SelectionManager.Instance.GetMaxHeroesCount())
         {
             MoveHeroPillar(heroPillarNum, true);
-
         }
 
         CheckMaxCharactersSelected();
@@ -679,8 +684,12 @@ public class SelectionController : MonoBehaviour
     private SelectHeroButton GetHeroButtonFromSO(HeroSO hero)
     {
         foreach (SelectHeroButton heroButton in _heroSelectionButtons)
+        {
             if (heroButton.GetAssociatedHero() == hero)
+            {
                 return heroButton;
+            }
+        }
 
         return null;
     }
@@ -690,7 +699,9 @@ public class SelectionController : MonoBehaviour
         foreach (HeroPillar heroPillar in _heroPillars)
         {
             if (heroPillar.GetStoredHero() == searchHero)
+            {
                 return heroPillar;
+            }
         }
         return null;
     }
