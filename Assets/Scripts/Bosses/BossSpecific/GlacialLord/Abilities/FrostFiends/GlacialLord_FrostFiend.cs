@@ -14,6 +14,8 @@ public class GlacialLord_FrostFiend : BossMinionBase
     private const string _fiendBlizzardAnimTrigger = "BlizzardAttack";
     private const string _fiendBlizzardFailedAnimTrigger = "BlizzardFailed";
     private const string _fiendFrostbiteAnimTrigger = "FrostbiteAttack";
+    
+    private const string _fiendDeathAnimTrigger = "FiendDeath";
 
     private bool _minionFrozen;
     private float _freezeDuration;
@@ -41,6 +43,11 @@ public class GlacialLord_FrostFiend : BossMinionBase
         FrostbiteAttackAnim();
     }
 
+    public void FrostFiendDeath()
+    {
+        DeathAnim();
+    }
+
     #region Freezing
     public void FreezeMinion()
     {
@@ -66,7 +73,9 @@ public class GlacialLord_FrostFiend : BossMinionBase
         _minionFrozen = false;
         UnfreezeAnim();
     }
+    #endregion
 
+    #region Animations
     private void FreezeAnim()
     {
         _frostFiendAnimator.SetTrigger(_fiendFrozenAnimTrigger);
@@ -76,7 +85,7 @@ public class GlacialLord_FrostFiend : BossMinionBase
     {
         _frostFiendAnimator.SetTrigger(_fiendUnfrozenAnimTrigger);
     }
-
+    
     private void BlizzardAttackAnim()
     {
         _frostFiendAnimator.SetTrigger(_fiendBlizzardAnimTrigger);
@@ -90,6 +99,11 @@ public class GlacialLord_FrostFiend : BossMinionBase
     private void FrostbiteAttackAnim()
     {
         _frostFiendAnimator.SetTrigger(_fiendFrostbiteAnimTrigger);
+    }
+
+    private void DeathAnim()
+    {
+        _frostFiendAnimator.SetTrigger(_fiendDeathAnimTrigger);
     }
 
     #endregion

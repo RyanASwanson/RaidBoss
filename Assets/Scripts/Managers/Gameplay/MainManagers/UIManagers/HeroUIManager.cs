@@ -391,7 +391,7 @@ public class HeroUIManager : GameUIChildrenFunctionality
         ShowManualAbilityChargedIconAboveHero(false);
     }
 
-    private void ShowManualAbilityChargedIconAboveHero(bool show)
+    public void ShowManualAbilityChargedIconAboveHero(bool show)
     {
         _abilityChargedIconAnimator.SetBool(SHOW_ABILITY_RECHARGED_HOLDER_ANIM_BOOL, show);
     }

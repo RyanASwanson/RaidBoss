@@ -97,9 +97,13 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
             direction += _controlledHeroes[0].GetHeroID();
 
             if (direction > HeroesManager.Instance.GetCurrentHeroes().Count - 1)
+            {
                 direction = 0;
+            }
             else if (direction < 0)
+            {
                 direction = HeroesManager.Instance.GetCurrentHeroes().Count - 1;
+            }
 
             heroToControl = HeroesManager.Instance.GetCurrentHeroes()[direction];
         }
@@ -115,13 +119,25 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
 
     }
 
+    public void RemoveControlledHero(HeroBase heroToRemove)
+    {
+        if (_controlledHeroes.Contains(heroToRemove))
+        {
+            _controlledHeroes.Remove(heroToRemove);
+            heroToRemove.InvokeHeroControlledEnd();
+        }
+    }
+
     /// <summary>
     /// Clears out the list of controlled heroes
     /// </summary>
     private void ClearControlledHeroes()
     {
         foreach (HeroBase newHero in _controlledHeroes)
+        {
             newHero.InvokeHeroControlledEnd();
+        }
+            
         _controlledHeroes.Clear();
     }
 

@@ -166,7 +166,7 @@ public class SB_TerraLord : SpecificBossFramework
     }
     #endregion
 
-    #region Base Boss
+    #region BaseBoss
     /// <summary>
     /// Called when the fight begins.
     /// </summary>

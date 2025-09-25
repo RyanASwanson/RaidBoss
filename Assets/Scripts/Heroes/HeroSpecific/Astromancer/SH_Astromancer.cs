@@ -61,6 +61,7 @@ public class SH_Astromancer : SpecificHeroFramework
 
         _myHeroBase.GetHeroStats().ChangeCurrentHeroAngularSpeed(_increasedManualRotationalSpeed);
 
+        _myHeroBase.GetHeroUIManager().ShowManualAbilityChargedIconAboveHero(false);
 
         CreateManualAttackProjectiles();
     }

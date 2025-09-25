@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -9,6 +10,7 @@ public class BossVisuals : BossChildrenFunctionality
     public static BossVisuals Instance;
     
     private float _rotateSpeed;
+    private Coroutine _bossLookAtCoroutine;
 
     private GameObject _visualObjectBase;
 
@@ -33,12 +35,23 @@ public class BossVisuals : BossChildrenFunctionality
     /// <param name="lookLocation"></param>
     public void BossLookAt(Vector3 lookLocation)
     {
-        StartCoroutine(LookAtProcess(lookLocation));
+        _bossLookAtCoroutine = StartCoroutine(LookAtProcess(lookLocation));
     }
 
     public void BossLookAt(GameObject lookTarget, float duration)
     {
-        StartCoroutine(LookAtProcess(lookTarget, duration));
+        _bossLookAtCoroutine = StartCoroutine(LookAtProcess(lookTarget, duration));
+    }
+
+    /// <summary>
+    /// Stop the process of the boss looking at a target
+    /// </summary>
+    public void StopBossLookAt()
+    {
+        if (!_bossLookAtCoroutine.IsUnityNull())
+        {
+            StopCoroutine(_bossLookAtCoroutine);
+        }
     }
     
     /// <summary>
@@ -79,11 +92,18 @@ public class BossVisuals : BossChildrenFunctionality
     {
         float progress = 0;
         Quaternion startingRotation = _visualObjectBase.transform.rotation;
+        Vector3 lookTargetLocation = lookTarget.transform.position;
         
         while (progress < duration)
         {
+            if (!lookTarget.IsUnityNull())
+            {
+                // Store the last valid location of the target
+                lookTargetLocation = lookTarget.transform.position;
+            }
+            
             //Converts the position of the look location and boss location into a direction
-            Vector3 lookDir = lookTarget.transform.position - _visualObjectBase.transform.position;
+            Vector3 lookDir = lookTargetLocation - _visualObjectBase.transform.position;
 
             //Converts the direction into a quaternion
             Quaternion toRotation = Quaternion.LookRotation(lookDir);

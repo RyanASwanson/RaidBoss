@@ -173,12 +173,16 @@ public class HeroStats : HeroChildrenFunctionality
     /// </summary>
     public void KillHero()
     {
-        //Prevents hero from taking damage as they die
+        // Prevents hero from taking damage as they die
         AddDamageTakenOverrideCounter();
 
-        //Tells the hero base to invoke the death event
+        // Tells the hero base to invoke the death event
         _myHeroBase.InvokeHeroDiedEvent();
-        //Tells the heroes manager that this hero died
+        
+        // Removes the hero from being controlled
+        PlayerInputGameplayManager.Instance.RemoveControlledHero(_myHeroBase);
+        
+        // Tells the heroes manager that this hero died
         HeroesManager.Instance.HeroDied(_myHeroBase);
     }
 

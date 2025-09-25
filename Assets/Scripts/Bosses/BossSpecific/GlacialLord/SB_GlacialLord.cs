@@ -53,6 +53,23 @@ public class SB_GlacialLord : SpecificBossFramework
         InvokeFrostFiendSpawned(newFiend);
     }
 
+    private void FrostFiendDeath()
+    {
+        foreach (GlacialLord_FrostFiend frostFiend in _allFrostFiends)
+        {
+            frostFiend.FrostFiendDeath();
+        }
+    }
+    #endregion
+
+    #region BaseBoss
+
+    public override void SubscribeToEvents()
+    {
+        base.SubscribeToEvents();
+        GameStateManager.Instance.GetBattleWonEvent().AddListener(FrostFiendDeath);
+    }
+
     #endregion
 
     #region Events

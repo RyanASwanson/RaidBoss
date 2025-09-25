@@ -25,6 +25,10 @@ public class HeroPathfinding : HeroChildrenFunctionality
     /// <param name="newDestination"></param>
     public void DirectNavigationTo(Vector3 newDestination)
     {
+        if (_myHeroBase.GetHeroStats().IsHeroDead())
+        {
+            return;
+        }
         _meshAgent.SetDestination(newDestination);
         StartMovingCoroutine();
     }

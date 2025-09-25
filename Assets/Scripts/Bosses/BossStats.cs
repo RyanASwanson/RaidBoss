@@ -160,6 +160,10 @@ public class BossStats : BossChildrenFunctionality
         _bossStaggered = true;
         StopEnrageTimer();
         
+        // Stops the boss turning
+        BossVisuals.Instance.StopBossLookAt();
+        
+        // Play the stagger audio sfx
         AudioManager.Instance.PlaySpecificAudio(AudioManager.Instance.GeneralBossAudio.HealthStaggerAudio.BossStaggered);
         
         _myBossBase.InvokeBossStaggeredEvent();
