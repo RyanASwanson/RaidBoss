@@ -609,14 +609,20 @@ MonoBehaviour:
     MiscellaneousHeroAudio: []
   - AssociatedHero: Chronomancer
     BasicAbilityUsed:
-      AudioName: 
+      AudioName: TimeBlast
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
       DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
-      AudioTracks: []
+      AudioTracks:
+      - Guid:
+          Data1: 1296618320
+          Data2: 1178657291
+          Data3: -118757469
+          Data4: -992808754
+        Path: event:/SoundEffect/Heroes/SpecificHeroes/Chronomancer/Basic/ChronomancerTimeBlast
     ManualAbilityUsed:
       AudioName: 
       DefaultStartDelay: 0
