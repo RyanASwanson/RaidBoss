@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using FMOD.Studio;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// Contains the basic functionality that all specific heroes will inherit from
@@ -10,9 +11,8 @@ using UnityEngine.Events;
 public abstract class SpecificHeroFramework : MonoBehaviour
 {
     [SerializeField] protected float _basicAbilityChargeTime;
-
     protected float _basicAbilityCurrentCharge = 0;
-
+    
     [Space]
 
     [SerializeField] protected float _manualAbilityChargeTime;
@@ -25,6 +25,13 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     [SerializeField] protected bool _hasBasicAbilityAnimation;
     [SerializeField] protected bool _hasManualAbilityAnimation;
     [SerializeField] protected bool _hasPassiveAbilityAnimation;
+    
+    [SerializeField] private float _basicAbilityAnimationBufferBeforeDisable = 0.25f;
+    [SerializeField] private float _manualAbilityAnimationBufferBeforeDisable = 0.25f;
+    [SerializeField] private float _passiveAbilityAnimationBufferBeforeDisable = 0.25f;
+    private WaitForSeconds _basicAbilityAnimationDisableWait;
+    private WaitForSeconds _manualAbilityAnimationDisableWait;
+    private WaitForSeconds _passiveAbilityAnimationDisableWait;
 
     internal HeroBase _myHeroBase;
 
@@ -103,9 +110,13 @@ public abstract class SpecificHeroFramework : MonoBehaviour
 
     protected virtual void TriggerBasicAbilityAnimation()
     {
-        if (!_hasBasicAbilityAnimation) return;
+        if (!_hasBasicAbilityAnimation)
+        {
+            return;
+        }
 
         _myHeroBase.GetHeroVisuals().TriggerBasicAbilityAnimation();
+        _myHeroBase.GetHeroVisuals().ResetBasicAbilityAnimation(_basicAbilityAnimationDisableWait);
     }
 
     protected virtual void PlayBasicAbilityAudio()
@@ -179,6 +190,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         if (!_hasManualAbilityAnimation) return;
 
         _myHeroBase.GetHeroVisuals().TriggerManualAbilityAnimation();
+        _myHeroBase.GetHeroVisuals().ResetManualAbilityAnimation(_manualAbilityAnimationDisableWait);
     }
     
     protected virtual void PlayManualAbilityAudio()
@@ -219,6 +231,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         if (!_hasPassiveAbilityAnimation) return;
 
         _myHeroBase.GetHeroVisuals().TriggerPassiveAbilityAnimation();
+        _myHeroBase.GetHeroVisuals().ResetPassiveAbilityAnimation(_passiveAbilityAnimationDisableWait);
     }
     
     protected virtual void PlayPassiveAbilityAudio()
@@ -290,7 +303,15 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     public virtual void SetUpSpecificHero(HeroBase heroBase, HeroSO heroSO)
     {
         _myHeroBase = heroBase;
+        SetInitialValues();
         SubscribeToEvents();
+    }
+
+    private void SetInitialValues()
+    {
+        _basicAbilityAnimationDisableWait = new WaitForSeconds(_basicAbilityAnimationBufferBeforeDisable);
+        _manualAbilityAnimationDisableWait = new WaitForSeconds(_manualAbilityAnimationBufferBeforeDisable);
+        _passiveAbilityAnimationDisableWait = new WaitForSeconds(_passiveAbilityAnimationBufferBeforeDisable);
     }
 
     /// <summary>

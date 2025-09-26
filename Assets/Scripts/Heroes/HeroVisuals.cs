@@ -175,6 +175,15 @@ public class HeroVisuals : HeroChildrenFunctionality
     }
 
     /// <summary>
+    /// Resets a trigger on the hero specific animator
+    /// </summary>
+    /// <param name="animationTrigger"></param>
+    public void HeroSpecificAnimationResetTrigger(string animationTrigger)
+    {
+        _heroSpecificAnimator.ResetTrigger(animationTrigger);
+    }
+
+    /// <summary>
     /// Sets a bool on the hero specific animator
     /// </summary>
     /// <param name="animationBool"></param>
@@ -224,12 +233,32 @@ public class HeroVisuals : HeroChildrenFunctionality
         HeroSpecificAnimationTrigger(HERO_BASIC_ANIM_TRIGGER);
     }
 
+    public void ResetBasicAbilityAnimation()
+    {
+        HeroSpecificAnimationResetTrigger(HERO_BASIC_ANIM_TRIGGER);
+    }
+
+    public void ResetBasicAbilityAnimation(WaitForSeconds delay)
+    {
+        StartResetAbilityAnimation(delay, HERO_BASIC_ANIM_TRIGGER);
+    }
+
     /// <summary>
     /// Tells the hero specific animator to start their manual ability animation
     /// </summary>
     public void TriggerManualAbilityAnimation()
     {
         HeroSpecificAnimationTrigger(HERO_MANUAL_ANIM_TRIGGER);
+    }
+    
+    public void ResetManualAbilityAnimation()
+    {
+        HeroSpecificAnimationResetTrigger(HERO_MANUAL_ANIM_TRIGGER);
+    }
+
+    public void ResetManualAbilityAnimation(WaitForSeconds delay)
+    {
+        StartResetAbilityAnimation(delay, HERO_MANUAL_ANIM_TRIGGER);
     }
 
     /// <summary>
@@ -238,6 +267,27 @@ public class HeroVisuals : HeroChildrenFunctionality
     public void TriggerPassiveAbilityAnimation()
     {
         HeroSpecificAnimationTrigger(HERO_PASSIVE_ANIM_TRIGGER);
+    }
+    
+    public void ResetPassiveAbilityAnimation()
+    {
+        HeroSpecificAnimationResetTrigger(HERO_PASSIVE_ANIM_TRIGGER);
+    }
+
+    public void ResetPassiveAbilityAnimation(WaitForSeconds delay)
+    {
+        StartResetAbilityAnimation(delay, HERO_PASSIVE_ANIM_TRIGGER);
+    }
+
+    public void StartResetAbilityAnimation(WaitForSeconds delay, string animationTrigger)
+    {
+        StartCoroutine(ResetAbilityAnimation(delay, animationTrigger));
+    }
+    
+    private IEnumerator ResetAbilityAnimation(WaitForSeconds delay, string animationTrigger)
+    {
+        yield return delay;
+        HeroSpecificAnimationResetTrigger(animationTrigger);
     }
 
     /// <summary>
