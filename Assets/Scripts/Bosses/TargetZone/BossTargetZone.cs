@@ -10,8 +10,13 @@ public class BossTargetZone : BossProjectileFramework
     [SerializeField] protected Material _noHeroInRangeMat;
     [SerializeField] protected Material _heroInRangeMat;
 
+    [Space]
     [SerializeField] private EBossTargetZoneAppearType _targetZoneAppearType;
     [SerializeField] private float _targetZoneAppearSpeedMultiplier;
+    
+    [Space]
+    [SerializeField] private EBossTargetZoneDisappearType _targetZoneDisappearType;
+    [SerializeField] private float _targetZoneDisappearSpeedMultiplier;
     
     [Space]
     [SerializeField] private float _materialChangeDelay;
@@ -27,8 +32,13 @@ public class BossTargetZone : BossProjectileFramework
     private Animator _targetAnimator;
 
     private const string TARGET_ZONE_APPEAR_ANIM_INT = "TargetZoneAppear";
+    private const string TARGET_ZONE_DISAPPEAR_ANIM_INT = "TargetZoneDisappear";
+
+    private const float TARGET_ZONE_APPEAR_DISAPPEAR_TIME = .1f;
     
     protected List<HeroBase> _heroesInRange = new List<HeroBase>();
+    
+    protected BossTargetZoneParent _bossTargetZoneParent;
 
     protected void Start()
     {
@@ -129,6 +139,23 @@ public class BossTargetZone : BossProjectileFramework
         }
     }
     
+    #region Removal
+
+    public void RemoveTargetZone()
+    {
+        PlayDisappearAnimation();
+    }
+
+    /// <summary>
+    /// Plays the animation of the target zone disappearing
+    /// </summary>
+    private void PlayDisappearAnimation()
+    {
+        _targetAnimator.SetInteger(TARGET_ZONE_DISAPPEAR_ANIM_INT, (int)_targetZoneDisappearType);
+        _targetAnimator.speed = _targetZoneDisappearSpeedMultiplier;
+    }
+    #endregion
+    
     #region Collision
     /// <summary>
     /// When a hero enters the target zone they are added to the list of heroes in range
@@ -173,6 +200,17 @@ public class BossTargetZone : BossProjectileFramework
     public bool DoesZoneContainHero() => (_heroesInRange.Count > 0);
     
     public GameObject[] GetAdditionalGameObjectReferences() => _additionalGameObjectReferences;
+
+    public float GetDisappearTime() => TARGET_ZONE_APPEAR_DISAPPEAR_TIME / _targetZoneDisappearSpeedMultiplier;
+    #endregion
+
+    #region Setters
+
+    public void SetBossTargetZoneParent(BossTargetZoneParent bossTargetZoneParent)
+    {
+        _bossTargetZoneParent = bossTargetZoneParent;
+    }
+
     #endregion
 }
 
@@ -180,4 +218,10 @@ public enum EBossTargetZoneAppearType
 {
     None,
     Grow
+}
+
+public enum EBossTargetZoneDisappearType
+{
+    None,
+    Shrink
 }

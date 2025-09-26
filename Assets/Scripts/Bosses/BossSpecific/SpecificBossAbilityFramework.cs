@@ -114,13 +114,20 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     /// </summary>
     protected virtual void RemoveTargetZone()
     {
-        if (_currentTargetZones.Count == 0) return;
+        if (_currentTargetZones.Count == 0)
+        {
+            return;
+        }
 
         //Iterates through all target zones and removes them
         foreach(GameObject currentZone in _currentTargetZones)
         {
-            Destroy(currentZone.gameObject);
+            if(currentZone.TryGetComponent<BossTargetZoneParent>(out BossTargetZoneParent targetZoneParent))
+            {
+                targetZoneParent.RemoveBossTargetZones();
+            }
         }
+        _currentTargetZones.Clear();
     }
 
     #endregion
