@@ -26,7 +26,7 @@ public class SBA_Tremor : SpecificBossAbilityFramework
     protected override void AbilityStart()
     {
         GameObject storedTremor = Instantiate(_tremor, _specificAreaTarget, Quaternion.identity);
-        storedTremor.GetComponent<SBP_Tremor>().SetUpProjectile(_myBossBase);
+        storedTremor.GetComponent<SBP_Tremor>().SetUpProjectile(_myBossBase, _abilityID);
         base.AbilityStart();
     }
     #endregion

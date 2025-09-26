@@ -30,7 +30,8 @@ public class SH_Guardian : SpecificHeroFramework
     {
         base.ActivateBasicAbilities();
 
-        GameObject spawnedProjectile = Instantiate(_basicProjectile, _myHeroBase.transform.position, Quaternion.identity);
+        GameObject spawnedProjectile = Instantiate(_basicProjectile, 
+            _myHeroBase.transform.position + EnvironmentManager.Instance.GetFloorOffset(), Quaternion.identity);
 
         //Performs the setup for the damage area so that it knows it's owner
         spawnedProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(_myHeroBase);

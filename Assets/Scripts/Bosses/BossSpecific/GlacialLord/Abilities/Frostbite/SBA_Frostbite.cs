@@ -50,7 +50,7 @@ public class SBA_Frostbite : SpecificBossAbilityFramework
 
             GameObject newFrostbite = Instantiate(_frostBite, spawnLoc, Quaternion.identity);
             SBP_Frostbite frostbiteFunc = newFrostbite.GetComponent<SBP_Frostbite>();
-            frostbiteFunc.SetUpProjectile(_myBossBase);
+            frostbiteFunc.SetUpProjectile(_myBossBase, _abilityID);
 
             newFrostbite.transform.LookAt(_glacialLord.transform);
             newFrostbite.transform.eulerAngles = new Vector3(0, newFrostbite.transform.eulerAngles.y, 0);

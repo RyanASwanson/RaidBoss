@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// Performs general management of the environment and provides accessibility to other scripts to certain functionality
@@ -10,6 +11,9 @@ public class EnvironmentManager : MainGameplayManagerFramework
     public static EnvironmentManager Instance;
     
     [SerializeField] private float _mapRadius;
+    
+    [Tooltip("The offset that is generally used for the height of projectiles")]
+    [SerializeField] private Vector3 _floorOffsetHeight;
 
     [SerializeField] private LayerMask _mapBorderLayer;
 
@@ -33,6 +37,7 @@ public class EnvironmentManager : MainGameplayManagerFramework
 
     #region Getters
     public float GetMapRadius() => _mapRadius;
+    public Vector3 GetFloorOffset() => _floorOffsetHeight;
     public LayerMask GetMapBorderLayer() => _mapBorderLayer;
 
     public List<GameObject> GetHeroSpawnLocations() => _heroSpawnLocations;

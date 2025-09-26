@@ -23,11 +23,28 @@ public class AudioManager : MainUniversalManagerFramework
     [SerializeField] private string _musicVCAPath;
     [SerializeField] private string _soundEffectVCAPath;
     
+    private VCA _activeVca;
+    
     [Space]
     [Header("Bus Paths")]
     [SerializeField] private string _generalStartingBusPath;
     [SerializeField] private string _pausableBusPath;
     [SerializeField] private string _unpausableBusPath;
+    
+    #region InitialValues
+
+    private void SetInitialAudioVolumeValues()
+    {
+        _activeVca = GetVCAFromAudioVCAType(EAudioVCAType.Master);
+        _activeVca.setVolume(SaveManager.Instance.GetMasterVolume());
+        
+        _activeVca = GetVCAFromAudioVCAType(EAudioVCAType.Music);
+        _activeVca.setVolume(SaveManager.Instance.GetMusicVolume());
+        
+        _activeVca = GetVCAFromAudioVCAType(EAudioVCAType.SoundEffect);
+        _activeVca.setVolume(SaveManager.Instance.GetSFXVolume());
+    }
+    #endregion
     
     #region AudioReferences
     
@@ -392,7 +409,6 @@ public class AudioManager : MainUniversalManagerFramework
         _pausableAudioBus.setPaused(false);
     }
     #endregion Pausing
-    
 
     /// <summary>
     /// Provides debug statements to better fix bugs
@@ -418,7 +434,13 @@ public class AudioManager : MainUniversalManagerFramework
     {
         base.SetUpInstance();
         Instance = this;
+    }
+
+    public override void SetUpMainManager()
+    {
+        base.SetUpMainManager();
         FMODUnity.RuntimeManager.StudioSystem.getBus(_generalStartingBusPath + _pausableBusPath, out _pausableAudioBus);
+        SetInitialAudioVolumeValues();
     }
 
     protected override void SubscribeToEvents()
@@ -426,7 +448,6 @@ public class AudioManager : MainUniversalManagerFramework
         base.SubscribeToEvents();
         TimeManager.Instance.GetGamePausedEvent().AddListener(PausePausableAudio);
         TimeManager.Instance.GetGameUnpausedEvent().AddListener(UnpausePausableAudio);
-        //SceneLoadManager.Instance.GetOnStartOfSceneLoad().AddListener(UnpausePausableAudio);
         SceneLoadManager.Instance.GetOnEndOfSceneLoad().AddListener(UnpausePausableAudio);
     }
 

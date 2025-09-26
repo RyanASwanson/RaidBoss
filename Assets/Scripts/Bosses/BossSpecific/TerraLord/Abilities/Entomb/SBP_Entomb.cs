@@ -117,10 +117,10 @@ public class SBP_Entomb : BossProjectileFramework
     }
 
     #region Base Ability
-    public override void SetUpProjectile(BossBase bossBase)
+    public override void SetUpProjectile(BossBase bossBase, int newAbilityID)
     {
+        base.SetUpProjectile(bossBase, newAbilityID);
         StartCoroutine(AbilityProcess());
-        base.SetUpProjectile(bossBase);
     }
     #endregion
 }

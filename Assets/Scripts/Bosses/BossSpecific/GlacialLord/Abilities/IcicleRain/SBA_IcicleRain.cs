@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using FMOD.Studio;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -11,8 +12,9 @@ public class SBA_IcicleRain : SpecificBossAbilityFramework
     [SerializeField] private GameObject _icicleRain;
     [SerializeField] private GameObject _icicleRainUpwardsVisual;
     
-
     private GameObject _newestTargetZone;
+
+    
 
     /// <summary>
     /// Makes the target zone and attack follow the hero it is targetting
@@ -59,9 +61,13 @@ public class SBA_IcicleRain : SpecificBossAbilityFramework
         GameObject newestIcicleRain = Instantiate(_icicleRain, _newestTargetZone.transform.position, Quaternion.identity);
 
         SBP_IcicleRain icicleFunc = newestIcicleRain.GetComponent<SBP_IcicleRain>();
-        icicleFunc.SetUpProjectile(_myBossBase);
+        icicleFunc.SetUpProjectile(_myBossBase, _abilityID);
+        
+        
 
         base.AbilityStart();
     }
+
+    
     #endregion
 }

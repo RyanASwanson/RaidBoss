@@ -325,7 +325,7 @@ MonoBehaviour:
         DefaultAudioChoice: 0
         AudioTracks: []
       GeneralAbilityAudio:
-      - AudioName: 
+      - AudioName: AvalancheEnd
         DefaultStartDelay: 0
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
@@ -378,7 +378,21 @@ MonoBehaviour:
         DefaultPlayType: 0
         DefaultAudioChoice: 0
         AudioTracks: []
-      GeneralAbilityAudio: []
+      GeneralAbilityAudio:
+      - AudioName: IcicleRainImpact
+        DefaultStartDelay: 0
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 1
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: -1046699233
+            Data2: 1077493644
+            Data3: -1154776157
+            Data4: -391687094
+          Path: event:/SoundEffect/Bosses/Specific/GlacialLord/Abilities/IcicleRain/GlacialLordIcicleRainImpact
     - AbilityName: Blizzard
       AbilityPrep:
         AudioName: 

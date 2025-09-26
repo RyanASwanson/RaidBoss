@@ -22,7 +22,6 @@ public class AudioSlider : MonoBehaviour
         SetVCA();
         
         _audioSlider.value = SaveManager.Instance.GetVolumeFromAudioVCAType(_audioVCAType);
-        Debug.Log(SaveManager.Instance.GetVolumeFromAudioVCAType(_audioVCAType));
     }
 
     /// <summary>

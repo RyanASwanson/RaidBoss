@@ -98,15 +98,6 @@ public class SBP_Avalanche : BossProjectileFramework
     }
 
     #region Base Ability
-    /// <summary>
-    /// Called when projectile is created
-    /// Provides the projectile with any additional information it may need
-    /// </summary>
-    /// <param name="heroBase"></param>
-    public override void SetUpProjectile(BossBase bossBase)
-    {
-        base.SetUpProjectile(bossBase);
-    }
 
     public void AdditionalSetUp(Vector3 lookDirection, SBA_Avalanche specificAbility)
     {

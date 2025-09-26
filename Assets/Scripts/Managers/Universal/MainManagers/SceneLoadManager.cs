@@ -34,8 +34,10 @@ public class SceneLoadManager : MainUniversalManagerFramework
     /// <param name="id"></param>
     public void LoadSceneByID(int id)
     {
-        if(CanLoadScene())
+        if (CanLoadScene())
+        {
             _sceneTransitionCoroutine = StartCoroutine(SceneLoadProcess(id));
+        }
     }
 
     /// <summary>

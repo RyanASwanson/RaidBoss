@@ -52,7 +52,7 @@ public class SBA_Entomb : SpecificBossAbilityFramework
     protected override void AbilityStart()
     {
         GameObject storedEntomb = Instantiate(_entomb, _storedTargetLocation, _storedTargetRotation);
-        storedEntomb.GetComponent<SBP_Entomb>().SetUpProjectile(_myBossBase);
+        storedEntomb.GetComponent<SBP_Entomb>().SetUpProjectile(_myBossBase, _abilityID);
 
         base.AbilityStart();
     }

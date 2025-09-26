@@ -71,9 +71,10 @@ public class SBP_Tremor : BossProjectileFramework
     /// Performs needed set up for the ability
     /// </summary>
     /// <param name="bossBase"></param>
-    public override void SetUpProjectile(BossBase bossBase)
+    /// <param name= "newAbilityID"></param>
+    public override void SetUpProjectile(BossBase bossBase, int newAbilityID)
     {
-        base.SetUpProjectile(bossBase);
+        base.SetUpProjectile(bossBase, newAbilityID);
         
         _spikeSeperationWait = new WaitForSeconds(_spikeSeperationTime);
         

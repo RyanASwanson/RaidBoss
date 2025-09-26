@@ -10,13 +10,17 @@ public abstract class BossProjectileFramework : MonoBehaviour
     protected BossBase _myBossBase;
     protected SpecificBossFramework _mySpecificBoss;
 
+    protected int _abilityID;
+
     /// <summary>
     /// Tells the boss projectile it's owner
     /// </summary>
     /// <param name="bossBase"></param>
-    public virtual void SetUpProjectile(BossBase bossBase)
+    /// <param name= "newAbilityID"></param>
+    public virtual void SetUpProjectile(BossBase bossBase, int newAbilityID)
     {
         _myBossBase = bossBase;
         _mySpecificBoss = bossBase.GetSpecificBossScript();
+        _abilityID = newAbilityID;
     }
 }

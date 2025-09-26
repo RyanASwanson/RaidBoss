@@ -66,7 +66,7 @@ public class SBA_MagmaWave : SpecificBossAbilityFramework
         //Spawns the magma wave damage zone
         _storedMagmaWave = Instantiate(_magmaWave, _edgeOfMap, Quaternion.identity);
         //Sets up the projectile
-        _storedMagmaWave.GetComponent<SBP_MagmaWave>().SetUpProjectile(_myBossBase);
+        _storedMagmaWave.GetComponent<SBP_MagmaWave>().SetUpProjectile(_myBossBase, _abilityID);
         base.AbilityStart();
     }
     #endregion
