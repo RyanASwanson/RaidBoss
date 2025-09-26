@@ -38,6 +38,9 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     protected Vector3 _storedTargetLocation;
     protected HeroBase _storedTarget;
 
+    protected Coroutine _abilityWindUpProcess;
+    protected Coroutine _targetZoneRemovalProcess;
+
     protected BossBase _myBossBase;
     protected SpecificBossFramework _mySpecificBoss;
 
@@ -96,7 +99,15 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     /// </summary>
     protected virtual void StartShowTargetZone()
     {
-        StartCoroutine(TargetZonesProcess());
+        _targetZoneRemovalProcess = StartCoroutine(TargetZonesProcess());
+    }
+
+    protected virtual void StopTargetZoneRemovalProcess()
+    {
+        if (!_targetZoneRemovalProcess.IsUnityNull())
+        {
+            StopCoroutine(_targetZoneRemovalProcess);
+        }
     }
 
     /// <summary>
@@ -106,14 +117,16 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     protected virtual IEnumerator TargetZonesProcess()
     {
         yield return new WaitForSeconds(_targetZoneDuration);
-        RemoveTargetZone();
+        RemoveTargetZones();
     }
 
     /// <summary>
     /// Removes all target zones
     /// </summary>
-    protected virtual void RemoveTargetZone()
+    protected virtual void RemoveTargetZones()
     {
+        StopTargetZoneRemovalProcess();
+        
         if (_currentTargetZones.Count == 0)
         {
             return;
@@ -138,7 +151,15 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     /// </summary>
     protected virtual void StartAbilityWindUp()
     {
-        StartCoroutine(AbilityWindUp());
+        _abilityWindUpProcess = StartCoroutine(AbilityWindUp());
+    }
+
+    protected virtual void StopAbilityWindUp()
+    {
+        if (!_abilityWindUpProcess.IsUnityNull())
+        {
+            StopCoroutine(_abilityWindUpProcess);
+        }
     }
 
     /// <summary>
@@ -180,6 +201,12 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     {
         CameraGameManager.Instance.StartCameraShake
             (_screenShakeIntensity, _screenShakeFrequency, _screenShakeDuration);
+    }
+
+    public void BossStaggeredDuringAbility()
+    {
+        StopAbilityWindUp();
+        RemoveTargetZones();
     }
 
     #region AbilityAudio

@@ -18,6 +18,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
 
     protected List<SpecificBossAbilityFramework> _readyBossAttacks = new List<SpecificBossAbilityFramework>();
     protected Queue<SpecificBossAbilityFramework> _bossCooldownQueue = new Queue<SpecificBossAbilityFramework>();
+    protected SpecificBossAbilityFramework _currentAbility;
 
     protected BossBase _myBossBase;
 
@@ -291,10 +292,10 @@ public abstract class SpecificBossFramework : MonoBehaviour
             return;
         }
 
-        SpecificBossAbilityFramework nextAbility = SelectNextAbility();
-        AddAbilityToEndOfCooldownQueue(nextAbility);
+        _currentAbility = SelectNextAbility();
+        AddAbilityToEndOfCooldownQueue(_currentAbility);
 
-        _nextAttackProcess = StartCoroutine(UseNextAbilityProcess(nextAbility));
+        _nextAttackProcess = StartCoroutine(UseNextAbilityProcess(_currentAbility));
     }
 
     /// <summary>
@@ -432,6 +433,11 @@ public abstract class SpecificBossFramework : MonoBehaviour
         // Starts the coroutine for the boss stagger
         _preventAttacksCoroutine = StartCoroutine(StaggerBossForDuration
             (BossStats.Instance.GetStaggerDuration()));
+
+        if (!_currentAbility.IsUnityNull())
+        {
+            _currentAbility.BossStaggeredDuringAbility();
+        }
     }
 
     /// <summary>
