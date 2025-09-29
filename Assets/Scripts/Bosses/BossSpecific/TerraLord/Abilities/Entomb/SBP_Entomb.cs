@@ -25,6 +25,8 @@ public class SBP_Entomb : BossProjectileFramework
     [SerializeField] private Animator _animator;
 
     private const string REMOVE_PROJECTILE_ANIM_TRIGGER = "RemoveEntomb";
+    
+    private const int ENTOMB_CLOSED_IMPACT_AUDIO_ID = 0;
 
     private IEnumerator AbilityProcess()
     {
@@ -42,6 +44,7 @@ public class SBP_Entomb : BossProjectileFramework
 
         if (CanCreateObstacle())
         {
+            PlayEntombClosedSound();
             CreateNavMeshObstacle();
             Instantiate(_closedParticleVFX, new Vector3(transform.position.x,0,transform.position.z), transform.rotation);
         }
@@ -103,6 +106,14 @@ public class SBP_Entomb : BossProjectileFramework
         _navMeshObstacle.enabled = true;
 
         StartCoroutine(RemovalProcess());
+    }
+
+    private void PlayEntombClosedSound()
+    {
+        Debug.Log("Playing entomb closed sound " + _myBossBase.GetBossSO().GetBossID() + " " + _abilityID);
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
+                BossAbilityAudio[_abilityID].GeneralAbilityAudio[ENTOMB_CLOSED_IMPACT_AUDIO_ID]);
     }
 
     /// <summary>

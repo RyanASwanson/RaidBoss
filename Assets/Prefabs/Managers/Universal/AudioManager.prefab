@@ -222,7 +222,7 @@ MonoBehaviour:
     MiscellaneousBossAudio: []
   - AssociatedBoss: Terra Lord
     BossAbilityAudio:
-    - AbilityName: 
+    - AbilityName: CrystalBarrage
       AbilityPrep:
         AudioName: 
         DefaultStartDelay: 0
@@ -242,7 +242,7 @@ MonoBehaviour:
         DefaultAudioChoice: 0
         AudioTracks: []
       GeneralAbilityAudio: []
-    - AbilityName: 
+    - AbilityName: Tremor
       AbilityPrep:
         AudioName: 
         DefaultStartDelay: 0
@@ -262,7 +262,7 @@ MonoBehaviour:
         DefaultAudioChoice: 0
         AudioTracks: []
       GeneralAbilityAudio: []
-    - AbilityName: 
+    - AbilityName: Entomb
       AbilityPrep:
         AudioName: 
         DefaultStartDelay: 0
@@ -281,8 +281,22 @@ MonoBehaviour:
         DefaultPlayType: 0
         DefaultAudioChoice: 0
         AudioTracks: []
-      GeneralAbilityAudio: []
-    - AbilityName: 
+      GeneralAbilityAudio:
+      - AudioName: 
+        DefaultStartDelay: 0
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: 1590322165
+            Data2: 1279735918
+            Data3: -660178285
+            Data4: -413796810
+          Path: event:/SoundEffect/Bosses/Specific/TerraLord/Abilities/Entomb/TerraLordEntombClosed
+    - AbilityName: EncirclingVines
       AbilityPrep:
         AudioName: 
         DefaultStartDelay: 0
