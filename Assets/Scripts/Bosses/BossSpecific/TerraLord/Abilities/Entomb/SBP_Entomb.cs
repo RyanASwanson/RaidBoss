@@ -110,7 +110,6 @@ public class SBP_Entomb : BossProjectileFramework
 
     private void PlayEntombClosedSound()
     {
-        Debug.Log("Playing entomb closed sound " + _myBossBase.GetBossSO().GetBossID() + " " + _abilityID);
         AudioManager.Instance.PlaySpecificAudio(
             AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
                 BossAbilityAudio[_abilityID].GeneralAbilityAudio[ENTOMB_CLOSED_IMPACT_AUDIO_ID]);

@@ -27,7 +27,9 @@ public class BossTargetZoneParent : MonoBehaviour
             }
             bossTargetZone.RemoveTargetZone();
         }
-        DestroyTargetZoneParent(longestDestroy);
+        
+        // Multiplied by 2 just to play it safe
+        DestroyTargetZoneParent(longestDestroy * 2);
     }
 
     private void DestroyTargetZoneParent(float destroyDelay)

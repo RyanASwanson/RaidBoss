@@ -23,7 +23,7 @@ public class BossStats : BossChildrenFunctionality
     private float _bossDamageIncrementMultiplier;
     private float _bossDamageResistanceChangeOnStagger;
 
-    private bool _bossStaggered = false;
+    private bool _isBossStaggered = false;
     private bool _isBossEnraged = false;
 
     private float _baseBossDamageMultiplier = 1;
@@ -157,7 +157,7 @@ public class BossStats : BossChildrenFunctionality
     /// </summary>
     private void BossStaggered()
     {
-        _bossStaggered = true;
+        _isBossStaggered = true;
         StopEnrageTimer();
         
         // Stops the boss turning
@@ -177,7 +177,7 @@ public class BossStats : BossChildrenFunctionality
     /// </summary>
     private void BossNoLongerStaggered()
     {
-        _bossStaggered = false;
+        _isBossStaggered = false;
         StartEnrageTimer();
         _currentStaggerCounter = 0;
 
@@ -244,6 +244,7 @@ public class BossStats : BossChildrenFunctionality
     /// </summary>
     private void EnrageMax()
     {
+        _isBossEnraged = true;
         _bossEnrageDamageMultiplier = _storedEnrageMultiplier;
         _myBossBase.InvokeBossEnragedEvent();
     }
@@ -307,6 +308,9 @@ public class BossStats : BossChildrenFunctionality
 
     public float GetStaggerDuration() => _bossStaggerDuration;
 
+    public bool GetIsBossStaggered() => _isBossStaggered;
+    public bool GetIsBossEnraged() => _isBossEnraged;
+    
     public float GetBaseBossDamageMultiplier() => _baseBossDamageMultiplier;
 
     public float GetBossEnrageDamageMultiplier() => _bossEnrageDamageMultiplier;
@@ -327,7 +331,7 @@ public class BossStats : BossChildrenFunctionality
     public void DealStaggerToBoss(float stagger)
     {
         // Stop if the boss is already staggered
-        if (_bossStaggered)
+        if (_isBossStaggered)
         {
             return;
         }

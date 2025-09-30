@@ -95,11 +95,15 @@ public class SBA_Meteor : SpecificBossAbilityFramework
     /// </summary>
     protected override void AbilityStart()
     {
-        FallingMeteorContact();
+        if (!BossStats.Instance.GetIsBossStaggered())
+        {
+            FallingMeteorContact();
 
-        _storedTargetLocation = new Vector3(_storedTargetLocation.x, -.3f, _storedTargetLocation.z);
-        _storedMovingMeteor = Instantiate(_movingMeteor, _storedTargetLocation, Quaternion.identity);
-        _storedMovingMeteor.GetComponent<SBP_FollowingMeteor>().AdditionalSetUp(_storedTarget);
+            _storedTargetLocation = new Vector3(_storedTargetLocation.x, -.3f, _storedTargetLocation.z);
+            _storedMovingMeteor = Instantiate(_movingMeteor, _storedTargetLocation, Quaternion.identity);
+            _storedMovingMeteor.GetComponent<SBP_FollowingMeteor>().AdditionalSetUp(_storedTarget);
+        }
+        
         base.AbilityStart();
     }
     #endregion
