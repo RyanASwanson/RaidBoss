@@ -232,6 +232,7 @@ public class AudioManager : MainUniversalManagerFramework
             eventInstance.start();
             if (specificAudio.DefaultInstanceFadeInTime > 0)
             {
+                eventInstance.setVolume(0);
                 StartAdjustInstanceVolumeOverTime(eventInstance, false, doesAddToVolumeAdjustmentDictionary, 1,
                     specificAudio.DefaultInstanceFadeInTime);
             }
@@ -282,17 +283,29 @@ public class AudioManager : MainUniversalManagerFramework
         StartCoroutine(FadeOutStopInstance(eventInstance,true,false,0,adjustTime));
     }
 
+    public void StartFadeOutStopInstance(EventInstance eventInstance,
+        bool doesStopPreviousVolumeAdjustment, bool doesAddToVolumeAdjustmentDictionary, float adjustTime)
+    {
+        StartCoroutine(FadeOutStopInstance(eventInstance, doesStopPreviousVolumeAdjustment,
+            doesAddToVolumeAdjustmentDictionary, 0, adjustTime));
+    }
+
     private IEnumerator FadeOutStopInstance(EventInstance eventInstance, 
         bool doesStopPreviousVolumeAdjustment, bool doesAddToVolumeAdjustmentDictionary, float endVolume, float adjustTime)
     {
         StartAdjustInstanceVolumeOverTime(eventInstance, doesStopPreviousVolumeAdjustment, doesAddToVolumeAdjustmentDictionary, endVolume, adjustTime);
-        yield return adjustTime;
+        yield return new WaitForSeconds(adjustTime);
         StopSpecificAudioInstance(eventInstance, doesAddToVolumeAdjustmentDictionary);
     }
 
     public void StartAdjustInstanceVolumeOverTime(EventInstance eventInstance, 
         bool doesStopPreviousVolumeAdjustment, bool doesAddToVolumeAdjustmentDictionary, float endVolume, float adjustTime)
     {
+        if (eventInstance.IsUnityNull())
+        {
+            return;
+        }
+        
         if (doesStopPreviousVolumeAdjustment && _changeInstanceVolumeDictionary.TryGetValue(eventInstance, out Coroutine coroutine))
         {
             StopCoroutine(coroutine);
@@ -306,7 +319,7 @@ public class AudioManager : MainUniversalManagerFramework
     }
 
     /// <summary>
-    /// Modifies the volume of an instnace
+    /// Modifies the volume of an instance
     /// </summary>
     /// <param name="eventInstance"></param>
     /// <param name="endVolume"></param>
@@ -319,6 +332,7 @@ public class AudioManager : MainUniversalManagerFramework
         while (timer < 1)
         {
             timer += Time.deltaTime/ adjustTime;
+            
             eventInstance.setVolume(Mathf.Lerp(startVolume, endVolume, timer));
             yield return null;
         }

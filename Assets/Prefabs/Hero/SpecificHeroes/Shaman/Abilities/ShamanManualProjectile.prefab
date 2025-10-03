@@ -52,8 +52,13 @@ MonoBehaviour:
   - {fileID: 465803157892012415}
   _hasLifetime: 0
   _lifetime: 0
+  _hasColliderLifetime: 0
+  _colliderLifetime: 0
   _hitCenteredVFX: {fileID: 0}
-  _lifeTimeEndEvent:
+  _lifetimeEndEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _colliderLifetimeEndEvent:
     m_PersistentCalls:
       m_Calls: []
   _enterDamage: 10
@@ -101,6 +106,7 @@ MonoBehaviour:
   _vfxLightningDuration: 0.4
   _vfxLightning: {fileID: 5851640355176125718, guid: f22765a623f4a5b469bcbdbe54185997, type: 3}
   _vfxLightningSpawnPoint: {fileID: 3951182797972647440}
+  _targetReachedPitchIncrease: 0.1
 --- !u!54 &7840892653481678895
 Rigidbody:
   m_ObjectHideFlags: 0

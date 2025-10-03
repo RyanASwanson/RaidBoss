@@ -41,6 +41,16 @@ public class DebugScript : MonoBehaviour
         {
             BossStats.Instance.DealStaggerToBoss(99999);
         }
+
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            List<HeroBase> livingHeroes = HeroesManager.Instance.GetCurrentLivingHeroes();
+            for (int i = 0; i < livingHeroes.Count; i++)
+            {
+                livingHeroes[i].GetSpecificHeroScript().AddToManualAbilityChargeTime(999);
+            }
+            
+        }
     }
 #endif
 }

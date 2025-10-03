@@ -282,13 +282,13 @@ MonoBehaviour:
         DefaultAudioChoice: 0
         AudioTracks: []
       GeneralAbilityAudio:
-      - AudioName: 
+      - AudioName: EntombClosed
         DefaultStartDelay: 0
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
         DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
         DefaultPlayType: 0
-        DefaultAudioChoice: 0
+        DefaultAudioChoice: 1
         AudioTracks:
         - Guid:
             Data1: 1590322165
@@ -296,6 +296,20 @@ MonoBehaviour:
             Data3: -660178285
             Data4: -413796810
           Path: event:/SoundEffect/Bosses/Specific/TerraLord/Abilities/Entomb/TerraLordEntombClosed
+      - AudioName: EntombDestroyHalfWall
+        DefaultStartDelay: 0
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 1
+        AudioTracks:
+        - Guid:
+            Data1: -1083964510
+            Data2: 1278973702
+            Data3: -33278074
+            Data4: 323014187
+          Path: event:/SoundEffect/Bosses/Specific/TerraLord/Abilities/Entomb/TerraLordEntombDestroyHalf
     - AbilityName: EncirclingVines
       AbilityPrep:
         AudioName: 
@@ -372,7 +386,21 @@ MonoBehaviour:
         DefaultPlayType: 0
         DefaultAudioChoice: 0
         AudioTracks: []
-      GeneralAbilityAudio: []
+      GeneralAbilityAudio:
+      - AudioName: 
+        DefaultStartDelay: 0
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: 0
+            Data2: 0
+            Data3: 0
+            Data4: 0
+          Path: 
     - AbilityName: IcicleRain
       AbilityPrep:
         AudioName: 
@@ -483,7 +511,7 @@ MonoBehaviour:
   AllSpecificHeroAudio:
   - AssociatedHero: Guardian
     BasicAbilityUsed:
-      AudioName: Shield Slam
+      AudioName: ShieldSlam
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
@@ -498,14 +526,20 @@ MonoBehaviour:
           Data4: -235560477
         Path: event:/SoundEffect/Heroes/SpecificHeroes/Guardian/Basic/GuardianShieldSlam
     ManualAbilityUsed:
-      AudioName: 
+      AudioName: Taunt
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
       DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
-      AudioTracks: []
+      AudioTracks:
+      - Guid:
+          Data1: -236094511
+          Data2: 1308236694
+          Data3: 1685652671
+          Data4: 1896382019
+        Path: event:/SoundEffect/Heroes/SpecificHeroes/Guardian/Active/GuardianTaunt
     PassiveAbilityUsed:
       AudioName: 
       DefaultStartDelay: 0
@@ -624,7 +658,7 @@ MonoBehaviour:
           Data2: 1134098937
           Data3: -1698947404
           Data4: 207657292
-        Path: event:/SoundEffect/Heroes/SpecificHeroes/Shaman/Active/BallLightning
+        Path: event:/SoundEffect/Heroes/SpecificHeroes/Shaman/Active/ShamanBallLightning
     PassiveAbilityUsed:
       AudioName: 
       DefaultStartDelay: 0
@@ -634,7 +668,21 @@ MonoBehaviour:
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
-    MiscellaneousHeroAudio: []
+    MiscellaneousHeroAudio:
+    - AudioName: ManualReachedTarget
+      DefaultStartDelay: 0
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+      DefaultPlayType: 1
+      DefaultAudioChoice: 0
+      AudioTracks:
+      - Guid:
+          Data1: -1059483781
+          Data2: 1104789705
+          Data3: -1155347031
+          Data4: 1079776449
+        Path: event:/SoundEffect/Heroes/SpecificHeroes/Shaman/Active/ShamanBallLightningReachedTarget
   - AssociatedHero: Chronomancer
     BasicAbilityUsed:
       AudioName: TimeBlast
@@ -716,14 +764,20 @@ MonoBehaviour:
           Data4: -850981378
         Path: event:/SoundEffect/Heroes/SpecificHeroes/Fae/Basic/FaeMultishot
     ManualAbilityUsed:
-      AudioName: 
+      AudioName: FaeManual
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
-      DefaultInstanceFadeOutTime: 0
+      DefaultInstanceFadeOutTime: 1
       DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
-      DefaultPlayType: 0
+      DefaultPlayType: 1
       DefaultAudioChoice: 0
-      AudioTracks: []
+      AudioTracks:
+      - Guid:
+          Data1: -2141612211
+          Data2: 1079968607
+          Data3: 247271603
+          Data4: -960087248
+        Path: event:/SoundEffect/Heroes/SpecificHeroes/Fae/Active/FaeFlurryWind
     PassiveAbilityUsed:
       AudioName: 
       DefaultStartDelay: 0
@@ -841,7 +895,13 @@ MonoBehaviour:
     DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
     DefaultPlayType: 1
     DefaultAudioChoice: 0
-    AudioTracks: []
+    AudioTracks:
+    - Guid:
+        Data1: 378541443
+        Data2: 1188430325
+        Data3: -255086407
+        Data4: 1308351786
+      Path: event:/Music/GeneralMusic/MainMenu/TempMainMenuMusic
   - AudioName: Selection
     DefaultStartDelay: 0
     DefaultInstanceFadeInTime: 2

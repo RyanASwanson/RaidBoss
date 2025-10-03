@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using FMODUnity;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -21,6 +22,9 @@ public class SpecificAudio
     [Header("Fade Times")]
     public float DefaultInstanceFadeInTime;
     public float DefaultInstanceFadeOutTime;
+
+    private WaitForSeconds _defaultInstanceFadeInWait;
+    private WaitForSeconds _defaultInstanceFadeOutWait;
     
     [Space]
     [Header("Duplicate Protection")]
@@ -36,6 +40,27 @@ public class SpecificAudio
     public EventReference[] AudioTracks;
 
     #region Getters
+
+    public WaitForSeconds GetDefaultInstanceFadeInWait()
+    {
+        if (_defaultInstanceFadeInWait.IsUnityNull())
+        {
+            _defaultInstanceFadeInWait = new WaitForSeconds(DefaultInstanceFadeInTime);
+        }
+
+        return _defaultInstanceFadeInWait;
+    }
+    
+    public WaitForSeconds GetDefaultInstanceFadeOutWait()
+    {
+        if (_defaultInstanceFadeOutWait.IsUnityNull())
+        {
+            _defaultInstanceFadeOutWait = new WaitForSeconds(DefaultInstanceFadeOutTime);
+        }
+
+        return _defaultInstanceFadeOutWait;
+    }
+    
     /// <summary>
     /// Returns an audio track based on what the default audio choice is for this specific audio
     /// </summary>
@@ -80,7 +105,7 @@ public class SpecificAudio
     {
         return AudioTracks[Random.Range(0, AudioTracks.Length)];
     }
-
+    
     public bool HasAudioTracks() => AudioTracks.Length > 0;
     public bool HasDefaultDelay() => DefaultStartDelay > 0;
     public bool ShouldUseAudioDelay() => HasDefaultDelay() && DefaultPlayType == ESpecificAudioPlayType.OneShot;

@@ -53,6 +53,9 @@ MonoBehaviour:
   _hasBasicAbilityAnimation: 1
   _hasManualAbilityAnimation: 1
   _hasPassiveAbilityAnimation: 0
+  _basicAbilityAnimationBufferBeforeDisable: 0.25
+  _manualAbilityAnimationBufferBeforeDisable: 0.25
+  _passiveAbilityAnimationBufferBeforeDisable: 0.25
   _primaryAttackEulers:
   - {x: 0, y: 45, z: 0}
   - {x: 0, y: 135, z: 0}
@@ -68,7 +71,9 @@ MonoBehaviour:
   _manualWallDistanceRange: 0.4
   _manualDamageCooldown: 0.15
   _manualBossHoming: 0.75
+  _manualMinimumDotProduct: -0.6
   _manualWallExtents: {x: 0.35, y: 0.35, z: 0.35}
+  _manualAudioInterval: 0.6
   _swirlVFX: {fileID: 6385816117923813334, guid: 8e2015b0e6d678a44ae747f5478b39b0, type: 3}
   _vfxWeaponSpawnRate: 0.1
   _vfxWeaponDuration: 0.6
@@ -79,7 +84,7 @@ MonoBehaviour:
   _vfxWeaponSpawnPoint: {fileID: 5716748096866298057}
   _bounceLayers:
     serializedVersion: 2
-    m_Bits: 1344
+    m_Bits: 5440
   _passiveBasicAttackSpeedChangeWalking: 1.5
   _passiveBasicAttackSpeedChangeManual: 3
 --- !u!95 &2172733275908692571

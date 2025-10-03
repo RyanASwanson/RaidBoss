@@ -22,7 +22,10 @@ public class SBA_Frostbite : SpecificBossAbilityFramework
         base.StartShowTargetZone();
         foreach(GlacialLord_FrostFiend frostFiend in _glacialLord.GetAllFrostFiends())
         {
-            if (frostFiend.IsMinionFrozen()) continue;
+            if (frostFiend.IsMinionFrozen())
+            {
+                continue;
+            }
 
             GameObject newTargetZone = Instantiate(_targetZone, frostFiend.transform.position,Quaternion.identity);
 
@@ -44,7 +47,10 @@ public class SBA_Frostbite : SpecificBossAbilityFramework
     {
         foreach (GlacialLord_FrostFiend frostFiend in _attackingFiends)
         {
-            if (frostFiend.IsMinionFrozen()) continue;
+            if (frostFiend.IsMinionFrozen())
+            {
+                continue;
+            }
 
             Vector3 spawnLoc = new Vector3(frostFiend.transform.position.x, _specificAreaTarget.y, frostFiend.transform.position.z);
 

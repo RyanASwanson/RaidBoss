@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using FMOD.Studio;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -16,9 +17,17 @@ public class SHP_ShamanManualProjectile : HeroProjectileFramework
     [SerializeField] private GameObject _vfxLightning;
     [SerializeField] private Transform _vfxLightningSpawnPoint;
     //private List<GameObject> _spawnedVFXLightning
+    
+    [Space]
+    [SerializeField] private float _targetReachedPitchIncrease;
+    
+    private const int TARGET_REACHED_AUDIO_ID = 0;
 
     private Queue<GameObject> _targetsNotGoneTo = new Queue<GameObject>();
 
+    private float _targetReachedCounter = 0;
+
+    private GeneralHeroDamageArea _damageArea;
     private SH_Shaman _ownerShaman;
 
     /// <summary>
@@ -129,14 +138,36 @@ public class SHP_ShamanManualProjectile : HeroProjectileFramework
     /// </summary>
     private void ProjectileReachedTargetHero()
     {
-        GetComponent<GeneralHeroDamageArea>().ToggleProjectileCollider(true);
+        _targetReachedCounter++;
+        
+        _damageArea.ToggleProjectileCollider(true);
+
+        PlayTargetReachedSound();
 
         _targetsNotGoneTo.Dequeue();
     }
+
+    private void PlayTargetReachedSound()
+    {
+        if (_targetsNotGoneTo.Count <= 0)
+        {
+            return;
+        }
+        
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificHeroAudio[_myHeroBase.GetHeroSO().GetHeroID()]
+                .MiscellaneousHeroAudio[TARGET_REACHED_AUDIO_ID], out EventInstance eventInstance);
+        
+        eventInstance.getPitch(out float pitch);
+        eventInstance.setPitch(pitch + (_targetReachedPitchIncrease * (_targetReachedCounter-1)));
+    }
+
     
     #region Base Ability
     public void AdditionalSetUp(GameObject totem)
     {
+        _damageArea = GetComponent<GeneralHeroDamageArea>();
+        
         DetermineTargetOrder(totem);
 
         StartCoroutine(MoveProjectile());

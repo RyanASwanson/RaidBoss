@@ -21,12 +21,14 @@ public class SBP_Entomb : BossProjectileFramework
 
     [Space]
     [SerializeField] private NavMeshObstacle _navMeshObstacle;
+    [SerializeField] private Collider _environmentCollider;
 
     [SerializeField] private Animator _animator;
 
     private const string REMOVE_PROJECTILE_ANIM_TRIGGER = "RemoveEntomb";
     
     private const int ENTOMB_CLOSED_IMPACT_AUDIO_ID = 0;
+    private const int ENTOMB_DESTROY_HALF_AUDIO_ID = 1;
 
     private IEnumerator AbilityProcess()
     {
@@ -93,6 +95,7 @@ public class SBP_Entomb : BossProjectileFramework
         {
             if (!damageArea.IsUnityNull())
             {
+                PlayEntombDestroyHalfSound();
                 damageArea.DestroyProjectile();
             }
         }
@@ -104,6 +107,7 @@ public class SBP_Entomb : BossProjectileFramework
     private void CreateNavMeshObstacle()
     {
         _navMeshObstacle.enabled = true;
+        _environmentCollider.enabled = true;
 
         StartCoroutine(RemovalProcess());
     }
@@ -113,6 +117,13 @@ public class SBP_Entomb : BossProjectileFramework
         AudioManager.Instance.PlaySpecificAudio(
             AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
                 BossAbilityAudio[_abilityID].GeneralAbilityAudio[ENTOMB_CLOSED_IMPACT_AUDIO_ID]);
+    }
+
+    private void PlayEntombDestroyHalfSound()
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
+                BossAbilityAudio[_abilityID].GeneralAbilityAudio[ENTOMB_DESTROY_HALF_AUDIO_ID]);
     }
 
     /// <summary>

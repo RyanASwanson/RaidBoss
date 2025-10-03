@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using FMOD.Studio;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -22,11 +24,18 @@ public class SH_Fae : SpecificHeroFramework
     [SerializeField] private float _manualWallDistanceRange;
     [SerializeField] private float _manualDamageCooldown;
     [Range(0,1)][SerializeField] private float _manualBossHoming;
+    [SerializeField] private float _manualMinimumDotProduct;
     [SerializeField] private Vector3 _manualWallExtents;
     private bool _manualCanDamage = true;
+
+    [Space] 
+    [SerializeField] private float _manualAudioInterval;
+    private WaitForSeconds _manualAudioWaitInterval;
+    private Coroutine _manualAudioCoroutine;
+    private EventInstance _manualAudioInstance;
+    
     [Space]
     [SerializeField] private GameObject _swirlVFX;
-
     [SerializeField] private float _vfxWeaponSpawnRate;
     [SerializeField] private float _vfxWeaponDuration;
     [SerializeField] private float _vfxWeaponSpawnDistance;
@@ -35,6 +44,7 @@ public class SH_Fae : SpecificHeroFramework
     [SerializeField] private GameObject _vfxWeapon;
     [SerializeField] private Transform _vfxWeaponSpawnPoint;
 
+    [Space]
     [SerializeField] private LayerMask _bounceLayers;
     private bool _manualActive = false;
 
@@ -108,6 +118,8 @@ public class SH_Fae : SpecificHeroFramework
         _manualCoroutine = StartCoroutine(ManualProcess());
         StartCoroutine(WeaponVFXSpawnProcess());
         StartCoroutine(ManualAccelerationAndDeceleration());
+
+        StartManualAudioProcess();
     }
 
 
@@ -140,6 +152,11 @@ public class SH_Fae : SpecificHeroFramework
             yield return null;
         }
 
+        ManualProcessEnded();
+    }
+
+    private void ManualProcessEnded()
+    {
         //Re-enables the pathfinding functionality
         _myHeroBase.GetPathfinding().EnableAbilityToMove();
         //Makes sure that the hero doesn't try to continue any previous pathfinding
@@ -149,6 +166,8 @@ public class SH_Fae : SpecificHeroFramework
         DecreaseBasicAttackSpeedOnManualEnd();
 
         _manualActive = false;
+
+        StopManualAudioProcess();
         
         _manualCoroutine = null;
     }
@@ -177,6 +196,42 @@ public class SH_Fae : SpecificHeroFramework
         }
         _currentAccelerationMultiplier = 0;
 
+    }
+    
+    protected override void ManualAbilityAudioPlayed(EventInstance eventInstance)
+    {
+        _manualAudioInstance = eventInstance;
+    }
+
+    private void StartManualAudioProcess()
+    {
+        _manualAudioCoroutine = StartCoroutine(ManualAudioProcess());
+    }
+
+    private IEnumerator ManualAudioProcess()
+    {
+        while (_manualActive)
+        {
+            yield return _manualAudioWaitInterval;
+            StopManualAudio();
+            PlayManualAbilityAudio();
+        }
+    }
+
+    private void StopManualAudioProcess()
+    {
+        if (!_manualAudioCoroutine.IsUnityNull())
+        {
+            StopCoroutine(_manualAudioCoroutine);
+        }
+
+        StopManualAudio();
+    }
+
+    private void StopManualAudio()
+    {
+        AudioManager.Instance.StartFadeOutStopInstance(_manualAudioInstance,
+            AudioManager.Instance.AllSpecificHeroAudio[_myHeroBase.GetHeroSO().GetHeroID()].ManualAbilityUsed);
     }
 
     /// <summary>
@@ -224,7 +279,6 @@ public class SH_Fae : SpecificHeroFramework
         if(Physics.BoxCast(startPos,_manualWallExtents,_currentManualDirection, out RaycastHit rayHit, 
             Quaternion.identity,_manualWallDistanceRange,_bounceLayers))
         {
-
             //Reflect the direction that the manual ability is moving
             _currentManualDirection = Vector3.Reflect(_currentManualDirection, rayHit.normal);
 
@@ -238,8 +292,13 @@ public class SH_Fae : SpecificHeroFramework
                 }
                 return;
             }
-
-            _currentManualDirection = ManualDirectionToBoss();
+            
+            Vector3 directionToBoss = ManualDirectionToBoss();
+            float bossDirectionDotProduct = Vector3.Dot(_currentManualDirection, directionToBoss);
+            if (bossDirectionDotProduct > _manualMinimumDotProduct)
+            {
+                _currentManualDirection = directionToBoss;
+            }
         }
     }
 
@@ -298,6 +357,8 @@ public class SH_Fae : SpecificHeroFramework
     public override void SetUpSpecificHero(HeroBase heroBase, HeroSO heroSO)
     {
         _heroStats = heroBase.GetHeroStats();
+        
+        _manualAudioWaitInterval = new WaitForSeconds(_manualAudioInterval);
 
         base.SetUpSpecificHero(heroBase, heroSO);
     }
