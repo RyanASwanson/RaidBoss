@@ -57,6 +57,10 @@ public class AudioManager : MainUniversalManagerFramework
     [Header("Hero Audio")]
     public GeneralHeroAudio GeneralHeroAudio;
     public SpecificHeroAudio[] AllSpecificHeroAudio;
+    
+    [Space]
+    [Header("User Interface")]
+    public UserInterfaceAudio UserInterfaceAudio;
 
     [Space] 
     [Header("Music")] 

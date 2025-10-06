@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using FMOD.Studio;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -10,9 +11,14 @@ public class SH_Mirage : SpecificHeroFramework
 {
     [Space]
     [SerializeField] private GameObject _basicProjectile;
+
     [SerializeField] private GameObject _basicTargetZone;
     private GameObject _currentBasicTargetZone;
     private const float _targetZoneYOffset = -.5f;
+    
+    [SerializeField] private float _cloneBasicAudioPitchOffset;
+    
+    private const int CLONE_BASIC_AUDIO_ID = 0;
 
     [Space]
     [SerializeField] private float _cloneSpawnDelay;
@@ -87,6 +93,13 @@ public class SH_Mirage : SpecificHeroFramework
         //Performs the set up for the damage area so that it knows it's owner
         _newestProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(_myHeroBase);
     }
+
+    private void PlayMirageBasicAbilityAudio()
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificHeroAudio[_myHeroBase.GetHeroSO().GetHeroID()]
+                .MiscellaneousHeroAudio[CLONE_BASIC_AUDIO_ID]);
+    }
     #endregion
 
     #region Manual Abilities
@@ -149,6 +162,7 @@ public class SH_Mirage : SpecificHeroFramework
     /// </summary>
     public void CloneBasicAbility()
     {
+        PlayMirageBasicAbilityAudio();
         CreateBasicAbilityProjectile();
     }
 

@@ -55,7 +55,6 @@ public class SH_Samurai : SpecificHeroFramework
     /// <summary>
     /// Called when manual button is pressed
     /// </summary>
-    /// <param name="attackLocation"></param>
     public override void ActivateManualAbilities()
     {
         base.ActivateManualAbilities();

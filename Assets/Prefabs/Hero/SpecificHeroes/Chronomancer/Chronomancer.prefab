@@ -78,12 +78,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffb771fe84bbd6e49ad9248a0fa7998c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _basicAbilityChargeTime: 2
+  _basicAbilityChargeTime: 3
   _manualAbilityChargeTime: 17
   _heroSpecificAnimator: {fileID: 9030357306950637488}
   _hasBasicAbilityAnimation: 1
   _hasManualAbilityAnimation: 1
   _hasPassiveAbilityAnimation: 0
+  _basicAbilityAnimationBufferBeforeDisable: 0.25
+  _manualAbilityAnimationBufferBeforeDisable: 0.25
+  _passiveAbilityAnimationBufferBeforeDisable: 0.25
   _attackRotationIncrease: {x: 0, y: 30, z: 0}
   _basicProjectile: {fileID: 5596939873398294413, guid: f94c8d34d7997534e9cd5db2805aa4ab, type: 3}
   _basicDirectionOrigin: {fileID: 3199938168666547575}

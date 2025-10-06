@@ -99,6 +99,7 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     /// </summary>
     protected virtual void StartShowTargetZone()
     {
+        PlayTargetZoneSpawnedAudio();
         _targetZoneRemovalProcess = StartCoroutine(TargetZonesProcess());
     }
 
@@ -210,6 +211,21 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     }
 
     #region AbilityAudio
+
+    protected virtual void PlayTargetZoneSpawnedAudio()
+    {
+        if (AudioManager.Instance.PlaySpecificAudio(
+                AudioManager.Instance.GeneralBossAudio.AbilityAudio.TargetZoneSpawned, out EventInstance eventInstance))
+        {
+            TargetZoneSpawnedAudioPlayed(eventInstance);
+        }
+    }
+
+    protected virtual void TargetZoneSpawnedAudioPlayed(EventInstance eventInstance)
+    {
+        
+    }
+    
 
     protected virtual void PlayAbilityPrepAudio()
     {
