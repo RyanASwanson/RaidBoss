@@ -473,14 +473,20 @@ MonoBehaviour:
           Path: event:/SoundEffect/Bosses/Specific/GlacialLord/Abilities/IcicleRain/GlacialLordIcicleRainImpact
     - AbilityName: Blizzard
       AbilityPrep:
-        AudioName: 
-        DefaultStartDelay: 0
+        AudioName: Blizzard
+        DefaultStartDelay: 3.5
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
         DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
         DefaultPlayType: 0
         DefaultAudioChoice: 0
-        AudioTracks: []
+        AudioTracks:
+        - Guid:
+            Data1: 120834238
+            Data2: 1121841214
+            Data3: -1759271489
+            Data4: 152789143
+          Path: event:/SoundEffect/Bosses/Specific/GlacialLord/Abilities/Blizzard/atmo-wind-howl-and-whistle-01
       AbilityStart:
         AudioName: 
         DefaultStartDelay: 0

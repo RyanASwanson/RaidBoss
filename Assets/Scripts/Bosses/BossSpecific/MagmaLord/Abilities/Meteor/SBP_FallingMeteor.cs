@@ -11,6 +11,8 @@ public class SBP_FallingMeteor : BossProjectileFramework
     
     private const string REMOVE_PROJECTILE_ANIM_TRIGGER = "RemoveMeteor";
     
+    private bool _hasMeteorBeenStopped = false;
+    
     private IEnumerator LookAtTarget(GameObject target)
     {
         while (true)
@@ -26,14 +28,10 @@ public class SBP_FallingMeteor : BossProjectileFramework
         Instantiate(_contactParticles, transform.position, Quaternion.identity);
     }
 
-    private void BossStaggered()
+    public void StopFallingMeteor()
     {
+        _hasMeteorBeenStopped = true;
         _meteorAnimator.SetTrigger(REMOVE_PROJECTILE_ANIM_TRIGGER);
-    }
-
-    private void OnDestroy()
-    {
-        BossBase.Instance.GetBossStaggeredEvent().RemoveListener(BossStaggered);
     }
 
     #region Base Ability
@@ -41,8 +39,6 @@ public class SBP_FallingMeteor : BossProjectileFramework
     public void AdditionalSetUp(GameObject target)
     {
         StartCoroutine(LookAtTarget(target));
-        
-        BossBase.Instance.GetBossStaggeredEvent().AddListener(BossStaggered);
     }
     #endregion
 }

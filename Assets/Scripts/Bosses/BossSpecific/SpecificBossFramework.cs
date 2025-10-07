@@ -436,7 +436,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
 
         if (!_currentAbility.IsUnityNull())
         {
-            _currentAbility.BossStaggeredDuringAbility();
+            _currentAbility.StopBossAbility();
         }
     }
 
@@ -447,6 +447,17 @@ public abstract class SpecificBossFramework : MonoBehaviour
     protected virtual void BossNoLongerStaggeredOccured()
     {
 
+    }
+
+    /// <summary>
+    /// Called when the boss is killed
+    /// </summary>
+    protected virtual void BossDied()
+    {
+        if (!_currentAbility.IsUnityNull())
+        {
+            _currentAbility.StopBossAbility();
+        }
     }
 
     /// <summary>
@@ -494,6 +505,8 @@ public abstract class SpecificBossFramework : MonoBehaviour
         //Listens for when the boss uses an ability
         _myBossBase.GetBossAbilityUsedEvent().AddListener(IterateRepetitionCounter);
 
+        GameStateManager.Instance.GetBattleWonEvent().AddListener(BossDied);
+        
         //Listens for when the boss is staggered
         _myBossBase.GetBossStaggeredEvent().AddListener(BossStaggerOccured);
         //Listens for when the boss stagger ends

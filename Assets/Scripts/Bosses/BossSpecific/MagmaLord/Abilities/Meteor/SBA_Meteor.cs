@@ -18,6 +18,7 @@ public class SBA_Meteor : SpecificBossAbilityFramework
     //[SerializeField] private Vector3 _fallingMeteorAngleVariance;
 
     private GameObject _storedFallingMeteor;
+    private SBP_FallingMeteor _storedFallingMeteorFunc;
     private GameObject _storedMovingMeteor;
 
     
@@ -61,8 +62,11 @@ public class SBA_Meteor : SpecificBossAbilityFramework
     /// </summary>
     protected void FallingMeteorContact()
     {
-        _storedFallingMeteor.GetComponent<SBP_FallingMeteor>().FloorContact();
-        Destroy(_storedFallingMeteor);
+        if (!_storedFallingMeteor.IsUnityNull())
+        {
+            _storedFallingMeteorFunc.FloorContact();
+            Destroy(_storedFallingMeteor);
+        }
     }
 
     #region Base Ability
@@ -85,7 +89,8 @@ public class SBA_Meteor : SpecificBossAbilityFramework
     protected override void StartAbilityWindUp()
     {
         _storedFallingMeteor = Instantiate(_fallingMeteor, _storedTargetLocation, _fallingMeteor.transform.rotation);
-        _storedFallingMeteor.GetComponent<SBP_FallingMeteor>().AdditionalSetUp(_storedTarget.gameObject);
+        _storedFallingMeteorFunc = _storedFallingMeteor.GetComponent<SBP_FallingMeteor>();
+        _storedFallingMeteorFunc.AdditionalSetUp(_storedTarget.gameObject);
 
         base.StartAbilityWindUp();
     }
@@ -105,6 +110,15 @@ public class SBA_Meteor : SpecificBossAbilityFramework
         }
         
         base.AbilityStart();
+    }
+
+    public override void StopBossAbility()
+    {
+        base.StopBossAbility();
+        if (!_storedFallingMeteor.IsUnityNull())
+        {
+            _storedFallingMeteorFunc.StopFallingMeteor();
+        }
     }
     #endregion
 }

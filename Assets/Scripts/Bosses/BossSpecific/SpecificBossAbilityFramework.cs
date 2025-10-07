@@ -204,7 +204,7 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
             (_screenShakeIntensity, _screenShakeFrequency, _screenShakeDuration);
     }
 
-    public void BossStaggeredDuringAbility()
+    public virtual void StopBossAbility()
     {
         StopAbilityWindUp();
         RemoveTargetZones();

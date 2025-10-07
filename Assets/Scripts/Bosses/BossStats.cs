@@ -23,6 +23,7 @@ public class BossStats : BossChildrenFunctionality
     private float _bossDamageIncrementMultiplier;
     private float _bossDamageResistanceChangeOnStagger;
 
+    private bool _isBossDead = false;
     private bool _isBossStaggered = false;
     private bool _isBossEnraged = false;
 
@@ -128,6 +129,7 @@ public class BossStats : BossChildrenFunctionality
     {
         if (_currentHealth <= 0)
         {
+            _isBossDead = true;
             GameStateManager.Instance.SetGameplayState(EGameplayStates.PostBattleWon);
         }
     }
@@ -321,6 +323,12 @@ public class BossStats : BossChildrenFunctionality
     #region Setters
     public void DealDamageToBoss(float damage)
     {
+        // Stop if the boss is already dead
+        if (_isBossDead)
+        {
+            return;
+        }
+        
         damage /= _bossDamageResistanceMultiplier;
         _currentHealth -= damage;
         _myBossBase.InvokeBossDamagedEvent(damage);
@@ -330,8 +338,8 @@ public class BossStats : BossChildrenFunctionality
 
     public void DealStaggerToBoss(float stagger)
     {
-        // Stop if the boss is already staggered
-        if (_isBossStaggered)
+        // Stop if the boss is already dead or staggered
+        if (_isBossDead || _isBossStaggered)
         {
             return;
         }
