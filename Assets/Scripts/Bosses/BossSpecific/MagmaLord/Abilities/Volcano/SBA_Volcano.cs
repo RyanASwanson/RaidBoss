@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using FMOD.Studio;
 using UnityEngine;
 
 /// <summary>
@@ -17,12 +18,18 @@ public class SBA_Volcano : SpecificBossAbilityFramework
 
     private const float _rotationAmount = 90;
     private const float _maxRotations = 3;
+    
+    [Space] 
+    [SerializeField] private float _impactAudioPitchIncrease;
 
+    [Space]
     [SerializeField] private GameObject _targetZone;
     [SerializeField] private GameObject _volcanoDamageZone;
 
     private List<GameObject> _storedDamageZones = new List<GameObject>();
     private List<Vector3> _targetLocations;
+    
+    private const int VOLCANO_IMPACT_AUDIO_ID = 0;
 
     /// <summary>
     /// Determines where the attacks should occur
@@ -79,16 +86,31 @@ public class SBA_Volcano : SpecificBossAbilityFramework
     
     private IEnumerator VolcanoDamageCreationProcess()
     {
+        int volcanoSpawned = 0;
         foreach (Vector3 attackLoc in _targetLocations)
         {
             GameObject newestDamageZone = Instantiate(_volcanoDamageZone, attackLoc, Quaternion.identity);
 
-            newestDamageZone.transform.eulerAngles += new Vector3(0, _rotationAmount *
-                                                                     Mathf.RoundToInt(Random.Range(0, _maxRotations)), 0);
+            newestDamageZone.transform.eulerAngles += 
+                new Vector3(0, _rotationAmount * Mathf.RoundToInt(Random.Range(0, _maxRotations)), 0);
+            
             _storedDamageZones.Add(newestDamageZone);
+
+            PlayVolcanoAbilityAudio(volcanoSpawned);
             
             yield return _projectileDelayWaitForSeconds;
+            volcanoSpawned++;
         }
+    }
+
+    private void PlayVolcanoAbilityAudio(int volcanoSpawned)
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
+                BossAbilityAudio[_abilityID].GeneralAbilityAudio[VOLCANO_IMPACT_AUDIO_ID], out EventInstance eventInstance);
+        
+        eventInstance.getPitch(out float pitch);
+        eventInstance.setPitch(pitch + (volcanoSpawned * _impactAudioPitchIncrease));
     }
     
     //TODO Delay the activations to be one after another

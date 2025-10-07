@@ -22,6 +22,11 @@ public class GlacialLord_FrostFiend : BossMinionBase
     
     private WaitForSeconds _freezeWait;
 
+    private const int FROST_FIEND_ABILITY_ID = 4;
+    
+    private const int FROST_FIEND_FROZEN_AUDIO_ID = 0;
+    private const int FROST_FIEND_UNFROZEN_AUDIO_ID = 1;
+
     public void AdditionalSetUp(float freezeDuration)
     {
         _freezeDuration = freezeDuration;
@@ -57,6 +62,7 @@ public class GlacialLord_FrostFiend : BossMinionBase
         }
 
         _minionFrozen = true;
+        PlayMinionFrozenAudio();
         FreezeAnim();
 
         StartCoroutine(FreezeProcess());
@@ -71,9 +77,28 @@ public class GlacialLord_FrostFiend : BossMinionBase
     private void UnfreezeMinion()
     {
         _minionFrozen = false;
+        PlayMinionUnfrozenAudio();
         UnfreezeAnim();
     }
     #endregion
+    
+    #region Audio
+
+    private void PlayMinionFrozenAudio()
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
+                BossAbilityAudio[FROST_FIEND_ABILITY_ID].GeneralAbilityAudio[FROST_FIEND_FROZEN_AUDIO_ID]);
+    }
+
+    private void PlayMinionUnfrozenAudio()
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
+                BossAbilityAudio[FROST_FIEND_ABILITY_ID].GeneralAbilityAudio[FROST_FIEND_UNFROZEN_AUDIO_ID]);
+    }
+    
+    #endregion 
 
     #region Animations
     private void FreezeAnim()

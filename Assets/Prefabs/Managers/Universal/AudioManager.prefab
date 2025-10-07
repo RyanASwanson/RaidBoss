@@ -234,7 +234,21 @@ MonoBehaviour:
         DefaultPlayType: 0
         DefaultAudioChoice: 0
         AudioTracks: []
-      GeneralAbilityAudio: []
+      GeneralAbilityAudio:
+      - AudioName: VolcanoImpact
+        DefaultStartDelay: 0
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 1
+        DefaultAudioChoice: 1
+        AudioTracks:
+        - Guid:
+            Data1: -1865652598
+            Data2: 1123647054
+            Data3: 437322369
+            Data4: -952020448
+          Path: event:/SoundEffect/Bosses/Specific/MagmaLord/Abilities/Volcano/Volcano1
     MiscellaneousBossAudio: []
   - AssociatedBoss: Terra Lord
     BossAbilityAudio:
@@ -504,7 +518,13 @@ MonoBehaviour:
         DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
         DefaultPlayType: 0
         DefaultAudioChoice: 0
-        AudioTracks: []
+        AudioTracks:
+        - Guid:
+            Data1: -2110969223
+            Data2: 1324381196
+            Data3: 778295958
+            Data4: -1347071492
+          Path: event:/SoundEffect/Bosses/Specific/GlacialLord/Abilities/FrostFiends/FrostFriendFrozen
       - AudioName: FrostFiendUnfrozen
         DefaultStartDelay: 0
         DefaultInstanceFadeInTime: 0
@@ -549,7 +569,7 @@ MonoBehaviour:
   AllSpecificHeroAudio:
   - AssociatedHero: Guardian
     BasicAbilityUsed:
-      AudioName: ShieldSlam
+      AudioName: GuardianShieldSlam
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
@@ -564,7 +584,7 @@ MonoBehaviour:
           Data4: -235560477
         Path: event:/SoundEffect/Heroes/SpecificHeroes/Guardian/Basic/GuardianShieldSlam
     ManualAbilityUsed:
-      AudioName: Taunt
+      AudioName: GuardianTaunt
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
@@ -648,14 +668,20 @@ MonoBehaviour:
       DefaultAudioChoice: 0
       AudioTracks: []
     ManualAbilityUsed:
-      AudioName: 
+      AudioName: ReaperDeathFollowsStart
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
       DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
-      AudioTracks: []
+      AudioTracks:
+      - Guid:
+          Data1: -87733461
+          Data2: 1119619121
+          Data3: -1601947260
+          Data4: 2032235891
+        Path: event:/SoundEffect/Heroes/SpecificHeroes/Reaper/Active/ReaperDeathFollowsStart
     PassiveAbilityUsed:
       AudioName: 
       DefaultStartDelay: 0
@@ -665,7 +691,21 @@ MonoBehaviour:
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
-    MiscellaneousHeroAudio: []
+    MiscellaneousHeroAudio:
+    - AudioName: ReaperDeathFollowsDuration
+      DefaultStartDelay: 0
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+      DefaultPlayType: 1
+      DefaultAudioChoice: 0
+      AudioTracks:
+      - Guid:
+          Data1: -145950447
+          Data2: 1273576182
+          Data3: -828371018
+          Data4: 242033013
+        Path: event:/SoundEffect/Heroes/SpecificHeroes/Reaper/Active/ReaperDeathFollowsDuration
   - AssociatedHero: Shaman
     BasicAbilityUsed:
       AudioName: Tornado

@@ -51,6 +51,11 @@ public class DebugScript : MonoBehaviour
             }
             
         }
+        
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            BossStats.Instance.DealDamageToBoss((BossStats.Instance.GetBossMaxHealth()/2) + 1);
+        }
     }
 #endif
 }

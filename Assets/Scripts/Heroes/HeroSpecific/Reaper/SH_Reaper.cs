@@ -11,6 +11,8 @@ public class SH_Reaper : SpecificHeroFramework
     [SerializeField] private GameObject _basicProjectile;
 
     [SerializeField] private GameObject _manualProjectile;
+    
+    private const int DEATH_FOLLOWS_DURATION_AUDIO_ID = 0;
 
     [Space]
     [SerializeField] private float _deathPersistDuration;
@@ -46,6 +48,7 @@ public class SH_Reaper : SpecificHeroFramework
     public override void ActivateManualAbilities()
     {
         base.ActivateManualAbilities();
+        PlayManualDurationAudio();
         CreateManualAbilityProjectile();
     }
 
@@ -61,6 +64,13 @@ public class SH_Reaper : SpecificHeroFramework
 
         //Performs the set up for the damage area so that it knows it's owner
         spawnedProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(_myHeroBase);
+    }
+
+    private void PlayManualDurationAudio()
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificHeroAudio[_myHeroBase.GetHeroSO().GetHeroID()]
+                .MiscellaneousHeroAudio[DEATH_FOLLOWS_DURATION_AUDIO_ID]);
     }
     #endregion
 

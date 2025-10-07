@@ -7,8 +7,8 @@ using UnityEngine;
 /// </summary>
 public abstract class BossMinionBase : MonoBehaviour
 {
-    private BossBase _myBossBase;
-    private SpecificBossFramework _mySpecificBoss;
+    protected BossBase _myBossBase;
+    protected SpecificBossFramework _mySpecificBoss;
 
     public virtual void SetUpMinion(BossBase bossBase, SpecificBossFramework specificBoss)
     {
