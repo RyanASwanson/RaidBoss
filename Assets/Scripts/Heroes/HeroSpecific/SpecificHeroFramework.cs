@@ -356,7 +356,6 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     protected virtual void SubscribeToEvents()
     {
         GameStateManager.Instance.GetStartOfBattleEvent().AddListener(BattleStarted);
-
         _myHeroBase.GetHeroDiedEvent().AddListener(HeroDied);
     }
 

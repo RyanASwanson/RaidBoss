@@ -39,9 +39,9 @@ public class SHP_ReaperManualProjectile : HeroProjectileFramework
     /// Performs needed set up on the projectile
     /// </summary>
     /// <param name="heroBase"> The associated hero </param>
-    public override void SetUpProjectile(HeroBase heroBase)
+    public override void SetUpProjectile(HeroBase heroBase, EHeroAbilityType heroAbilityType)
     {
-        base.SetUpProjectile(heroBase);
+        base.SetUpProjectile(heroBase, heroAbilityType);
         _projectileAnimator = GetComponentInChildren<Animator>();
         StartCoroutine(MoveProjectile());
     }

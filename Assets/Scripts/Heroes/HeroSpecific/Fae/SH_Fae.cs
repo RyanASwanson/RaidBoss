@@ -88,7 +88,7 @@ public class SH_Fae : SpecificHeroFramework
             newestProjectile.transform.position = newestProjectile.transform.position + 
                 (newestProjectile.transform.forward * _projectileSpawnDistance);
 
-            newestProjectile.GetComponent<SHP_FaeBasicProjectile>().SetUpProjectile(_myHeroBase);
+            newestProjectile.GetComponent<SHP_FaeBasicProjectile>().SetUpProjectile(_myHeroBase, EHeroAbilityType.Basic);
 
             //Performs the set up for the damage area so that it knows it's owner
             newestProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(_myHeroBase);

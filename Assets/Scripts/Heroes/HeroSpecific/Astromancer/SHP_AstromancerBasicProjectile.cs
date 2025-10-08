@@ -99,9 +99,9 @@ public class SHP_AstromancerBasicProjectile : HeroProjectileFramework
 
 
     #region Base Ability
-    public override void SetUpProjectile(HeroBase heroBase)
+    public override void SetUpProjectile(HeroBase heroBase, EHeroAbilityType heroAbilityType)
     {
-        base.SetUpProjectile(heroBase);
+        base.SetUpProjectile(heroBase, heroAbilityType);
         SubscribeToEvents();
     }
 

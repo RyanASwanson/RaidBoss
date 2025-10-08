@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -93,7 +94,7 @@ public class SHP_ChronomancerBasicProjectile : HeroProjectileFramework
         //Gets the hero that it collided with
         HeroBase heroTarget = collider.GetComponentInParent<HeroBase>();
 
-        if (heroTarget != null)
+        if (!heroTarget.IsUnityNull())
         {
             //Activates the chronomancer's passive ability on the hero
             _chronomancerHero.PassiveReduceBasicCooldownOfHero(heroTarget);
@@ -102,11 +103,6 @@ public class SHP_ChronomancerBasicProjectile : HeroProjectileFramework
 
 
     #region Base Ability
-    public override void SetUpProjectile(HeroBase heroBase)
-    {
-        base.SetUpProjectile(heroBase);
-    }
-
     public void AdditionalSetup(Vector3 direction, float cooldownReduction, SH_Chronomancer chrono)
     {
         //Sets up initial values

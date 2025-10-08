@@ -65,7 +65,7 @@ public class SHP_VampireBasicProjectile : HeroProjectileFramework
 
             SHP_VampireBasicProjectile projectileFunc = newestProjectile.GetComponent<SHP_VampireBasicProjectile>();
 
-            projectileFunc.SetUpProjectile(_myHeroBase);
+            projectileFunc.SetUpProjectile(_myHeroBase, EHeroAbilityType.Basic);
             projectileFunc.AdditionalSetup(_vampireHero);
 
             //Performs the setup for the damage area so that it knows it's owner
@@ -85,9 +85,9 @@ public class SHP_VampireBasicProjectile : HeroProjectileFramework
 
 
     #region Base Ability
-    public override void SetUpProjectile(HeroBase heroBase)
+    public override void SetUpProjectile(HeroBase heroBase, EHeroAbilityType heroAbilityType)
     {
-        base.SetUpProjectile(heroBase);
+        base.SetUpProjectile(heroBase, heroAbilityType);
 
         StartAnimations();
 

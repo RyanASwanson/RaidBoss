@@ -36,7 +36,7 @@ public class SH_Reaper : SpecificHeroFramework
         GameObject spawnedProjectile = Instantiate(_basicProjectile, transform.position, Quaternion.identity);
 
         //Does the universal projectile set up
-        spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(_myHeroBase);
+        spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(_myHeroBase,EHeroAbilityType.Basic);
 
         //Performs the set up for the damage area so that it knows it's owner
         spawnedProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(_myHeroBase);
@@ -60,7 +60,7 @@ public class SH_Reaper : SpecificHeroFramework
         GameObject spawnedProjectile = Instantiate(_manualProjectile, attackLocation, Quaternion.identity);
 
         //Does the universal projectile set up
-        spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(_myHeroBase);
+        spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(_myHeroBase, EHeroAbilityType.Manual);
 
         //Performs the set up for the damage area so that it knows it's owner
         spawnedProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(_myHeroBase);

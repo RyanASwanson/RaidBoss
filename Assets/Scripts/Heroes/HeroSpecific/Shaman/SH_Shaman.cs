@@ -47,7 +47,7 @@ public class SH_Shaman : SpecificHeroFramework
     {
         GameObject spawnedProjectile = Instantiate(_manualProjectile, 
             _myHeroBase.transform.position, Quaternion.identity);
-        spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(_myHeroBase);
+        spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(_myHeroBase, EHeroAbilityType.Manual);
 
         spawnedProjectile.GetComponent<SHP_ShamanManualProjectile>().AdditionalSetUp(_currentTotem);
 

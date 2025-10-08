@@ -25,7 +25,7 @@ public class SH_Alchemist : SpecificHeroFramework
         base.ActivateBasicAbilities();
 
         //Throws a healing potion at the target location
-        CreatePotion(_basicProjectile, GetRandomPotionTargetLocation());
+        CreatePotion(_basicProjectile, GetRandomPotionTargetLocation(), EHeroAbilityType.Basic);
     }
 
     #endregion
@@ -38,7 +38,7 @@ public class SH_Alchemist : SpecificHeroFramework
         /*//Keeps the y value the same
         attackLocation = new Vector3(attackLocation.x, transform.position.y, attackLocation.z);*/
         //Creates a random potion from the manual options and sets its end location
-        CreatePotion(PickManualPotion(), GetRandomPotionTargetLocation());
+        CreatePotion(PickManualPotion(), GetRandomPotionTargetLocation(), EHeroAbilityType.Manual);
     }
 
     /// <summary>
@@ -65,7 +65,7 @@ public class SH_Alchemist : SpecificHeroFramework
             GetComponent<SHP_AlchemistPassiveProjectile>();
 
         //Sets up the projectile
-        passiveProj.SetUpProjectile(_myHeroBase);
+        passiveProj.SetUpProjectile(_myHeroBase, EHeroAbilityType.Passive);
     }
     #endregion
 
@@ -98,14 +98,14 @@ public class SH_Alchemist : SpecificHeroFramework
     /// </summary>
     /// <param name="potion"></param>
     /// <param name="endLocation"></param>
-    protected void CreatePotion(GameObject potion, Vector3 endLocation)
+    protected void CreatePotion(GameObject potion, Vector3 endLocation, EHeroAbilityType heroAbilityType)
     {
         GameObject newestPotion = Instantiate(potion, transform.position, Quaternion.identity);
 
         SHP_AlchemistPotion potionProjectile = newestPotion.GetComponent<SHP_AlchemistPotion>();
 
         //Provides the needed setup for the potion
-        potionProjectile.SetUpProjectile(_myHeroBase);
+        potionProjectile.SetUpProjectile(_myHeroBase, heroAbilityType);
         potionProjectile.AdditionalSetup(endLocation);
         
         newestPotion.GetComponent<GeneralHeroHealArea>().SetUpHealingArea(_myHeroBase);

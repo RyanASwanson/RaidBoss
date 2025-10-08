@@ -44,7 +44,7 @@ public class SH_Vampire : SpecificHeroFramework
 
         //Does the universal projectile set up
         SHP_VampireBasicProjectile projectileFunc = spawnedProjectile.GetComponent<SHP_VampireBasicProjectile>();
-        projectileFunc.SetUpProjectile(_myHeroBase);
+        projectileFunc.SetUpProjectile(_myHeroBase, EHeroAbilityType.Basic);
         projectileFunc.AdditionalSetup(this);
 
         //Performs the setup for the damage area so that it knows it's owner

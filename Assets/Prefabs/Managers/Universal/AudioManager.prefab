@@ -95,11 +95,11 @@ MonoBehaviour:
         DefaultAudioChoice: 0
         AudioTracks:
         - Guid:
-            Data1: 0
-            Data2: 0
-            Data3: 0
-            Data4: 0
-          Path: 
+            Data1: 538342876
+            Data2: 1182082955
+            Data3: 879488155
+            Data4: -342192165
+          Path: event:/SoundEffect/Bosses/GeneralBosses/TargetZone/BossTargetZoneSpawned
   AllSpecificBossAudio:
   - AssociatedBoss: Magma Lord
     BossAbilityAudio:
@@ -486,7 +486,7 @@ MonoBehaviour:
             Data2: 1121841214
             Data3: -1759271489
             Data4: 152789143
-          Path: event:/SoundEffect/Bosses/Specific/GlacialLord/Abilities/Blizzard/atmo-wind-howl-and-whistle-01
+          Path: event:/SoundEffect/Bosses/Specific/GlacialLord/Abilities/Blizzard/GlacialLordBlizzard
       AbilityStart:
         AudioName: 
         DefaultStartDelay: 0
@@ -810,14 +810,20 @@ MonoBehaviour:
     MiscellaneousHeroAudio: []
   - AssociatedHero: Vampire
     BasicAbilityUsed:
-      AudioName: 
+      AudioName: VampireBloodLance
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
       DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
-      AudioTracks: []
+      AudioTracks:
+      - Guid:
+          Data1: 2053362656
+          Data2: 1249588525
+          Data3: -1640289382
+          Data4: -949702503
+        Path: event:/SoundEffect/Heroes/SpecificHeroes/Vampire/Basic/impact-flesh-blood-dripping-drop-quick-01
     ManualAbilityUsed:
       AudioName: 
       DefaultStartDelay: 0

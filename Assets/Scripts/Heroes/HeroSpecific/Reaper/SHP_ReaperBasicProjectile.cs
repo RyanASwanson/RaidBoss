@@ -84,9 +84,9 @@ public class SHP_ReaperBasicProjectile : HeroProjectileFramework
     }
 
     #region Base Ability
-    public override void SetUpProjectile(HeroBase heroBase)
+    public override void SetUpProjectile(HeroBase heroBase, EHeroAbilityType heroAbilityType)
     {
-        base.SetUpProjectile(heroBase);
+        base.SetUpProjectile(heroBase, heroAbilityType);
 
         StartCoroutine(FollowHero());
         StartCoroutine(MoveProjectile());

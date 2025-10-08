@@ -132,9 +132,9 @@ public class SHP_AstromancerManualProjectile : HeroProjectileFramework
     /// Performs the needed set up for the projectile
     /// </summary>
     /// <param name="heroBase"></param>
-    public override void SetUpProjectile(HeroBase heroBase)
+    public override void SetUpProjectile(HeroBase heroBase, EHeroAbilityType heroAbilityType)
     {
-        base.SetUpProjectile(heroBase);
+        base.SetUpProjectile(heroBase, heroAbilityType);
         InitialSetup();
         SubscribeToEvents();
         StartProcesses();

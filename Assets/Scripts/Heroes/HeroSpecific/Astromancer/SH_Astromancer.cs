@@ -34,7 +34,7 @@ public class SH_Astromancer : SpecificHeroFramework
         GameObject spawnedProjectile = Instantiate(_basicProjectile, transform.position, Quaternion.identity);
 
         SHP_AstromancerBasicProjectile projectileFunc = spawnedProjectile.GetComponent<SHP_AstromancerBasicProjectile>();
-        projectileFunc.SetUpProjectile(_myHeroBase);
+        projectileFunc.SetUpProjectile(_myHeroBase, EHeroAbilityType.Basic);
 
         Vector3 storedProjectileDirection = BossManager.Instance.GetDirectionToBoss(transform.position);
         projectileFunc.AdditionalSetup(this, storedProjectileDirection);
@@ -71,7 +71,7 @@ public class SH_Astromancer : SpecificHeroFramework
         GameObject spawnedProjectile = Instantiate(_manualProjectile, transform.position, Quaternion.identity);
 
         _storedManual = spawnedProjectile.GetComponent<SHP_AstromancerManualProjectile>();
-        _storedManual.SetUpProjectile(_myHeroBase);
+        _storedManual.SetUpProjectile(_myHeroBase, EHeroAbilityType.Manual);
 
         _myHeroBase.GetPathfinding().BriefStopCurrentMovement();
         _myHeroBase.GetHeroStartedMovingEvent().AddListener(EndManualAbility);

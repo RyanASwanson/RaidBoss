@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using FMOD.Studio;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -28,6 +29,9 @@ public class SBA_Volcano : SpecificBossAbilityFramework
 
     private List<GameObject> _storedDamageZones = new List<GameObject>();
     private List<Vector3> _targetLocations;
+
+    private Coroutine _targetZoneSpawningProcess;
+    private Coroutine _damageZoneSpawningProcess;
     
     private const int VOLCANO_IMPACT_AUDIO_ID = 0;
 
@@ -113,12 +117,6 @@ public class SBA_Volcano : SpecificBossAbilityFramework
         eventInstance.setPitch(pitch + (volcanoSpawned * _impactAudioPitchIncrease));
     }
     
-    //TODO Delay the activations to be one after another
-    /*protected IEnumerator CreateVolcanoDamageZonesProcess()
-    {
-
-    }*/
-    
     #region Base Ability
 
     public override void AbilitySetUp(BossBase bossBase)
@@ -134,7 +132,7 @@ public class SBA_Volcano : SpecificBossAbilityFramework
     {
         DetermineAttackLocations();
         
-        StartCoroutine(VolcanoTargetZoneCreationProcess());
+        _targetZoneSpawningProcess = StartCoroutine(VolcanoTargetZoneCreationProcess());
         
         base.StartShowTargetZone();
     }
@@ -144,9 +142,24 @@ public class SBA_Volcano : SpecificBossAbilityFramework
     /// </summary>
     protected override void AbilityStart()
     {
-        StartCoroutine(VolcanoDamageCreationProcess());
+        _damageZoneSpawningProcess = StartCoroutine(VolcanoDamageCreationProcess());
 
         base.AbilityStart();
     }
+
+    public override void StopBossAbility()
+    {
+        base.StopBossAbility();
+        if (!_targetZoneSpawningProcess.IsUnityNull())
+        {
+            StopCoroutine(_targetZoneSpawningProcess);
+        }
+
+        if (_damageZoneSpawningProcess.IsUnityNull())
+        {
+            StopCoroutine(_damageZoneSpawningProcess);
+        }
+    }
+
     #endregion
 }
