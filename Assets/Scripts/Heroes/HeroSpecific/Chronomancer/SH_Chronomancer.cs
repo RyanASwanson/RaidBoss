@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -105,7 +106,7 @@ public class SH_Chronomancer : SpecificHeroFramework
     /// <returns></returns>
     private IEnumerator AttackDirectionFollow()
     {
-        while (gameObject != null && _storedDirectionObj != null)
+        while (!gameObject.IsUnityNull() && !_storedDirectionObj.IsUnityNull())
         {
             _storedDirectionObj.transform.position = _basicDirectionOrigin.transform.position;
             yield return null;
@@ -120,6 +121,8 @@ public class SH_Chronomancer : SpecificHeroFramework
     {
         base.ActivateManualAbilities();
         
+        TimeManager.Instance.AddNewTimeVariationForDuration(.5f,.75f);
+        
         int counter = 0;
 
         //TODO Change this to a for loop
@@ -127,9 +130,6 @@ public class SH_Chronomancer : SpecificHeroFramework
         foreach (HeroBase heroBase in HeroesManager.Instance.GetCurrentHeroes())
         {
             RevertHeroHealth(counter, heroBase);
-
-            //Applies the Chronomancers passive to each hero
-            PassiveReduceBasicCooldownOfHero(heroBase);
 
             counter++;
         }
@@ -161,10 +161,16 @@ public class SH_Chronomancer : SpecificHeroFramework
             healthDifference = currentHighestCheckedHealth - targetHeroBase.GetHeroStats().GetCurrentHealth();
         }
 
-        if (healthDifference == 0) return;
+        if (healthDifference == 0)
+        {
+            return;
+        }
 
         //Heal the hero for the difference in health
         HealTargetHero(healthDifference, targetHeroBase);
+        
+        //Applies the Chronomancers passive to the target hero
+        PassiveReduceBasicCooldownOfHero(targetHeroBase);
     }
 
     /// <summary>

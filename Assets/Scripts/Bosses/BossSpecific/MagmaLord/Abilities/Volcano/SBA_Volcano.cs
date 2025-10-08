@@ -155,7 +155,7 @@ public class SBA_Volcano : SpecificBossAbilityFramework
             StopCoroutine(_targetZoneSpawningProcess);
         }
 
-        if (_damageZoneSpawningProcess.IsUnityNull())
+        if (!_damageZoneSpawningProcess.IsUnityNull())
         {
             StopCoroutine(_damageZoneSpawningProcess);
         }
