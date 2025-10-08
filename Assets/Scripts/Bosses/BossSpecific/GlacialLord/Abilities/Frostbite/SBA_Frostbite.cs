@@ -10,6 +10,8 @@ public class SBA_Frostbite : SpecificBossAbilityFramework
     private List<GlacialLord_FrostFiend> _attackingFiends = new();
 
     private SB_GlacialLord _glacialLord;
+    
+    public const int FROSTBITE_IMPACT_AUDIO_ID = 0;
 
     public override void AbilitySetUp(BossBase bossBase)
     {

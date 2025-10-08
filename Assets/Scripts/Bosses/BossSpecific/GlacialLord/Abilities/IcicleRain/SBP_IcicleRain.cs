@@ -16,8 +16,6 @@ public class SBP_IcicleRain : BossProjectileFramework
     [Space] 
     [SerializeField] private float _impactAudioPitchIncrease;
 
-    private const int ICICLE_RAIN_IMPACT_AUDIO_ID = 0;
-
     private IEnumerator SpikeSpawningProcess()
     {
         int setCounter = 1;
@@ -51,7 +49,7 @@ public class SBP_IcicleRain : BossProjectileFramework
         
         AudioManager.Instance.PlaySpecificAudio(
             AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
-                BossAbilityAudio[_abilityID].GeneralAbilityAudio[ICICLE_RAIN_IMPACT_AUDIO_ID], out EventInstance eventInstance);
+                BossAbilityAudio[_abilityID].GeneralAbilityAudio[SBA_IcicleRain.ICICLE_RAIN_IMPACT_AUDIO_ID], out EventInstance eventInstance);
         
         eventInstance.getPitch(out float pitch);
         eventInstance.setPitch(pitch + (_impactAudioPitchIncrease * icicleSet));

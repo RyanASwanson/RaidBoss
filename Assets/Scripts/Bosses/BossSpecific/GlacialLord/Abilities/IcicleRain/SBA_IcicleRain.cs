@@ -14,7 +14,7 @@ public class SBA_IcicleRain : SpecificBossAbilityFramework
     
     private GameObject _newestTargetZone;
 
-    
+    public const int ICICLE_RAIN_IMPACT_AUDIO_ID = 0;
 
     /// <summary>
     /// Makes the target zone and attack follow the hero it is targetting

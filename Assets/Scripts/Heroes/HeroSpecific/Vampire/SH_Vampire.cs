@@ -25,6 +25,8 @@ public class SH_Vampire : SpecificHeroFramework
 
     private Coroutine _passiveProcess;
 
+    public const int BASIC_PROJECTILE_SPLIT_AUDIO_ID = 0;
+
     #region Basic Abilities
 
     public override void ActivateBasicAbilities()

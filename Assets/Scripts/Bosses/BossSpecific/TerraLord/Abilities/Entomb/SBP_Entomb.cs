@@ -26,9 +26,6 @@ public class SBP_Entomb : BossProjectileFramework
     [SerializeField] private Animator _animator;
 
     private const string REMOVE_PROJECTILE_ANIM_TRIGGER = "RemoveEntomb";
-    
-    private const int ENTOMB_CLOSED_IMPACT_AUDIO_ID = 0;
-    private const int ENTOMB_DESTROY_HALF_AUDIO_ID = 1;
 
     private IEnumerator AbilityProcess()
     {
@@ -116,14 +113,14 @@ public class SBP_Entomb : BossProjectileFramework
     {
         AudioManager.Instance.PlaySpecificAudio(
             AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
-                BossAbilityAudio[_abilityID].GeneralAbilityAudio[ENTOMB_CLOSED_IMPACT_AUDIO_ID]);
+                BossAbilityAudio[_abilityID].GeneralAbilityAudio[SBA_Entomb.ENTOMB_CLOSED_IMPACT_AUDIO_ID]);
     }
 
     private void PlayEntombDestroyHalfSound()
     {
         AudioManager.Instance.PlaySpecificAudio(
             AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
-                BossAbilityAudio[_abilityID].GeneralAbilityAudio[ENTOMB_DESTROY_HALF_AUDIO_ID]);
+                BossAbilityAudio[_abilityID].GeneralAbilityAudio[SBA_Entomb.ENTOMB_DESTROY_HALF_AUDIO_ID]);
     }
 
     /// <summary>

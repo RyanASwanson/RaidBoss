@@ -9,8 +9,6 @@ public class SBP_Frostbite : BossProjectileFramework
     [SerializeField] private GameObject _projectileStartVFX;
 
     [SerializeField] private List<GameObject> _projectiles;
-    
-    private const int FROSTBITE_IMPACT_AUDIO_ID = 0;
 
     private void StartSpikeSpawningProcess()
     {
@@ -54,7 +52,7 @@ public class SBP_Frostbite : BossProjectileFramework
     {
         AudioManager.Instance.PlaySpecificAudio(
             AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
-                BossAbilityAudio[_abilityID].GeneralAbilityAudio[FROSTBITE_IMPACT_AUDIO_ID]);
+                BossAbilityAudio[_abilityID].GeneralAbilityAudio[SBA_Frostbite.FROSTBITE_IMPACT_AUDIO_ID]);
     }
 
     #region Base Ability

@@ -12,8 +12,6 @@ public class SBP_MagmaWave : BossProjectileFramework
 
     private const string REMOVE_PROJECTILE_ANIM_TRIGGER = "WaveEnd";
 
-    
-
     /// <summary>
     /// Makes the projectile look at the target hero and start moving 
     /// </summary>
