@@ -14,4 +14,6 @@ public class GeneralHeroHealthAudio
     public SpecificAudio HeroTookDamage;
     
     public SpecificAudio HeroTookHealing;
+
+    public SpecificAudio HeroDied;
 }

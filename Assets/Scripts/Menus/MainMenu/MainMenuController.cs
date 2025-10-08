@@ -41,8 +41,6 @@ public class MainMenuController : MonoBehaviour
     [Header("Credits")]
     [SerializeField] private GameObject _creditsCanvas;
 
-    private const int MAIN_MENU_MUSIC_ID = 0;
-
     private void Start()
     {
         PlayMainMenuMusic();
@@ -51,7 +49,7 @@ public class MainMenuController : MonoBehaviour
     // Plays the music associated with the boss fight
     private void PlayMainMenuMusic()
     {
-        AudioManager.Instance.PlayMusic(MAIN_MENU_MUSIC_ID, false);
+        AudioManager.Instance.PlayMusic(AudioManager.MAIN_MENU_MUSIC_ID, false);
     }
     
     #region Buttons

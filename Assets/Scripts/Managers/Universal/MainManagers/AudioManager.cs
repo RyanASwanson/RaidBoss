@@ -65,6 +65,9 @@ public class AudioManager : MainUniversalManagerFramework
     [Space] 
     [Header("Music")] 
     public SpecificAudio[] AllMusic;
+    
+    public const int MAIN_MENU_MUSIC_ID = 0;
+    public const int SELECTION_SCENE_MUSIC_ID = 1;
 
     private int _currentMusicID = -1;
     private EventInstance _currentMusicInstance;

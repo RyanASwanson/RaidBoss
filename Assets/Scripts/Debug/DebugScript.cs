@@ -56,6 +56,15 @@ public class DebugScript : MonoBehaviour
         {
             BossStats.Instance.DealDamageToBoss((BossStats.Instance.GetBossMaxHealth()/2) + 1);
         }
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            List<HeroBase> heroes = PlayerInputGameplayManager.Instance.GetAllControlledHeroes();
+            
+            heroes[0].GetHeroStats().KillHero();
+            
+           
+        }
     }
 #endif
 }

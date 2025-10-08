@@ -5,7 +5,14 @@ using UnityEngine;
 public class GlacialLord_FrostFiend : BossMinionBase
 {
     [SerializeField] private bool _canBeFrozenDuringFreeze;
+    [SerializeField] private float _refreezeCooldown;
+
+    [Space]
+    [SerializeField] private float _frozenMaxScaleOverFreeze;
+    [SerializeField] private float _frozenMinScaleOverFreeze;
+    [SerializeField] private GameObject _frozenEffect;
     
+    [Space]
     [SerializeField] private Animator _frostFiendAnimator;
 
     private const string _fiendFrozenAnimTrigger = "FiendFrozen";
@@ -20,7 +27,8 @@ public class GlacialLord_FrostFiend : BossMinionBase
     private bool _minionFrozen;
     private float _freezeDuration;
     
-    private WaitForSeconds _freezeWait;
+    //private WaitForSeconds _freezeWait;
+    private float _timeFrozen = 0;
 
     private const int FROST_FIEND_ABILITY_ID = 4;
     
@@ -30,7 +38,7 @@ public class GlacialLord_FrostFiend : BossMinionBase
     public void AdditionalSetUp(float freezeDuration)
     {
         _freezeDuration = freezeDuration;
-        _freezeWait = new WaitForSeconds(_freezeDuration);
+        //_freezeWait = new WaitForSeconds(_freezeDuration);
     }
 
     public void BlizzardAttack()
@@ -56,21 +64,43 @@ public class GlacialLord_FrostFiend : BossMinionBase
     #region Freezing
     public void FreezeMinion()
     {
-        if (!_canBeFrozenDuringFreeze && _minionFrozen)
+        if (_minionFrozen)
         {
-            return;
+            if (!_canBeFrozenDuringFreeze)
+            {
+                return;
+            }
+
+            if (_timeFrozen < _refreezeCooldown)
+            {
+                return;
+            }
         }
 
         _minionFrozen = true;
         PlayMinionFrozenAudio();
         FreezeAnim();
-
+        
         StartCoroutine(FreezeProcess());
     }
 
-    private IEnumerator FreezeProcess()
+    /*private IEnumerator FreezeProcessOld()
     {
         yield return _freezeWait;
+        UnfreezeMinion();
+    }*/
+
+    private IEnumerator FreezeProcess()
+    {
+        _timeFrozen = 0;
+        while (_timeFrozen < _freezeDuration)
+        {
+            _timeFrozen += Time.deltaTime;
+            float scaleProgress = Mathf.Lerp(_frozenMaxScaleOverFreeze, _frozenMinScaleOverFreeze, _timeFrozen / _freezeDuration);
+            _frozenEffect.transform.localScale = new Vector3(scaleProgress, scaleProgress, scaleProgress);
+            yield return null;
+        }
+        
         UnfreezeMinion();
     }
 

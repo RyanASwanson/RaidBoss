@@ -107,6 +107,8 @@ public class SelectionController : MonoBehaviour
         BossSideStart();
         CenterStart();
         HeroSideStart();
+        
+        PlaySelectionSceneMusic();
     }
 
     #region Boss Side
@@ -739,6 +741,11 @@ public class SelectionController : MonoBehaviour
 
     #region General
 
+    private void PlaySelectionSceneMusic()
+    {
+        AudioManager.Instance.PlayMusic(AudioManager.SELECTION_SCENE_MUSIC_ID, false);
+    }
+    
     public void BackToMainMenu()
     {
         SceneLoadManager.Instance.LoadMainMenuScene();

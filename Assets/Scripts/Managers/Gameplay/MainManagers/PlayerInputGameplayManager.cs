@@ -345,4 +345,10 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
         UnsubscribeToPlayerInput();
     }
     #endregion
+
+    #region Getters
+
+    public List<HeroBase> GetAllControlledHeroes() => _controlledHeroes;
+
+    #endregion
 }

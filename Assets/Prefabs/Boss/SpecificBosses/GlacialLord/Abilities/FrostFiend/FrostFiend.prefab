@@ -426,7 +426,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b808916816e5e70419992a88978ea0f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canBeFrozenDuringFreeze: 0
+  _canBeFrozenDuringFreeze: 1
+  _refreezeCooldown: 3
+  _frozenMaxScaleOverFreeze: 1.5
+  _frozenMinScaleOverFreeze: 1
+  _frozenEffect: {fileID: 8522072795408361714}
   _frostFiendAnimator: {fileID: 2535172192572996261}
 --- !u!95 &2535172192572996261
 Animator:

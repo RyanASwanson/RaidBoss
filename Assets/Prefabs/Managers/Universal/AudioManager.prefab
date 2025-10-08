@@ -572,6 +572,21 @@ MonoBehaviour:
             Data3: 1732163760
             Data4: -148630131
           Path: event:/SoundEffect/Heroes/GeneralHeroes/Health/Healing/HeroHealed
+      HeroDied:
+        AudioName: HeroDied
+        DefaultStartDelay: 0
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: -1535114683
+            Data2: 1104445340
+            Data3: 1067596191
+            Data4: 234224541
+          Path: event:/SoundEffect/Heroes/GeneralHeroes/Health/Death/HeroDied
   AllSpecificHeroAudio:
   - AssociatedHero: Guardian
     BasicAbilityUsed:
@@ -1058,8 +1073,8 @@ MonoBehaviour:
   AllMusic:
   - AudioName: MainMenu
     DefaultStartDelay: 0
-    DefaultInstanceFadeInTime: 0
-    DefaultInstanceFadeOutTime: 0
+    DefaultInstanceFadeInTime: 2
+    DefaultInstanceFadeOutTime: 2
     DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
     DefaultPlayType: 1
     DefaultAudioChoice: 0
@@ -1070,18 +1085,24 @@ MonoBehaviour:
         Data3: -255086407
         Data4: 1308351786
       Path: event:/Music/GeneralMusic/MainMenu/TempMainMenuMusic
-  - AudioName: Selection
+  - AudioName: SelectionScene
     DefaultStartDelay: 0
     DefaultInstanceFadeInTime: 2
     DefaultInstanceFadeOutTime: 2
     DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
     DefaultPlayType: 1
     DefaultAudioChoice: 0
-    AudioTracks: []
-  - AudioName: Basic Boss Music
+    AudioTracks:
+    - Guid:
+        Data1: 2067688627
+        Data2: 1081772072
+        Data3: 1284008608
+        Data4: -1888883267
+      Path: event:/Music/GeneralMusic/SelectionScene/TempSelectionSceneMusic
+  - AudioName: BasicBoss
     DefaultStartDelay: 0
     DefaultInstanceFadeInTime: 2
-    DefaultInstanceFadeOutTime: 2
+    DefaultInstanceFadeOutTime: 1
     DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
     DefaultPlayType: 1
     DefaultAudioChoice: 0
