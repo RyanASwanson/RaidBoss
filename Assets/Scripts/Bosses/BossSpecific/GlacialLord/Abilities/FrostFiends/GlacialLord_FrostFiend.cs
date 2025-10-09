@@ -41,7 +41,8 @@ public class GlacialLord_FrostFiend : BossMinionBase
     private const int FROST_FIEND_ABILITY_ID = 4;
     
     private const int FROST_FIEND_FROZEN_AUDIO_ID = 0;
-    private const int FROST_FIEND_UNFROZEN_AUDIO_ID = 1;
+    private const int FROST_FIEND_FREEZE_CRACKED_AUDIO_ID = 1;
+    private const int FROST_FIEND_UNFROZEN_AUDIO_ID = 2;
 
     public void AdditionalSetUp(float freezeDuration)
     {
@@ -107,6 +108,7 @@ public class GlacialLord_FrostFiend : BossMinionBase
                 _isFreezeCracked = true;
                 CrackFreezeEffect(_isFreezeCracked);
                 _frozenEffectCrackedVFX.Play();
+                PlayMinionFreezeCrackedAudio();
             }
             _timeFrozen += Time.deltaTime;
             float scaleProgress = Mathf.Lerp(_frozenMaxScaleOverFreeze, _frozenMinScaleOverFreeze, _timeFrozen / _freezeDuration);
@@ -137,6 +139,13 @@ public class GlacialLord_FrostFiend : BossMinionBase
         AudioManager.Instance.PlaySpecificAudio(
             AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
                 BossAbilityAudio[FROST_FIEND_ABILITY_ID].GeneralAbilityAudio[FROST_FIEND_FROZEN_AUDIO_ID]);
+    }
+
+    private void PlayMinionFreezeCrackedAudio()
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
+                BossAbilityAudio[FROST_FIEND_ABILITY_ID].GeneralAbilityAudio[FROST_FIEND_FREEZE_CRACKED_AUDIO_ID]);
     }
 
     private void PlayMinionUnfrozenAudio()
