@@ -27,11 +27,13 @@ public class SB_GlacialLord : SpecificBossFramework
     #region Frost Fiends
     private IEnumerator SpawnStartingFrostFiends()
     {
-        yield return new WaitForSeconds(_delayBetweenFiendSpawns);
+        WaitForSeconds frostFiendSpawnWait = new WaitForSeconds(_delayBetweenFiendSpawns);
+        
+        yield return frostFiendSpawnWait;
         foreach(Vector3 spawnLocation in _frostFiendSpawnLocations)
         {
             SpawnFrostFiend(spawnLocation);
-            yield return new WaitForSeconds(_delayBetweenFiendSpawns);
+            yield return frostFiendSpawnWait;
         }
     }
 
@@ -41,14 +43,14 @@ public class SB_GlacialLord : SpecificBossFramework
             Instantiate(_frostFiend, spawnLocation, Quaternion.identity).GetComponent<GlacialLord_FrostFiend>();
 
         newFiend.transform.LookAt(transform);
+        
         //Set does not work
-        //newFiend.transform.eulerAngles.Set(0, newFiend.transform.eulerAngles.y, 0);
         newFiend.transform.eulerAngles = new Vector3(0, newFiend.transform.eulerAngles.y, 0);
 
         newFiend.SetUpMinion(_myBossBase, this);
         newFiend.AdditionalSetUp(_minionFreezeDuration);
 
-        _allFrostFiends.Add(newFiend.GetComponent<GlacialLord_FrostFiend>());
+        _allFrostFiends.Add(newFiend);
 
         InvokeFrostFiendSpawned(newFiend);
     }

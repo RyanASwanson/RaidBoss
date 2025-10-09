@@ -429,8 +429,12 @@ MonoBehaviour:
   _canBeFrozenDuringFreeze: 1
   _refreezeCooldown: 3
   _frozenMaxScaleOverFreeze: 1.5
-  _frozenMinScaleOverFreeze: 1
-  _frozenEffect: {fileID: 8522072795408361714}
+  _frozenMinScaleOverFreeze: 1.1
+  _frozenEffectBase: {fileID: 8522072795408361714}
+  _timeFreezeCrackedAtEnd: 7
+  _frozenEffect: {fileID: 4837207418118867762}
+  _frozenEffectCracked: {fileID: 4295631647647319863}
+  _frozenEffectCrackedVFX: {fileID: 4008387299771372837}
   _frostFiendAnimator: {fileID: 2535172192572996261}
 --- !u!95 &2535172192572996261
 Animator:
@@ -712,12 +716,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8651576434378706810, guid: ab3e00b4ef5bd62488485f170dd5c633, type: 3}
       propertyPath: m_Name
-      value: FrostFiendFrozenEffect
+      value: FrostFiendFrozen
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab3e00b4ef5bd62488485f170dd5c633, type: 3}
 --- !u!4 &1109594868802345740 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 145095764764379365, guid: ab3e00b4ef5bd62488485f170dd5c633, type: 3}
+  m_PrefabInstance: {fileID: 965293638634345449}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &4008387299771372837 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4235018005977876172, guid: ab3e00b4ef5bd62488485f170dd5c633, type: 3}
+  m_PrefabInstance: {fileID: 965293638634345449}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4295631647647319863 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3961003053016896734, guid: ab3e00b4ef5bd62488485f170dd5c633, type: 3}
+  m_PrefabInstance: {fileID: 965293638634345449}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4837207418118867762 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5639738150376085723, guid: ab3e00b4ef5bd62488485f170dd5c633, type: 3}
   m_PrefabInstance: {fileID: 965293638634345449}
   m_PrefabAsset: {fileID: 0}

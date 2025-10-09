@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class GlacialLord_FrostFiend : BossMinionBase
 {
@@ -10,7 +11,13 @@ public class GlacialLord_FrostFiend : BossMinionBase
     [Space]
     [SerializeField] private float _frozenMaxScaleOverFreeze;
     [SerializeField] private float _frozenMinScaleOverFreeze;
+    [SerializeField] private GameObject _frozenEffectBase;
+
+    [Space] 
+    [SerializeField] private float _timeFreezeCrackedAtEnd;
     [SerializeField] private GameObject _frozenEffect;
+    [SerializeField] private GameObject _frozenEffectCracked;
+    [SerializeField] private ParticleSystem _frozenEffectCrackedVFX;
     
     [Space]
     [SerializeField] private Animator _frostFiendAnimator;
@@ -24,11 +31,12 @@ public class GlacialLord_FrostFiend : BossMinionBase
     
     private const string _fiendDeathAnimTrigger = "FiendDeath";
 
-    private bool _minionFrozen;
-    private float _freezeDuration;
+    private bool _isMinionFrozen;
+    private static float _freezeDuration;
+    private static float _timeBeforeFreezeCrack;
     
-    //private WaitForSeconds _freezeWait;
     private float _timeFrozen = 0;
+    private bool _isFreezeCracked = false;
 
     private const int FROST_FIEND_ABILITY_ID = 4;
     
@@ -38,7 +46,7 @@ public class GlacialLord_FrostFiend : BossMinionBase
     public void AdditionalSetUp(float freezeDuration)
     {
         _freezeDuration = freezeDuration;
-        //_freezeWait = new WaitForSeconds(_freezeDuration);
+        _timeBeforeFreezeCrack = freezeDuration - _timeFreezeCrackedAtEnd;
     }
 
     public void BlizzardAttack()
@@ -64,7 +72,7 @@ public class GlacialLord_FrostFiend : BossMinionBase
     #region Freezing
     public void FreezeMinion()
     {
-        if (_minionFrozen)
+        if (_isMinionFrozen)
         {
             if (!_canBeFrozenDuringFreeze)
             {
@@ -77,27 +85,32 @@ public class GlacialLord_FrostFiend : BossMinionBase
             }
         }
 
-        _minionFrozen = true;
+        _isMinionFrozen = true;
+        
+        _isFreezeCracked = false;
+        CrackFreezeEffect(_isFreezeCracked);
+        
         PlayMinionFrozenAudio();
         FreezeAnim();
         
         StartCoroutine(FreezeProcess());
     }
-
-    /*private IEnumerator FreezeProcessOld()
-    {
-        yield return _freezeWait;
-        UnfreezeMinion();
-    }*/
+    
 
     private IEnumerator FreezeProcess()
     {
         _timeFrozen = 0;
         while (_timeFrozen < _freezeDuration)
         {
+            if (!_isFreezeCracked && _timeFrozen > _timeBeforeFreezeCrack)
+            {
+                _isFreezeCracked = true;
+                CrackFreezeEffect(_isFreezeCracked);
+                _frozenEffectCrackedVFX.Play();
+            }
             _timeFrozen += Time.deltaTime;
             float scaleProgress = Mathf.Lerp(_frozenMaxScaleOverFreeze, _frozenMinScaleOverFreeze, _timeFrozen / _freezeDuration);
-            _frozenEffect.transform.localScale = new Vector3(scaleProgress, scaleProgress, scaleProgress);
+            _frozenEffectBase.transform.localScale = new Vector3(scaleProgress, scaleProgress, scaleProgress);
             yield return null;
         }
         
@@ -106,9 +119,14 @@ public class GlacialLord_FrostFiend : BossMinionBase
 
     private void UnfreezeMinion()
     {
-        _minionFrozen = false;
+        _isMinionFrozen = false;
         PlayMinionUnfrozenAudio();
         UnfreezeAnim();
+    }
+
+    private void CrackFreezeEffect(bool isCracked)
+    {
+        _frozenEffectCracked.SetActive(isCracked);
     }
     #endregion
     
@@ -164,6 +182,6 @@ public class GlacialLord_FrostFiend : BossMinionBase
     #endregion
 
     #region Getters
-    public bool IsMinionFrozen() => _minionFrozen;
+    public bool IsMinionFrozen() => _isMinionFrozen;
     #endregion
 }
