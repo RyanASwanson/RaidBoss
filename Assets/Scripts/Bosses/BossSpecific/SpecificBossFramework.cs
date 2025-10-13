@@ -82,16 +82,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
         {
             return;
         }
-
-        if (_bossSpecificUI == null)
-        {
-            Debug.Log("NOTFOUND");
-        }
-
-        if (BossUIManager.Instance == null)
-        {
-            Debug.Log("NOTFOUND2");
-        }
+        
         _storedBossUI = BossUIManager.Instance.AddBossUIToHolder(_bossSpecificUI);
 
         _storedBossUI.GetComponent<SpecificBossUIFramework>().SetUpBossSpecificUIFunctionality(_myBossBase, this);

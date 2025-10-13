@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 /// <summary>
@@ -35,7 +37,9 @@ public class SelectHeroButton : MonoBehaviour
         bool heroUnlocked = SaveManager.Instance.
             GSD._heroesUnlocked[_associatedHero.GetHeroName()];
 
+        
         _heroButton.interactable = heroUnlocked;
+        
         _lockVisuals.SetActive(!heroUnlocked);
     }
 
@@ -69,7 +73,11 @@ public class SelectHeroButton : MonoBehaviour
             HeroSelect();
         }
         else
+        {
             HeroDeselect();
+        }
+
+        EventSystem.current.SetSelectedGameObject(null);
 
         _buttonHasBeenPressed = !_buttonHasBeenPressed;
     }

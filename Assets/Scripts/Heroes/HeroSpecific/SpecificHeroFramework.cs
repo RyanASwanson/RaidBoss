@@ -33,6 +33,10 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     private WaitForSeconds _manualAbilityAnimationDisableWait;
     private WaitForSeconds _passiveAbilityAnimationDisableWait;
 
+    [Space] 
+    [Header("UI")] 
+    [SerializeField] protected GameObject _heroSpecificUI;
+
     internal HeroBase _myHeroBase;
 
     protected Coroutine _attemptingBasicAbilitiesCoroutine;

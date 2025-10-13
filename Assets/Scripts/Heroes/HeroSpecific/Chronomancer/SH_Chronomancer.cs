@@ -21,7 +21,10 @@ public class SH_Chronomancer : SpecificHeroFramework
 
     [Space]
     [SerializeField] private float _rewindTimeAmount;
+    private WaitForSeconds _rewindWait;
+    
     private List<Queue<float>> _heroPastHealthValues = new List<Queue<float>>();
+    private float[] _highestPastHealthValues;
 
     private float _storedTotalRewindHealing;
     
@@ -150,7 +153,9 @@ public class SH_Chronomancer : SpecificHeroFramework
         {
             //Finds the highest health value
             if (healthValue > currentHighestCheckedHealth)
+            {
                 currentHighestCheckedHealth = healthValue;
+            }
         }
 
         float healthDifference = 0;
@@ -182,6 +187,8 @@ public class SH_Chronomancer : SpecificHeroFramework
     {
         //At the position of the hero id the health value is added to the end of the queue
         _heroPastHealthValues[heroID].Enqueue(healthValue);
+        
+        CalculateManualHealOfHero(heroID);
 
         //Starts the process of removing that value from the queue
         StartCoroutine(RemovePastHealthValueProcess(heroID));
@@ -206,8 +213,10 @@ public class SH_Chronomancer : SpecificHeroFramework
     /// <returns></returns>
     private IEnumerator RemovePastHealthValueProcess(int heroID)
     {
-        yield return new WaitForSeconds(_rewindTimeAmount);
+        yield return _rewindWait;
         _heroPastHealthValues[heroID].Dequeue();
+        
+        CalculateManualHealOfHero(heroID);
     }
 
     /// <summary>
@@ -215,13 +224,23 @@ public class SH_Chronomancer : SpecificHeroFramework
     /// </summary>
     private void AddStartingHealthValues()
     {
+        _highestPastHealthValues = new float[HeroesManager.Instance.GetCurrentHeroes().Count];
+
+        for(int i = 0; i < _highestPastHealthValues.Length; i++)
+        {
+            _highestPastHealthValues[i] = 0;
+        }
+        
         int counter = 0;
 
         //Iterates through all heroes
         foreach(HeroBase heroBase in HeroesManager.Instance.GetCurrentHeroes())
         {
             //Check the hero exists
-            if (heroBase == null) return;
+            if (heroBase.IsUnityNull())
+            {
+                return;
+            }
 
             //Adds a new queue of floats to the list of previous health values
             _heroPastHealthValues.Add(new Queue<float>());
@@ -230,11 +249,43 @@ public class SH_Chronomancer : SpecificHeroFramework
             counter++;
         }
     }
-    
-    private void UpdateManualTotalStoredHealing(float changeAmount)
+
+    private void CalculateManualHealOfHero(int heroID)
     {
-        _storedTotalRewindHealing += changeAmount;
-        print(_storedTotalRewindHealing);
+        HeroBase targetHeroBase = HeroesManager.Instance.GetCurrentHeroes()[heroID];
+
+        if (targetHeroBase.IsUnityNull())
+        {
+            Debug.Log("Chronomancer could not find hero");
+            return;
+        }
+        
+        float highestHeal = 0;
+        
+        Queue<float> heroQueue = _heroPastHealthValues[heroID];
+
+        foreach (float health in heroQueue)
+        {
+            float healthDifference = health - targetHeroBase.GetHeroStats().GetCurrentHealth();
+            
+            if (healthDifference > highestHeal)
+            {
+                highestHeal = healthDifference;
+            }
+        }
+        
+        _highestPastHealthValues[heroID] = highestHeal;
+        UpdateManualTotalStoredHealing();
+    }
+
+    private void UpdateManualTotalStoredHealing()
+    {
+        float total = 0;
+        for (int i = 0; i < _highestPastHealthValues.Length; i++)
+        {
+            total += _highestPastHealthValues[i];
+        }
+        Debug.Log("The total is " + total);
     }
     #endregion
 
@@ -290,6 +341,9 @@ public class SH_Chronomancer : SpecificHeroFramework
     protected override void BattleStarted()
     {
         base.BattleStarted();
+
+        _rewindWait = new WaitForSeconds(_rewindTimeAmount);
+        
         //Adds the current health of all heroes to the list of queues
         AddStartingHealthValues();
         //Creates the target direction object for the basic ability

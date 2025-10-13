@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 /// <summary>
@@ -59,11 +60,14 @@ public class SelectBossLevelButton : MonoBehaviour
     {
         if (!_buttonHasBeenPressed)
         {
-            //if (UniversalManagers.Instance.GetSelectionManager().AtMaxBossSelected()) return;
             BossLevelSelect();
         }
         else
+        {
             BossLevelDeselect();
+        }
+        
+        EventSystem.current.SetSelectedGameObject(null);
 
         _buttonHasBeenPressed = !_buttonHasBeenPressed;
     }

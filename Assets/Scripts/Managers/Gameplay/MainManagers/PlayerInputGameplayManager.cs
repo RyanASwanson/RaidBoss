@@ -164,10 +164,29 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     #region InputActions
     private void PlayerSelectClicked(InputAction.CallbackContext context)
     {
-        if(ClickOnPoint(_selectClickLayerMask, out RaycastHit clickedOn))
+        if (ClickOnPoint(_selectClickLayerMask, out RaycastHit clicked))
         {
-            NewControlledHero(clickedOn.collider.gameObject.GetComponentInParent<HeroBase>());
+            NewControlledHero(FindClosestHero(clicked.point));
         }
+    }
+
+    private HeroBase FindClosestHero(Vector3 startLocation)
+    {
+        List<HeroBase> livingHeroes = HeroesManager.Instance.GetCurrentLivingHeroes();
+            
+        HeroBase closestHero = livingHeroes[0];
+        float closestDistance = float.MaxValue;
+            
+        foreach (HeroBase hero in livingHeroes)
+        {
+            float heroDistance = Vector3.Distance(startLocation, hero.transform.position);
+            if (heroDistance < closestDistance)
+            {
+                closestDistance = heroDistance;
+                closestHero = hero;
+            }
+        }
+        return closestHero;
     }
 
     private void PlayerDirectClicked(InputAction.CallbackContext context)
@@ -182,7 +201,10 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     private void CreateHeroDirectIcon(Vector3 location)
     {
         //No icon is created if no heroes as controlled
-        if (_controlledHeroes.Count <= 0) return;
+        if (_controlledHeroes.Count <= 0)
+        {
+            return;
+        }
 
         location = CalculateDirectIconLocation(location);
         Instantiate(_heroDirectIcon, location, Quaternion.identity);

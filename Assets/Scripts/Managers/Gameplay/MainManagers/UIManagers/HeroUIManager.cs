@@ -87,6 +87,10 @@ public class HeroUIManager : GameUIChildrenFunctionality
     private RectTransform _abilityChargedOrigin;
 
     private const string _damageHealingWeakAnimTrigger = "WeakDamage";
+    
+    [Space]
+    [Header("HeroSpecificUI")]
+    [SerializeField] private GameObject _heroSpecificUIHolder;
 
 
     public void AssignSpecificHero(HeroBase heroBase)
@@ -145,6 +149,12 @@ public class HeroUIManager : GameUIChildrenFunctionality
         _heroFullyChargedIconAnimator.gameObject.GetComponent<Image>().sprite =
             heroSO.GetHeroManualAbilityIcon();
     }
+    
+    public GameObject AddHeroUIToHolder(GameObject heroUI)
+    {
+        GameObject newUI = Instantiate(heroUI, _heroSpecificUIHolder.transform);
+        return newUI;
+    }   
 
     #region Hero Control
 
