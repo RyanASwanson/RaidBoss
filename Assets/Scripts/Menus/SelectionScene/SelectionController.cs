@@ -338,7 +338,9 @@ public class SelectionController : MonoBehaviour
     private void CheckMaxCharactersNoLongerSelected()
     {
         if (_maxCharactersSelected)
+        {
             NoLongerMaxHeroesSelected();
+        }
     }
 
     private void NoLongerMaxHeroesSelected()
@@ -362,7 +364,10 @@ public class SelectionController : MonoBehaviour
     private void HeroHoveredOver(HeroSO heroSO)
     {
         //Stop if it is the same hero as the previous
-        if (heroSO == _lastHeroHoveredOver) return;
+        if (heroSO == _lastHeroHoveredOver)
+        {
+            return;
+        }
         //Stop if the hero is selected already
         if (SelectionManager.Instance.GetAllSelectedHeroes().Contains(heroSO) &&
             SelectionManager.Instance.GetHeroAtLastPostion() != heroSO)
@@ -436,18 +441,28 @@ public class SelectionController : MonoBehaviour
 
 
 
-        if (SelectionManager.Instance.GetAllSelectedHeroes().Contains(heroSO)) return;
+        if (SelectionManager.Instance.GetAllSelectedHeroes().Contains(heroSO))
+        {
+            return;
+        }
 
         int heroPillarNum = SelectionManager.Instance.GetSelectedHeroesCount();
-        if (SelectionManager.Instance.AtMaxHeroesSelected() && SelectionManager.Instance.GetHeroAtLastPostion() != heroSO)
+        
+        if (SelectionManager.Instance.AtMaxHeroesSelected() &&
+            SelectionManager.Instance.GetHeroAtLastPostion() != heroSO)
+        {
             heroPillarNum--;
+        }
 
         _heroPillars[heroPillarNum].AnimateOutHeroOnPillar();
 
         _lastHeroHoveredOver = null;
 
-        if (SelectionManager.Instance.AtMaxHeroesSelected() && SelectionManager.Instance.GetHeroAtLastPostion() != heroSO)
+        if (SelectionManager.Instance.AtMaxHeroesSelected() &&
+            SelectionManager.Instance.GetHeroAtLastPostion() != heroSO)
+        {
             NewHeroHoveredOver(SelectionManager.Instance.GetHeroAtLastPostion());
+        }
     }
 
     private void DisplayStatsForHero(HeroSO heroSO)
@@ -462,7 +477,9 @@ public class SelectionController : MonoBehaviour
     private void StopStatDisplayProcess()
     {
         foreach (StatCounter statCounter in _statCounters)
+        {
             statCounter.StopShowNodeProcess();
+        }
     }
 
     private void DisplayHeroRangeAndDifficulty(HeroSO heroSO)
@@ -580,8 +597,34 @@ public class SelectionController : MonoBehaviour
     #region Hero Side
     private void HeroSideStart()
     {
-        _previousMaxHeroes = SelectionManager.Instance.GetMaxHeroesCount();
+        _previousMaxHeroes = SelectionManager.Instance.GetMaxHeroesCountWithCurrentDifficulty();
         MoveHeroPillar(0, true);
+        ShowHeroPreviewPillars();
+    }
+
+    private void ShowHeroPreviewPillars()
+    {
+        int maxHeroes = SelectionManager.Instance.GetDefaultMaxHeroesCount();
+        int maxHeroesOnDifficulty = SelectionManager.Instance.GetMaxHeroesCountWithCurrentDifficulty();
+        int currentHeroes = SelectionManager.Instance.GetSelectedHeroesCount();
+
+        // Iterate from the second pillar to the max amount of pillars
+        for (int i = 1; i < maxHeroes; i++)
+        {
+            // If the current pillar is less than max amount of heroes on this difficulty
+            // And if the current pillar is not equal to the current amount of selected heroes. We do this to prevent
+            //  showing the preview of a pillar that is currently going up.
+            //  This could happen if we were on normal (or heroic) with max heroes and then increased the difficulty by 1.
+            if (i < maxHeroesOnDifficulty && i != currentHeroes)
+            {
+                _heroPillars[i].ShowPreviewPillar(true);
+            }
+            else
+            {
+                _heroPillars[i].ShowPreviewPillar(false);
+            }
+            
+        }
     }
 
     private void HeroLimitChanged(EGameDifficulty difficulty)
@@ -589,31 +632,34 @@ public class SelectionController : MonoBehaviour
         //Determine if the hero limit went up or down
 
         //Hero limit went down
-        if (SelectionManager.Instance.GetMaxHeroesCount() < _previousMaxHeroes)
+        if (SelectionManager.Instance.GetMaxHeroesCountWithCurrentDifficulty() < _previousMaxHeroes)
         {
             HeroLimitReduced();
         }
         //Hero limit went up
-        else if (SelectionManager.Instance.GetMaxHeroesCount() > _previousMaxHeroes)
+        else if (SelectionManager.Instance.GetMaxHeroesCountWithCurrentDifficulty() > _previousMaxHeroes)
         {
             HeroLimitIncreased();
         }
+        
+        ShowHeroPreviewPillars();
             
-        _previousMaxHeroes = SelectionManager.Instance.GetMaxHeroesCount();
+        _previousMaxHeroes = SelectionManager.Instance.GetMaxHeroesCountWithCurrentDifficulty();
     }
 
     private void HeroLimitReduced()
     {
         List<HeroSO> heroesToRemove = new();
 
-        for (int i = SelectionManager.Instance.GetMaxHeroesCount(); i != _previousMaxHeroes; i++)
+        for (int i = SelectionManager.Instance.GetMaxHeroesCountWithCurrentDifficulty(); i != _previousMaxHeroes; i++)
         {
             if (SelectionManager.Instance.GetAllSelectedHeroes().Count > i)
             {
                 heroesToRemove.Add(SelectionManager.Instance.GetAllSelectedHeroes()[i]);
-                
+                //_heroPillars[i].ShowPreviewPillar(false);
             }
-            _heroPillars[i].MovePillar(false);
+            //_heroPillars[i].MovePillar(false);
+            MoveHeroPillar(i, false);
 
         }
 
@@ -633,7 +679,8 @@ public class SelectionController : MonoBehaviour
     {
         if(SelectionManager.Instance.GetSelectedHeroesCount() == _previousMaxHeroes)
         {
-            _heroPillars[_previousMaxHeroes].MovePillar(true);
+            //_heroPillars[_previousMaxHeroes].MovePillar(true);
+            MoveHeroPillar(_previousMaxHeroes, true);
         }
     }
 
@@ -643,7 +690,7 @@ public class SelectionController : MonoBehaviour
 
         _heroPillars[heroPillarNum - 1].ShowHeroOnPillar(heroSO,false);
 
-        if (heroPillarNum < SelectionManager.Instance.GetMaxHeroesCount())
+        if (heroPillarNum < SelectionManager.Instance.GetMaxHeroesCountWithCurrentDifficulty())
         {
             MoveHeroPillar(heroPillarNum, true);
         }
@@ -661,7 +708,7 @@ public class SelectionController : MonoBehaviour
         int heroPillarNum = SelectionManager.Instance.GetSelectedHeroesCount() + 1;
 
         if (heroPillarNum > 0 &&
-            heroPillarNum < SelectionManager.Instance.GetMaxHeroesCount())
+            heroPillarNum < SelectionManager.Instance.GetMaxHeroesCountWithCurrentDifficulty())
         {
             MoveHeroPillar(heroPillarNum, false);
         }
@@ -713,7 +760,7 @@ public class SelectionController : MonoBehaviour
 
     private void MoveNextHeroBackToCurrentPillar(int pillarNum)
     {
-        if (pillarNum + 1 >= SelectionManager.Instance.GetMaxHeroesCount()) return;
+        if (pillarNum + 1 >= SelectionManager.Instance.GetMaxHeroesCountWithCurrentDifficulty()) return;
 
         if(!_heroPillars[pillarNum].HasStoredHero() && _heroPillars[pillarNum+1].HasStoredHero())
         {

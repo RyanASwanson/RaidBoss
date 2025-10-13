@@ -124,7 +124,7 @@ public class SelectionManager : MainUniversalManagerFramework
     {
         if (AtMaxHeroesSelected())
         {
-            InvokeHeroSwapEvent(_selectedHeroes[GetMaxHeroesCount()-1]);
+            InvokeHeroSwapEvent(_selectedHeroes[GetMaxHeroesCountWithCurrentDifficulty()-1]);
         }
 
         _selectedHeroes.Add(newHeroSO);
@@ -260,9 +260,9 @@ public class SelectionManager : MainUniversalManagerFramework
     public HeroSO GetHeroAtValue(int val) => _selectedHeroes[val];
     public HeroSO GetHeroAtLastPostion() => GetHeroAtValue(GetSelectedHeroesCount() - 1);
     public int GetSelectedHeroesCount() => _selectedHeroes.Count;
-    //public int GetMaxHeroesCount() => _maxHeroes;
-    public int GetMaxHeroesCount() => GetHeroLimitFromDifficulty();
-    public bool AtMaxHeroesSelected() => _selectedHeroes.Count >= GetMaxHeroesCount();
+    public int GetDefaultMaxHeroesCount() => _maxHeroes;
+    public int GetMaxHeroesCountWithCurrentDifficulty() => GetHeroLimitFromDifficulty();
+    public bool AtMaxHeroesSelected() => _selectedHeroes.Count >= GetMaxHeroesCountWithCurrentDifficulty();
     public int GetIndexOfLastHeroRemoved() => _indexOfLastRemovedHero;
     
 

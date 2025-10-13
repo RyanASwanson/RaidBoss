@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// Provides the functionality for the hero pillars on the selection scene
@@ -9,6 +10,7 @@ using UnityEngine;
 public class HeroPillar : MonoBehaviour
 {
     [SerializeField] private GameObject _heroSpawnPoint;
+    [SerializeField] private GameObject _previewBase;
     [SerializeField] private Animator _heroSpawnAnimator;
 
     private GameObject _currentHeroVisual;
@@ -21,6 +23,7 @@ public class HeroPillar : MonoBehaviour
     [SerializeField] private Animator _pillarAnimator;
 
     private const string HERO_PILLAR_MOVE_ANIM_BOOL = "PillarUp";
+    private const string HERO_PILLAR_PREVIEW_SHOW_ANIM_BOOL = "PreviewShow";
 
     private const string NEW_HERO_HOVER_ANIM_TRIGGER = "NewHover";
     private const string REMOVE_HERO_ON_PILLAR_ANIM_TRIGGER = "RemoveHero";
@@ -82,6 +85,16 @@ public class HeroPillar : MonoBehaviour
         _heroSpawnAnimator.ResetTrigger(NEW_HERO_HOVER_ANIM_TRIGGER);
         _heroSpawnAnimator.SetTrigger(REMOVE_HERO_ON_PILLAR_ANIM_TRIGGER);
     }
+
+    #region PreviewPillar
+
+    public void ShowPreviewPillar(bool shouldShow)
+    {
+        //_previewBase.SetActive(shouldShow);
+        _pillarAnimator.SetBool(HERO_PILLAR_PREVIEW_SHOW_ANIM_BOOL, shouldShow);
+    }
+
+    #endregion
 
     #region Getters
     public GameObject GetHeroSpawnPoint() => _heroSpawnPoint;
