@@ -1,6 +1,7 @@
 using System.Collections;
 //using UnityEngine.UIElements;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -100,6 +101,7 @@ public class HeroUIManager : GameUIChildrenFunctionality
         GeneralSetup();
         SetUpBackground();
         SetUpHeroIcons();
+        AddHeroUIToHolder(heroBase);
         GeneralUIIntroAnimation();
         SubscribeToEvents();
     }
@@ -150,10 +152,16 @@ public class HeroUIManager : GameUIChildrenFunctionality
             heroSO.GetHeroManualAbilityIcon();
     }
     
-    public GameObject AddHeroUIToHolder(GameObject heroUI)
+    public void AddHeroUIToHolder(HeroBase heroBase)
     {
-        GameObject newUI = Instantiate(heroUI, _heroSpecificUIHolder.transform);
-        return newUI;
+        GameObject heroSpecificUI = heroBase.GetSpecificHeroScript().GetSpecificHeroUI();
+        if (heroSpecificUI.IsUnityNull())
+        {
+            return;
+        }
+        
+        GameObject newUI = Instantiate(heroSpecificUI, _heroSpecificUIHolder.transform);
+        heroBase.GetSpecificHeroScript().HeroSpecificUICreated(newUI);
     }   
 
     #region Hero Control
@@ -367,7 +375,9 @@ public class HeroUIManager : GameUIChildrenFunctionality
         damageHealing = Mathf.RoundToInt(damageHealing);
         //Makes sure the value shown isn't less than 1
         if (damageHealing <= 0)
+        {
             damageHealing = 1;
+        }
 
         newNumber.GetComponentInChildren<Text>().text = damageHealing.ToString();
         newNumber.GetComponentInChildren<TMP_Text>().text = damageHealing.ToString();

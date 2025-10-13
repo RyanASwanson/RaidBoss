@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// Provides the functionality for the Chronomancer hero
@@ -27,6 +29,8 @@ public class SH_Chronomancer : SpecificHeroFramework
     private float[] _highestPastHealthValues;
 
     private float _storedTotalRewindHealing;
+
+    private UnityEvent<float> _onStoredHealingUpdated = new UnityEvent<float>();
     
     [Space]
     [SerializeField] private float _passiveAbilityBasicCooldownReduction;
@@ -285,7 +289,8 @@ public class SH_Chronomancer : SpecificHeroFramework
         {
             total += _highestPastHealthValues[i];
         }
-        Debug.Log("The total is " + total);
+        InvokeOnStoredHealingUpdated(total);
+        //Debug.Log("The total is " + total);
     }
     #endregion
 
@@ -353,11 +358,32 @@ public class SH_Chronomancer : SpecificHeroFramework
         SubscribeToHeroesDamagedEvents();
     }
 
+    public override void HeroSpecificUICreated(GameObject heroSpecificUI)
+    {
+        base.HeroSpecificUICreated(heroSpecificUI);
+        SHUI_ChronomancerUI heroUI = heroSpecificUI.GetComponent<SHUI_ChronomancerUI>();
+        
+        heroUI.AdditionalSetUp(this);
+        heroUI.SetUpHeroSpecificUIFunctionality(_myHeroBase);
+    }
+
     protected override void HeroDied()
     {
         base.HeroDied();
         UnsubscribeToHeroesDamagedEvents();
         Destroy(_storedDirectionObj);
     }
+    #endregion
+    
+    #region Events
+
+    private void InvokeOnStoredHealingUpdated(float healing)
+    {
+        _onStoredHealingUpdated?.Invoke(healing);
+    }
+    #endregion
+    
+    #region Getters
+    public UnityEvent<float> GetOnStoredHealingUpdated() => _onStoredHealingUpdated;
     #endregion
 }

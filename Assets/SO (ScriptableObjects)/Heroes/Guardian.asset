@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Guardian
   m_EditorClassIdentifier: 
   _name: Guardian
+  _heroID: 0
   _hasUIManager: 1
   _maxHP: 60
   _moveSpeed: 3
@@ -30,9 +31,11 @@ MonoBehaviour:
   _staggerStat: 4
   _speedStat: 2
   _utilityStat: 3
+  _heroRange: 0
+  _heroDifficulty: 0
   _heroHighlightedColor: {r: 0.39607847, g: 1, b: 0, a: 1}
-  _heroPressedColor: {r: 0.32881996, g: 0.8301887, b: 0, a: 1}
-  _heroSelectedColor: {r: 0.20932716, g: 0.5283019, b: 0, a: 1}
+  _heroPressedColor: {r: 0.7830189, g: 0.7830189, b: 0.7830189, a: 1}
+  _heroSelectedColor: {r: 1, g: 1, b: 1, a: 1}
   _heroUIColor: {r: 0.39607847, g: 1, b: 0, a: 1}
   _basicAbilityName: Shield Slam
   _basicAbilityDescription: 'The Guardian slams his shield into the

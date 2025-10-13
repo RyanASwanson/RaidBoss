@@ -354,6 +354,11 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         StopCooldownManualAbility();
     }
 
+    public virtual void HeroSpecificUICreated(GameObject heroSpecificUI)
+    {
+        
+    }
+
     /// <summary>
     /// Provides an overridable event subscription function
     /// </summary>
@@ -369,5 +374,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     public float GetManualAbilityChargePercent() => _manualAbilityCurrentCharge / _manualAbilityChargeTime;
 
     public Animator GetSpecificHeroAnimator() => _heroSpecificAnimator;
+    
+    public GameObject GetSpecificHeroUI() => _heroSpecificUI;
     #endregion
 }
