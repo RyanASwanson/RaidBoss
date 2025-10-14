@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [System.Serializable]
 public class UserInterfaceAudio
@@ -8,6 +9,8 @@ public class UserInterfaceAudio
     public MainMenuUserInterfaceAudio MainMenuUserInterfaceAudio;
     
     public SelectionSceneUserInterfaceAudio SelectionSceneUserInterfaceAudio;
+    
+    public SceneLoadUserInterfaceAudio SceneLoadUserInterfaceAudio;
     
     public SpecificAudio[] GeneralUIAudio;
 }
@@ -26,4 +29,14 @@ public class SelectionSceneUserInterfaceAudio
     public SpecificAudio[] DifficultySelected;
     
     public SpecificAudio HeroSelected;
+}
+
+[System.Serializable]
+public class SceneLoadUserInterfaceAudio
+{
+    public SpecificAudio SceneLoadStart;
+
+    public SpecificAudio SceneLoadMiddle;
+    
+    public SpecificAudio SceneLoadEnd;
 }

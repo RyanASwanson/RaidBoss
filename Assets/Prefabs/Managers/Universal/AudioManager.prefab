@@ -188,7 +188,13 @@ MonoBehaviour:
         DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
         DefaultPlayType: 0
         DefaultAudioChoice: 0
-        AudioTracks: []
+        AudioTracks:
+        - Guid:
+            Data1: -1455545022
+            Data2: 1191697344
+            Data3: 1612803970
+            Data4: -1511617136
+          Path: event:/SoundEffect/Bosses/Specific/MagmaLord/Abilities/LavaBlast/MagmaLordLavaBlastFailed
     - AbilityName: Scorch
       AbilityPrep:
         AudioName: Scorch
@@ -1083,7 +1089,49 @@ MonoBehaviour:
         DefaultPlayType: 0
         DefaultAudioChoice: 0
         AudioTracks: []
-    GeneralUIAudio: []
+    SceneLoadUserInterfaceAudio:
+      SceneLoadStart:
+        AudioName: SceneLoadStart
+        DefaultStartDelay: 0.2
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: -182271047
+            Data2: 1195999800
+            Data3: 1354889140
+            Data4: -1766770652
+          Path: event:/SoundEffect/UI/SceneLoad/SceneLoadStart
+      SceneLoadMiddle:
+        AudioName: SceneLoadMiddle
+        DefaultStartDelay: 0
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks: []
+      SceneLoadEnd:
+        AudioName: 
+        DefaultStartDelay: 0
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks: []
+    GeneralUIAudio:
+    - AudioName: 
+      DefaultStartDelay: 0
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+      DefaultPlayType: 0
+      DefaultAudioChoice: 0
+      AudioTracks: []
   AllMusic:
   - AudioName: MainMenu
     DefaultStartDelay: 0

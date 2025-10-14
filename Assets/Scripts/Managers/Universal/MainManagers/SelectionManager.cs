@@ -63,14 +63,17 @@ public class SelectionManager : MainUniversalManagerFramework
     private UnityEvent<BossSO> _bossSwapEvent = new UnityEvent<BossSO>();
     private UnityEvent<BossSO> _bossHoveredOverEvent = new UnityEvent<BossSO>();
     private UnityEvent<BossSO> _bossNotHoveredOverEvent = new UnityEvent<BossSO>();
+    private UnityEvent<BossSO> _bossInformationLockedEvent = new UnityEvent<BossSO>();
 
     private UnityEvent<EGameDifficulty> _difficultySelectionEvent = new UnityEvent<EGameDifficulty>();
+    private UnityEvent _informationUnlockedEvent = new UnityEvent();
 
     private UnityEvent<HeroSO> _heroSelectionEvent = new UnityEvent<HeroSO>();
     private UnityEvent<HeroSO> _heroDeselectionEvent = new UnityEvent<HeroSO>();
     private UnityEvent<HeroSO> _heroSwapEvent = new UnityEvent<HeroSO>();
     private UnityEvent<HeroSO> _heroHoveredOverEvent = new UnityEvent<HeroSO>();
     private UnityEvent<HeroSO> _heroNotHoveredOverEvent = new UnityEvent<HeroSO>();
+    private UnityEvent<HeroSO> _heroInformationLockedEvent = new UnityEvent<HeroSO>();
 
 
     private void SetupDifficultyDictionaries()
@@ -156,6 +159,19 @@ public class SelectionManager : MainUniversalManagerFramework
     {
         InvokeBossNotHoveredOverEvent(bossSO);
     }
+
+    public void LockUnlockBossInformation(BossSO bossSO)
+    {
+        if (SelectionController.IsSelectionInformationLocked)
+        {
+            InvokeInformationUnlockedEvent();
+        }
+        else
+        {
+            InvokeBossInformationLockedEvent(bossSO);
+        }
+    }
+    
     public void HeroHoveredOver(HeroSO heroSO)
     {
         InvokeHeroHoveredOverEvent(heroSO);
@@ -164,6 +180,18 @@ public class SelectionManager : MainUniversalManagerFramework
     public void HeroNotHoveredOver(HeroSO heroSO)
     {
         InvokeHeroNotHoveredOverEvent(heroSO);
+    }
+
+    public void LockUnlockHeroInformation(HeroSO heroSO)
+    {
+        if (SelectionController.IsSelectionInformationLocked)
+        {
+            InvokeInformationUnlockedEvent();
+        }
+        else
+        {
+            InvokeHeroInformationLockedEvent(heroSO);
+        }
     }
 
     /// <summary>
@@ -214,9 +242,19 @@ public class SelectionManager : MainUniversalManagerFramework
         _bossNotHoveredOverEvent?.Invoke(bossSO);
     }
 
+    public void InvokeBossInformationLockedEvent(BossSO bossSO)
+    {
+        _bossInformationLockedEvent?.Invoke(bossSO);
+    }
+
     public void InvokeDifficultySelectionEvent(EGameDifficulty eGameDifficulty)
     {
         _difficultySelectionEvent?.Invoke(eGameDifficulty);
+    }
+
+    public void InvokeInformationUnlockedEvent()
+    {
+        _informationUnlockedEvent?.Invoke();
     }
 
     public void InvokeHeroSelectionEvent(HeroSO heroSO)
@@ -240,6 +278,11 @@ public class SelectionManager : MainUniversalManagerFramework
     public void InvokeHeroNotHoveredOverEvent(HeroSO heroSO)
     {
         _heroNotHoveredOverEvent?.Invoke(heroSO);
+    }
+
+    public void InvokeHeroInformationLockedEvent(HeroSO heroSO)
+    {
+        _heroInformationLockedEvent?.Invoke(heroSO);
     }
     #endregion
 
@@ -274,15 +317,18 @@ public class SelectionManager : MainUniversalManagerFramework
     public UnityEvent<BossSO> GetBossSwapEvent() => _bossSwapEvent;
     public UnityEvent<BossSO> GetBossHoveredOverEvent() => _bossHoveredOverEvent;
     public UnityEvent<BossSO> GetBossNotHoveredOverEvent() => _bossNotHoveredOverEvent;
+    public UnityEvent<BossSO> GetBossInformationLockedEvent() => _bossInformationLockedEvent;
 
     public EGameDifficulty GetSelectedDifficulty() => currentEGameDifficulty;
     public UnityEvent<EGameDifficulty> GetDifficultySelectionEvent() => _difficultySelectionEvent;
+    public UnityEvent GetInformationUnlockedEvent() => _informationUnlockedEvent;
 
     public UnityEvent<HeroSO> GetHeroSelectionEvent() => _heroSelectionEvent;
     public UnityEvent<HeroSO> GetHeroDeselectionEvent() => _heroDeselectionEvent;
     public UnityEvent<HeroSO> GetHeroSwapEvent() => _heroSwapEvent;
     public UnityEvent<HeroSO> GetHeroHoveredOverEvent() => _heroHoveredOverEvent;
     public UnityEvent<HeroSO> GetHeroNotHoveredOverEvent() => _heroNotHoveredOverEvent;
+    public UnityEvent<HeroSO> GetHeroInformationLockedEvent() => _heroInformationLockedEvent;
     #endregion
 
     #region Setters

@@ -9,7 +9,7 @@ using UnityEngine.UI;
 /// The button that is pressed in order to selected a specific hero
 ///     to add them to your team
 /// </summary>
-public class SelectHeroButton : MonoBehaviour
+public class SelectHeroButton : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private HeroSO _associatedHero;
     [Space]
@@ -60,11 +60,25 @@ public class SelectHeroButton : MonoBehaviour
 
     }
 
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        switch (eventData.button)
+        {
+            case PointerEventData.InputButton.Left:
+                SelectHeroButtonLeftClicked();
+                return;
+            case PointerEventData.InputButton.Middle:
+                return;
+            case PointerEventData.InputButton.Right:
+                SelectHeroButtonRightClicked();
+                return;
+        }
+    }
     
     /// <summary>
     /// The button to select and deselect heroes is pressed
     /// </summary>
-    public void SelectHeroButtonPressed()
+    public void SelectHeroButtonLeftClicked()
     {
         if (!_buttonHasBeenPressed)
         {
@@ -82,6 +96,12 @@ public class SelectHeroButton : MonoBehaviour
         _buttonHasBeenPressed = !_buttonHasBeenPressed;
     }
 
+    private void SelectHeroButtonRightClicked()
+    {
+        SelectionManager.Instance.LockUnlockHeroInformation(_associatedHero);
+    }
+    
+    
     public void SelectHeroButtonHoverBegin()
     {
         SelectionManager.Instance.HeroHoveredOver(_associatedHero);

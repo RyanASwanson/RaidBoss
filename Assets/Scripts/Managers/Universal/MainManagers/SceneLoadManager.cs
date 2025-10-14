@@ -55,11 +55,28 @@ public class SceneLoadManager : MainUniversalManagerFramework
         InvokeOnStartOfSceneLoadEvent();
 
         _sceneTransitionAnimator.SetTrigger(ST_CLOSE_IN_FROM_SIDES_ANIM_TRIGGER);
+        
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.UserInterfaceAudio.SceneLoadUserInterfaceAudio.SceneLoadStart);
 
         //Loads the scene after half of the screen transition has occurred
         yield return new WaitForSeconds(_sceneTransitionTime / 2);
-        SceneManager.LoadScene(id);
+        
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(id);
+
+        // Wait until the asynchronous scene fully loads
+        while (!asyncLoad.isDone)
+        {
+            yield return null; // Wait for the next frame
+        }
+        
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.UserInterfaceAudio.SceneLoadUserInterfaceAudio.SceneLoadMiddle);
+        
         yield return new WaitForSeconds(_sceneTransitionTime / 2);
+        
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.UserInterfaceAudio.SceneLoadUserInterfaceAudio.SceneLoadEnd);
 
         InvokeOnEndOfSceneLoadEvent();
         _sceneTransitionCoroutine = null;

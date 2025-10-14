@@ -44,6 +44,8 @@ public class SelectionController : MonoBehaviour
 
     private bool _maxCharactersSelected = false;
 
+    public static bool IsSelectionInformationLocked = false;
+
     [Space]
     [Header("Center-Hero")]
     [SerializeField] private GameObject _heroDescription;
@@ -138,7 +140,7 @@ public class SelectionController : MonoBehaviour
         foreach (SelectBossLevelButton bossButton in _bossLevelSelectionButtons)
         {
             if(bossButton.GetAssociatedBoss() == previousBoss)
-                bossButton.SelectBossLevelButtonPressed();
+                bossButton.SelectBossLevelLeftClicked();
 
         }
     }
@@ -167,16 +169,10 @@ public class SelectionController : MonoBehaviour
 
     private void NewBossHoveredOver(BossSO bossSO)
     {
-        //Show boss description and hide hero description
-        _bossDescription.SetActive(true);
-        HideFullHeroDescription();
-
-        _bossNameText.text = bossSO.GetBossName();
-        _bossNameBorder.text = bossSO.GetBossName();
-
-        HideBossAbilityDescription();
-
-        DisplayAbilityIconsForBoss(bossSO);
+        if (!IsSelectionInformationLocked)
+        {
+            DisplayBossInformation(bossSO);
+        }
 
         UpdateHeroButtonDifficultyBeaten();
         
@@ -203,6 +199,27 @@ public class SelectionController : MonoBehaviour
         }
 
         //_lastBossHoveredOver = null;
+    }
+
+    public void DisplayBossInformation(BossSO bossSO)
+    {
+        //Show boss description and hide hero description
+        _bossDescription.SetActive(true);
+        HideFullHeroDescription();
+
+        _bossNameText.text = bossSO.GetBossName();
+        _bossNameBorder.text = bossSO.GetBossName();
+
+        HideBossAbilityDescription();
+
+        DisplayAbilityIconsForBoss(bossSO);
+    }
+
+    private void InformationLockBoss(BossSO bossSO)
+    {
+        IsSelectionInformationLocked = true;
+        
+        DisplayBossInformation(bossSO);
     }
 
 
@@ -268,9 +285,11 @@ public class SelectionController : MonoBehaviour
 
     public void BossAbilityDescriptionChanged()
     {
-        if (_currentBossAbilityID == -1) return;
-
-
+        if (_currentBossAbilityID == -1)
+        {
+            return;
+        }
+        
         UpdateBossAbilityNameText(_bossUIToDisplay.GetBossAbilityInformation()
             [_currentBossAbilityID]._abilityName);
 
@@ -313,6 +332,11 @@ public class SelectionController : MonoBehaviour
     private void FightButtonStartingInteractability()
     {
         _fightButton.interactable = !_requiresMaxCharacters;
+    }
+
+    private void UnlockCharacterInformation()
+    {
+        IsSelectionInformationLocked = false;
     }
 
     /// <summary>
@@ -383,22 +407,10 @@ public class SelectionController : MonoBehaviour
 
     private void NewHeroHoveredOver(HeroSO heroSO)
     {
-        //Show hero description and hide boss description
-        HideFullBossDescription();
-        _heroDescription.SetActive(true);
-
-        //Updates the text to display the heroes name
-        _heroNameText.text = heroSO.GetHeroName();
-        _heroNameBorder.text = heroSO.GetHeroName();
-
-        HideHeroAbilityDescription();
-
-        //Displays all stats associated for the hero on the counters
-        DisplayStatsForHero(heroSO);
-
-        DisplayHeroRangeAndDifficulty(heroSO);
-
-        DisplayAbilityIconsForHero(heroSO);
+        if (!IsSelectionInformationLocked)
+        {
+            DisplayHeroInformation(heroSO);
+        }
 
         int heroPillarNum = SelectionManager.Instance.GetSelectedHeroesCount();
 
@@ -463,6 +475,34 @@ public class SelectionController : MonoBehaviour
         {
             NewHeroHoveredOver(SelectionManager.Instance.GetHeroAtLastPostion());
         }
+    }
+
+    private void DisplayHeroInformation(HeroSO heroSO)
+    {
+        //Show hero description and hide boss description
+        HideFullBossDescription();
+        _heroDescription.SetActive(true);
+
+        //Updates the text to display the heroes name
+        _heroNameText.text = heroSO.GetHeroName();
+        _heroNameBorder.text = heroSO.GetHeroName();
+
+        HideHeroAbilityDescription();
+
+        //Displays all stats associated for the hero on the counters
+        DisplayStatsForHero(heroSO);
+
+        DisplayHeroRangeAndDifficulty(heroSO);
+
+        DisplayAbilityIconsForHero(heroSO);
+    }
+
+    private void InformationLockHero(HeroSO heroSO)
+    {
+        IsSelectionInformationLocked = true;
+        
+        DisplayHeroInformation(heroSO);
+        Debug.Log("LOCKED");
     }
 
     private void DisplayStatsForHero(HeroSO heroSO)
@@ -668,7 +708,7 @@ public class SelectionController : MonoBehaviour
             HeroSO associatedHero = heroButton.GetAssociatedHero();
             if (heroesToRemove.Contains(associatedHero))
             {
-                heroButton.SelectHeroButtonPressed();
+                heroButton.SelectHeroButtonLeftClicked();
                 
                 heroesToRemove.Remove(associatedHero);
             }
@@ -725,7 +765,7 @@ public class SelectionController : MonoBehaviour
     {
         SelectHeroButton heroButton = GetHeroButtonFromSO(hero);
 
-        heroButton.SelectHeroButtonPressed();
+        heroButton.SelectHeroButtonLeftClicked();
     }
 
     private SelectHeroButton GetHeroButtonFromSO(HeroSO hero)
@@ -809,6 +849,8 @@ public class SelectionController : MonoBehaviour
 
         SelectionManager.Instance.GetBossHoveredOverEvent().AddListener(BossHoveredOver);
         SelectionManager.Instance.GetBossNotHoveredOverEvent().AddListener(BossNotHoveredOver);
+        
+        SelectionManager.Instance.GetBossInformationLockedEvent().AddListener(InformationLockBoss);
 
         SelectionManager.Instance.GetHeroSelectionEvent().AddListener(NewHeroAdded);
         SelectionManager.Instance.GetHeroDeselectionEvent().AddListener(HeroRemoved);
@@ -817,7 +859,11 @@ public class SelectionController : MonoBehaviour
 
         SelectionManager.Instance.GetHeroHoveredOverEvent().AddListener(HeroHoveredOver);
         SelectionManager.Instance.GetHeroNotHoveredOverEvent().AddListener(HeroNotHoveredOver);
+        
+        SelectionManager.Instance.GetHeroInformationLockedEvent().AddListener(InformationLockHero);
 
         SelectionManager.Instance.GetDifficultySelectionEvent().AddListener(HeroLimitChanged);
+        
+        SelectionManager.Instance.GetInformationUnlockedEvent().AddListener(UnlockCharacterInformation);
     }
 }
