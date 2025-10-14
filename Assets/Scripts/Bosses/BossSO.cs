@@ -7,7 +7,7 @@ using UnityEngine.UI;
 /// Stores the general information for all bosses as scriptable objects
 /// </summary>
 [CreateAssetMenu(fileName = "BossScriptableObject", menuName = "BossScriptableObject", order = 3)]
-public class BossSO : ScriptableObject
+public class BossSO : CharacterSO
 {
     [Header("General")]
     [SerializeField] private string _name;

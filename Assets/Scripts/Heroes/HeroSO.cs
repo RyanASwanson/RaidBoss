@@ -6,7 +6,7 @@ using UnityEngine;
 /// Stores the general information for all heroes as scriptable objects
 /// </summary>
 [CreateAssetMenu(fileName = "HeroScriptableObject", menuName = "HeroScriptableObject", order = 1)]
-public class HeroSO : ScriptableObject
+public class HeroSO : CharacterSO
 {
     [Header("General")]
     [SerializeField] private string _name;

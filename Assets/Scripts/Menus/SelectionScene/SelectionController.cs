@@ -45,6 +45,7 @@ public class SelectionController : MonoBehaviour
     private bool _maxCharactersSelected = false;
 
     public static bool IsSelectionInformationLocked = false;
+    public static CharacterSO SelectionLockedCharacter;
 
     [Space]
     [Header("Center-Hero")]
@@ -218,6 +219,7 @@ public class SelectionController : MonoBehaviour
     private void InformationLockBoss(BossSO bossSO)
     {
         IsSelectionInformationLocked = true;
+        SelectionLockedCharacter = bossSO;
         
         DisplayBossInformation(bossSO);
     }
@@ -337,6 +339,7 @@ public class SelectionController : MonoBehaviour
     private void UnlockCharacterInformation()
     {
         IsSelectionInformationLocked = false;
+        SelectionLockedCharacter = null;
     }
 
     /// <summary>
@@ -500,9 +503,9 @@ public class SelectionController : MonoBehaviour
     private void InformationLockHero(HeroSO heroSO)
     {
         IsSelectionInformationLocked = true;
+        SelectionLockedCharacter = heroSO;
         
         DisplayHeroInformation(heroSO);
-        Debug.Log("LOCKED");
     }
 
     private void DisplayStatsForHero(HeroSO heroSO)

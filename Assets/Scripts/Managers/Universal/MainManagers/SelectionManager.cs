@@ -162,7 +162,7 @@ public class SelectionManager : MainUniversalManagerFramework
 
     public void LockUnlockBossInformation(BossSO bossSO)
     {
-        if (SelectionController.IsSelectionInformationLocked)
+        if (bossSO == SelectionController.SelectionLockedCharacter)
         {
             InvokeInformationUnlockedEvent();
         }
@@ -184,7 +184,7 @@ public class SelectionManager : MainUniversalManagerFramework
 
     public void LockUnlockHeroInformation(HeroSO heroSO)
     {
-        if (SelectionController.IsSelectionInformationLocked)
+        if (heroSO == SelectionController.SelectionLockedCharacter)
         {
             InvokeInformationUnlockedEvent();
         }
