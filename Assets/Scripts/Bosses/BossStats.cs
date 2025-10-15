@@ -129,9 +129,18 @@ public class BossStats : BossChildrenFunctionality
     {
         if (_currentHealth <= 0)
         {
-            _isBossDead = true;
-            GameStateManager.Instance.SetGameplayState(EGameplayStates.PostBattleWon);
+            BossDeath();
         }
+    }
+
+    private void BossDeath()
+    {
+        _isBossDead = true;
+        
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].BossDeathAudio);
+        
+        GameStateManager.Instance.SetGameplayState(EGameplayStates.PostBattleWon);
     }
 
     protected virtual void IncreaseBossStatsAtHealthThreshholds()

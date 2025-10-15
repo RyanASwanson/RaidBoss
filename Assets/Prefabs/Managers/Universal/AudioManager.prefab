@@ -255,6 +255,15 @@ MonoBehaviour:
             Data3: 437322369
             Data4: -952020448
           Path: event:/SoundEffect/Bosses/Specific/MagmaLord/Abilities/Volcano/Volcano1
+    BossDeathAudio:
+      AudioName: 
+      DefaultStartDelay: 0
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+      DefaultPlayType: 0
+      DefaultAudioChoice: 0
+      AudioTracks: []
     MiscellaneousBossAudio: []
   - AssociatedBoss: Terra Lord
     BossAbilityAudio:
@@ -372,6 +381,15 @@ MonoBehaviour:
             Data4: 395443640
           Path: event:/SoundEffect/Bosses/Specific/TerraLord/Abilities/EncirclingVines/TerraLordEncirclingVines
       GeneralAbilityAudio: []
+    BossDeathAudio:
+      AudioName: 
+      DefaultStartDelay: 0
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+      DefaultPlayType: 0
+      DefaultAudioChoice: 0
+      AudioTracks: []
     MiscellaneousBossAudio: []
   - AssociatedBoss: Glacial Lord
     BossAbilityAudio:
@@ -559,6 +577,21 @@ MonoBehaviour:
         DefaultPlayType: 0
         DefaultAudioChoice: 0
         AudioTracks: []
+    BossDeathAudio:
+      AudioName: GlacialLordDeath
+      DefaultStartDelay: 0
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+      DefaultPlayType: 0
+      DefaultAudioChoice: 0
+      AudioTracks:
+      - Guid:
+          Data1: -2010039722
+          Data2: 1326281992
+          Data3: -1767041863
+          Data4: -1424051282
+        Path: event:/SoundEffect/Bosses/Specific/GlacialLord/Death/GlacialLordDeath
     MiscellaneousBossAudio: []
   GeneralHeroAudio:
     HealthAudio:
@@ -804,7 +837,7 @@ MonoBehaviour:
         Path: event:/SoundEffect/Heroes/SpecificHeroes/Shaman/Active/ShamanBallLightningReachedTarget
   - AssociatedHero: Chronomancer
     BasicAbilityUsed:
-      AudioName: TimeBlast
+      AudioName: ChronomancerTimeBlast
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
@@ -825,14 +858,20 @@ MonoBehaviour:
           Data4: -262253936
         Path: event:/SoundEffect/Heroes/SpecificHeroes/Chronomancer/Basic/ChronomancerTimeBlastAlt1
     ManualAbilityUsed:
-      AudioName: 
+      AudioName: ChronomancerRewind
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
       DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
-      AudioTracks: []
+      AudioTracks:
+      - Guid:
+          Data1: 1610371445
+          Data2: 1176356261
+          Data3: -736541530
+          Data4: -412088539
+        Path: event:/SoundEffect/Heroes/SpecificHeroes/Chronomancer/Active/ChronomancerRewind
     PassiveAbilityUsed:
       AudioName: 
       DefaultStartDelay: 0

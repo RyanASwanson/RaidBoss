@@ -13,6 +13,8 @@ public class SpecificBossAudio
     public string AssociatedBoss;
 
     public SpecificBossAbilityAudio[] BossAbilityAudio;
+
+    public SpecificAudio BossDeathAudio;
     
     public SpecificAudio[] MiscellaneousBossAudio;
 }

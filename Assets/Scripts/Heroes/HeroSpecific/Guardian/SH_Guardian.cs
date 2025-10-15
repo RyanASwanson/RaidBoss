@@ -14,6 +14,9 @@ public class SH_Guardian : SpecificHeroFramework
     [Space]
     [SerializeField] private float _heroManualAbilityDuration;
 
+    [SerializeField] private GameObject _tauntIcon;
+    private GameObject _currentTauntIcon;
+
     [Space]
     [SerializeField] private float _heroPassiveAbilityDuration;
     [Range(0,1)][SerializeField] private float _heroPassiveDamageResistance;
@@ -100,6 +103,12 @@ public class SH_Guardian : SpecificHeroFramework
         
         // Saves the WaitForSeconds of the passive to avoid needing to use new in the coroutine
         _heroPassiveWait = new WaitForSeconds(_heroPassiveAbilityDuration);
+    }
+
+    protected override void BattleStarted()
+    {
+        base.BattleStarted();
+        _currentTauntIcon = _myHeroBase.GetHeroUIManager().CreateObjectOnGeneralOrigin(_tauntIcon);
     }
 
     /// <summary>

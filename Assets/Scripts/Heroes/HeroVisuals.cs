@@ -29,6 +29,7 @@ public class HeroVisuals : HeroChildrenFunctionality
     [SerializeField] private TMP_Text _heroNotControllerNumberText;
 
     [Space]
+    [SerializeField] private RectTransform _heroGeneralOrigin;
     [SerializeField] private RectTransform _damageNumbersOrigin;
     [SerializeField] private RectTransform _healingNumbersOrigin;
     [SerializeField] private RectTransform _buffDebuffOrigin;
@@ -414,6 +415,7 @@ public class HeroVisuals : HeroChildrenFunctionality
     public Text GetHeroNotControlledNumberTextBackground() => _heroNotControllerNumberTextBackground;
     public TMP_Text GetHeroNotControlledNumberText() => _heroNotControllerNumberText;
 
+    public RectTransform GetGeneralOrigin() => _heroGeneralOrigin;
     public RectTransform GetDamageNumbersOrigin() => _damageNumbersOrigin;
     public RectTransform GetHealingNumbersOrigin() => _healingNumbersOrigin;
     public RectTransform GetBuffDebuffOrigin() => _buffDebuffOrigin;

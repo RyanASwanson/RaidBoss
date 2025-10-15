@@ -112,6 +112,7 @@ RectTransform:
   - {fileID: 7059950255087619679}
   - {fileID: 4244322162348049187}
   - {fileID: 3619858743365021079}
+  - {fileID: 8092895813344316984}
   m_Father: {fileID: 1333710235092989786}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 35, y: 0, z: 0}
@@ -634,6 +635,7 @@ MonoBehaviour:
   _heroNotControllerNumberAnimator: {fileID: 5127608199832212173}
   _heroNotControllerNumberTextBackground: {fileID: 7112096524248125563}
   _heroNotControllerNumberText: {fileID: 7112096522875814779}
+  _heroGeneralOrigin: {fileID: 8092895813344316984}
   _damageNumbersOrigin: {fileID: 7059950255087619679}
   _healingNumbersOrigin: {fileID: 2598898760619311672}
   _buffDebuffOrigin: {fileID: 4244322162348049187}
@@ -2016,6 +2018,42 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.65
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &8247094260792318111
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8092895813344316984}
+  m_Layer: 0
+  m_Name: HeroGeneralOriginPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &8092895813344316984
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8247094260792318111}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7976408396630340822}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8288840673254048179
 GameObject:
   m_ObjectHideFlags: 0

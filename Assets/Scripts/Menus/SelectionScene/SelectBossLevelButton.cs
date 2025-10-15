@@ -61,10 +61,8 @@ public class SelectBossLevelButton : MonoBehaviour, IPointerClickHandler
                 SelectBossLevelLeftClicked();
                 return;
             case PointerEventData.InputButton.Middle:
-                Debug.Log("Middle click");
                 return;
             case PointerEventData.InputButton.Right:
-                Debug.Log("Right click");
                 SelectBossLevelRightClicked();
                 return;
         }

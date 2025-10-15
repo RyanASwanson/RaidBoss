@@ -159,11 +159,13 @@ public class SelectionController : MonoBehaviour
     private void BossHoveredOver(BossSO bossSO)
     {
         //if (bossSO == _lastBossHoveredOver ||_selectionManager.AtMaxBossSelected()) return;
-        if (bossSO == _lastBossHoveredOver) return;
+        if (bossSO == _lastBossHoveredOver)
+        {
+            return;
+        }
 
         _lastHeroHoveredOver = null;
         _lastBossHoveredOver = bossSO;
-        _bossUIToDisplay = bossSO;
 
         NewBossHoveredOver(bossSO);
     }
@@ -204,6 +206,8 @@ public class SelectionController : MonoBehaviour
 
     public void DisplayBossInformation(BossSO bossSO)
     {
+        _bossUIToDisplay = bossSO;
+        
         //Show boss description and hide hero description
         _bossDescription.SetActive(true);
         HideFullHeroDescription();
@@ -404,7 +408,7 @@ public class SelectionController : MonoBehaviour
 
         _lastBossHoveredOver = null;
         _lastHeroHoveredOver = heroSO;
-        _heroUIToDisplay = heroSO;
+        
         NewHeroHoveredOver(heroSO);
     }
 
@@ -482,6 +486,8 @@ public class SelectionController : MonoBehaviour
 
     private void DisplayHeroInformation(HeroSO heroSO)
     {
+        _heroUIToDisplay = heroSO;
+        
         //Show hero description and hide boss description
         HideFullBossDescription();
         _heroDescription.SetActive(true);

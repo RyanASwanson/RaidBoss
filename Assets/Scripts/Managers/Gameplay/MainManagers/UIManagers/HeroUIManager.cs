@@ -82,6 +82,7 @@ public class HeroUIManager : GameUIChildrenFunctionality
     
     private const string SHOW_HERO_NOT_CONTROLLED_NUMBER_HOLDER_ANIM_BOOL = "ShowNumberIcon";
 
+    private RectTransform _generalOrigin;
     private RectTransform _damageNumbersOrigin;
     private RectTransform _healingNumbersOrigin;
     private RectTransform _buffDebuffOrigin;
@@ -130,6 +131,7 @@ public class HeroUIManager : GameUIChildrenFunctionality
 
         ShowHeroNotControlledNumber(true);
 
+        _generalOrigin = heroVisuals.GetGeneralOrigin();
         _damageNumbersOrigin = heroVisuals.GetDamageNumbersOrigin();
         _healingNumbersOrigin = heroVisuals.GetHealingNumbersOrigin();
         _buffDebuffOrigin = heroVisuals.GetBuffDebuffOrigin();
@@ -355,6 +357,17 @@ public class HeroUIManager : GameUIChildrenFunctionality
 
     #endregion
 
+    /*public GameObject AddObjectToGeneralOrigin(GameObject gameObject)
+    {
+        _genera
+    }*/
+
+    public GameObject CreateObjectOnGeneralOrigin(GameObject gameObject)
+    {
+        GameObject createdObject = Instantiate(gameObject, _generalOrigin);
+        return createdObject;
+    }
+    
     /// <summary>
     /// Is called as the progress of the heroes manual ability charges
     /// </summary>
