@@ -229,7 +229,7 @@ public class BossVisuals : BossChildrenFunctionality
 
         GameStateManager.Instance.GetBattleWonEvent().AddListener(BattleWon);
         
-        GameStateManager.Instance.GetBattleLostEvent().AddListener(BattleWon);
+        GameStateManager.Instance.GetBattleLostEvent().AddListener(BattleLost);
     }
     #endregion
 

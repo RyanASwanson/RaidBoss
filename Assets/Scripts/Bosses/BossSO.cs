@@ -11,6 +11,7 @@ public class BossSO : CharacterSO
 {
     [Header("General")]
     [SerializeField] private string _name;
+    [TextArea(2, 4)][SerializeField] private string _selectionScreenName;
     [SerializeField] private int _bossID;
     [SerializeField] private int _bossMusicID;
 
@@ -47,6 +48,7 @@ public class BossSO : CharacterSO
 
     #region Getters
     public string GetBossName() => _name;
+    public string GetBossSelectionScreenName() => _selectionScreenName;
     public int GetBossID() => _bossID;
     public int GetBossMusicID() => _bossMusicID;
     public float GetMaxHP() => _maxHP;

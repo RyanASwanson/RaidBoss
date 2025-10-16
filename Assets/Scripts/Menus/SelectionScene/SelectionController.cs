@@ -212,8 +212,8 @@ public class SelectionController : MonoBehaviour
         _bossDescription.SetActive(true);
         HideFullHeroDescription();
 
-        _bossNameText.text = bossSO.GetBossName();
-        _bossNameBorder.text = bossSO.GetBossName();
+        _bossNameText.text = bossSO.GetBossSelectionScreenName();
+        _bossNameBorder.text = bossSO.GetBossSelectionScreenName();
 
         HideBossAbilityDescription();
 
