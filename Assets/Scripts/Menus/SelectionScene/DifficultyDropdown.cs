@@ -14,8 +14,8 @@ public class DifficultyDropdown : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SetStartingDropdownValue();
         SetStartingDropdownVisuals();
+        SetStartingDropdownValue();
     }
 
     private void SetStartingDropdownVisuals()
@@ -41,6 +41,7 @@ public class DifficultyDropdown : MonoBehaviour
     private void SetStartingDropdownValue()
     {
         _dropdown.value = (int)SelectionManager.Instance.GetSelectedDifficulty() - 1;
+        _dropdown.RefreshShownValue();
     }
 
     public void UpdateDifficulty()

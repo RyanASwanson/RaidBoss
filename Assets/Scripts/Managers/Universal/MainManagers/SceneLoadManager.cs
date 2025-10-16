@@ -17,6 +17,8 @@ public class SceneLoadManager : MainUniversalManagerFramework
     private const string ST_CLOSE_IN_FROM_SIDES_ANIM_TRIGGER = "CloseInFromSides";
 
     private const float _sceneTransitionTime = 1;
+    
+    private WaitForSeconds _sceneTransitionWait = new WaitForSeconds(_sceneTransitionTime/2);
 
     private const int MAIN_MENU_SCENE_ID = 0;
     private const int SELECTION_SCENE_ID = 1;
@@ -60,7 +62,7 @@ public class SceneLoadManager : MainUniversalManagerFramework
             AudioManager.Instance.UserInterfaceAudio.SceneLoadUserInterfaceAudio.SceneLoadStart);
 
         //Loads the scene after half of the screen transition has occurred
-        yield return new WaitForSeconds(_sceneTransitionTime / 2);
+        yield return _sceneTransitionWait;
         
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(id);
 
@@ -70,10 +72,14 @@ public class SceneLoadManager : MainUniversalManagerFramework
             yield return null; // Wait for the next frame
         }
         
+        asyncLoad.allowSceneActivation = true;
+        
         AudioManager.Instance.PlaySpecificAudio(
             AudioManager.Instance.UserInterfaceAudio.SceneLoadUserInterfaceAudio.SceneLoadMiddle);
         
-        yield return new WaitForSeconds(_sceneTransitionTime / 2);
+        //yield return new WaitForSeconds(.2f);
+        
+        yield return _sceneTransitionWait;
         
         AudioManager.Instance.PlaySpecificAudio(
             AudioManager.Instance.UserInterfaceAudio.SceneLoadUserInterfaceAudio.SceneLoadEnd);

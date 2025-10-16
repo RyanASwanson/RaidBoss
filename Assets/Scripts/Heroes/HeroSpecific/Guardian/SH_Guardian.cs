@@ -13,9 +13,13 @@ public class SH_Guardian : SpecificHeroFramework
     
     [Space]
     [SerializeField] private float _heroManualAbilityDuration;
+    private WaitForSeconds _heroManualAbilityWait;
 
     [SerializeField] private GameObject _tauntIcon;
     private GameObject _currentTauntIcon;
+    private Animator _currentTauntIconAnimator;
+
+    private const string TAUNT_ICON_SHOW_ANIM_BOOL = "Show";
 
     [Space]
     [SerializeField] private float _heroPassiveAbilityDuration;
@@ -46,8 +50,16 @@ public class SH_Guardian : SpecificHeroFramework
     public override void ActivateManualAbilities()
     {
         BossBase.Instance.GetSpecificBossScript().StartHeroOverrideAggro(_myHeroBase, _heroManualAbilityDuration);
+        StartCoroutine(ManualDuration());
 
         base.ActivateManualAbilities();
+    }
+
+    private IEnumerator ManualDuration()
+    {
+        _currentTauntIconAnimator.SetBool(TAUNT_ICON_SHOW_ANIM_BOOL, true);
+        yield return _heroManualAbilityWait;
+        _currentTauntIconAnimator.SetBool(TAUNT_ICON_SHOW_ANIM_BOOL, false);
     }
     #endregion
 
@@ -103,12 +115,16 @@ public class SH_Guardian : SpecificHeroFramework
         
         // Saves the WaitForSeconds of the passive to avoid needing to use new in the coroutine
         _heroPassiveWait = new WaitForSeconds(_heroPassiveAbilityDuration);
+        
+        // Saves the WaitForSeconds of the manual to avoid needing to use new in the coroutine
+        _heroManualAbilityWait = new WaitForSeconds(_heroManualAbilityDuration);
     }
 
     protected override void BattleStarted()
     {
         base.BattleStarted();
         _currentTauntIcon = _myHeroBase.GetHeroUIManager().CreateObjectOnGeneralOrigin(_tauntIcon);
+        _currentTauntIconAnimator = _currentTauntIcon.GetComponent<Animator>();
     }
 
     /// <summary>
