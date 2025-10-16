@@ -23,6 +23,11 @@ public class SH_Chronomancer : SpecificHeroFramework
 
     [Space]
     [SerializeField] private float _rewindTimeAmount;
+
+    [SerializeField] private float _manualTimeVariationAmount;
+    [SerializeField] private float _manualTimeVariationDuration;
+    
+    [SerializeField] private GameObject _manualProjectile;
     private WaitForSeconds _rewindWait;
     
     private List<Queue<float>> _heroPastHealthValues = new List<Queue<float>>();
@@ -128,7 +133,9 @@ public class SH_Chronomancer : SpecificHeroFramework
     {
         base.ActivateManualAbilities();
         
-        TimeManager.Instance.AddNewTimeVariationForDuration(.5f,.75f);
+        TimeManager.Instance.AddNewTimeVariationForDuration(_manualTimeVariationAmount,_manualTimeVariationDuration);
+        
+        Instantiate(_manualProjectile, Vector3.zero, Quaternion.identity);
         
         int counter = 0;
 
