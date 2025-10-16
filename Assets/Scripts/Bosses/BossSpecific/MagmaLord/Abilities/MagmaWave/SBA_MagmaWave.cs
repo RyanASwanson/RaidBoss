@@ -20,18 +20,21 @@ public class SBA_MagmaWave : SpecificBossAbilityFramework
     {
         //Determines the location of the edge of the map
         //Direction determined by the direction of the current target
-        _edgeOfMap = GameplayManagers.Instance.GetEnvironmentManager().
+        _edgeOfMap = EnvironmentManager.Instance.
             GetEdgeOfMapLoc(transform.position,
             (_storedTarget.transform.position - Vector3.zero).normalized);
 
         base.AbilityPrep();
     }
 
+    /// <summary>
+    /// Shows the target zone of the attack and determines the location and angle
+    /// </summary>
     protected override void StartShowTargetZone()
     {
         //Find the point in between the boss and edge of map
         Vector3 midpoint = (transform.position + _edgeOfMap) / 2;
-        midpoint = GameplayManagers.Instance.GetEnvironmentManager().GetClosestPointToFloor(midpoint);
+        midpoint = EnvironmentManager.Instance.GetClosestPointToFloor(midpoint);
 
         GameObject newTargetZone = Instantiate(_targetZone, midpoint, Quaternion.identity);
 
@@ -55,13 +58,15 @@ public class SBA_MagmaWave : SpecificBossAbilityFramework
         base.StartAbilityWindUp();
     }
 
+    /// <summary>
+    /// Spawns and sets up the projectile
+    /// </summary>
     protected override void AbilityStart()
     {
         //Spawns the magma wave damage zone
         _storedMagmaWave = Instantiate(_magmaWave, _edgeOfMap, Quaternion.identity);
-        //Sets up the 
-        SBP_MagmaWave waveFunc = _storedMagmaWave.GetComponent<SBP_MagmaWave>();
-        waveFunc.SetUpProjectile(_myBossBase);
+        //Sets up the projectile
+        _storedMagmaWave.GetComponent<SBP_MagmaWave>().SetUpProjectile(_myBossBase, _abilityID);
         base.AbilityStart();
     }
     #endregion

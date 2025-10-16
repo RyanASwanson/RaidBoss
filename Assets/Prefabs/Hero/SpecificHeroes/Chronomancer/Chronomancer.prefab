@@ -78,17 +78,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffb771fe84bbd6e49ad9248a0fa7998c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _basicAbilityChargeTime: 2
+  _basicAbilityChargeTime: 3
   _manualAbilityChargeTime: 17
   _heroSpecificAnimator: {fileID: 9030357306950637488}
   _hasBasicAbilityAnimation: 1
   _hasManualAbilityAnimation: 1
   _hasPassiveAbilityAnimation: 0
+  _basicAbilityAnimationBufferBeforeDisable: 0.25
+  _manualAbilityAnimationBufferBeforeDisable: 0.25
+  _passiveAbilityAnimationBufferBeforeDisable: 0.25
+  _heroSpecificUI: {fileID: 3376716863274558295, guid: e071d411e9bd53a4cb19a7dd957c2e78, type: 3}
   _attackRotationIncrease: {x: 0, y: 30, z: 0}
   _basicProjectile: {fileID: 5596939873398294413, guid: f94c8d34d7997534e9cd5db2805aa4ab, type: 3}
   _basicDirectionOrigin: {fileID: 3199938168666547575}
   _basicDirectionObj: {fileID: 7919605255219938636, guid: 195370cd976f1e34faed3fd73bb7ed15, type: 3}
-  _rewindTimeAmount: 6
+  _rewindTimeAmount: 8
+  _manualTimeVariationAmount: 0.5
+  _manualTimeVariationDuration: 1
+  _manualProjectile: {fileID: 4438191204458733012, guid: 33b57e780c1db6d44963af273ee70136, type: 3}
   _passiveAbilityBasicCooldownReduction: 3
 --- !u!95 &9030357306950637488
 Animator:

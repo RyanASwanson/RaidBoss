@@ -17,14 +17,18 @@ public class SceneLoadManager : MainUniversalManagerFramework
     private const string ST_CLOSE_IN_FROM_SIDES_ANIM_TRIGGER = "CloseInFromSides";
 
     private const float _sceneTransitionTime = 1;
+    
+    private WaitForSeconds _sceneTransitionWait = new WaitForSeconds(_sceneTransitionTime/2);
 
     private const int MAIN_MENU_SCENE_ID = 0;
     private const int SELECTION_SCENE_ID = 1;
 
     private Coroutine _sceneTransitionCoroutine;
 
-    private UnityEvent _startOfSceneLoadEvent = new UnityEvent();
-    private UnityEvent _endOfSceneLoadEvent = new UnityEvent();
+    private UnityEvent _onStartOfSceneLoad = new UnityEvent();
+    private UnityEvent _onEndOfSceneLoad = new UnityEvent();
+    
+    private UnityEvent _onGameplaySceneLoaded = new UnityEvent();
     
     /// <summary>
     /// Loads a scene using the build ID
@@ -32,8 +36,10 @@ public class SceneLoadManager : MainUniversalManagerFramework
     /// <param name="id"></param>
     public void LoadSceneByID(int id)
     {
-        if(CanLoadScene())
+        if (CanLoadScene())
+        {
             _sceneTransitionCoroutine = StartCoroutine(SceneLoadProcess(id));
+        }
     }
 
     /// <summary>
@@ -48,16 +54,37 @@ public class SceneLoadManager : MainUniversalManagerFramework
 
     private IEnumerator SceneLoadProcess(int id)
     {
-        InvokeStartOfSceneLoadEvent();
+        InvokeOnStartOfSceneLoadEvent();
 
         _sceneTransitionAnimator.SetTrigger(ST_CLOSE_IN_FROM_SIDES_ANIM_TRIGGER);
+        
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.UserInterfaceAudio.SceneLoadUserInterfaceAudio.SceneLoadStart);
 
         //Loads the scene after half of the screen transition has occurred
-        yield return new WaitForSeconds(_sceneTransitionTime / 2);
-        SceneManager.LoadScene(id);
-        yield return new WaitForSeconds(_sceneTransitionTime / 2);
+        yield return _sceneTransitionWait;
+        
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(id);
 
-        InvokeEndOfSceneLoadEvent();
+        // Wait until the asynchronous scene fully loads
+        while (!asyncLoad.isDone)
+        {
+            yield return null; // Wait for the next frame
+        }
+        
+        asyncLoad.allowSceneActivation = true;
+        
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.UserInterfaceAudio.SceneLoadUserInterfaceAudio.SceneLoadMiddle);
+        
+        //yield return new WaitForSeconds(.2f);
+        
+        yield return _sceneTransitionWait;
+        
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.UserInterfaceAudio.SceneLoadUserInterfaceAudio.SceneLoadEnd);
+
+        InvokeOnEndOfSceneLoadEvent();
         _sceneTransitionCoroutine = null;
     }
 
@@ -94,6 +121,11 @@ public class SceneLoadManager : MainUniversalManagerFramework
         LoadSceneByID(SceneManager.GetActiveScene().buildIndex);
     }
 
+    public void GameplaySceneLoaded()
+    {
+        InvokeOnGameplaySceneLoaded();
+    }
+
     #region BaseManager
     public override void SetUpInstance()
     {
@@ -103,18 +135,24 @@ public class SceneLoadManager : MainUniversalManagerFramework
     #endregion
 
     #region Events
-    private void InvokeStartOfSceneLoadEvent()
+    private void InvokeOnStartOfSceneLoadEvent()
     {
-        _startOfSceneLoadEvent?.Invoke();
+        _onStartOfSceneLoad?.Invoke();
     }
-    private void InvokeEndOfSceneLoadEvent()
+    private void InvokeOnEndOfSceneLoadEvent()
     {
-        _endOfSceneLoadEvent?.Invoke();
+        _onEndOfSceneLoad?.Invoke();
+    }
+
+    private void InvokeOnGameplaySceneLoaded()
+    {
+        _onGameplaySceneLoaded?.Invoke();
     }
     #endregion
 
     #region Getters
-    public UnityEvent GetStartOfSceneLoadEvent() => _startOfSceneLoadEvent;
-    public UnityEvent GetEndOfSceneLoadEvent() => _endOfSceneLoadEvent;
+    public UnityEvent GetOnStartOfSceneLoad() => _onStartOfSceneLoad;
+    public UnityEvent GetOnEndOfSceneLoad() => _onEndOfSceneLoad;
+    public UnityEvent GetOnGameplaySceneLoaded() => _onGameplaySceneLoaded;
     #endregion
 }

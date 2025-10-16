@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using Newtonsoft.Json;
+using UnityEngine.Serialization;
 
 public class SaveManager : MainUniversalManagerFramework
 {
@@ -15,8 +16,8 @@ public class SaveManager : MainUniversalManagerFramework
     [SerializeField] private List<HeroSO> _heroesInGame = new();
 
     [Space]
-    [SerializeField] private List<BossSO> _bossesStartingUnlocked;
-    [SerializeField] private List<HeroSO> _heroesStartingUnlocked;
+    [SerializeField] private List<BossSO> _bossesStartingUnlocked = new();
+    [SerializeField] private List<HeroSO> _heroesStartingUnlocked = new();
 
     /// <summary>
     /// Sets the path to create the save file
@@ -36,6 +37,8 @@ public class SaveManager : MainUniversalManagerFramework
     /// </summary>
     private void StartingValues()
     {
+        GSD = new();
+        
         //Fills the GSD with default values when the file is created
         PopulateUnlockedBosses();
         PopulateUnlockedHeroes();
@@ -54,9 +57,10 @@ public class SaveManager : MainUniversalManagerFramework
     /// </summary>
     private void PopulateUnlockedBosses()
     {
+        // Iterate through each boss
         foreach (BossSO bossSO in _bossesInGame)
         {
-            print(bossSO.GetBossName() + _bossesStartingUnlocked.Contains(bossSO));
+            // Add them to a dictionary with a bool for if they are unlocked or not
             GSD._bossesUnlocked.Add(bossSO.GetBossName(), _bossesStartingUnlocked.Contains(bossSO));
         }
     }
@@ -66,13 +70,17 @@ public class SaveManager : MainUniversalManagerFramework
     /// </summary>
     private void PopulateUnlockedHeroes()
     {
+        // Iterate through each hero
         foreach(HeroSO heroSO in _heroesInGame)
         {
-            print(heroSO.GetHeroName() + _heroesStartingUnlocked.Contains(heroSO));
+            // Add them to a dictionary with a bool for if they are unlocked or not
             GSD._heroesUnlocked.Add(heroSO.GetHeroName(), _heroesStartingUnlocked.Contains(heroSO));
         }
     }
 
+    /// <summary>
+    /// Populates the dictionary for what heroes have beaten what bosses on what difficulty
+    /// </summary>
     private void PopulateBossHeroDifficultyDictionary()
     {
         //Reset the dictionary
@@ -81,6 +89,7 @@ public class SaveManager : MainUniversalManagerFramework
         //Iterate through the boss scriptable objects
         foreach(BossSO bossSO in _bossesInGame)
         {
+            // Adds the boss to the dictionary
             GSD._bossHeroBestDifficultyComplete.Add(bossSO.GetBossName(), new Dictionary<string, EGameDifficulty>());
 
             foreach(HeroSO heroSO in _heroesInGame)
@@ -163,24 +172,30 @@ public class SaveManager : MainUniversalManagerFramework
     /// </summary>
     public void ResetSaveData()
     {
-        //Resets the best difficulties beaten
+        // Resets the best difficulties beaten
         PopulateBossHeroDifficultyDictionary();
 
-        //Saves the changes into the text file
+        // Saves the changes into the text file
         SaveText();
     }
 
     #region Character Unlocks
     #region Boss Unlocks
+    /// <summary>
+    /// Unlocks the next boss
+    /// </summary>
     private void UnlockNextBoss()
     {
         if (GSD._bossesUnlocked[_bossesInGame[_bossesInGame.Count - 1].GetBossName()])
             return;
 
+        // Iterate through each boss
         foreach (BossSO bossSO in _bossesInGame)
         {
-            if (GSD._bossesUnlocked[bossSO.GetBossName()] == false)
+            // Check if the boss hasn't been unlocked yet
+            if (!GSD._bossesUnlocked[bossSO.GetBossName()])
             {
+                // Unlock the boss
                 GSD._bossesUnlocked[bossSO.GetBossName()] = true;
                 break;
             }
@@ -189,15 +204,21 @@ public class SaveManager : MainUniversalManagerFramework
     #endregion
 
     #region Hero Unlocks
+    /// <summary>
+    /// Unlocks the next hero
+    /// </summary>
     private void UnlockNextHero()
     {
         if (GSD._heroesUnlocked[_heroesInGame[_heroesInGame.Count-1].GetHeroName()])
                 return;
 
+        // Iterate through each hero
         foreach(HeroSO heroSO in _heroesInGame)
         {
-            if (GSD._heroesUnlocked[heroSO.GetHeroName()] == false)
+            // Check if the hero hasn't been unlocked yet
+            if (!GSD._heroesUnlocked[heroSO.GetHeroName()])
             {
+                // Unlock the hero
                 GSD._heroesUnlocked[heroSO.GetHeroName()] = true;
                 break;
             }
@@ -207,19 +228,24 @@ public class SaveManager : MainUniversalManagerFramework
     #endregion
 
     #region BaseManager
+    /// <summary>
+    /// Establishes the Instance for the Save Manager
+    /// </summary>
+    public override void SetUpInstance()
+    {
+        base.SetUpInstance();
+        Instance = this;
+    }
+    
+    /// <summary>
+    /// Performs needed set up for the manager
+    /// </summary>
     public override void SetUpMainManager()
     {
         base.SetUpMainManager();  
         EstablishPath();
         Load();
     }
-
-    public override void SetUpInstance()
-    {
-        base.SetUpInstance();
-        Instance = this;
-    }
-
     #endregion
 
     #region Getters
@@ -237,6 +263,21 @@ public class SaveManager : MainUniversalManagerFramework
     public float GetMusicVolume() => GSD.GetGSDMusicVolume();
     public float GetSFXVolume() => GSD.GetGSDSFXVolume();
 
+    public float GetVolumeFromAudioVCAType(EAudioVCAType audioType)
+    {
+        switch (audioType)
+        {
+            case(EAudioVCAType.Master):
+                return GSD.GetGSDMasterVolume();
+            case(EAudioVCAType.Music):
+                return GSD.GetGSDMusicVolume();
+            case(EAudioVCAType.SoundEffect):
+                return GSD.GetGSDSFXVolume();
+            default:
+                return 0;
+        }
+    }
+
     #endregion
 
     #region Setters
@@ -247,6 +288,7 @@ public class SaveManager : MainUniversalManagerFramework
     public void SetScreenShakeStrength(float val)
     {
         GSD.SetGSDScreenShakeStrength(val);
+        SaveText();
     }
 
     /// <summary>
@@ -256,6 +298,7 @@ public class SaveManager : MainUniversalManagerFramework
     public void SetMasterAudioVolume(float volume)
     {
         GSD.SetGSDMasterVolume(volume);
+        SaveText();
     }
 
     /// <summary>
@@ -265,6 +308,7 @@ public class SaveManager : MainUniversalManagerFramework
     public void SetMusicAudioVolume(float volume)
     {
         GSD.SetGSDMusicVolume(volume);
+        SaveText();
     }
 
     /// <summary>
@@ -274,6 +318,25 @@ public class SaveManager : MainUniversalManagerFramework
     public void SetSFXAudioVolume(float volume)
     {
         GSD.SetGSDSFXVolume(volume);
+        SaveText();
+    }
+
+    public void SetVolumeFromAudioVCAType(EAudioVCAType audioType, float volume)
+    {
+        switch (audioType)
+        {
+            case (EAudioVCAType.Master):
+                SetMasterAudioVolume(volume);
+                return;
+            case (EAudioVCAType.Music):
+                SetMusicAudioVolume(volume);
+                return;
+            case (EAudioVCAType.SoundEffect):
+                SetSFXAudioVolume(volume);
+                return;
+            default:
+                return;
+        }
     }
 
     /// <summary>
@@ -298,60 +361,64 @@ public class SaveManager : MainUniversalManagerFramework
     #endregion
 }
 
+/// <summary>
+/// The data that is saved
+/// </summary>
 [System.Serializable]
 public class GameSaveData
 {
+    //TODO Seperate into class for game data and settings data
     public Dictionary<string, bool> _bossesUnlocked = new();
     //String is hero name
     public Dictionary<string, bool> _heroesUnlocked = new();
     //First string is boss name, second string is hero name
     //Represents the best difficulty each hero has beaten each boss at
     public Dictionary<string, Dictionary<string,EGameDifficulty>> _bossHeroBestDifficultyComplete = new();
-
+    
     [Space]
     [Header("Settings")]
-    [Range(0, 1)] private float _screenShakeStrength = 1;
-    private bool _heroClickAndDragMovementEnabled;
+    [Range(0, 1)] public float ScreenShakeStrength = 1;
+    private bool HeroClickAndDragMovementEnabled;
 
-    [Range(0, 1)] private float _masterVolume = .5f;
-    [Range(0, 1)] private float _musicVolume = .5f;
-    [Range(0, 1)] private float _sfxVolume = .5f;
+    [Range(0, 1)] public float MasterVolume = .5f;
+    [Range(0, 1)] public float MusicVolume = .5f;
+    [Range(0, 1)] public float SfxVolume = .5f;
     
     #region Getters
     public Dictionary<string, Dictionary<string, EGameDifficulty>> GetGSDBossHeroBestDifficulty() => _bossHeroBestDifficultyComplete;
 
-    public float GetGSDScreenShakeStrength() => _screenShakeStrength;
-    public bool GetGSDHeroClickAndDragEnabled() => _heroClickAndDragMovementEnabled;
+    public float GetGSDScreenShakeStrength() => ScreenShakeStrength;
+    public bool GetGSDHeroClickAndDragEnabled() => HeroClickAndDragMovementEnabled;
 
-    public float GetGSDMasterVolume() => _masterVolume;
-    public float GetGSDMusicVolume() => _musicVolume;
-    public float GetGSDSFXVolume() => _sfxVolume;
+    public float GetGSDMasterVolume() => MasterVolume;
+    public float GetGSDMusicVolume() => MusicVolume;
+    public float GetGSDSFXVolume() => SfxVolume;
 
     #endregion
 
     #region Setters
     public void SetGSDScreenShakeStrength(float screenShake)
     {
-        _screenShakeStrength = screenShake;
+        ScreenShakeStrength = screenShake;
     }
 
     public void SetGSDHeroClickAndDrag(bool clickDrag)
     {
-        _heroClickAndDragMovementEnabled = clickDrag;
+        HeroClickAndDragMovementEnabled = clickDrag;
     }
 
     public void SetGSDMasterVolume(float volume)
     {
-        _masterVolume = volume;
+        MasterVolume = volume;
     }
     public void SetGSDMusicVolume(float volume)
     {
-        _musicVolume = volume;
+        MusicVolume = volume;
     }
 
     public void SetGSDSFXVolume(float volume)
     {
-        _sfxVolume = volume;
+        SfxVolume = volume;
     }
 
     #endregion

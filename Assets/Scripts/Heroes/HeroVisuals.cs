@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,7 +23,13 @@ public class HeroVisuals : HeroChildrenFunctionality
     [SerializeField] private Animator _heroControlledAnimator;
     [SerializeField] private Image _heroControlledIcon;
 
+    [Space] 
+    [SerializeField] private Animator _heroNotControllerNumberAnimator;
+    [SerializeField] private Text _heroNotControllerNumberTextBackground;
+    [SerializeField] private TMP_Text _heroNotControllerNumberText;
+
     [Space]
+    [SerializeField] private RectTransform _heroGeneralOrigin;
     [SerializeField] private RectTransform _damageNumbersOrigin;
     [SerializeField] private RectTransform _healingNumbersOrigin;
     [SerializeField] private RectTransform _buffDebuffOrigin;
@@ -49,7 +56,7 @@ public class HeroVisuals : HeroChildrenFunctionality
 
 
     private Animator _heroSpecificAnimator;
-
+    
     private const string HERO_IDLE_ANIM_TRIGGER = "G_HeroIdle";
     private const string HERO_WALKING_ANIM_BOOL = "G_HeroWalking";
 
@@ -61,9 +68,12 @@ public class HeroVisuals : HeroChildrenFunctionality
     [SerializeField] private float _outlineWidth;
     [SerializeField] private Outline.Mode _outlineMode;
     private Outline _addedOutline;
-
-
+    
     #region Health Status
+    /// <summary>
+    /// Called when the hero takes damage
+    /// </summary>
+    /// <param name="damage"> The amount of damage </param>
     private void HeroDamaged(float damage)
     {
         CreateHeroDamagedVFX();
@@ -71,6 +81,10 @@ public class HeroVisuals : HeroChildrenFunctionality
         ShowHealthPopUp();
     }
 
+    /// <summary>
+    /// Called when the hero gets healed
+    /// </summary>
+    /// <param name="healing"> The amount of healing</param>
     private void HeroHealed(float healing)
     {
         CreateHeroHealedVFX();
@@ -113,7 +127,6 @@ public class HeroVisuals : HeroChildrenFunctionality
     {
         HeroDeathAnimation();
     }
-
     
     private void HeroHealthAboveHalf()
     {
@@ -160,6 +173,15 @@ public class HeroVisuals : HeroChildrenFunctionality
     public void HeroSpecificAnimationTrigger(string animationTrigger)
     {
         _heroSpecificAnimator.SetTrigger(animationTrigger);
+    }
+
+    /// <summary>
+    /// Resets a trigger on the hero specific animator
+    /// </summary>
+    /// <param name="animationTrigger"></param>
+    public void HeroSpecificAnimationResetTrigger(string animationTrigger)
+    {
+        _heroSpecificAnimator.ResetTrigger(animationTrigger);
     }
 
     /// <summary>
@@ -212,12 +234,32 @@ public class HeroVisuals : HeroChildrenFunctionality
         HeroSpecificAnimationTrigger(HERO_BASIC_ANIM_TRIGGER);
     }
 
+    public void ResetBasicAbilityAnimation()
+    {
+        HeroSpecificAnimationResetTrigger(HERO_BASIC_ANIM_TRIGGER);
+    }
+
+    public void ResetBasicAbilityAnimation(WaitForSeconds delay)
+    {
+        StartResetAbilityAnimation(delay, HERO_BASIC_ANIM_TRIGGER);
+    }
+
     /// <summary>
     /// Tells the hero specific animator to start their manual ability animation
     /// </summary>
     public void TriggerManualAbilityAnimation()
     {
         HeroSpecificAnimationTrigger(HERO_MANUAL_ANIM_TRIGGER);
+    }
+    
+    public void ResetManualAbilityAnimation()
+    {
+        HeroSpecificAnimationResetTrigger(HERO_MANUAL_ANIM_TRIGGER);
+    }
+
+    public void ResetManualAbilityAnimation(WaitForSeconds delay)
+    {
+        StartResetAbilityAnimation(delay, HERO_MANUAL_ANIM_TRIGGER);
     }
 
     /// <summary>
@@ -226,6 +268,27 @@ public class HeroVisuals : HeroChildrenFunctionality
     public void TriggerPassiveAbilityAnimation()
     {
         HeroSpecificAnimationTrigger(HERO_PASSIVE_ANIM_TRIGGER);
+    }
+    
+    public void ResetPassiveAbilityAnimation()
+    {
+        HeroSpecificAnimationResetTrigger(HERO_PASSIVE_ANIM_TRIGGER);
+    }
+
+    public void ResetPassiveAbilityAnimation(WaitForSeconds delay)
+    {
+        StartResetAbilityAnimation(delay, HERO_PASSIVE_ANIM_TRIGGER);
+    }
+
+    public void StartResetAbilityAnimation(WaitForSeconds delay, string animationTrigger)
+    {
+        StartCoroutine(ResetAbilityAnimation(delay, animationTrigger));
+    }
+    
+    private IEnumerator ResetAbilityAnimation(WaitForSeconds delay, string animationTrigger)
+    {
+        yield return delay;
+        HeroSpecificAnimationResetTrigger(animationTrigger);
     }
 
     /// <summary>
@@ -294,16 +357,15 @@ public class HeroVisuals : HeroChildrenFunctionality
     }
     #endregion
 
-
     private void AssignHeroSpecificAnimator()
     {
         _heroSpecificAnimator = _myHeroBase.GetSpecificHeroScript().GetSpecificHeroAnimator();
     }
 
     #region Base Hero
-    public override void ChildFuncSetup(HeroBase heroBase)
+    public override void ChildFuncSetUp(HeroBase heroBase)
     {
-        base.ChildFuncSetup(heroBase);
+        base.ChildFuncSetUp(heroBase);
 
         HeroLevelIntroAnimation();
     }
@@ -349,6 +411,11 @@ public class HeroVisuals : HeroChildrenFunctionality
     public Animator GetHeroControlledAnimator() => _heroControlledAnimator;
     public Image GetHeroControlledIcon() => _heroControlledIcon;
 
+    public Animator GetHeroNotControlledNumberAnimator() => _heroNotControllerNumberAnimator;
+    public Text GetHeroNotControlledNumberTextBackground() => _heroNotControllerNumberTextBackground;
+    public TMP_Text GetHeroNotControlledNumberText() => _heroNotControllerNumberText;
+
+    public RectTransform GetGeneralOrigin() => _heroGeneralOrigin;
     public RectTransform GetDamageNumbersOrigin() => _damageNumbersOrigin;
     public RectTransform GetHealingNumbersOrigin() => _healingNumbersOrigin;
     public RectTransform GetBuffDebuffOrigin() => _buffDebuffOrigin;

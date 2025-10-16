@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _contactParticles: {fileID: 5423365570946306976, guid: 53c9e0f9cde03684b9bf329c5aeba4d2, type: 3}
+  _meteorAnimator: {fileID: 5260550267988147408}
 --- !u!1 &682529596925741626
 GameObject:
   m_ObjectHideFlags: 0
@@ -56,6 +57,7 @@ GameObject:
   m_Component:
   - component: {fileID: 682529596925741625}
   - component: {fileID: 5260550267988147408}
+  - component: {fileID: 1782495364832971594}
   m_Layer: 0
   m_Name: Visuals
   m_TagString: Untagged
@@ -100,6 +102,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1782495364832971594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 682529596925741626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15b178d837850bd44a6ea78907376d8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _vfxList: []
 --- !u!1 &4378721444283608446
 GameObject:
   m_ObjectHideFlags: 0
@@ -9808,6 +9823,7 @@ MonoBehaviour:
   _lifeTime: 5
   _hasDetachTime: 1
   _detachTime: 2.95
+  _particleSystems: []
 --- !u!1001 &3394304501944361738
 PrefabInstance:
   m_ObjectHideFlags: 0

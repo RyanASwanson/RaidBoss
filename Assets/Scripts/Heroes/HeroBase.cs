@@ -40,7 +40,7 @@ public class HeroBase : MonoBehaviour
 
     private UnityEvent _heroManualAbilityCharging = new UnityEvent();
     private UnityEvent _heroManualAbilityFullyCharged = new UnityEvent();
-    private UnityEvent<Vector3> _heroManualAbilityAttempt = new UnityEvent<Vector3>();
+    private UnityEvent _heroManualAbilityAttempt = new UnityEvent();
 
     private UnityEvent _heroStartedMovingOnMeshEvent = new UnityEvent();
     private UnityEvent _heroStoppedMovingOnMeshEvent = new UnityEvent();
@@ -65,19 +65,19 @@ public class HeroBase : MonoBehaviour
 
     public void SetUp(HeroSO newSO, int heroID)
     {
-        SetUp(newSO);
         SetHeroID(heroID);
+        SetUp(newSO);
     }
 
     public void SetUp(HeroSO newSO)
     {
         CreateHeroPrefab(newSO);
 
-        SetupChildren();
+        SetUpChildren();
 
         SetHeroSO(newSO);
 
-        UIManagerSetup();
+        UIManagerSetUp();
     }
 
     /// <summary>
@@ -90,19 +90,19 @@ public class HeroBase : MonoBehaviour
 
         _associatedHeroScript = _associatedHeroGameObject.GetComponentInChildren<SpecificHeroFramework>();
 
-        _associatedHeroScript.SetupSpecificHero(this, newSO);
+        _associatedHeroScript.SetUpSpecificHero(this, newSO);
     }
 
     /// <summary>
     /// Sets up all scripts that inherit from HeroChildrenFunctionality
     /// </summary>
-    public void SetupChildren()
+    public void SetUpChildren()
     {
         foreach (HeroChildrenFunctionality childFunc in GetComponentsInChildren<HeroChildrenFunctionality>())
-            childFunc.ChildFuncSetup(this);
+            childFunc.ChildFuncSetUp(this);
     }
 
-    private void UIManagerSetup()
+    private void UIManagerSetUp()
     {
         if (!_associatedSO.GetHasUIManager()) return;
 
@@ -111,7 +111,7 @@ public class HeroBase : MonoBehaviour
 
     private void AssignSelfToUI()
     {
-        _associatedHeroUIManager = GameplayManagers.Instance.GetGameUIManager().SetAssociatedHeroUIManager(this);
+        _associatedHeroUIManager = GameUIManager.Instance.SetAssociatedHeroUIManager(this);
     }
     
     #region Events
@@ -148,9 +148,9 @@ public class HeroBase : MonoBehaviour
         _heroManualAbilityFullyCharged?.Invoke();
     }
     
-    public void InvokeHeroManualAbilityUsedEvent(Vector3 activateLocation)
+    public void InvokeHeroManualAbilityUsedEvent()
     {
-        _heroManualAbilityAttempt?.Invoke(activateLocation);
+        _heroManualAbilityAttempt?.Invoke();
     }
     
     public void InvokeHeroStartedMovingEvent()
@@ -237,6 +237,7 @@ public class HeroBase : MonoBehaviour
     public HeroUIManager GetHeroUIManager() => _associatedHeroUIManager;
 
     public int GetHeroID() => _myHeroID;
+    public int GetHeroIDStartOne() => _myHeroID + 1;
 
     public UnityEvent<HeroSO> GetSOSetEvent() => _heroSOSetEvent;
 
@@ -248,7 +249,7 @@ public class HeroBase : MonoBehaviour
 
     public UnityEvent GetHeroManualAbilityChargingEvent() => _heroManualAbilityCharging;
     public UnityEvent GetHeroManualAbilityFullyChargedEvent() => _heroManualAbilityFullyCharged;
-    public UnityEvent<Vector3> GetHeroManualAbilityAttemptEvent() => _heroManualAbilityAttempt;
+    public UnityEvent GetHeroManualAbilityAttemptEvent() => _heroManualAbilityAttempt;
 
     public UnityEvent GetHeroStartedMovingEvent() => _heroStartedMovingOnMeshEvent;
     public UnityEvent GetHeroStoppedMovingEvent() => _heroStoppedMovingOnMeshEvent;

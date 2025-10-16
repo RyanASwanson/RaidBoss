@@ -1,6 +1,7 @@
 using System.Collections;
 //using UnityEngine.UIElements;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,8 @@ using UnityEngine.UI;
 /// </summary>
 public class HeroUIManager : GameUIChildrenFunctionality
 {
+    public static HeroUIManager[] Instances = new HeroUIManager[5];
+    
     [Header("Bottom UI")]
     [SerializeField] private Animator _heroUIGeneralAnimator;
 
@@ -65,20 +68,31 @@ public class HeroUIManager : GameUIChildrenFunctionality
 
     private Animator _abilityChargedIconAnimator;
     private Image _abilityChargedManualIcon;
-
+    
     private const string SHOW_ABILITY_RECHARGED_HOLDER_ANIM_BOOL = "ShowRechargedIcon";
 
+    [Header("HeroControl")]
     private Animator _heroControlledIconAnimator;
     private Image _heroControlledIcon;
 
     private const string SHOW_HERO_CONTROLLED_HOLDER_ANIM_BOOL = "ShowControlledIcon";
 
+    [SerializeField] private bool _doesUseHeroColorForNotControlledNumber;
+    private Animator _heroNotControlledNumberAnimator;
+    
+    private const string SHOW_HERO_NOT_CONTROLLED_NUMBER_HOLDER_ANIM_BOOL = "ShowNumberIcon";
+
+    private RectTransform _generalOrigin;
     private RectTransform _damageNumbersOrigin;
     private RectTransform _healingNumbersOrigin;
     private RectTransform _buffDebuffOrigin;
     private RectTransform _abilityChargedOrigin;
 
     private const string _damageHealingWeakAnimTrigger = "WeakDamage";
+    
+    [Space]
+    [Header("HeroSpecificUI")]
+    [SerializeField] private GameObject _heroSpecificUIHolder;
 
 
     public void AssignSpecificHero(HeroBase heroBase)
@@ -86,8 +100,9 @@ public class HeroUIManager : GameUIChildrenFunctionality
         _associatedHeroBase = heroBase;
 
         GeneralSetup();
-        SetupBackground();
+        SetUpBackground();
         SetUpHeroIcons();
+        AddHeroUIToHolder(heroBase);
         GeneralUIIntroAnimation();
         SubscribeToEvents();
     }
@@ -105,19 +120,27 @@ public class HeroUIManager : GameUIChildrenFunctionality
         _heroControlledIcon = heroVisuals.GetHeroControlledIcon();
 
         _heroControlledIcon.color = _associatedHeroBase.GetHeroSO().GetHeroUIColor();
+        
+        _heroNotControlledNumberAnimator = heroVisuals.GetHeroNotControlledNumberAnimator();
+        heroVisuals.GetHeroNotControlledNumberTextBackground().text = _associatedHeroBase.GetHeroIDStartOne().ToString();
+        heroVisuals.GetHeroNotControlledNumberText().text = _associatedHeroBase.GetHeroIDStartOne().ToString();
+        if (_doesUseHeroColorForNotControlledNumber)
+        {
+            heroVisuals.GetHeroNotControlledNumberText().color = _associatedHeroBase.GetHeroSO().GetHeroUIColor();
+        }
 
+        ShowHeroNotControlledNumber(true);
 
-
+        _generalOrigin = heroVisuals.GetGeneralOrigin();
         _damageNumbersOrigin = heroVisuals.GetDamageNumbersOrigin();
         _healingNumbersOrigin = heroVisuals.GetHealingNumbersOrigin();
         _buffDebuffOrigin = heroVisuals.GetBuffDebuffOrigin();
         _abilityChargedOrigin = heroVisuals.GetAbilityReChargedPopupIconOrigin();
     }
 
-    private void SetupBackground()
+    private void SetUpBackground()
     {
         _backgroundImage.color = _associatedHeroBase.GetHeroSO().GetHeroUIColor();
-
     }
 
     private void SetUpHeroIcons()
@@ -130,6 +153,18 @@ public class HeroUIManager : GameUIChildrenFunctionality
         _heroFullyChargedIconAnimator.gameObject.GetComponent<Image>().sprite =
             heroSO.GetHeroManualAbilityIcon();
     }
+    
+    public void AddHeroUIToHolder(HeroBase heroBase)
+    {
+        GameObject heroSpecificUI = heroBase.GetSpecificHeroScript().GetSpecificHeroUI();
+        if (heroSpecificUI.IsUnityNull())
+        {
+            return;
+        }
+        
+        GameObject newUI = Instantiate(heroSpecificUI, _heroSpecificUIHolder.transform);
+        heroBase.GetSpecificHeroScript().HeroSpecificUICreated(newUI);
+    }   
 
     #region Hero Control
 
@@ -147,7 +182,13 @@ public class HeroUIManager : GameUIChildrenFunctionality
 
     private void ShowControlIconAboveHero(bool show)
     {
+        ShowHeroNotControlledNumber(!show);
         _heroControlledIconAnimator.SetBool(SHOW_HERO_CONTROLLED_HOLDER_ANIM_BOOL, show);
+    }
+
+    private void ShowHeroNotControlledNumber(bool show)
+    {
+        _heroNotControlledNumberAnimator.SetBool(SHOW_HERO_NOT_CONTROLLED_NUMBER_HOLDER_ANIM_BOOL,show);
     }
 
     private void ShowControlUIBackground(bool show)
@@ -316,6 +357,17 @@ public class HeroUIManager : GameUIChildrenFunctionality
 
     #endregion
 
+    /*public GameObject AddObjectToGeneralOrigin(GameObject gameObject)
+    {
+        _genera
+    }*/
+
+    public GameObject CreateObjectOnGeneralOrigin(GameObject gameObject)
+    {
+        GameObject createdObject = Instantiate(gameObject, _generalOrigin);
+        return createdObject;
+    }
+    
     /// <summary>
     /// Is called as the progress of the heroes manual ability charges
     /// </summary>
@@ -336,7 +388,9 @@ public class HeroUIManager : GameUIChildrenFunctionality
         damageHealing = Mathf.RoundToInt(damageHealing);
         //Makes sure the value shown isn't less than 1
         if (damageHealing <= 0)
+        {
             damageHealing = 1;
+        }
 
         newNumber.GetComponentInChildren<Text>().text = damageHealing.ToString();
         newNumber.GetComponentInChildren<TMP_Text>().text = damageHealing.ToString();
@@ -365,12 +419,12 @@ public class HeroUIManager : GameUIChildrenFunctionality
         HeroIconOnUIFlash();
     }
 
-    private void ManualUsed(Vector3 manualLoc)
+    private void ManualUsed()
     {
         ShowManualAbilityChargedIconAboveHero(false);
     }
 
-    private void ShowManualAbilityChargedIconAboveHero(bool show)
+    public void ShowManualAbilityChargedIconAboveHero(bool show)
     {
         _abilityChargedIconAnimator.SetBool(SHOW_ABILITY_RECHARGED_HOLDER_ANIM_BOOL, show);
     }
@@ -397,8 +451,12 @@ public class HeroUIManager : GameUIChildrenFunctionality
     }
 
     #region BaseManager
-    public override void ChildFuncSetup()
+    /// <summary>
+    /// Performs the initial set up on the Hero UI Manager
+    /// </summary>
+    public override void ChildFuncSetUp()
     {
+        // Overridden to not call base.ChildFuncSetUp so the event subscription happens later
         //base.ChildFuncSetup();
     }
 

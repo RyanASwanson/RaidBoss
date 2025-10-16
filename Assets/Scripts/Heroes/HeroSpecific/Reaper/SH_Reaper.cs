@@ -11,6 +11,8 @@ public class SH_Reaper : SpecificHeroFramework
     [SerializeField] private GameObject _basicProjectile;
 
     [SerializeField] private GameObject _manualProjectile;
+    
+    private const int DEATH_FOLLOWS_DURATION_AUDIO_ID = 0;
 
     [Space]
     [SerializeField] private float _deathPersistDuration;
@@ -23,8 +25,8 @@ public class SH_Reaper : SpecificHeroFramework
 
     public override void ActivateBasicAbilities()
     {
-        //Doesn't use base.basic ability
-
+        //Doesn't use base.ActivateBasicAbilities to not start a new cooldown
+        
         CreateBasicAbilityProjectile();
     }
 
@@ -33,35 +35,42 @@ public class SH_Reaper : SpecificHeroFramework
         //Creates the projectile at the hero location
         GameObject spawnedProjectile = Instantiate(_basicProjectile, transform.position, Quaternion.identity);
 
-        //Does the universal projectile setup
-        spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(_myHeroBase);
+        //Does the universal projectile set up
+        spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(_myHeroBase,EHeroAbilityType.Basic);
 
-        //Performs the setup for the damage area so that it knows it's owner
+        //Performs the set up for the damage area so that it knows it's owner
         spawnedProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(_myHeroBase);
     }
 
     #endregion
 
     #region Manual Abilities
-    public override void ActivateManualAbilities(Vector3 attackLocation)
+    public override void ActivateManualAbilities()
     {
-        base.ActivateManualAbilities(attackLocation);
-        CreateManualAbilityProjectile(attackLocation);
+        base.ActivateManualAbilities();
+        PlayManualDurationAudio();
+        CreateManualAbilityProjectile();
     }
 
-    private void CreateManualAbilityProjectile(Vector3 attackLocation)
+    private void CreateManualAbilityProjectile()
     {
-        attackLocation = new Vector3(attackLocation.x, transform.position.y, attackLocation.z);
+        Vector3 attackLocation = new Vector3(-transform.position.x, transform.position.y, -transform.position.z);
 
         //Creates the projectile where the mouse is
         GameObject spawnedProjectile = Instantiate(_manualProjectile, attackLocation, Quaternion.identity);
 
-        //Does the universal projectile setup
-        spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(_myHeroBase);
+        //Does the universal projectile set up
+        spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(_myHeroBase, EHeroAbilityType.Manual);
 
-        //Performs the setup for the damage area so that it knows it's owner
+        //Performs the set up for the damage area so that it knows it's owner
         spawnedProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(_myHeroBase);
+    }
 
+    private void PlayManualDurationAudio()
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificHeroAudio[_myHeroBase.GetHeroSO().GetHeroID()]
+                .MiscellaneousHeroAudio[DEATH_FOLLOWS_DURATION_AUDIO_ID]);
     }
     #endregion
 
@@ -73,7 +82,7 @@ public class SH_Reaper : SpecificHeroFramework
     }
 
     /// <summary>
-    /// Upon the death override ocurring the Reaper stops taking damage and healing,
+    /// Upon the death override occurring the Reaper stops taking damage and healing,
     /// persists for a set period of time, then has the death override removed and dies
     /// </summary>
     /// <returns></returns>
@@ -86,7 +95,6 @@ public class SH_Reaper : SpecificHeroFramework
         _myHeroBase.GetHeroStats().KillHero();
     }
     #endregion
-    
     
     protected override void BattleStarted()
     {

@@ -5,6 +5,8 @@ using UnityEngine.Events;
 
 public class BossBase : MonoBehaviour
 {
+    public static BossBase Instance;
+    
     [Header("Child Functionality")]
     [SerializeField] private BossVisuals _bossVisuals;
     [SerializeField] private BossStats _bossStats;
@@ -25,6 +27,7 @@ public class BossBase : MonoBehaviour
     protected UnityEvent _bossAbilityUsedEvent = new UnityEvent();
 
     private UnityEvent _bossStaggeredEvent = new UnityEvent();
+    private UnityEvent<float> _bossStaggerProcessEvent = new UnityEvent<float>();
     private UnityEvent _bossNoLongerStaggeredEvent = new UnityEvent();
 
     protected UnityEvent _bossReachedHalfHealthEvent = new UnityEvent();
@@ -33,45 +36,72 @@ public class BossBase : MonoBehaviour
 
     protected UnityEvent _bossEnragedEvent = new UnityEvent();
 
-    public void Setup(BossSO newSO)
+    /// <summary>
+    /// Performs the set up needed for the boss
+    /// </summary>
+    /// <param name="newSO"></param>
+    public void SetUp(BossSO newSO)
     {
+        SetUpInstance();
+        
         CreateBossPrefab(newSO);
 
-        SetupChildren();
+        SetUpChildren();
 
         SetUpAbilities();
 
         SetBossSO(newSO);
+        
+        PlayBossFightMusic();
+    }
+    
+    /// <summary>
+    /// Establishes the instance for the BossBase
+    /// </summary>
+    public void SetUpInstance()
+    {
+        Instance = this;
     }
 
     /// <summary>
-    /// Creates the gameobject for the specific boss and saves needed data
+    /// Creates the game object for the specific boss and saves needed data
     /// </summary>
-    /// <param name="newSO"></param>
+    /// <param name="newSO"> The scriptable object of the boss </param>
     private void CreateBossPrefab(BossSO newSO)
     {
         _associatedBossGameObject = Instantiate(newSO.GetBossPrefab(), _bossSpecificsGO.transform);
         _associatedBossScript = _associatedBossGameObject.GetComponent<SpecificBossFramework>();
 
         //Tells the specific boss script to set up
-        _associatedBossScript.SetupSpecificBoss(this);
+        _associatedBossScript.SetUpSpecificBoss(this);
     }
 
     /// <summary>
     /// Sets up all scripts that inherit from BossChildrenFunctionality
     /// </summary>
-    private void SetupChildren()
+    private void SetUpChildren()
     {
         foreach (BossChildrenFunctionality childFunc in GetComponentsInChildren<BossChildrenFunctionality>())
-            childFunc.ChildFuncSetup(this);
+        {
+            childFunc.ChildFuncSetUp(this);
+        }
     }
 
+    /// <summary>
+    /// Sets up all abilities the boss has
+    /// </summary>
     private void SetUpAbilities()
     {
         foreach(SpecificBossAbilityFramework bossAbility in GetComponentsInChildren<SpecificBossAbilityFramework>())
         {
-            bossAbility.AbilitySetup(this);
+            bossAbility.AbilitySetUp(this);
         }
+    }
+
+    // Plays the music associated with the boss fight
+    private void PlayBossFightMusic()
+    {
+        AudioManager.Instance.PlayMusic(_associatedBoss.GetBossMusicID(), true);
     }
 
     #region Events
@@ -102,6 +132,12 @@ public class BossBase : MonoBehaviour
     {
         _bossStaggeredEvent?.Invoke();
     }
+
+    public void InvokeBossStaggerProcess(float percentage)
+    {
+        _bossStaggerProcessEvent?.Invoke(percentage);
+    }
+    
     public void InvokeBossNoLongerStaggeredEvent()
     {
         _bossNoLongerStaggeredEvent.Invoke();
@@ -127,16 +163,11 @@ public class BossBase : MonoBehaviour
     #endregion
 
     #region Getters
-    public BossVisuals GetBossVisuals() => _bossVisuals;
-    public BossStats GetBossStats() => _bossStats;
-
     public BossSO GetBossSO() => _associatedBoss;
 
     public GameObject GetAssociatedBossObject() => _bossSpecificsGO;
     public SpecificBossFramework GetSpecificBossScript() => _associatedBossScript;
-
-
-
+    
     public UnityEvent<BossSO> GetSOSetEvent() => _bossSOSetEvent;
     public UnityEvent GetBossTargetsAssignedEvent() => _bossTargetsAssigned;
 
@@ -146,6 +177,7 @@ public class BossBase : MonoBehaviour
     public UnityEvent GetBossAbilityUsedEvent() => _bossAbilityUsedEvent;
 
     public UnityEvent GetBossStaggeredEvent() => _bossStaggeredEvent;
+    public UnityEvent<float> GetBossStaggerProcessEvent() => _bossStaggerProcessEvent;
     public UnityEvent GetBossNoLongerStaggeredEvent() => _bossNoLongerStaggeredEvent;
 
     public UnityEvent GetBossHalfHealthEvent() => _bossReachedHalfHealthEvent;

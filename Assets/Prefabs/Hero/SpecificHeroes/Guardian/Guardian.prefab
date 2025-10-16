@@ -47,13 +47,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _basicAbilityChargeTime: 3.5
-  _manualAbilityChargeTime: 15
+  _manualAbilityChargeTime: 18
   _heroSpecificAnimator: {fileID: 6106147606101072469}
   _hasBasicAbilityAnimation: 1
   _hasManualAbilityAnimation: 1
   _hasPassiveAbilityAnimation: 0
+  _basicAbilityAnimationBufferBeforeDisable: 0.25
+  _manualAbilityAnimationBufferBeforeDisable: 0.25
+  _passiveAbilityAnimationBufferBeforeDisable: 0.25
+  _heroSpecificUI: {fileID: 0}
   _basicProjectile: {fileID: 5001107893657729949, guid: 0df83aee4a65e944cae684aeadd88ab2, type: 3}
-  _heroManualAbilityDuration: 9
+  _heroManualAbilityDuration: 12
+  _tauntIcon: {fileID: 2530652564186414533, guid: 4e3aa613827885d4f9536bc3aef95439, type: 3}
   _heroPassiveAbilityDuration: 2
   _heroPassiveDamageResistance: 0.5
   _passiveEyeVFX:

@@ -29,14 +29,14 @@ public class SH_Astromancer : SpecificHeroFramework
         CreateBasicAttackProjectiles();
     }
 
-    protected void CreateBasicAttackProjectiles()
+    private void CreateBasicAttackProjectiles()
     {
         GameObject spawnedProjectile = Instantiate(_basicProjectile, transform.position, Quaternion.identity);
 
         SHP_AstromancerBasicProjectile projectileFunc = spawnedProjectile.GetComponent<SHP_AstromancerBasicProjectile>();
-        projectileFunc.SetUpProjectile(_myHeroBase);
+        projectileFunc.SetUpProjectile(_myHeroBase, EHeroAbilityType.Basic);
 
-        Vector3 storedProjectileDirection = GameplayManagers.Instance.GetBossManager().GetDirectionToBoss(transform.position);
+        Vector3 storedProjectileDirection = BossManager.Instance.GetDirectionToBoss(transform.position);
         projectileFunc.AdditionalSetup(this, storedProjectileDirection);
 
         //Performs the setup for the damage area so that it knows it's owner
@@ -48,7 +48,7 @@ public class SH_Astromancer : SpecificHeroFramework
     #endregion
 
     #region Manual Abilities
-    public override void ActivateManualAbilities(Vector3 attackLocation)
+    public override void ActivateManualAbilities()
     {
         _manualActive = true;
 
@@ -61,6 +61,7 @@ public class SH_Astromancer : SpecificHeroFramework
 
         _myHeroBase.GetHeroStats().ChangeCurrentHeroAngularSpeed(_increasedManualRotationalSpeed);
 
+        _myHeroBase.GetHeroUIManager().ShowManualAbilityChargedIconAboveHero(false);
 
         CreateManualAttackProjectiles();
     }
@@ -70,7 +71,7 @@ public class SH_Astromancer : SpecificHeroFramework
         GameObject spawnedProjectile = Instantiate(_manualProjectile, transform.position, Quaternion.identity);
 
         _storedManual = spawnedProjectile.GetComponent<SHP_AstromancerManualProjectile>();
-        _storedManual.SetUpProjectile(_myHeroBase);
+        _storedManual.SetUpProjectile(_myHeroBase, EHeroAbilityType.Manual);
 
         _myHeroBase.GetPathfinding().BriefStopCurrentMovement();
         _myHeroBase.GetHeroStartedMovingEvent().AddListener(EndManualAbility);
@@ -82,7 +83,7 @@ public class SH_Astromancer : SpecificHeroFramework
 
         _myHeroBase.GetHeroStartedMovingEvent().RemoveListener(EndManualAbility);
 
-        _storedManual.StopLaser();
+        _storedManual.StopManual();
 
         _myHeroBase.GetHeroStats().ChangeCurrentHeroAngularSpeed(-_increasedManualRotationalSpeed);
 

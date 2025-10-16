@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// The projectile for the Avalanche ability
+/// SBP stands for Specific Boss Ability
+/// </summary>
 public class SBP_Avalanche : BossProjectileFramework
 {
     [SerializeField] private float _projectileSpeed;
@@ -20,12 +24,11 @@ public class SBP_Avalanche : BossProjectileFramework
     [Space]
     [SerializeField] private GeneralBossDamageArea _damageArea;
 
-
-
+    private SBA_Avalanche _specificBossAbility;
+    
     /// <summary>
     /// Makes the projectile look at the target hero and start moving 
     /// </summary>
-    /// <param name="heroBase"></param>
     private void StartProjectileMovement()
     {
         StartCoroutine(ProjectileAcceleration());
@@ -47,6 +50,10 @@ public class SBP_Avalanche : BossProjectileFramework
 
     }
 
+    /// <summary>
+    /// The acceleration for the projectile
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator ProjectileAcceleration()
     {
         float timeCounter = 0;
@@ -67,9 +74,8 @@ public class SBP_Avalanche : BossProjectileFramework
     /// <param name="lookLocation"></param>
     private void ProjectileLookAt(Vector3 lookLocation)
     {
-
         transform.LookAt(lookLocation);
-        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+        transform.eulerAngles.Set(0, transform.eulerAngles.y, 0);
     }
 
     private void CheckForEnd()
@@ -81,26 +87,21 @@ public class SBP_Avalanche : BossProjectileFramework
         }
     }
 
+    /// <summary>
+    /// Called when the projectile reaches the end of its path
+    /// </summary>
     private void AtEndOfPath()
     {
+        _specificBossAbility.ProjectileReachedEndOfPath();
         _minionHit.MinionContactFromDistance();
         _damageArea.DestroyProjectile();
     }
 
-
     #region Base Ability
-    /// <summary>
-    /// Called when projectile is created
-    /// Provides the projectile with any additional information it may need
-    /// </summary>
-    /// <param name="heroBase"></param>
-    public override void SetUpProjectile(BossBase bossBase)
-    {
-        base.SetUpProjectile(bossBase);
-    }
 
-    public void AdditionalSetup(Vector3 lookDirection)
+    public void AdditionalSetUp(Vector3 lookDirection, SBA_Avalanche specificAbility)
     {
+        _specificBossAbility = specificAbility;
         ProjectileLookAt(lookDirection);
         StartProjectileMovement();
     }

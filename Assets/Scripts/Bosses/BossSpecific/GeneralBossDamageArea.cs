@@ -24,36 +24,19 @@ public class GeneralBossDamageArea : GeneralAbilityAreaFramework
     [SerializeField] private float _exitDamage;
     [SerializeField] private UnityEvent<Collider> _exitEvent;
 
-    private List<HeroBase> _heroesToIgnore = new List<HeroBase>();
-
-    private BossBase _myBossBase;
-    private BossStats _myBossStats;
-
-    protected override void Start()
-    {
-        base.Start();
-        _myBossBase = GameplayManagers.Instance.GetBossManager().GetBossBase();
-        _myBossStats = _myBossBase.GetBossStats();
-    }
+    private List<HeroBase> _heroesToIgnore = new();
 
     #region Collision
-    /// <summary>
-    /// Checks if the target hit is a hero
-    /// </summary>
-    /// <param name="collision"></param>
-    /// <returns></returns>
-    private bool DoesColliderBelongToHero(Collider collision)
-    {
-        return collision.gameObject.CompareTag(TagStringData.GetHeroHitboxTagName());
-    }
-
     /// <summary>
     /// Deals damage when a hero enters the trigger
     /// </summary>
     /// <param name="collision"></param>
     private void OnTriggerEnter(Collider collision)
     {
-        if (!enabled) return;
+        if (!enabled)
+        {
+            return;
+        }
 
         HitHero(collision, _enterEvent, _enterDamage);
     }
@@ -64,7 +47,10 @@ public class GeneralBossDamageArea : GeneralAbilityAreaFramework
     /// <param name="collision"></param>
     private void OnTriggerStay(Collider collision)
     {
-        if (!enabled) return;
+        if (!enabled)
+        {
+            return;
+        }
 
         HitHero(collision, _stayEvent, _stayDamagePerTick);
     }
@@ -75,7 +61,10 @@ public class GeneralBossDamageArea : GeneralAbilityAreaFramework
     /// <param name="collision"></param>
     private void OnTriggerExit(Collider collision)
     {
-        if (!enabled) return;
+        if (!enabled)
+        {
+            return;
+        }
 
         HitHero(collision, _exitEvent, _exitDamage);
     }
@@ -91,7 +80,7 @@ public class GeneralBossDamageArea : GeneralAbilityAreaFramework
     private bool HitHero(Collider collision, UnityEvent<Collider> hitEvent, float abilityDamage)
     {
         //Checks if the attack hit a hero
-        if (DoesColliderBelongToHero(collision))
+        if (TagStringData.DoesColliderBelongToHero(collision))
         {
             //If the hero should be ignored then return
             HeroBase heroBase = collision.GetComponentInParent<HeroBase>();
@@ -102,7 +91,9 @@ public class GeneralBossDamageArea : GeneralAbilityAreaFramework
 
             //Ignores the hero for a duration
             if (_preventReHitDuration > 0 && abilityDamage > 0)
-                StartCoroutine(IgnoreHeroForDuration(collision.gameObject.GetComponentInParent<HeroBase>()));
+            {
+                StartCoroutine(IgnoreHeroForDuration(heroBase));
+            }
 
             //Deals damage to the hero
             DealDamage(heroBase, abilityDamage);
@@ -117,18 +108,21 @@ public class GeneralBossDamageArea : GeneralAbilityAreaFramework
     /// Inflicts damage to the hero that it hit
     /// Damage dealt is scaled by difficulty
     /// </summary>
-    /// <param name="heroBase"></param>
-    /// <param name="abilityDamage"></param>
+    /// <param name="heroBase"> The hero we are dealing damage to </param>
+    /// <param name="abilityDamage"> The amount of damage being dealt </param>
     private void DealDamage(HeroBase heroBase, float abilityDamage)
     {
         if (abilityDamage > 0)
-            heroBase.GetHeroStats().DealDamageToHero(abilityDamage * _myBossStats.GetCombinedBossDamageMultiplier());
+        {
+            heroBase.GetHeroStats()
+                .DealDamageToHero(abilityDamage * BossStats.Instance.GetCombinedBossDamageMultiplier());
+        }
     }
 
     /// <summary>
     /// Prevents damage from being dealt to a hero for a duration
     /// </summary>
-    /// <param name="heroBase"></param>
+    /// <param name="heroBase"> The hero to ignore </param>
     /// <returns></returns>
     private IEnumerator IgnoreHeroForDuration(HeroBase heroBase)
     {

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -28,7 +29,7 @@ public class SHP_ReaperBasicProjectile : HeroProjectileFramework
     /// <returns></returns>
     private IEnumerator FollowHero()
     {
-        while(_myHeroBase != null)
+        while(!_myHeroBase.IsUnityNull())
         {
             transform.position = _myHeroBase.transform.position;
             yield return null;
@@ -72,7 +73,7 @@ public class SHP_ReaperBasicProjectile : HeroProjectileFramework
         }
     }
 
-    public void TriggerHitVFX()
+    public void TriggerHitAnimation()
     {
         _hitAnimator.SetTrigger(HIT_ANIM_TRIGGER);
     }
@@ -83,9 +84,9 @@ public class SHP_ReaperBasicProjectile : HeroProjectileFramework
     }
 
     #region Base Ability
-    public override void SetUpProjectile(HeroBase heroBase)
+    public override void SetUpProjectile(HeroBase heroBase, EHeroAbilityType heroAbilityType)
     {
-        base.SetUpProjectile(heroBase);
+        base.SetUpProjectile(heroBase, heroAbilityType);
 
         StartCoroutine(FollowHero());
         StartCoroutine(MoveProjectile());

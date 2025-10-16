@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -12,16 +13,15 @@ public class SBA_EncirclingVines : SpecificBossAbilityFramework
     [SerializeField] private GameObject _encirclingVines;
 
     private GameObject _newestTargetZone;
-
     
     /// <summary>
-    /// Makes the target zone and attack follow the hero it is targetting
+    /// Makes the target zone and attack follow the hero it is targeting
     /// </summary>
-    /// <param name="followingObject"></param>
+    /// <param name="followingObject"> The object to follow </param>
     /// <returns></returns>
     protected IEnumerator FollowHeroTarget(GameObject followingObject)
     {
-        while(followingObject != null && _storedTarget != null)
+        while(!followingObject.IsUnityNull() && !_storedTarget.IsUnityNull())
         {
             //Set the position of the object to be at the location of the current target
             //The Y remains consistent
@@ -32,9 +32,10 @@ public class SBA_EncirclingVines : SpecificBossAbilityFramework
         }
     }
 
-    
-
     #region Base Ability
+    /// <summary>
+    /// Starts displaying the target zone for the ability
+    /// </summary>
     protected override void StartShowTargetZone()
     {
         //Spawns the target area
@@ -42,19 +43,21 @@ public class SBA_EncirclingVines : SpecificBossAbilityFramework
         //Adds the target area to the list of target areas
         _currentTargetZones.Add(_newestTargetZone);
 
-        //Makes the target area follow the hero that is being targetted
+        //Makes the target area follow the hero that is being targeted
         StartCoroutine(FollowHeroTarget(_newestTargetZone));
 
         base.StartShowTargetZone();
     }
 
-
+    /// <summary>
+    /// Starts the ability
+    /// </summary>
     protected override void AbilityStart()
     {
         //Spawns the damaging ability
         GameObject newestVines = Instantiate(_encirclingVines, _newestTargetZone.transform.position, Quaternion.identity);
         
-        //Makes the ability follow the hero that is being targetted
+        //Makes the ability follow the hero that is being targeted
         StartCoroutine(FollowHeroTarget(newestVines));
         base.AbilityStart();
     }

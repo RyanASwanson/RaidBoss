@@ -13,7 +13,6 @@ public class SHP_AlchemistPassiveProjectile : HeroProjectileFramework
 
     [Space]
     [SerializeField] private float _moveTime;
-
     
     /// <summary>
     /// The process of moving the passive projectile from where its created
@@ -22,7 +21,7 @@ public class SHP_AlchemistPassiveProjectile : HeroProjectileFramework
     /// <returns></returns>
     private IEnumerator MoveProcess()
     {
-        Vector3 targetLoc = GameplayManagers.Instance.GetBossManager().GetBossBaseGameObject().transform.position;
+        Vector3 targetLoc = BossBase.Instance.transform.position;
         Vector3 startLoc = transform.position;
 
         float moveTimer = 0;
@@ -36,8 +35,7 @@ public class SHP_AlchemistPassiveProjectile : HeroProjectileFramework
 
         EndOfMovement();
     }
-
-
+    
     /// <summary>
     /// Is called when the projectile reaches the location of the boss
     /// </summary>
@@ -50,9 +48,9 @@ public class SHP_AlchemistPassiveProjectile : HeroProjectileFramework
     }
 
     #region Base Ability
-    public override void SetUpProjectile(HeroBase heroBase)
+    public override void SetUpProjectile(HeroBase heroBase, EHeroAbilityType heroAbilityType)
     {
-        base.SetUpProjectile(heroBase);
+        base.SetUpProjectile(heroBase, heroAbilityType);
 
         StartCoroutine(MoveProcess());
     }

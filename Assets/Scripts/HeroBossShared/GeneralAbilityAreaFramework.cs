@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -35,10 +36,14 @@ public abstract class GeneralAbilityAreaFramework : MonoBehaviour
     protected virtual void StartLifeTimes()
     {
         if (_hasLifetime)
+        {
             StartCoroutine(LifetimeDestruction());
+        }
 
         if (_hasColliderLifetime)
+        {
             StartCoroutine(ColliderLifetime());
+        }
 
     }
 
@@ -60,7 +65,9 @@ public abstract class GeneralAbilityAreaFramework : MonoBehaviour
     public void ToggleProjectileCollider(bool colliderEnabled)
     {
         foreach (Collider col in _areaColliders)
+        {
             col.enabled = colliderEnabled;
+        }
     }
 
     protected virtual IEnumerator DisableColliderForDuration(float duration)
@@ -77,7 +84,10 @@ public abstract class GeneralAbilityAreaFramework : MonoBehaviour
 
     public void CreateDestructionVFX()
     {
-        if (_hitCenteredVFX == null) return;
+        if (_hitCenteredVFX.IsUnityNull())
+        {
+            return;
+        }
 
         Instantiate(_hitCenteredVFX, transform.position, Quaternion.identity);
     }

@@ -94,7 +94,6 @@ public class SBUI_TerraLordUI : SpecificBossUIFramework
             _passiveBars[barPos].ResetTrigger(PASSIVE_BAR_SHOW_ANIM_TRIGGER);
             _passiveBars[barPos].SetTrigger(PASSIVE_BAR_HIDE_ANIM_TRIGGER);
         }
-            
     }
 
     /// <summary>
@@ -131,13 +130,15 @@ public class SBUI_TerraLordUI : SpecificBossUIFramework
             _rightWarningIcon.SetInteger(WARNING_ICON_ANIM_INT, 0);
             _leftWarningIcon.SetInteger(WARNING_ICON_ANIM_INT, 0);
         }
-            
     }
 
-
-
     #region Base Boss UI
-    public override void SetupBossSpecificUIFunctionality(BossBase bossBase, SpecificBossFramework specificBoss)
+    /// <summary>
+    /// Performs set up for boss ui
+    /// </summary>
+    /// <param name="bossBase"></param>
+    /// <param name="specificBoss"></param>
+    public override void SetUpBossSpecificUIFunctionality(BossBase bossBase, SpecificBossFramework specificBoss)
     {
         _terraLordFunctionality = (SB_TerraLord)specificBoss;
 
@@ -145,10 +146,12 @@ public class SBUI_TerraLordUI : SpecificBossUIFramework
         _startingPassiveBarValue = (_passiveBars.Count - 1) / 2;
         _previousPassiveBarValue = _startingPassiveBarValue;
 
-        base.SetupBossSpecificUIFunctionality(bossBase, specificBoss);
+        base.SetUpBossSpecificUIFunctionality(bossBase, specificBoss);
     }
 
-
+    /// <summary>
+    /// Subscribes to any events
+    /// </summary>
     protected override void SubscribeToEvents()
     {
         _terraLordFunctionality.GetPassivePercentUpdatedEvent().AddListener(UpdatePassiveBars);

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -16,17 +17,15 @@ public class SBP_Entomb : BossProjectileFramework
     [SerializeField] private List<GeneralBossDamageArea> _closingWalls;
 
     [Space]
-
     [SerializeField] private GameObject _closedParticleVFX;
 
     [Space]
     [SerializeField] private NavMeshObstacle _navMeshObstacle;
+    [SerializeField] private Collider _environmentCollider;
 
     [SerializeField] private Animator _animator;
 
     private const string REMOVE_PROJECTILE_ANIM_TRIGGER = "RemoveEntomb";
-
-    
 
     private IEnumerator AbilityProcess()
     {
@@ -35,56 +34,99 @@ public class SBP_Entomb : BossProjectileFramework
         EntombComplete();
     }
 
+    /// <summary>
+    /// Called when entomb is complete to determine what to do next
+    /// </summary>
     private void EntombComplete()
     {
         DisableHitboxes();
 
         if (CanCreateObstacle())
         {
+            PlayEntombClosedSound();
             CreateNavMeshObstacle();
             Instantiate(_closedParticleVFX, new Vector3(transform.position.x,0,transform.position.z), transform.rotation);
         }
-            
         else
+        {
             DestroyRemainingWall();
-
+        }
     }
     
+    /// <summary>
+    /// Disables the hit boxes of the closing walls
+    /// </summary>
     private void DisableHitboxes()
     {
         foreach (GeneralBossDamageArea damageArea in _closingWalls)
         {
-            if(damageArea != null)
+            if (!damageArea.IsUnityNull())
+            {
                 damageArea.enabled = false;
+            }
         }
     }
 
+    /// <summary>
+    /// Determines if an obstacle can be created based on if both walls are still active
+    /// </summary>
+    /// <returns></returns>
     private bool CanCreateObstacle()
     {
         foreach(GeneralBossDamageArea damageArea in _closingWalls)
         {
-            if (damageArea == null)
+            if (damageArea.IsUnityNull())
+            {
                 return false;
+            }
         }
         return true;
     }
 
+    /// <summary>
+    /// Destroys any walls that are still remaining
+    /// </summary>
     private void DestroyRemainingWall()
     {
         foreach (GeneralBossDamageArea damageArea in _closingWalls)
         {
-            if (damageArea != null)
+            if (!damageArea.IsUnityNull())
+            {
+                PlayEntombDestroyHalfSound();
                 damageArea.DestroyProjectile();
+            }
         }
     }
 
+    /// <summary>
+    /// Creates the obstacle in the environment that heroes must navigate around
+    /// </summary>
     private void CreateNavMeshObstacle()
     {
         _navMeshObstacle.enabled = true;
+        _environmentCollider.enabled = true;
 
         StartCoroutine(RemovalProcess());
     }
 
+    private void PlayEntombClosedSound()
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
+                BossAbilityAudio[_abilityID].GeneralAbilityAudio[SBA_Entomb.ENTOMB_CLOSED_IMPACT_AUDIO_ID]);
+    }
+
+    private void PlayEntombDestroyHalfSound()
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
+                BossAbilityAudio[_abilityID].GeneralAbilityAudio[SBA_Entomb.ENTOMB_DESTROY_HALF_AUDIO_ID]);
+    }
+
+    /// <summary>
+    /// The process of removing the entomb obstacle
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator RemovalProcess()
     {
         yield return new WaitForSeconds(_entombPersistantTime);
@@ -93,10 +135,10 @@ public class SBP_Entomb : BossProjectileFramework
     }
 
     #region Base Ability
-    public override void SetUpProjectile(BossBase bossBase)
+    public override void SetUpProjectile(BossBase bossBase, int newAbilityID)
     {
+        base.SetUpProjectile(bossBase, newAbilityID);
         StartCoroutine(AbilityProcess());
-        base.SetUpProjectile(bossBase);
     }
     #endregion
 }

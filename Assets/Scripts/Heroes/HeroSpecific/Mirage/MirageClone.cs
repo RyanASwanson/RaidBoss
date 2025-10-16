@@ -1,13 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
+/// <summary>
+/// The functionality for the Mirage clone.
+/// Treated as if it was a hero
+/// </summary>
 public class MirageClone : SpecificHeroFramework
 {
     private Coroutine _basicAttackCooldownProcess;
 
     private SH_Mirage _mirageOwner;
-    private BossBase _bossBase;
 
     #region Basic
     /*/// <summary>
@@ -55,7 +59,7 @@ public class MirageClone : SpecificHeroFramework
 
     private void CloneCounterAttack(float damage)
     {
-        if(_basicAbilityCooldownCoroutine == null)
+        if(_basicAbilityCooldownCoroutine.IsUnityNull())
         {
             ActivateBasicAbilities();
             _basicAbilityCooldownCoroutine = StartCoroutine(ReHitCooldown());
@@ -76,25 +80,22 @@ public class MirageClone : SpecificHeroFramework
     /// </summary>
     private void AssignSelfAsBossTarget()
     {
-        GameplayManagers.Instance.GetBossManager().GetBossBase().GetSpecificBossScript().AddHeroTarget(_myHeroBase);
+        BossBase.Instance.GetSpecificBossScript().AddHeroTarget(_myHeroBase);
     }
 
     #region Base Hero
-    public override void SetupSpecificHero(HeroBase heroBase, HeroSO heroSO)
-    {
-        _bossBase = GameplayManagers.Instance.GetBossManager().GetBossBase();
-        base.SetupSpecificHero(heroBase, heroSO);
-    }
-
-    public void AdditionalSetup(SH_Mirage mirage)
+    /// <summary>
+    /// Performs set up unique to the mirage
+    /// </summary>
+    /// <param name="mirage"> The hero associated with the clone </param>
+    public void AdditionalSetUp(SH_Mirage mirage)
     {
         _mirageOwner = mirage;
 
         _myHeroBase.SetClickColliderStatus(false);
-        HeroStats heroStats = _myHeroBase.GetHeroStats();
-
-        heroStats.AddDamageTakenOverrideCounter();
-        heroStats.AddHealingTakenOverrideCounter();
+        
+        _myHeroBase.GetHeroStats().AddDamageTakenOverrideCounter();
+        _myHeroBase.GetHeroStats().AddHealingTakenOverrideCounter();
     }
 
     public override void ActivateHeroSpecificActivity()
@@ -109,7 +110,7 @@ public class MirageClone : SpecificHeroFramework
         //Stops the clone from using the basic ability after it stops moving
         //_myHeroBase.GetHeroStoppedMovingEvent().AddListener(EndBasicCastProcess);
 
-        _bossBase.GetBossTargetsAssignedEvent().AddListener(AssignSelfAsBossTarget);
+        BossBase.Instance.GetBossTargetsAssignedEvent().AddListener(AssignSelfAsBossTarget);
 
         _myHeroBase.GetHeroDamagedOverrideEvent().AddListener(CloneCounterAttack);
         base.SubscribeToEvents();

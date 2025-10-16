@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -45,11 +46,11 @@ public class HeroStats : HeroChildrenFunctionality
     /// Assigns the values of the stats after the heroSO is assigned
     /// </summary>
     /// <param name="heroSO"></param>
-    private void StatsSetup(HeroSO heroSO)
+    private void StatsSetUp(HeroSO heroSO)
     {
         SetUpDefaultStats(heroSO);
 
-        SetUpCurrentStats(heroSO);
+        SetUpCurrentStats();
 
         //Sets up the movement speed
         _myHeroBase.GetPathfinding().GetNavMeshAgent().speed = _currentMoveSpeed ;
@@ -76,8 +77,7 @@ public class HeroStats : HeroChildrenFunctionality
     /// <summary>
     /// Performs set up for the current stat values
     /// </summary>
-    /// <param name="heroSO"></param>
-    private void SetUpCurrentStats(HeroSO heroSO)
+    private void SetUpCurrentStats()
     {
         //Sets the starting current stat values
         _currentHealth = _heroMaxHealth;
@@ -106,6 +106,10 @@ public class HeroStats : HeroChildrenFunctionality
         
         _currentHealth -= damage / _currentDamageResistance;
         _myHeroBase.InvokeHeroDamagedEvent(damage / _currentDamageResistance);
+        
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.GeneralHeroAudio.HealthAudio.HeroTookDamage);
+        
         CheckIfHeroIsDead();
     }
 
@@ -143,8 +147,9 @@ public class HeroStats : HeroChildrenFunctionality
         healthDifference = _currentHealth - healthDifference;
         _myHeroBase.InvokeHeroHealedEvent(healthDifference);
         
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.GeneralHeroAudio.HealthAudio.HeroTookHealing);
     }
-
 
     /// <summary>
     /// Checks if the hero has died after taking damage
@@ -168,13 +173,20 @@ public class HeroStats : HeroChildrenFunctionality
     /// </summary>
     public void KillHero()
     {
-        //Prevents hero from taking damage as they die
+        // Prevents hero from taking damage as they die
         AddDamageTakenOverrideCounter();
 
-        //Tells the hero base to invoke the death event
+        // Tells the hero base to invoke the death event
         _myHeroBase.InvokeHeroDiedEvent();
-        //Tells the heroes manager that this hero died
-        GameplayManagers.Instance.GetHeroesManager().HeroDied(_myHeroBase);
+        
+        // Removes the hero from being controlled
+        PlayerInputGameplayManager.Instance.RemoveControlledHero(_myHeroBase);
+        
+        // Tells the heroes manager that this hero died
+        HeroesManager.Instance.HeroDied(_myHeroBase);
+        
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.GeneralHeroAudio.HealthAudio.HeroDied);
     }
 
     public void ForceKillHero()
@@ -400,7 +412,7 @@ public class HeroStats : HeroChildrenFunctionality
 
         // If the stat has an icon associated with it and creating icons is allowed
         // Tell the associated HeroUI manager to create a buff/debuff icon
-        if (buffDebuffIconSprite != null && createBuffIcons)
+        if (!buffDebuffIconSprite.IsUnityNull() && createBuffIcons)
         {
             _myHeroBase.GetHeroUIManager().CreateBuffDebuffIcon(buffDebuffIconSprite, changeValue > 0);
         }
@@ -471,11 +483,6 @@ public class HeroStats : HeroChildrenFunctionality
     #endregion
     
     #region Base Hero
-    public override void ChildFuncSetup(HeroBase heroBase)
-    {
-        base.ChildFuncSetup(heroBase);
-    }
-
     public override void SubscribeToEvents()
     {
         base.SubscribeToEvents();
@@ -485,7 +492,7 @@ public class HeroStats : HeroChildrenFunctionality
 
     protected override void HeroSOAssigned(HeroSO heroSO)
     {
-        StatsSetup(heroSO);
+        StatsSetUp(heroSO);
         base.HeroSOAssigned(heroSO);
     }
 
@@ -502,7 +509,7 @@ public class HeroStats : HeroChildrenFunctionality
     public float GetCurrentHealth() => _currentHealth;
     public float GetPreviousHealth() => _previousHealthValue;
     public bool IsHeroMaxHealth() => _currentHealth >= _heroMaxHealth;
-    public bool IsHeroDead() => _currentHealth <= 0;
+    public bool IsHeroDead() => _currentHealth <= 0 && !ShouldOverrideDeath();
     public bool CanHeroBeHealed() => !IsHeroMaxHealth() && !ShouldOverrideHealing();
     public float GetHeroHealthPercentage() => _currentHealth / _heroMaxHealth;
     public float GetCurrentSpeed() => _currentMoveSpeed;

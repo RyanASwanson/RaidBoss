@@ -10,10 +10,22 @@ using TMPro;
 /// </summary>
 public abstract class GameUIChildrenFunctionality : MonoBehaviour
 {
-    public virtual void ChildFuncSetup()
+    public virtual void ChildFuncSetUp()
     {
         SubscribeToEvents();
     }
+
+    /// <summary>
+    /// Establishes the Instance for any script inheriting from this script
+    /// </summary>
+    public virtual void SetUpInstance()
+    {
+        
+    }
+    
+    /// <summary>
+    /// Subscribes to any events
+    /// </summary>
     protected abstract void SubscribeToEvents();
 
 }

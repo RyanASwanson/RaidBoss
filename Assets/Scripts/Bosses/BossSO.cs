@@ -7,10 +7,12 @@ using UnityEngine.UI;
 /// Stores the general information for all bosses as scriptable objects
 /// </summary>
 [CreateAssetMenu(fileName = "BossScriptableObject", menuName = "BossScriptableObject", order = 3)]
-public class BossSO : ScriptableObject
+public class BossSO : CharacterSO
 {
     [Header("General")]
     [SerializeField] private string _name;
+    [SerializeField] private int _bossID;
+    [SerializeField] private int _bossMusicID;
 
     [Header("Stats")]
     [SerializeField] private float _maxHP;
@@ -24,6 +26,8 @@ public class BossSO : ScriptableObject
 
     [Range(0,.5f)] [SerializeField] private float _damageResistanceChangeOnStagger;
 
+    [SerializeField] private float _fightStartDelay;
+    
     [SerializeField] private float _enrageTime;
     [SerializeField] private float _enrageDamageMultiplier;
 
@@ -43,6 +47,8 @@ public class BossSO : ScriptableObject
 
     #region Getters
     public string GetBossName() => _name;
+    public int GetBossID() => _bossID;
+    public int GetBossMusicID() => _bossMusicID;
     public float GetMaxHP() => _maxHP;
     public float GetBaseStaggerMax() => _baseStaggerMax;
 
@@ -52,6 +58,8 @@ public class BossSO : ScriptableObject
     public float GetBossDamageIncrementMultiplier() => _damageIncrementMultiplier;
     public float GetDamageResistanceChangeOnStagger() => _damageResistanceChangeOnStagger;
 
+    public float GetFightStartDelay() => _fightStartDelay;
+    
     public float GetEnrageTime() => _enrageTime;
     public float GetEnrageDamageMultiplier() => _enrageDamageMultiplier;
 

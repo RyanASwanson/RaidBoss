@@ -6,10 +6,11 @@ using UnityEngine;
 /// Stores the general information for all heroes as scriptable objects
 /// </summary>
 [CreateAssetMenu(fileName = "HeroScriptableObject", menuName = "HeroScriptableObject", order = 1)]
-public class HeroSO : ScriptableObject
+public class HeroSO : CharacterSO
 {
     [Header("General")]
     [SerializeField] private string _name;
+    [SerializeField] private int _heroID;
     [SerializeField] private bool _hasUIManager;
 
     [Header("Stats")]
@@ -37,8 +38,8 @@ public class HeroSO : ScriptableObject
     [Range(0,5)][SerializeField] private int _utilityStat;
 
     [Space]
-    [SerializeField] private HeroRange _heroRange;
-    [SerializeField] private HeroDifficulty _heroDifficulty;
+    [SerializeField] private EHeroRange _heroRange;
+    [SerializeField] private EHeroDifficulty _heroDifficulty;
 
     [Space]
     [SerializeField] private Color _heroHighlightedColor;
@@ -57,6 +58,7 @@ public class HeroSO : ScriptableObject
 
     #region Getters
     public string GetHeroName() => _name;
+    public int GetHeroID() => _heroID;
     public bool GetHasUIManager() => _hasUIManager;
 
     public float GetMaxHP() => _maxHP;
@@ -79,8 +81,8 @@ public class HeroSO : ScriptableObject
     public int GetSpeedStat() => _speedStat;
     public int GetUtilityStat() => _utilityStat;
 
-    public HeroRange GetHeroRange() => _heroRange;
-    public HeroDifficulty GetHeroDifficulty() => _heroDifficulty;
+    public EHeroRange GetHeroRange() => _heroRange;
+    public EHeroDifficulty GetHeroDifficulty() => _heroDifficulty;
 
     public Color GetHeroHighlightedColor() => _heroHighlightedColor;
     public Color GetHeroPressedColor() => _heroPressedColor;
@@ -96,21 +98,21 @@ public class HeroSO : ScriptableObject
     #endregion
 }
 
-public enum HeroAbilityType
+public enum EHeroAbilityType
 {
     Basic,
     Manual,
     Passive
 };
 
-public enum HeroRange
+public enum EHeroRange
 {
     Close,
     Medium,
     Far
 };
 
-public enum HeroDifficulty
+public enum EHeroDifficulty
 {
     Easy,
     Medium,

@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using FMOD.Studio;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -9,9 +11,14 @@ public class SH_Mirage : SpecificHeroFramework
 {
     [Space]
     [SerializeField] private GameObject _basicProjectile;
+
     [SerializeField] private GameObject _basicTargetZone;
     private GameObject _currentBasicTargetZone;
     private const float _targetZoneYOffset = -.5f;
+    
+    [SerializeField] private float _cloneBasicAudioPitchOffset;
+    
+    private const int CLONE_BASIC_AUDIO_ID = 0;
 
     [Space]
     [SerializeField] private float _cloneSpawnDelay;
@@ -44,7 +51,7 @@ public class SH_Mirage : SpecificHeroFramework
     /// <returns></returns>
     private IEnumerator MoveBasicTargetZone()
     {
-        while(this != null && _currentBasicTargetZone != null)
+        while(!this.IsUnityNull() && !_currentBasicTargetZone.IsUnityNull())
         {
             _currentBasicTargetZone.transform.position = FindHeroCloneMidpoint();
 
@@ -83,13 +90,19 @@ public class SH_Mirage : SpecificHeroFramework
         GameObject _newestProjectile = Instantiate(_basicProjectile, 
             _currentBasicTargetZone.transform.position, _currentBasicTargetZone.transform.rotation);
 
-        //Performs the setup for the damage area so that it knows it's owner
+        //Performs the set up for the damage area so that it knows it's owner
         _newestProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(_myHeroBase);
+    }
+
+    private void PlayMirageBasicAbilityAudio()
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificHeroAudio[_myHeroBase.GetHeroSO().GetHeroID()]
+                .MiscellaneousHeroAudio[CLONE_BASIC_AUDIO_ID]);
     }
     #endregion
 
     #region Manual Abilities
-
     /// <summary>
     /// Spawns the clone and sets them up with the needed functionality
     /// Called at the start of the battle
@@ -98,18 +111,17 @@ public class SH_Mirage : SpecificHeroFramework
     {
         Vector3 spawnLocation = _myHeroBase.transform.position + (_myHeroBase.transform.forward * _cloneSpawnOffset);
 
-        _cloneBase = GameplayManagers.Instance.GetHeroesManager().CreateHeroBase(spawnLocation,
+        _cloneBase = HeroesManager.Instance.CreateHeroBase(spawnLocation,
             _myHeroBase.transform.rotation, _cloneSO);
 
         _cloneFunc = ((MirageClone)_cloneBase.GetSpecificHeroScript());
-        _cloneFunc.AdditionalSetup(this);
+        _cloneFunc.AdditionalSetUp(this);
     }
 
-    public override void ActivateManualAbilities(Vector3 attackLocation)
+    public override void ActivateManualAbilities()
     {
-        base.ActivateManualAbilities(attackLocation);
-        //CloneSwap();
-        //MoveClone(attackLocation);
+        base.ActivateManualAbilities();
+        //This doesn't do any override as the animation has a trigger on it which calls CloneSwap
     }
 
     public void CloneSwap()
@@ -146,13 +158,13 @@ public class SH_Mirage : SpecificHeroFramework
 
 
     /// <summary>
-    /// The version of the basic ability casted by the clone
+    /// The version of the basic ability cast by the clone
     /// </summary>
     public void CloneBasicAbility()
     {
+        PlayMirageBasicAbilityAudio();
         CreateBasicAbilityProjectile();
     }
-
 
     /// <summary>
     /// Kills the clone when the Mirage dies
@@ -164,17 +176,18 @@ public class SH_Mirage : SpecificHeroFramework
     #endregion
 
     #region Passive Abilities
-    
     //Passive is handled by the clone
     #endregion
 
-    
-
-
     #region Base Hero
-    public override void SetupSpecificHero(HeroBase heroBase, HeroSO heroSO)
+    /// <summary>
+    /// Performs the set up for the Mirage
+    /// </summary>
+    /// <param name="heroBase"> The hero base associated with the Mirage </param>
+    /// <param name="heroSO"> The scriptable object of the Mirage </param>
+    public override void SetUpSpecificHero(HeroBase heroBase, HeroSO heroSO)
     {
-        base.SetupSpecificHero(heroBase, heroSO);
+        base.SetUpSpecificHero(heroBase, heroSO);
 
         //Spawn the clone at a delay
         Invoke(nameof(CreateClone), _cloneSpawnDelay);
@@ -189,6 +202,9 @@ public class SH_Mirage : SpecificHeroFramework
         base.BattleStarted();
     }
 
+    /// <summary>
+    /// Subscribes to any needed events
+    /// </summary>
     protected override void SubscribeToEvents()
     {
         base.SubscribeToEvents();

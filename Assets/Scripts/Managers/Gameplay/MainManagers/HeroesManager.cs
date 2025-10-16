@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// Provides the functionality for general management of heroes
@@ -8,6 +9,8 @@ using UnityEngine;
 /// </summary>
 public class HeroesManager : MainGameplayManagerFramework
 {
+    public static HeroesManager Instance;
+    
     [Tooltip("The base prefab that is used that all heroes are based off of")]
     [SerializeField] private GameObject _baseHeroPrefab;
     [Space]
@@ -17,6 +20,8 @@ public class HeroesManager : MainGameplayManagerFramework
 
     private List<HeroBase> _currentHeroes = new List<HeroBase>();
     private List<HeroBase> _currentLivingHeroes = new List<HeroBase>();
+    
+    private UnityEvent<HeroBase> _onHeroDiedEvent = new UnityEvent<HeroBase>();
 
     /// <summary>
     /// Spawns all selected heroes from the selection manager
@@ -25,7 +30,7 @@ public class HeroesManager : MainGameplayManagerFramework
     private IEnumerator SpawnHeroesAtSpawnPoints()
     {
         List<HeroSO> heroSOs = SelectionManager.Instance.GetAllSelectedHeroes();
-        List<GameObject> spawnLocations = GameplayManagers.Instance.GetEnvironmentManager().GetSpawnLocations();
+        List<GameObject> spawnLocations = EnvironmentManager.Instance.GetHeroSpawnLocations();
 
         for (int i = 0; i < heroSOs.Count; i++)
         {
@@ -80,8 +85,10 @@ public class HeroesManager : MainGameplayManagerFramework
         //Checks if the game should be declared a loss
         CheckIfAllHeroesDead();
 
-        GameplayManagers.Instance.GetBossManager().GetBossBase().GetSpecificBossScript().HeroDied(deadHero);
+        BossBase.Instance.GetSpecificBossScript().HeroDied(deadHero);
         TimeManager.Instance.HeroDiedTimeSlow();
+        
+        InvokeOnHeroDiedEvent(deadHero);
     }
 
     /// <summary>
@@ -91,14 +98,16 @@ public class HeroesManager : MainGameplayManagerFramework
     private void CheckIfAllHeroesDead()
     {
         if (_currentLivingHeroes.Count == 0)
-            GameplayManagers.Instance.GetGameStateManager().SetGameplayState(EGameplayStates.PostBattleLost);
+        {
+            GameStateManager.Instance.SetGameplayState(EGameplayStates.PostBattleLost);
+        }
     }
 
     /// <summary>
     /// Kills all heroes that are currently alive.
     /// Ignores all heroes death overrides.
     /// </summary>
-    public void KillAllHeroes()
+    public void ForceKillAllHeroes()
     {
         while (_currentLivingHeroes.Count > 0)
         {
@@ -107,16 +116,38 @@ public class HeroesManager : MainGameplayManagerFramework
     }
 
     #region BaseManager
+    /// <summary>
+    /// Establishes the Instance for the HeroesManager
+    /// </summary>
+    public override void SetUpInstance()
+    {
+        base.SetUpInstance();
+        Instance = this;
+    }
+
     public override void SetUpMainManager()
     {
         base.SetUpMainManager();
         StartCoroutine(SpawnHeroesAtSpawnPoints());
     }
     #endregion
+    
+    #region Events
+
+    public void InvokeOnHeroDiedEvent(HeroBase heroBase)
+    {
+        _onHeroDiedEvent?.Invoke(heroBase);
+    }
+    #endregion Events
 
     #region Getters
     public GameObject GetBaseHeroPrefab() => _baseHeroPrefab;
     public List<HeroBase> GetCurrentHeroes() => _currentHeroes;
     public List<HeroBase> GetCurrentLivingHeroes() => _currentLivingHeroes;
+    public int GetAmountOfLivingHeroes() => _currentLivingHeroes.Count;
+    public int GetAmountOfDeadHeroes() => _currentHeroes.Count - _currentLivingHeroes.Count;
+
+    public UnityEvent<HeroBase> GetOnHeroDiedEvent() => _onHeroDiedEvent;
+
     #endregion
 }

@@ -1,9 +1,16 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
+/// <summary>
+/// Controls the functionality of the visuals of the boss
+/// </summary>
 public class BossVisuals : BossChildrenFunctionality
 {
+    public static BossVisuals Instance;
+    
     private float _rotateSpeed;
+    private Coroutine _bossLookAtCoroutine;
 
     private GameObject _visualObjectBase;
 
@@ -17,17 +24,34 @@ public class BossVisuals : BossChildrenFunctionality
     private Animator _bossSpecificAnimator;
 
     private const string SPECIFIC_BOSS_LEVEL_INTRO_ANIM_TRIGGER = "G_BossIntro";
+    private const string SPECIFIC_BOSS_IDLE_ANIM_TRIGGER = "G_BossIdle";
     private const string BOSS_STAGGER_ANIM_TRIGGER = "G_BossStagger";
     private const string BOSS_DEATH_ANIM_TRIGGER = "G_BossDeath";
 
-
+    #region Directional Look
     /// <summary>
     /// Causes the boss to start looking at a desired target location
     /// </summary>
     /// <param name="lookLocation"></param>
     public void BossLookAt(Vector3 lookLocation)
     {
-        StartCoroutine(LookAtProcess(lookLocation));
+        _bossLookAtCoroutine = StartCoroutine(LookAtProcess(lookLocation));
+    }
+
+    public void BossLookAt(GameObject lookTarget, float duration)
+    {
+        _bossLookAtCoroutine = StartCoroutine(LookAtProcess(lookTarget, duration));
+    }
+
+    /// <summary>
+    /// Stop the process of the boss looking at a target
+    /// </summary>
+    public void StopBossLookAt()
+    {
+        if (!_bossLookAtCoroutine.IsUnityNull())
+        {
+            StopCoroutine(_bossLookAtCoroutine);
+        }
     }
     
     /// <summary>
@@ -63,6 +87,40 @@ public class BossVisuals : BossChildrenFunctionality
         }
         
     }
+
+    private IEnumerator LookAtProcess(GameObject lookTarget, float duration)
+    {
+        float progress = 0;
+        Quaternion startingRotation = _visualObjectBase.transform.rotation;
+        Vector3 lookTargetLocation = lookTarget.transform.position;
+        
+        while (progress < duration)
+        {
+            if (!lookTarget.IsUnityNull())
+            {
+                // Store the last valid location of the target
+                lookTargetLocation = lookTarget.transform.position;
+            }
+            
+            //Converts the position of the look location and boss location into a direction
+            Vector3 lookDir = lookTargetLocation - _visualObjectBase.transform.position;
+
+            //Converts the direction into a quaternion
+            Quaternion toRotation = Quaternion.LookRotation(lookDir);
+            
+            _visualObjectBase.transform.rotation = Quaternion.Lerp
+                (startingRotation, toRotation, progress);
+            
+            _visualObjectBase.transform.eulerAngles = new Vector3(0, _visualObjectBase.transform.eulerAngles.y, 0);
+            
+            //transform.LookAt(target.transform.position);
+            progress += Time.deltaTime;
+            yield return null;
+        }
+        
+    }
+    #endregion
+    
 
     private void BossTookDamage(float damageTaken)
     {
@@ -104,6 +162,11 @@ public class BossVisuals : BossChildrenFunctionality
         StartBossSpecificAnimationTrigger(SPECIFIC_BOSS_LEVEL_INTRO_ANIM_TRIGGER);
     }
 
+    private void BossSpecificIdleAnimation()
+    {
+        StartBossSpecificAnimationTrigger(SPECIFIC_BOSS_IDLE_ANIM_TRIGGER);
+    }
+
     private void BossSpecificStaggerAnimTrigger()
     {
         StartBossSpecificAnimationTrigger(BOSS_STAGGER_ANIM_TRIGGER);
@@ -124,9 +187,9 @@ public class BossVisuals : BossChildrenFunctionality
 
     }
 
-    public override void ChildFuncSetup(BossBase bossBase)
+    public override void ChildFuncSetUp(BossBase bossBase)
     {
-        base.ChildFuncSetup(bossBase);
+        base.ChildFuncSetUp(bossBase);
 
         SetVisualObjectBase(bossBase.GetSpecificBossScript().GetBossVisualBase());
         _visualObjectBase.transform.eulerAngles = new Vector3(0, 180, 0);
@@ -141,8 +204,21 @@ public class BossVisuals : BossChildrenFunctionality
         _bossSpecificAnimator = _myBossBase.GetSpecificBossScript().GetBossSpecificAnimator();
 
         BossSpecificLevelIntroTrigger();
+        
+        BossSpecificIdleAnimation();
     }
 
+    #region Base Children Functionality
+
+    /// <summary>
+    /// Establishes the instance for the Boss Visuals
+    /// </summary>
+    protected override void SetUpInstance()
+    {
+        base.SetUpInstance();
+        Instance = this;
+    }
+    
     public override void SubscribeToEvents()
     {
         _myBossBase.GetSOSetEvent().AddListener(SetFromSO);
@@ -151,8 +227,11 @@ public class BossVisuals : BossChildrenFunctionality
 
         _myBossBase.GetBossStaggeredEvent().AddListener(BossFullyStaggered);
 
-        GameplayManagers.Instance.GetGameStateManager().GetBattleWonEvent().AddListener(BattleWon);
+        GameStateManager.Instance.GetBattleWonEvent().AddListener(BattleWon);
+        
+        GameStateManager.Instance.GetBattleLostEvent().AddListener(BattleWon);
     }
+    #endregion
 
     #region Getters
 

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -7,16 +8,16 @@ using UnityEngine;
 /// </summary>
 public class GameplayManagers : CoreManagersFramework
 {
+    [SerializeField] private BossManager _bossManager;
     [SerializeField] private PlayerInputGameplayManager _playerInputManager;
     [SerializeField] private GameStateManager _gameStateManager;
     [SerializeField] private CameraGameManager _cameraManager;
     [SerializeField] private HeroesManager _heroesManager;
     [SerializeField] private EnvironmentManager _environmentManager;
     [SerializeField] private GameUIManager _gameUIManager;
-    [SerializeField] private BossManager _bossManager;
 
     /// <summary>
-    /// Contains all managers to setup. Order of managers is order of setup.
+    /// Contains all managers to set up. Order of managers is order of setup.
     /// </summary>
     private MainGameplayManagerFramework[] _allMainGameplayManagers;
 
@@ -29,7 +30,7 @@ public class GameplayManagers : CoreManagersFramework
     protected override bool EstablishInstance()
     {
         //If no other version exists
-        if (Instance == null)
+        if (Instance.IsUnityNull())
         {
             //This is the new singleton
             Instance = this;
@@ -47,7 +48,7 @@ public class GameplayManagers : CoreManagersFramework
     }
 
     /// <summary>
-    /// Tells all main gameplay managers to setup in the order of the main managers list
+    /// Tells all main gameplay managers to set up in the order of the main managers list
     /// </summary>
     protected override void SetupMainManagers()
     {
@@ -66,17 +67,6 @@ public class GameplayManagers : CoreManagersFramework
         }
 
         //Informs the scene manager that a gameplay scene was loaded
-        //SceneLoadManager.Instance.InvokeOnGameplaySceneLoaded();
+        SceneLoadManager.Instance.GameplaySceneLoaded();
     }
-
-    #region Getters - Managers
-    public PlayerInputGameplayManager GetPlayerInputManager() => _playerInputManager;
-    public GameStateManager GetGameStateManager() => _gameStateManager;
-    public CameraGameManager GetCameraManager() => _cameraManager;
-    public HeroesManager GetHeroesManager() => _heroesManager;
-    public EnvironmentManager GetEnvironmentManager() => _environmentManager;
-    public GameUIManager GetGameUIManager() => _gameUIManager;
-    public BossManager GetBossManager() => _bossManager;
-        
-    #endregion
 }

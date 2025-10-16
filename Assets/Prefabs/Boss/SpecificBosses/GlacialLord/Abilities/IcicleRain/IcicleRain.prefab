@@ -123,8 +123,13 @@ MonoBehaviour:
   - {fileID: 0}
   _hasLifetime: 0
   _lifetime: 0
+  _hasColliderLifetime: 0
+  _colliderLifetime: 0
   _hitCenteredVFX: {fileID: 0}
-  _lifeTimeEndEvent:
+  _lifetimeEndEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _colliderLifetimeEndEvent:
     m_PersistentCalls:
       m_Calls: []
   _preventReHitDuration: 0
@@ -167,6 +172,8 @@ MonoBehaviour:
   - {fileID: 2619148962277358713}
   - {fileID: 5558944968568990421}
   - {fileID: 7573982816943443829}
+  _impactAudioDelay: 0.75
+  _impactAudioPitchIncrease: 0.25
 --- !u!1 &6168952706919474307
 GameObject:
   m_ObjectHideFlags: 0

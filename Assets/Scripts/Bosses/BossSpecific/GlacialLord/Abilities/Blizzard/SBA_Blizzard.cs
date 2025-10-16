@@ -10,7 +10,7 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
 
     [SerializeField] private List<BlizzardTargets> _allTargets;
 
-    private int _setupTargetsCounter = 0;
+    private int _setUpTargetsCounter = 0;
     private bool _verticalTarget;
 
     private List<BlizzardTargets> _currentTargets = new();
@@ -40,9 +40,9 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
     }
 
     #region Base Ability
-    public override void AbilitySetup(BossBase bossBase)
+    public override void AbilitySetUp(BossBase bossBase)
     {
-        base.AbilitySetup(bossBase);
+        base.AbilitySetUp(bossBase);
         _glacialLord = (SB_GlacialLord)_mySpecificBoss;
 
         _glacialLord.GetFrostFiendSpawnedEvent().AddListener(FrostFiendSpawned);
@@ -50,7 +50,7 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
 
     private void FrostFiendSpawned(GlacialLord_FrostFiend newFiend)
     {
-        int currentTarget = _setupTargetsCounter;
+        int currentTarget = _setUpTargetsCounter;
 
         _allTargets[currentTarget].AddFrostFiendToList(newFiend);
 
@@ -59,7 +59,7 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
 
         _allTargets[currentTarget].AddFrostFiendToList(newFiend);
 
-        _setupTargetsCounter++;
+        _setUpTargetsCounter++;
     }
 
     protected override void StartShowTargetZone()

@@ -24,6 +24,7 @@ public class SBP_Frostbite : BossProjectileFramework
         for (int i = 0; i <= _projectiles.Count - 1; i++)
         {
             SpawnProjectile(_projectiles[i]);
+            PlayProjectileSFX();
             yield return new WaitForSeconds(_projectileInterval);
         }
     }
@@ -47,15 +48,23 @@ public class SBP_Frostbite : BossProjectileFramework
         Instantiate(_projectileStartVFX, spike.transform.position, Quaternion.identity);
     }
 
+    private void PlayProjectileSFX()
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
+                BossAbilityAudio[_abilityID].GeneralAbilityAudio[SBA_Frostbite.FROSTBITE_IMPACT_AUDIO_ID]);
+    }
+
     #region Base Ability
     /// <summary>
     /// Called when projectile is created
     /// Provides the projectile with any additional information it may need
     /// </summary>
     /// <param name="heroBase"></param>
-    public override void SetUpProjectile(BossBase bossBase)
+    /// <param name= "newAbilityID"></param>
+    public override void SetUpProjectile(BossBase bossBase, int newAbilityID)
     {
-        base.SetUpProjectile(bossBase);
+        base.SetUpProjectile(bossBase, newAbilityID);
         StartSpikeSpawningProcess();
     }
     #endregion

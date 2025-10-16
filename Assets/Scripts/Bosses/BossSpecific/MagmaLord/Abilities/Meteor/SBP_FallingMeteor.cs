@@ -5,7 +5,13 @@ using UnityEngine;
 public class SBP_FallingMeteor : BossProjectileFramework
 {
     [SerializeField] private GameObject _contactParticles;
-
+    
+    [Space]
+    [SerializeField] private Animator _meteorAnimator;
+    
+    private const string REMOVE_PROJECTILE_ANIM_TRIGGER = "RemoveMeteor";
+    
+    private bool _hasMeteorBeenStopped = false;
     
     private IEnumerator LookAtTarget(GameObject target)
     {
@@ -22,9 +28,15 @@ public class SBP_FallingMeteor : BossProjectileFramework
         Instantiate(_contactParticles, transform.position, Quaternion.identity);
     }
 
+    public void StopFallingMeteor()
+    {
+        _hasMeteorBeenStopped = true;
+        _meteorAnimator.SetTrigger(REMOVE_PROJECTILE_ANIM_TRIGGER);
+    }
+
     #region Base Ability
 
-    public void AdditionalSetup(GameObject target)
+    public void AdditionalSetUp(GameObject target)
     {
         StartCoroutine(LookAtTarget(target));
     }

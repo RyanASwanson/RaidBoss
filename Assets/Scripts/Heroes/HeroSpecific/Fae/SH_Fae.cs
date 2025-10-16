@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using FMOD.Studio;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -22,11 +24,18 @@ public class SH_Fae : SpecificHeroFramework
     [SerializeField] private float _manualWallDistanceRange;
     [SerializeField] private float _manualDamageCooldown;
     [Range(0,1)][SerializeField] private float _manualBossHoming;
+    [SerializeField] private float _manualMinimumDotProduct;
     [SerializeField] private Vector3 _manualWallExtents;
     private bool _manualCanDamage = true;
+
+    [Space] 
+    [SerializeField] private float _manualAudioInterval;
+    private WaitForSeconds _manualAudioWaitInterval;
+    private Coroutine _manualAudioCoroutine;
+    private EventInstance _manualAudioInstance;
+    
     [Space]
     [SerializeField] private GameObject _swirlVFX;
-
     [SerializeField] private float _vfxWeaponSpawnRate;
     [SerializeField] private float _vfxWeaponDuration;
     [SerializeField] private float _vfxWeaponSpawnDistance;
@@ -35,6 +44,7 @@ public class SH_Fae : SpecificHeroFramework
     [SerializeField] private GameObject _vfxWeapon;
     [SerializeField] private Transform _vfxWeaponSpawnPoint;
 
+    [Space]
     [SerializeField] private LayerMask _bounceLayers;
     private bool _manualActive = false;
 
@@ -43,7 +53,6 @@ public class SH_Fae : SpecificHeroFramework
 
     private Coroutine _manualCoroutine;
 
-
     [Space]
     [SerializeField] private float _passiveBasicAttackSpeedChangeWalking;
     [SerializeField] private float _passiveBasicAttackSpeedChangeManual;
@@ -51,7 +60,6 @@ public class SH_Fae : SpecificHeroFramework
     private float _currentPassiveBasicAttackSpeed = 1;
 
     private HeroStats _heroStats;
-    private EnvironmentManager _environmentManager;
 
     #region Basic Abilities
 
@@ -80,9 +88,9 @@ public class SH_Fae : SpecificHeroFramework
             newestProjectile.transform.position = newestProjectile.transform.position + 
                 (newestProjectile.transform.forward * _projectileSpawnDistance);
 
-            newestProjectile.GetComponent<SHP_FaeBasicProjectile>().SetUpProjectile(_myHeroBase);
+            newestProjectile.GetComponent<SHP_FaeBasicProjectile>().SetUpProjectile(_myHeroBase, EHeroAbilityType.Basic);
 
-            //Performs the setup for the damage area so that it knows it's owner
+            //Performs the set up for the damage area so that it knows it's owner
             newestProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(_myHeroBase);
         }
     }
@@ -92,14 +100,17 @@ public class SH_Fae : SpecificHeroFramework
 
     #region Manual Abilities
 
-    public override void ActivateManualAbilities(Vector3 attackLocation)
+    public override void ActivateManualAbilities()
     {
-        base.ActivateManualAbilities(attackLocation);
+        base.ActivateManualAbilities();
 
-        //Determines the direction between the hero and the location they used the manual at
+        // Old way to target boss
+        /*//Determines the direction between the hero and the location they used the manual at
         _currentManualDirection = attackLocation - transform.position;
         //Makes sure there is no y value then normalizes
-        _currentManualDirection = new Vector3(_currentManualDirection.x, 0, _currentManualDirection.z).normalized;
+        _currentManualDirection = new Vector3(_currentManualDirection.x, 0, _currentManualDirection.z).normalized;*/
+
+        _currentManualDirection = BossManager.Instance.GetDirectionToBoss(transform.position);
 
         CreateSwirlVFX();
 
@@ -107,6 +118,8 @@ public class SH_Fae : SpecificHeroFramework
         _manualCoroutine = StartCoroutine(ManualProcess());
         StartCoroutine(WeaponVFXSpawnProcess());
         StartCoroutine(ManualAccelerationAndDeceleration());
+
+        StartManualAudioProcess();
     }
 
 
@@ -131,7 +144,7 @@ public class SH_Fae : SpecificHeroFramework
             CheckManualRedirect();
 
             //Moves the character in the manual direction
-            //Speed determined by movement speed of the character and the multipler for the manual
+            //Speed determined by movement speed of the character and the multiplier for the manual
             _myHeroBase.gameObject.transform.position += _currentManualDirection * 
                 _heroStats.GetCurrentSpeed() *_manualSpeedMultiplier * _currentAccelerationMultiplier* Time.deltaTime;
 
@@ -139,18 +152,33 @@ public class SH_Fae : SpecificHeroFramework
             yield return null;
         }
 
-        //Reenables the pathfinding functionality
+        ManualProcessEnded();
+    }
+
+    private void ManualProcessEnded()
+    {
+        //Re-enables the pathfinding functionality
         _myHeroBase.GetPathfinding().EnableAbilityToMove();
         //Makes sure that the hero doesn't try to continue any previous pathfinding
-        _myHeroBase.GetPathfinding().DirectNavigationTo(_environmentManager.GetClosestPointToFloor(transform.position));
+        _myHeroBase.GetPathfinding().DirectNavigationTo(
+            EnvironmentManager.Instance.GetClosestPointToFloor(transform.position));
 
         DecreaseBasicAttackSpeedOnManualEnd();
 
         _manualActive = false;
+
+        StopManualAudioProcess();
+        
+        _manualCoroutine = null;
     }
 
+    /// <summary>
+    /// Accelerates and decelerates the manual ability speed
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator ManualAccelerationAndDeceleration()
     {
+        //TODO Switch to using animation curve
         while (_currentAccelerationMultiplier < 1)
         {
             _currentAccelerationMultiplier += Time.deltaTime / _accelerateTime;
@@ -169,9 +197,49 @@ public class SH_Fae : SpecificHeroFramework
         _currentAccelerationMultiplier = 0;
 
     }
+    
+    protected override void ManualAbilityAudioPlayed(EventInstance eventInstance)
+    {
+        _manualAudioInstance = eventInstance;
+    }
 
+    private void StartManualAudioProcess()
+    {
+        _manualAudioCoroutine = StartCoroutine(ManualAudioProcess());
+    }
+
+    private IEnumerator ManualAudioProcess()
+    {
+        while (_manualActive)
+        {
+            yield return _manualAudioWaitInterval;
+            StopManualAudio();
+            PlayManualAbilityAudio();
+        }
+    }
+
+    private void StopManualAudioProcess()
+    {
+        if (!_manualAudioCoroutine.IsUnityNull())
+        {
+            StopCoroutine(_manualAudioCoroutine);
+        }
+
+        StopManualAudio();
+    }
+
+    private void StopManualAudio()
+    {
+        AudioManager.Instance.StartFadeOutStopInstance(_manualAudioInstance,
+            AudioManager.Instance.AllSpecificHeroAudio[_myHeroBase.GetHeroSO().GetHeroID()].ManualAbilityUsed);
+    }
+
+    /// <summary>
+    /// Creates the swirl effect on the Fae manual ability
+    /// </summary>
     private void CreateSwirlVFX()
     {
+        //TODO check for deletion
         Instantiate(_swirlVFX, _vfxWeaponSpawnPoint.transform);
     }
 
@@ -181,6 +249,7 @@ public class SH_Fae : SpecificHeroFramework
 
         while (_manualActive)
         {
+            //TODO Switch to Unity VFX system instead of spawning game objects
             GameObject newestWeaponVFX = Instantiate(_vfxWeapon, _vfxWeaponSpawnPoint.transform);
 
             Destroy(newestWeaponVFX, _vfxWeaponDuration);
@@ -210,7 +279,6 @@ public class SH_Fae : SpecificHeroFramework
         if(Physics.BoxCast(startPos,_manualWallExtents,_currentManualDirection, out RaycastHit rayHit, 
             Quaternion.identity,_manualWallDistanceRange,_bounceLayers))
         {
-
             //Reflect the direction that the manual ability is moving
             _currentManualDirection = Vector3.Reflect(_currentManualDirection, rayHit.normal);
 
@@ -224,15 +292,26 @@ public class SH_Fae : SpecificHeroFramework
                 }
                 return;
             }
-                
             
-
-            _currentManualDirection = Vector3.Lerp(_currentManualDirection, 
-                GameplayManagers.Instance.GetBossManager().GetDirectionToBoss(transform.position), _manualBossHoming).normalized;
+            Vector3 directionToBoss = ManualDirectionToBoss();
+            float bossDirectionDotProduct = Vector3.Dot(_currentManualDirection, directionToBoss);
+            if (bossDirectionDotProduct > _manualMinimumDotProduct)
+            {
+                _currentManualDirection = directionToBoss;
+            }
         }
-
     }
 
+    private Vector3 ManualDirectionToBoss()
+    {
+        return  Vector3.Lerp(_currentManualDirection, 
+            BossManager.Instance.GetDirectionToBoss(transform.position), _manualBossHoming).normalized;
+    }
+
+    /// <summary>
+    /// Provides a delay that prevents the manual ability from landing several hits in a short time 
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator ManualDamageCooldown()
     {
         _manualCanDamage = false;
@@ -242,9 +321,8 @@ public class SH_Fae : SpecificHeroFramework
 
     private bool ManualHitBoss(RaycastHit rayHit)
     {
-        return rayHit.collider.gameObject.tag == TagStringData.GetBossHitboxTagName();
+        return TagStringData.DoesColliderBelongToBoss(rayHit.collider);
     }
-
     #endregion
 
     #region Passive Abilities
@@ -269,19 +347,25 @@ public class SH_Fae : SpecificHeroFramework
     }
 
     #endregion
-
-
-
-
+    
     #region Base Hero
-    public override void SetupSpecificHero(HeroBase heroBase, HeroSO heroSO)
+    /// <summary>
+    /// Performs set up for the specific hero
+    /// </summary>
+    /// <param name="heroBase"></param>
+    /// <param name="heroSO"></param>
+    public override void SetUpSpecificHero(HeroBase heroBase, HeroSO heroSO)
     {
         _heroStats = heroBase.GetHeroStats();
-        _environmentManager = GameplayManagers.Instance.GetEnvironmentManager();
+        
+        _manualAudioWaitInterval = new WaitForSeconds(_manualAudioInterval);
 
-        base.SetupSpecificHero(heroBase, heroSO);
+        base.SetUpSpecificHero(heroBase, heroSO);
     }
 
+    /// <summary>
+    /// Subscribes to any needed events
+    /// </summary>
     protected override void SubscribeToEvents()
     {
         base.SubscribeToEvents();

@@ -17,9 +17,9 @@ public class SB_GlacialLord : SpecificBossFramework
 
     private UnityEvent<GlacialLord_FrostFiend> _frostFiendSpawned = new();
 
-    public override void SetupSpecificBoss(BossBase bossBase)
+    public override void SetUpSpecificBoss(BossBase bossBase)
     {
-        base.SetupSpecificBoss(bossBase);
+        base.SetUpSpecificBoss(bossBase);
         StartCoroutine(SpawnStartingFrostFiends());
     }
 
@@ -27,11 +27,13 @@ public class SB_GlacialLord : SpecificBossFramework
     #region Frost Fiends
     private IEnumerator SpawnStartingFrostFiends()
     {
-        yield return new WaitForSeconds(_delayBetweenFiendSpawns);
+        WaitForSeconds frostFiendSpawnWait = new WaitForSeconds(_delayBetweenFiendSpawns);
+        
+        yield return frostFiendSpawnWait;
         foreach(Vector3 spawnLocation in _frostFiendSpawnLocations)
         {
             SpawnFrostFiend(spawnLocation);
-            yield return new WaitForSeconds(_delayBetweenFiendSpawns);
+            yield return frostFiendSpawnWait;
         }
     }
 
@@ -41,14 +43,33 @@ public class SB_GlacialLord : SpecificBossFramework
             Instantiate(_frostFiend, spawnLocation, Quaternion.identity).GetComponent<GlacialLord_FrostFiend>();
 
         newFiend.transform.LookAt(transform);
+        
+        //Set does not work
         newFiend.transform.eulerAngles = new Vector3(0, newFiend.transform.eulerAngles.y, 0);
 
-        newFiend.SetupMinion(_myBossBase, this);
-        newFiend.AdditionalSetup(_minionFreezeDuration);
+        newFiend.SetUpMinion(_myBossBase, this);
+        newFiend.AdditionalSetUp(_minionFreezeDuration);
 
-        _allFrostFiends.Add(newFiend.GetComponent<GlacialLord_FrostFiend>());
+        _allFrostFiends.Add(newFiend);
 
         InvokeFrostFiendSpawned(newFiend);
+    }
+
+    private void FrostFiendDeath()
+    {
+        foreach (GlacialLord_FrostFiend frostFiend in _allFrostFiends)
+        {
+            frostFiend.FrostFiendDeath();
+        }
+    }
+    #endregion
+
+    #region BaseBoss
+
+    public override void SubscribeToEvents()
+    {
+        base.SubscribeToEvents();
+        GameStateManager.Instance.GetBattleWonEvent().AddListener(FrostFiendDeath);
     }
 
     #endregion

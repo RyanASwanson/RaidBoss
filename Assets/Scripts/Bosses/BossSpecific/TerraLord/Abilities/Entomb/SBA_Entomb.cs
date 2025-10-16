@@ -13,7 +13,9 @@ public class SBA_Entomb : SpecificBossAbilityFramework
 
     [SerializeField] private GameObject _targetZone;
     [SerializeField] private GameObject _entomb;
-
+    
+    public const int ENTOMB_CLOSED_IMPACT_AUDIO_ID = 0;
+    public const int ENTOMB_DESTROY_HALF_AUDIO_ID = 1;
     
     /// <summary>
     /// Calculates the Y rotation of the target zone and attack
@@ -38,7 +40,6 @@ public class SBA_Entomb : SpecificBossAbilityFramework
         
         //Set the rotation of the attack
         _storedTargetRotation = Quaternion.Euler(new Vector3(0, randomYRotation, 0));
-
     }
 
     #region Base Ability
@@ -54,7 +55,7 @@ public class SBA_Entomb : SpecificBossAbilityFramework
     protected override void AbilityStart()
     {
         GameObject storedEntomb = Instantiate(_entomb, _storedTargetLocation, _storedTargetRotation);
-        storedEntomb.GetComponent<SBP_Entomb>().SetUpProjectile(_myBossBase);
+        storedEntomb.GetComponent<SBP_Entomb>().SetUpProjectile(_myBossBase, _abilityID);
 
         base.AbilityStart();
     }

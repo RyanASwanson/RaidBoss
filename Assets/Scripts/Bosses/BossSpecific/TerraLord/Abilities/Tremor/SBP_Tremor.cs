@@ -8,6 +8,7 @@ using UnityEngine;
 public class SBP_Tremor : BossProjectileFramework
 {
     [SerializeField] private float _spikeSeperationTime;
+    private WaitForSeconds _spikeSeperationWait;
 
     [SerializeField] private List<GameObject> _spikes;
 
@@ -31,7 +32,7 @@ public class SBP_Tremor : BossProjectileFramework
             i++;
             SpawnSpike(_spikes[i]);
 
-            yield return new WaitForSeconds(_spikeSeperationTime);
+            yield return _spikeSeperationWait;
         }
     }
 
@@ -65,11 +66,18 @@ public class SBP_Tremor : BossProjectileFramework
         Instantiate(_spikeStartVFX, spike.transform.position, Quaternion.identity);
     }
 
-
     #region Base Ability
-    public override void SetUpProjectile(BossBase bossBase)
+    /// <summary>
+    /// Performs needed set up for the ability
+    /// </summary>
+    /// <param name="bossBase"></param>
+    /// <param name= "newAbilityID"></param>
+    public override void SetUpProjectile(BossBase bossBase, int newAbilityID)
     {
-        base.SetUpProjectile(bossBase);
+        base.SetUpProjectile(bossBase, newAbilityID);
+        
+        _spikeSeperationWait = new WaitForSeconds(_spikeSeperationTime);
+        
         StartCoroutine(SpikeSpawningProcess());
     }
     #endregion

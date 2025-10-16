@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// Provides the functionality for the Chronomancer hero
@@ -20,15 +23,22 @@ public class SH_Chronomancer : SpecificHeroFramework
 
     [Space]
     [SerializeField] private float _rewindTimeAmount;
+
+    [SerializeField] private float _manualTimeVariationAmount;
+    [SerializeField] private float _manualTimeVariationDuration;
+    
+    [SerializeField] private GameObject _manualProjectile;
+    private WaitForSeconds _rewindWait;
+    
     private List<Queue<float>> _heroPastHealthValues = new List<Queue<float>>();
+    private float[] _highestPastHealthValues;
 
     private float _storedTotalRewindHealing;
+
+    private UnityEvent<float> _onStoredHealingUpdated = new UnityEvent<float>();
     
     [Space]
     [SerializeField] private float _passiveAbilityBasicCooldownReduction;
-
-
-    private HeroesManager _heroesManager;
 
     /* Code is here to test the storing of data for the manual ability
     private void Update()
@@ -76,7 +86,7 @@ public class SH_Chronomancer : SpecificHeroFramework
         //Spawns the projectile
         GameObject spawnedProjectile = Instantiate(_basicProjectile, _myHeroBase.transform.position, Quaternion.identity);
 
-        spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(_myHeroBase);
+        spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(_myHeroBase, EHeroAbilityType.Basic);
 
         Physics.IgnoreCollision(_myHeroBase.GetHeroDamageCollider(), 
             spawnedProjectile.GetComponentInChildren<Collider>(), true);
@@ -108,7 +118,7 @@ public class SH_Chronomancer : SpecificHeroFramework
     /// <returns></returns>
     private IEnumerator AttackDirectionFollow()
     {
-        while (gameObject != null && _storedDirectionObj != null)
+        while (!gameObject.IsUnityNull() && !_storedDirectionObj.IsUnityNull())
         {
             _storedDirectionObj.transform.position = _basicDirectionOrigin.transform.position;
             yield return null;
@@ -119,20 +129,21 @@ public class SH_Chronomancer : SpecificHeroFramework
     #endregion
 
     #region Manual Abilities
-    public override void ActivateManualAbilities(Vector3 attackLocation)
+    public override void ActivateManualAbilities()
     {
-        base.ActivateManualAbilities(attackLocation);
-
-
+        base.ActivateManualAbilities();
+        
+        TimeManager.Instance.AddNewTimeVariationForDuration(_manualTimeVariationAmount,_manualTimeVariationDuration);
+        
+        Instantiate(_manualProjectile, Vector3.zero, Quaternion.identity);
+        
         int counter = 0;
 
+        //TODO Change this to a for loop
         //Iterate through all heroes
-        foreach (HeroBase heroBase in GameplayManagers.Instance.GetHeroesManager().GetCurrentHeroes())
+        foreach (HeroBase heroBase in HeroesManager.Instance.GetCurrentHeroes())
         {
             RevertHeroHealth(counter, heroBase);
-
-            //Applies the chronomancer's passive to each hero
-            PassiveReduceBasicCooldownOfHero(heroBase);
 
             counter++;
         }
@@ -153,7 +164,9 @@ public class SH_Chronomancer : SpecificHeroFramework
         {
             //Finds the highest health value
             if (healthValue > currentHighestCheckedHealth)
+            {
                 currentHighestCheckedHealth = healthValue;
+            }
         }
 
         float healthDifference = 0;
@@ -164,10 +177,16 @@ public class SH_Chronomancer : SpecificHeroFramework
             healthDifference = currentHighestCheckedHealth - targetHeroBase.GetHeroStats().GetCurrentHealth();
         }
 
-        if (healthDifference == 0) return;
+        if (healthDifference == 0)
+        {
+            return;
+        }
 
         //Heal the hero for the difference in health
         HealTargetHero(healthDifference, targetHeroBase);
+        
+        //Applies the Chronomancers passive to the target hero
+        PassiveReduceBasicCooldownOfHero(targetHeroBase);
     }
 
     /// <summary>
@@ -179,6 +198,8 @@ public class SH_Chronomancer : SpecificHeroFramework
     {
         //At the position of the hero id the health value is added to the end of the queue
         _heroPastHealthValues[heroID].Enqueue(healthValue);
+        
+        CalculateManualHealOfHero(heroID);
 
         //Starts the process of removing that value from the queue
         StartCoroutine(RemovePastHealthValueProcess(heroID));
@@ -191,7 +212,7 @@ public class SH_Chronomancer : SpecificHeroFramework
     /// <param name="heroID"></param>
     private void AddHeroHealthValue(int heroID)
     {
-        AddPastHealthValue(heroID, _heroesManager
+        AddPastHealthValue(heroID, HeroesManager.Instance
             .GetCurrentHeroes()[heroID].GetHeroStats().GetPreviousHealth());
     }
 
@@ -203,8 +224,10 @@ public class SH_Chronomancer : SpecificHeroFramework
     /// <returns></returns>
     private IEnumerator RemovePastHealthValueProcess(int heroID)
     {
-        yield return new WaitForSeconds(_rewindTimeAmount);
+        yield return _rewindWait;
         _heroPastHealthValues[heroID].Dequeue();
+        
+        CalculateManualHealOfHero(heroID);
     }
 
     /// <summary>
@@ -212,13 +235,23 @@ public class SH_Chronomancer : SpecificHeroFramework
     /// </summary>
     private void AddStartingHealthValues()
     {
+        _highestPastHealthValues = new float[HeroesManager.Instance.GetCurrentHeroes().Count];
+
+        for(int i = 0; i < _highestPastHealthValues.Length; i++)
+        {
+            _highestPastHealthValues[i] = 0;
+        }
+        
         int counter = 0;
 
         //Iterates through all heroes
-        foreach(HeroBase heroBase in GameplayManagers.Instance.GetHeroesManager().GetCurrentHeroes())
+        foreach(HeroBase heroBase in HeroesManager.Instance.GetCurrentHeroes())
         {
             //Check the hero exists
-            if (heroBase == null) return;
+            if (heroBase.IsUnityNull())
+            {
+                return;
+            }
 
             //Adds a new queue of floats to the list of previous health values
             _heroPastHealthValues.Add(new Queue<float>());
@@ -227,12 +260,44 @@ public class SH_Chronomancer : SpecificHeroFramework
             counter++;
         }
     }
-    
 
-    private void UpdateManualTotalStoredHealing(float changeAmount)
+    private void CalculateManualHealOfHero(int heroID)
     {
-        _storedTotalRewindHealing += changeAmount;
-        print(_storedTotalRewindHealing);
+        HeroBase targetHeroBase = HeroesManager.Instance.GetCurrentHeroes()[heroID];
+
+        if (targetHeroBase.IsUnityNull())
+        {
+            Debug.Log("Chronomancer could not find hero");
+            return;
+        }
+        
+        float highestHeal = 0;
+        
+        Queue<float> heroQueue = _heroPastHealthValues[heroID];
+
+        foreach (float health in heroQueue)
+        {
+            float healthDifference = health - targetHeroBase.GetHeroStats().GetCurrentHealth();
+            
+            if (healthDifference > highestHeal)
+            {
+                highestHeal = healthDifference;
+            }
+        }
+        
+        _highestPastHealthValues[heroID] = highestHeal;
+        UpdateManualTotalStoredHealing();
+    }
+
+    private void UpdateManualTotalStoredHealing()
+    {
+        float total = 0;
+        for (int i = 0; i < _highestPastHealthValues.Length; i++)
+        {
+            total += _highestPastHealthValues[i];
+        }
+        InvokeOnStoredHealingUpdated(total);
+        //Debug.Log("The total is " + total);
     }
     #endregion
 
@@ -253,9 +318,6 @@ public class SH_Chronomancer : SpecificHeroFramework
         heroBase.GetSpecificHeroScript().AddToBasicAbilityChargeTime(_passiveAbilityBasicCooldownReduction);
     }
     #endregion
-
-
-    
     
     /// <summary>
     /// Goes through every hero and listens for them taking damage
@@ -267,17 +329,13 @@ public class SH_Chronomancer : SpecificHeroFramework
         //I could've gotten this done like an hour ago, but instead this code is *dynamic*
 
         //Iterate through every hero
-        for(int i = 0; i < _heroesManager.GetCurrentHeroes().Count;i++)
+        for(int i = 0; i < HeroesManager.Instance.GetCurrentHeroes().Count;i++)
         {
             int tempI = i;
-            /*GameplayManagers.Instance.GetHeroesManager().GetCurrentHeroes()[i]
-                .GetHeroHealthChangedEvent().AddListener(delegate { AddHeroHealthValue(tempI); });*/
 
-            _heroesManager.GetCurrentHeroes()[i]
+            HeroesManager.Instance.GetCurrentHeroes()[i]
                 .GetHeroHealthChangedEvent().AddListener(delegate { AddHeroHealthValue(tempI); });
         }
-
-        
     }
 
     private void UnsubscribeToHeroesDamagedEvents()
@@ -295,6 +353,9 @@ public class SH_Chronomancer : SpecificHeroFramework
     protected override void BattleStarted()
     {
         base.BattleStarted();
+
+        _rewindWait = new WaitForSeconds(_rewindTimeAmount);
+        
         //Adds the current health of all heroes to the list of queues
         AddStartingHealthValues();
         //Creates the target direction object for the basic ability
@@ -304,22 +365,32 @@ public class SH_Chronomancer : SpecificHeroFramework
         SubscribeToHeroesDamagedEvents();
     }
 
+    public override void HeroSpecificUICreated(GameObject heroSpecificUI)
+    {
+        base.HeroSpecificUICreated(heroSpecificUI);
+        SHUI_ChronomancerUI heroUI = heroSpecificUI.GetComponent<SHUI_ChronomancerUI>();
+        
+        heroUI.AdditionalSetUp(this);
+        heroUI.SetUpHeroSpecificUIFunctionality(_myHeroBase);
+    }
+
     protected override void HeroDied()
     {
         base.HeroDied();
         UnsubscribeToHeroesDamagedEvents();
         Destroy(_storedDirectionObj);
     }
+    #endregion
+    
+    #region Events
 
-    protected override void GetManagers()
+    private void InvokeOnStoredHealingUpdated(float healing)
     {
-        _heroesManager = GameplayManagers.Instance.GetHeroesManager();
-        base.GetManagers();
+        _onStoredHealingUpdated?.Invoke(healing);
     }
-
-    protected override void SubscribeToEvents()
-    {
-        base.SubscribeToEvents();
-    }
+    #endregion
+    
+    #region Getters
+    public UnityEvent<float> GetOnStoredHealingUpdated() => _onStoredHealingUpdated;
     #endregion
 }

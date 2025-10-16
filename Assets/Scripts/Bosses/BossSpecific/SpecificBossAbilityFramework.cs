@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using FMOD.Studio;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -7,19 +9,22 @@ using UnityEngine;
 /// </summary>
 public abstract class SpecificBossAbilityFramework : MonoBehaviour
 {
+    [SerializeField] protected int _abilityID;
     [SerializeField] protected EBossAbilityTargetMethod _targetMethod;
+    [SerializeField] protected bool _doesBossFollowTarget;
 
     [Space]
     [SerializeField] protected Vector3 _specificAreaTarget;
     [SerializeField] protected Vector3 _specificLookTarget;
     [Space]
 
-    
+    [Tooltip("The duration of the target zones")]
     [SerializeField] protected float _targetZoneDuration;
     [SerializeField] protected float _abilityWindUpTime;
     [SerializeField] protected float _timeUntilNextAbility;
 
     [Space]
+    [Tooltip("If the ability has any screen shake")]
     [SerializeField] protected bool _hasScreenShake;
     [SerializeField] protected float _screenShakeIntensity;
     [SerializeField] protected float _screenShakeFrequency;
@@ -29,9 +34,12 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     [SerializeField] protected string _animationTriggerName;
 
     protected List<GameObject> _currentTargetZones = new List<GameObject>();
-
+    
     protected Vector3 _storedTargetLocation;
     protected HeroBase _storedTarget;
+
+    protected Coroutine _abilityWindUpProcess;
+    protected Coroutine _targetZoneRemovalProcess;
 
     protected BossBase _myBossBase;
     protected SpecificBossFramework _mySpecificBoss;
@@ -40,7 +48,7 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     /// Sets up the ability with the boss base and specific boss framework
     /// </summary>
     /// <param name="bossBase"></param>
-    public virtual void AbilitySetup(BossBase bossBase)
+    public virtual void AbilitySetUp(BossBase bossBase)
     {
         _myBossBase = bossBase;
         _mySpecificBoss = bossBase.GetSpecificBossScript();
@@ -56,8 +64,10 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     public virtual void ActivateAbility(Vector3 targetLocation, HeroBase targetHeroBase)
     {
         _storedTargetLocation = targetLocation;
-        if (targetHeroBase != null)
+        if (!targetHeroBase.IsUnityNull())
+        {
             _storedTarget = targetHeroBase;
+        }
 
         AbilityPrep();
 
@@ -71,6 +81,7 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     protected virtual void AbilityPrep()
     {
         StartShowTargetZone();
+        PlayAbilityPrepAudio();
         StartAbilityWindUp();
     }
 
@@ -79,17 +90,25 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     /// </summary>
     protected virtual void StartBossAbilityAnimation()
     {
-        _myBossBase.GetBossVisuals().StartBossSpecificAnimationTrigger(_animationTriggerName);
+        BossVisuals.Instance.StartBossSpecificAnimationTrigger(_animationTriggerName);
     }
 
     #region Target Zone
     /// <summary>
     /// Starts the process of visualizing the target zone
     /// </summary>
-    /// <param name="targetLocation"></param>
     protected virtual void StartShowTargetZone()
     {
-        StartCoroutine(TargetZonesProcess());
+        PlayTargetZoneSpawnedAudio();
+        _targetZoneRemovalProcess = StartCoroutine(TargetZonesProcess());
+    }
+
+    protected virtual void StopTargetZoneRemovalProcess()
+    {
+        if (!_targetZoneRemovalProcess.IsUnityNull())
+        {
+            StopCoroutine(_targetZoneRemovalProcess);
+        }
     }
 
     /// <summary>
@@ -99,21 +118,30 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     protected virtual IEnumerator TargetZonesProcess()
     {
         yield return new WaitForSeconds(_targetZoneDuration);
-        RemoveTargetZone();
+        RemoveTargetZones();
     }
 
     /// <summary>
     /// Removes all target zones
     /// </summary>
-    protected virtual void RemoveTargetZone()
+    protected virtual void RemoveTargetZones()
     {
-        if (_currentTargetZones.Count == 0) return;
+        StopTargetZoneRemovalProcess();
+        
+        if (_currentTargetZones.Count == 0)
+        {
+            return;
+        }
 
         //Iterates through all target zones and removes them
         foreach(GameObject currentZone in _currentTargetZones)
         {
-            Destroy(currentZone.gameObject);
+            if(currentZone.TryGetComponent<BossTargetZoneParent>(out BossTargetZoneParent targetZoneParent))
+            {
+                targetZoneParent.RemoveBossTargetZones();
+            }
         }
+        _currentTargetZones.Clear();
     }
 
     #endregion
@@ -124,7 +152,15 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     /// </summary>
     protected virtual void StartAbilityWindUp()
     {
-        StartCoroutine(AbilityWindUp());
+        _abilityWindUpProcess = StartCoroutine(AbilityWindUp());
+    }
+
+    protected virtual void StopAbilityWindUp()
+    {
+        if (!_abilityWindUpProcess.IsUnityNull())
+        {
+            StopCoroutine(_abilityWindUpProcess);
+        }
     }
 
     /// <summary>
@@ -145,6 +181,7 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     protected virtual void AbilityStart()
     {
         ScreenShakeCheck();
+        PlayAbilityStartAudio();
     }
 
     /// <summary>
@@ -158,11 +195,73 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Starts the screen shake of the ability if the ability has screen shake
+    /// </summary>
     protected virtual void AbilityScreenShake()
     {
-        GameplayManagers.Instance.GetCameraManager().StartCameraShake
+        CameraGameManager.Instance.StartCameraShake
             (_screenShakeIntensity, _screenShakeFrequency, _screenShakeDuration);
     }
+
+    public virtual void StopBossAbility()
+    {
+        StopAbilityWindUp();
+        RemoveTargetZones();
+    }
+
+    #region AbilityAudio
+
+    protected virtual void PlayTargetZoneSpawnedAudio()
+    {
+        if (AudioManager.Instance.PlaySpecificAudio(
+                AudioManager.Instance.GeneralBossAudio.AbilityAudio.TargetZoneSpawned, out EventInstance eventInstance))
+        {
+            TargetZoneSpawnedAudioPlayed(eventInstance);
+        }
+    }
+
+    protected virtual void TargetZoneSpawnedAudioPlayed(EventInstance eventInstance)
+    {
+        
+    }
+    
+
+    protected virtual void PlayAbilityPrepAudio()
+    {
+        if (AudioManager.Instance.PlaySpecificAudio(
+                AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].BossAbilityAudio[_abilityID].AbilityPrep,
+                out EventInstance eventInstance))
+        {
+            AbilityAudioPrepPlayed(eventInstance);
+        }
+    }
+
+    protected virtual void AbilityAudioPrepPlayed(EventInstance eventInstance)
+    {
+        
+    }
+    
+    
+    /// <summary>
+    /// Plays the audio associated with the ability being started
+    /// </summary>
+    protected virtual void PlayAbilityStartAudio()
+    {
+        if (AudioManager.Instance.PlaySpecificAudio(
+                AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].BossAbilityAudio[_abilityID].AbilityStart,
+                out EventInstance eventInstance))
+        {
+            AbilityAudioStartPlayed(eventInstance);
+        }
+    }
+
+    protected virtual void AbilityAudioStartPlayed(EventInstance eventInstance)
+    {
+        
+    }
+    
+    #endregion AbilityAudio
 
     #region RETIRED Targeting
 
@@ -187,7 +286,10 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     #endregion
 
     #region Getters
+
+    public int GetAbilityID() => _abilityID;
     public EBossAbilityTargetMethod GetTargetMethod() => _targetMethod;
+    public bool GetDoesBossFollowTarget() => _doesBossFollowTarget;
     public Vector3 GetSpecificAreaTarget() => _specificAreaTarget;
     public Vector3 GetSpecificLookTarget() => _specificLookTarget;
 
@@ -199,8 +301,8 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
 
 public enum EBossAbilityTargetMethod
 {
-    _heroTarget,
-    _heroTargetWithIgnore,
-    _specificHeroTarget,
-    _specificAreaTarget,
+    HeroTarget,
+    HeroTargetWithIgnore,
+    SpecificHeroTarget,
+    SpecificAreaTarget,
 };

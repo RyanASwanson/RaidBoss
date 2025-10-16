@@ -94,7 +94,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd801e819b281f9469c7a37e07610830, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _abilityID: 0
   _targetMethod: 0
+  _doesBossFollowTarget: 0
   _specificAreaTarget: {x: 0, y: 0, z: 0}
   _specificLookTarget: {x: 0, y: 0, z: 0}
   _targetZoneDuration: 3
@@ -105,9 +107,9 @@ MonoBehaviour:
   _screenShakeFrequency: 0.005
   _screenShakeDuration: 0.6
   _animationTriggerName: MeteorAbility
+  _targetZone: {fileID: 6056850892271742068, guid: 9378af13b13c4d54994d83756af53c51, type: 3}
   _fallingMeteor: {fileID: 682529596721825427, guid: c8d89f6c95b295b4f95fa1299237d0ab, type: 3}
   _movingMeteor: {fileID: 9559560874134544, guid: fa1607bbc0c668943a9691d2c973185e, type: 3}
-  _targetZone: {fileID: 6056850892271742068, guid: 9378af13b13c4d54994d83756af53c51, type: 3}
   _directionalTargetZone: {fileID: 3258646551934675283, guid: 614f0c4d784ebde46aa0ee71eaa164d8, type: 3}
 --- !u!114 &2262732033750232322
 MonoBehaviour:
@@ -121,7 +123,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd3fea178f77d9148808259f6405f521, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _abilityID: 1
   _targetMethod: 0
+  _doesBossFollowTarget: 0
   _specificAreaTarget: {x: 0, y: 0, z: 0}
   _specificLookTarget: {x: 0, y: 0, z: 0}
   _targetZoneDuration: 3
@@ -132,8 +136,8 @@ MonoBehaviour:
   _screenShakeFrequency: 0.005
   _screenShakeDuration: 0.6
   _animationTriggerName: MagmaWaveAbility
-  _magmaWave: {fileID: 67737127216543128, guid: 5b14ca24520b4e94eaa40d3eeed68f39, type: 3}
   _targetZone: {fileID: 1434915122738560515, guid: 10c4e99070375d64b9c383ff6679711c, type: 3}
+  _magmaWave: {fileID: 67737127216543128, guid: 5b14ca24520b4e94eaa40d3eeed68f39, type: 3}
 --- !u!114 &8104344608364409530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,7 +150,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd43f85232f7360429a752b231728aae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _abilityID: 2
   _targetMethod: 3
+  _doesBossFollowTarget: 0
   _specificAreaTarget: {x: 0, y: -0.75, z: 0}
   _specificLookTarget: {x: 0, y: 0, z: -1}
   _targetZoneDuration: 3
@@ -157,9 +163,9 @@ MonoBehaviour:
   _screenShakeFrequency: 0.005
   _screenShakeDuration: 0.6
   _animationTriggerName: MagmaBlastAbility
-  _lavaBlast: {fileID: 8404173106920906590, guid: f6f5c4b3853e51f499d7730b805b7c20, type: 3}
   _safeZone: {fileID: 169363956474427008, guid: e270951fa36051a4382b71d47853c6b5, type: 3}
   _targetZone: {fileID: 6615160108974288117, guid: d7c2fb44fb70837468eeede21f8eccc2, type: 3}
+  _lavaBlast: {fileID: 8404173106920906590, guid: f6f5c4b3853e51f499d7730b805b7c20, type: 3}
   _failedVFX: {fileID: 1009709570266169288, guid: 7c4bf28e86ad5a64184f4b85007a7c50, type: 3}
 --- !u!114 &8533920720578803924
 MonoBehaviour:
@@ -173,7 +179,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f072c9eb47c8cac4ba8205fda5d98e11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _abilityID: 3
   _targetMethod: 3
+  _doesBossFollowTarget: 0
   _specificAreaTarget: {x: 0, y: -0.75, z: 0}
   _specificLookTarget: {x: 0, y: 0, z: -1}
   _targetZoneDuration: 3
@@ -184,8 +192,8 @@ MonoBehaviour:
   _screenShakeFrequency: 0.005
   _screenShakeDuration: 0.6
   _animationTriggerName: ScorchAbility
-  _scorch: {fileID: 258438868437321791, guid: 26efc0bc94ce70b45862102c75d83a4e, type: 3}
   _targetZone: {fileID: 2799529881703815393, guid: f90289cd0f8e9c744955fdad85fb3c34, type: 3}
+  _scorch: {fileID: 258438868437321791, guid: 26efc0bc94ce70b45862102c75d83a4e, type: 3}
 --- !u!114 &4065764590218907969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,7 +206,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a998c50a55e167345b34b75c8f2b9427, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _abilityID: 4
   _targetMethod: 3
+  _doesBossFollowTarget: 0
   _specificAreaTarget: {x: 0, y: 0, z: 0}
   _specificLookTarget: {x: 0, y: 0, z: -1}
   _targetZoneDuration: 4
@@ -210,10 +220,12 @@ MonoBehaviour:
   _screenShakeDuration: 0.6
   _animationTriggerName: VolcanoAbility
   _projectileCount: 5
+  _projectileDelay: 0.2
   _minimumProjectileDistance: 2
   _mapRadiusOffset: 2
-  _volcanoDamageZone: {fileID: 7816546349087960188, guid: d0d5519e062e34a41ba90cec54478c08, type: 3}
+  _impactAudioPitchIncrease: 0.3
   _targetZone: {fileID: 1953041730564889602, guid: c854f73f9135c2f439013660c2afab98, type: 3}
+  _volcanoDamageZone: {fileID: 7816546349087960188, guid: d0d5519e062e34a41ba90cec54478c08, type: 3}
 --- !u!1 &6950114219375309769
 GameObject:
   m_ObjectHideFlags: 0

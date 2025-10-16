@@ -26,8 +26,6 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
 
     private SH_Alchemist _alchemist;
 
-    
-
     /// <summary>
     /// Sets up the potion differently depending on what type of potion it is
     /// </summary>
@@ -51,9 +49,7 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
             case (PotionTypes.UtilityPotion):
                 _healArea.GetEnterEvent().AddListener(UtilityBuff);
                 return;
-
         }
-        
     }
 
     /// <summary>
@@ -61,7 +57,7 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
     /// </summary>
     /// <param name="targetLocation"></param>
     /// <returns></returns>
-    public IEnumerator MovePotionToEndLocation( Vector3 targetLocation)
+    public IEnumerator MovePotionToEndLocation(Vector3 targetLocation)
     {
         Vector3 startingPotionLocation = transform.position;
         float lerpProgress = 0;
@@ -84,8 +80,7 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
     {
         _healArea.ToggleProjectileCollider(true);
     }
-
-
+    
     /// <summary>
     /// Tells the alchemist script to use its passive ability
     /// </summary>
@@ -158,14 +153,8 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
     {
         _animator.SetTrigger(REMOVE_POTION_ANIM_TRIGGER);
     }
-
-
+    
     #region Base Ability
-    public override void SetUpProjectile(HeroBase heroBase)
-    {
-        base.SetUpProjectile(heroBase);
-    }
-
     public void AdditionalSetup(Vector3 targetLocation)
     {
         PotionTypeSetup();

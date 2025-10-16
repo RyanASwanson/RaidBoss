@@ -18,6 +18,7 @@ public class SBA_LavaBlast : SpecificBossAbilityFramework
 
     private Queue<GameObject> _storedSafeZones = new Queue<GameObject>();
 
+    private const int LAVA_BLAST_FAILED_AUDIO_ID = 0;
     
     /// <summary>
     /// Checks if at least 1 hero is in the safe zone area
@@ -25,7 +26,7 @@ public class SBA_LavaBlast : SpecificBossAbilityFramework
     /// <returns></returns>
     private bool IsHeroInSafeZone()
     {
-        return _storedSafeZones.Dequeue().GetComponent<BossAbilitySafeZone>().DoesSafeZoneContainHero();
+        return _storedSafeZones.Dequeue().GetComponentInChildren<BossAbilitySafeZone>().DoesZoneContainHero();
     }
 
     /// <summary>
@@ -34,6 +35,17 @@ public class SBA_LavaBlast : SpecificBossAbilityFramework
     private void AbilityFailed()
     {
         Instantiate(_failedVFX, _specificAreaTarget, Quaternion.identity);
+        PlayFailedAudio();
+    }
+
+    /// <summary>
+    /// Plays the audio of the ability failing
+    /// </summary>
+    private void PlayFailedAudio()
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
+                BossAbilityAudio[_abilityID].GeneralAbilityAudio[LAVA_BLAST_FAILED_AUDIO_ID]);
     }
 
     #region Base Ability

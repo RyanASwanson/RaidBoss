@@ -10,10 +10,12 @@ public class SBA_Frostbite : SpecificBossAbilityFramework
     private List<GlacialLord_FrostFiend> _attackingFiends = new();
 
     private SB_GlacialLord _glacialLord;
+    
+    public const int FROSTBITE_IMPACT_AUDIO_ID = 0;
 
-    public override void AbilitySetup(BossBase bossBase)
+    public override void AbilitySetUp(BossBase bossBase)
     {
-        base.AbilitySetup(bossBase);
+        base.AbilitySetUp(bossBase);
         _glacialLord = (SB_GlacialLord)_mySpecificBoss;
     }
 
@@ -22,7 +24,10 @@ public class SBA_Frostbite : SpecificBossAbilityFramework
         base.StartShowTargetZone();
         foreach(GlacialLord_FrostFiend frostFiend in _glacialLord.GetAllFrostFiends())
         {
-            if (frostFiend.IsMinionFrozen()) continue;
+            if (frostFiend.IsMinionFrozen())
+            {
+                continue;
+            }
 
             GameObject newTargetZone = Instantiate(_targetZone, frostFiend.transform.position,Quaternion.identity);
 
@@ -44,13 +49,16 @@ public class SBA_Frostbite : SpecificBossAbilityFramework
     {
         foreach (GlacialLord_FrostFiend frostFiend in _attackingFiends)
         {
-            if (frostFiend.IsMinionFrozen()) continue;
+            if (frostFiend.IsMinionFrozen())
+            {
+                continue;
+            }
 
             Vector3 spawnLoc = new Vector3(frostFiend.transform.position.x, _specificAreaTarget.y, frostFiend.transform.position.z);
 
             GameObject newFrostbite = Instantiate(_frostBite, spawnLoc, Quaternion.identity);
             SBP_Frostbite frostbiteFunc = newFrostbite.GetComponent<SBP_Frostbite>();
-            frostbiteFunc.SetUpProjectile(_myBossBase);
+            frostbiteFunc.SetUpProjectile(_myBossBase, _abilityID);
 
             newFrostbite.transform.LookAt(_glacialLord.transform);
             newFrostbite.transform.eulerAngles = new Vector3(0, newFrostbite.transform.eulerAngles.y, 0);

@@ -32,9 +32,13 @@ public class SHP_VampireBasicProjectile : HeroProjectileFramework
     private void StartAnimations()
     {
         if (_canSplit)
+        {
             _projectileAnimator.SetTrigger(BASIC_ATTACK_ANIM_TRIGGER);
+        }
         else
+        {
             _projectileAnimator.SetTrigger(SPLIT_ATTACK_ANIM_TRIGGER);
+        }
     }
 
     /// <summary>
@@ -65,29 +69,23 @@ public class SHP_VampireBasicProjectile : HeroProjectileFramework
 
             SHP_VampireBasicProjectile projectileFunc = newestProjectile.GetComponent<SHP_VampireBasicProjectile>();
 
-            projectileFunc.SetUpProjectile(_myHeroBase);
+            projectileFunc.SetUpProjectile(_myHeroBase, EHeroAbilityType.Basic);
             projectileFunc.AdditionalSetup(_vampireHero);
 
             //Performs the setup for the damage area so that it knows it's owner
             newestProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(_myHeroBase);
         }
-    }
-
-    /// <summary>
-    /// Triggers the passive of the vampire
-    /// Called when the projectile does damage
-    /// </summary>
-    /// <param name="damage"></param>
-    public void TriggerHeroPassive(float damage)
-    {
-        _vampireHero.AddToPassiveHealingCounter(damage);
+        
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificHeroAudio[_myHeroBase.GetHeroSO().GetHeroID()]
+                .MiscellaneousHeroAudio[SH_Vampire.BASIC_PROJECTILE_SPLIT_AUDIO_ID]);
     }
 
 
     #region Base Ability
-    public override void SetUpProjectile(HeroBase heroBase)
+    public override void SetUpProjectile(HeroBase heroBase, EHeroAbilityType heroAbilityType)
     {
-        base.SetUpProjectile(heroBase);
+        base.SetUpProjectile(heroBase, heroAbilityType);
 
         StartAnimations();
 

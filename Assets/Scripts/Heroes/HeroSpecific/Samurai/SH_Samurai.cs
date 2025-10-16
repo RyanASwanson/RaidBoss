@@ -23,6 +23,8 @@ public class SH_Samurai : SpecificHeroFramework
 
     private const string PARRY_SUCCESS_ANIM_TRIGGER = "ParrySuccess";
 
+    private const int PARRY_SUCCESS_AUDIO_ID = 0;
+
     #region Basic Abilities
 
     /// <summary>
@@ -41,7 +43,7 @@ public class SH_Samurai : SpecificHeroFramework
     protected void CreateBasicAttackProjectiles()
     {
         GameObject spawnedProjectile = Instantiate(_basicProjectile, _myHeroBase.transform.position, Quaternion.identity);
-        spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(_myHeroBase);
+        spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(_myHeroBase, EHeroAbilityType.Basic);
 
         //Performs the setup for the damage area so that it knows it's owner
         spawnedProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(_myHeroBase);
@@ -53,10 +55,9 @@ public class SH_Samurai : SpecificHeroFramework
     /// <summary>
     /// Called when manual button is pressed
     /// </summary>
-    /// <param name="attackLocation"></param>
-    public override void ActivateManualAbilities(Vector3 attackLocation)
+    public override void ActivateManualAbilities()
     {
-        base.ActivateManualAbilities(attackLocation);
+        base.ActivateManualAbilities();
 
         _parryCoroutine = StartCoroutine(ParryProcess());
     }
@@ -100,8 +101,16 @@ public class SH_Samurai : SpecificHeroFramework
         ActivatePassiveAbilities();
 
         SuccessfulParryAnimation();
+        PlayParryAudio();
 
         StartSuccessfulParryIFrames();
+    }
+
+    private void PlayParryAudio()
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificHeroAudio[_myHeroBase.GetHeroSO().GetHeroID()]
+                .MiscellaneousHeroAudio[PARRY_SUCCESS_AUDIO_ID]);
     }
 
     private void StartSuccessfulParryIFrames()
@@ -130,20 +139,10 @@ public class SH_Samurai : SpecificHeroFramework
     /// On hitting the boss with an attack the samurai charges his manual ability
     /// </summary>
     /// <param name="cooldownAmount"></param>
-
-
     public override void ActivatePassiveAbilities()
     {
         AddToManualAbilityChargeTime(_passiveRechargeManualAmount);
     }
     #endregion
-
-
-
-    protected override void SubscribeToEvents()
-    {
-        base.SubscribeToEvents();
-    }
-
     
 }

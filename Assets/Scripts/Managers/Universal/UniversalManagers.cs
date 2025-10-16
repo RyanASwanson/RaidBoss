@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -28,7 +29,7 @@ public class UniversalManagers : CoreManagersFramework
     protected override bool EstablishInstance()
     {
         //If no other version exists
-        if (Instance == null)
+        if (Instance.IsUnityNull())
         {
             //This is the new singleton
             Instance = this;

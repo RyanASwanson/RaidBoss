@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 /// <summary>
 /// The button that is pressed in order to selected which boss
 /// that you are going to fight
 /// </summary>
-public class SelectBossLevelButton : MonoBehaviour
+public class SelectBossLevelButton : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private LevelSO _associatedLevel;
     [SerializeField] private bool _bossEnabled;
@@ -30,11 +31,11 @@ public class SelectBossLevelButton : MonoBehaviour
 
     private void UpdateButtonInteractability()
     {
-        bool heroUnlocked = SaveManager.Instance.
+        bool bossUnlocked = SaveManager.Instance.
             GSD._bossesUnlocked[_associatedLevel.GetLevelBoss().GetBossName()];
 
-        _levelBossButton.interactable = heroUnlocked;
-        _lockVisuals.SetActive(!heroUnlocked);
+        _levelBossButton.interactable = bossUnlocked;
+        _lockVisuals.SetActive(!bossUnlocked);
     }
 
     private void SetButtonBossIconVisuals()
@@ -51,21 +52,44 @@ public class SelectBossLevelButton : MonoBehaviour
         //Sets the colorblock for the button
         _levelBossButton.colors = colorVar;
     }
+    
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        switch (eventData.button)
+        {
+            case PointerEventData.InputButton.Left:
+                SelectBossLevelLeftClicked();
+                return;
+            case PointerEventData.InputButton.Middle:
+                return;
+            case PointerEventData.InputButton.Right:
+                SelectBossLevelRightClicked();
+                return;
+        }
+    }
 
     /// <summary>
     /// The button to select and deselect heroes is pressed
     /// </summary>
-    public void SelectBossLevelButtonPressed()
+    public void SelectBossLevelLeftClicked()
     {
         if (!_buttonHasBeenPressed)
         {
-            //if (UniversalManagers.Instance.GetSelectionManager().AtMaxBossSelected()) return;
             BossLevelSelect();
         }
         else
+        {
             BossLevelDeselect();
+        }
+        
+        EventSystem.current.SetSelectedGameObject(null);
 
         _buttonHasBeenPressed = !_buttonHasBeenPressed;
+    }
+    
+    private void SelectBossLevelRightClicked()
+    {
+        SelectionManager.Instance.LockUnlockBossInformation(_associatedLevel.GetLevelBoss());
     }
 
     public void SelectBossButtonHoverBegin()

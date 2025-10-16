@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// Provides the functionality for the hero pillars on the selection scene
@@ -8,16 +10,20 @@ using UnityEngine;
 public class HeroPillar : MonoBehaviour
 {
     [SerializeField] private GameObject _heroSpawnPoint;
+    [SerializeField] private GameObject _previewBase;
     [SerializeField] private Animator _heroSpawnAnimator;
 
     private GameObject _currentHeroVisual;
 
     private HeroSO _storedHero;
-    [Space]
 
+    private const string HERO_SELECTED_ANIM_TRIGGER = "G_HeroSelected";
+    
+    [Space]
     [SerializeField] private Animator _pillarAnimator;
 
     private const string HERO_PILLAR_MOVE_ANIM_BOOL = "PillarUp";
+    private const string HERO_PILLAR_PREVIEW_SHOW_ANIM_BOOL = "PreviewShow";
 
     private const string NEW_HERO_HOVER_ANIM_TRIGGER = "NewHover";
     private const string REMOVE_HERO_ON_PILLAR_ANIM_TRIGGER = "RemoveHero";
@@ -34,8 +40,10 @@ public class HeroPillar : MonoBehaviour
     public void ShowHeroOnPillar(HeroSO heroSO, bool newHero)
     {
         //If there is a hero on the pillar remove them
-        if (_currentHeroVisual != null)
+        if (!_currentHeroVisual.IsUnityNull())
+        {
             RemoveHeroOnPillar();
+        }
 
         //Spawn the hero onto the pillar
         _currentHeroVisual = Instantiate(heroSO.GetHeroPrefab(), _heroSpawnPoint.transform);
@@ -45,10 +53,22 @@ public class HeroPillar : MonoBehaviour
         //Sets the stored hero
         _storedHero = heroSO;
 
-        if (!newHero) return;
+        if (!newHero)
+        {
+            if(_currentHeroVisual.TryGetComponent<Animator>(out Animator animator))
+            {
+                StartHeroSelectedAnimation(animator);
+            }
+            return;
+        }
 
         _heroSpawnAnimator.SetTrigger(NEW_HERO_HOVER_ANIM_TRIGGER);
         _heroSpawnAnimator.ResetTrigger(REMOVE_HERO_ON_PILLAR_ANIM_TRIGGER);
+    }
+    
+    public void StartHeroSelectedAnimation(Animator animator)
+    {
+        animator.SetTrigger(HERO_SELECTED_ANIM_TRIGGER);
     }
 
     /// <summary>
@@ -65,6 +85,16 @@ public class HeroPillar : MonoBehaviour
         _heroSpawnAnimator.ResetTrigger(NEW_HERO_HOVER_ANIM_TRIGGER);
         _heroSpawnAnimator.SetTrigger(REMOVE_HERO_ON_PILLAR_ANIM_TRIGGER);
     }
+
+    #region PreviewPillar
+
+    public void ShowPreviewPillar(bool shouldShow)
+    {
+        //_previewBase.SetActive(shouldShow);
+        _pillarAnimator.SetBool(HERO_PILLAR_PREVIEW_SHOW_ANIM_BOOL, shouldShow);
+    }
+
+    #endregion
 
     #region Getters
     public GameObject GetHeroSpawnPoint() => _heroSpawnPoint;

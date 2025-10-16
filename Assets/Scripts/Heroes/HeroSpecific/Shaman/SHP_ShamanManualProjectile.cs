@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using FMOD.Studio;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -15,13 +17,18 @@ public class SHP_ShamanManualProjectile : HeroProjectileFramework
     [SerializeField] private GameObject _vfxLightning;
     [SerializeField] private Transform _vfxLightningSpawnPoint;
     //private List<GameObject> _spawnedVFXLightning
-
+    
+    [Space]
+    [SerializeField] private float _targetReachedPitchIncrease;
+    
+    private const int TARGET_REACHED_AUDIO_ID = 0;
 
     private Queue<GameObject> _targetsNotGoneTo = new Queue<GameObject>();
 
-    private SH_Shaman _ownerShaman;
+    private float _targetReachedCounter = 0;
 
-    
+    private GeneralHeroDamageArea _damageArea;
+    private SH_Shaman _ownerShaman;
 
     /// <summary>
     /// Determines the order to go between each hero
@@ -31,15 +38,22 @@ public class SHP_ShamanManualProjectile : HeroProjectileFramework
         //Add all living heroes to the hero object list except for the shaman
         List<GameObject> travelToObjects = new List<GameObject>();
         
-        foreach(HeroBase hb in GameplayManagers.Instance.GetHeroesManager().GetCurrentLivingHeroes())
+        // Iterate through each living hero
+        foreach(HeroBase hb in HeroesManager.Instance.GetCurrentLivingHeroes())
         {
-            if (hb.GetSpecificHeroScript() == _mySpecificHero) continue;
-
+            if (hb.GetSpecificHeroScript() == _mySpecificHero)
+            {
+                continue;
+            }
             travelToObjects.Add(hb.gameObject);
         }
 
-        if (totem != null)
+        // Check if a totem exists
+        if (!totem.IsUnityNull())
+        {
+            // Add the totem to targets that the projectile can travel to
             travelToObjects.Add(totem.gameObject);
+        }
 
         //Goes through the list of living heroes to determine which is the next target
         //Remove the hero from the list of heroObjects after find the target
@@ -81,7 +95,7 @@ public class SHP_ShamanManualProjectile : HeroProjectileFramework
         while(_targetsNotGoneTo.Count > 0)
         {
             //Makes sure there is a next hero in the list
-            if(_targetsNotGoneTo.Peek() != null)
+            if(!_targetsNotGoneTo.Peek().IsUnityNull())
             {
                 //Moves the projectile towards the next hero so long as it isn't too close
                 if(Vector3.Distance(gameObject.transform.position,_targetsNotGoneTo.Peek().transform.position) > .2f)
@@ -108,6 +122,7 @@ public class SHP_ShamanManualProjectile : HeroProjectileFramework
     {
         while(true)
         {
+            //TODO rework this to use unity VFX instead of spawning game objects
             yield return new WaitForSeconds(_vfxLightningSpawnRate);
 
             GameObject newestLighting = Instantiate(_vfxLightning, _vfxLightningSpawnPoint.transform);
@@ -123,20 +138,36 @@ public class SHP_ShamanManualProjectile : HeroProjectileFramework
     /// </summary>
     private void ProjectileReachedTargetHero()
     {
-        GetComponent<GeneralHeroDamageArea>().ToggleProjectileCollider(true);
+        _targetReachedCounter++;
+        
+        _damageArea.ToggleProjectileCollider(true);
+
+        PlayTargetReachedSound();
 
         _targetsNotGoneTo.Dequeue();
     }
 
-
-    #region Base Ability
-    public override void SetUpProjectile(HeroBase heroBase)
+    private void PlayTargetReachedSound()
     {
-        base.SetUpProjectile(heroBase);
+        if (_targetsNotGoneTo.Count <= 0)
+        {
+            return;
+        }
+        
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificHeroAudio[_myHeroBase.GetHeroSO().GetHeroID()]
+                .MiscellaneousHeroAudio[TARGET_REACHED_AUDIO_ID], out EventInstance eventInstance);
+        
+        eventInstance.getPitch(out float pitch);
+        eventInstance.setPitch(pitch + (_targetReachedPitchIncrease * (_targetReachedCounter-1)));
     }
 
-    public void AdditionalSetup(GameObject totem)
+    
+    #region Base Ability
+    public void AdditionalSetUp(GameObject totem)
     {
+        _damageArea = GetComponent<GeneralHeroDamageArea>();
+        
         DetermineTargetOrder(totem);
 
         StartCoroutine(MoveProjectile());

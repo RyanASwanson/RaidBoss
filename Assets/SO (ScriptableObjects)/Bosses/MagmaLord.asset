@@ -13,19 +13,22 @@ MonoBehaviour:
   m_Name: MagmaLord
   m_EditorClassIdentifier: 
   _name: Magma Lord
+  _bossID: 0
+  _bossMusicID: 2
   _maxHP: 250
   _baseStaggerMax: 75
   _staggerDuration: 13
   _rotationSpeed: 4
   _damageIncrementMultiplier: 1.05
   _damageResistanceChangeOnStagger: 0.15
+  _fightStartDelay: 1.5
   _enrageTime: 200
   _enrageDamageMultiplier: 2
   _bossPrefab: {fileID: 7107661797792204574, guid: 60af20eb747065c438b9c82d3b46c59e, type: 3}
   _bossIcon: {fileID: 21300000, guid: 21d4b6b1ff7b4a44e98295360c31c422, type: 3}
   _bossHighlightedColor: {r: 1, g: 0.77135277, b: 0, a: 1}
-  _bossPressedColor: {r: 0.9056604, g: 0.47819647, b: 0, a: 1}
-  _bossSelectedColor: {r: 1, g: 0.16288736, b: 0, a: 1}
+  _bossPressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+  _bossSelectedColor: {r: 1, g: 1, b: 1, a: 1}
   _bossAbilities:
   - _abilityName: Meteor
     _abilityType: 0
@@ -59,7 +62,7 @@ MonoBehaviour:
     _abilityDescription: 'The Magma Lord damages
 
       all heroes around it'
-    _abilityImage: {fileID: 21300000, guid: 9aebd705574f9e642aef1e5f59b3e4d8, type: 3}
+    _abilityImage: {fileID: 21300000, guid: b8580abf2331f0442bc603c1eb6ef082, type: 3}
   - _abilityName: Volcano
     _abilityType: 0
     _abilityDescription: 'The Magma Lord creates

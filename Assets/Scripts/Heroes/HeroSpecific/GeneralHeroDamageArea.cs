@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -31,7 +32,7 @@ public class GeneralHeroDamageArea : GeneralAbilityAreaFramework
     private float _staggerMultiplier = 1;
 
     /// <summary>
-    /// Performs the setup for the damage area so that it knows it's owner
+    /// Performs the set up for the damage area so that it knows it's owner
     /// </summary>
     /// <param name="heroBase"></param>
     public void SetUpDamageArea(HeroBase heroBase)
@@ -40,10 +41,6 @@ public class GeneralHeroDamageArea : GeneralAbilityAreaFramework
     }
 
     #region Collision
-    private bool DoesColliderBelongToBoss(Collider collision)
-    {
-        return collision.gameObject.CompareTag(TagStringData.GetBossHitboxTagName());
-    }
 
     private void OnTriggerEnter(Collider collision)
     {
@@ -72,7 +69,7 @@ public class GeneralHeroDamageArea : GeneralAbilityAreaFramework
 
     private bool HitBoss(Collider collision, UnityEvent<Collider> hitEvent, float abilityDamage, float abilityStagger)
     {
-        if(DoesColliderBelongToBoss(collision))
+        if(TagStringData.DoesColliderBelongToBoss(collision))
         {
             hitEvent?.Invoke(collision);
 
@@ -85,18 +82,23 @@ public class GeneralHeroDamageArea : GeneralAbilityAreaFramework
 
     private void DealDamageAndStagger(float abilityDamage, float abilityStagger)
     {
-        if (_myHeroBase == null)
+        if (_myHeroBase.IsUnityNull())
         {
             Debug.Log("Cant Find Hero Base");
             return;
         }
-            
 
+        // Check if damage is more than 0 to prevent negative damage
         if (abilityDamage > 0)
+        {
             _myHeroBase.GetSpecificHeroScript().DamageBoss(abilityDamage * _damageMultiplier);
+        }
 
+        // Check if stagger is more than 0 to prevent negative damage
         if (abilityStagger > 0)
+        {
             _myHeroBase.GetSpecificHeroScript().StaggerBoss(abilityStagger * _staggerMultiplier);
+        }
     }
 
     #endregion

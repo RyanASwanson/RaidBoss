@@ -4,11 +4,20 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+/// <summary>
+/// Contains all ui functionality related to the pause menu
+/// </summary>
 public class PauseUIManager : GameUIChildrenFunctionality
 {
+    public static PauseUIManager Instance;
+    
     [SerializeField] private GameObject _gamePausedUI;
     [SerializeField] private GameObject _pauseButton;
 
+    /// <summary>
+    /// Called when the pause button on the UI is pressed or the key for is pressed.
+    /// Pauses the game
+    /// </summary>
     public void PauseButtonPressed()
     {
         TimeManager.Instance.PressGamePauseButton();
@@ -30,13 +39,24 @@ public class PauseUIManager : GameUIChildrenFunctionality
     }
 
     #region BaseManager
+    /// <summary>
+    /// Establishes the Instance for the Pause UI Manager
+    /// </summary>
+    public override void SetUpInstance()
+    {
+        base.SetUpInstance();
+        Instance = this;
+    }
 
+    /// <summary>
+    /// Subscribes to all needed events
+    /// </summary>
     protected override void SubscribeToEvents()
     {
         TimeManager.Instance.GetGamePausedEvent().AddListener(GamePausedUI);
         TimeManager.Instance.GetGameUnpausedEvent().AddListener(GameUnpausedUI);
 
-        GameplayManagers.Instance.GetGameStateManager().GetBattleWonOrLostEvent().AddListener(GameWonOrLost);
+        GameStateManager.Instance.GetBattleWonOrLostEvent().AddListener(GameWonOrLost);
     }
 
     #endregion

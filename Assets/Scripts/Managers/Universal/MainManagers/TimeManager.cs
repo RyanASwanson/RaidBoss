@@ -187,12 +187,6 @@ public class TimeManager : MainUniversalManagerFramework
     }
     
     #region BaseManager
-
-    public override void SetUpMainManager()
-    {
-        base.SetUpMainManager();
-    }
-
     public override void SetUpInstance()
     {
         base.SetUpInstance();
@@ -201,8 +195,8 @@ public class TimeManager : MainUniversalManagerFramework
 
     protected override void SubscribeToEvents()
     {
-        SceneLoadManager.Instance.GetStartOfSceneLoadEvent().AddListener(SceneLoadStart);
-        SceneLoadManager.Instance.GetEndOfSceneLoadEvent().AddListener(SceneLoadEnd);
+        SceneLoadManager.Instance.GetOnStartOfSceneLoad().AddListener(SceneLoadStart);
+        SceneLoadManager.Instance.GetOnEndOfSceneLoad().AddListener(SceneLoadEnd);
     }
     #endregion
 

@@ -11,8 +11,11 @@ using UnityEngine;
 public class SHP_ReaperManualProjectile : HeroProjectileFramework
 {
     [SerializeField] private float _projectileSpeed;
+    
+    private Animator _projectileAnimator;
 
-
+    private const string HIT_ANIM_TRIGGER = "HitEnemy";
+    
     private IEnumerator MoveProjectile()
     {
         while (true)
@@ -21,16 +24,25 @@ public class SHP_ReaperManualProjectile : HeroProjectileFramework
                 _myHeroBase.gameObject.transform.position, _projectileSpeed * Time.deltaTime);
 
             transform.LookAt(_myHeroBase.gameObject.transform.position);
-            transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+            transform.eulerAngles.Set(0, transform.eulerAngles.y, 0);
             yield return null;
         }
     }
 
+    public void PlayProjectileHitFlickerAnimation()
+    {
+        _projectileAnimator.SetTrigger(HIT_ANIM_TRIGGER);
+    }
 
     #region Base Ability
-    public override void SetUpProjectile(HeroBase heroBase)
+    /// <summary>
+    /// Performs needed set up on the projectile
+    /// </summary>
+    /// <param name="heroBase"> The associated hero </param>
+    public override void SetUpProjectile(HeroBase heroBase, EHeroAbilityType heroAbilityType)
     {
-        base.SetUpProjectile(heroBase);
+        base.SetUpProjectile(heroBase, heroAbilityType);
+        _projectileAnimator = GetComponentInChildren<Animator>();
         StartCoroutine(MoveProjectile());
     }
     #endregion

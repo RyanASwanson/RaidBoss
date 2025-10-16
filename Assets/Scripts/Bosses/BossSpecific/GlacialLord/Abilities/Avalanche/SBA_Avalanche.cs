@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SBA_Avalanche : SpecificBossAbilityFramework
@@ -15,7 +16,28 @@ public class SBA_Avalanche : SpecificBossAbilityFramework
     private GameObject _storedAvalanche;
     private Vector3 _edgeOfMap;
 
+    public const int AVALANCHE_END_AUDIO_ID = 0;
+    
+    
+    private Vector3 GetProjectileSpawnLocation()
+    {
+        Vector3 spawnLocation = transform.position;
 
+        Vector3 dir = _storedTarget.transform.position - transform.position;
+        dir = new Vector3(dir.x, 0, dir.z).normalized;
+
+        spawnLocation += dir * _spawnDistance;
+
+        return spawnLocation;
+    }
+
+    public void ProjectileReachedEndOfPath()
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
+                BossAbilityAudio[_abilityID].GeneralAbilityAudio[AVALANCHE_END_AUDIO_ID]);
+    }
+    
     #region Base Ability
     protected override void AbilityPrep()
     {
@@ -29,6 +51,8 @@ public class SBA_Avalanche : SpecificBossAbilityFramework
     protected override void StartShowTargetZone()
     {
         _storedTargetZone = Instantiate(_targetZone, transform.position, Quaternion.identity);
+        
+        //Vector3.set does not work here
         _storedTargetZone.transform.position = new Vector3(_storedTargetZone.transform.position.x,
             _specificAreaTarget.y, _storedTargetZone.transform.position.z);
 
@@ -43,10 +67,10 @@ public class SBA_Avalanche : SpecificBossAbilityFramework
     private IEnumerator UpdateTargetZone()
     {
         Vector3 lastCheckedDirection = Vector3.zero;
-        while(_storedTargetZone != null)
+        while(!_storedTargetZone.IsUnityNull())
         {
             Vector3 currentDirection = _storedTarget.transform.position - Vector3.zero;
-            _edgeOfMap = GameplayManagers.Instance.GetEnvironmentManager().GetEdgeOfMapLoc(transform.position,
+            _edgeOfMap =  EnvironmentManager.Instance.GetEdgeOfMapLoc(transform.position,
                 (currentDirection).normalized);
 
             if (lastCheckedDirection == currentDirection)
@@ -73,24 +97,10 @@ public class SBA_Avalanche : SpecificBossAbilityFramework
         _storedAvalanche = Instantiate(_avalanche, GetProjectileSpawnLocation(), Quaternion.identity);
         //Sets up the projectile
         SBP_Avalanche avalanche = _storedAvalanche.GetComponent<SBP_Avalanche>();
-        avalanche.SetUpProjectile(_myBossBase);
-        avalanche.AdditionalSetup(_storedTarget.transform.position);
+        avalanche.SetUpProjectile(_myBossBase, _abilityID);
+        avalanche.AdditionalSetUp(_storedTarget.transform.position, this);
 
         base.AbilityStart();
     }
-
-
-    private Vector3 GetProjectileSpawnLocation()
-    {
-        Vector3 spawnLocation = transform.position;
-
-        Vector3 dir = _storedTarget.transform.position - transform.position;
-        dir = new Vector3(dir.x, 0, dir.z).normalized;
-
-        spawnLocation += dir * _spawnDistance;
-
-        return spawnLocation;
-    }
-
     #endregion
 }

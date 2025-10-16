@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 /// <summary>
-/// Handles the ui of the game state in gamepaly such as win/lose
+/// Handles the ui of the game state in gameplay such as win/lose
 /// </summary>
 public class GameStateUIManager : GameUIChildrenFunctionality
 {
+    public static GameStateUIManager Instance;
+    
     [Header("Game Conclusion")]
     [SerializeField] private GameObject _winUI;
     [SerializeField] private float _winUIDelay;
@@ -37,21 +38,23 @@ public class GameStateUIManager : GameUIChildrenFunctionality
         _loseUI.SetActive(true);
     }
 
-
     #region BaseManager
-    public override void ChildFuncSetup()
+    /// <summary>
+    /// Establishes the Instance for the Game State UI Manager
+    /// </summary>
+    public override void SetUpInstance()
     {
-        base.ChildFuncSetup();
+        base.SetUpInstance();
+        Instance = this;
     }
 
+    /// <summary>
+    /// Subscribes to all needed events
+    /// </summary>
     protected override void SubscribeToEvents()
     {
-        GameplayManagers.Instance.GetGameStateManager().GetBattleWonEvent().AddListener(BattleWinUI);
-        GameplayManagers.Instance.GetGameStateManager().GetBattleLostEvent().AddListener(BattleLoseUI);
+        GameStateManager.Instance.GetBattleWonEvent().AddListener(BattleWinUI);
+        GameStateManager.Instance.GetBattleLostEvent().AddListener(BattleLoseUI);
     }
-    #endregion
-
-    #region Getters
-
     #endregion
 }

@@ -30,11 +30,5 @@ public class SBP_Icicle : BossProjectileFramework
     {
         return Physics.Raycast(transform.position, Vector3.down, _groundCheckDistance, _groundLayer);
     }
-
-    public override void SetUpProjectile(BossBase bossBase)
-    {
-        base.SetUpProjectile(bossBase);
-    }
-
-
+    
 }

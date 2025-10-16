@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -13,14 +14,18 @@ public class SH_Vampire : SpecificHeroFramework
     [Space]
     [SerializeField] private float _manualAbilityDuration;
     [SerializeField] private float _manualAbilityHealingIncrease;
+    private WaitForSeconds _manualAbilityWait;
 
     [Space]
     [SerializeField] private float _passiveAbilityLifestealMultiplier;
     [SerializeField] private float _passiveHealingDelay;
+    private WaitForSeconds _passiveAbilityWait;
 
     private float _currentPassiveHealingStored;
 
     private Coroutine _passiveProcess;
+
+    public const int BASIC_PROJECTILE_SPLIT_AUDIO_ID = 0;
 
     #region Basic Abilities
 
@@ -36,26 +41,24 @@ public class SH_Vampire : SpecificHeroFramework
         //Creates the projectile at the hero location
         GameObject spawnedProjectile = Instantiate(_basicProjectile, transform.position, Quaternion.identity);
 
-        spawnedProjectile.transform.LookAt(GameplayManagers.Instance.GetBossManager().GetBossBaseGameObject().transform);
+        spawnedProjectile.transform.LookAt(BossBase.Instance.transform);
         spawnedProjectile.transform.eulerAngles = new Vector3(0, spawnedProjectile.transform.eulerAngles.y, 0);
 
-        //Does the universal projectile setup
+        //Does the universal projectile set up
         SHP_VampireBasicProjectile projectileFunc = spawnedProjectile.GetComponent<SHP_VampireBasicProjectile>();
-        projectileFunc.SetUpProjectile(_myHeroBase);
+        projectileFunc.SetUpProjectile(_myHeroBase, EHeroAbilityType.Basic);
         projectileFunc.AdditionalSetup(this);
 
         //Performs the setup for the damage area so that it knows it's owner
         spawnedProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(_myHeroBase);
     }
-
-
     #endregion
 
     #region Manual Abilities
 
-    public override void ActivateManualAbilities(Vector3 attackLocation)
+    public override void ActivateManualAbilities()
     {
-        base.ActivateManualAbilities(attackLocation);
+        base.ActivateManualAbilities();
 
         StartCoroutine(ManualAbilityProcess());
     }
@@ -67,7 +70,7 @@ public class SH_Vampire : SpecificHeroFramework
         heroStats.AddDamageTakenOverrideCounter();
         heroStats.ChangeCurrentHeroHealingReceivedMultiplier(_manualAbilityHealingIncrease);
 
-        yield return new WaitForSeconds(_manualAbilityDuration);
+        yield return _manualAbilityWait;
 
         heroStats.RemoveDamageTakenOverrideCounter();
         heroStats.ChangeCurrentHeroHealingReceivedMultiplier(-_manualAbilityHealingIncrease);
@@ -79,12 +82,15 @@ public class SH_Vampire : SpecificHeroFramework
     /// <summary>
     /// Stores damage dealt as healing and starts the process of activating it
     /// </summary>
-    /// <param name="damageDealt"></param>
+    /// <param name="damageDealt"> The amount of damage that was dealt </param>
     public void AddToPassiveHealingCounter(float damageDealt)
     {
         _currentPassiveHealingStored += damageDealt * _passiveAbilityLifestealMultiplier;
-        
-        if (_passiveProcess != null) StopCoroutine(_passiveProcess);
+
+        if (!_passiveProcess.IsUnityNull())
+        {
+            StopCoroutine(_passiveProcess);
+        }
 
         _passiveProcess = StartCoroutine(PassiveProcess());
     }
@@ -95,7 +101,7 @@ public class SH_Vampire : SpecificHeroFramework
     /// <returns></returns>
     private IEnumerator PassiveProcess()
     {
-        yield return new WaitForSeconds(_passiveHealingDelay);
+        yield return _passiveAbilityWait;
         ActivatePassiveAbilities();
 
         _passiveProcess = null;
@@ -113,10 +119,29 @@ public class SH_Vampire : SpecificHeroFramework
     }
     #endregion
 
+    #region Base Hero
+    /// <summary>
+    /// Performs any needed set up for the hero
+    /// </summary>
+    /// <param name="heroBase"> The associated hero base </param>
+    /// <param name="heroSO"> The associated hero scriptable object </param>
+    public override void SetUpSpecificHero(HeroBase heroBase, HeroSO heroSO)
+    {
+        base.SetUpSpecificHero(heroBase, heroSO);
+        
+        _manualAbilityWait = new WaitForSeconds(_manualAbilityDuration);
+        _passiveAbilityWait = new WaitForSeconds(_passiveHealingDelay);
+    }
+    
+    /// <summary>
+    /// Subscribes to any needed events
+    /// </summary>
     protected override void SubscribeToEvents()
     {
         base.SubscribeToEvents();
 
         _myHeroBase.GetHeroDealtDamageEvent().AddListener(AddToPassiveHealingCounter);
     }
+    #endregion
+    
 }

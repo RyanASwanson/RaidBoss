@@ -11,6 +11,7 @@ public class SBA_CrystalBarrage : SpecificBossAbilityFramework
     [SerializeField] private int _projectileCount;
     [SerializeField] private float _timeBeforeProjectiles;
     [SerializeField] private float _timeBetweenProjectiles;
+    private WaitForSeconds _delayBetweenProjectiles;
 
     [Space]
     [SerializeField] private Vector3 _upwardsProjectileSpawnVariance;
@@ -84,7 +85,6 @@ public class SBA_CrystalBarrage : SpecificBossAbilityFramework
 
     #endregion
 
-
     #region Upwards Projectile
     protected void StartUpwardsProjectileProcess()
     {
@@ -98,9 +98,8 @@ public class SBA_CrystalBarrage : SpecificBossAbilityFramework
         for(int i = 0; i < _projectileCount; i++)
         {
             CreateUpwardsProjectile();
-            yield return new WaitForSeconds(_timeBetweenProjectiles);
+            yield return _delayBetweenProjectiles;
         }
-        
     }
 
     protected void CreateUpwardsProjectile()
@@ -118,23 +117,21 @@ public class SBA_CrystalBarrage : SpecificBossAbilityFramework
     #endregion
 
     #region DamageProjectile
-
-    protected void StartDamageProjectileProcess()
+    private void StartDamageProjectileProcess()
     {
         StartCoroutine(DamageProjectileProcess());
     }
 
-    protected IEnumerator DamageProjectileProcess()
+    private IEnumerator DamageProjectileProcess()
     {
         for (int i = 0; i < _projectileCount; i++)
         {
             CreateDamageProjectile();
             yield return new WaitForSeconds(_timeBetweenProjectiles);
         }
-            
     }
 
-    protected void CreateDamageProjectile()
+    private void CreateDamageProjectile()
     {
         Vector3 randomSpawnVariance = new Vector3(Random.Range(-_targetWidth, _targetWidth),
             0, Random.Range(-_targetWidth, _targetWidth));
@@ -149,9 +146,12 @@ public class SBA_CrystalBarrage : SpecificBossAbilityFramework
     #endregion
 
     #region Base Ability
-    public override void AbilitySetup(BossBase bossBase)
+    public override void AbilitySetUp(BossBase bossBase)
     {
-        base.AbilitySetup(bossBase);
+        base.AbilitySetUp(bossBase);
+        
+        _delayBetweenProjectiles = new WaitForSeconds(_timeBetweenProjectiles);
+        
         CalculateTargetLocations();
     }
 
@@ -176,8 +176,5 @@ public class SBA_CrystalBarrage : SpecificBossAbilityFramework
 
         base.AbilityStart();
     }
-
-    
     #endregion
-
 }

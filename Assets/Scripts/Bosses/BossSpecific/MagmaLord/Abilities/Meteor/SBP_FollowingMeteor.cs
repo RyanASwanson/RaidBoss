@@ -9,12 +9,10 @@ using UnityEngine;
 public class SBP_FollowingMeteor : BossProjectileFramework
 {
     [SerializeField] private float _projectileSpeed;
-    const float speedScalarMax = 1;
+    private const float SPEED_SCALAR_MAX = 1;
 
     [Space]
     [SerializeField] private float _randomDirectionThreshold;
-
-    
 
     /// <summary>
     /// Makes the projectile look at the target hero and start moving 
@@ -57,11 +55,13 @@ public class SBP_FollowingMeteor : BossProjectileFramework
 
         while(true)
         {
-            if(speedScalar < speedScalarMax)
+            if(speedScalar < SPEED_SCALAR_MAX)
             {
                 speedScalar += Time.deltaTime;
-                if (speedScalar > speedScalarMax)
-                    speedScalar = speedScalarMax;
+                if (speedScalar > SPEED_SCALAR_MAX)
+                {
+                    speedScalar = SPEED_SCALAR_MAX;
+                }
             }
             transform.position += moveDirection * _projectileSpeed * speedScalar * Time.deltaTime;
 
@@ -82,7 +82,7 @@ public class SBP_FollowingMeteor : BossProjectileFramework
     /// Provides the projectile with any additional information it may need
     /// </summary>
     /// <param name="heroBase"></param>
-    public void AdditionalSetup(HeroBase heroBase)
+    public void AdditionalSetUp(HeroBase heroBase)
     {
         StartProjectileMovement(heroBase);
     }

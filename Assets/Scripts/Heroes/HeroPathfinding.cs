@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -24,6 +25,10 @@ public class HeroPathfinding : HeroChildrenFunctionality
     /// <param name="newDestination"></param>
     public void DirectNavigationTo(Vector3 newDestination)
     {
+        if (_myHeroBase.GetHeroStats().IsHeroDead())
+        {
+            return;
+        }
         _meshAgent.SetDestination(newDestination);
         StartMovingCoroutine();
     }
@@ -33,10 +38,17 @@ public class HeroPathfinding : HeroChildrenFunctionality
     /// </summary>
     private void StartMovingCoroutine()
     {
-        if (_heroMovementCoroutine != null)
+        // Checks if the hero is already moving
+        if (!_heroMovementCoroutine.IsUnityNull())
+        {
+            // Stop their current movement so the new movement can take its place
             StopCoroutine(_heroMovementCoroutine);
+        }
         else
+        {
+            // Invoke the hero started moving event as the hero isn't moving yet
             _myHeroBase.InvokeHeroStartedMovingEvent();
+        }
 
         _heroMovementCoroutine = StartCoroutine(MovingOnNavMesh());
     }
@@ -88,7 +100,7 @@ public class HeroPathfinding : HeroChildrenFunctionality
         _meshAgent.autoRepath = true;
 
         yield return new WaitForEndOfFrame();
-        while(gameObject != null && _meshAgent.hasPath )
+        while(!gameObject.IsUnityNull() && _meshAgent.hasPath )
         {
             yield return null;
 
@@ -101,26 +113,40 @@ public class HeroPathfinding : HeroChildrenFunctionality
         HeroLookAtBoss();
     }
 
-
     #region Hero Rotation
-
+    /// <summary>
+    /// Rotates the hero to look in the direction of the boss
+    /// </summary>
     private void HeroLookAtBoss()
     {
-        HeroLookAt(GameplayManagers.Instance.GetBossManager().GetBossBaseGameObject().transform.position);
+        HeroLookAt(BossBase.Instance.transform.position);
     }
 
+    /// <summary>
+    /// Rotates the hero to look at a specific location
+    /// </summary>
+    /// <param name="lookLocation"> The location to look at </param>
     public void HeroLookAt(Vector3 lookLocation)
     {
         _heroRotationCoroutine = StartCoroutine(LookAtProcess(lookLocation));
     }
 
+    /// <summary>
+    /// Stops the process of the hero looking at something
+    /// </summary>
     private void StopHeroLookAt()
     {
-        if (_heroRotationCoroutine != null)
+        if (!_heroRotationCoroutine.IsUnityNull())
+        {
             StopCoroutine(_heroRotationCoroutine);
+        }
     }
 
-
+    /// <summary>
+    /// The process by which a hero turns to look at something
+    /// </summary>
+    /// <param name="lookLocation"> The target to look at</param>
+    /// <returns></returns>
     private IEnumerator LookAtProcess(Vector3 lookLocation)
     {
         float progress = 0;
@@ -146,15 +172,9 @@ public class HeroPathfinding : HeroChildrenFunctionality
         }
 
     }
-
     #endregion
 
     #region Base Hero
-    public override void ChildFuncSetup(HeroBase heroBase)
-    {
-        base.ChildFuncSetup(heroBase);
-    }
-
     public override void SubscribeToEvents()
     {
         base.SubscribeToEvents();
@@ -165,6 +185,6 @@ public class HeroPathfinding : HeroChildrenFunctionality
     #region Getters
     public NavMeshAgent GetNavMeshAgent() => _meshAgent;
 
-    public bool IsHeroMoving() => _heroMovementCoroutine != null;
+    public bool IsHeroMoving() => !_heroMovementCoroutine.IsUnityNull();
     #endregion
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -9,6 +10,8 @@ using UnityEngine;
 /// </summary>
 public class BossStats : BossChildrenFunctionality
 {
+    public static BossStats Instance;
+    
     private float _bossMaxHealth;
     private float _currentHealth;
 
@@ -20,7 +23,9 @@ public class BossStats : BossChildrenFunctionality
     private float _bossDamageIncrementMultiplier;
     private float _bossDamageResistanceChangeOnStagger;
 
-    private bool _bossStaggered = false;
+    private bool _isBossDead = false;
+    private bool _isBossStaggered = false;
+    private bool _isBossEnraged = false;
 
     private float _baseBossDamageMultiplier = 1;
     private float _bossDamageResistanceMultiplier =1;
@@ -31,7 +36,17 @@ public class BossStats : BossChildrenFunctionality
     private float _currentTimeUntilEnrage;
     private Coroutine _enrageCoroutine;
 
-    private void StatsSetup(BossSO bossSO)
+    #region Set Up
+    /// <summary>
+    /// Called when the Scriptable Object for the boss is assigned
+    /// </summary>
+    /// <param name="bossSO"> The scriptable object of the boss </param>
+    private void BossSOAssigned(BossSO bossSO)
+    {
+        StatsSetUp(bossSO);
+    }
+    
+    private void StatsSetUp(BossSO bossSO)
     {
         //Set the boss max health to be the max hp from the SO and multiplied by the difficulty modifier
         _bossMaxHealth = bossSO.GetMaxHP() * 
@@ -56,44 +71,9 @@ public class BossStats : BossChildrenFunctionality
         _currentTimeUntilEnrage = bossSO.GetEnrageTime();
         _storedEnrageMultiplier = bossSO.GetEnrageDamageMultiplier();
     }
-    
-    /// <summary>
-    /// Checks if the boss is above their stagger cap
-    /// If they are the boss becomes staggered
-    /// </summary>
-    private void CheckIfBossIsStaggered()
-    {
-        if (_currentStaggerCounter >= _bossDefaultStaggerMax)
-        {
-            BossStaggered();
-        }
-    }
+#endregion
 
-    /// <summary>
-    /// Staggers the boss and shoots out the event
-    /// </summary>
-    private void BossStaggered()
-    {
-        _bossStaggered = true;
-        StopEnrageTimer();
-        _myBossBase.InvokeBossStaggeredEvent();
-
-        DecreaseBossDamageResOnStagger();
-    }
-
-    /// <summary>
-    /// Activated by event
-    /// Occurs when the boss stagger has run out
-    /// </summary>
-    private void BossNoLongerStaggered()
-    {
-        _bossStaggered = false;
-        StartEnrageTimer();
-        _currentStaggerCounter = 0;
-
-        IncreaseBossDamageResAfterStagger();
-    }
-
+    #region Health
     private void CheckBossIsUnderHalf(float damage)
     {
         if(GetBossHealthPercentage() < .5f)
@@ -149,32 +129,116 @@ public class BossStats : BossChildrenFunctionality
     {
         if (_currentHealth <= 0)
         {
-            GameplayManagers.Instance.GetGameStateManager().SetGameplayState(EGameplayStates.PostBattleWon);
+            BossDeath();
         }
+    }
+
+    private void BossDeath()
+    {
+        _isBossDead = true;
+        
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].BossDeathAudio);
+        
+        GameStateManager.Instance.SetGameplayState(EGameplayStates.PostBattleWon);
     }
 
     protected virtual void IncreaseBossStatsAtHealthThreshholds()
     {
-        _myBossBase.GetBossStats().MultiplyBossDamageMultiplier(_bossDamageIncrementMultiplier);
+        MultiplyBossDamageMultiplier(_bossDamageIncrementMultiplier);
     }
+    #endregion
 
-    #region Enrage
-    private void StartEnrageTimer()
+    #region Stagger
+
+    /// <summary>
+    /// Checks if the boss is above their stagger cap
+    /// If they are the boss becomes staggered
+    /// </summary>
+    private void CheckIfBossIsStaggered()
     {
-        if (_enrageCoroutine == null)
+        if (_currentStaggerCounter >= _bossDefaultStaggerMax)
         {
-            _enrageCoroutine = StartCoroutine(BossEnrageCounter());
+            BossStaggered();
         }
     }
 
+    /// <summary>
+    /// Staggers the boss and shoots out the event
+    /// </summary>
+    private void BossStaggered()
+    {
+        _isBossStaggered = true;
+        StopEnrageTimer();
+        
+        // Stops the boss turning
+        BossVisuals.Instance.StopBossLookAt();
+        
+        // Play the stagger audio sfx
+        AudioManager.Instance.PlaySpecificAudio(AudioManager.Instance.GeneralBossAudio.HealthStaggerAudio.BossStaggered);
+        
+        _myBossBase.InvokeBossStaggeredEvent();
+
+        DecreaseBossDamageResistanceOnStagger();
+    }
+
+    /// <summary>
+    /// Activated by event
+    /// Occurs when the boss stagger has run out
+    /// </summary>
+    private void BossNoLongerStaggered()
+    {
+        _isBossStaggered = false;
+        StartEnrageTimer();
+        _currentStaggerCounter = 0;
+
+        IncreaseBossDamageResistanceAfterStagger();
+    }
+
+    #endregion
+
+    #region Enrage
+    /// <summary>
+    /// Starts the enrage timer for the boss
+    /// </summary>
+    private void StartEnrageTimer()
+    {
+        // Checks if the boss is already enraged
+        if (_isBossEnraged)
+        {
+            // Stop as we don't need to start the enrage timer if the boss is already enraged
+            return;
+        }
+        
+        // Checks if the enrage timer is already active
+        if (_enrageCoroutine.IsUnityNull())
+        {
+            // Start the timer as the timer isn't active yet
+            _enrageCoroutine = StartCoroutine(BossEnrageCounter());
+        }
+        else
+        {
+            Debug.LogWarning("Cannot start Enrage timer while it is already active");
+        }
+    }
+
+    /// <summary>
+    /// Stops the enrage timer
+    /// </summary>
     private void StopEnrageTimer()
     {
-        if (_enrageCoroutine != null)
+        // Check if the enrage process is active
+        if (!_enrageCoroutine.IsUnityNull())
         {
+            // Stop the enrage timer
             StopCoroutine(_enrageCoroutine);
         }
     }
 
+    /// <summary>
+    /// The process of counting down until the boss enrages
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator BossEnrageCounter()
     {
         while(_currentTimeUntilEnrage > 0)
@@ -186,8 +250,12 @@ public class BossStats : BossChildrenFunctionality
         EnrageMax();
     }
 
+    /// <summary>
+    /// Called when the boss reaches max enrage
+    /// </summary>
     private void EnrageMax()
     {
+        _isBossEnraged = true;
         _bossEnrageDamageMultiplier = _storedEnrageMultiplier;
         _myBossBase.InvokeBossEnragedEvent();
     }
@@ -204,18 +272,30 @@ public class BossStats : BossChildrenFunctionality
         _bossDamageResistanceMultiplier+= changeValue;
     }
 
-    private void DecreaseBossDamageResOnStagger()
+    private void DecreaseBossDamageResistanceOnStagger()
     {
         ChangeBossDamageResistance(-_bossDamageResistanceChangeOnStagger);
     }
 
-    private void IncreaseBossDamageResAfterStagger()
+    private void IncreaseBossDamageResistanceAfterStagger()
     {
         ChangeBossDamageResistance(_bossDamageResistanceChangeOnStagger);
     }
     #endregion
 
-    #region Events
+    #region Base Children Functionality
+    /// <summary>
+    /// Establishes the instance for the Boss Stats
+    /// </summary>
+    protected override void SetUpInstance()
+    {
+        base.SetUpInstance();
+        Instance = this;
+    }
+
+    /// <summary>
+    /// Subscribes to any needed events
+    /// </summary>
     public override void SubscribeToEvents()
     {
         _myBossBase.GetSOSetEvent().AddListener(BossSOAssigned);
@@ -224,12 +304,7 @@ public class BossStats : BossChildrenFunctionality
 
         _myBossBase.GetBossDamagedEvent().AddListener(CheckBossIsUnderHalf);
 
-        GameplayManagers.Instance.GetGameStateManager().GetStartOfBattleEvent().AddListener(StartEnrageTimer);
-    }
-
-    private void BossSOAssigned(BossSO bossSO)
-    {
-        StatsSetup(bossSO);
+        GameStateManager.Instance.GetStartOfBattleEvent().AddListener(StartEnrageTimer);
     }
     #endregion
 
@@ -244,6 +319,9 @@ public class BossStats : BossChildrenFunctionality
 
     public float GetStaggerDuration() => _bossStaggerDuration;
 
+    public bool GetIsBossStaggered() => _isBossStaggered;
+    public bool GetIsBossEnraged() => _isBossEnraged;
+    
     public float GetBaseBossDamageMultiplier() => _baseBossDamageMultiplier;
 
     public float GetBossEnrageDamageMultiplier() => _bossEnrageDamageMultiplier;
@@ -254,14 +332,26 @@ public class BossStats : BossChildrenFunctionality
     #region Setters
     public void DealDamageToBoss(float damage)
     {
+        // Stop if the boss is already dead
+        if (_isBossDead)
+        {
+            return;
+        }
+        
         damage /= _bossDamageResistanceMultiplier;
         _currentHealth -= damage;
         _myBossBase.InvokeBossDamagedEvent(damage);
+        
+        AudioManager.Instance.PlaySpecificAudio(AudioManager.Instance.GeneralBossAudio.HealthStaggerAudio.BossTookDamage);
     }
 
     public void DealStaggerToBoss(float stagger)
     {
-        if (_bossStaggered) return;
+        // Stop if the boss is already dead or staggered
+        if (_isBossDead || _isBossStaggered)
+        {
+            return;
+        }
 
         _currentStaggerCounter += stagger;
         _myBossBase.InvokeBossStaggerDealt(stagger);
