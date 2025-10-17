@@ -12,6 +12,8 @@ public class SpecificBossAudio
 {
     public string AssociatedBoss;
 
+    public SpecificAudio SelectionSelectedAudio;
+    
     public SpecificBossAbilityAudio[] BossAbilityAudio;
 
     public SpecificAudio BossDeathAudio;

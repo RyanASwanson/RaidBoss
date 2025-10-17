@@ -101,7 +101,22 @@ MonoBehaviour:
             Data4: -342192165
           Path: event:/SoundEffect/Bosses/GeneralBosses/TargetZone/BossTargetZoneSpawned
   AllSpecificBossAudio:
-  - AssociatedBoss: Magma Lord
+  - AssociatedBoss: MagmaLord
+    SelectionSelectedAudio:
+      AudioName: MagmaLordSelected
+      DefaultStartDelay: 0
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+      DefaultPlayType: 0
+      DefaultAudioChoice: 0
+      AudioTracks:
+      - Guid:
+          Data1: 402473349
+          Data2: 1074510128
+          Data3: 597126299
+          Data4: 1946140181
+        Path: event:/SoundEffect/Bosses/Specific/MagmaLord/Abilities/Scorch/MagmaLordScorch
     BossAbilityAudio:
     - AbilityName: Meteor
       AbilityPrep:
@@ -265,7 +280,22 @@ MonoBehaviour:
       DefaultAudioChoice: 0
       AudioTracks: []
     MiscellaneousBossAudio: []
-  - AssociatedBoss: Terra Lord
+  - AssociatedBoss: TerraLord
+    SelectionSelectedAudio:
+      AudioName: TerraLordSelected
+      DefaultStartDelay: 0
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+      DefaultPlayType: 0
+      DefaultAudioChoice: 0
+      AudioTracks:
+      - Guid:
+          Data1: -1083964510
+          Data2: 1278973702
+          Data3: -33278074
+          Data4: 323014187
+        Path: event:/SoundEffect/Bosses/Specific/TerraLord/Abilities/Entomb/TerraLordEntombDestroyHalf
     BossAbilityAudio:
     - AbilityName: CrystalBarrage
       AbilityPrep:
@@ -391,7 +421,22 @@ MonoBehaviour:
       DefaultAudioChoice: 0
       AudioTracks: []
     MiscellaneousBossAudio: []
-  - AssociatedBoss: Glacial Lord
+  - AssociatedBoss: GlacialLord
+    SelectionSelectedAudio:
+      AudioName: GlacialLordSelected
+      DefaultStartDelay: 0
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+      DefaultPlayType: 0
+      DefaultAudioChoice: 0
+      AudioTracks:
+      - Guid:
+          Data1: -2110969223
+          Data2: 1324381196
+          Data3: 778295958
+          Data4: -1347071492
+        Path: event:/SoundEffect/Bosses/Specific/GlacialLord/Abilities/FrostFiends/FrostFriendFrozen
     BossAbilityAudio:
     - AbilityName: Avalanche
       AbilityPrep:
@@ -643,14 +688,20 @@ MonoBehaviour:
   AllSpecificHeroAudio:
   - AssociatedHero: Guardian
     SelectionSelectedAudio:
-      AudioName: 
+      AudioName: GuardianSelected
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
       DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
-      AudioTracks: []
+      AudioTracks:
+      - Guid:
+          Data1: -236094511
+          Data2: 1308236694
+          Data3: 1685652671
+          Data4: 1896382019
+        Path: event:/SoundEffect/Heroes/SpecificHeroes/Guardian/Active/GuardianTaunt
     BasicAbilityUsed:
       AudioName: GuardianShieldSlam
       DefaultStartDelay: 0
@@ -693,14 +744,20 @@ MonoBehaviour:
     MiscellaneousHeroAudio: []
   - AssociatedHero: Samurai
     SelectionSelectedAudio:
-      AudioName: 
+      AudioName: SamuraiSelected
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
       DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
-      AudioTracks: []
+      AudioTracks:
+      - Guid:
+          Data1: -1640560335
+          Data2: 1209515671
+          Data3: 1401592246
+          Data4: -1286522777
+        Path: event:/SoundEffect/Heroes/SpecificHeroes/Samurai/Basic/SamuraiIaijutsu
     BasicAbilityUsed:
       AudioName: 
       DefaultStartDelay: 0
@@ -751,14 +808,20 @@ MonoBehaviour:
         Path: event:/SoundEffect/Heroes/SpecificHeroes/Samurai/Active/SamuraiYanagiukeParry
   - AssociatedHero: Reaper
     SelectionSelectedAudio:
-      AudioName: 
+      AudioName: ReaperSelected
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
       DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
-      AudioTracks: []
+      AudioTracks:
+      - Guid:
+          Data1: -87733461
+          Data2: 1119619121
+          Data3: -1601947260
+          Data4: 2032235891
+        Path: event:/SoundEffect/Heroes/SpecificHeroes/Reaper/Active/ReaperDeathFollowsStart
     BasicAbilityUsed:
       AudioName: 
       DefaultStartDelay: 0
@@ -809,16 +872,22 @@ MonoBehaviour:
         Path: event:/SoundEffect/Heroes/SpecificHeroes/Reaper/Active/ReaperDeathFollowsDuration
   - AssociatedHero: Shaman
     SelectionSelectedAudio:
-      AudioName: 
+      AudioName: ShamanSelected
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
       DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
-      AudioTracks: []
+      AudioTracks:
+      - Guid:
+          Data1: -355141211
+          Data2: 1134098937
+          Data3: -1698947404
+          Data4: 207657292
+        Path: event:/SoundEffect/Heroes/SpecificHeroes/Shaman/Active/ShamanBallLightning
     BasicAbilityUsed:
-      AudioName: Tornado
+      AudioName: ShamanTornado
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
@@ -833,7 +902,7 @@ MonoBehaviour:
           Data4: -1042376132
         Path: event:/SoundEffect/Heroes/SpecificHeroes/Shaman/Basic/ShamanTornado
     ManualAbilityUsed:
-      AudioName: 
+      AudioName: ShamanBallLightning
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
@@ -873,14 +942,20 @@ MonoBehaviour:
         Path: event:/SoundEffect/Heroes/SpecificHeroes/Shaman/Active/ShamanBallLightningReachedTarget
   - AssociatedHero: Chronomancer
     SelectionSelectedAudio:
-      AudioName: 
+      AudioName: ChronomancerSelected
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
       DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
-      AudioTracks: []
+      AudioTracks:
+      - Guid:
+          Data1: 1610371445
+          Data2: 1176356261
+          Data3: -736541530
+          Data4: -412088539
+        Path: event:/SoundEffect/Heroes/SpecificHeroes/Chronomancer/Active/ChronomancerRewind
     BasicAbilityUsed:
       AudioName: ChronomancerTimeBlast
       DefaultStartDelay: 0
@@ -929,14 +1004,20 @@ MonoBehaviour:
     MiscellaneousHeroAudio: []
   - AssociatedHero: Vampire
     SelectionSelectedAudio:
-      AudioName: 
+      AudioName: VampireSelected
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
       DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
-      AudioTracks: []
+      AudioTracks:
+      - Guid:
+          Data1: 2053362656
+          Data2: 1249588525
+          Data3: -1640289382
+          Data4: -949702503
+        Path: event:/SoundEffect/Heroes/SpecificHeroes/Vampire/Basic/VampireBloodLanceStart
     BasicAbilityUsed:
       AudioName: VampireBloodLance
       DefaultStartDelay: 0
@@ -993,14 +1074,20 @@ MonoBehaviour:
         Path: event:/SoundEffect/Heroes/SpecificHeroes/Vampire/Basic/VampireBloodLanceSplit
   - AssociatedHero: Fae
     SelectionSelectedAudio:
-      AudioName: 
+      AudioName: FaeSelected
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
       DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
-      AudioTracks: []
+      AudioTracks:
+      - Guid:
+          Data1: 1681777049
+          Data2: 1313512848
+          Data3: -1747952482
+          Data4: -850981378
+        Path: event:/SoundEffect/Heroes/SpecificHeroes/Fae/Basic/FaeMultishot
     BasicAbilityUsed:
       AudioName: FaeMultishot
       DefaultStartDelay: 0

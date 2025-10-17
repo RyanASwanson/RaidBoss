@@ -843,8 +843,11 @@ public class SelectionController : MonoBehaviour
 
     private void PlayBossSelectedAudio(BossSO selectedBoss)
     {
+        /*AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.UserInterfaceAudio.SelectionSceneUserInterfaceAudio.BossSelected);*/
+        
         AudioManager.Instance.PlaySpecificAudio(
-            AudioManager.Instance.UserInterfaceAudio.SelectionSceneUserInterfaceAudio.BossSelected);
+            AudioManager.Instance.AllSpecificBossAudio[selectedBoss.GetBossID()].SelectionSelectedAudio);
     }
     
     private void PlayHeroSelectedAudio(HeroSO selectedHero)
