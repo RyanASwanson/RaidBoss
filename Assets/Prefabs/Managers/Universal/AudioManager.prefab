@@ -642,6 +642,15 @@ MonoBehaviour:
           Path: event:/SoundEffect/Heroes/GeneralHeroes/Health/Death/HeroDied
   AllSpecificHeroAudio:
   - AssociatedHero: Guardian
+    SelectionSelectedAudio:
+      AudioName: 
+      DefaultStartDelay: 0
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+      DefaultPlayType: 0
+      DefaultAudioChoice: 0
+      AudioTracks: []
     BasicAbilityUsed:
       AudioName: GuardianShieldSlam
       DefaultStartDelay: 0
@@ -683,6 +692,15 @@ MonoBehaviour:
       AudioTracks: []
     MiscellaneousHeroAudio: []
   - AssociatedHero: Samurai
+    SelectionSelectedAudio:
+      AudioName: 
+      DefaultStartDelay: 0
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+      DefaultPlayType: 0
+      DefaultAudioChoice: 0
+      AudioTracks: []
     BasicAbilityUsed:
       AudioName: 
       DefaultStartDelay: 0
@@ -732,6 +750,15 @@ MonoBehaviour:
           Data4: 1878568347
         Path: event:/SoundEffect/Heroes/SpecificHeroes/Samurai/Active/SamuraiYanagiukeParry
   - AssociatedHero: Reaper
+    SelectionSelectedAudio:
+      AudioName: 
+      DefaultStartDelay: 0
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+      DefaultPlayType: 0
+      DefaultAudioChoice: 0
+      AudioTracks: []
     BasicAbilityUsed:
       AudioName: 
       DefaultStartDelay: 0
@@ -781,6 +808,15 @@ MonoBehaviour:
           Data4: 242033013
         Path: event:/SoundEffect/Heroes/SpecificHeroes/Reaper/Active/ReaperDeathFollowsDuration
   - AssociatedHero: Shaman
+    SelectionSelectedAudio:
+      AudioName: 
+      DefaultStartDelay: 0
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+      DefaultPlayType: 0
+      DefaultAudioChoice: 0
+      AudioTracks: []
     BasicAbilityUsed:
       AudioName: Tornado
       DefaultStartDelay: 0
@@ -836,6 +872,15 @@ MonoBehaviour:
           Data4: 1079776449
         Path: event:/SoundEffect/Heroes/SpecificHeroes/Shaman/Active/ShamanBallLightningReachedTarget
   - AssociatedHero: Chronomancer
+    SelectionSelectedAudio:
+      AudioName: 
+      DefaultStartDelay: 0
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+      DefaultPlayType: 0
+      DefaultAudioChoice: 0
+      AudioTracks: []
     BasicAbilityUsed:
       AudioName: ChronomancerTimeBlast
       DefaultStartDelay: 0
@@ -883,6 +928,15 @@ MonoBehaviour:
       AudioTracks: []
     MiscellaneousHeroAudio: []
   - AssociatedHero: Vampire
+    SelectionSelectedAudio:
+      AudioName: 
+      DefaultStartDelay: 0
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+      DefaultPlayType: 0
+      DefaultAudioChoice: 0
+      AudioTracks: []
     BasicAbilityUsed:
       AudioName: VampireBloodLance
       DefaultStartDelay: 0
@@ -938,8 +992,17 @@ MonoBehaviour:
           Data4: 964038822
         Path: event:/SoundEffect/Heroes/SpecificHeroes/Vampire/Basic/VampireBloodLanceSplit
   - AssociatedHero: Fae
-    BasicAbilityUsed:
+    SelectionSelectedAudio:
       AudioName: 
+      DefaultStartDelay: 0
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+      DefaultPlayType: 0
+      DefaultAudioChoice: 0
+      AudioTracks: []
+    BasicAbilityUsed:
+      AudioName: FaeMultishot
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
@@ -979,6 +1042,15 @@ MonoBehaviour:
       AudioTracks: []
     MiscellaneousHeroAudio: []
   - AssociatedHero: Astromancer
+    SelectionSelectedAudio:
+      AudioName: 
+      DefaultStartDelay: 0
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+      DefaultPlayType: 0
+      DefaultAudioChoice: 0
+      AudioTracks: []
     BasicAbilityUsed:
       AudioName: 
       DefaultStartDelay: 0
@@ -1008,6 +1080,21 @@ MonoBehaviour:
       AudioTracks: []
     MiscellaneousHeroAudio: []
   - AssociatedHero: Mirage
+    SelectionSelectedAudio:
+      AudioName: MirageSelected
+      DefaultStartDelay: 0
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+      DefaultPlayType: 0
+      DefaultAudioChoice: 0
+      AudioTracks:
+      - Guid:
+          Data1: 558770657
+          Data2: 1303563727
+          Data3: -1929344106
+          Data4: -418616186
+        Path: event:/SoundEffect/Heroes/SpecificHeroes/Mirage/Basic/MirageSandBlast
     BasicAbilityUsed:
       AudioName: SandBlast
       DefaultStartDelay: 0
@@ -1051,12 +1138,27 @@ MonoBehaviour:
       DefaultAudioChoice: 0
       AudioTracks:
       - Guid:
-          Data1: 95710874
-          Data2: 1235428102
-          Data3: 2064265092
-          Data4: -740322777
-        Path: event:/SoundEffect/Heroes/SpecificHeroes/Mirage/Basic/MirageCloneSandBlast
+          Data1: 558770657
+          Data2: 1303563727
+          Data3: -1929344106
+          Data4: -418616186
+        Path: event:/SoundEffect/Heroes/SpecificHeroes/Mirage/Basic/MirageSandBlast
   - AssociatedHero: Alchemist
+    SelectionSelectedAudio:
+      AudioName: AlchemistSelected
+      DefaultStartDelay: 0
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+      DefaultPlayType: 0
+      DefaultAudioChoice: 0
+      AudioTracks:
+      - Guid:
+          Data1: 1453305038
+          Data2: 1317327233
+          Data3: 581798037
+          Data4: -25474861
+        Path: event:/SoundEffect/Heroes/SpecificHeroes/Alchemist/General/AlchemistPotionThrow
     BasicAbilityUsed:
       AudioName: PotionThrow
       DefaultStartDelay: 0
@@ -1120,14 +1222,20 @@ MonoBehaviour:
         AudioTracks: []
       DifficultySelected: []
       HeroSelected:
-        AudioName: 
+        AudioName: HeroSelected
         DefaultStartDelay: 0
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
         DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
         DefaultPlayType: 0
         DefaultAudioChoice: 0
-        AudioTracks: []
+        AudioTracks:
+        - Guid:
+            Data1: -1335280094
+            Data2: 1256519981
+            Data3: -1523784797
+            Data4: 595321354
+          Path: event:/SoundEffect/UI/SelectionScene/Hero/HeroSelectionSelected
     SceneLoadUserInterfaceAudio:
       SceneLoadStart:
         AudioName: SceneLoadStart

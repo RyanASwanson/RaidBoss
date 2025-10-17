@@ -11,6 +11,8 @@ public class SpecificHeroAudio
 {
     public string AssociatedHero;
     
+    public SpecificAudio SelectionSelectedAudio;
+    
     public SpecificAudio BasicAbilityUsed;
     public SpecificAudio ManualAbilityUsed;
     public SpecificAudio PassiveAbilityUsed;

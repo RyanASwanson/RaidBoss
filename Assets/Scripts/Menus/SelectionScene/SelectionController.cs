@@ -120,15 +120,17 @@ public class SelectionController : MonoBehaviour
 
     }
 
-    private void NewBossAdded(BossSO bossSO)
+    private void NewBossAddedSelection(BossSO bossSO)
     {
         _bossPillar.ShowBossOnPillar(bossSO, false);
+        
+        PlayBossSelectedAudio(bossSO);
 
         CheckMaxCharactersSelected();
 
     }
 
-    private void BossRemoved(BossSO bossSO)
+    private void BossRemovedSelection(BossSO bossSO)
     {
         _bossPillar.RemoveBossOnPillar();
 
@@ -733,7 +735,7 @@ public class SelectionController : MonoBehaviour
         }
     }
 
-    private void NewHeroAdded(HeroSO heroSO)
+    private void NewHeroAddedSelection(HeroSO heroSO)
     {
         int heroPillarNum = SelectionManager.Instance.GetSelectedHeroesCount();
 
@@ -743,6 +745,8 @@ public class SelectionController : MonoBehaviour
         {
             MoveHeroPillar(heroPillarNum, true);
         }
+        
+        PlayHeroSelectedAudio(heroSO);
 
         CheckMaxCharactersSelected();
     }
@@ -752,7 +756,7 @@ public class SelectionController : MonoBehaviour
     /// Removes a hero from the pillar and makes a pillar move down
     /// </summary>
     /// <param name="heroSO"></param>
-    private void HeroRemoved(HeroSO heroSO)
+    private void HeroRemovedSelection(HeroSO heroSO)
     {
         int heroPillarNum = SelectionManager.Instance.GetSelectedHeroesCount() + 1;
 
@@ -834,6 +838,24 @@ public class SelectionController : MonoBehaviour
         }
     }
     #endregion
+    
+    #region Audio
+
+    private void PlayBossSelectedAudio(BossSO selectedBoss)
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.UserInterfaceAudio.SelectionSceneUserInterfaceAudio.BossSelected);
+    }
+    
+    private void PlayHeroSelectedAudio(HeroSO selectedHero)
+    {
+        /*AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.UserInterfaceAudio.SelectionSceneUserInterfaceAudio.HeroSelected);*/
+        
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificHeroAudio[selectedHero.GetHeroID()].SelectionSelectedAudio);
+    }
+    #endregion
 
     #region General
 
@@ -851,8 +873,8 @@ public class SelectionController : MonoBehaviour
 
     private void SubscribeToEvents()
     {
-        SelectionManager.Instance.GetBossSelectionEvent().AddListener(NewBossAdded);
-        SelectionManager.Instance.GetBossDeselectionEvent().AddListener(BossRemoved);
+        SelectionManager.Instance.GetBossSelectionEvent().AddListener(NewBossAddedSelection);
+        SelectionManager.Instance.GetBossDeselectionEvent().AddListener(BossRemovedSelection);
 
         SelectionManager.Instance.GetBossSwapEvent().AddListener(SwapBoss);
 
@@ -861,8 +883,8 @@ public class SelectionController : MonoBehaviour
         
         SelectionManager.Instance.GetBossInformationLockedEvent().AddListener(InformationLockBoss);
 
-        SelectionManager.Instance.GetHeroSelectionEvent().AddListener(NewHeroAdded);
-        SelectionManager.Instance.GetHeroDeselectionEvent().AddListener(HeroRemoved);
+        SelectionManager.Instance.GetHeroSelectionEvent().AddListener(NewHeroAddedSelection);
+        SelectionManager.Instance.GetHeroDeselectionEvent().AddListener(HeroRemovedSelection);
 
         SelectionManager.Instance.GetHeroSwapEvent().AddListener(SwapHero);
 
