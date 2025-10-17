@@ -47,6 +47,11 @@ public class SBA_Frostbite : SpecificBossAbilityFramework
 
     protected override void AbilityStart()
     {
+        if (_attackingFiends.Count == 0)
+        {
+            AbilityFailed();
+        }
+        
         foreach (GlacialLord_FrostFiend frostFiend in _attackingFiends)
         {
             if (frostFiend.IsMinionFrozen())
@@ -67,5 +72,11 @@ public class SBA_Frostbite : SpecificBossAbilityFramework
         base.AbilityStart();
 
         _attackingFiends.Clear();
+    }
+    
+    // Called when the ability starts with 0 frost fiends in play
+    private void AbilityFailed()
+    {
+        
     }
 }

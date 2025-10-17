@@ -187,7 +187,9 @@ public class SaveManager : MainUniversalManagerFramework
     private void UnlockNextBoss()
     {
         if (GSD._bossesUnlocked[_bossesInGame[_bossesInGame.Count - 1].GetBossName()])
+        {
             return;
+        }
 
         // Iterate through each boss
         foreach (BossSO bossSO in _bossesInGame)
@@ -209,8 +211,10 @@ public class SaveManager : MainUniversalManagerFramework
     /// </summary>
     private void UnlockNextHero()
     {
-        if (GSD._heroesUnlocked[_heroesInGame[_heroesInGame.Count-1].GetHeroName()])
-                return;
+        if (GSD._heroesUnlocked[_heroesInGame[_heroesInGame.Count - 1].GetHeroName()])
+        {
+            return;
+        }
 
         // Iterate through each hero
         foreach(HeroSO heroSO in _heroesInGame)
