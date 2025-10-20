@@ -1351,6 +1351,37 @@ MonoBehaviour:
             Data3: -1523784797
             Data4: 595321354
           Path: event:/SoundEffect/UI/SelectionScene/Hero/HeroSelectionSelected
+    GameplayUserInterfaceAudio:
+      BattleWon:
+        AudioName: BattleWon
+        DefaultStartDelay: 1
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: -1543393547
+            Data2: 1105639724
+            Data3: 1276611989
+            Data4: -1257707718
+          Path: event:/SoundEffect/UI/Gameplay/BattleEnd/BattleWon
+      BattleLost:
+        AudioName: BattleLost
+        DefaultStartDelay: 1
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: 1974617965
+            Data2: 1154549628
+            Data3: -1048900433
+            Data4: 318894683
+          Path: event:/SoundEffect/UI/Gameplay/BattleEnd/BattleLost
     SceneLoadUserInterfaceAudio:
       SceneLoadStart:
         AudioName: SceneLoadStart
@@ -1400,7 +1431,7 @@ MonoBehaviour:
             Data2: 1080003226
             Data3: -1700841600
             Data4: -1224285465
-          Path: event:/SoundEffect/UI/General/Buttons/GeneralButton1
+          Path: event:/SoundEffect/UI/General/Buttons/PageButton
     GeneralUIAudio:
     - AudioName: 
       DefaultStartDelay: 0

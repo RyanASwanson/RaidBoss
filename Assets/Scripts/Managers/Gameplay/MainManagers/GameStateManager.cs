@@ -66,6 +66,9 @@ public class GameStateManager : MainGameplayManagerFramework
     /// </summary>
     private void BattleLost()
     {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.UserInterfaceAudio.GameplayUserInterfaceAudio.BattleLost);
+        
         InvokeBattleLostEvent();
     }
 
@@ -80,6 +83,10 @@ public class GameStateManager : MainGameplayManagerFramework
         //Unlocks the next boss and hero
         //Saves the best difficulty beaten for each hero
         SaveManager.Instance.BossDead();
+        
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.UserInterfaceAudio.GameplayUserInterfaceAudio.BattleWon);
+        
         InvokeBattleWonEvent();
     }
 

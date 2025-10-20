@@ -83,10 +83,17 @@ public class HeroesManager : MainGameplayManagerFramework
         //Removes the hero from the list of living heroes
         _currentLivingHeroes.Remove(deadHero);
         //Checks if the game should be declared a loss
-        CheckIfAllHeroesDead();
+        if (CheckIfAllHeroesDead())
+        {
+            TimeManager.Instance.BattleLostTimeSlow();
+        }
+        else
+        {
+            TimeManager.Instance.HeroDiedTimeSlow();
+        }
 
         BossBase.Instance.GetSpecificBossScript().HeroDied(deadHero);
-        TimeManager.Instance.HeroDiedTimeSlow();
+        
         
         InvokeOnHeroDiedEvent(deadHero);
     }
@@ -95,12 +102,14 @@ public class HeroesManager : MainGameplayManagerFramework
     /// Performs a check for if all heroes are dead
     /// If they are declare the battle a loss
     /// </summary>
-    private void CheckIfAllHeroesDead()
+    private bool CheckIfAllHeroesDead()
     {
         if (_currentLivingHeroes.Count == 0)
         {
             GameStateManager.Instance.SetGameplayState(EGameplayStates.PostBattleLost);
+            return true;
         }
+        return false;
     }
 
     /// <summary>

@@ -11,18 +11,9 @@ public class TimeManager : MainUniversalManagerFramework
 {
     public static TimeManager Instance;
     
-    private List<float> _appliedSlowedTimeVariations = new List<float>();
-
-    private bool _canUpdateTimeVariation = true;
-
-    [Space]
     [Header("Boss Values")]
     [SerializeField] private float _bossStaggerTimeSpeed;
     [SerializeField] private float _bossStaggerDuration;
-    [Space]
-
-    [SerializeField] private float _bossDeathTimeSpeed;
-    [SerializeField] private float _bossDeathDuration;
 
     [Space]
     [Header("Hero Values")]
@@ -33,6 +24,19 @@ public class TimeManager : MainUniversalManagerFramework
     [SerializeField] private float _heroDeathTimeSpeed;
     [SerializeField] private float _heroDeathDuration;
 
+    [Space] 
+    [Header("Battle Values")]
+    [SerializeField] private float _battleWonTimeSpeed;
+    [SerializeField] private float _battleWonDuration;
+    
+    [Space]
+    [SerializeField] private float _battleLostTimeSpeed;
+    [SerializeField] private float _battleLostDuration;
+
+    private List<float> _appliedSlowedTimeVariations = new List<float>();
+
+    private bool _canUpdateTimeVariation = true;
+    
     private bool _gamePaused = false;
 
     private UnityEvent _gamePausedEvent = new UnityEvent();
@@ -56,7 +60,10 @@ public class TimeManager : MainUniversalManagerFramework
     /// <param name="duration"> The duration is relative to the current time scale</param> 
     public void AddNewTimeVariationForDuration(float timeVariation, float duration)
     {
-        if (!_canUpdateTimeVariation) return;
+        if (!_canUpdateTimeVariation)
+        {
+            return;
+        }
 
         StartCoroutine(AddTimeVariationProcess(timeVariation, duration));
     }
@@ -114,7 +121,7 @@ public class TimeManager : MainUniversalManagerFramework
     /// </summary>
     public void BossDiedTimeSlow()
     {
-        AddNewTimeVariationForDuration(_bossDeathTimeSpeed, _bossDeathDuration);
+        AddNewTimeVariationForDuration(_battleWonTimeSpeed, _battleWonDuration);
     }
 
     /// <summary>
@@ -131,6 +138,11 @@ public class TimeManager : MainUniversalManagerFramework
     public void HeroDiedTimeSlow()
     {
         AddNewTimeVariationForDuration(_heroDeathTimeSpeed, _heroDeathDuration);
+    }
+
+    public void BattleLostTimeSlow()
+    {
+        AddNewTimeVariationForDuration(_battleLostTimeSpeed, _battleLostDuration);
     }
 
     /// <summary>
