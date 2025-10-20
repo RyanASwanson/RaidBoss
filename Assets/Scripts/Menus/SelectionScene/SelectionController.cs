@@ -132,7 +132,7 @@ public class SelectionController : MonoBehaviour
 
     private void BossRemovedSelection(BossSO bossSO)
     {
-        _bossPillar.RemoveBossOnPillar();
+        _bossPillar.DeselectBossOnPillar();
 
         CheckMaxCharactersNoLongerSelected();
     }
@@ -819,7 +819,7 @@ public class SelectionController : MonoBehaviour
 
         if(!_heroPillars[pillarNum].HasStoredHero() && _heroPillars[pillarNum+1].HasStoredHero())
         {
-            _heroPillars[pillarNum].ShowHeroOnPillar(_heroPillars[pillarNum + 1].GetStoredHero(),true);
+            _heroPillars[pillarNum].ShowHeroOnPillar(_heroPillars[pillarNum + 1].GetStoredHero(),true, true);
             _heroPillars[pillarNum + 1].RemoveHeroOnPillar();
         }
         MoveNextHeroBackToCurrentPillar(pillarNum + 1);

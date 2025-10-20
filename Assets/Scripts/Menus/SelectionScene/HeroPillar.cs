@@ -49,6 +49,11 @@ public class HeroPillar : MonoBehaviour
     /// <param name="heroSO"></param>
     public void ShowHeroOnPillar(HeroSO heroSO, bool newHero)
     {
+        ShowHeroOnPillar(heroSO, newHero, false);
+    }
+
+    public void ShowHeroOnPillar(HeroSO heroSO, bool newHero, bool heroAlreadySelectedOverride)
+    {
         //If there is a hero on the pillar remove them
         if (!_currentHeroVisual.IsUnityNull())
         {
@@ -63,7 +68,7 @@ public class HeroPillar : MonoBehaviour
         //Sets the stored hero
         _storedHero = heroSO;
 
-        if (_heroSelectedOnPillar == heroSO)
+        if (_heroSelectedOnPillar == heroSO || heroAlreadySelectedOverride)
         {
             SetHeroPreviewAnimation(true);
         }
@@ -71,7 +76,6 @@ public class HeroPillar : MonoBehaviour
         {
             SetHeroPreviewAnimation(!newHero);
         }
-        
 
         if (!newHero)
         {
