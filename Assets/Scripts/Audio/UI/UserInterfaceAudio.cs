@@ -12,6 +12,8 @@ public class UserInterfaceAudio
     
     public SceneLoadUserInterfaceAudio SceneLoadUserInterfaceAudio;
     
+    public ButtonUserInterfaceAudio ButtonUserInterfaceAudio;
+    
     public SpecificAudio[] GeneralUIAudio;
 }
 
@@ -39,4 +41,10 @@ public class SceneLoadUserInterfaceAudio
     public SpecificAudio SceneLoadMiddle;
     
     public SpecificAudio SceneLoadEnd;
+}
+
+[System.Serializable]
+public class ButtonUserInterfaceAudio
+{
+    public SpecificAudio[] ButtonPressedAudio;
 }

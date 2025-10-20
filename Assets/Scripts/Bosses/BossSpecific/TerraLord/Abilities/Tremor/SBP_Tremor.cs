@@ -32,6 +32,7 @@ public class SBP_Tremor : BossProjectileFramework
             i++;
             SpawnSpike(_spikes[i]);
 
+            PlayProjectileImpactSFX();
             yield return _spikeSeperationWait;
         }
     }
@@ -64,6 +65,13 @@ public class SBP_Tremor : BossProjectileFramework
     private void CreateSpikeStartVFX(GameObject spike)
     {
         Instantiate(_spikeStartVFX, spike.transform.position, Quaternion.identity);
+    }
+    
+    private void PlayProjectileImpactSFX()
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
+                BossAbilityAudio[_abilityID].GeneralAbilityAudio[SBA_Tremor.TREMOR_IMPACT_AUDIO_ID]);
     }
 
     #region Base Ability

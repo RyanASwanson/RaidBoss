@@ -316,7 +316,21 @@ MonoBehaviour:
         DefaultPlayType: 0
         DefaultAudioChoice: 0
         AudioTracks: []
-      GeneralAbilityAudio: []
+      GeneralAbilityAudio:
+      - AudioName: CrystalBarrageImpact
+        DefaultStartDelay: 1
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: 472952493
+            Data2: 1228861350
+            Data3: -2040531324
+            Data4: -2098810000
+          Path: event:/SoundEffect/Bosses/Specific/TerraLord/Abilities/CrystalBarrage/TerraLordCrystalBarrageImpact
     - AbilityName: Tremor
       AbilityPrep:
         AudioName: 
@@ -336,7 +350,21 @@ MonoBehaviour:
         DefaultPlayType: 0
         DefaultAudioChoice: 0
         AudioTracks: []
-      GeneralAbilityAudio: []
+      GeneralAbilityAudio:
+      - AudioName: TremorImpact
+        DefaultStartDelay: 0
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: -467624368
+            Data2: 1304967146
+            Data3: 1812541119
+            Data4: 152314960
+          Path: event:/SoundEffect/Bosses/Specific/TerraLord/Abilities/Tremor/TerraLordTremorImpact
     - AbilityName: Entomb
       AbilityPrep:
         AudioName: 
@@ -1357,6 +1385,22 @@ MonoBehaviour:
         DefaultPlayType: 0
         DefaultAudioChoice: 0
         AudioTracks: []
+    ButtonUserInterfaceAudio:
+      ButtonPressedAudio:
+      - AudioName: PageButtonPress
+        DefaultStartDelay: 0
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: -504259023
+            Data2: 1080003226
+            Data3: -1700841600
+            Data4: -1224285465
+          Path: event:/SoundEffect/UI/General/Buttons/GeneralButton1
     GeneralUIAudio:
     - AudioName: 
       DefaultStartDelay: 0
