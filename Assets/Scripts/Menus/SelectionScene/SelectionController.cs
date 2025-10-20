@@ -767,7 +767,9 @@ public class SelectionController : MonoBehaviour
         }
 
         //Remove the hero on the pillar that had a hero removed
-        _heroPillars[SelectionManager.Instance.GetIndexOfLastHeroRemoved()].RemoveHeroOnPillar();
+        //_heroPillars[SelectionManager.Instance.GetIndexOfLastHeroRemoved()].RemoveHeroOnPillar();
+        // Deselects the hero on the pillar
+        _heroPillars[SelectionManager.Instance.GetIndexOfLastHeroRemoved()].DeselectHeroOnPillar();
         RearrangeHeroesOnPillars();
 
         CheckMaxCharactersNoLongerSelected();

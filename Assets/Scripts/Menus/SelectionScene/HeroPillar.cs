@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -9,15 +10,17 @@ using UnityEngine.Serialization;
 /// </summary>
 public class HeroPillar : MonoBehaviour
 {
+    [SerializeField] private GameObject _heroSpawnPointHolder;
     [SerializeField] private GameObject _heroSpawnPoint;
     [SerializeField] private GameObject _previewBase;
     [SerializeField] private Animator _heroSpawnAnimator;
 
     private GameObject _currentHeroVisual;
 
+    private HeroSO _heroSelectedOnPillar;
     private HeroSO _storedHero;
-
-    private const string HERO_SELECTED_ANIM_TRIGGER = "G_HeroSelected";
+    
+    private const string HERO_SPECIFIC_SELECTED_ANIM_TRIGGER = "G_HeroSelected";
     
     [Space]
     [SerializeField] private Animator _pillarAnimator;
@@ -27,6 +30,13 @@ public class HeroPillar : MonoBehaviour
 
     private const string NEW_HERO_HOVER_ANIM_TRIGGER = "NewHover";
     private const string REMOVE_HERO_ON_PILLAR_ANIM_TRIGGER = "RemoveHero";
+    
+    private const string HERO_SELECTED_ANIM_BOOL = "HeroSelected";
+
+    private void Start()
+    {
+        SetHeroPreviewAnimation(false);
+    }
 
     public void MovePillar(bool moveUp)
     {
@@ -53,22 +63,33 @@ public class HeroPillar : MonoBehaviour
         //Sets the stored hero
         _storedHero = heroSO;
 
+        if (_heroSelectedOnPillar == heroSO)
+        {
+            SetHeroPreviewAnimation(true);
+        }
+        else
+        {
+            SetHeroPreviewAnimation(!newHero);
+        }
+        
+
         if (!newHero)
         {
-            if(_currentHeroVisual.TryGetComponent<Animator>(out Animator animator))
-            {
-                StartHeroSelectedAnimation(animator);
-            }
+            HeroSelectedOnPillar();
             return;
         }
-
         _heroSpawnAnimator.SetTrigger(NEW_HERO_HOVER_ANIM_TRIGGER);
         _heroSpawnAnimator.ResetTrigger(REMOVE_HERO_ON_PILLAR_ANIM_TRIGGER);
     }
-    
-    public void StartHeroSelectedAnimation(Animator animator)
+
+    public void HeroSelectedOnPillar()
     {
-        animator.SetTrigger(HERO_SELECTED_ANIM_TRIGGER);
+        _heroSelectedOnPillar = _storedHero;
+        
+        if(_currentHeroVisual.TryGetComponent<Animator>(out Animator animator))
+        {
+            StartHeroSelectedAnimation(animator);
+        }
     }
 
     /// <summary>
@@ -77,13 +98,31 @@ public class HeroPillar : MonoBehaviour
     public void RemoveHeroOnPillar()
     {
         _storedHero = null;
+        SetHeroPreviewAnimation(false);
         Destroy(_currentHeroVisual);
+    }
+
+    public void DeselectHeroOnPillar()
+    {
+        _storedHero = null;
+        _heroSelectedOnPillar = null;
+        SetHeroPreviewAnimation(false);
     }
 
     public void AnimateOutHeroOnPillar()
     {
         _heroSpawnAnimator.ResetTrigger(NEW_HERO_HOVER_ANIM_TRIGGER);
         _heroSpawnAnimator.SetTrigger(REMOVE_HERO_ON_PILLAR_ANIM_TRIGGER);
+    }
+    
+    public void SetHeroPreviewAnimation(bool isHeroSelected)
+    {
+        _heroSpawnAnimator.SetBool(HERO_SELECTED_ANIM_BOOL,isHeroSelected);
+    }
+    
+    public void StartHeroSelectedAnimation(Animator animator)
+    {
+        animator.SetTrigger(HERO_SPECIFIC_SELECTED_ANIM_TRIGGER);
     }
 
     #region PreviewPillar
