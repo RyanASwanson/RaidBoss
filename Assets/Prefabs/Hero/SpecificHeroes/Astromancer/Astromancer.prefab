@@ -52,9 +52,41 @@ MonoBehaviour:
   _hasBasicAbilityAnimation: 0
   _hasManualAbilityAnimation: 0
   _hasPassiveAbilityAnimation: 0
+  _basicAbilityAnimationBufferBeforeDisable: 0.25
+  _manualAbilityAnimationBufferBeforeDisable: 0.25
+  _passiveAbilityAnimationBufferBeforeDisable: 0.25
+  _heroSpecificUI: {fileID: 0}
   _basicProjectile: {fileID: 7688413976857446936, guid: caf005facaebc70409a2a58307213c9d, type: 3}
   _increasedManualRotationalSpeed: 100
-  _manualProjectile: {fileID: 7695334877157128453, guid: acd3dc097bab1754b93304a85192932c, type: 3}
+  _minManualProjectileSpawnRate: 1.5
+  _maxManualProjectileSpawnRate: 0.55
+  _timeToReachMaxManualSpawnRate: 9
+  _manualProjectileSpawnCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.23833174
+      outSlope: 0.23833174
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.23750001
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _purpleManualProjectile: {fileID: 6161070054496328045, guid: ed17511e774131d44a51e344afe0fb3e, type: 3}
+  _blueManualProjectile: {fileID: 2791400127899210731, guid: 6b0fdccb797c25f44a422bf708ad97d3, type: 3}
   _passiveRechargeManualAmount: 6
 --- !u!95 &1177675312439817104
 Animator:

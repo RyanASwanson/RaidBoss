@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -12,7 +13,17 @@ public class SH_Astromancer : SpecificHeroFramework
 
     [Space]
     [SerializeField] private float _increasedManualRotationalSpeed;
-    [SerializeField] private GameObject _manualProjectile;
+    
+    [SerializeField] private float _minManualProjectileSpawnRate;
+    [SerializeField] private float _maxManualProjectileSpawnRate;
+    [SerializeField] private float _timeToReachMaxManualSpawnRate;
+    [SerializeField] private AnimationCurve _manualProjectileSpawnCurve;
+    [SerializeField] private GameObject _purpleManualProjectile;
+    [SerializeField] private GameObject _blueManualProjectile;
+    private float _manualTime;
+    private bool _isManualRight = false;
+
+    private Coroutine _manualProcess;
 
     private bool _manualActive = false;
 
@@ -63,18 +74,82 @@ public class SH_Astromancer : SpecificHeroFramework
 
         _myHeroBase.GetHeroUIManager().ShowManualAbilityChargedIconAboveHero(false);
 
-        CreateManualAttackProjectiles();
-    }
-
-    protected void CreateManualAttackProjectiles()
-    {
-        GameObject spawnedProjectile = Instantiate(_manualProjectile, transform.position, Quaternion.identity);
-
-        _storedManual = spawnedProjectile.GetComponent<SHP_AstromancerManualProjectile>();
-        _storedManual.SetUpProjectile(_myHeroBase, EHeroAbilityType.Manual);
-
+        StartManualSpawnProcess();
+        
         _myHeroBase.GetPathfinding().BriefStopCurrentMovement();
         _myHeroBase.GetHeroStartedMovingEvent().AddListener(EndManualAbility);
+    }
+    
+    private void StartManualSpawnProcess()
+    {
+        _manualProcess = StartCoroutine(ManualProjectileSpawnProcess());
+    }
+
+    private IEnumerator ManualProjectileSpawnProcess()
+    {
+        float timeSinceLastManualProjectile = 0;
+        float currentManualProjectileSpawnRate = _minManualProjectileSpawnRate;
+        
+        _manualTime = 0;
+
+        SpawnManualProjectile();
+
+        while (true)
+        {
+            _manualTime += Time.deltaTime;
+            timeSinceLastManualProjectile += Time.deltaTime;
+            
+            if (_manualTime < _timeToReachMaxManualSpawnRate)
+            {
+                float tempProgress = _manualTime/_timeToReachMaxManualSpawnRate;
+                
+                currentManualProjectileSpawnRate = Mathf.Lerp(_minManualProjectileSpawnRate,
+                    _maxManualProjectileSpawnRate, _manualProjectileSpawnCurve.Evaluate(tempProgress));
+                
+                //Debug.Log(currentManualProjectileSpawnRate);
+            }
+            else
+            {
+                currentManualProjectileSpawnRate = _maxManualProjectileSpawnRate;
+            }
+
+            if (timeSinceLastManualProjectile >= currentManualProjectileSpawnRate)
+            {
+                timeSinceLastManualProjectile -= currentManualProjectileSpawnRate;
+                SpawnManualProjectile();
+            }
+            
+            yield return null;
+        }
+    }
+
+    private void SpawnManualProjectile()
+    {
+        GameObject spawnedProjectile;
+        if (_isManualRight)
+        {
+            spawnedProjectile = Instantiate(_purpleManualProjectile, transform.position, Quaternion.identity);
+        }
+        else
+        {
+            spawnedProjectile = Instantiate(_blueManualProjectile, transform.position, Quaternion.identity);
+        }
+        
+        SHP_AstromancerManualProjectile astromancerManual = spawnedProjectile.GetComponent<SHP_AstromancerManualProjectile>();
+        
+        astromancerManual.AdditionalSetUp(_isManualRight);
+        astromancerManual.SetUpProjectile(_myHeroBase, EHeroAbilityType.Manual);
+        
+        _isManualRight = !_isManualRight;
+    }
+
+    private void StopManualProcess()
+    {
+        if (!_manualProcess.IsUnityNull())
+        {
+            StopCoroutine(_manualProcess);
+            _manualProcess = null;
+        }
     }
 
     protected void EndManualAbility()
@@ -82,8 +157,8 @@ public class SH_Astromancer : SpecificHeroFramework
         _manualActive = false;
 
         _myHeroBase.GetHeroStartedMovingEvent().RemoveListener(EndManualAbility);
-
-        _storedManual.StopManual();
+        
+        StopManualProcess();
 
         _myHeroBase.GetHeroStats().ChangeCurrentHeroAngularSpeed(-_increasedManualRotationalSpeed);
 

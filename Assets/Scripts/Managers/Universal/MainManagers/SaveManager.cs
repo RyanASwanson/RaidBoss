@@ -39,6 +39,8 @@ public class SaveManager : MainUniversalManagerFramework
     {
         GSD = new();
         
+        GSD.GameVersion = Application.version;
+        
         //Fills the GSD with default values when the file is created
         PopulateUnlockedBosses();
         PopulateUnlockedHeroes();
@@ -371,6 +373,8 @@ public class SaveManager : MainUniversalManagerFramework
 [System.Serializable]
 public class GameSaveData
 {
+    public string GameVersion; 
+    
     //TODO Seperate into class for game data and settings data
     public Dictionary<string, bool> _bossesUnlocked = new();
     //String is hero name
