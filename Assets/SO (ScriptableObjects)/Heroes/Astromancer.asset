@@ -22,9 +22,9 @@ MonoBehaviour:
   _aggro: 2
   _damageResistance: 1
   _heroPrefab: {fileID: 908535587928924494, guid: 3601bc766bf167e448435daf0fae416c, type: 3}
-  _heroIcon: {fileID: 21300000, guid: 7d38f48dced9c214981452847db09538, type: 3}
+  _heroIcon: {fileID: 21300000, guid: de4cd028229d01d41b498bca06f0c960, type: 3}
   _heroBasicAbilityIcon: {fileID: 21300000, guid: 90a97845e8c5d6b4fb158d2e572af5c8, type: 3}
-  _heroManualAbilityIcon: {fileID: 21300000, guid: 9aebd705574f9e642aef1e5f59b3e4d8, type: 3}
+  _heroManualAbilityIcon: {fileID: 21300000, guid: 55efa58f25f54b34f8ea506ecabd4f8d, type: 3}
   _heroPassiveAbilityIcon: {fileID: 21300000, guid: 842cf0206d9baa44b86423dcff5761c3, type: 3}
   _survivalStat: 1
   _damageStat: 5
@@ -38,19 +38,17 @@ MonoBehaviour:
   _heroSelectedColor: {r: 1, g: 1, b: 1, a: 1}
   _heroUIColor: {r: 0.41176474, g: 0.09019608, b: 1, a: 1}
   _basicAbilityName: Shooting Star
-  _basicAbilityDescription: 'The Astromancer launches a projectile
+  _basicAbilityDescription: "The Astromancer launches a\nprojectile at the boss,
+    it then\nbounces back. If caught by \nthe Astromancer it reflects again"
+  _manualAbilityName: Celestial Onslaught
+  _manualAbilityDescription: 'The Astromancer fires an
 
-    at the boss,
-    it then bounces back. If
+    onslaught of projectiles
 
-    caught by the Astromancer
+    that
+    fire faster the longer
 
-    it reflects again'
-  _manualAbilityName: Celestial Beam
-  _manualAbilityDescription: 'The Astromancer channels a laser
-
-    that is fired
-    until he next moves'
+    it is channeled.'
   _passiveAbilityName: Stars Align
   _passiveAbilityDescription: 'When the Astromancer reflects
 
@@ -59,4 +57,4 @@ MonoBehaviour:
 
     boss it reduces the cooldown
 
-    of Celestial Beam'
+    of Celestial Onslaught'
