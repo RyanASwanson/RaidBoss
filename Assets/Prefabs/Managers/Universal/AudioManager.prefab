@@ -1158,14 +1158,20 @@ MonoBehaviour:
     MiscellaneousHeroAudio: []
   - AssociatedHero: Astromancer
     SelectionSelectedAudio:
-      AudioName: 
+      AudioName: AstromancerSelection
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
       DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
-      AudioTracks: []
+      AudioTracks:
+      - Guid:
+          Data1: 2027057310
+          Data2: 1101223163
+          Data3: 1039667618
+          Data4: 2097364187
+        Path: event:/SoundEffect/Heroes/SpecificHeroes/Astromancer/Active/AstromancerCelestialOnslaughtLeft
     BasicAbilityUsed:
       AudioName: AstromancerShootingStar
       DefaultStartDelay: 0
