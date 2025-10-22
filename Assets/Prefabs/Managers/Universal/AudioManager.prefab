@@ -1167,14 +1167,20 @@ MonoBehaviour:
       DefaultAudioChoice: 0
       AudioTracks: []
     BasicAbilityUsed:
-      AudioName: 
+      AudioName: AstromancerShootingStar
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
       DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
-      AudioTracks: []
+      AudioTracks:
+      - Guid:
+          Data1: -626105397
+          Data2: 1157251263
+          Data3: -1532833880
+          Data4: -816141393
+        Path: event:/SoundEffect/Heroes/SpecificHeroes/Astromancer/Basic/AstromancerShootingStar
     ManualAbilityUsed:
       AudioName: 
       DefaultStartDelay: 0
@@ -1193,7 +1199,49 @@ MonoBehaviour:
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
-    MiscellaneousHeroAudio: []
+    MiscellaneousHeroAudio:
+    - AudioName: AstromancerShootingStarReflect
+      DefaultStartDelay: 0
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+      DefaultPlayType: 0
+      DefaultAudioChoice: 0
+      AudioTracks:
+      - Guid:
+          Data1: 311878110
+          Data2: 1089908052
+          Data3: -380930680
+          Data4: 1090052974
+        Path: event:/SoundEffect/Heroes/SpecificHeroes/Astromancer/Basic/AstromancerShootingStarReflect
+    - AudioName: AstromancerManualLeft
+      DefaultStartDelay: 0
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+      DefaultPlayType: 0
+      DefaultAudioChoice: 0
+      AudioTracks:
+      - Guid:
+          Data1: 2027057310
+          Data2: 1101223163
+          Data3: 1039667618
+          Data4: 2097364187
+        Path: event:/SoundEffect/Heroes/SpecificHeroes/Astromancer/Active/AstromancerCelestialOnslaughtLeft
+    - AudioName: AstromancerManualRight
+      DefaultStartDelay: 0
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+      DefaultPlayType: 0
+      DefaultAudioChoice: 0
+      AudioTracks:
+      - Guid:
+          Data1: 697273850
+          Data2: 1312566650
+          Data3: 1395439038
+          Data4: -2102120441
+        Path: event:/SoundEffect/Heroes/SpecificHeroes/Astromancer/Active/AstromancerCelestialOnslaughtRight
   - AssociatedHero: Mirage
     SelectionSelectedAudio:
       AudioName: MirageSelected

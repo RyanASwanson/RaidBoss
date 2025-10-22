@@ -47,9 +47,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _basicAbilityChargeTime: 7
-  _manualAbilityChargeTime: 20
+  _manualAbilityChargeTime: 30
   _heroSpecificAnimator: {fileID: 1177675312439817104}
-  _hasBasicAbilityAnimation: 0
+  _hasBasicAbilityAnimation: 1
   _hasManualAbilityAnimation: 0
   _hasPassiveAbilityAnimation: 0
   _basicAbilityAnimationBufferBeforeDisable: 0.25
@@ -87,7 +87,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   _purpleManualProjectile: {fileID: 6161070054496328045, guid: ed17511e774131d44a51e344afe0fb3e, type: 3}
   _blueManualProjectile: {fileID: 2791400127899210731, guid: 6b0fdccb797c25f44a422bf708ad97d3, type: 3}
-  _passiveRechargeManualAmount: 6
+  _passiveRechargeManualAmount: 7
 --- !u!95 &1177675312439817104
 Animator:
   serializedVersion: 5
