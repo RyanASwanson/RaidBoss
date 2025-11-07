@@ -479,6 +479,7 @@ public class HeroStats : HeroChildrenFunctionality
     public void ChangeCurrentHeroDamageResistance(float changeValue)
     {
         _currentDamageResistance += changeValue;
+        Debug.Log("Current damage res " + _currentDamageResistance);
     }
     #endregion
     
