@@ -5,18 +5,20 @@ using UnityEngine;
 
 public class GeneralRotation : MonoBehaviour
 {
-    [SerializeField] private bool _doesBeginRotationOnStart;
-    [SerializeField] private bool _doesResetRotationOnRotationStart;
+    [SerializeField] private bool _doesBeginRotationOnEnable;
+    [SerializeField] private bool _doesResetRotationOnRotationEnable;
     
     private Coroutine _rotationCoroutine;
     
     [Space]
     [SerializeField] private Vector3 _rotationPerSecond;
+
+    [Space] 
+    [SerializeField] private GameObject _rotationIndepedentParent;
     
-    // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
-        if (_doesBeginRotationOnStart)
+        if (_doesBeginRotationOnEnable)
         {
             BeginRotation();
         }
@@ -26,12 +28,12 @@ public class GeneralRotation : MonoBehaviour
     {
         StopRotation();
 
-        if (_doesResetRotationOnRotationStart)
+        if (_doesResetRotationOnRotationEnable)
         {
             ResetRotation();
         }
         
-        _rotationCoroutine = StartCoroutine(RotationProcess());
+        _rotationCoroutine = StartCoroutine(_rotationIndepedentParent.IsUnityNull() ? RotationProcess() : RotationWithParent());
     }
 
     public void StopRotation()
@@ -56,4 +58,24 @@ public class GeneralRotation : MonoBehaviour
             yield return null;
         }
     }
+
+    private IEnumerator RotationWithParent()
+    {
+        Vector3 storedRotation = Vector3.zero;
+        while (!gameObject.IsUnityNull())
+        {
+            storedRotation += _rotationPerSecond * Time.deltaTime;
+            transform.localEulerAngles = -_rotationIndepedentParent.transform.eulerAngles + storedRotation;
+            yield return null;
+        }
+    }
+
+    #region Setters
+
+    public void SetRotationIndependentParent(GameObject parent)
+    {
+        _rotationIndepedentParent = parent;
+    }
+
+    #endregion
 }

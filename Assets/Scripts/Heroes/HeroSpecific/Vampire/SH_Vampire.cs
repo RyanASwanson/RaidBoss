@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -13,13 +14,21 @@ public class SH_Vampire : SpecificHeroFramework
 
     [Space]
     [SerializeField] private float _manualAbilityDuration;
+    [SerializeField] private float _manualBufferDuration;
     [SerializeField] private float _manualAbilityHealingIncrease;
+
+    [Space] 
+    [SerializeField] private GeneralRotation _batSpiralRotation;
+    [SerializeField] private CustomObjectEmitter _manualObjectEmitter;
+    private WaitForSeconds _manualBufferWait;
     private WaitForSeconds _manualAbilityWait;
 
     [Space]
     [SerializeField] private float _passiveAbilityLifestealMultiplier;
     [SerializeField] private float _passiveHealingDelay;
     private WaitForSeconds _passiveAbilityWait;
+
+    [SerializeField] private GameObject _passiveHealProjectile;
 
     private float _currentPassiveHealingStored;
 
@@ -69,6 +78,10 @@ public class SH_Vampire : SpecificHeroFramework
 
         heroStats.AddDamageTakenOverrideCounter();
         heroStats.ChangeCurrentHeroHealingReceivedMultiplier(_manualAbilityHealingIncrease);
+        
+        yield return _manualBufferWait;
+        
+        _manualObjectEmitter.StartEmittingObject();
 
         yield return _manualAbilityWait;
 
@@ -129,7 +142,10 @@ public class SH_Vampire : SpecificHeroFramework
     {
         base.SetUpSpecificHero(heroBase, heroSO);
         
-        _manualAbilityWait = new WaitForSeconds(_manualAbilityDuration);
+        _batSpiralRotation.SetRotationIndependentParent(_myHeroBase.gameObject);
+            
+        _manualBufferWait = new WaitForSeconds(_manualBufferDuration);
+        _manualAbilityWait = new WaitForSeconds(_manualAbilityDuration-_manualBufferDuration);
         _passiveAbilityWait = new WaitForSeconds(_passiveHealingDelay);
     }
     

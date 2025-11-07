@@ -53,11 +53,19 @@ MonoBehaviour:
   _hasBasicAbilityAnimation: 1
   _hasManualAbilityAnimation: 1
   _hasPassiveAbilityAnimation: 0
+  _basicAbilityAnimationBufferBeforeDisable: 0.25
+  _manualAbilityAnimationBufferBeforeDisable: 0.25
+  _passiveAbilityAnimationBufferBeforeDisable: 0.25
+  _heroSpecificUI: {fileID: 0}
   _basicProjectile: {fileID: 2326089874878324366, guid: 4e91b3f7a55d11741a98a29c36478819, type: 3}
   _manualAbilityDuration: 10
+  _manualBufferDuration: 1
   _manualAbilityHealingIncrease: 1
+  _batSpiralRotation: {fileID: 7455698943174933673}
+  _manualObjectEmitter: {fileID: 2238349170861177619}
   _passiveAbilityLifestealMultiplier: 1
   _passiveHealingDelay: 0.2
+  _passiveHealProjectile: {fileID: 0}
 --- !u!95 &5042494388720665591
 Animator:
   serializedVersion: 5
@@ -89,6 +97,10 @@ PrefabInstance:
     - target: {fileID: 765828979446408723, guid: f14d8af99e72011479ee3f2a9beb653c, type: 3}
       propertyPath: m_Name
       value: VampireBats
+      objectReference: {fileID: 0}
+    - target: {fileID: 765828979446408723, guid: f14d8af99e72011479ee3f2a9beb653c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4228083629024248214, guid: f14d8af99e72011479ee3f2a9beb653c, type: 3}
       propertyPath: m_RootOrder
@@ -152,6 +164,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f14d8af99e72011479ee3f2a9beb653c, type: 3}
+--- !u!114 &2238349170861177619 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5405760421383248446, guid: f14d8af99e72011479ee3f2a9beb653c, type: 3}
+  m_PrefabInstance: {fileID: 6058793680759841069}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ec46697c071f2b4ea17e09660bedb65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7455698943174933673 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3702766414677941636, guid: f14d8af99e72011479ee3f2a9beb653c, type: 3}
+  m_PrefabInstance: {fileID: 6058793680759841069}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f519d07b72819f44980cbcd6e7e7e77e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &7978130488079474875 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4228083629024248214, guid: f14d8af99e72011479ee3f2a9beb653c, type: 3}
