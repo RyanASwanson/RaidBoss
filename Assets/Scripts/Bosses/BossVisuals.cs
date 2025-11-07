@@ -27,6 +27,12 @@ public class BossVisuals : BossChildrenFunctionality
     private const string SPECIFIC_BOSS_IDLE_ANIM_TRIGGER = "G_BossIdle";
     private const string BOSS_STAGGER_ANIM_TRIGGER = "G_BossStagger";
     private const string BOSS_DEATH_ANIM_TRIGGER = "G_BossDeath";
+    
+    [Space]
+    [SerializeField] private float _outlineWidth;
+    [SerializeField] private Color _outlineColor;
+    [SerializeField] private Outline.Mode _outlineMode;
+    private Outline _addedOutline;
 
     #region Directional Look
     /// <summary>
@@ -180,12 +186,31 @@ public class BossVisuals : BossChildrenFunctionality
     private void BattleWon()
     {
         BossSpecificDeathAnimTrigger();
+        //OutlineToggle(true);
     }
 
     private void BattleLost()
     {
 
     }
+    
+    #region BossOutline
+    private void AddOutlineToBoss()
+    {
+        _addedOutline = _myBossBase.GetAssociatedBossObject().AddComponent<Outline>();
+
+        _addedOutline.OutlineWidth = _outlineWidth;
+        _addedOutline.OutlineColor = _outlineColor;
+        _addedOutline.OutlineMode = _outlineMode;
+
+        OutlineToggle(false);
+    }
+
+    private void OutlineToggle(bool isOutlineOn)
+    {
+        _addedOutline.enabled = isOutlineOn;
+    }
+    #endregion
 
     public override void ChildFuncSetUp(BossBase bossBase)
     {
@@ -195,6 +220,8 @@ public class BossVisuals : BossChildrenFunctionality
         _visualObjectBase.transform.eulerAngles = new Vector3(0, 180, 0);
 
         BossLevelIntroAnimation();
+        
+        AddOutlineToBoss();
     }
 
     private void SetFromSO(BossSO bossSO)

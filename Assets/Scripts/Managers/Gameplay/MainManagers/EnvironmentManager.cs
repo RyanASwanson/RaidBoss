@@ -24,6 +24,25 @@ public class EnvironmentManager : MainGameplayManagerFramework
     [Tooltip("The max distance that is checked to find the edge of the map")]
     private const float _distanceToEdgeOfMap = 25;
 
+    [Space]
+    [SerializeField] private float _battleWonEffectDuration;
+    
+    [SerializeField] private GameObject _battleWonEffect;
+
+    private void BattleWon()
+    {
+        StartCoroutine(BattleWonEffect());
+    }
+
+    private IEnumerator BattleWonEffect()
+    {
+        _battleWonEffect.SetActive(true);
+        
+        yield return new WaitForSeconds(_battleWonEffectDuration);
+        
+        _battleWonEffect.SetActive(false);
+    }
+
     #region BaseManager
     /// <summary>
     /// Establishes the Instance for the Environment manager
@@ -32,6 +51,11 @@ public class EnvironmentManager : MainGameplayManagerFramework
     {
         base.SetUpInstance();
         Instance = this;
+    }
+
+    protected override void SubscribeToEvents()
+    {
+        //GameStateManager.Instance.GetBattleWonEvent().AddListener(BattleWon);
     }
     #endregion
 
