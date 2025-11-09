@@ -80,7 +80,11 @@ public class SHP_VampireBasicProjectile : HeroProjectileFramework
             AudioManager.Instance.AllSpecificHeroAudio[_myHeroBase.GetHeroSO().GetHeroID()]
                 .MiscellaneousHeroAudio[SH_Vampire.BASIC_PROJECTILE_SPLIT_AUDIO_ID]);
     }
-
+    
+    public void AdditionalSetup(SH_Vampire heroScript)
+    {
+        _vampireHero = heroScript;
+    }
 
     #region Base Ability
     public override void SetUpProjectile(HeroBase heroBase, EHeroAbilityType heroAbilityType)
@@ -90,11 +94,6 @@ public class SHP_VampireBasicProjectile : HeroProjectileFramework
         StartAnimations();
 
         StartCoroutine(MoveProjectile());
-    }
-
-    public void AdditionalSetup(SH_Vampire heroScript)
-    {
-        _vampireHero = heroScript;
     }
     #endregion
 }

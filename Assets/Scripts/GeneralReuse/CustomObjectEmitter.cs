@@ -17,6 +17,15 @@ public class CustomObjectEmitter : MonoBehaviour
     
     [SerializeField] private float _emittedObjectMoveSpeed;
     [SerializeField] private float _emittedObjectDuration;
+
+    [Space] 
+    [SerializeField] private ECustomObjectEmitterType _emitterType;
+    
+    [Space]
+    [SerializeField] private float _minimumAngleIncrease;
+    [SerializeField] private float _maximumAngleIncrease;
+
+    private Vector3 _currentRotation;
     
     [Space]
     [SerializeField] private GameObject _emitObject;
@@ -25,6 +34,11 @@ public class CustomObjectEmitter : MonoBehaviour
     
     bool _isEmitting;
 
+    private void Start()
+    {
+        _currentRotation = FullRandomVector();
+    }
+    
     public void StartEmittingObject()
     {
         StopEmittingObject();
@@ -64,9 +78,28 @@ public class CustomObjectEmitter : MonoBehaviour
     {
         GameObject createdObject = Instantiate(_emitObject, transform.position, Quaternion.identity);
         
-        createdObject.transform.eulerAngles = new Vector3(0, Random.Range(0,360), 0);
+        createdObject.transform.eulerAngles = RandomDirectionVector();
         
         StartCoroutine(MoveEmittedObject(createdObject));
+    }
+
+    private Vector3 RandomDirectionVector()
+    {
+        switch (_emitterType)
+        {
+            case ECustomObjectEmitterType.FullRandom:
+                return FullRandomVector();
+            case ECustomObjectEmitterType.RangeIncreaseRandom:
+                _currentRotation += new Vector3(0, Random.Range(_minimumAngleIncrease, _maximumAngleIncrease), 0);
+                return _currentRotation;
+            default:
+                return Vector3.zero;
+        }
+    }
+
+    private Vector3 FullRandomVector()
+    {
+        return new Vector3(0, Random.Range(0,360), 0);
     }
 
     private IEnumerator MoveEmittedObject(GameObject gameObject)
@@ -81,3 +114,9 @@ public class CustomObjectEmitter : MonoBehaviour
         Destroy(gameObject);
     }
 }
+
+public enum ECustomObjectEmitterType
+{
+    FullRandom,
+    RangeIncreaseRandom
+};

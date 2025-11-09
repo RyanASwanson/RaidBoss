@@ -31,6 +31,7 @@ public class SH_Vampire : SpecificHeroFramework
     [SerializeField] private GameObject _passiveHealProjectile;
 
     private float _currentPassiveHealingStored;
+    private float _recentPassiveHealing;
 
     private Coroutine _passiveProcess;
 
@@ -115,9 +116,27 @@ public class SH_Vampire : SpecificHeroFramework
     private IEnumerator PassiveProcess()
     {
         yield return _passiveAbilityWait;
-        ActivatePassiveAbilities();
+        //ActivatePassiveAbilities();
+        CreatePassiveProjectile();
 
         _passiveProcess = null;
+    }
+
+    private void CreatePassiveProjectile()
+    {
+        GameObject spawnedProjectile = Instantiate(_passiveHealProjectile, BossBase.Instance.transform.position, Quaternion.identity);
+        
+        SHP_VampirePassiveProjectile projectileFunc = spawnedProjectile.GetComponent<SHP_VampirePassiveProjectile>();
+        projectileFunc.SetUpProjectile(_myHeroBase, EHeroAbilityType.Basic);
+        projectileFunc.AdditionalSetup(this, _currentPassiveHealingStored);
+        
+        _currentPassiveHealingStored = 0;
+    }
+
+    public void ActivatePassiveHeal(float healing)
+    {
+        _recentPassiveHealing = healing;
+        ActivatePassiveAbilities();
     }
 
     /// <summary>
@@ -127,8 +146,7 @@ public class SH_Vampire : SpecificHeroFramework
     {
         base.ActivatePassiveAbilities();
 
-        HealTargetHero(_currentPassiveHealingStored,_myHeroBase);
-        _currentPassiveHealingStored = 0;
+        HealTargetHero(_recentPassiveHealing,_myHeroBase);
     }
     #endregion
 
