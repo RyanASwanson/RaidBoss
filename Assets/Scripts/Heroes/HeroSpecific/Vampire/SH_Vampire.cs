@@ -128,7 +128,7 @@ public class SH_Vampire : SpecificHeroFramework
         
         SHP_VampirePassiveProjectile projectileFunc = spawnedProjectile.GetComponent<SHP_VampirePassiveProjectile>();
         projectileFunc.SetUpProjectile(_myHeroBase, EHeroAbilityType.Basic);
-        projectileFunc.AdditionalSetup(this, _currentPassiveHealingStored);
+        projectileFunc.AdditionalSetup(this, _currentPassiveHealingStored, _myHeroBase.GetHeroStats().GetCurrentHealingReceivedMultiplier());
         
         _currentPassiveHealingStored = 0;
     }
