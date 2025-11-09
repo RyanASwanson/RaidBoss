@@ -24,7 +24,13 @@ public class MoveBetween : MonoBehaviour
     public void StartMoveProcess(GameObject target)
     {
         _moveTarget = target;
-        _moveCoroutine = StartCoroutine(MoveProcess());
+        _moveCoroutine = StartCoroutine(MoveProcessWithGameObjectTarget());
+    }
+
+    public void StartMoveProcess(Vector3 targetPosition)
+    {
+        _moveTargetPosition = targetPosition;
+        _moveCoroutine = StartCoroutine(MoveProcessWithPositionTarget());
     }
 
     public void StopMoveProcess()
@@ -40,7 +46,7 @@ public class MoveBetween : MonoBehaviour
     /// to the location of the boss
     /// </summary>
     /// <returns></returns>
-    private IEnumerator MoveProcess()
+    private IEnumerator MoveProcessWithGameObjectTarget()
     {
         _startPosition = transform.position;
 
@@ -54,6 +60,22 @@ public class MoveBetween : MonoBehaviour
             }
             moveTimer += Time.deltaTime / _moveTime;
             transform.position = Vector3.LerpUnclamped(_startPosition,_moveTargetPosition, _movementCurve.Evaluate(moveTimer));
+            yield return null;
+        }
+
+        EndOfMovement();
+    }
+
+    private IEnumerator MoveProcessWithPositionTarget()
+    {
+        _startPosition = transform.position;
+
+        float moveTimer = 0;
+
+        while (moveTimer < 1)
+        {
+            moveTimer += Time.deltaTime / _moveTime;
+            transform.localPosition = Vector3.LerpUnclamped(_startPosition,_moveTargetPosition, _movementCurve.Evaluate(moveTimer));
             yield return null;
         }
 

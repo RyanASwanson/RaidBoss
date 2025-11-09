@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class SHP_VampirePassiveProjectile : HeroProjectileFramework
 {
+    [SerializeField] private Vector3 _visualsMoveTargetPosition;
     
     [Space]
     [SerializeField] private MoveBetween _moveBetween;
+    [SerializeField] private MoveBetween _visualsMoveBetween;
     [SerializeField] private FloatCurveScalar _curveScalar;
     [SerializeField] private TrailRenderer _trailRenderer;
     
@@ -22,7 +24,6 @@ public class SHP_VampirePassiveProjectile : HeroProjectileFramework
 
     private void ScaleSize()
     {
-        Debug.Log("Stored heal is" + _storedHeal);
         _trailRenderer.widthMultiplier = _curveScalar.FloatFromFloatCurve(_storedHeal * _vampireHealMultiplier);
     }
     
@@ -34,5 +35,6 @@ public class SHP_VampirePassiveProjectile : HeroProjectileFramework
         
         ScaleSize();
         _moveBetween.StartMoveProcess(_vampireHero.gameObject);
+        _visualsMoveBetween.StartMoveProcess(_visualsMoveTargetPosition);
     }
 }
