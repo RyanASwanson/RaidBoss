@@ -37,6 +37,12 @@ public class BossSO : CharacterSO
 
     [Header("Visuals")]
     [SerializeField] private Sprite _bossIcon;
+    
+    [Space] 
+    [Header("Environment")] 
+    [SerializeField] private Material _floorMaterial;
+    [SerializeField] private Material _backgroundMaterial;
+    [SerializeField] private GameObject _backgroundParticles;
 
     [Header("Selection")]
     [SerializeField] private Color _bossHighlightedColor;
@@ -45,6 +51,7 @@ public class BossSO : CharacterSO
 
     [Header("Ability Information")]
     [SerializeField] private List<BossAbilityInformation> _bossAbilities;
+    
 
     #region Getters
     public string GetBossName() => _name;
@@ -68,6 +75,10 @@ public class BossSO : CharacterSO
     public GameObject GetBossPrefab() => _bossPrefab;
 
     public Sprite GetBossIcon() => _bossIcon;
+    
+    public Material GetFloorMaterial() => _floorMaterial;
+    public Material GetBackgroundMaterial() => _backgroundMaterial;
+    public GameObject GetBackgroundParticles() => _backgroundParticles;
 
     public Color GetBossHighlightedColor() => _bossHighlightedColor;
     public Color GetBossPressedColor() => _bossPressedColor;

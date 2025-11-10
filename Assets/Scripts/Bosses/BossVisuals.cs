@@ -221,7 +221,7 @@ public class BossVisuals : BossChildrenFunctionality
 
         BossLevelIntroAnimation();
         
-        AddOutlineToBoss();
+        //AddOutlineToBoss();
     }
 
     private void SetFromSO(BossSO bossSO)
