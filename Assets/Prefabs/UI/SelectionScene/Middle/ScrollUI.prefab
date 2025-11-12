@@ -505,7 +505,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8252553721857704592}
   - component: {fileID: 8437723179066087964}
-  - component: {fileID: 1459373235634039964}
   - component: {fileID: 4234728698102303918}
   - component: {fileID: 6684290230298614938}
   m_Layer: 5
@@ -550,65 +549,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _appearingCurve: {fileID: 4234728698102303918}
   _scrollingCurve: {fileID: 6684290230298614938}
-  _unscrollTime: 0.4
-  _scrollTime: 0.25
   _scrollDelayTime: 0.8
-  _scrollUnscrollCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   _upperScrollDistanceFromTop: 27.5
   _middleScrollScaleMultiplier: 0.06
   _middleScrollUpperBounds: {fileID: 2435295070020095011}
   _middleScrollLowerBounds: {fileID: 948176368893789159}
-  _scrollHolder: {fileID: 0}
+  _scrollHolder: {fileID: 5870252325916863629}
   _scrollTop: {fileID: 1968819958554327654}
   _scrollUpper: {fileID: 2435295070020095011}
   _scrollMiddle: {fileID: 8342430468662351530}
   _scrollLower: {fileID: 948176368893789159}
   _scrollBottom: {fileID: 4734622426529001927}
-  _scrollAnimator: {fileID: 1459373235634039964}
---- !u!95 &1459373235634039964
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8358595126850183030}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 35f274772927c4249921f906f40f001c, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &4234728698102303918
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -621,8 +572,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 508c048b50abf854791f2f498bb01037, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _curveIncreaseTime: 0.5
-  _curveDecreaseSpeed: 0.4
+  _curveName: Appearing
+  _curveIncreaseTime: 0.25
+  _curveDecreaseSpeed: 0.15
+  _minCurveValue: 0
+  _maxCurveValue: 1
   _curve:
     serializedVersion: 2
     m_Curve:
@@ -647,6 +601,36 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _onMaxValueReached:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8437723179066087964}
+        m_TargetAssemblyTypeName: ScrollUISelection, Assembly-CSharp
+        m_MethodName: ScrollFullyAppeared
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _onMinValueReached:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8437723179066087964}
+        m_TargetAssemblyTypeName: ScrollUISelection, Assembly-CSharp
+        m_MethodName: ScrollFullyDisappeared
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &6684290230298614938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -659,8 +643,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 508c048b50abf854791f2f498bb01037, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _curveName: Scrolling
   _curveIncreaseTime: 0.4
   _curveDecreaseSpeed: 0.25
+  _minCurveValue: 0
+  _maxCurveValue: 1
   _curve:
     serializedVersion: 2
     m_Curve:
@@ -685,3 +672,33 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _onMaxValueReached:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8437723179066087964}
+        m_TargetAssemblyTypeName: ScrollUISelection, Assembly-CSharp
+        m_MethodName: ScrollFullyOpened
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _onMinValueReached:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8437723179066087964}
+        m_TargetAssemblyTypeName: ScrollUISelection, Assembly-CSharp
+        m_MethodName: ScrollFullyClosed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

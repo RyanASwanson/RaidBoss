@@ -9,28 +9,14 @@ public class ScrollUISelection : MonoBehaviour
     [SerializeField] private CurveProgression _appearingCurve;
     [SerializeField] private CurveProgression _scrollingCurve;
     
-    [SerializeField] private float _unscrollTime;
-    [SerializeField] private float _scrollTime;
-    [SerializeField] private float _scrollDelayTime;
-    [SerializeField] private AnimationCurve _scrollUnscrollCurve;
-    private WaitForSeconds _scrollDelay;
-    
-    private float _unscrollProgress = 0;
-    private float _unscrollCurveValue = 0;
-
     private float _targetScrollSize = 0;
     private float _currentScrollSize = 0;
 
     private float _scrollTopStartingY;
     private float _scrollLowerStartingY;
-    
-    private EScrollState _scrollState = EScrollState.NotVisible;
 
-    private bool _isTargetScrollSizeBuffered = false;
-    private bool _isScrollOpenBuffered = false;
-    private bool _isScrollDisappearBuffered = false;
+    private bool _isBufferingNewScrollOpen = false;
     
-    private Coroutine _scrollOpenCloseCoroutine;
     private Coroutine _scrollCloseDelayCoroutine;
     
     [Space] 
@@ -50,229 +36,121 @@ public class ScrollUISelection : MonoBehaviour
     [SerializeField] private RectTransform _scrollMiddle;
     [SerializeField] private RectTransform _scrollLower;
     [SerializeField] private RectTransform _scrollBottom;
-
-    [Space] 
-    [SerializeField] private Animator _scrollAnimator;
-
-    private static string SHOW_SCROLL_ANIM_BOOL = "ShowScroll";
     
     // Start is called before the first frame update
     void Start()
     {
-        _scrollDelay = new WaitForSeconds(_scrollDelayTime);
-        
         _scrollTopStartingY = _scrollTop.localPosition.y;
         _scrollLowerStartingY = _scrollLower.localPosition.y;
         
         _middleScrollStartingScale = _scrollMiddle.localScale;
+
+        SubscribeToEvents();
     }
 
-    private void Update()
+    public void ShowNewScroll(float unscrollSize)
     {
-        if (Input.GetKeyDown(KeyCode.V))
+        _targetScrollSize = unscrollSize;
+
+        if (_appearingCurve.CurveStatus == ECurveStatus.AtMinValue ||
+            _appearingCurve.CurveStatus == ECurveStatus.Decreasing)
         {
-            OpenScroll();
+            StartScrollAppear();
         }
-        else if (Input.GetKeyDown(KeyCode.B))
+        else if (_scrollingCurve.CurveStatus == ECurveStatus.Decreasing)
         {
-            CloseScroll();
+            _isBufferingNewScrollOpen = true;
+        }
+    }
+
+    public void HideScroll()
+    {
+        if (_appearingCurve.CurveStatus == ECurveStatus.Increasing)
+        {
+            _scrollingCurve.StopMovingOnCurve();
+            StartScrollDisappear();
+        }
+        else if (_appearingCurve.CurveStatus == ECurveStatus.AtMaxValue &&
+                 _scrollingCurve.CurveStatus == ECurveStatus.AtMinValue)
+        {
+            _scrollingCurve.StopMovingOnCurve();
+            StartScrollDisappear();
+        }
+        else if (_scrollingCurve.CurveStatus == ECurveStatus.Increasing || _scrollingCurve.CurveStatus == ECurveStatus.AtMaxValue)
+        {
+            StartScrollClose();
         }
 
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            SetNewScrollSize(60);
-        }
-        
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            SetNewScrollSize(90);
-        }
-        
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            CloseScroll();
-        }
-        
-        //SetUpperTransform();
-        //SetMiddleTransform();
+        _isBufferingNewScrollOpen = false;
+
     }
 
     #region AppearDisappear
-    public void ScrollAppear()
+
+    private void StartScrollAppear()
     {
-        _isScrollOpenBuffered = true;
-        ShowScrollAnimation(true);
-        Debug.LogWarning("ScrollAppear");
+        _appearingCurve.StartMovingUpOnCurve();
     }
 
+    private void StartScrollDisappear()
+    {
+        _appearingCurve.StartMovingDownOnCurve();
+    }
+    
     public void ScrollFullyAppeared()
     {
-        if (_isScrollOpenBuffered)
-        {
-            OpenScroll();
-        }
+        StartScrollOpen();
     }
-
-    public void ScrollDisappear()
-    {
-        Debug.Log("Scroll dissapear " + _scrollState);
-        if (_scrollState == EScrollState.Closed)
-        {
-            ShowScrollAnimation(false);
-        }
-        else
-        {
-            _isScrollDisappearBuffered = true;
-        }
-        
-        //CloseScroll();
-        StopCloseScrollDelay();
-        _scrollCloseDelayCoroutine = StartCoroutine(CloseScrollDelay());
-    }
-
+    
     public void ScrollFullyDisappeared()
     {
-        _scrollState = EScrollState.NotVisible;
+        
     }
-    
-    private IEnumerator CloseScrollDelay()
+
+    public void UpdateAppearingScale(float scale)
     {
-        yield return _scrollDelay;
-        Debug.Log("Scroll Delay Passed");
-        CloseScroll();
-    }
-    
-    private void StopCloseScrollDelay()
-    {
-        if (!_scrollCloseDelayCoroutine.IsUnityNull())
-        {
-            StopCoroutine(_scrollCloseDelayCoroutine);
-        }
+        //Debug.Log("Appearing Scale " + scale);
+        
+        _scrollHolder.transform.localScale = new Vector3(scale, scale, scale);
     }
     #endregion
     
     #region ScrollUnscrolling
 
-    public void SetNewScrollSize(float unscrollSize)
+    public void StartScrollOpen()
     {
-        _targetScrollSize = unscrollSize;
-
-        StopCloseScrollDelay();
-        
-        Debug.LogWarning(_scrollState);
-
-        switch (_scrollState)
-        {
-            case EScrollState.Closing:
-            case EScrollState.NotVisible:
-                ScrollAppear();
-                break;
-            case EScrollState.Closed:
-                OpenScroll();
-                break;
-            case EScrollState.Opening:
-            case EScrollState.FullyOpen:
-                CloseScroll();
-                _isTargetScrollSizeBuffered = true;
-                _isScrollDisappearBuffered = false;
-                break;
-            default:
-                break;
-        }
-
-        
-    }
-
-    public void OpenScroll()
-    {
-        StopCurrentScrollProgress();
-        
+        _scrollingCurve.StartMovingUpOnCurve();
         _currentScrollSize = _targetScrollSize;
-        _scrollOpenCloseCoroutine = StartCoroutine(ScrollOpenProcess());
+    }
+
+    public void StartScrollClose()
+    {
+        _scrollingCurve.StartMovingDownOnCurve();
     }
     
-    public void CloseScroll()
+    public void ScrollFullyOpened()
     {
-        //Debug.Log("Close Scroll");
-        _isScrollOpenBuffered = false;
-        StopCurrentScrollProgress();
         
-        _scrollOpenCloseCoroutine = StartCoroutine(ScrollCloseProcess());
     }
     
-    public void StopCurrentScrollProgress()
+
+    public void ScrollFullyClosed()
     {
-        if (!_scrollOpenCloseCoroutine.IsUnityNull())
+        if (_isBufferingNewScrollOpen)
         {
-            StopCoroutine(_scrollOpenCloseCoroutine);
+            _isBufferingNewScrollOpen = false;
+            StartScrollOpen();
         }
-    }
-    
-    private IEnumerator ScrollOpenProcess()
-    {
-        _scrollState = EScrollState.Opening;
-        while (_unscrollProgress < 1)
+        else
         {
-            _unscrollProgress += Time.deltaTime/_unscrollTime;
-            //Debug.Log(_unscrollProgress);
-            
-            UpdateScrollProcess();
-            
-            yield return null;
-        }
-
-        ScrollFullyOpened();
-    }
-
-    private void ScrollFullyOpened()
-    {
-        _unscrollProgress = 1;
-        _scrollState = EScrollState.FullyOpen;
-        UpdateScrollProcess();
-    }
-    
-    private IEnumerator ScrollCloseProcess()
-    {
-        _scrollState = EScrollState.Closing;
-        while (_unscrollProgress > 0)
-        {
-            _unscrollProgress -= Time.deltaTime/_scrollTime;
-            
-            UpdateScrollProcess();
-            
-            yield return null;
-        }
-
-        ScrollFullyClosed();
-    }
-
-    private void ScrollFullyClosed()
-    {
-        _unscrollProgress = 0;
-        _scrollState = EScrollState.Closed;
-        UpdateScrollProcess();
-
-        Debug.Log("Scroll fully closed with " + _isTargetScrollSizeBuffered + " " + _isScrollDisappearBuffered);
-
-        if (_isTargetScrollSizeBuffered)
-        {
-            _isTargetScrollSizeBuffered = false;
-            OpenScroll();
-        }
-        if (_isScrollDisappearBuffered)
-        {
-            _isScrollDisappearBuffered = false;
-            ShowScrollAnimation(false);
+            StartScrollDisappear();
         }
     }
 
-    private void UpdateScrollProcess()
+    public void UpdateScrollProgress(float progress)
     {
-        _unscrollCurveValue = _scrollUnscrollCurve.Evaluate(_unscrollProgress);
-        //Debug.Log("Curve value " +_unscrollCurveValue);
-
-        _scrollTop.localPosition = new Vector3(0, Mathf.Lerp(_scrollTopStartingY,_scrollTopStartingY+_currentScrollSize,_unscrollCurveValue), 0);
-        _scrollLower.localPosition = new Vector3(0, Mathf.Lerp(_scrollLowerStartingY,_scrollLowerStartingY-_currentScrollSize,_unscrollCurveValue), 0);
+        _scrollTop.localPosition = new Vector3(0, Mathf.Lerp(_scrollTopStartingY,_scrollTopStartingY+_currentScrollSize,progress), 0);
+        _scrollLower.localPosition = new Vector3(0, Mathf.Lerp(_scrollLowerStartingY,_scrollLowerStartingY-_currentScrollSize,progress), 0);
         
         SetUpperTransform();
         SetMiddleTransform();
@@ -282,7 +160,6 @@ public class ScrollUISelection : MonoBehaviour
     {
         _scrollUpper.localPosition =
             new Vector3(0, _scrollTop.transform.localPosition.y - _upperScrollDistanceFromTop, 0);
-        //Debug.Log(_scrollTop.transform.localPosition.y +"     " + _upperScrollDistanceFromTop);
     }
 
     private void SetMiddleTransform()
@@ -300,20 +177,10 @@ public class ScrollUISelection : MonoBehaviour
     
     #endregion
 
-
-    private void ShowScrollAnimation(bool show)
+    private void SubscribeToEvents()
     {
-        //_scrollAnimator.SetBool(SHOW_SCROLL_ANIM_BOOL, show);
+        _appearingCurve._onCurveValueChanged.AddListener(UpdateAppearingScale);
+        _scrollingCurve._onCurveValueChanged.AddListener(UpdateScrollProgress);
     }
 }
 
-public enum EScrollState
-{
-    NotVisible,
-    Appearing,
-    Closed,
-    Opening,
-    FullyOpen,
-    Closing,
-    Disappearing
-};

@@ -6,13 +6,20 @@ using UnityEngine.Events;
 
 public class CurveProgression : MonoBehaviour
 {
+    [SerializeField] private string _curveName;
+    
+    [Space]
     [SerializeField] private float _curveIncreaseTime;
     [SerializeField] private float _curveDecreaseSpeed;
     
     private float _movementProgress = 0;
     
-    internal float CurveValue = 0;
+    private float _curveEvaluated = 0;
     internal ECurveStatus CurveStatus = ECurveStatus.AtMinValue;
+    
+    [SerializeField] private float _minCurveValue;
+    [SerializeField] private float _maxCurveValue;
+    internal float CurveValue = 0;
     
     private Coroutine _curveProgressCoroutine;
     
@@ -20,9 +27,10 @@ public class CurveProgression : MonoBehaviour
     [SerializeField] private AnimationCurve _curve;
 
     [Space] 
-    [SerializeField] private UnityEvent<float> _onCurveValueChanged;
     [SerializeField] private UnityEvent _onMaxValueReached;
     [SerializeField] private UnityEvent _onMinValueReached;
+    //Curve Value Changed event is kept from being editor accessible as it defaults the value invoked to 0
+    internal UnityEvent<float> _onCurveValueChanged = new UnityEvent<float>();
     
     
 
@@ -38,7 +46,7 @@ public class CurveProgression : MonoBehaviour
         _curveProgressCoroutine = StartCoroutine(MovingDownOnCurveProgress());
     }
 
-    private void StopMovingOnCurve()
+    public void StopMovingOnCurve()
     {
         if (!_curveProgressCoroutine.IsUnityNull())
         {
@@ -48,10 +56,11 @@ public class CurveProgression : MonoBehaviour
     
     private IEnumerator MovingUpOnCurveProgress()
     {
+        Debug.Log("Moving Up on Curve Progress");
         CurveStatus = ECurveStatus.Increasing;
         while (_movementProgress < 1)
         {
-            _movementProgress += Time.deltaTime * _curveIncreaseTime;
+            _movementProgress += Time.deltaTime / _curveIncreaseTime;
             UpdateCurveProgress();
             yield return null;
         }
@@ -63,7 +72,7 @@ public class CurveProgression : MonoBehaviour
         CurveStatus = ECurveStatus.Decreasing;
         while (_movementProgress > 0)
         {
-            _movementProgress -= Time.deltaTime * _curveIncreaseTime;
+            _movementProgress -= Time.deltaTime / _curveIncreaseTime;
             UpdateCurveProgress();
             yield return null;
         }
@@ -72,7 +81,8 @@ public class CurveProgression : MonoBehaviour
 
     private void UpdateCurveProgress()
     {
-        CurveValue = _curve.Evaluate(_movementProgress);
+        _curveEvaluated = _curve.Evaluate(_movementProgress);
+        CurveValue = Mathf.Lerp(_minCurveValue,_maxCurveValue, _curveEvaluated);
         InvokeOnCurveValueChanged();
     }
 
@@ -92,6 +102,7 @@ public class CurveProgression : MonoBehaviour
 
     public void InvokeOnCurveValueChanged()
     {
+        //Debug.Log("Curve value " + CurveValue);
         _onCurveValueChanged?.Invoke(CurveValue);
     }
     

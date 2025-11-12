@@ -271,6 +271,7 @@ public class SelectionController : MonoBehaviour
     {
         _currentBossAbilityID = abilityID;
         _bossAbilityDescriptionAnimator.SetBool(SHOW_ABILITY_DESCRIPTION_ANIM_BOOL, true);
+        _bossScrollUI.ShowNewScroll(90);
     }
 
     private void UpdateBossAbilityNameText(string newText)
@@ -319,6 +320,7 @@ public class SelectionController : MonoBehaviour
     {
         _currentBossAbilityID = abilityID;
         _bossAbilityDescriptionAnimator.SetTrigger(SWAP_ABILITY_DESCRIPTION_ANIM_TRIGGER);
+        _bossScrollUI.ShowNewScroll(90);
     }
 
     /// <summary>
@@ -329,6 +331,8 @@ public class SelectionController : MonoBehaviour
     {
         _bossAbilityDescriptionAnimator.SetBool(SHOW_ABILITY_DESCRIPTION_ANIM_BOOL, false);
         _currentBossAbilityID = -1;
+        
+        _bossScrollUI.HideScroll();
     }
 
     private void HideFullBossDescription()
@@ -579,7 +583,7 @@ public class SelectionController : MonoBehaviour
         _heroAbilityDescriptionAnimator.SetBool(SHOW_ABILITY_DESCRIPTION_ANIM_BOOL, true);
         
         //_heroScrollUI.ScrollAppear();
-        _heroScrollUI.SetNewScrollSize(70);
+        _heroScrollUI.ShowNewScroll(90);
     }
 
     private void UpdateHeroAbilityNameText(string newText)
@@ -632,6 +636,9 @@ public class SelectionController : MonoBehaviour
     {
         _currentHeroAbilityID = abilityID;
         _heroAbilityDescriptionAnimator.SetTrigger(SWAP_ABILITY_DESCRIPTION_ANIM_TRIGGER);
+        
+        
+        _heroScrollUI.ShowNewScroll(90);
     }
 
     private void HideHeroAbilityDescription()
@@ -639,7 +646,7 @@ public class SelectionController : MonoBehaviour
         _heroAbilityDescriptionAnimator.SetBool(SHOW_ABILITY_DESCRIPTION_ANIM_BOOL, false);
         _currentHeroAbilityID = -1;
         
-        _heroScrollUI.ScrollDisappear();
+        _heroScrollUI.HideScroll();
     }
 
     private void HideFullHeroDescription()
