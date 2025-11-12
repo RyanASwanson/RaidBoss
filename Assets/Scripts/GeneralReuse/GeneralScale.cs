@@ -19,15 +19,26 @@ public class GeneralScale : MonoBehaviour
     [Space]
     [SerializeField] private Vector3 _endingScale;
     
+    [Space]
+    [Header("Scaling with curve progression")]
+    [SerializeField] private CurveProgression _curveProgression;
+    
     private Vector3 _startingScale;
+    
 
     void OnEnable()
     {
+        SubscribeToEvents();
         _startingScale = transform.localScale;
         if (_doesBeginScalingOnEnable)
         {
             BeginScaling();
         }
+    }
+
+    private void OnDisable()
+    {
+        UnsubscribeFromEvents();
     }
 
     public void BeginScaling()
@@ -65,6 +76,28 @@ public class GeneralScale : MonoBehaviour
             
             transform.localScale = Vector3.Lerp(_startingScale, _endingScale, scaleProgress);
             yield return null;
+        }
+    }
+
+    public void UpdateLocalScale(float scaleProgress)
+    {
+        Debug.Log(scaleProgress);
+        transform.localScale = Vector3.Lerp(_startingScale, _endingScale, scaleProgress);
+    }
+
+    public void SubscribeToEvents()
+    {
+        if (_curveProgression)
+        {
+            _curveProgression._onCurveValueChanged.AddListener(UpdateLocalScale);
+        }
+    }
+
+    public void UnsubscribeFromEvents()
+    {
+        if (_curveProgression)
+        {
+            _curveProgression._onCurveValueChanged.RemoveListener(UpdateLocalScale);
         }
     }
 }

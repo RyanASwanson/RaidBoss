@@ -5,6 +5,8 @@ using TMPro;
 
 public class SelectionController : MonoBehaviour
 {
+    public static SelectionController Instance;
+    
     [Header("Boss")]
     [SerializeField] private BossPillar _bossPillar;
 
@@ -23,7 +25,7 @@ public class SelectionController : MonoBehaviour
 
     [Space]
     [SerializeField] private ScrollUISelection _bossScrollUI;
-    [SerializeField] private Animator _bossAbilityDescriptionAnimator;
+    //[SerializeField] private AbilityDescriptionFunctionality _bossAbilityDescription;
 
     [Space]
     [SerializeField] private Text _bossAbilityBackgroundNameText;
@@ -79,10 +81,7 @@ public class SelectionController : MonoBehaviour
 
     [Space] 
     [SerializeField] private ScrollUISelection _heroScrollUI;
-    [SerializeField] private Animator _heroAbilityDescriptionAnimator;
-
-    private const string SHOW_ABILITY_DESCRIPTION_ANIM_BOOL = "ShowDescription";
-    private const string SWAP_ABILITY_DESCRIPTION_ANIM_TRIGGER = "SwapDescription";
+    //[SerializeField] private AbilityDescriptionFunctionality _heroAbilityDescription;
 
     [Space]
     [SerializeField] private Text _heroAbilityBackgroundNameText;
@@ -107,6 +106,7 @@ public class SelectionController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Instance = this;
         SubscribeToEvents();
 
         BossSideStart();
@@ -270,7 +270,6 @@ public class SelectionController : MonoBehaviour
     public void ShowBossAbilityDescription(int abilityID)
     {
         _currentBossAbilityID = abilityID;
-        _bossAbilityDescriptionAnimator.SetBool(SHOW_ABILITY_DESCRIPTION_ANIM_BOOL, true);
         _bossScrollUI.ShowNewScroll(90);
     }
 
@@ -319,7 +318,6 @@ public class SelectionController : MonoBehaviour
     private void SwapBossAbilityDescription(int abilityID)
     {
         _currentBossAbilityID = abilityID;
-        _bossAbilityDescriptionAnimator.SetTrigger(SWAP_ABILITY_DESCRIPTION_ANIM_TRIGGER);
         _bossScrollUI.ShowNewScroll(90);
     }
 
@@ -329,7 +327,6 @@ public class SelectionController : MonoBehaviour
     /// </summary>
     private void HideBossAbilityDescription()
     {
-        _bossAbilityDescriptionAnimator.SetBool(SHOW_ABILITY_DESCRIPTION_ANIM_BOOL, false);
         _currentBossAbilityID = -1;
         
         _bossScrollUI.HideScroll();
@@ -580,70 +577,19 @@ public class SelectionController : MonoBehaviour
     public void ShowHeroAbilityDescription(int abilityID)
     {
         _currentHeroAbilityID = abilityID;
-        _heroAbilityDescriptionAnimator.SetBool(SHOW_ABILITY_DESCRIPTION_ANIM_BOOL, true);
         
-        //_heroScrollUI.ScrollAppear();
         _heroScrollUI.ShowNewScroll(90);
     }
-
-    private void UpdateHeroAbilityNameText(string newText)
-    {
-        _heroAbilityBackgroundNameText.text = newText;
-        _heroAbilityNameText.text = newText;
-    }
-
-    private void UpdateHeroAbilityTypeText(string newText)
-    {
-        _heroAbilityBackgroundTypeText.text = newText;
-        _heroAbilityTypeText.text = newText;
-    }
-
-    private void UpdateHeroAbilityDescriptionText(string newText)
-    {
-        _heroAbilityBackgroundDescriptionText.text = newText;
-        _heroAbilityDescriptionText.text = newText;
-    }
-
     
-    /// <summary>
-    /// Changes which ability is being displayed
-    /// Can update the ability name, type, and description text
-    /// Presents the hero ability based on which hero ability ID is currently active
-    /// </summary>
-    public void HeroAbilityDescriptionChanged()
-    {
-        switch(_currentHeroAbilityID)
-        {
-            case (0):
-                UpdateHeroAbilityNameText(_heroUIToDisplay.GetHeroBasicAbilityName());
-                UpdateHeroAbilityTypeText(EHeroAbilityType.Basic.ToString());
-                UpdateHeroAbilityDescriptionText(_heroUIToDisplay.GetHeroBasicAbilityDescription());
-                return;
-            case (1):
-                UpdateHeroAbilityNameText(_heroUIToDisplay.GetHeroManualAbilityName());
-                UpdateHeroAbilityTypeText(EHeroAbilityType.Manual.ToString());
-                UpdateHeroAbilityDescriptionText(_heroUIToDisplay.GetHeroManualAbilityDescription());
-                return;
-            case (2):
-                UpdateHeroAbilityNameText(_heroUIToDisplay.GetHeroPassiveAbilityName());
-                UpdateHeroAbilityTypeText(EHeroAbilityType.Passive.ToString());
-                UpdateHeroAbilityDescriptionText(_heroUIToDisplay.GetHeroPassiveAbilityDescription());
-                return;
-        }
-    }
-
     private void SwapHeroAbilityDescription(int abilityID)
     {
         _currentHeroAbilityID = abilityID;
-        _heroAbilityDescriptionAnimator.SetTrigger(SWAP_ABILITY_DESCRIPTION_ANIM_TRIGGER);
-        
         
         _heroScrollUI.ShowNewScroll(90);
     }
 
     private void HideHeroAbilityDescription()
     {
-        _heroAbilityDescriptionAnimator.SetBool(SHOW_ABILITY_DESCRIPTION_ANIM_BOOL, false);
         _currentHeroAbilityID = -1;
         
         _heroScrollUI.HideScroll();
@@ -916,4 +862,14 @@ public class SelectionController : MonoBehaviour
         
         SelectionManager.Instance.GetInformationUnlockedEvent().AddListener(UnlockCharacterInformation);
     }
+    
+    #region Getters
+
+    public int GetCurrentBossAbilityID() => _currentBossAbilityID;
+    public int GetCurrentHeroAbilityID() => _currentHeroAbilityID;
+    
+    public BossSO GetBossUIToDisplay() => _bossUIToDisplay;
+    public HeroSO GetHeroUIToDisplay() => _heroUIToDisplay;
+
+    #endregion
 }

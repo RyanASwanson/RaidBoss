@@ -10,7 +10,7 @@ public class CurveProgression : MonoBehaviour
     
     [Space]
     [SerializeField] private float _curveIncreaseTime;
-    [SerializeField] private float _curveDecreaseSpeed;
+    [SerializeField] private float _curveDecreaseTime;
     
     private float _movementProgress = 0;
     
@@ -27,6 +27,9 @@ public class CurveProgression : MonoBehaviour
     [SerializeField] private AnimationCurve _curve;
 
     [Space] 
+    [SerializeField] private UnityEvent _onStartedIncreasing;
+    [SerializeField] private UnityEvent _onStartedDecreasing;
+    
     [SerializeField] private UnityEvent _onMaxValueReached;
     [SerializeField] private UnityEvent _onMinValueReached;
     //Curve Value Changed event is kept from being editor accessible as it defaults the value invoked to 0
@@ -37,12 +40,14 @@ public class CurveProgression : MonoBehaviour
     public void StartMovingUpOnCurve()
     {
         StopMovingOnCurve();
+        InvokeOnStartedIncreasing();
         _curveProgressCoroutine = StartCoroutine(MovingUpOnCurveProgress());
     }
 
     public void StartMovingDownOnCurve()
     {
         StopMovingOnCurve();
+        InvokeOnStartedDecreasing();
         _curveProgressCoroutine = StartCoroutine(MovingDownOnCurveProgress());
     }
 
@@ -56,7 +61,6 @@ public class CurveProgression : MonoBehaviour
     
     private IEnumerator MovingUpOnCurveProgress()
     {
-        Debug.Log("Moving Up on Curve Progress");
         CurveStatus = ECurveStatus.Increasing;
         while (_movementProgress < 1)
         {
@@ -72,7 +76,7 @@ public class CurveProgression : MonoBehaviour
         CurveStatus = ECurveStatus.Decreasing;
         while (_movementProgress > 0)
         {
-            _movementProgress -= Time.deltaTime / _curveIncreaseTime;
+            _movementProgress -= Time.deltaTime / _curveDecreaseTime;
             UpdateCurveProgress();
             yield return null;
         }
@@ -104,6 +108,16 @@ public class CurveProgression : MonoBehaviour
     {
         //Debug.Log("Curve value " + CurveValue);
         _onCurveValueChanged?.Invoke(CurveValue);
+    }
+
+    public void InvokeOnStartedIncreasing()
+    {
+        _onStartedIncreasing?.Invoke();
+    }
+
+    public void InvokeOnStartedDecreasing()
+    {
+        _onStartedDecreasing?.Invoke();
     }
     
     public void InvokeOnMaxValueReached()

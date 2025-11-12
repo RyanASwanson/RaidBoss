@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ScrollUISelection : MonoBehaviour
 {
     [SerializeField] private CurveProgression _appearingCurve;
     [SerializeField] private CurveProgression _scrollingCurve;
+    [SerializeField] private CurveProgression _contentsCurve;
     
     private float _targetScrollSize = 0;
     private float _currentScrollSize = 0;
@@ -30,12 +32,17 @@ public class ScrollUISelection : MonoBehaviour
     
     [Space]
     [SerializeField] private RectTransform _scrollHolder;
+    [Space] 
+    [SerializeField] private RectTransform _contents;
     [Space]
     [SerializeField] private RectTransform _scrollTop;
     [SerializeField] private RectTransform _scrollUpper;
     [SerializeField] private RectTransform _scrollMiddle;
     [SerializeField] private RectTransform _scrollLower;
     [SerializeField] private RectTransform _scrollBottom;
+
+    [Space] 
+    [SerializeField] private UnityEvent _onScrollOpening;
     
     // Start is called before the first frame update
     void Start()
@@ -109,8 +116,6 @@ public class ScrollUISelection : MonoBehaviour
 
     public void UpdateAppearingScale(float scale)
     {
-        //Debug.Log("Appearing Scale " + scale);
-        
         _scrollHolder.transform.localScale = new Vector3(scale, scale, scale);
     }
     #endregion
@@ -119,13 +124,16 @@ public class ScrollUISelection : MonoBehaviour
 
     public void StartScrollOpen()
     {
+        InvokeOnScrollOpening();
         _scrollingCurve.StartMovingUpOnCurve();
+        _contentsCurve.StartMovingUpOnCurve();
         _currentScrollSize = _targetScrollSize;
     }
 
     public void StartScrollClose()
     {
         _scrollingCurve.StartMovingDownOnCurve();
+        _contentsCurve.StartMovingDownOnCurve();
     }
     
     public void ScrollFullyOpened()
@@ -176,11 +184,30 @@ public class ScrollUISelection : MonoBehaviour
     }
     
     #endregion
+    
+    #region Contents
+
+    private void SetContentsScale(float scale)
+    {
+        _contents.position = _scrollMiddle.position;
+        _contents.transform.localScale = new Vector3(scale, scale, scale);   
+    }
+    #endregion
 
     private void SubscribeToEvents()
     {
         _appearingCurve._onCurveValueChanged.AddListener(UpdateAppearingScale);
         _scrollingCurve._onCurveValueChanged.AddListener(UpdateScrollProgress);
+        _contentsCurve._onCurveValueChanged.AddListener(SetContentsScale);
     }
+    
+    #region Events
+
+    public void InvokeOnScrollOpening()
+    {
+        _onScrollOpening?.Invoke();
+    }
+    
+    #endregion
 }
 

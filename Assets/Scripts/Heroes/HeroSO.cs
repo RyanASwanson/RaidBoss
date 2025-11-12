@@ -95,6 +95,36 @@ public class HeroSO : CharacterSO
     public string GetHeroManualAbilityDescription() => _manualAbilityDescription;
     public string GetHeroPassiveAbilityName() => _passiveAbilityName;
     public string GetHeroPassiveAbilityDescription() => _passiveAbilityDescription;
+
+    public string GetAbilityNameFromID(int id)
+    {
+        switch (id)
+        {
+            case(0):
+                return GetHeroBasicAbilityName();
+            case(1):
+                return GetHeroManualAbilityName();
+            case(2):
+                return GetHeroPassiveAbilityName();
+        }
+
+        return string.Empty;
+    }
+    
+    public string GetAbilityDescriptionFromID(int id)
+    {
+        switch (id)
+        {
+            case(0):
+                return GetHeroBasicAbilityDescription();
+            case(1):
+                return GetHeroManualAbilityDescription();
+            case(2):
+                return GetHeroPassiveAbilityDescription();
+        }
+
+        return string.Empty;
+    }
     #endregion
 }
 
