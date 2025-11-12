@@ -22,6 +22,7 @@ public class SelectionController : MonoBehaviour
     [SerializeField] private List<Image> _bossAbilityImageIcons;
 
     [Space]
+    [SerializeField] private ScrollUISelection _bossScrollUI;
     [SerializeField] private Animator _bossAbilityDescriptionAnimator;
 
     [Space]
@@ -76,7 +77,8 @@ public class SelectionController : MonoBehaviour
     private HeroSO _lastHeroHoveredOver;
     private HeroSO _heroUIToDisplay;
 
-    [Space]
+    [Space] 
+    [SerializeField] private ScrollUISelection _heroScrollUI;
     [SerializeField] private Animator _heroAbilityDescriptionAnimator;
 
     private const string SHOW_ABILITY_DESCRIPTION_ANIM_BOOL = "ShowDescription";
@@ -575,6 +577,9 @@ public class SelectionController : MonoBehaviour
     {
         _currentHeroAbilityID = abilityID;
         _heroAbilityDescriptionAnimator.SetBool(SHOW_ABILITY_DESCRIPTION_ANIM_BOOL, true);
+        
+        //_heroScrollUI.ScrollAppear();
+        _heroScrollUI.SetNewScrollSize(70);
     }
 
     private void UpdateHeroAbilityNameText(string newText)
@@ -633,6 +638,8 @@ public class SelectionController : MonoBehaviour
     {
         _heroAbilityDescriptionAnimator.SetBool(SHOW_ABILITY_DESCRIPTION_ANIM_BOOL, false);
         _currentHeroAbilityID = -1;
+        
+        _heroScrollUI.ScrollDisappear();
     }
 
     private void HideFullHeroDescription()
