@@ -49,11 +49,11 @@ public class HeroSO : CharacterSO
     [SerializeField] private Color _heroUIColor;
 
     [Header("Ability Information")]
-    [SerializeField] private string _basicAbilityName;
+    [TextArea(1, 2)][SerializeField] private string _basicAbilityName;
     [TextArea(4, 10)] [SerializeField] private string _basicAbilityDescription;
-    [SerializeField] private string _manualAbilityName;
+    [TextArea(1, 2)][SerializeField] private string _manualAbilityName;
     [TextArea(4, 10)] [SerializeField] private string _manualAbilityDescription;
-    [SerializeField] private string _passiveAbilityName;
+    [TextArea(1, 2)][SerializeField] private string _passiveAbilityName;
     [TextArea(4, 10)] [SerializeField] private string _passiveAbilityDescription;
 
     #region Getters
