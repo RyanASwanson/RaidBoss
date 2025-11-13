@@ -91,7 +91,7 @@ public class BossSO : CharacterSO
 [System.Serializable]
 public class BossAbilityInformation
 {
-    public string _abilityName;
+    [TextArea(1, 2)] public string _abilityName;
     public BossAbilityType _abilityType;
     [TextArea(5, 10)] public string _abilityDescription;
 

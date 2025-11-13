@@ -10,6 +10,9 @@ public class ScrollUISelection : MonoBehaviour
     [SerializeField] private CurveProgression _appearingCurve;
     [SerializeField] private CurveProgression _scrollingCurve;
     [SerializeField] private CurveProgression _contentsCurve;
+
+    [Space] 
+    [SerializeField] private ScrollUIContents _scrollUIContents;
     
     private float _targetScrollSize = 0;
     private float _currentScrollSize = 0;
@@ -20,6 +23,10 @@ public class ScrollUISelection : MonoBehaviour
     private bool _isBufferingNewScrollOpen = false;
     
     private Coroutine _scrollCloseDelayCoroutine;
+
+    [Space] 
+    [SerializeField] private float _scrollOpenSizeLineMultiplier;
+    [SerializeField] private float _flatScrollOpenSize;
     
     [Space] 
     [SerializeField] private float _upperScrollDistanceFromTop;
@@ -125,6 +132,15 @@ public class ScrollUISelection : MonoBehaviour
     public void StartScrollOpen()
     {
         InvokeOnScrollOpening();
+        if (_scrollUIContents)
+        {
+            _scrollUIContents.UpdateContentsAndCountLines();
+            
+            _targetScrollSize = (_scrollOpenSizeLineMultiplier * _scrollUIContents.LineLength) + _flatScrollOpenSize;
+            //Debug.Log("Target" + _targetScrollSize);
+        }
+        
+        
         _scrollingCurve.StartMovingUpOnCurve();
         _contentsCurve.StartMovingUpOnCurve();
         _currentScrollSize = _targetScrollSize;

@@ -99,13 +99,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 585188cdc4600544eb408bee749e4b3a, type: 3}
+    m_Font: {fileID: 12800000, guid: be622db3be205ab4797fe9b655f51fbd, type: 3}
     m_FontSize: 60
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 79
-    m_Alignment: 4
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
@@ -180,8 +180,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Lorem Ipsum
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: abd56d13c429b474c86275f988228652, type: 2}
-  m_sharedMaterial: {fileID: -1997395051694013450, guid: abd56d13c429b474c86275f988228652, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c995eada505d3f744a52cdbd37c6a544, type: 2}
+  m_sharedMaterial: {fileID: 7494301441937104742, guid: c995eada505d3f744a52cdbd37c6a544, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -213,7 +213,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
+  m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -346,13 +346,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 585188cdc4600544eb408bee749e4b3a, type: 3}
+    m_Font: {fileID: 12800000, guid: be622db3be205ab4797fe9b655f51fbd, type: 3}
     m_FontSize: 60
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 79
-    m_Alignment: 4
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
@@ -597,7 +597,7 @@ MonoBehaviour:
     m_RichText: 1
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
-    m_LineSpacing: 1
+    m_LineSpacing: 1.15
   m_Text: Lorem Ipsum
 --- !u!1 &6780027334792178083
 GameObject:
@@ -719,8 +719,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Lorem Ipsum
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: abd56d13c429b474c86275f988228652, type: 2}
-  m_sharedMaterial: {fileID: -1997395051694013450, guid: abd56d13c429b474c86275f988228652, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c995eada505d3f744a52cdbd37c6a544, type: 2}
+  m_sharedMaterial: {fileID: 7494301441937104742, guid: c995eada505d3f744a52cdbd37c6a544, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -752,7 +752,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
+  m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -796,8 +796,6 @@ GameObject:
   m_Component:
   - component: {fileID: 260034349906083779}
   - component: {fileID: 7850431005277517663}
-  - component: {fileID: 3935957857321223910}
-  - component: {fileID: 3363407160263331832}
   m_Layer: 5
   m_Name: AbilityInformation
   m_TagString: Untagged
@@ -840,79 +838,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aa29840fcbca7342aec6599031a739a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _doesCountLines: 1
+  _lineDistance: 24
+  _isBoss: 0
   _abilityNameText: {fileID: 1631897908433077519}
   _abilityTypeText: {fileID: 962902438820376147}
   _abilityDescriptionText: {fileID: 6510178115719479537}
---- !u!114 &3935957857321223910
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7827792313959830827}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd1d04d370a8bca419d81d8abad819bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _doesBeginScalingOnEnable: 0
-  _doesResetScaleOnScalingEnable: 0
-  _scalingTime: 0
-  _endingScale: {x: 1, y: 1, z: 1}
-  _curveProgression: {fileID: 3363407160263331832}
---- !u!114 &3363407160263331832
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7827792313959830827}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 508c048b50abf854791f2f498bb01037, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _curveName: Scale
-  _curveIncreaseTime: 0.5
-  _curveDecreaseTime: 0.2
-  _minCurveValue: 0
-  _maxCurveValue: 1
-  _curve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  _onStartedIncreasing:
-    m_PersistentCalls:
-      m_Calls: []
-  _onStartedDecreasing:
-    m_PersistentCalls:
-      m_Calls: []
-  _onMaxValueReached:
-    m_PersistentCalls:
-      m_Calls: []
-  _onMinValueReached:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &8451368260426292929
 GameObject:
   m_ObjectHideFlags: 0
@@ -1108,7 +1039,7 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: -2
+  m_lineSpacing: 15
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -1234,33 +1165,9 @@ PrefabInstance:
       value: CharacterSelectionScrollUI
       objectReference: {fileID: 0}
     - target: {fileID: 8437723179066087964, guid: 36b5d124df626e04b80d0aab01c4bfac, type: 3}
-      propertyPath: _onScrollOpening.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8437723179066087964, guid: 36b5d124df626e04b80d0aab01c4bfac, type: 3}
-      propertyPath: _onScrollOpening.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8437723179066087964, guid: 36b5d124df626e04b80d0aab01c4bfac, type: 3}
-      propertyPath: _onScrollOpening.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      propertyPath: _scrollUIContents
       value: 
       objectReference: {fileID: 7850431005277517663}
-    - target: {fileID: 8437723179066087964, guid: 36b5d124df626e04b80d0aab01c4bfac, type: 3}
-      propertyPath: _onScrollOpening.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8437723179066087964, guid: 36b5d124df626e04b80d0aab01c4bfac, type: 3}
-      propertyPath: _onScrollOpening.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ChangeHeroAbilityDescription
-      objectReference: {fileID: 0}
-    - target: {fileID: 8437723179066087964, guid: 36b5d124df626e04b80d0aab01c4bfac, type: 3}
-      propertyPath: _onScrollOpening.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: AbilityDescriptionFunctionality, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 8437723179066087964, guid: 36b5d124df626e04b80d0aab01c4bfac, type: 3}
-      propertyPath: _onScrollOpening.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36b5d124df626e04b80d0aab01c4bfac, type: 3}
 --- !u!224 &241861068570505267 stripped
