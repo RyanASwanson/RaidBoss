@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class HeroVisuals : HeroChildrenFunctionality
 {
-    [SerializeField] private MeshRenderer _controlIcon;
+    [SerializeField] private CurveProgression _controlIcon;
     [SerializeField] private GameObject _healthStatusIcon;
     [Space]
 
@@ -323,7 +323,7 @@ public class HeroVisuals : HeroChildrenFunctionality
     /// </summary>
     private void HeroControlStart()
     {
-        _controlIcon.enabled = true;
+        _controlIcon.StartMovingUpOnCurve();
     }
 
     /// <summary>
@@ -331,7 +331,7 @@ public class HeroVisuals : HeroChildrenFunctionality
     /// </summary>
     private void HeroControlStop()
     {
-        _controlIcon.enabled = false;
+        _controlIcon.StartMovingDownOnCurve();
     }
     #endregion
 

@@ -81,7 +81,6 @@ public class GeneralScale : MonoBehaviour
 
     public void UpdateLocalScale(float scaleProgress)
     {
-        Debug.Log(scaleProgress);
         transform.localScale = Vector3.Lerp(_startingScale, _endingScale, scaleProgress);
     }
 

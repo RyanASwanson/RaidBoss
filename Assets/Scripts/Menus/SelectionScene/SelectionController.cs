@@ -25,19 +25,7 @@ public class SelectionController : MonoBehaviour
 
     [Space]
     [SerializeField] private ScrollUISelection _bossScrollUI;
-    //[SerializeField] private AbilityDescriptionFunctionality _bossAbilityDescription;
-
-    [Space]
-    [SerializeField] private Text _bossAbilityBackgroundNameText;
-    [SerializeField] private TMP_Text _bossAbilityNameText;
-
-    [SerializeField] private Text _bossAbilityBackgroundTypeText;
-    [SerializeField] private TMP_Text _bossAbilityTypeText;
-
-    [SerializeField] private Text _bossAbilityBackgroundDescriptionText;
-    [SerializeField] private TMP_Text _bossAbilityDescriptionText;
-
-
+    
     private int _currentBossAbilityID = -1;
 
     [Header("Center-General")]
@@ -81,17 +69,6 @@ public class SelectionController : MonoBehaviour
 
     [Space] 
     [SerializeField] private ScrollUISelection _heroScrollUI;
-    //[SerializeField] private AbilityDescriptionFunctionality _heroAbilityDescription;
-
-    [Space]
-    [SerializeField] private Text _heroAbilityBackgroundNameText;
-    [SerializeField] private TMP_Text _heroAbilityNameText;
-
-    [SerializeField] private Text _heroAbilityBackgroundTypeText;
-    [SerializeField] private TMP_Text _heroAbilityTypeText;
-
-    [SerializeField] private Text _heroAbilityBackgroundDescriptionText;
-    [SerializeField] private TMP_Text _heroAbilityDescriptionText;
 
     private int _currentHeroAbilityID = -1;
 
@@ -271,43 +248,6 @@ public class SelectionController : MonoBehaviour
     {
         _currentBossAbilityID = abilityID;
         _bossScrollUI.ShowNewScroll(90);
-    }
-
-    private void UpdateBossAbilityNameText(string newText)
-    {
-        _bossAbilityBackgroundNameText.text = newText;
-        _bossAbilityNameText.text = newText;
-    }
-
-    private void UpdateBossAbilityTypeText(string newText)
-    {
-        _bossAbilityBackgroundTypeText.text = newText;
-        _bossAbilityTypeText.text = newText;
-    }
-
-    private void UpdateBossAbilityDescriptionText(string newText)
-    {
-        _bossAbilityBackgroundDescriptionText.text = newText;
-        _bossAbilityDescriptionText.text = newText;
-    }
-
-    
-
-    public void BossAbilityDescriptionChanged()
-    {
-        if (_currentBossAbilityID == -1)
-        {
-            return;
-        }
-        
-        UpdateBossAbilityNameText(_bossUIToDisplay.GetBossAbilityInformation()
-            [_currentBossAbilityID]._abilityName);
-
-        UpdateBossAbilityTypeText(_bossUIToDisplay.GetBossAbilityInformation()
-            [_currentBossAbilityID]._abilityType.ToString());
-
-        UpdateBossAbilityDescriptionText(_bossUIToDisplay.GetBossAbilityInformation()
-            [_currentBossAbilityID]._abilityDescription);
     }
 
     /// <summary>

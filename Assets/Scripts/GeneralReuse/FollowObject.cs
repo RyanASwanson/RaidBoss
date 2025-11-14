@@ -6,11 +6,19 @@ using UnityEngine.Events;
 
 public class FollowObject : MonoBehaviour
 {
+    [SerializeField] private bool _doesDetachOnStart;
     [SerializeField] private bool _doesDisableOnStart;
     [Space]
     [SerializeField] private bool _doesHideAfterStopFollowing;
     [SerializeField] private bool _doesDestroyAfterStopFollowing;
 
+    [Space] 
+    [SerializeField] private bool _doesSetRotationOnFollowStart;
+    [SerializeField] private Vector3 _followStartEulerAngles;
+
+    [Space]
+    [SerializeField] private GameObject _startFollowObject;
+    
     [Space] 
     [SerializeField] private UnityEvent _onFollowStart;
     [SerializeField] private UnityEvent _onFollowStopDelayStarted;
@@ -30,6 +38,13 @@ public class FollowObject : MonoBehaviour
     {
         TryGetComponent<Animator>(out _followingObjectAnimator);
 
+        if (_doesDetachOnStart)
+        {
+            transform.SetParent(null);
+        }
+        
+        StartFollowingObject(_startFollowObject);
+        
         if (_doesDisableOnStart)
         {
             gameObject.SetActive(false);
@@ -38,6 +53,16 @@ public class FollowObject : MonoBehaviour
 
     public void StartFollowingObject(GameObject target)
     {
+        if (target.IsUnityNull())
+        {
+            return;
+        }
+
+        if (_doesSetRotationOnFollowStart)
+        {
+            transform.eulerAngles = _followStartEulerAngles;
+        }
+        
         _currentFollowTarget = target;
 
         StopFollowing(false);
