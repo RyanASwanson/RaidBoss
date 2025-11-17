@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -22,6 +23,13 @@ public class CurveProgression : MonoBehaviour
     internal float CurveValue = 0;
     
     private Coroutine _curveProgressCoroutine;
+
+    [Space] 
+    [SerializeField] private bool _hasDecreaseDelay;
+    [SerializeField] private float _decreaseDelay;
+    private WaitForSeconds _decreaseWait;
+    
+    private Coroutine _decreaseWaitCoroutine;
     
     [Space]
     [SerializeField] private AnimationCurve _curve;
@@ -34,17 +42,39 @@ public class CurveProgression : MonoBehaviour
     [SerializeField] private UnityEvent _onMinValueReached;
     //Curve Value Changed event is kept from being editor accessible as it defaults the value invoked to 0
     internal UnityEvent<float> _onCurveValueChanged = new UnityEvent<float>();
-    
-    
+
+
+    private void Start()
+    {
+        if (_hasDecreaseDelay)
+        {
+            _decreaseWait = new WaitForSeconds(_decreaseDelay);
+        }
+    }
 
     public void StartMovingUpOnCurve()
     {
+        if (_hasDecreaseDelay)
+        {
+            StopMoveDownDelay();
+        }
+
         StopMovingOnCurve();
         InvokeOnStartedIncreasing();
         _curveProgressCoroutine = StartCoroutine(MovingUpOnCurveProgress());
     }
 
     public void StartMovingDownOnCurve()
+    {
+        if (_hasDecreaseDelay)
+        {
+            StartMoveDownDelay();
+            return;
+        }
+        BeginMovingDownOnCurveOverride();
+    }
+
+    private void BeginMovingDownOnCurveOverride()
     {
         StopMovingOnCurve();
         InvokeOnStartedDecreasing();
@@ -88,6 +118,28 @@ public class CurveProgression : MonoBehaviour
         _curveEvaluated = _curve.Evaluate(_movementProgress);
         CurveValue = Mathf.Lerp(_minCurveValue,_maxCurveValue, _curveEvaluated);
         InvokeOnCurveValueChanged();
+    }
+
+    private void StartMoveDownDelay()
+    {
+        StopMoveDownDelay();
+
+        _decreaseWaitCoroutine = StartCoroutine(MoveDownDelayProcess());
+    }
+
+    private void StopMoveDownDelay()
+    {
+        if (!_decreaseWaitCoroutine.IsUnityNull())
+        {
+            StopCoroutine(_decreaseWaitCoroutine);
+            _decreaseWaitCoroutine = null;
+        }
+    }
+
+    private IEnumerator MoveDownDelayProcess()
+    {
+        yield return _decreaseWait;
+        BeginMovingDownOnCurveOverride();
     }
 
     private void CurveReachedMaxValue()

@@ -59,8 +59,7 @@ public class AbilityDescriptionFunctionality : ScrollUIContents
             
             
             LineLength = TotalLines * _lineDistance;
-
-            //int currentLine = TotalLines / 2;
+            
             float currentHeight = (int)(TotalLines / 2) * _lineDistance;
             if (isEven)
             {
@@ -69,22 +68,19 @@ public class AbilityDescriptionFunctionality : ScrollUIContents
             
             
             _abilityNameText.GetRectTransform().localPosition = new Vector3(0,currentHeight, 0);
-
-            //Debug.Log("Current line" + currentLine + " - " + topLines);
+            
             currentHeight -= topLines * _lineDistance;
             
             
             _abilityTypeText.GetRectTransform().localPosition = new Vector3(0,currentHeight, 0);
             
-            //Debug.Log("Current line" + currentLine + " - " + middleLines);
             currentHeight -= middleLines * _lineDistance;
             
-            //Debug.Log("Ability description text " + currentHeight + " " + currentLine + " " + _lineDistance);
             
             _abilityDescriptionText.GetRectTransform().localPosition = new Vector3(0,currentHeight, 0);
             
             
-            Debug.Log("Total lines " +TotalLines + " " + topLines + " " + middleLines + " " + bottomLines);
+            //Debug.Log("Total lines " +TotalLines + " " + topLines + " " + middleLines + " " + bottomLines);
         }
         return TotalLines;
     }
