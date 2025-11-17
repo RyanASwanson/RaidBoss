@@ -25,6 +25,9 @@ public class CurveProgression : MonoBehaviour
     private Coroutine _curveProgressCoroutine;
 
     [Space] 
+    [SerializeField] private bool _doesAutomaticallyMoveDownOnHittingMax;
+    
+    [Space] 
     [SerializeField] private bool _hasDecreaseDelay;
     [SerializeField] private float _decreaseDelay;
     private WaitForSeconds _decreaseWait;
@@ -147,6 +150,11 @@ public class CurveProgression : MonoBehaviour
         CurveStatus = ECurveStatus.AtMaxValue;
         UpdateCurveProgress();
         InvokeOnMaxValueReached();
+
+        if (_doesAutomaticallyMoveDownOnHittingMax)
+        {
+            StartMovingDownOnCurve();
+        }
     }
 
     private void CurveReachedMinValue()
