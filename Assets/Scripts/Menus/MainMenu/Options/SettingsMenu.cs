@@ -15,7 +15,7 @@ public class SettingsMenu : MonoBehaviour
     private bool _tempClickDragMovement;
 
 
-    public void OptionsMenuOpened()
+    private void Start()
     {
         SetValuesOnOpen();
     }
@@ -37,14 +37,7 @@ public class SettingsMenu : MonoBehaviour
     public void ScreenShakeSliderUpdated(float val)
     {
         _tempScreenShakeValue = val;
-    }
-
-    /// <summary>
-    /// Called when the apply settings button is pressed
-    /// </summary>
-    public void ApplySettingsPressed()
-    {
-        /*SaveManager.Instance.SaveSettingsOptions(_tempScreenShakeValue, _tempClickDragMovement,
-            _tempMasterAudioValue, _tempMusicAudioValue, _tempSFXAudioValue);*/
+        
+        SaveManager.Instance.SetScreenShakeStrength(_tempScreenShakeValue);
     }
 }

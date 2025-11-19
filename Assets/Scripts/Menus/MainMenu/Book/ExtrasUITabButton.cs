@@ -16,6 +16,7 @@ public class ExtrasUITabButton : MonoBehaviour
         SetAssociatedPage(page);
         
         _associatedText.UpdateText(tabData._buttonText);
+        _associatedImage.sprite = tabData._buttonIcon;
     }
 
     /// <summary>
