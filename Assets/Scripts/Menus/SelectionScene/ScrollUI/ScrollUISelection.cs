@@ -212,9 +212,9 @@ public class ScrollUISelection : MonoBehaviour
 
     private void SubscribeToEvents()
     {
-        _appearingCurve._onCurveValueChanged.AddListener(UpdateAppearingScale);
-        _scrollingCurve._onCurveValueChanged.AddListener(UpdateScrollProgress);
-        _contentsCurve._onCurveValueChanged.AddListener(SetContentsScale);
+        _appearingCurve.OnCurveValueChanged.AddListener(UpdateAppearingScale);
+        _scrollingCurve.OnCurveValueChanged.AddListener(UpdateScrollProgress);
+        _contentsCurve.OnCurveValueChanged.AddListener(SetContentsScale);
     }
     
     #region Events

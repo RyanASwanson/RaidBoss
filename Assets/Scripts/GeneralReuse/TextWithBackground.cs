@@ -26,6 +26,11 @@ public class TextWithBackground : MonoBehaviour
         _backgroundText.text = newString;
     }
 
+    public void UpdateTextColor(Color color)
+    {
+        _text.color = color;
+    }
+
     #region Getters
 
     public RectTransform GetRectTransform() => _rectTransform;

@@ -15,8 +15,10 @@ public class GeneralScale : MonoBehaviour
     
     [Space]
     [SerializeField] private float _scalingTime;
-    
-    [Space]
+
+    [Space] 
+    [SerializeField] private bool _hasOverrideStartingScale;
+    [SerializeField] private Vector3 _overrideStartingScale;
     [SerializeField] private Vector3 _endingScale;
     
     [Space]
@@ -29,11 +31,22 @@ public class GeneralScale : MonoBehaviour
     void OnEnable()
     {
         SubscribeToEvents();
+
+        if (_hasOverrideStartingScale)
+        {
+            transform.localScale = _overrideStartingScale;
+        }
         _startingScale = transform.localScale;
+        
         if (_doesBeginScalingOnEnable)
         {
             BeginScaling();
         }
+    }
+
+    public void SetUp()
+    {
+        // Delayed functionality that waits for curve set up
     }
 
     private void OnDisable()
@@ -88,7 +101,8 @@ public class GeneralScale : MonoBehaviour
     {
         if (_curveProgression)
         {
-            _curveProgression._onCurveValueChanged.AddListener(UpdateLocalScale);
+            _curveProgression.OnSetUpComplete.AddListener(SetUp);
+            _curveProgression.OnCurveValueChanged.AddListener(UpdateLocalScale);
         }
     }
 
@@ -96,7 +110,8 @@ public class GeneralScale : MonoBehaviour
     {
         if (_curveProgression)
         {
-            _curveProgression._onCurveValueChanged.RemoveListener(UpdateLocalScale);
+            _curveProgression.OnSetUpComplete.RemoveListener(SetUp);
+            _curveProgression.OnCurveValueChanged.RemoveListener(UpdateLocalScale);
         }
     }
 }

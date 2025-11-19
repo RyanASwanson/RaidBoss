@@ -43,7 +43,7 @@ public class RectTransformMoveBetween : MonoBehaviour
     {
         if (_curveProgression)
         {
-            _curveProgression._onCurveValueChanged.AddListener(UpdateLocalPosition);
+            _curveProgression.OnCurveValueChanged.AddListener(UpdateLocalPosition);
         }
     }
 
@@ -51,7 +51,7 @@ public class RectTransformMoveBetween : MonoBehaviour
     {
         if (_curveProgression)
         {
-            _curveProgression._onCurveValueChanged.RemoveListener(UpdateLocalPosition);
+            _curveProgression.OnCurveValueChanged.RemoveListener(UpdateLocalPosition);
         }
     }
 }

@@ -25,6 +25,10 @@ public class CurveProgression : MonoBehaviour
     private Coroutine _curveProgressCoroutine;
 
     [Space] 
+    [SerializeField] private bool _hasDefaultValue;
+    [SerializeField] private float _defaultValue;
+    
+    [Space] 
     [SerializeField] private bool _doesAutomaticallyMoveDownOnHittingMax;
     
     [Space] 
@@ -38,13 +42,15 @@ public class CurveProgression : MonoBehaviour
     [SerializeField] private AnimationCurve _curve;
 
     [Space] 
+    public UnityEvent OnSetUpComplete;
+    
     [SerializeField] private UnityEvent _onStartedIncreasing;
     [SerializeField] private UnityEvent _onStartedDecreasing;
     
     [SerializeField] private UnityEvent _onMaxValueReached;
     [SerializeField] private UnityEvent _onMinValueReached;
     //Curve Value Changed event is kept from being editor accessible as it defaults the value invoked to 0
-    internal UnityEvent<float> _onCurveValueChanged = new UnityEvent<float>();
+    internal UnityEvent<float> OnCurveValueChanged = new UnityEvent<float>();
 
 
     private void Start()
@@ -53,6 +59,14 @@ public class CurveProgression : MonoBehaviour
         {
             _decreaseWait = new WaitForSeconds(_decreaseDelay);
         }
+
+        if (_hasDefaultValue)
+        {
+            _movementProgress = _defaultValue;
+            UpdateCurveProgress();
+        }
+        
+        InvokeOnSetUpComplete();
     }
 
     public void StartMovingUpOnCurve()
@@ -164,10 +178,15 @@ public class CurveProgression : MonoBehaviour
         InvokeOnMinValueReached();
     }
 
+    public void InvokeOnSetUpComplete()
+    {
+        OnSetUpComplete.Invoke();
+    }
+
     public void InvokeOnCurveValueChanged()
     {
         //Debug.Log("Curve value " + CurveValue);
-        _onCurveValueChanged?.Invoke(CurveValue);
+        OnCurveValueChanged?.Invoke(CurveValue);
     }
 
     public void InvokeOnStartedIncreasing()

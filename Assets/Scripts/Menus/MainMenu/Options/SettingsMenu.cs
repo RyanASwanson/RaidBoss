@@ -6,7 +6,7 @@ using UnityEngine.UI;
 /// <summary>
 /// Handles the functionality on the options menu on the main menu
 /// </summary>
-public class OptionsMenu : MonoBehaviour
+public class SettingsMenu : MonoBehaviour
 {
     [Header("General")]
     [SerializeField] private Slider _screenShakeSlider;
