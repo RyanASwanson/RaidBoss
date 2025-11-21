@@ -27,6 +27,9 @@ public class CurveProgression : MonoBehaviour
     [Space] 
     [SerializeField] private bool _hasDefaultValue;
     [SerializeField] private float _defaultValue;
+
+    [Space] 
+    [SerializeField] private bool _doesResetToDefaultProgressOnEnable;
     
     [Space] 
     [SerializeField] private bool _doesAutomaticallyMoveDownOnHittingMax;
@@ -67,6 +70,15 @@ public class CurveProgression : MonoBehaviour
         }
         
         InvokeOnSetUpComplete();
+    }
+
+    private void OnEnable()
+    {
+        if (_doesResetToDefaultProgressOnEnable)
+        {
+            StopMovingOnCurve();
+            _movementProgress = _defaultValue;
+        }
     }
 
     public void StartMovingOppositeDirectionOnCurve()

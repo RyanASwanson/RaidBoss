@@ -7,6 +7,7 @@ public class SelectionPlayButton : MonoBehaviour
 {
     [SerializeField] private Image _bossSelectedIcon;
     [SerializeField] private Image[] _heroSelectedIcons;
+    [SerializeField] private CurveProgression _curveScaleProgression;
 
     private Button _button;
     
@@ -29,6 +30,10 @@ public class SelectionPlayButton : MonoBehaviour
     public void MaxCharactersSelected(bool areMaxCharactersSelected)
     {
         ToggleInteractability(areMaxCharactersSelected);
+        if (areMaxCharactersSelected)
+        {
+            _curveScaleProgression.StartMovingUpOnCurve();
+        }
     }
 
     public void ToggleInteractability(bool isInteractable)
@@ -36,20 +41,8 @@ public class SelectionPlayButton : MonoBehaviour
         _button.interactable = isInteractable;
     }
 
-    public void ShowBossIcon(BossSO bossSO)
-    {
-        _bossSelectedIcon.enabled = true;
-        _bossSelectedIcon.sprite = bossSO.GetBossSelectionIcon();
-    }
-
-    public void HideBossIcon()
-    {
-        _bossSelectedIcon.enabled = false;
-    }
-
     private void UpdateBossSelectionIcon()
     {
-        Debug.Log(SelectionManager.Instance.AtMaxBossSelected());
         _bossSelectedIcon.enabled = SelectionManager.Instance.AtMaxBossSelected();
         if (SelectionManager.Instance.AtMaxBossSelected())
         {

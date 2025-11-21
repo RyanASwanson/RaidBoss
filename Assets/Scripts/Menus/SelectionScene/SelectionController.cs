@@ -16,7 +16,9 @@ public class SelectionController : MonoBehaviour
     [Header("Center")]
     [Header("Center-Boss")]
     [SerializeField] private GameObject _bossDescription;
+    [SerializeField] private CurveProgression _bossDescriptionCurve;
 
+    [Space]
     [SerializeField] private TMP_Text _bossNameText;
     [SerializeField] private Text _bossNameBorder;
 
@@ -39,7 +41,9 @@ public class SelectionController : MonoBehaviour
     [Space]
     [Header("Center-Hero")]
     [SerializeField] private GameObject _heroDescription;
+    [SerializeField] private CurveProgression _heroDescriptionCurve;
 
+    [Space]
     [SerializeField] private TMP_Text _heroNameText;
     [SerializeField] private Text _heroNameBorder;
 
@@ -137,28 +141,33 @@ public class SelectionController : MonoBehaviour
 
     private void BossHoveredOver(BossSO bossSO)
     {
-        //if (bossSO == _lastBossHoveredOver ||_selectionManager.AtMaxBossSelected()) return;
-        if (bossSO == _lastBossHoveredOver)
-        {
-            return;
-        }
-
         _lastHeroHoveredOver = null;
         _lastBossHoveredOver = bossSO;
 
         NewBossHoveredOver(bossSO);
+        
+        /*if (SelectionManager.Instance.GetSelectedBoss() == bossSO)
+        {
+            OldBossHoveredOver(bossSO);
+        }
+        else
+        {
+            NewBossHoveredOver(bossSO);
+        }*/
     }
 
     private void NewBossHoveredOver(BossSO bossSO)
     {
-        if (!IsSelectionInformationLocked)
-        {
-            DisplayBossInformation(bossSO);
-        }
+        AttemptDisplayBossInformation(bossSO);
 
         UpdateHeroButtonDifficultyBeaten();
         
         _bossPillar.ShowBossOnPillar(bossSO, true);
+    }
+
+    private void OldBossHoveredOver(BossSO bossSO)
+    {
+        AttemptDisplayBossInformation(bossSO);
     }
 
     /// <summary>
@@ -167,20 +176,25 @@ public class SelectionController : MonoBehaviour
     /// <param name="bossSO"> The scriptable object of the boss no longer hovered over</param>
     private void BossNotHoveredOver(BossSO bossSO)
     {
-        //Check if the boss is not the selected boss
-        if (bossSO != SelectionManager.Instance.GetSelectedBoss())
+        if (SelectionManager.Instance.AtMaxBossSelected())
         {
-            //Start the animation of removing the boss
-            _bossPillar.AnimateOutBossOnPillar();
-            //Hover over the selected boss
-            if (SelectionManager.Instance.AtMaxBossSelected())
-                BossHoveredOver(SelectionManager.Instance.GetSelectedBoss());
+            if (bossSO != SelectionManager.Instance.GetSelectedBoss())
             {
-                return;
+                NewBossHoveredOver(SelectionManager.Instance.GetSelectedBoss());
             }
         }
+        else
+        {
+            _bossPillar.AnimateOutBossOnPillar();
+        }
+    }
 
-        //_lastBossHoveredOver = null;
+    public void AttemptDisplayBossInformation(BossSO bossSO)
+    {
+        if (!IsSelectionInformationLocked)
+        {
+            DisplayBossInformation(bossSO);
+        }
     }
 
     public void DisplayBossInformation(BossSO bossSO)
@@ -190,6 +204,8 @@ public class SelectionController : MonoBehaviour
         //Show boss description and hide hero description
         _bossDescription.SetActive(true);
         HideFullHeroDescription();
+
+        _bossDescriptionCurve.StartMovingUpOnCurve();
 
         _bossNameText.text = bossSO.GetBossSelectionScreenName();
         _bossNameBorder.text = bossSO.GetBossSelectionScreenName();
@@ -345,30 +361,23 @@ public class SelectionController : MonoBehaviour
     #region Center - Hero
     private void HeroHoveredOver(HeroSO heroSO)
     {
-        //Stop if it is the same hero as the previous
-        if (heroSO == _lastHeroHoveredOver)
-        {
-            return;
-        }
-        //Stop if the hero is selected already
-        if (SelectionManager.Instance.GetAllSelectedHeroes().Contains(heroSO) &&
-            SelectionManager.Instance.GetHeroAtLastPostion() != heroSO)
-        {
-            return;
-        }
-
         _lastBossHoveredOver = null;
         _lastHeroHoveredOver = heroSO;
         
-        NewHeroHoveredOver(heroSO);
+        if (SelectionManager.Instance.GetAllSelectedHeroes().Contains(heroSO))
+        {
+            OldHeroHoveredOver(heroSO);
+        }
+        else
+        {
+            NewHeroHoveredOver(heroSO);
+        }
+        
     }
 
     private void NewHeroHoveredOver(HeroSO heroSO)
     {
-        if (!IsSelectionInformationLocked)
-        {
-            DisplayHeroInformation(heroSO);
-        }
+        AttemptDisplayHeroInformation(heroSO);
 
         int heroPillarNum = SelectionManager.Instance.GetSelectedHeroesCount();
 
@@ -380,37 +389,14 @@ public class SelectionController : MonoBehaviour
         _heroPillars[heroPillarNum ].ShowHeroOnPillar(heroSO, true);
     }
 
+    private void OldHeroHoveredOver(HeroSO heroSO)
+    {
+        AttemptDisplayHeroInformation(heroSO);
+    }
+
     private void HeroNotHoveredOver(HeroSO heroSO)
     {
-
-        /*if (_selectionManager.AtMaxHeroesSelected()) 
-        {
-            print("first");
-            if(_selectionManager.GetHeroAtLastPostion() != heroSO)
-            {
-                print("RemoveLast");
-                int hpn = UniversalManagers.Instance.GetSelectionManager().GetSelectedHeroesCount();
-
-                _heroPillars[hpn-1].AnimateOutHeroOnPillar();
-
-                _lastHeroHoveredOver = null;
-
-                NewHeroHoveredOver(_selectionManager.GetHeroAtLastPostion());
-            }
-            return;
-        }
-
-
-        if (_selectionManager.GetAllSelectedHeroes().Contains(heroSO)) return;
-
-        int heroPillarNum = UniversalManagers.Instance.GetSelectionManager().GetSelectedHeroesCount();
-
-        _heroPillars[heroPillarNum].AnimateOutHeroOnPillar();
-
-        _lastHeroHoveredOver = null;*/
-
-
-
+        
         if (SelectionManager.Instance.GetAllSelectedHeroes().Contains(heroSO))
         {
             return;
@@ -435,6 +421,14 @@ public class SelectionController : MonoBehaviour
         }
     }
 
+    private void AttemptDisplayHeroInformation(HeroSO heroSO)
+    {
+        if (!IsSelectionInformationLocked)
+        {
+            DisplayHeroInformation(heroSO);
+        }
+    }
+
     private void DisplayHeroInformation(HeroSO heroSO)
     {
         _heroUIToDisplay = heroSO;
@@ -442,6 +436,8 @@ public class SelectionController : MonoBehaviour
         //Show hero description and hide boss description
         HideFullBossDescription();
         _heroDescription.SetActive(true);
+        
+        _heroDescriptionCurve.StartMovingUpOnCurve();
 
         //Updates the text to display the heroes name
         _heroNameText.text = heroSO.GetHeroName();
