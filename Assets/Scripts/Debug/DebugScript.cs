@@ -10,17 +10,24 @@ public class DebugScript : MonoBehaviour
 {
     public static DebugScript Instance;
     
+    public bool RequiresMaxCharactersSelected;
+    
     private void Start()
     {
         if(Instance.IsUnityNull())
         {
             Instance = this;
+            transform.SetParent(null);
             DontDestroyOnLoad(gameObject);
         }
         else
         {
             Destroy(gameObject);
         }
+        
+#if !UNITY_EDITOR && !DEVELOPMENT_BUILD
+        RequiresMaxCharactersSelected = true;
+#endif
     }
 
 #if UNITY_EDITOR

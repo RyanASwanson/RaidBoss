@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -64,6 +65,7 @@ public class SelectionManager : MainUniversalManagerFramework
     private UnityEvent<BossSO> _bossHoveredOverEvent = new UnityEvent<BossSO>();
     private UnityEvent<BossSO> _bossNotHoveredOverEvent = new UnityEvent<BossSO>();
     private UnityEvent<BossSO> _bossInformationLockedEvent = new UnityEvent<BossSO>();
+    private UnityEvent _bossSelectionChanged = new UnityEvent();
 
     private UnityEvent<EGameDifficulty> _difficultySelectionEvent = new UnityEvent<EGameDifficulty>();
     private UnityEvent _informationUnlockedEvent = new UnityEvent();
@@ -74,6 +76,7 @@ public class SelectionManager : MainUniversalManagerFramework
     private UnityEvent<HeroSO> _heroHoveredOverEvent = new UnityEvent<HeroSO>();
     private UnityEvent<HeroSO> _heroNotHoveredOverEvent = new UnityEvent<HeroSO>();
     private UnityEvent<HeroSO> _heroInformationLockedEvent = new UnityEvent<HeroSO>();
+    private UnityEvent _heroesSelectionChanged = new UnityEvent();
 
 
     private void SetupDifficultyDictionaries()
@@ -114,8 +117,8 @@ public class SelectionManager : MainUniversalManagerFramework
 
     public void RemoveSelectedBoss()
     {
-        InvokeBossDeselectionEvent(_selectedBoss);
         _selectedBoss = null;
+        InvokeBossDeselectionEvent(_selectedBoss);
     }
 
     /// <summary>
@@ -223,14 +226,17 @@ public class SelectionManager : MainUniversalManagerFramework
     public void InvokeBossSelectionEvent(BossSO bossSO)
     {
         _bossSelectionEvent?.Invoke(bossSO);
+        InvokeBossSelectionChangedEvent();
     }
     public void InvokeBossDeselectionEvent(BossSO bossSO)
     {
         _bossDeselectionEvent?.Invoke(bossSO);
+        InvokeBossSelectionChangedEvent();
     }
     public void InvokeBossSwapEvent(BossSO previousBoss)
     {
         _bossSwapEvent?.Invoke(previousBoss);
+        InvokeBossSelectionChangedEvent();
     }
 
     public void InvokeBossHoveredOverEvent(BossSO bossSO)
@@ -247,6 +253,12 @@ public class SelectionManager : MainUniversalManagerFramework
         _bossInformationLockedEvent?.Invoke(bossSO);
     }
 
+    public void InvokeBossSelectionChangedEvent()
+    {
+        _bossSelectionChanged?.Invoke();
+    }
+    
+
     public void InvokeDifficultySelectionEvent(EGameDifficulty eGameDifficulty)
     {
         _difficultySelectionEvent?.Invoke(eGameDifficulty);
@@ -260,15 +272,18 @@ public class SelectionManager : MainUniversalManagerFramework
     public void InvokeHeroSelectionEvent(HeroSO heroSO)
     {
         _heroSelectionEvent?.Invoke(heroSO);
+        InvokeHeroesSelectionChangedEvent();
     }
 
     public void InvokeHeroDeselectionEvent(HeroSO heroSO)
     {
         _heroDeselectionEvent?.Invoke(heroSO);
+        InvokeHeroesSelectionChangedEvent();
     }
     public void InvokeHeroSwapEvent(HeroSO previousHero)
     {
         _heroSwapEvent?.Invoke(previousHero);
+        InvokeHeroesSelectionChangedEvent();
     }
 
     public void InvokeHeroHoveredOverEvent(HeroSO heroSO)
@@ -284,10 +299,15 @@ public class SelectionManager : MainUniversalManagerFramework
     {
         _heroInformationLockedEvent?.Invoke(heroSO);
     }
+
+    public void InvokeHeroesSelectionChangedEvent()
+    {
+        _heroesSelectionChanged?.Invoke();
+    }
     #endregion
 
     #region Getters
-    public bool AtMaxBossSelected() => _selectedBoss != null;
+    public bool AtMaxBossSelected() => !_selectedBoss.IsUnityNull();
 
     public float GetDamageMultiplierFromDifficulty() => _difficultyDamageMultiplierDictionary[currentEGameDifficulty];
     public float GetSpeedMultiplierFromDifficulty() => _difficultyAttackSpeedMultiplierDictionary[currentEGameDifficulty];
@@ -318,6 +338,7 @@ public class SelectionManager : MainUniversalManagerFramework
     public UnityEvent<BossSO> GetBossHoveredOverEvent() => _bossHoveredOverEvent;
     public UnityEvent<BossSO> GetBossNotHoveredOverEvent() => _bossNotHoveredOverEvent;
     public UnityEvent<BossSO> GetBossInformationLockedEvent() => _bossInformationLockedEvent;
+    public UnityEvent GetBossSelectionChangedEvent() => _bossSelectionChanged;
 
     public EGameDifficulty GetSelectedDifficulty() => currentEGameDifficulty;
     public UnityEvent<EGameDifficulty> GetDifficultySelectionEvent() => _difficultySelectionEvent;
@@ -329,6 +350,7 @@ public class SelectionManager : MainUniversalManagerFramework
     public UnityEvent<HeroSO> GetHeroHoveredOverEvent() => _heroHoveredOverEvent;
     public UnityEvent<HeroSO> GetHeroNotHoveredOverEvent() => _heroNotHoveredOverEvent;
     public UnityEvent<HeroSO> GetHeroInformationLockedEvent() => _heroInformationLockedEvent;
+    public UnityEvent GetHeroesSelectionChangedEvent() => _heroesSelectionChanged;
     #endregion
 
     #region Setters

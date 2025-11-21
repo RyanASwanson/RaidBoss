@@ -29,9 +29,7 @@ public class SelectionController : MonoBehaviour
     private int _currentBossAbilityID = -1;
 
     [Header("Center-General")]
-    [SerializeField] private bool _requiresMaxCharacters;
-
-    [SerializeField] private Button _fightButton;
+    [SerializeField] private SelectionPlayButton _fightButton;
 
     private bool _maxCharactersSelected = false;
 
@@ -282,7 +280,7 @@ public class SelectionController : MonoBehaviour
     #region Center - General
     private void FightButtonStartingInteractability()
     {
-        _fightButton.interactable = !_requiresMaxCharacters;
+        _fightButton.SetUpPlayButton();
     }
 
     private void UnlockCharacterInformation()
@@ -296,7 +294,15 @@ public class SelectionController : MonoBehaviour
     /// </summary>
     private void CheckMaxCharactersSelected()
     {
-        if (SelectionManager.Instance.AtMaxBossSelected() && SelectionManager.Instance.AtMaxHeroesSelected() && _requiresMaxCharacters)
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        if (!DebugScript.Instance.RequiresMaxCharactersSelected)
+        {
+            MaxCharactersSelected();
+            return;
+        }
+#endif
+        
+        if (SelectionManager.Instance.AtMaxBossSelected() && SelectionManager.Instance.AtMaxHeroesSelected())
         {
             MaxCharactersSelected();
         }
@@ -308,7 +314,7 @@ public class SelectionController : MonoBehaviour
     private void MaxCharactersSelected()
     {
         _maxCharactersSelected = true;
-        _fightButton.interactable = true ;
+        _fightButton.MaxCharactersSelected(true);
     }
     
     private void CheckMaxCharactersNoLongerSelected()
@@ -322,7 +328,7 @@ public class SelectionController : MonoBehaviour
     private void NoLongerMaxHeroesSelected()
     {
         _maxCharactersSelected = false;
-        _fightButton.interactable = false;
+        _fightButton.MaxCharactersSelected(false);
     }
 
 
