@@ -8,6 +8,7 @@ public class RectTransformMoveBetween : MonoBehaviour
     [SerializeField] private Vector3 _relativeTargetPosition;
     [SerializeField] private Vector3 _targetPosition;
     private Vector3 _startPosition;
+    private bool _hasStartPositionBeenSet = false;
     
     [Space]
     [Header("Move with curve progression")]
@@ -19,12 +20,18 @@ public class RectTransformMoveBetween : MonoBehaviour
     private void OnEnable()
     {
         _rectTransform = GetComponent<RectTransform>();
-        _startPosition = _rectTransform.localPosition;
-        
-        if (_isUsingRelativePosition)
+        if (!_hasStartPositionBeenSet)
         {
-            _targetPosition = _startPosition + _relativeTargetPosition;
+            _startPosition = _rectTransform.localPosition;
+        
+            if (_isUsingRelativePosition)
+            {
+                _targetPosition = _startPosition + _relativeTargetPosition;
+            }
+
+            _hasStartPositionBeenSet = true;
         }
+        
         
         SubscribeToEvents();
     }

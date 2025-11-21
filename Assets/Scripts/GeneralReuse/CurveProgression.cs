@@ -69,6 +69,18 @@ public class CurveProgression : MonoBehaviour
         InvokeOnSetUpComplete();
     }
 
+    public void StartMovingOppositeDirectionOnCurve()
+    {
+        if (IsOppositeDirectionUpOnCurve())
+        {
+            StartMovingUpOnCurve();
+        }
+        else
+        {
+            StartMovingDownOnCurve();
+        }
+    }
+
     public void StartMovingUpOnCurve()
     {
         if (_hasDecreaseDelay)
@@ -207,6 +219,11 @@ public class CurveProgression : MonoBehaviour
     public void InvokeOnMinValueReached()
     {
         _onMinValueReached?.Invoke();
+    }
+
+    public bool IsOppositeDirectionUpOnCurve()
+    {
+        return CurveStatus == ECurveStatus.Decreasing || CurveStatus == ECurveStatus.AtMinValue;
     }
 }
 

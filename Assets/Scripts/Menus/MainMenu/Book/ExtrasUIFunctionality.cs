@@ -11,6 +11,8 @@ public class ExtrasUIFunctionality : MonoBehaviour
     
     private int _currentPageIndex = 0;
     private ExtrasPage _currentPage;
+    
+    private ExtrasControlsDropdown _currentControlsDropdown;
 
     private int _currentSettingsTabIndex = 0;
     private int _currentControlsTabIndex = 0;
@@ -45,6 +47,11 @@ public class ExtrasUIFunctionality : MonoBehaviour
         _currentPage.SwitchTab(newTabIndex, tabButton);
     }
 
+    public void OpenControlsDropdownButton(ExtrasControlsButton button)
+    {
+        _currentControlsDropdown.OpenControlsButtonDropdown(button);
+    }
+
     public void ActivateSquishCurve()
     {
         _squishCurve.StartMovingUpOnCurve();
@@ -52,5 +59,6 @@ public class ExtrasUIFunctionality : MonoBehaviour
     
     #region Setters
     public void SetPageAsCurrentPage(ExtrasPage newPage) { _currentPage = newPage; }
+    public void SetControlsDropdownAsCurrent(ExtrasControlsDropdown newDropdown) { _currentControlsDropdown = newDropdown; }
     #endregion
 }

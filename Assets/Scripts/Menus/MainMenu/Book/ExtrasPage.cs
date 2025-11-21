@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ExtrasPage : MonoBehaviour
@@ -20,6 +21,7 @@ public class ExtrasPage : MonoBehaviour
     [SerializeField] private ExtrasUITabButton[] _tabButtons;
     [SerializeField] private ExtrasUITabData[] _tabData;
     [SerializeField] private GameObject[] _tabs;
+    [SerializeField] private ExtrasControlsDropdown[] _associatedDropdowns;
     
     // Start is called before the first frame update
     void Start()
@@ -34,11 +36,11 @@ public class ExtrasPage : MonoBehaviour
             TogglePageHolder(false);
         }
 
-        SetTabIDs();
+        SetUpTabs();
         SetStartingTab();
     }
 
-    private void SetTabIDs()
+    private void SetUpTabs()
     {
         for (int i = 0; i < _tabButtons.Length; i++)
         {
@@ -52,6 +54,7 @@ public class ExtrasPage : MonoBehaviour
         {
             _currentTabButton = _tabButtons[0];
             _currentTabButton.SetButtonColor(_selectedTextColor);
+            SetCurrentDropdownOnTabOpen(0);
         }
         
     }
@@ -78,6 +81,7 @@ public class ExtrasPage : MonoBehaviour
         
         OpenTab(_currentTabID);
         _currentTabButton.SetButtonColor(_selectedTextColor);
+        SetCurrentDropdownOnTabOpen(tabIndex);
     }
     
     public void OpenTab(int tabIndex)
@@ -88,6 +92,16 @@ public class ExtrasPage : MonoBehaviour
     public void CloseTab(int tabIndex)
     {
         _tabs[tabIndex].SetActive(false);
+    }
+    
+    
+
+    public void SetCurrentDropdownOnTabOpen(int tabIndex)
+    {
+        if (!_associatedDropdowns[tabIndex].IsUnityNull())
+        {
+            ExtrasUIFunctionality.Instance.SetControlsDropdownAsCurrent(_associatedDropdowns[tabIndex]);
+        }
     }
 
     public void TogglePageHolder(bool isOn)
