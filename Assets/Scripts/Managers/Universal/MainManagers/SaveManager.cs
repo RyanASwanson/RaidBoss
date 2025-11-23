@@ -125,6 +125,8 @@ public class SaveManager : MainUniversalManagerFramework
             GSD = JsonUtility.FromJson<GameSaveData>(json);
 
             GSD = JsonConvert.DeserializeObject<GameSaveData>(json);
+            
+            SelectionManager.Instance.SetSelectedDifficulty((EGameDifficulty)GSD.CurrentDifficultySelected);
         }
         else
         {
@@ -166,6 +168,12 @@ public class SaveManager : MainUniversalManagerFramework
                     [currentTempHero.GetHeroName()] = tempDifficulty;
             }
         }
+    }
+
+    private void DifficultyChanged(EGameDifficulty gameDifficulty)
+    {
+        GSD.SetCurrentDifficultySelectedFromEnum(gameDifficulty);
+        SaveText();
     }
 
     /// <summary>
@@ -252,6 +260,13 @@ public class SaveManager : MainUniversalManagerFramework
         EstablishPath();
         Load();
     }
+
+    protected override void SubscribeToEvents()
+    {
+        base.SubscribeToEvents();
+        SelectionManager.Instance.GetDifficultySelectionEvent().AddListener(DifficultyChanged);
+    }
+
     #endregion
 
     #region Getters
@@ -382,6 +397,8 @@ public class GameSaveData
     //First string is boss name, second string is hero name
     //Represents the best difficulty each hero has beaten each boss at
     public Dictionary<string, Dictionary<string,EGameDifficulty>> _bossHeroBestDifficultyComplete = new();
+
+    public int CurrentDifficultySelected = 1;
     
     [Space]
     [Header("Settings")]
@@ -405,6 +422,12 @@ public class GameSaveData
     #endregion
 
     #region Setters
+
+    public void SetCurrentDifficultySelectedFromEnum(EGameDifficulty difficulty)
+    {
+        CurrentDifficultySelected = (int)difficulty;
+    }
+    
     public void SetGSDScreenShakeStrength(float screenShake)
     {
         ScreenShakeStrength = screenShake;
