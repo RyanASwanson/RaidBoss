@@ -57,7 +57,7 @@ public class SBA_Avalanche : SpecificBossAbilityFramework
             _specificAreaTarget.y, _storedTargetZone.transform.position.z);
 
         //Adds the newly spawn target zone into the list of target zones currently active
-        _currentTargetZones.Add(_storedTargetZone);
+        _currentTargetZones.Add(_storedTargetZone.GetComponent<BossTargetZoneParent>());
 
         StartCoroutine(UpdateTargetZone());
 

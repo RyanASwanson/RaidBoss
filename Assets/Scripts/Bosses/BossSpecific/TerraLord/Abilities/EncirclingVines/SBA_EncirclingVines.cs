@@ -12,7 +12,7 @@ public class SBA_EncirclingVines : SpecificBossAbilityFramework
     [SerializeField] private GameObject _targetZone;
     [SerializeField] private GameObject _encirclingVines;
 
-    private GameObject _newestTargetZone;
+    private BossTargetZoneParent _newestTargetZone;
     
     /// <summary>
     /// Makes the target zone and attack follow the hero it is targeting
@@ -39,12 +39,12 @@ public class SBA_EncirclingVines : SpecificBossAbilityFramework
     protected override void StartShowTargetZone()
     {
         //Spawns the target area
-        _newestTargetZone = Instantiate(_targetZone, _storedTargetLocation, Quaternion.identity);
+        _newestTargetZone = Instantiate(_targetZone, _storedTargetLocation, Quaternion.identity).GetComponent<BossTargetZoneParent>();
         //Adds the target area to the list of target areas
         _currentTargetZones.Add(_newestTargetZone);
 
         //Makes the target area follow the hero that is being targeted
-        StartCoroutine(FollowHeroTarget(_newestTargetZone));
+        StartCoroutine(FollowHeroTarget(_newestTargetZone.gameObject));
 
         base.StartShowTargetZone();
     }

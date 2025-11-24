@@ -35,7 +35,7 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
 
     private void CreateTargetZone(Vector3 location)
     {
-        GameObject newTargetZone = Instantiate(_targetZone, location, Quaternion.identity);
+        BossTargetZoneParent newTargetZone = Instantiate(_targetZone, location, Quaternion.identity).GetComponent<BossTargetZoneParent>();
         _currentTargetZones.Add(newTargetZone);
     }
 

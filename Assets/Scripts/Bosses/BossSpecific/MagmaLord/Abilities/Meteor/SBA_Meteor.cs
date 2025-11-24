@@ -75,10 +75,10 @@ public class SBA_Meteor : SpecificBossAbilityFramework
     /// </summary>
     protected override void StartShowTargetZone()
     {
-        GameObject targetZone = Instantiate(_targetZone, _storedTargetLocation, Quaternion.identity);
+        BossTargetZoneParent targetZone = Instantiate(_targetZone, _storedTargetLocation, Quaternion.identity).GetComponent<BossTargetZoneParent>();
         _currentTargetZones.Add(targetZone);
-
-        StartCoroutine(FollowingDirectionalTargetZone(targetZone.GetComponentInChildren<BossTargetZone>().GetAdditionalGameObjectReferences()[0]));
+        
+        StartCoroutine(FollowingDirectionalTargetZone(targetZone.GetBossTargetZones()[0].GetAdditionalGameObjectReferences()[0]));
 
         base.StartShowTargetZone();
     }

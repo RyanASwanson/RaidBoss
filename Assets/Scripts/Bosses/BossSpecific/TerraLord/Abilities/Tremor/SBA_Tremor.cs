@@ -18,7 +18,7 @@ public class SBA_Tremor : SpecificBossAbilityFramework
     /// </summary>
     protected override void StartShowTargetZone()
     {
-        _currentTargetZones.Add(Instantiate(_targetZone, _specificAreaTarget, Quaternion.identity));
+        _currentTargetZones.Add(Instantiate(_targetZone, _specificAreaTarget, Quaternion.identity).GetComponent<BossTargetZoneParent>());
         base.StartShowTargetZone();
     }
 

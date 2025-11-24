@@ -173,7 +173,7 @@ public class SBA_CrystalBarrage : SpecificBossAbilityFramework
     {
         DetermineTargetLocation();
 
-        _currentTargetZones.Add(Instantiate(_targetZone, _currentTargetLocation, Quaternion.identity));
+        _currentTargetZones.Add(Instantiate(_targetZone, _currentTargetLocation, Quaternion.identity).GetComponent<BossTargetZoneParent>());
 
         StartUpwardsProjectileProcess();
 

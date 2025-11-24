@@ -82,7 +82,7 @@ public class SBA_Volcano : SpecificBossAbilityFramework
     {
         foreach (Vector3 attackLoc in _targetLocations)
         {
-            _currentTargetZones.Add(Instantiate(_targetZone, attackLoc, Quaternion.identity));
+            _currentTargetZones.Add(Instantiate(_targetZone, attackLoc, Quaternion.identity).GetComponent<BossTargetZoneParent>());
             
             yield return _projectileDelayWaitForSeconds;
         }

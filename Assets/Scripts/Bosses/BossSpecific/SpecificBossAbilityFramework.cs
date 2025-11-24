@@ -33,7 +33,7 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     [Space]
     [SerializeField] protected string _animationTriggerName;
 
-    protected List<GameObject> _currentTargetZones = new List<GameObject>();
+    protected List<BossTargetZoneParent> _currentTargetZones = new List<BossTargetZoneParent>();
     
     protected Vector3 _storedTargetLocation;
     protected HeroBase _storedTarget;
@@ -134,16 +134,30 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
         }
 
         //Iterates through all target zones and removes them
-        foreach(GameObject currentZone in _currentTargetZones)
+        foreach(BossTargetZoneParent currentZone in _currentTargetZones)
         {
-            if(currentZone.TryGetComponent<BossTargetZoneParent>(out BossTargetZoneParent targetZoneParent))
-            {
-                targetZoneParent.RemoveBossTargetZones();
-            }
+            currentZone.RemoveBossTargetZones();
         }
         _currentTargetZones.Clear();
     }
 
+    protected virtual void SetStateOfCurrentTargetZonesToDeactivated()
+    {
+        SetDeactivatedStateOfCurrentTargetZones(true);
+    }
+    
+    protected virtual void SetStateOfCurrentTargetZonesToActivated()
+    {
+        SetDeactivatedStateOfCurrentTargetZones(false);
+    }
+    
+    protected virtual void SetDeactivatedStateOfCurrentTargetZones(bool shouldDeactivate)
+    {
+        foreach (BossTargetZoneParent targetZone in _currentTargetZones)
+        {
+            targetZone.SetTargetZoneDeactivatedStatesOfAllTargetZones(shouldDeactivate);
+        }
+    }
     #endregion
 
     /// <summary>

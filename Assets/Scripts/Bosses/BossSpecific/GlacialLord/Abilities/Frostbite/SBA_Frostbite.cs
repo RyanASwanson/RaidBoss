@@ -37,7 +37,7 @@ public class SBA_Frostbite : SpecificBossAbilityFramework
             newTargetZone.transform.LookAt(_glacialLord.transform);
             newTargetZone.transform.eulerAngles = new Vector3(0, newTargetZone.transform.eulerAngles.y, 0);
 
-            _currentTargetZones.Add(newTargetZone);
+            _currentTargetZones.Add(newTargetZone.GetComponent<BossTargetZoneParent>());
 
             _attackingFiends.Add(frostFiend);
 

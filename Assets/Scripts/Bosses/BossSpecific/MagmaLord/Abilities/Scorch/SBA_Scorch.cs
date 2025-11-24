@@ -16,7 +16,7 @@ public class SBA_Scorch : SpecificBossAbilityFramework
 
     protected override void StartShowTargetZone()
     {
-        _currentTargetZones.Add(Instantiate(_targetZone, _specificAreaTarget, Quaternion.identity));
+        _currentTargetZones.Add(Instantiate(_targetZone, _specificAreaTarget, Quaternion.identity).GetComponent<BossTargetZoneParent>());
         base.StartShowTargetZone();
     }
 
