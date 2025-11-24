@@ -25,7 +25,9 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
         for (int i = 0; i < _allTargets.Count; i++)
         {
             if ((i % 2 == 0) == _verticalTarget)
+            {
                 newTargets.Add(_allTargets[i]);
+            }
         }
 
         _verticalTarget = !_verticalTarget;
@@ -33,9 +35,15 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
         return newTargets;
     }
 
-    private void CreateTargetZone(Vector3 location)
+    private void CreateTargetZone(Vector3 location, bool isDeactivated)
     {
         BossTargetZoneParent newTargetZone = Instantiate(_targetZone, location, Quaternion.identity).GetComponent<BossTargetZoneParent>();
+
+        if (isDeactivated)
+        {
+            newTargetZone.SetTargetZoneDeactivatedStatesOfAllTargetZones(true);
+        }
+        
         _currentTargetZones.Add(newTargetZone);
     }
 
@@ -73,10 +81,15 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
             if (targets.AreAnyMinionsFrozen())
             {
                 targets.CallFailedOnUnfrozenMinions();
+                CreateTargetZone(targets.GetAttackLocation(),true);
                 continue;
             }
+            else
+            {
+                CreateTargetZone(targets.GetAttackLocation(),false);
+            }
 
-            CreateTargetZone(targets.GetAttackLocation());
+            
 
             targets.CallBlizzardAttackOnMinions();
 
@@ -87,6 +100,7 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
     protected override void AbilityStart()
     {
         base.AbilityStart();
+
 
         foreach (BlizzardTargets targets in _activeTargets)
         {

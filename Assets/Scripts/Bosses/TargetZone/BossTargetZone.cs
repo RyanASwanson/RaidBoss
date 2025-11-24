@@ -137,7 +137,7 @@ public class BossTargetZone : BossProjectileFramework
     protected virtual void SetTargetZonesToHeroInRange()
     {
         _targetZoneNonDeactivatedStatus = EBossTargetZoneStatus.HeroInRange;
-        if (SetAllTargetZonesToMaterial(_heroInRangeMat))
+        if (AttemptAllTargetZonesToMaterial(_heroInRangeMat))
         {
             _targetZoneStatus = EBossTargetZoneStatus.HeroInRange;
         }
@@ -146,15 +146,10 @@ public class BossTargetZone : BossProjectileFramework
     protected virtual void SetTargetZonesToNoHero()
     {
         _targetZoneNonDeactivatedStatus = EBossTargetZoneStatus.NoHeroInRange;
-        if (SetAllTargetZonesToMaterial(_noHeroInRangeMat))
+        if (AttemptAllTargetZonesToMaterial(_noHeroInRangeMat))
         {
             _targetZoneStatus = EBossTargetZoneStatus.NoHeroInRange;
         }
-    }
-
-    public void EnterDeactivatedState()
-    {
-        SetTargetZoneDeactivatedState(true);
     }
     
     public void SetTargetZoneDeactivatedState(bool shouldDeactivate)
@@ -166,11 +161,12 @@ public class BossTargetZone : BossProjectileFramework
                 // Stop if we are already deactivated
                 return;
             }
-            SetAllTargetZonesToMaterial(_deactivatedMat);
+
+            ForceSetMaterialToDeactivatedState();
             _targetZoneStatus = EBossTargetZoneStatus.Deactivated;
             return;
         }
-
+        
         _targetZoneStatus = _targetZoneNonDeactivatedStatus;
         // Note that this is using _targetZoneNonDeactivatedStatus not _targetZoneStatus
         switch (_targetZoneNonDeactivatedStatus)
@@ -185,8 +181,13 @@ public class BossTargetZone : BossProjectileFramework
                 return;
         }
     }
+    
+    public void ForceSetMaterialToDeactivatedState()
+    {
+        SetTargetZonesToMaterial(_deactivatedMat);
+    }
 
-    protected bool SetAllTargetZonesToMaterial(Material newMaterial)
+    protected bool AttemptAllTargetZonesToMaterial(Material newMaterial)
     {
         if (_targetZoneStatus == EBossTargetZoneStatus.Deactivated)
         {
@@ -197,13 +198,20 @@ public class BossTargetZone : BossProjectileFramework
         {
             return false;
         }
-        
+
+        SetTargetZonesToMaterial(newMaterial);
+        return true;
+    }
+
+    protected void SetTargetZonesToMaterial(Material newMaterial)
+    {
         foreach (MeshRenderer renderer in _targetZones)
         {
             renderer.material = newMaterial;
         }
-        return true;
     }
+    
+  
     
     #region Removal
 

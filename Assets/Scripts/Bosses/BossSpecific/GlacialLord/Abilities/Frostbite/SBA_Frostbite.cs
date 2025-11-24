@@ -24,20 +24,27 @@ public class SBA_Frostbite : SpecificBossAbilityFramework
         base.StartShowTargetZone();
         foreach(GlacialLord_FrostFiend frostFiend in _glacialLord.GetAllFrostFiends())
         {
+            /*
             if (frostFiend.IsMinionFrozen())
             {
                 continue;
-            }
+            }*/
 
-            GameObject newTargetZone = Instantiate(_targetZone, frostFiend.transform.position,Quaternion.identity);
+            BossTargetZoneParent newTargetZone = Instantiate(_targetZone, frostFiend.transform.position,Quaternion.identity).GetComponent<BossTargetZoneParent>();
 
             newTargetZone.transform.position = new Vector3(newTargetZone.transform.position.x,
                 _specificAreaTarget.y, newTargetZone.transform.position.z);
 
             newTargetZone.transform.LookAt(_glacialLord.transform);
             newTargetZone.transform.eulerAngles = new Vector3(0, newTargetZone.transform.eulerAngles.y, 0);
+            
+            _currentTargetZones.Add(newTargetZone);
 
-            _currentTargetZones.Add(newTargetZone.GetComponent<BossTargetZoneParent>());
+            if (frostFiend.IsMinionFrozen())
+            {
+                newTargetZone.SetTargetZoneDeactivatedStatesOfAllTargetZones(true);
+                continue;
+            }
 
             _attackingFiends.Add(frostFiend);
 

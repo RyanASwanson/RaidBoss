@@ -69,8 +69,15 @@ public class DebugScript : MonoBehaviour
             List<HeroBase> heroes = PlayerInputGameplayManager.Instance.GetAllControlledHeroes();
             
             heroes[0].GetHeroStats().KillHero();
-            
-           
+        }
+
+        if (Input.GetKeyDown(KeyCode.Semicolon))
+        {
+            if (SelectionManager.Instance.GetSelectedBoss().GetBossID() == 2)
+            {
+                SB_GlacialLord glacialLord = (SB_GlacialLord)BossBase.Instance.GetSpecificBossScript();
+                glacialLord.FreezeAllFrostFiends();
+            }
         }
     }
 #endif

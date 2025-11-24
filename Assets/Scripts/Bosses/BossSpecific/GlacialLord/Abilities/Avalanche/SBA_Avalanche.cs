@@ -39,15 +39,6 @@ public class SBA_Avalanche : SpecificBossAbilityFramework
     }
     
     #region Base Ability
-    protected override void AbilityPrep()
-    {
-        //Determines the location of the edge of the map
-        //Direction determined by the direction of the current target
-        
-
-        base.AbilityPrep();
-    }
-
     protected override void StartShowTargetZone()
     {
         _storedTargetZone = Instantiate(_targetZone, transform.position, Quaternion.identity);

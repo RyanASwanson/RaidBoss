@@ -59,17 +59,17 @@ public class GlacialLordTargetZone : BossTargetZone
     
     protected void SetTargetZonesToMinionInRange()
     {
-        SetAllTargetZonesToMaterial(_minionInRangeMat);
+        AttemptAllTargetZonesToMaterial(_minionInRangeMat);
     }
 
     protected void SetTargetZonesToNoMinion()
     {
         if (DoesZoneContainHero())
         {
-            SetAllTargetZonesToMaterial(_heroInRangeMat);
+            AttemptAllTargetZonesToMaterial(_heroInRangeMat);
             return;
         }
-        SetAllTargetZonesToMaterial(_noHeroInRangeMat);
+        AttemptAllTargetZonesToMaterial(_noHeroInRangeMat);
     }
     
     #region BaseTargetZone

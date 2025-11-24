@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -37,6 +38,7 @@ public class GlacialLord_FrostFiend : BossMinionBase
     
     private float _timeFrozen = 0;
     private bool _isFreezeCracked = false;
+    private Coroutine _frozenCoroutine;
 
     private const int FROST_FIEND_ABILITY_ID = 4;
     
@@ -94,7 +96,8 @@ public class GlacialLord_FrostFiend : BossMinionBase
         PlayMinionFrozenAudio();
         FreezeAnim();
         
-        StartCoroutine(FreezeProcess());
+        StopFreezeProcess();
+        _frozenCoroutine = StartCoroutine(FreezeProcess());
     }
     
 
@@ -117,6 +120,14 @@ public class GlacialLord_FrostFiend : BossMinionBase
         }
         
         UnfreezeMinion();
+    }
+
+    private void StopFreezeProcess()
+    {
+        if (!_frozenCoroutine.IsUnityNull())
+        {
+            StopCoroutine(_frozenCoroutine);
+        }
     }
 
     private void UnfreezeMinion()
