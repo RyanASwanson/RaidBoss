@@ -30,8 +30,11 @@ public class HeroPillar : MonoBehaviour
 
     private const string NEW_HERO_HOVER_ANIM_TRIGGER = "NewHover";
     private const string REMOVE_HERO_ON_PILLAR_ANIM_TRIGGER = "RemoveHero";
+
+    private Animator _heroSpecificAnimator;
     
     private const string HERO_SELECTED_ANIM_BOOL = "HeroSelected";
+    private const string HERO_IDLE_ANIM_BOOL = "G_HeroIdle";
 
     private void Start()
     {
@@ -63,6 +66,8 @@ public class HeroPillar : MonoBehaviour
         //Spawn the hero onto the pillar
         _currentHeroVisual = Instantiate(heroSO.GetHeroPrefab(), _heroSpawnPoint.transform);
         
+        _heroSpecificAnimator = _currentHeroVisual.GetComponent<Animator>();
+        
         //Rotates the hero
         _currentHeroVisual.transform.eulerAngles += new Vector3(0,180,0);
         //Sets the stored hero
@@ -71,6 +76,7 @@ public class HeroPillar : MonoBehaviour
         if (_heroSelectedOnPillar == heroSO || heroAlreadySelectedOverride)
         {
             SetHeroPreviewAnimation(true);
+            PlayHeroIdleAnimation();
         }
         else
         {
@@ -82,7 +88,8 @@ public class HeroPillar : MonoBehaviour
             HeroSelectedOnPillar();
             return;
         }
-        _heroSpawnAnimator.SetTrigger(NEW_HERO_HOVER_ANIM_TRIGGER);
+
+        PlayHeroHoverAnimation();
         _heroSpawnAnimator.ResetTrigger(REMOVE_HERO_ON_PILLAR_ANIM_TRIGGER);
     }
 
@@ -90,10 +97,8 @@ public class HeroPillar : MonoBehaviour
     {
         _heroSelectedOnPillar = _storedHero;
         
-        if(_currentHeroVisual.TryGetComponent<Animator>(out Animator animator))
-        {
-            StartHeroSelectedAnimation(animator);
-        }
+        StartHeroSelectedAnimation();
+        PlayHeroIdleAnimation();
     }
 
     /// <summary>
@@ -118,15 +123,25 @@ public class HeroPillar : MonoBehaviour
         _heroSpawnAnimator.ResetTrigger(NEW_HERO_HOVER_ANIM_TRIGGER);
         _heroSpawnAnimator.SetTrigger(REMOVE_HERO_ON_PILLAR_ANIM_TRIGGER);
     }
+
+    public void PlayHeroHoverAnimation()
+    {
+        _heroSpawnAnimator.SetTrigger(NEW_HERO_HOVER_ANIM_TRIGGER);
+    }
     
     public void SetHeroPreviewAnimation(bool isHeroSelected)
     {
         _heroSpawnAnimator.SetBool(HERO_SELECTED_ANIM_BOOL,isHeroSelected);
     }
     
-    public void StartHeroSelectedAnimation(Animator animator)
+    public void StartHeroSelectedAnimation()
     {
-        animator.SetTrigger(HERO_SPECIFIC_SELECTED_ANIM_TRIGGER);
+        _heroSpecificAnimator.SetTrigger(HERO_SPECIFIC_SELECTED_ANIM_TRIGGER);
+    }
+    
+    public void PlayHeroIdleAnimation()
+    {
+        _heroSpecificAnimator.SetBool(HERO_IDLE_ANIM_BOOL,true);
     }
 
     #region PreviewPillar

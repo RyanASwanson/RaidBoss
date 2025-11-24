@@ -11,6 +11,12 @@ public class DifficultyDropdown : MonoBehaviour
     [Space]
     [SerializeField] private Image _currentDifficultyIcon;
 
+    [Space] 
+    [SerializeField] private CurveProgression _scaleCurve;
+
+    [Space] 
+    [SerializeField] private Color[] _dropdownColors;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -47,5 +53,8 @@ public class DifficultyDropdown : MonoBehaviour
     public void UpdateDifficulty()
     {
         SelectionManager.Instance.SetSelectedDifficulty((EGameDifficulty)_dropdown.value+1);
+        _scaleCurve.StartMovingUpOnCurve();
     }
+
+    public Color[] GetDropdownColors() => _dropdownColors;
 }

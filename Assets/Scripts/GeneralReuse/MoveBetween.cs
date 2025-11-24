@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -13,13 +14,26 @@ public class MoveBetween : MonoBehaviour
     [SerializeField] private float _floatDestroyDelay;
 
     [Space] 
+    [SerializeField] private bool _hasDefaultStartPosition;
+    [SerializeField] private Vector3 _defaultStartPosition;
+
+    [Space] 
     [SerializeField] private UnityEvent _onEndOfMovement;
+    
+    
+    [Space]
+    [SerializeField] private CurveProgression _curveProgression;
 
     private GameObject _moveTarget;
     private Vector3 _moveTargetPosition;
     private Vector3 _startPosition;
     
     private Coroutine _moveCoroutine;
+
+    private void OnEnable()
+    {
+        SubscribeToEvents();
+    }
 
     public void StartMoveProcess(GameObject target)
     {
@@ -31,6 +45,24 @@ public class MoveBetween : MonoBehaviour
     {
         _moveTargetPosition = targetPosition;
         _moveCoroutine = StartCoroutine(MoveProcessWithPositionTarget());
+    }
+
+    public void StartMoveProcess(Vector3 targetPosition, Vector3 startPosition)
+    {
+        transform.position = startPosition;
+        StartMoveProcess(targetPosition);
+    }
+
+    public void StartMoveProcessWithCurveProgression(Vector3 targetPosition)
+    {
+        if (_hasDefaultStartPosition)
+        {
+            _startPosition = _defaultStartPosition;
+        }
+        _moveTargetPosition = targetPosition;
+        
+        _curveProgression.StartMovingUpOnCurve();
+        Debug.Log("Start Moving up on curve");
     }
 
     public void StopMoveProcess()
@@ -59,7 +91,8 @@ public class MoveBetween : MonoBehaviour
                 _moveTargetPosition = _moveTarget.transform.position;
             }
             moveTimer += Time.deltaTime / _moveTime;
-            transform.position = Vector3.LerpUnclamped(_startPosition,_moveTargetPosition, _movementCurve.Evaluate(moveTimer));
+            //transform.position = Vector3.LerpUnclamped(_startPosition,_moveTargetPosition, _movementCurve.Evaluate(moveTimer));
+            UpdateLocalPosition(moveTimer);
             yield return null;
         }
 
@@ -75,11 +108,17 @@ public class MoveBetween : MonoBehaviour
         while (moveTimer < 1)
         {
             moveTimer += Time.deltaTime / _moveTime;
-            transform.localPosition = Vector3.LerpUnclamped(_startPosition,_moveTargetPosition, _movementCurve.Evaluate(moveTimer));
+            //transform.localPosition = Vector3.LerpUnclamped(_startPosition,_moveTargetPosition, _movementCurve.Evaluate(moveTimer));
+            UpdateLocalPosition(moveTimer);
             yield return null;
         }
 
         EndOfMovement();
+    }
+    
+    public void UpdateLocalPosition(float scaleProgress)
+    {
+        transform.localPosition = Vector3.LerpUnclamped(_startPosition,_moveTargetPosition, _movementCurve.Evaluate(scaleProgress));
     }
     
     /// <summary>
@@ -90,6 +129,27 @@ public class MoveBetween : MonoBehaviour
         InvokeOnEndOfMovement();
 
         Destroy(gameObject,_floatDestroyDelay);
+    }
+
+    private void OnDisable()
+    {
+        UnsubscribeFromEvents();
+    }
+    
+    public void SubscribeToEvents()
+    {
+        if (_curveProgression)
+        {
+            _curveProgression.OnCurveValueChanged.AddListener(UpdateLocalPosition);
+        }
+    }
+
+    public void UnsubscribeFromEvents()
+    {
+        if (_curveProgression)
+        {
+            _curveProgression.OnCurveValueChanged.RemoveListener(UpdateLocalPosition);
+        }
     }
     
     #region Events

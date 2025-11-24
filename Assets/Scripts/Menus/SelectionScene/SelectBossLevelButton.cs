@@ -22,6 +22,9 @@ public class SelectBossLevelButton : MonoBehaviour, IPointerClickHandler
 
     [SerializeField] private GameObject _lockVisuals;
 
+    [Space] 
+    [SerializeField] private CurveProgression _buttonSizeCurve;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -76,6 +79,7 @@ public class SelectBossLevelButton : MonoBehaviour, IPointerClickHandler
         if (!_buttonHasBeenPressed)
         {
             BossLevelSelect();
+            _buttonSizeCurve.StartMovingUpOnCurve();
         }
         else
         {

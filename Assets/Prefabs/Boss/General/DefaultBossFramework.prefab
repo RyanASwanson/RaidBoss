@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5399034174036522987}
+  - component: {fileID: 3080767900023450252}
+  - component: {fileID: 2017893347953519880}
   m_Layer: 0
   m_Name: BossSpecifics
   m_TagString: Untagged
@@ -31,6 +33,94 @@ Transform:
   m_Father: {fileID: 4786260085232277357}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3080767900023450252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 430651873075572257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01f79f6bfa7dac74fb7197b0b9016dcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _moveTime: 0
+  _movementCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _floatDestroyDelay: 0
+  _hasDefaultStartPosition: 1
+  _defaultStartPosition: {x: 0, y: 20, z: 0}
+  _onEndOfMovement:
+    m_PersistentCalls:
+      m_Calls: []
+  _curveProgression: {fileID: 2017893347953519880}
+--- !u!114 &2017893347953519880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 430651873075572257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 508c048b50abf854791f2f498bb01037, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _curveName: Boss Intro
+  _curveIncreaseTime: 1.75
+  _curveDecreaseTime: 0
+  _minCurveValue: 0
+  _maxCurveValue: 1
+  _hasDefaultValue: 0
+  _defaultValue: 0
+  _doesResetToDefaultProgressOnEnable: 0
+  _doesAutomaticallyMoveDownOnHittingMax: 0
+  _hasDecreaseDelay: 0
+  _decreaseDelay: 0
+  _curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  OnSetUpComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  _onStartedIncreasing:
+    m_PersistentCalls:
+      m_Calls: []
+  _onStartedDecreasing:
+    m_PersistentCalls:
+      m_Calls: []
+  _onMaxValueReached:
+    m_PersistentCalls:
+      m_Calls: []
+  _onMinValueReached:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2798513134412412957
 GameObject:
   m_ObjectHideFlags: 0
@@ -435,6 +525,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bossGeneralAnimator: {fileID: 1596000535645237167}
+  _introProgression: {fileID: 3080767900023450252}
   _outlineWidth: 2
   _outlineColor: {r: 1, g: 0, b: 0, a: 1}
   _outlineMode: 4

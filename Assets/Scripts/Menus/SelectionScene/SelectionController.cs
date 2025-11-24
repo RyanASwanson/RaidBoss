@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
 
 public class SelectionController : MonoBehaviour
 {
@@ -143,31 +144,37 @@ public class SelectionController : MonoBehaviour
     {
         _lastHeroHoveredOver = null;
         _lastBossHoveredOver = bossSO;
-
-        NewBossHoveredOver(bossSO);
         
-        /*if (SelectionManager.Instance.GetSelectedBoss() == bossSO)
+        if (SelectionManager.Instance.GetSelectedBoss() == bossSO)
         {
             OldBossHoveredOver(bossSO);
         }
         else
         {
             NewBossHoveredOver(bossSO);
-        }*/
+        }
     }
 
     private void NewBossHoveredOver(BossSO bossSO)
     {
-        AttemptDisplayBossInformation(bossSO);
-
-        UpdateHeroButtonDifficultyBeaten();
+        GeneralBossHoveredOver(bossSO);
         
         _bossPillar.ShowBossOnPillar(bossSO, true);
+        
     }
 
     private void OldBossHoveredOver(BossSO bossSO)
     {
+        GeneralBossHoveredOver(bossSO);
+        
+        _bossPillar.PlayBossHoverAnimation();
+    }
+
+    private void GeneralBossHoveredOver(BossSO bossSO)
+    {
         AttemptDisplayBossInformation(bossSO);
+
+        UpdateHeroButtonDifficultyBeaten();
     }
 
     /// <summary>
@@ -373,11 +380,13 @@ public class SelectionController : MonoBehaviour
             NewHeroHoveredOver(heroSO);
         }
         
+        //NewHeroHoveredOver(heroSO);
+        
     }
 
     private void NewHeroHoveredOver(HeroSO heroSO)
     {
-        AttemptDisplayHeroInformation(heroSO);
+        GeneralHeroHoveredOver(heroSO);
 
         int heroPillarNum = SelectionManager.Instance.GetSelectedHeroesCount();
 
@@ -390,6 +399,17 @@ public class SelectionController : MonoBehaviour
     }
 
     private void OldHeroHoveredOver(HeroSO heroSO)
+    {
+        GeneralHeroHoveredOver(heroSO);
+
+        HeroPillar heroPillar = FindHeroPillarWithHero(heroSO);
+        if (!heroPillar.IsUnityNull())
+        {
+            heroPillar.PlayHeroHoverAnimation();
+        }
+    }
+
+    private void GeneralHeroHoveredOver(HeroSO heroSO)
     {
         AttemptDisplayHeroInformation(heroSO);
     }

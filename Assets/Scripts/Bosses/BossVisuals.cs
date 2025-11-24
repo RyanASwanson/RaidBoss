@@ -24,9 +24,12 @@ public class BossVisuals : BossChildrenFunctionality
     private Animator _bossSpecificAnimator;
 
     private const string SPECIFIC_BOSS_LEVEL_INTRO_ANIM_TRIGGER = "G_BossIntro";
-    private const string SPECIFIC_BOSS_IDLE_ANIM_TRIGGER = "G_BossIdle";
+    private const string SPECIFIC_BOSS_IDLE_ANIM_BOOL = "G_BossIdle";
     private const string BOSS_STAGGER_ANIM_TRIGGER = "G_BossStagger";
     private const string BOSS_DEATH_ANIM_TRIGGER = "G_BossDeath";
+
+    [Space] 
+    [SerializeField] private MoveBetween _introProgression;
     
     [Space]
     [SerializeField] private float _outlineWidth;
@@ -133,7 +136,31 @@ public class BossVisuals : BossChildrenFunctionality
         BossDamagedAnimation();
     }
 
+    public void StartBossSpecificAnimationBool(string boolName, bool boolStatus)
+    {
+        if (boolName == string.Empty)
+        {
+            return;
+        }
 
+        _bossSpecificAnimator.SetBool(boolName, boolStatus);
+    }
+
+    public void StartBossSpecificAnimationTrigger(string triggerName)
+    {
+        if (triggerName == string.Empty)
+        {
+            return;
+        }
+
+        _bossSpecificAnimator.SetTrigger(triggerName);
+    }
+    
+    /*private void PlayBossIntro()
+    {
+        _introProgression.StartMoveProcessWithCurveProgression(Vector3.zero);
+    }*/
+    
     /// <summary>
     /// Starts the general boss level intro animation
     /// </summary>
@@ -150,18 +177,13 @@ public class BossVisuals : BossChildrenFunctionality
         _bossGeneralAnimator.SetTrigger(BOSS_DAMAGED_ANIM_TRIGGER);
     }
 
-    public void StartBossSpecificAnimationTrigger(string triggerName)
-    {
-        if (triggerName == string.Empty) return;
-
-        _bossSpecificAnimator.SetTrigger(triggerName);
-    }
-
     private void BossFullyStaggered()
     {
         TimeManager.Instance.BossStaggeredTimeSlow();
         BossSpecificStaggerAnimTrigger();
     }
+
+    
 
     private void BossSpecificLevelIntroTrigger()
     {
@@ -170,7 +192,7 @@ public class BossVisuals : BossChildrenFunctionality
 
     private void BossSpecificIdleAnimation()
     {
-        StartBossSpecificAnimationTrigger(SPECIFIC_BOSS_IDLE_ANIM_TRIGGER);
+        StartBossSpecificAnimationBool(SPECIFIC_BOSS_IDLE_ANIM_BOOL, true);
     }
 
     private void BossSpecificStaggerAnimTrigger()
@@ -220,6 +242,8 @@ public class BossVisuals : BossChildrenFunctionality
         _visualObjectBase.transform.eulerAngles = new Vector3(0, 180, 0);
 
         BossLevelIntroAnimation();
+        // TODO Switch to PlayBossIntro which uses a curve progression instead of animation
+        //PlayBossIntro();
         
         //AddOutlineToBoss();
     }

@@ -57,7 +57,7 @@ public class HeroVisuals : HeroChildrenFunctionality
 
     private Animator _heroSpecificAnimator;
     
-    private const string HERO_IDLE_ANIM_TRIGGER = "G_HeroIdle";
+    private const string HERO_IDLE_ANIM_BOOL = "G_HeroIdle";
     private const string HERO_WALKING_ANIM_BOOL = "G_HeroWalking";
 
     private const string HERO_BASIC_ANIM_TRIGGER = "G_HeroBasic";
@@ -206,7 +206,7 @@ public class HeroVisuals : HeroChildrenFunctionality
     /// </summary>
     private void StartHeroSpecificIdleAnimation()
     {
-        HeroSpecificAnimationTrigger(HERO_IDLE_ANIM_TRIGGER);
+        HeroSpecificAnimationBool(HERO_IDLE_ANIM_BOOL, true);
     }
 
 

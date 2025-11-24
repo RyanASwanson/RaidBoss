@@ -24,6 +24,9 @@ public class SelectHeroButton : MonoBehaviour, IPointerClickHandler
 
     [SerializeField] private GameObject _lockVisuals;
 
+    [Space] 
+    [SerializeField] private CurveProgression _buttonSizeCurve;
+
 
     // Start is called before the first frame update
     void Start()
@@ -85,6 +88,7 @@ public class SelectHeroButton : MonoBehaviour, IPointerClickHandler
             //Prevent button press at max heroes just in case
             //if (UniversalManagers.Instance.GetSelectionManager().AtMaxHeroesSelected()) return;
             HeroSelect();
+            _buttonSizeCurve.StartMovingUpOnCurve();
         }
         else
         {

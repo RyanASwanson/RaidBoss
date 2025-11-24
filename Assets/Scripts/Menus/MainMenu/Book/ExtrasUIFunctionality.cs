@@ -14,10 +14,6 @@ public class ExtrasUIFunctionality : MonoBehaviour
     
     private ExtrasControlsDropdown _currentControlsDropdown;
 
-    private int _currentSettingsTabIndex = 0;
-    private int _currentControlsTabIndex = 0;
-    private int _currentCreditsTabIndex = 0;
-
     private void Awake()
     {
         SetUpInstance();

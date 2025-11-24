@@ -16,7 +16,7 @@ public class BossPillar : MonoBehaviour
     private BossSO _bossSelectedOnPillar;
     private BossSO _storedBoss;
     
-    private const string BOSS_SELECTED_ANIM_TRIGGER = "G_BossSelected";
+    private const string BOSS_SPECIFIC_SELECTED_ANIM_TRIGGER = "G_BossSelected";
     
     [Space]
     [SerializeField] private Animator _pillarAnimator;
@@ -26,7 +26,10 @@ public class BossPillar : MonoBehaviour
     private const string NEW_BOSS_HOVER_ANIM_TRIGGER = "NewHover";
     private const string REMOVE_BOSS_ON_PILLAR_ANIM_TRIGGER = "RemoveBoss";
     
+    private Animator _bossSpecificAnimator;
+    
     private const string BOSS_SELECTED_ANIM_BOOL = "BossSelected";
+    private const string BOSS_IDLE_ANIM_BOOL = "G_BossIdle";
 
     private void Start()
     {
@@ -46,12 +49,16 @@ public class BossPillar : MonoBehaviour
         }
 
         _currentBossVisual = Instantiate(bossSO.GetBossPrefab(), _bossSpawnPoint.transform);
+        
+        _bossSpecificAnimator = _currentBossVisual.GetComponentInChildren<Animator>();
+        
         _currentBossVisual.transform.eulerAngles += new Vector3(0, 315, 0);
         _storedBoss = bossSO;
         
         if (_bossSelectedOnPillar == bossSO)
         {
             SetBossPreviewAnimation(true);
+            PlayBossIdleAnimation();
         }
         else
         {
@@ -63,7 +70,8 @@ public class BossPillar : MonoBehaviour
             BossSelectedOnPillar();
             return;
         }
-        _bossSpawnAnimator.SetTrigger(NEW_BOSS_HOVER_ANIM_TRIGGER);
+        
+        PlayBossHoverAnimation();
         _bossSpawnAnimator.ResetTrigger(REMOVE_BOSS_ON_PILLAR_ANIM_TRIGGER);
     }
 
@@ -71,11 +79,8 @@ public class BossPillar : MonoBehaviour
     {
         _bossSelectedOnPillar = _storedBoss;
         
-        Animator animator = _currentBossVisual.GetComponentInChildren<Animator>();
-        if(!animator.IsUnityNull())
-        {
-            StartBossSelectedAnimation(animator);
-        }
+        StartBossSelectedAnimation();
+        PlayBossIdleAnimation();
     }
 
     public void RemoveBossOnPillar()
@@ -97,15 +102,25 @@ public class BossPillar : MonoBehaviour
         _bossSpawnAnimator.ResetTrigger(NEW_BOSS_HOVER_ANIM_TRIGGER);
         _bossSpawnAnimator.SetTrigger(REMOVE_BOSS_ON_PILLAR_ANIM_TRIGGER);
     }
+
+    public void PlayBossHoverAnimation()
+    {
+        _bossSpawnAnimator.SetTrigger(NEW_BOSS_HOVER_ANIM_TRIGGER);
+    }
     
     public void SetBossPreviewAnimation(bool isBossSelected)
     {
         _bossSpawnAnimator.SetBool(BOSS_SELECTED_ANIM_BOOL,isBossSelected);
     }
     
-    public void StartBossSelectedAnimation(Animator animator)
+    public void StartBossSelectedAnimation()
     {
-        animator.SetTrigger(BOSS_SELECTED_ANIM_TRIGGER);
+        _bossSpecificAnimator.SetTrigger(BOSS_SPECIFIC_SELECTED_ANIM_TRIGGER);
+    }
+    
+    public void PlayBossIdleAnimation()
+    {
+        _bossSpecificAnimator.SetBool(BOSS_IDLE_ANIM_BOOL,true);
     }
 
     #region Getters
