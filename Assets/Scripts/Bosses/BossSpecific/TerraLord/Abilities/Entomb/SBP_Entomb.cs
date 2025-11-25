@@ -17,6 +17,7 @@ public class SBP_Entomb : BossProjectileFramework
     [SerializeField] private List<GeneralBossDamageArea> _closingWalls;
 
     [Space]
+    [SerializeField] protected CinemachineCameraShakeData _screenShakeData;
     [SerializeField] private GameObject _closedParticleVFX;
 
     [Space]
@@ -43,6 +44,7 @@ public class SBP_Entomb : BossProjectileFramework
 
         if (CanCreateObstacle())
         {
+            PlayEntombClosedScreenShake();
             PlayEntombClosedSound();
             CreateNavMeshObstacle();
             Instantiate(_closedParticleVFX, new Vector3(transform.position.x,0,transform.position.z), transform.rotation);
@@ -107,6 +109,11 @@ public class SBP_Entomb : BossProjectileFramework
         _environmentCollider.enabled = true;
 
         StartCoroutine(RemovalProcess());
+    }
+
+    private void PlayEntombClosedScreenShake()
+    {
+        CameraGameManager.Instance.StartCameraShake(_screenShakeData);
     }
 
     private void PlayEntombClosedSound()

@@ -26,15 +26,9 @@ public class CameraGameManager : MainGameplayManagerFramework
     [SerializeField] private float _frequencyDecayMultiplier;
 
     [Header("Boss Stagger")]
-    [SerializeField] private float _staggerIntensity;
-    [SerializeField] private float _staggerFrequency;
-    [SerializeField] private float _staggerDuration;
     [SerializeField] private CinemachineCameraShakeData _bossStaggerShake;
 
     [Header("Boss Death")]
-    [SerializeField] private float _bossDeathIntensity;
-    [SerializeField] private float _bossDeathFrequency;
-    [SerializeField] private float _bossDeathDuration;
     [SerializeField] private CinemachineCameraShakeData _bossDeathShake;
 
     private CinemachineBasicMultiChannelPerlin _multiChannelPerlin;
@@ -125,12 +119,12 @@ public class CameraGameManager : MainGameplayManagerFramework
 
     private void CameraShakeOnBossStagger()
     {
-        StartCameraShake(_staggerIntensity,_staggerFrequency,_staggerDuration);
+        StartCameraShake(_bossStaggerShake);
     }
 
     private void CameraShakeOnBossDeath()
     {
-        StartCameraShake(_bossDeathIntensity, _bossDeathFrequency, _bossDeathDuration);
+        StartCameraShake(_bossDeathShake);
     }
     #endregion
 

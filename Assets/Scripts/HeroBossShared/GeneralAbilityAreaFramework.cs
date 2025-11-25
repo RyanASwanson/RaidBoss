@@ -16,7 +16,9 @@ public abstract class GeneralAbilityAreaFramework : MonoBehaviour
     [SerializeField] private bool _hasColliderLifetime;
     [SerializeField] private float _colliderLifetime;
 
-    [Space]
+    [Space] 
+    [SerializeField] private bool _doesHitCenteredVFXCopyRotation;
+    [SerializeField] private Transform _hitCenteredVFXCopyTarget;
     [SerializeField] private GameObject _hitCenteredVFX;
 
     [SerializeField] private UnityEvent _lifetimeEndEvent;
@@ -89,7 +91,19 @@ public abstract class GeneralAbilityAreaFramework : MonoBehaviour
             return;
         }
 
-        Instantiate(_hitCenteredVFX, transform.position, Quaternion.identity);
+        GameObject destructionVfx = Instantiate(_hitCenteredVFX, transform.position, Quaternion.identity);
+        if (_doesHitCenteredVFXCopyRotation)
+        {
+            if (!_hitCenteredVFXCopyTarget.IsUnityNull())
+            {
+                destructionVfx.transform.localEulerAngles = _hitCenteredVFXCopyTarget.localEulerAngles;
+            }
+            else
+            {
+                destructionVfx.transform.localEulerAngles = transform.localEulerAngles;
+            }
+            
+        }
     }
 
     public void DestroyProjectile()

@@ -31,9 +31,7 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     [Space]
     [Tooltip("If the ability has any screen shake")]
     [SerializeField] protected bool _hasScreenShake;
-    [SerializeField] protected float _screenShakeIntensity;
-    [SerializeField] protected float _screenShakeFrequency;
-    [SerializeField] protected float _screenShakeDuration;
+    [SerializeField] protected CinemachineCameraShakeData _screenShakeData;
 
     [Space]
     [SerializeField] protected string _animationTriggerName;
@@ -253,8 +251,7 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     /// </summary>
     protected virtual void AbilityScreenShake()
     {
-        CameraGameManager.Instance.StartCameraShake
-            (_screenShakeIntensity, _screenShakeFrequency, _screenShakeDuration);
+        CameraGameManager.Instance.StartCameraShake(_screenShakeData);
     }
 
     public virtual void StopBossAbility()
