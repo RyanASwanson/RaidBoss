@@ -44,12 +44,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dae07fe2d495d2e46aab98f3b8a31caf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mapRadius: 5
+  _mapRadius: 7
   _floorOffsetHeight: {x: 0, y: -0.5, z: 0}
   _mapBorderLayer:
     serializedVersion: 2
     m_Bits: 1024
   _heroSpawnLocations: []
   _floorCollider: {fileID: 0}
+  _mainFloor: {fileID: 0}
+  _lowerFloor1: {fileID: 0}
+  _lowerFloor2: {fileID: 0}
+  _backWall: {fileID: 0}
+  _backgroundParticleBase: {fileID: 0}
   _battleWonEffectDuration: 0.15
   _battleWonEffect: {fileID: 0}

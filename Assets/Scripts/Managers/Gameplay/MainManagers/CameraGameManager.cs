@@ -29,11 +29,13 @@ public class CameraGameManager : MainGameplayManagerFramework
     [SerializeField] private float _staggerIntensity;
     [SerializeField] private float _staggerFrequency;
     [SerializeField] private float _staggerDuration;
+    [SerializeField] private CinemachineCameraShakeData _bossStaggerShake;
 
     [Header("Boss Death")]
     [SerializeField] private float _bossDeathIntensity;
     [SerializeField] private float _bossDeathFrequency;
     [SerializeField] private float _bossDeathDuration;
+    [SerializeField] private CinemachineCameraShakeData _bossDeathShake;
 
     private CinemachineBasicMultiChannelPerlin _multiChannelPerlin;
 
@@ -66,10 +68,15 @@ public class CameraGameManager : MainGameplayManagerFramework
     /// <param name="duration"></param>
     public void StartCameraShake(float intensity, float frequency, float duration)
     {
-        if (_cameraShakeCoroutine != null)
+        if (!_cameraShakeCoroutine.IsUnityNull())
+        {
             StopCoroutine(_cameraShakeCoroutine);
-        if (_cameraShakeDecayCoroutine != null)
+        }
+
+        if (!_cameraShakeDecayCoroutine.IsUnityNull())
+        {
             StopCoroutine(_cameraShakeDecayCoroutine);
+        }
         
         _multiChannelPerlin.m_AmplitudeGain += intensity * _screenShakeMultiplier;
         _multiChannelPerlin.m_FrequencyGain += frequency * _screenShakeMultiplier;
@@ -77,12 +84,17 @@ public class CameraGameManager : MainGameplayManagerFramework
         _cameraShakeCoroutine = StartCoroutine(CameraShake(duration));
     }
 
+    public void StartCameraShake(CinemachineCameraShakeData cameraShakeData)
+    {
+        StartCameraShake(cameraShakeData.Intensity, cameraShakeData.Frequency, cameraShakeData.Duration);
+    }
+
     private IEnumerator CameraShake(float duration)
     {
         yield return new WaitForSeconds(duration);
         /*_multiChannelPerlin.m_AmplitudeGain -= intensity;
         _multiChannelPerlin.m_FrequencyGain -= frequency;*/
-        _cameraShakeCoroutine = StartCoroutine(CameraShakeDecay());
+        _cameraShakeDecayCoroutine = StartCoroutine(CameraShakeDecay());
     }
 
     /// <summary>
@@ -219,4 +231,12 @@ public class CameraGameManager : MainGameplayManagerFramework
     #region Getters
     public Camera GetGameplayCamera() => _gameplayCamera;
     #endregion
+}
+
+[System.Serializable]
+public class CinemachineCameraShakeData
+{
+    public float Intensity;
+    public float Frequency;
+    public float Duration;
 }
