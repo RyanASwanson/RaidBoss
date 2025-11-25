@@ -23,6 +23,11 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     [SerializeField] protected float _abilityWindUpTime;
     [SerializeField] protected float _timeUntilNextAbility;
 
+    [Space] 
+    [SerializeField] protected bool _hasAbilityDuration;
+    [SerializeField] protected float _abilityDuration;
+    protected WaitForSeconds _abilityDurationWait;
+
     [Space]
     [Tooltip("If the ability has any screen shake")]
     [SerializeField] protected bool _hasScreenShake;
@@ -40,6 +45,7 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
 
     protected Coroutine _abilityWindUpProcess;
     protected Coroutine _targetZoneRemovalProcess;
+    protected Coroutine _abilityDurationProcess;
 
     protected BossBase _myBossBase;
     protected SpecificBossFramework _mySpecificBoss;
@@ -54,6 +60,11 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
         _mySpecificBoss = bossBase.GetSpecificBossScript();
 
         _timeUntilNextAbility /= SelectionManager.Instance.GetSpeedMultiplierFromDifficulty();
+
+        if (_hasAbilityDuration)
+        {
+            _abilityDurationWait = new WaitForSeconds(_abilityDuration);
+        }
     }
 
     /// <summary>
@@ -196,6 +207,34 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     {
         ScreenShakeCheck();
         PlayAbilityStartAudio();
+        StartAbilityDuration();
+    }
+
+    protected virtual void StartAbilityDuration()
+    {
+        if (_hasAbilityDuration)
+        {
+            _abilityDurationProcess = StartCoroutine(AbilityDuration());
+        }
+    }
+
+    protected virtual void StopAbilityDuration()
+    {
+        if (!_abilityDurationProcess.IsUnityNull())
+        {
+            StopCoroutine(_abilityDurationProcess);
+        }
+    }
+
+    protected virtual IEnumerator AbilityDuration()
+    {
+        yield return _abilityDurationWait;
+        AbilityDurationEnded();
+    }
+
+    protected virtual void AbilityDurationEnded()
+    {
+        
     }
 
     /// <summary>
@@ -222,6 +261,7 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     {
         StopAbilityWindUp();
         RemoveTargetZones();
+        StopAbilityDuration();
     }
 
     #region AbilityAudio

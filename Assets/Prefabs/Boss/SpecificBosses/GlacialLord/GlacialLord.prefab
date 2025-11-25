@@ -354,6 +354,8 @@ MonoBehaviour:
   _targetZoneDuration: 3.75
   _abilityWindUpTime: 3.75
   _timeUntilNextAbility: 7
+  _hasAbilityDuration: 0
+  _abilityDuration: 0
   _hasScreenShake: 0
   _screenShakeIntensity: 0
   _screenShakeFrequency: 0
@@ -382,6 +384,8 @@ MonoBehaviour:
   _targetZoneDuration: 4
   _abilityWindUpTime: 4
   _timeUntilNextAbility: 7
+  _hasAbilityDuration: 0
+  _abilityDuration: 0
   _hasScreenShake: 0
   _screenShakeIntensity: 0
   _screenShakeFrequency: 0
@@ -409,6 +413,8 @@ MonoBehaviour:
   _targetZoneDuration: 4
   _abilityWindUpTime: 4
   _timeUntilNextAbility: 7
+  _hasAbilityDuration: 0
+  _abilityDuration: 0
   _hasScreenShake: 0
   _screenShakeIntensity: 0
   _screenShakeFrequency: 0
@@ -417,9 +423,6 @@ MonoBehaviour:
   _targetZone: {fileID: 7689631090584172797, guid: e96247fc7a6c48444bf412931ec24820, type: 3}
   _icicleRain: {fileID: 6168952705891034285, guid: ae7d4aea0c8fb354a83741959dca9aac, type: 3}
   _icicleRainUpwardsVisual: {fileID: 5308917902783970043, guid: 95dc4f035a43061468172c24f44ede62, type: 3}
-  _initialImpactAudioDelay: 0.75
-  _followingImpactAudioDelay: 0.35
-  _impactAudioPitchIncrease: 0.25
 --- !u!114 &8772614239871078561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -440,6 +443,8 @@ MonoBehaviour:
   _targetZoneDuration: 4
   _abilityWindUpTime: 4
   _timeUntilNextAbility: 7
+  _hasAbilityDuration: 1
+  _abilityDuration: 4
   _hasScreenShake: 0
   _screenShakeIntensity: 0
   _screenShakeFrequency: 0
@@ -447,6 +452,7 @@ MonoBehaviour:
   _animationTriggerName: BlizzardUsed
   _targetZone: {fileID: 2689930242057131082, guid: 0732da893e9e9ba4ba39f8ce8c955acd, type: 3}
   _blizzard: {fileID: 3859843530844199412, guid: 1d37505881c450847a564ee408ce4246, type: 3}
+  _previewGlow: {fileID: 749745350822895344, guid: c4fcbfb6fd69d0142be112ecbe9aa2d7, type: 3}
   _allTargets:
   - _attackLocation: {x: 4, y: -0.75, z: 0}
   - _attackLocation: {x: 0, y: -0.75, z: -4}
