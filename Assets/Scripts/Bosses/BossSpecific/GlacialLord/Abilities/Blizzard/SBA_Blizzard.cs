@@ -125,17 +125,13 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
         {
             if (targets.AreAnyMinionsFrozen())
             {
-                targets.CallFailedOnUnfrozenMinions();
                 CreateTargetZone(targets.GetAttackLocation(),true, targets);
+                targets.CallFailedOnUnfrozenMinions();
                 continue;
             }
-            else
-            {
-                CreateTargetZone(targets.GetAttackLocation(),false, targets);
-            }
-
+            
+            CreateTargetZone(targets.GetAttackLocation(),false, targets);
             targets.CallBlizzardAttackOnMinions();
-
             _activeTargets.Add(targets);
         }
     }
@@ -190,11 +186,27 @@ public class BlizzardTargets
         return null;
     }
 
+    /*public void CallBlizzardAttackOnMinions()
+    {
+        foreach (GlacialLord_FrostFiend fiend in _associatedFiends)
+        {
+            if (!fiend.IsMinionFrozen())
+            {
+                fiend.BlizzardAttack(_attackLocation);
+            }
+            else
+            {
+                fiend.BlizzardFailed();
+            }
+            
+        }
+    }*/
     public void CallBlizzardAttackOnMinions()
     {
         foreach (GlacialLord_FrostFiend fiend in _associatedFiends)
         {
             fiend.BlizzardAttack();
+            fiend.PlayBlizzardMinionEffect(_attackLocation);
         }
     }
 
@@ -205,6 +217,7 @@ public class BlizzardTargets
             if(!fiend.IsMinionFrozen())
             {
                 fiend.BlizzardFailed();
+                fiend.PlayBlizzardMinionEffect(_attackLocation);
             }
         }
     }

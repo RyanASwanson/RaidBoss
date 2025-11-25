@@ -22,6 +22,9 @@ public class GlacialLord_FrostFiend : BossMinionBase
     [SerializeField] private ParticleSystem _frozenEffectCrackedVFX;
     
     [Space]
+    [SerializeField] private GeneralVFXFunctionality _blizzardVFXFunctionality;
+    
+    [Space]
     [SerializeField] private Animator _frostFiendAnimator;
 
     private const string _fiendFrozenAnimTrigger = "FiendFrozen";
@@ -65,6 +68,15 @@ public class GlacialLord_FrostFiend : BossMinionBase
     public void BlizzardFailed()
     {
         BlizzardFailedAnim();
+
+    }
+
+    public void PlayBlizzardMinionEffect(Vector3 targetLocation)
+    {
+        _blizzardVFXFunctionality.transform.LookAt(targetLocation);
+        _blizzardVFXFunctionality.transform.eulerAngles = new Vector3(0, _blizzardVFXFunctionality.transform.eulerAngles.y, 0);
+
+        _blizzardVFXFunctionality.PlayAllParticleSystems();
     }
 
     public void FrostbiteAttack()
