@@ -87,7 +87,6 @@ public class GeneralRotation : MonoBehaviour
     public void UpdateRotationProgress(float rotationProgress)
     {
         transform.localEulerAngles = Vector3.Lerp(_startLocalEulerAngles, _targetLocalEulerAngles, rotationProgress);
-        Debug.Log("Rotation progress " + rotationProgress);
     }
 
     public void SubscribeToEvents()

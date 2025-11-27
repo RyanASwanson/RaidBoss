@@ -95,6 +95,7 @@ public class SBP_Avalanche : BossProjectileFramework
     private void AtEndOfPath()
     {
         _specificBossAbility.ProjectileReachedEndOfPath();
+        PlayAvalancheEndScreenShake();
         _minionHit.MinionContactFromDistance();
         _damageArea.DestroyProjectile();
     }
