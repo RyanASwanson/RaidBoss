@@ -385,6 +385,13 @@ public abstract class SpecificBossFramework : MonoBehaviour
         _nextAttackProcess = null;
     }
 
+    public virtual void SkipCurrentAttack()
+    {
+        _currentAbility.StopBossAbility();
+        StopNextAttackProcess();
+        StartNextAbility();
+    }
+
     /// <summary>
     /// Stuns the boss and prevents them from attacking
     /// </summary>

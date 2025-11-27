@@ -9,10 +9,16 @@ using UnityEngine;
 public class SBP_FollowingMeteor : BossProjectileFramework
 {
     [SerializeField] private float _projectileSpeed;
+    [SerializeField] private float _accelerationTime;
     private const float SPEED_SCALAR_MAX = 1;
+    
+    [SerializeField] private AnimationCurve _projectileSpeedCurve;
 
     [Space]
     [SerializeField] private float _randomDirectionThreshold;
+    
+    [Space] 
+    [SerializeField] private CurveProgression _rotationCurveProgression;
 
     /// <summary>
     /// Makes the projectile look at the target hero and start moving 
@@ -21,7 +27,8 @@ public class SBP_FollowingMeteor : BossProjectileFramework
     private void StartProjectileMovement(HeroBase heroBase)
     {
         ProjectileLookAt(heroBase.transform.position);
-
+        
+        _rotationCurveProgression.StartMovingUpOnCurve();
         StartCoroutine(MoveProjectile(DetermineMovementDirection(heroBase.transform.position)));
     }
 
@@ -52,18 +59,23 @@ public class SBP_FollowingMeteor : BossProjectileFramework
     private IEnumerator MoveProjectile(Vector3 moveDirection)
     {
         float speedScalar = 0;
+        float speedProgress = 0;
 
         while(true)
         {
-            if(speedScalar < SPEED_SCALAR_MAX)
+            if(speedProgress < 1)
             {
-                speedScalar += Time.deltaTime;
-                if (speedScalar > SPEED_SCALAR_MAX)
+                speedProgress += Time.deltaTime /_accelerationTime;
+                if (speedProgress > 1)
                 {
-                    speedScalar = SPEED_SCALAR_MAX;
+                    speedProgress = 1;
                 }
+
+                speedScalar = _projectileSpeedCurve.Evaluate(speedProgress);
             }
-            transform.position += moveDirection * _projectileSpeed * speedScalar * Time.deltaTime;
+            
+            
+            transform.position += moveDirection * (_projectileSpeed * speedScalar * Time.deltaTime);
 
             yield return null;
         }

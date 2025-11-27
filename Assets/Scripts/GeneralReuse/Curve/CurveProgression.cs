@@ -22,7 +22,8 @@ public class CurveProgression : MonoBehaviour
     [SerializeField] private float _maxCurveValue;
     internal float CurveValue = 0;
     
-    private Coroutine _curveProgressCoroutine;
+    private Coroutine _curveIncreaseProgressCoroutine;
+    private Coroutine _curveDecreaseProgressCoroutine;
 
     [Space] 
     [SerializeField] private bool _hasDefaultValue;
@@ -33,8 +34,14 @@ public class CurveProgression : MonoBehaviour
     
     [Space] 
     [SerializeField] private bool _doesAutomaticallyMoveDownOnHittingMax;
-    
+
     [Space] 
+    [SerializeField] private bool _hasIncreaseDelay;
+    [SerializeField] private float _increaseDelay;
+    private WaitForSeconds _increaseWait;
+    
+    private Coroutine _increaseWaitCoroutine;
+    
     [SerializeField] private bool _hasDecreaseDelay;
     [SerializeField] private float _decreaseDelay;
     private WaitForSeconds _decreaseWait;
@@ -58,11 +65,6 @@ public class CurveProgression : MonoBehaviour
 
     private void Start()
     {
-        if (_hasDecreaseDelay)
-        {
-            _decreaseWait = new WaitForSeconds(_decreaseDelay);
-        }
-
         if (_hasDefaultValue)
         {
             _movementProgress = _defaultValue;
@@ -74,6 +76,16 @@ public class CurveProgression : MonoBehaviour
 
     private void OnEnable()
     {
+        if (_hasIncreaseDelay)
+        {
+            _increaseWait = new WaitForSeconds(_increaseDelay);
+        }
+        
+        if (_hasDecreaseDelay)
+        {
+            _decreaseWait = new WaitForSeconds(_decreaseDelay);
+        }
+        
         if (_doesResetToDefaultProgressOnEnable)
         {
             StopMovingOnCurve();
@@ -99,19 +111,34 @@ public class CurveProgression : MonoBehaviour
         {
             StopMoveDownDelay();
         }
+        if (_hasIncreaseDelay)
+        {
+            StartMoveUpDelay();
+            return;
+        }
 
+        BeginMovingUpOnCurveOverride();
+    }
+
+    private void BeginMovingUpOnCurveOverride()
+    {
         StopMovingOnCurve();
         InvokeOnStartedIncreasing();
-        _curveProgressCoroutine = StartCoroutine(MovingUpOnCurveProgress());
+        _curveIncreaseProgressCoroutine = StartCoroutine(MovingUpOnCurveProgress());
     }
 
     public void StartMovingDownOnCurve()
     {
+        if (_hasIncreaseDelay)
+        {
+            StopMoveUpDelay();
+        }
         if (_hasDecreaseDelay)
         {
             StartMoveDownDelay();
             return;
         }
+        
         BeginMovingDownOnCurveOverride();
     }
 
@@ -119,14 +146,22 @@ public class CurveProgression : MonoBehaviour
     {
         StopMovingOnCurve();
         InvokeOnStartedDecreasing();
-        _curveProgressCoroutine = StartCoroutine(MovingDownOnCurveProgress());
+        _curveDecreaseProgressCoroutine = StartCoroutine(MovingDownOnCurveProgress());
     }
 
     public void StopMovingOnCurve()
     {
-        if (!_curveProgressCoroutine.IsUnityNull())
+        // Using 2 coroutine variables as it fixed an issue of it getting stuck moving both up and down the curve at the same time
+        if (!_curveIncreaseProgressCoroutine.IsUnityNull())
         {
-            StopCoroutine(_curveProgressCoroutine);
+            StopCoroutine(_curveIncreaseProgressCoroutine);
+            _curveIncreaseProgressCoroutine = null;
+        }
+
+        if (!_curveDecreaseProgressCoroutine.IsUnityNull())
+        {
+            StopCoroutine(_curveDecreaseProgressCoroutine);
+            _curveDecreaseProgressCoroutine = null;
         }
     }
     
@@ -161,9 +196,33 @@ public class CurveProgression : MonoBehaviour
         InvokeOnCurveValueChanged();
     }
 
+    #region MoveDelay
+
+    private void StartMoveUpDelay()
+    {
+        StopMoveUpAndDownDelay();
+        
+        _increaseWaitCoroutine = StartCoroutine(MoveUpDelayProcess());
+    }
+
+    private void StopMoveUpDelay()
+    {
+        if (!_increaseWaitCoroutine.IsUnityNull())
+        {
+            StopCoroutine(_increaseWaitCoroutine);
+            _increaseWaitCoroutine = null;
+        }
+    }
+    
+    private IEnumerator MoveUpDelayProcess()
+    {
+        yield return _increaseWait;
+        BeginMovingUpOnCurveOverride();
+    }
+    
     private void StartMoveDownDelay()
     {
-        StopMoveDownDelay();
+        StopMoveUpAndDownDelay();
 
         _decreaseWaitCoroutine = StartCoroutine(MoveDownDelayProcess());
     }
@@ -182,6 +241,13 @@ public class CurveProgression : MonoBehaviour
         yield return _decreaseWait;
         BeginMovingDownOnCurveOverride();
     }
+
+    private void StopMoveUpAndDownDelay()
+    {
+        StopMoveUpDelay();
+        StopMoveDownDelay();
+    }
+    #endregion
 
     private void CurveReachedMaxValue()
     {

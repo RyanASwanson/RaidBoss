@@ -79,6 +79,11 @@ public class DebugScript : MonoBehaviour
                 glacialLord.FreezeAllFrostFiends();
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Quote))
+        {
+            BossBase.Instance.GetSpecificBossScript().SkipCurrentAttack();
+        }
     }
 #endif
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -15,13 +16,26 @@ public class GeneralRotation : MonoBehaviour
 
     [Space] 
     [SerializeField] private GameObject _rotationIndepedentParent;
+
+    [Space] 
+    [Header("Rotate with curve and target")]
+    [SerializeField] private Vector3 _targetLocalEulerAngles;
+    [SerializeField] private CurveProgression _curveProgression;
+    private Vector3 _startLocalEulerAngles;
     
     void OnEnable()
     {
+        SubscribeToEvents();
+        _startLocalEulerAngles = transform.localEulerAngles;
         if (_doesBeginRotationOnEnable)
         {
             BeginRotation();
         }
+    }
+
+    private void OnDisable()
+    {
+        UnsubscribeFromEvents();
     }
 
     public void BeginRotation()
@@ -67,6 +81,28 @@ public class GeneralRotation : MonoBehaviour
             storedRotation += _rotationPerSecond * Time.deltaTime;
             transform.localEulerAngles = -_rotationIndepedentParent.transform.eulerAngles + storedRotation;
             yield return null;
+        }
+    }
+    
+    public void UpdateRotationProgress(float rotationProgress)
+    {
+        transform.localEulerAngles = Vector3.Lerp(_startLocalEulerAngles, _targetLocalEulerAngles, rotationProgress);
+        Debug.Log("Rotation progress " + rotationProgress);
+    }
+
+    public void SubscribeToEvents()
+    {
+        if (_curveProgression)
+        {
+            _curveProgression.OnCurveValueChanged.AddListener(UpdateRotationProgress);
+        }
+    }
+
+    public void UnsubscribeFromEvents()
+    {
+        if (_curveProgression)
+        {
+            _curveProgression.OnCurveValueChanged.RemoveListener(UpdateRotationProgress);
         }
     }
 

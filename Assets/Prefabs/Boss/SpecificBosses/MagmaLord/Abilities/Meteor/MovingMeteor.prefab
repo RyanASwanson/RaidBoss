@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5639287205825355308}
   - component: {fileID: 2876240380485525677}
   - component: {fileID: 2046015707512375880}
-  - component: {fileID: 5979386353810043219}
+  - component: {fileID: 9213354052222947099}
   m_Layer: 0
   m_Name: MovingMeteor
   m_TagString: Untagged
@@ -55,6 +55,8 @@ MonoBehaviour:
   _lifetime: 4
   _hasColliderLifetime: 0
   _colliderLifetime: 0
+  _doesHitCenteredVFXCopyRotation: 0
+  _hitCenteredVFXCopyTarget: {fileID: 0}
   _hitCenteredVFX: {fileID: 0}
   _lifetimeEndEvent:
     m_PersistentCalls:
@@ -87,8 +89,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e14d17908acb9054fa833916075e74f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectileSpeed: 0.5
+  _projectileSpeed: 0.75
+  _accelerationTime: 1
+  _projectileSpeedCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   _randomDirectionThreshold: 0.2
+  _rotationCurveProgression: {fileID: 2360747494019287903}
 --- !u!54 &2046015707512375880
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -105,7 +133,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!95 &5979386353810043219
+--- !u!95 &9213354052222947099
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -212,6 +240,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 713309598064216616}
+  - component: {fileID: 7099746108731858136}
+  - component: {fileID: 2360747494019287903}
   m_Layer: 0
   m_Name: Holder
   m_TagString: Untagged
@@ -235,6 +265,88 @@ Transform:
   m_Father: {fileID: 7281370664765568832}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7099746108731858136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4392702681341562129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f519d07b72819f44980cbcd6e7e7e77e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _doesBeginRotationOnEnable: 0
+  _doesResetRotationOnRotationEnable: 0
+  _rotationPerSecond: {x: 0, y: 0, z: 0}
+  _rotationIndepedentParent: {fileID: 0}
+  _targetLocalEulerAngles: {x: 360, y: 0, z: 0}
+  _curveProgression: {fileID: 2360747494019287903}
+--- !u!114 &2360747494019287903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4392702681341562129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 508c048b50abf854791f2f498bb01037, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _curveName: Rotation
+  _curveIncreaseTime: 3.666
+  _curveDecreaseTime: 0
+  _minCurveValue: 0
+  _maxCurveValue: 1
+  _hasDefaultValue: 0
+  _defaultValue: 0
+  _doesResetToDefaultProgressOnEnable: 0
+  _doesAutomaticallyMoveDownOnHittingMax: 0
+  _hasIncreaseDelay: 1
+  _increaseDelay: 0.15
+  _hasDecreaseDelay: 0
+  _decreaseDelay: 0
+  _curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.870827
+      outSlope: 0.870827
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.10833335
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  OnSetUpComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  _onStartedIncreasing:
+    m_PersistentCalls:
+      m_Calls: []
+  _onStartedDecreasing:
+    m_PersistentCalls:
+      m_Calls: []
+  _onMaxValueReached:
+    m_PersistentCalls:
+      m_Calls: []
+  _onMinValueReached:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &8153494149132111488
 GameObject:
   m_ObjectHideFlags: 0
