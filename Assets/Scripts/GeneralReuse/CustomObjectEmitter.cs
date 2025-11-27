@@ -113,6 +113,10 @@ public class CustomObjectEmitter : MonoBehaviour
         }
         Destroy(gameObject);
     }
+    
+    #region Getters
+    public bool GetIsEmitting() => _isEmitting;
+    #endregion
 }
 
 public enum ECustomObjectEmitterType

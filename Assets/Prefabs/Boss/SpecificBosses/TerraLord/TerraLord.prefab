@@ -106,11 +106,64 @@ MonoBehaviour:
   _passiveTickRate: 2
   _passiveMaxValue: 50
   _zRotationMultiplier: 0.07
+  _baseWeightMultiplier: 2
   _difficultyWeightMultiplier:
   - 1
-  - 1.15
-  - 1.3
+  - 1.1
+  - 1.25
   - 1.5
+  _movingTowardsMaxMultiplierBasedOnProgress:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0.15
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _movingAwayFromMaxMultiplierBasedOnProgress:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _passiveMaxShake:
+    Intensity: 25
+    Frequency: 0.005
+    Duration: 4
 --- !u!1 &501763575792267715
 GameObject:
   m_ObjectHideFlags: 0
@@ -166,10 +219,13 @@ MonoBehaviour:
   _targetZoneDuration: 5
   _abilityWindUpTime: 4
   _timeUntilNextAbility: 7.5
+  _hasAbilityDuration: 0
+  _abilityDuration: 0
   _hasScreenShake: 0
-  _screenShakeIntensity: 0
-  _screenShakeFrequency: 0
-  _screenShakeDuration: 0
+  _screenShakeData:
+    Intensity: 0
+    Frequency: 0
+    Duration: 0
   _animationTriggerName: CrystalBarrageUsed
   _projectileCount: 10
   _timeBeforeProjectiles: 0.55
@@ -202,10 +258,13 @@ MonoBehaviour:
   _targetZoneDuration: 4
   _abilityWindUpTime: 4
   _timeUntilNextAbility: 7.5
+  _hasAbilityDuration: 0
+  _abilityDuration: 0
   _hasScreenShake: 0
-  _screenShakeIntensity: 0
-  _screenShakeFrequency: 0
-  _screenShakeDuration: 0
+  _screenShakeData:
+    Intensity: 0
+    Frequency: 0
+    Duration: 0
   _animationTriggerName: TremorUsed
   _targetZone: {fileID: 4462416459843073010, guid: 6506bab34c4c66f42aa413b51a4a942c, type: 3}
   _tremor: {fileID: 8560503281689201346, guid: e43707f02a3737f4e9566ead060d5b55, type: 3}
@@ -229,10 +288,13 @@ MonoBehaviour:
   _targetZoneDuration: 3
   _abilityWindUpTime: 3
   _timeUntilNextAbility: 7
+  _hasAbilityDuration: 0
+  _abilityDuration: 0
   _hasScreenShake: 0
-  _screenShakeIntensity: 0
-  _screenShakeFrequency: 0
-  _screenShakeDuration: 0
+  _screenShakeData:
+    Intensity: 0
+    Frequency: 0
+    Duration: 0
   _animationTriggerName: EntombUsed
   _rotationAmount: 45
   _targetZone: {fileID: 1062582142837617367, guid: 8c02a47f78d84624ca931dfcc3cba973, type: 3}
@@ -257,10 +319,13 @@ MonoBehaviour:
   _targetZoneDuration: 3.5
   _abilityWindUpTime: 3.5
   _timeUntilNextAbility: 7
+  _hasAbilityDuration: 0
+  _abilityDuration: 0
   _hasScreenShake: 0
-  _screenShakeIntensity: 0
-  _screenShakeFrequency: 0
-  _screenShakeDuration: 0
+  _screenShakeData:
+    Intensity: 0
+    Frequency: 0
+    Duration: 0
   _animationTriggerName: EncirclingVinesUsed
   _targetZone: {fileID: 1433578388064543568, guid: 5bc2b4850d852f34bb9f9d51540763f0, type: 3}
   _encirclingVines: {fileID: 5689458550558832625, guid: 7ca7480609fd18b48be3def648c774d3, type: 3}

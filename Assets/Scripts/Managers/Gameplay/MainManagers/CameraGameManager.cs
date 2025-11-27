@@ -86,8 +86,7 @@ public class CameraGameManager : MainGameplayManagerFramework
     private IEnumerator CameraShake(float duration)
     {
         yield return new WaitForSeconds(duration);
-        /*_multiChannelPerlin.m_AmplitudeGain -= intensity;
-        _multiChannelPerlin.m_FrequencyGain -= frequency;*/
+        
         _cameraShakeDecayCoroutine = StartCoroutine(CameraShakeDecay());
     }
 

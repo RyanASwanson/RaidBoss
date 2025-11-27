@@ -41,4 +41,8 @@ public class SBP_FallingMeteor : BossProjectileFramework
         StartCoroutine(LookAtTarget(target));
     }
     #endregion
+    
+    #region Getters
+    public bool GetHasMeteorBeenStopped() =>_hasMeteorBeenStopped;
+    #endregion
 }
