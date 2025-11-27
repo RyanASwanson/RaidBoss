@@ -269,6 +269,8 @@ MonoBehaviour:
   _lifetime: 4
   _hasColliderLifetime: 0
   _colliderLifetime: 0
+  _doesHitCenteredVFXCopyRotation: 0
+  _hitCenteredVFXCopyTarget: {fileID: 0}
   _hitCenteredVFX: {fileID: 0}
   _lifetimeEndEvent:
     m_PersistentCalls:
@@ -326,6 +328,10 @@ MonoBehaviour:
   - {fileID: 3987000067859621704}
   - {fileID: 1253106088173453851}
   _randomRotation: {x: 0, y: 10, z: 10}
+  _spikeCameraShakeDate:
+    Intensity: 0.75
+    Frequency: 0.005
+    Duration: 0.6
   _spikeStartVFX: {fileID: 732951501355936762, guid: 0691459e835f04d4092c7b453a9d71f0, type: 3}
 --- !u!1 &8560503282452747703
 GameObject:

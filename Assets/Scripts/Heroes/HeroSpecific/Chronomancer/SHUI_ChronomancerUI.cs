@@ -124,6 +124,7 @@ public class SHUI_ChronomancerUI : SpecificHeroUIFramework
         
         _uiAnimator.SetBool(CHRONOMANCER_UI_ACTIVATION_ANIM_BOOL, false);
     }
+    
     #region BaseHeroUI
 
     protected override void SubscribeToEvents()

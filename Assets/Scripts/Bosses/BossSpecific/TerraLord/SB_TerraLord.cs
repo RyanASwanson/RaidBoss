@@ -31,6 +31,8 @@ public class SB_TerraLord : SpecificBossFramework
 
     private float _passiveCounterValue = 0;
     private float _passiveCounterProgressTowardsMax = 0;
+
+    private bool _isPassiveMovingTowardsMax = false;
     
     private Coroutine _passiveProcessCoroutine;
 
@@ -116,11 +118,11 @@ public class SB_TerraLord : SpecificBossFramework
     /// <param name="val"></param>
     private void ChangePassiveCounterValue(float val)
     {
-        if (val > 0 != _passiveCounterValue + val > 0)
+        _isPassiveMovingTowardsMax = (val > 0 != _passiveCounterValue + val > 0);
+        if (_isPassiveMovingTowardsMax)
         {
             // We are moving away from max
             //Debug.Log("Moving down " + _passiveCounterValue + " " + val + "       " + _movingAwayFromMaxMultiplierBasedOnProgress.Evaluate(_passiveCounterProgressTowardsMax));
-            
             val *= _movingAwayFromMaxMultiplierBasedOnProgress.Evaluate(_passiveCounterProgressTowardsMax);
         }
         else

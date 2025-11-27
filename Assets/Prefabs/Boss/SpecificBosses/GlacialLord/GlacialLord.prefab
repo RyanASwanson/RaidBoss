@@ -357,9 +357,6 @@ MonoBehaviour:
   _hasAbilityDuration: 0
   _abilityDuration: 0
   _hasScreenShake: 0
-  _screenShakeIntensity: 0
-  _screenShakeFrequency: 0
-  _screenShakeDuration: 0
   _screenShakeData:
     Intensity: 0
     Frequency: 0
@@ -391,11 +388,8 @@ MonoBehaviour:
   _hasAbilityDuration: 0
   _abilityDuration: 0
   _hasScreenShake: 1
-  _screenShakeIntensity: 0.75
-  _screenShakeFrequency: 0.005
-  _screenShakeDuration: 0.6
   _screenShakeData:
-    Intensity: 0.75
+    Intensity: 1.5
     Frequency: 0.005
     Duration: 0.6
   _animationTriggerName: FrostBiteUsed
@@ -424,9 +418,6 @@ MonoBehaviour:
   _hasAbilityDuration: 0
   _abilityDuration: 0
   _hasScreenShake: 0
-  _screenShakeIntensity: 0
-  _screenShakeFrequency: 0
-  _screenShakeDuration: 0
   _screenShakeData:
     Intensity: 0
     Frequency: 0
@@ -457,14 +448,11 @@ MonoBehaviour:
   _timeUntilNextAbility: 7
   _hasAbilityDuration: 1
   _abilityDuration: 2.5
-  _hasScreenShake: 0
-  _screenShakeIntensity: 0
-  _screenShakeFrequency: 0
-  _screenShakeDuration: 0
+  _hasScreenShake: 1
   _screenShakeData:
-    Intensity: 0
-    Frequency: 0
-    Duration: 0
+    Intensity: 0.5
+    Frequency: 0.005
+    Duration: 0.6
   _animationTriggerName: BlizzardUsed
   _targetZone: {fileID: 2689930242057131082, guid: 0732da893e9e9ba4ba39f8ce8c955acd, type: 3}
   _blizzard: {fileID: 3859843530844199412, guid: 1d37505881c450847a564ee408ce4246, type: 3}

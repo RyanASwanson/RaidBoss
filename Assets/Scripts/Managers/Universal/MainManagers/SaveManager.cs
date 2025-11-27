@@ -180,8 +180,13 @@ public class SaveManager : MainUniversalManagerFramework
     /// Resets the best difficulties beaten for heroes and bosses
     /// DOESN'T reset the settings the player has changed
     /// </summary>
-    public void ResetSaveData()
+    public void ResetGameplaySaveData()
     {
+        GSD.ResetGameplaySaveData();
+        
+        PopulateUnlockedBosses();
+        PopulateUnlockedHeroes();
+        
         // Resets the best difficulties beaten
         PopulateBossHeroDifficultyDictionary();
 
@@ -408,6 +413,13 @@ public class GameSaveData
     [Range(0, 1)] public float MasterVolume = .5f;
     [Range(0, 1)] public float MusicVolume = .5f;
     [Range(0, 1)] public float SfxVolume = .5f;
+
+    public void ResetGameplaySaveData()
+    {
+        _bossesUnlocked = new();
+        _heroesUnlocked = new();
+        _bossHeroBestDifficultyComplete = new();
+    }
     
     #region Getters
     public Dictionary<string, Dictionary<string, EGameDifficulty>> GetGSDBossHeroBestDifficulty() => _bossHeroBestDifficultyComplete;

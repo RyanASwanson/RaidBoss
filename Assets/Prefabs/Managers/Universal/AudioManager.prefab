@@ -1478,7 +1478,7 @@ MonoBehaviour:
         DefaultInstanceFadeOutTime: 0
         DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
         DefaultPlayType: 0
-        DefaultAudioChoice: 0
+        DefaultAudioChoice: 1
         AudioTracks:
         - Guid:
             Data1: -504259023
@@ -1486,6 +1486,34 @@ MonoBehaviour:
             Data3: -1700841600
             Data4: -1224285465
           Path: event:/SoundEffect/UI/General/Buttons/PageButton
+      - AudioName: BookOpen
+        DefaultStartDelay: 0
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: -513859836
+            Data2: 1133165705
+            Data3: 1387047557
+            Data4: -2089332132
+          Path: event:/SoundEffect/UI/General/Buttons/BookOpened
+      - AudioName: BookClose
+        DefaultStartDelay: 0
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: -1988584135
+            Data2: 1337621057
+            Data3: 2032071308
+            Data4: 1385686163
+          Path: event:/SoundEffect/UI/General/Buttons/BookClosed
     GeneralUIAudio:
     - AudioName: 
       DefaultStartDelay: 0

@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class ButtonPressAudio : MonoBehaviour
 {
-    [SerializeField] private int _buttonPressAudioID;
+    [SerializeField] private int[] _buttonPressAudioID;
+
     private Button _associatedButton;
     
     // Start is called before the first frame update
@@ -22,7 +23,17 @@ public class ButtonPressAudio : MonoBehaviour
 
     public void PlayButtonPressedSound()
     {
+        int audioID;
+        if (_buttonPressAudioID.Length > 1)
+        {
+            audioID = Random.Range(0, _buttonPressAudioID.Length-1);
+        }
+        else
+        {
+            audioID = _buttonPressAudioID[0];
+        }
+            
         AudioManager.Instance.PlaySpecificAudio
-            (AudioManager.Instance.UserInterfaceAudio.ButtonUserInterfaceAudio.ButtonPressedAudio[_buttonPressAudioID]);
+            (AudioManager.Instance.UserInterfaceAudio.ButtonUserInterfaceAudio.ButtonPressedAudio[audioID]);
     }
 }

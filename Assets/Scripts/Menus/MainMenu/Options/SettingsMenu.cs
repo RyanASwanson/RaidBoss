@@ -40,4 +40,9 @@ public class SettingsMenu : MonoBehaviour
         
         SaveManager.Instance.SetScreenShakeStrength(_tempScreenShakeValue);
     }
+
+    public void ResetSaveData()
+    {
+        SaveManager.Instance.ResetGameplaySaveData();
+    }
 }

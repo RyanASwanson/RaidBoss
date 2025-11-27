@@ -16,6 +16,9 @@ public class SBP_Tremor : BossProjectileFramework
     [Header("Individual Spikes")]
     [SerializeField] private Vector3 _randomRotation;
 
+    [Space] 
+    [SerializeField] private CinemachineCameraShakeData _spikeCameraShakeDate;
+
     [Space]
     [SerializeField] private GameObject _spikeStartVFX;
 
@@ -33,6 +36,8 @@ public class SBP_Tremor : BossProjectileFramework
             SpawnSpike(_spikes[i]);
 
             PlayProjectileImpactSFX();
+            PlaySpikeScreenShake();
+            
             yield return _spikeSeperationWait;
         }
     }
@@ -65,6 +70,11 @@ public class SBP_Tremor : BossProjectileFramework
     private void CreateSpikeStartVFX(GameObject spike)
     {
         Instantiate(_spikeStartVFX, spike.transform.position, Quaternion.identity);
+    }
+    
+    private void PlaySpikeScreenShake()
+    {
+        CameraGameManager.Instance.StartCameraShake(_spikeCameraShakeDate);
     }
     
     private void PlayProjectileImpactSFX()
