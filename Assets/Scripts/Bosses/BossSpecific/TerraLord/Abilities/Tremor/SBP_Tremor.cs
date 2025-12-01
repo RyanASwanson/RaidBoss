@@ -50,7 +50,7 @@ public class SBP_Tremor : BossProjectileFramework
     {
         spike.SetActive(true);
 
-        RandomSpikeRotation(spike);
+        RandomSpikeRotation(spike.transform.GetChild(0).gameObject);
         CreateSpikeStartVFX(spike);
     }
 
