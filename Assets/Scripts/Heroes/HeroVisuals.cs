@@ -348,11 +348,12 @@ public class HeroVisuals : HeroChildrenFunctionality
     #endregion
 
     #region Hero Outline
-    private void AddOutlineToHero()
+    private void AddOutlineToHero(HeroSO heroSO)
     {
         _addedOutline = _myHeroBase.GetAssociatedHeroObject().AddComponent<Outline>();
 
         _addedOutline.OutlineWidth = _outlineWidth;
+        _addedOutline.OutlineColor = heroSO.GetHeroOutlineColor();
         _addedOutline.OutlineMode = _outlineMode;
     }
     #endregion
@@ -396,7 +397,7 @@ public class HeroVisuals : HeroChildrenFunctionality
 
         StartHeroSpecificIdleAnimation();
 
-        AddOutlineToHero();
+        AddOutlineToHero(heroSO);
 
         base.HeroSOAssigned(heroSO);
     }

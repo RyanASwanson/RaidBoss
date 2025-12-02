@@ -11,28 +11,28 @@ public class SelectionManager : MainUniversalManagerFramework
     [Header("Difficulty")]
     [Range(1, 5)] [SerializeField] private float _normalDamageMultiplier;
     [Range(1, 3)] [SerializeField] private float _normalSpeedMultiplier;
-    [Range(1, 3)] [SerializeField] private float _normalHealthMultiplier;
+    [Range(1, 5)] [SerializeField] private float _normalHealthMultiplier;
     [Range(1, 3)] [SerializeField] private float _normalStaggerMultiplier;
     [Space]
     [Range(1, 5)] [SerializeField] private int _normalHeroLimit;
     [Space]
     [Range(1, 5)] [SerializeField] private float _heroicDamageMultiplier;
     [Range(1, 3)] [SerializeField] private float _heroicSpeedMultiplier;
-    [Range(1, 3)] [SerializeField] private float _heroicHealthMultiplier;
+    [Range(1, 5)] [SerializeField] private float _heroicHealthMultiplier;
     [Range(1, 3)] [SerializeField] private float _heroicStaggerMultiplier;
     [Space]
     [Range(1, 5)] [SerializeField] private int _heroicHeroLimit;
     [Space]
     [Range(1, 5)] [SerializeField] private float _mythicDamageMultiplier;
     [Range(1, 3)] [SerializeField] private float _mythicSpeedMultiplier;
-    [Range(1, 3)] [SerializeField] private float _mythicHealthMultiplier;
+    [Range(1, 5)] [SerializeField] private float _mythicHealthMultiplier;
     [Range(1, 3)] [SerializeField] private float _mythicStaggerMultiplier;
     [Space]
     [Range(1, 5)] [SerializeField] private int _mythicHeroLimit;
     [Space]
     [Range(1, 5)] [SerializeField] private float _mythicPlusDamageMultiplier;
     [Range(1, 3)] [SerializeField] private float _mythicPlusSpeedMultiplier;
-    [Range(1, 3)] [SerializeField] private float _mythicPlusHealthMultiplier;
+    [Range(1, 5)] [SerializeField] private float _mythicPlusHealthMultiplier;
     [Range(1, 3)] [SerializeField] private float _mythicPlusStaggerMultiplier;
     [Space]
     [Range(1, 5)] [SerializeField] private int _mythicPlusHeroLimit;
