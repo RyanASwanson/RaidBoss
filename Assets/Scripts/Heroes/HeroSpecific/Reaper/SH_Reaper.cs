@@ -16,6 +16,9 @@ public class SH_Reaper : SpecificHeroFramework
 
     [Space]
     [SerializeField] private float _deathPersistDuration;
+    
+    [Space]
+    [SerializeField] private GeneralVFXFunctionality _passiveActivationVFXFunctionality;
 
     #region Basic Abilities
     protected override void StartCooldownBasicAbility()
@@ -78,6 +81,8 @@ public class SH_Reaper : SpecificHeroFramework
     public override void ActivatePassiveAbilities()
     {
         base.ActivatePassiveAbilities();
+        
+        _passiveActivationVFXFunctionality.PlayAllParticleSystems();
         StartCoroutine(PassiveProcess());
     }
 

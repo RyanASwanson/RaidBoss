@@ -207,6 +207,14 @@ MonoBehaviour:
   _curveDecreaseTime: 0.25
   _minCurveValue: 0
   _maxCurveValue: 1
+  _hasDefaultValue: 0
+  _defaultValue: 0
+  _doesResetToDefaultProgressOnEnable: 0
+  _doesAutomaticallyMoveDownOnHittingMax: 0
+  _hasIncreaseDelay: 0
+  _increaseDelay: 0
+  _hasDecreaseDelay: 0
+  _decreaseDelay: 0
   _curve:
     serializedVersion: 2
     m_Curve:
@@ -240,6 +248,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  OnSetUpComplete:
+    m_PersistentCalls:
+      m_Calls: []
   _onStartedIncreasing:
     m_PersistentCalls:
       m_Calls: []
@@ -267,6 +278,8 @@ MonoBehaviour:
   _doesBeginScalingOnEnable: 0
   _doesResetScaleOnScalingEnable: 0
   _scalingTime: 0
+  _hasOverrideStartingScale: 0
+  _overrideStartingScale: {x: 0, y: 0, z: 0}
   _endingScale: {x: 1, y: 1, z: 1}
   _curveProgression: {fileID: 5530285289480619832}
 --- !u!1 &1266399206074280972
@@ -1183,7 +1196,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 4263328484989411221}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.6
+  m_Radius: 0.3
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
