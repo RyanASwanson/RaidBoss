@@ -713,6 +713,22 @@ MonoBehaviour:
             Data3: 1067596191
             Data4: 234224541
           Path: event:/SoundEffect/Heroes/GeneralHeroes/Health/Death/HeroDied
+    InteractionAudio:
+      HeroControlled:
+        AudioName: HeroControlled
+        DefaultStartDelay: 0
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: 288161733
+            Data2: 1219801319
+            Data3: 2104303534
+            Data4: -1313945774
+          Path: event:/SoundEffect/Heroes/GeneralHeroes/HeroInteractions/HeroControlled
   AllSpecificHeroAudio:
   - AssociatedHero: Guardian
     SelectionSelectedAudio:
@@ -1280,14 +1296,20 @@ MonoBehaviour:
           Data4: -418616186
         Path: event:/SoundEffect/Heroes/SpecificHeroes/Mirage/Basic/MirageSandBlast
     ManualAbilityUsed:
-      AudioName: 
+      AudioName: SandstoneClone
       DefaultStartDelay: 0
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
       DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
-      AudioTracks: []
+      AudioTracks:
+      - Guid:
+          Data1: -1322529287
+          Data2: 1233621148
+          Data3: -1884324165
+          Data4: -199412129
+        Path: event:/SoundEffect/Heroes/SpecificHeroes/Mirage/Active/MirageManualSandstoneClone
     PassiveAbilityUsed:
       AudioName: 
       DefaultStartDelay: 0

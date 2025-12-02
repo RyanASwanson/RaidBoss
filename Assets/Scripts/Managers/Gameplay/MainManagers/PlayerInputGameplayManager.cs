@@ -69,6 +69,9 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     private void NewControlledHero(HeroBase newHero)
     {
         ClearControlledHeroes();
+        
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.GeneralHeroAudio.InteractionAudio.HeroControlled);
 
         newHero.InvokeHeroControlledBegin();
         _controlledHeroes.Add(newHero);

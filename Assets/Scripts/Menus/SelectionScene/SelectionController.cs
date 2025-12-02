@@ -174,7 +174,7 @@ public class SelectionController : MonoBehaviour
     {
         AttemptDisplayBossInformation(bossSO);
 
-        UpdateHeroButtonDifficultyBeaten();
+        UpdateHeroButtonDifficultyBeaten(bossSO);
     }
 
     /// <summary>
@@ -754,11 +754,11 @@ public class SelectionController : MonoBehaviour
     }
 
 
-    private void UpdateHeroButtonDifficultyBeaten()
+    private void UpdateHeroButtonDifficultyBeaten(BossSO bossSO)
     {
         foreach(SelectHeroButton selectHeroButton in _heroSelectionButtons)
         {
-            selectHeroButton.SetBestDifficultyBeatenIcon(_lastBossHoveredOver);
+            selectHeroButton.SetBestDifficultyBeatenIcon(bossSO);
         }
     }
     #endregion

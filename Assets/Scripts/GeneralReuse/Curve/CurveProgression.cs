@@ -88,9 +88,15 @@ public class CurveProgression : MonoBehaviour
         
         if (_doesResetToDefaultProgressOnEnable)
         {
-            StopMovingOnCurve();
-            _movementProgress = _defaultValue;
+            ResetCurve();
         }
+    }
+
+    public void ResetCurve()
+    {
+        StopMovingOnCurve();
+        _movementProgress = _defaultValue;
+        UpdateCurveProgress();
     }
 
     public void StartMovingOppositeDirectionOnCurve()

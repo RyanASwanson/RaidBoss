@@ -22,6 +22,9 @@ public class SH_Mirage : SpecificHeroFramework
     private static Vector3 CLONE_BASIC_PROJECTILE_EULER_OFFSET = new Vector3(0, 90, 0);
     
     private const int CLONE_BASIC_AUDIO_ID = 0;
+    
+    [Space]
+    [SerializeField] private GameObject _manualAbilityVFX;
 
     [Space]
     [SerializeField] private float _cloneSpawnDelay;
@@ -137,6 +140,8 @@ public class SH_Mirage : SpecificHeroFramework
     public override void ActivateManualAbilities()
     {
         base.ActivateManualAbilities();
+        Instantiate(_manualAbilityVFX, transform.position, Quaternion.identity);
+        Instantiate(_manualAbilityVFX, _cloneBase.transform.position, Quaternion.identity);
         //This doesn't do any override as the animation has a trigger on it which calls CloneSwap
     }
 
