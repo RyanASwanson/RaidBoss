@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -8,9 +9,11 @@ using UnityEngine;
 public class SHP_AlchemistPotion : HeroProjectileFramework
 {
     [SerializeField] private float _moveTime;
+    [SerializeField] private AnimationCurve _moveCurve;
     [SerializeField] private float _idleLifetime;
+    private WaitForSeconds _potionIdleWait;
+        
     [Space]
-
     [SerializeField] private PotionTypes _potionType;
     [SerializeField] private float _buffStrength;
     [SerializeField] private float _secondaryBuffStrength;
@@ -33,7 +36,12 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
     {
         _alchemist = (SH_Alchemist)_mySpecificHero;
 
-        _healArea.GetEnterEvent().AddListener(ActivateAlchemistPassive);
+        if (_potionIdleWait.IsUnityNull())
+        {
+            _potionIdleWait = new WaitForSeconds(_idleLifetime);
+        }
+
+        _healArea.GetEnterEvent().AddListener(PotionGeneralPickUp);
 
         switch (_potionType)
         {
@@ -50,6 +58,7 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
                 _healArea.GetEnterEvent().AddListener(UtilityBuff);
                 return;
         }
+        
     }
 
     /// <summary>
@@ -65,7 +74,7 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
         while (lerpProgress < 1)
         {
             lerpProgress += Time.deltaTime / _moveTime;
-            transform.position = Vector3.Lerp(startingPotionLocation, targetLocation, lerpProgress);
+            transform.position = Vector3.Lerp(startingPotionLocation, targetLocation, _moveCurve.Evaluate(lerpProgress));
             yield return null;
         }
 
@@ -78,7 +87,15 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
     /// </summary>
     private void ReachedEndLocation()
     {
+        PlayPotionLandedAudio();
+        
         _healArea.ToggleProjectileCollider(true);
+    }
+
+    public void PotionGeneralPickUp(Collider collider)
+    {
+        ActivateAlchemistPassive(collider);
+        PlayPotionPickUpAudio();
     }
     
     /// <summary>
@@ -136,6 +153,8 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
     /// <param name="collider"></param>
     private void ApplyBuffToHero(HeroStats heroStats, HeroGeneralAdjustableStats stat)
     {
+        PlayPotionBuffActivatedAudio();
+        
         heroStats.ApplyStatChangeForDuration(stat, _buffStrength,_secondaryBuffStrength, _buffDuration);
     }
 
@@ -145,13 +164,34 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
     /// <returns></returns>
     private IEnumerator RemovePotionTimer()
     {
-        yield return new WaitForSeconds(_idleLifetime);
+        yield return _potionIdleWait;
         RemovePotionAnimation();
     }
 
     private void RemovePotionAnimation()
     {
         _animator.SetTrigger(REMOVE_POTION_ANIM_TRIGGER);
+    }
+
+    private void PlayPotionLandedAudio()
+    {
+        AudioManager.Instance.PlaySpecificAudio(AudioManager.Instance.AllSpecificHeroAudio
+                [_myHeroBase.GetHeroSO().GetHeroID()]
+            .MiscellaneousHeroAudio[SH_Alchemist.ALCHEMIST_POTION_LANDED_AUDIO_ID]);
+    }
+
+    private void PlayPotionPickUpAudio()
+    {
+        AudioManager.Instance.PlaySpecificAudio(AudioManager.Instance.AllSpecificHeroAudio
+                [_myHeroBase.GetHeroSO().GetHeroID()]
+            .MiscellaneousHeroAudio[SH_Alchemist.ALCHEMIST_POTION_PICKED_UP_AUDIO_ID]);
+    }
+
+    private void PlayPotionBuffActivatedAudio()
+    {
+        AudioManager.Instance.PlaySpecificAudio(AudioManager.Instance.AllSpecificHeroAudio
+                [_myHeroBase.GetHeroSO().GetHeroID()]
+            .MiscellaneousHeroAudio[SH_Alchemist.ALCHEMIST_POTION_BUFF_ACTIVATED_AUDIO_ID]);
     }
     
     #region Base Ability
