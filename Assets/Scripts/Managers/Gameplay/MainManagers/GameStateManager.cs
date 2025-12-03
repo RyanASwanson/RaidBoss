@@ -14,6 +14,9 @@ public class GameStateManager : MainGameplayManagerFramework
     [Tooltip("The time before the battle begins")]
     [SerializeField] private float _timeToStart;
 
+    [SerializeField] private float _battleLostAudioDelay;
+    [SerializeField] private float _battleWonAudioDelay;
+
     private EGameplayStates _currentEGameplayState = EGameplayStates.PreBattle;
 
     private UnityEvent _startOfBattleEvent = new UnityEvent();
@@ -66,8 +69,9 @@ public class GameStateManager : MainGameplayManagerFramework
     /// </summary>
     private void BattleLost()
     {
-        AudioManager.Instance.PlaySpecificAudio(
-            AudioManager.Instance.UserInterfaceAudio.GameplayUserInterfaceAudio.BattleLost);
+        /*AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.UserInterfaceAudio.GameplayUserInterfaceAudio.BattleLost);*/
+        StartCoroutine(DelayBattleEndAudio(AudioManager.Instance.UserInterfaceAudio.GameplayUserInterfaceAudio.BattleLost,_battleLostAudioDelay));
         
         InvokeBattleLostEvent();
     }
@@ -84,10 +88,17 @@ public class GameStateManager : MainGameplayManagerFramework
         //Saves the best difficulty beaten for each hero
         SaveManager.Instance.BossDead();
         
-        AudioManager.Instance.PlaySpecificAudio(
-            AudioManager.Instance.UserInterfaceAudio.GameplayUserInterfaceAudio.BattleWon);
+        /*AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.UserInterfaceAudio.GameplayUserInterfaceAudio.BattleWon);*/
+        StartCoroutine(DelayBattleEndAudio(AudioManager.Instance.UserInterfaceAudio.GameplayUserInterfaceAudio.BattleWon, _battleWonAudioDelay));
         
         InvokeBattleWonEvent();
+    }
+
+    private IEnumerator DelayBattleEndAudio(SpecificAudio audio, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        AudioManager.Instance.PlaySpecificAudio(audio);
     }
 
     #region BaseManager

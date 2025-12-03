@@ -38,7 +38,6 @@ public class SelectionSceneUserInterfaceAudio
 [System.Serializable]
 public class GameplayUserInterfaceAudio
 {
-
     public SpecificAudio BattleWon;
     
     public SpecificAudio BattleLost;

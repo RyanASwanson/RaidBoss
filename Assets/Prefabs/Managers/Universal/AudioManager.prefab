@@ -52,6 +52,7 @@ MonoBehaviour:
   _generalStartingBusPath: bus:/
   _pausableBusPath: Pausable
   _unpausableBusPath: Unpausable
+  _defaultPausableBusFadeTime: 0.5
   GeneralBossAudio:
     HealthStaggerAudio:
       BossTookDamage:
@@ -121,7 +122,7 @@ MonoBehaviour:
     - AbilityName: Meteor
       AbilityPrep:
         AudioName: 
-        DefaultStartDelay: 2.7
+        DefaultStartDelay: 0
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
         DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
@@ -147,7 +148,7 @@ MonoBehaviour:
     - AbilityName: MagmaWave
       AbilityPrep:
         AudioName: MagmaWave
-        DefaultStartDelay: 1.5
+        DefaultStartDelay: 0
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
         DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
@@ -213,7 +214,7 @@ MonoBehaviour:
     - AbilityName: Scorch
       AbilityPrep:
         AudioName: Scorch
-        DefaultStartDelay: 1.9
+        DefaultStartDelay: 0
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
         DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
@@ -318,7 +319,7 @@ MonoBehaviour:
         AudioTracks: []
       GeneralAbilityAudio:
       - AudioName: CrystalBarrageImpact
-        DefaultStartDelay: 1
+        DefaultStartDelay: 0
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
         DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
@@ -571,7 +572,7 @@ MonoBehaviour:
     - AbilityName: Blizzard
       AbilityPrep:
         AudioName: Blizzard
-        DefaultStartDelay: 3.5
+        DefaultStartDelay: 0
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
         DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
@@ -1430,7 +1431,7 @@ MonoBehaviour:
     GameplayUserInterfaceAudio:
       BattleWon:
         AudioName: BattleWon
-        DefaultStartDelay: 1
+        DefaultStartDelay: 0
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
         DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
@@ -1445,7 +1446,7 @@ MonoBehaviour:
           Path: event:/SoundEffect/UI/Gameplay/BattleEnd/BattleWon
       BattleLost:
         AudioName: BattleLost
-        DefaultStartDelay: 1
+        DefaultStartDelay: 0
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
         DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
@@ -1461,7 +1462,7 @@ MonoBehaviour:
     SceneLoadUserInterfaceAudio:
       SceneLoadStart:
         AudioName: SceneLoadStart
-        DefaultStartDelay: 0.2
+        DefaultStartDelay: 0
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
         DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0

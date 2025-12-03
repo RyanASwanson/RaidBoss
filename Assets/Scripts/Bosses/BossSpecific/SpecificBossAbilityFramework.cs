@@ -36,6 +36,13 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     [Space]
     [SerializeField] protected string _animationTriggerName;
 
+    [Space] 
+    [SerializeField] protected float _abilityPrepAudioDelay;
+    [SerializeField] protected float _abilityStartAudioDelay;
+
+    protected WaitForSeconds _abilityPrepAudioWait;
+    protected WaitForSeconds _abilityStartAudioWait;
+
     protected List<BossTargetZoneParent> _currentTargetZones = new List<BossTargetZoneParent>();
     
     protected Vector3 _storedTargetLocation;
@@ -63,6 +70,8 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
         {
             _abilityDurationWait = new WaitForSeconds(_abilityDuration);
         }
+
+        SetUpAbilityAudioDelays();
     }
 
     /// <summary>
@@ -90,7 +99,7 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     protected virtual void AbilityPrep()
     {
         StartShowTargetZone();
-        PlayAbilityPrepAudio();
+        AttemptPlayAbilityPrepAudio();
         StartAbilityWindUp();
     }
 
@@ -204,7 +213,7 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     protected virtual void AbilityStart()
     {
         ScreenShakeCheck();
-        PlayAbilityStartAudio();
+        AttemptPlayAbilityStartAudio();
         StartAbilityDuration();
     }
 
@@ -263,6 +272,19 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
 
     #region AbilityAudio
 
+    protected virtual void SetUpAbilityAudioDelays()
+    {
+        if (_abilityPrepAudioDelay > 0)
+        {
+            _abilityPrepAudioWait = new WaitForSeconds(_abilityPrepAudioDelay);
+        }
+
+        if (_abilityStartAudioDelay > 0)
+        {
+            _abilityStartAudioWait = new WaitForSeconds(_abilityStartAudioDelay);
+        }
+    }
+
     protected virtual void PlayTargetZoneSpawnedAudio()
     {
         if (AudioManager.Instance.PlaySpecificAudio(
@@ -276,7 +298,24 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     {
         
     }
+
+    protected virtual void AttemptPlayAbilityPrepAudio()
+    {
+        if (_abilityPrepAudioDelay > 0)
+        {
+            StartCoroutine(AbilityPrepAudioDelay());
+        }
+        else
+        {
+            PlayAbilityPrepAudio();
+        }
+    }
     
+    protected virtual IEnumerator AbilityPrepAudioDelay()
+    {
+        yield return _abilityPrepAudioWait;
+        PlayAbilityPrepAudio();
+    }
 
     protected virtual void PlayAbilityPrepAudio()
     {
@@ -288,11 +327,30 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
         }
     }
 
+    
+
     protected virtual void AbilityAudioPrepPlayed(EventInstance eventInstance)
     {
         
     }
     
+    protected virtual void AttemptPlayAbilityStartAudio()
+    {
+        if (_abilityStartAudioDelay > 0)
+        {
+            StartCoroutine(AbilityStartAudioDelay());
+        }
+        else
+        {
+            PlayAbilityStartAudio();
+        }
+    }
+    
+    protected virtual IEnumerator AbilityStartAudioDelay()
+    {
+        yield return _abilityStartAudioWait;
+        PlayAbilityStartAudio();
+    }
     
     /// <summary>
     /// Plays the audio associated with the ability being started
