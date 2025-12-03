@@ -377,19 +377,17 @@ public class AudioManager : MainUniversalManagerFramework
         // If there is a music track already playing
         if (IsMusicAlreadyPlaying())
         {
-            Debug.Log("Fading out " + newMusicID + " with a fade out of " + fadeOutTime);
             // Fade out that track
             StartFadeOutStopInstance(_currentMusicInstance, fadeOutTime);
             yield return fadeOutTime;
         }
         else
         {
-            Debug.Log("Failed to fade out current track " + _currentMusicID);
+            AudioDebug("Failed to fade out current track");
         }
         
         if (PlaySpecificAudio(specificAudio,out EventInstance eventInstance))
         {
-            Debug.Log("Setting new music ID: " + newMusicID);
             _currentMusicID = newMusicID;
             _currentMusic = specificAudio;
             _currentMusicInstance = eventInstance;
@@ -455,22 +453,20 @@ public class AudioManager : MainUniversalManagerFramework
 
     private IEnumerator FadeBusAudioVolume(Bus targetBus, float endVolume, float fadeTime, bool doesCancelEventsOnEnd)
     {
-        _pausableAudioBus.getVolume(out float startVolume);
+        targetBus.getVolume(out float startVolume);
         float timer = 0;
         while (timer < 1)
         {
             timer += Time.deltaTime/ fadeTime;
             
-            _pausableAudioBus.setVolume(Mathf.Lerp(startVolume, endVolume, timer));
+            targetBus.setVolume(Mathf.Lerp(startVolume, endVolume, timer));
             yield return null;
         }
-        _pausableAudioBus.setVolume(endVolume);
-        Debug.Log("Set to end volume of " + endVolume);
+        targetBus.setVolume(endVolume);
         
         if (doesCancelEventsOnEnd)
         {
-            Debug.Log("Cancelling all pausable events");
-            _pausableAudioBus.stopAllEvents(STOP_MODE.IMMEDIATE);
+            targetBus.stopAllEvents(STOP_MODE.IMMEDIATE);
         }
     }
     #endregion Pausing

@@ -80,9 +80,14 @@ public class SBA_Volcano : SpecificBossAbilityFramework
     
     private IEnumerator VolcanoTargetZoneCreationProcess()
     {
-        foreach (Vector3 attackLoc in _targetLocations)
+        for (int i = 0; i < _targetLocations.Count; i++)
         {
-            _currentTargetZones.Add(Instantiate(_targetZone, attackLoc, Quaternion.identity).GetComponent<BossTargetZoneParent>());
+            _currentTargetZones.Add(Instantiate(_targetZone, _targetLocations[i], Quaternion.identity).GetComponent<BossTargetZoneParent>());
+
+            if (i != 0)
+            {
+                PlayTargetZoneSpawnedAudio();
+            }
             
             yield return _projectileDelayWaitForSeconds;
         }

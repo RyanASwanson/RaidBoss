@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using FMOD.Studio;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -54,8 +55,11 @@ public abstract class SpecificHeroFramework : MonoBehaviour
 
     protected virtual void StopCooldownBasicAbility()
     {
-        StopCoroutine(_basicAbilityCooldownCoroutine);
-        _basicAbilityCooldownCoroutine = null;
+        if (!_basicAbilityCooldownCoroutine.IsUnityNull())
+        {
+            StopCoroutine(_basicAbilityCooldownCoroutine);
+            _basicAbilityCooldownCoroutine = null;
+        }
     }
 
     protected virtual IEnumerator CooldownBasicAbility()
@@ -89,6 +93,15 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     public virtual void StartCheckingToAttemptBasicAbilities()
     {
         _attemptingBasicAbilitiesCoroutine = StartCoroutine(CheckingToAttemptBasicAbilities());
+    }
+
+    protected virtual void StopCheckingToAttemptBasicAbilities()
+    {
+        if (!_attemptingBasicAbilitiesCoroutine.IsUnityNull())
+        {
+            StopCoroutine(_attemptingBasicAbilitiesCoroutine);
+            _attemptingBasicAbilitiesCoroutine = null;
+        }
     }
     
     public virtual IEnumerator CheckingToAttemptBasicAbilities()
@@ -160,8 +173,11 @@ public abstract class SpecificHeroFramework : MonoBehaviour
 
     protected virtual void StopCooldownManualAbility()
     {
-        StopCoroutine(_manualAbilityCooldownCoroutine);
-        _manualAbilityCooldownCoroutine = null;
+        if (!_manualAbilityCooldownCoroutine.IsUnityNull())
+        {
+            StopCoroutine(_manualAbilityCooldownCoroutine);
+            _manualAbilityCooldownCoroutine = null;
+        }
     }
 
     public virtual IEnumerator CooldownManualAbility()
@@ -327,6 +343,11 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         ActivateHeroSpecificActivity();
     }
 
+    protected virtual void BattleWon()
+    {
+        DeactivateHeroSpecificActivity();
+    }
+
     /// <summary>
     /// Provides an overridable death functionality specific to the hero
     /// </summary>
@@ -351,6 +372,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     public virtual void DeactivateHeroSpecificActivity()
     {
         StopCooldownBasicAbility();
+        StopCheckingToAttemptBasicAbilities();
         StopCooldownManualAbility();
     }
 
@@ -365,6 +387,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     protected virtual void SubscribeToEvents()
     {
         GameStateManager.Instance.GetStartOfBattleEvent().AddListener(BattleStarted);
+        GameStateManager.Instance.GetBattleWonEvent().AddListener(BattleWon);
         _myHeroBase.GetHeroDiedEvent().AddListener(HeroDied);
     }
 

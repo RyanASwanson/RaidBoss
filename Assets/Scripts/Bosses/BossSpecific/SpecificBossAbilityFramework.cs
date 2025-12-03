@@ -42,6 +42,8 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
 
     protected WaitForSeconds _abilityPrepAudioWait;
     protected WaitForSeconds _abilityStartAudioWait;
+    protected Coroutine _abilityPrepAudioWaitCoroutine;
+    protected Coroutine _abilityStartAudioWaitCoroutine;
 
     protected List<BossTargetZoneParent> _currentTargetZones = new List<BossTargetZoneParent>();
     
@@ -266,6 +268,7 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     public virtual void StopBossAbility()
     {
         StopAbilityWindUp();
+        StopAbilityDelayedAudio();
         RemoveTargetZones();
         StopAbilityDuration();
     }
@@ -303,7 +306,7 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     {
         if (_abilityPrepAudioDelay > 0)
         {
-            StartCoroutine(AbilityPrepAudioDelay());
+            _abilityPrepAudioWaitCoroutine = StartCoroutine(AbilityPrepAudioDelay());
         }
         else
         {
@@ -338,7 +341,7 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     {
         if (_abilityStartAudioDelay > 0)
         {
-            StartCoroutine(AbilityStartAudioDelay());
+            _abilityStartAudioWaitCoroutine = StartCoroutine(AbilityStartAudioDelay());
         }
         else
         {
@@ -369,7 +372,19 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     {
         
     }
-    
+
+    protected virtual void StopAbilityDelayedAudio()
+    {
+        if (!_abilityPrepAudioWaitCoroutine.IsUnityNull())
+        {
+            StopCoroutine(_abilityPrepAudioWaitCoroutine);
+        }
+
+        if (!_abilityStartAudioWaitCoroutine.IsUnityNull())
+        {
+            StopCoroutine(_abilityStartAudioWaitCoroutine);
+        }
+    }
     #endregion AbilityAudio
 
     #region RETIRED Targeting

@@ -27,6 +27,7 @@ public class BossTargetZone : BossProjectileFramework
     [SerializeField] private float _materialChangeDelay;
 
     private bool _isDelayingMaterialChange = true;
+    private bool _isRemoving = false;
 
     [Space] 
     [SerializeField] private GameObject _visualsHolder;
@@ -199,6 +200,11 @@ public class BossTargetZone : BossProjectileFramework
             return false;
         }
 
+        if (_isRemoving)
+        {
+            return false;
+        }
+
         SetTargetZonesToMaterial(newMaterial);
         return true;
     }
@@ -217,6 +223,7 @@ public class BossTargetZone : BossProjectileFramework
 
     public void RemoveTargetZone()
     {
+        _isRemoving = true;
         PlayDisappearAnimation();
     }
 
