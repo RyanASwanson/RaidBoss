@@ -33,6 +33,9 @@ public class SelectionSceneUserInterfaceAudio
     public SpecificAudio[] DifficultySelected;
     
     public SpecificAudio HeroSelected;
+
+    [Space] 
+    public SpecificAudio ScrollOpenStart;
 }
 
 [System.Serializable]

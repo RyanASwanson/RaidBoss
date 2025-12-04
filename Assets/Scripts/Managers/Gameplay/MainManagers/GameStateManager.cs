@@ -14,8 +14,13 @@ public class GameStateManager : MainGameplayManagerFramework
     [Tooltip("The time before the battle begins")]
     [SerializeField] private float _timeToStart;
 
+    [Space]
     [SerializeField] private float _battleLostAudioDelay;
     [SerializeField] private float _battleWonAudioDelay;
+
+    [Space] 
+    [SerializeField] private float _battleEndMusicVolume;
+    [SerializeField] private float _battleEndMusicVolumeChangeTime;
 
     private EGameplayStates _currentEGameplayState = EGameplayStates.PreBattle;
 
@@ -72,6 +77,8 @@ public class GameStateManager : MainGameplayManagerFramework
         /*AudioManager.Instance.PlaySpecificAudio(
             AudioManager.Instance.UserInterfaceAudio.GameplayUserInterfaceAudio.BattleLost);*/
         StartCoroutine(DelayBattleEndAudio(AudioManager.Instance.UserInterfaceAudio.GameplayUserInterfaceAudio.BattleLost,_battleLostAudioDelay));
+
+        BattleEnded();
         
         InvokeBattleLostEvent();
     }
@@ -91,6 +98,8 @@ public class GameStateManager : MainGameplayManagerFramework
         /*AudioManager.Instance.PlaySpecificAudio(
             AudioManager.Instance.UserInterfaceAudio.GameplayUserInterfaceAudio.BattleWon);*/
         StartCoroutine(DelayBattleEndAudio(AudioManager.Instance.UserInterfaceAudio.GameplayUserInterfaceAudio.BattleWon, _battleWonAudioDelay));
+
+        BattleEnded();
         
         InvokeBattleWonEvent();
     }
@@ -99,6 +108,11 @@ public class GameStateManager : MainGameplayManagerFramework
     {
         yield return new WaitForSeconds(delay);
         AudioManager.Instance.PlaySpecificAudio(audio);
+    }
+
+    private void BattleEnded()
+    {
+        AudioManager.Instance.StartChangeCurrentMusicVolume(_battleEndMusicVolume, _battleEndMusicVolumeChangeTime);
     }
 
     #region BaseManager

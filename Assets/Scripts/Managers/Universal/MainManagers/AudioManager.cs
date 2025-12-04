@@ -81,6 +81,7 @@ public class AudioManager : MainUniversalManagerFramework
     private int _currentMusicID = -1;
     private EventInstance _currentMusicInstance;
     private Coroutine _musicChangeCoroutine;
+    private Coroutine _musicVolumeChangeCoroutine;
     private SpecificAudio _currentMusic;
     
     private Dictionary<EventInstance, Coroutine> _changeInstanceVolumeDictionary = new Dictionary<EventInstance, Coroutine>();
@@ -297,12 +298,12 @@ public class AudioManager : MainUniversalManagerFramework
         StopSpecificAudioInstance(eventInstance, doesAddToVolumeAdjustmentDictionary);
     }
 
-    public void StartAdjustInstanceVolumeOverTime(EventInstance eventInstance, 
+    public Coroutine StartAdjustInstanceVolumeOverTime(EventInstance eventInstance, 
         bool doesStopPreviousVolumeAdjustment, bool doesAddToVolumeAdjustmentDictionary, float endVolume, float adjustTime)
     {
         if (eventInstance.IsUnityNull())
         {
-            return;
+            return null;
         }
         
         if (doesStopPreviousVolumeAdjustment && _changeInstanceVolumeDictionary.TryGetValue(eventInstance, out Coroutine coroutine))
@@ -315,6 +316,7 @@ public class AudioManager : MainUniversalManagerFramework
         {
             _changeInstanceVolumeDictionary[eventInstance] = adjustInstanceVolumeCoroutine;
         }
+        return adjustInstanceVolumeCoroutine;
     }
 
     /// <summary>
@@ -364,6 +366,8 @@ public class AudioManager : MainUniversalManagerFramework
             return;
         }
 
+        StopChangeCurrentMusicVolume();
+
         if (!_musicChangeCoroutine.IsUnityNull())
         {
             StopCoroutine(_musicChangeCoroutine);
@@ -393,6 +397,32 @@ public class AudioManager : MainUniversalManagerFramework
             _currentMusicInstance = eventInstance;
             
             yield return fadeInTime;
+        }
+
+        _musicChangeCoroutine = null;
+    }
+
+    public void StartChangeCurrentMusicVolume(float endVolume, float adjustTime)
+    {
+        // If the music is currently changing
+        // Note that _musicChangeCoroutine is being used not _musicVolumeChangeCoroutine
+        if (!_musicChangeCoroutine.IsUnityNull())
+        {
+            return;
+        }
+        
+        StopChangeCurrentMusicVolume();
+        
+        _musicVolumeChangeCoroutine = StartAdjustInstanceVolumeOverTime(_currentMusicInstance,
+            false,false,endVolume,adjustTime);
+    }
+
+    public void StopChangeCurrentMusicVolume()
+    {
+        if (!_musicVolumeChangeCoroutine.IsUnityNull())
+        {
+            StopCoroutine(_musicVolumeChangeCoroutine);
+            _musicVolumeChangeCoroutine = null;
         }
     }
 

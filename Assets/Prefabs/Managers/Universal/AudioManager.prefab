@@ -352,13 +352,19 @@ MonoBehaviour:
         DefaultAudioChoice: 0
         AudioTracks: []
       AbilityStart:
-        AudioName: 
+        AudioName: EntombStart
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
         DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
         DefaultPlayType: 0
         DefaultAudioChoice: 0
-        AudioTracks: []
+        AudioTracks:
+        - Guid:
+            Data1: 26693435
+            Data2: 1278919412
+            Data3: 641203637
+            Data4: 2127752434
+          Path: event:/SoundEffect/Bosses/Specific/TerraLord/Abilities/Entomb/debris-rock-large-sandstone-smash-05
       GeneralAbilityAudio:
       - AudioName: EntombClosed
         DefaultInstanceFadeInTime: 0
@@ -1363,6 +1369,20 @@ MonoBehaviour:
             Data3: -1523784797
             Data4: 595321354
           Path: event:/SoundEffect/UI/SelectionScene/Hero/HeroSelectionSelected
+      ScrollOpenStart:
+        AudioName: ScrollOpenStart
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: 20276095
+            Data2: 1210234700
+            Data3: 1308619908
+            Data4: 1907583504
+          Path: event:/SoundEffect/UI/SelectionScene/General/ScrollOpenStart
     GameplayUserInterfaceAudio:
       BattleWon:
         AudioName: BattleWon

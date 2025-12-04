@@ -14,10 +14,13 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     
     [Tooltip("The time between mouse scrolling switching heroes")]
     [SerializeField] private float _scrollCooldown;
-    private bool _clickAndDragEnabled;
-
+    private WaitForSeconds _scrollCooldownWait;
     private Coroutine _scrollCooldownCoroutine;
 
+    [Space]
+    [SerializeField] private float _heroControlRange;
+    private bool _clickAndDragEnabled;
+    
     [Space]
     [SerializeField] private LayerMask _selectClickLayerMask;
     [SerializeField] private LayerMask _directClickLayerMask;
@@ -68,6 +71,11 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     /// <param name="newHero"></param>
     private void NewControlledHero(HeroBase newHero)
     {
+        if (newHero.IsUnityNull())
+        {
+            return;
+        }
+        
         ClearControlledHeroes();
         
         AudioManager.Instance.PlaySpecificAudio(
@@ -177,12 +185,22 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     {
         List<HeroBase> livingHeroes = HeroesManager.Instance.GetCurrentLivingHeroes();
             
-        HeroBase closestHero = livingHeroes[0];
+        HeroBase closestHero = null;
         float closestDistance = float.MaxValue;
             
         foreach (HeroBase hero in livingHeroes)
         {
+            if (_controlledHeroes.Contains(hero))
+            {
+                continue;
+            }
+            
             float heroDistance = Vector3.Distance(startLocation, hero.transform.position);
+            if (heroDistance > _heroControlRange)
+            {
+                continue;
+            }
+            
             if (heroDistance < closestDistance)
             {
                 closestDistance = heroDistance;
@@ -268,19 +286,26 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     private bool IsInvalidHeroPress(int pressNumVal)
     {
         return (HeroesManager.Instance.GetCurrentHeroes().Count <= pressNumVal
-            || HeroesManager.Instance.GetCurrentHeroes()[pressNumVal] == null);
+            || HeroesManager.Instance.GetCurrentHeroes()[pressNumVal].IsUnityNull());
     }
 
     private void MouseScroll(InputAction.CallbackContext context)
     {
-        if (_scrollCooldownCoroutine != null)
+        if (!_scrollCooldownCoroutine.IsUnityNull())
+        {
             return;
+        }
         
         int storedDirection = (int)context.ReadValue<float>();
+        
         if (storedDirection > 0)
+        {
             storedDirection = 1;
+        }
         else if (storedDirection < 0)
+        {
             storedDirection = -1;
+        }
 
         ScrollControlledHero(storedDirection);
 
@@ -289,7 +314,7 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
 
     private IEnumerator ScrollCooldown()
     {
-        yield return new WaitForSeconds(_scrollCooldown);
+        yield return _scrollCooldownWait;
         _scrollCooldownCoroutine = null;
     }
 
@@ -348,6 +373,7 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     public override void SetUpMainManager()
     {
         base.SetUpMainManager();
+        _scrollCooldownWait = new WaitForSeconds(_scrollCooldown);
         SetClickAndDragFromSave();
         SubscribeToPlayerInput();
     }

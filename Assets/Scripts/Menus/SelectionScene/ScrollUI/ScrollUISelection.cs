@@ -144,6 +144,8 @@ public class ScrollUISelection : MonoBehaviour
         _scrollingCurve.StartMovingUpOnCurve();
         _contentsCurve.StartMovingUpOnCurve();
         _currentScrollSize = _targetScrollSize;
+
+        PlayScrollOpenAudio();
     }
 
     public void StartScrollClose()
@@ -163,6 +165,7 @@ public class ScrollUISelection : MonoBehaviour
         if (_isBufferingNewScrollOpen)
         {
             _isBufferingNewScrollOpen = false;
+            
             StartScrollOpen();
         }
         else
@@ -210,6 +213,15 @@ public class ScrollUISelection : MonoBehaviour
     }
     #endregion
 
+    #region Audio
+    private void PlayScrollOpenAudio()
+    {
+        AudioManager.Instance.PlaySpecificAudio(AudioManager.Instance.UserInterfaceAudio
+            .SelectionSceneUserInterfaceAudio.ScrollOpenStart);
+    }
+    
+    #endregion
+    
     private void SubscribeToEvents()
     {
         _appearingCurve.OnCurveValueChanged.AddListener(UpdateAppearingScale);
