@@ -13,6 +13,8 @@ public class SH_Alchemist : SpecificHeroFramework
     [Space]
     [SerializeField] private List<GameObject> _manualProjectiles;
 
+    private int _lastManualProjectileIndex = -1;
+
     [Space]
     [SerializeField] private GameObject _passiveProjectile;
 
@@ -51,7 +53,16 @@ public class SH_Alchemist : SpecificHeroFramework
     /// <returns></returns>
     private GameObject PickManualPotion()
     {
-        return _manualProjectiles[Random.Range(0, _manualProjectiles.Count)];
+        int currentManualProjectileIndex;
+        // Prevent repeats
+        do
+        {
+            currentManualProjectileIndex = Random.Range(0, _manualProjectiles.Count);
+        } 
+        while (currentManualProjectileIndex == _lastManualProjectileIndex);
+        
+        _lastManualProjectileIndex = currentManualProjectileIndex;
+        return _manualProjectiles[_lastManualProjectileIndex];
     }
     #endregion
 
