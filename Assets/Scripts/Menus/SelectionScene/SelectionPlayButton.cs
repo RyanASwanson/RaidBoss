@@ -41,6 +41,12 @@ public class SelectionPlayButton : MonoBehaviour
         _button.interactable = isInteractable;
     }
 
+    public void UpdateBossAndHeroSelectionIcons()
+    {
+        UpdateBossSelectionIcon();
+        UpdateHeroSelectionIcons();
+    }
+
     private void UpdateBossSelectionIcon()
     {
         _bossSelectedIcon.enabled = SelectionManager.Instance.AtMaxBossSelected();

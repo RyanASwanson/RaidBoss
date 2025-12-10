@@ -84,10 +84,12 @@ public class SelectionController : MonoBehaviour
     private int _previousMaxHeroes;
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         Instance = this;
         SubscribeToEvents();
+        
+        SelectionManager.Instance.SetSelectedGameMode(EGameMode.Free);
 
         BossSideStart();
         CenterStart();

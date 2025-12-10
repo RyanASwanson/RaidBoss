@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 /// <summary>
 /// Performs the functionality for loading scenes
@@ -21,7 +22,8 @@ public class SceneLoadManager : MainUniversalManagerFramework
     private WaitForSeconds _sceneTransitionWait = new WaitForSeconds(_sceneTransitionTime/2);
 
     private const int MAIN_MENU_SCENE_ID = 0;
-    private const int SELECTION_SCENE_ID = 1;
+    private const int MAP_SCENE_SCENE_ID = 1;
+    private const int SELECTION_SCENE_ID = 2;
 
     private Coroutine _sceneTransitionCoroutine;
 
@@ -55,6 +57,7 @@ public class SceneLoadManager : MainUniversalManagerFramework
     private IEnumerator SceneLoadProcess(int id)
     {
         InvokeOnStartOfSceneLoadEvent();
+        EventSystem.current.enabled = false;
 
         _sceneTransitionAnimator.SetTrigger(ST_CLOSE_IN_FROM_SIDES_ANIM_TRIGGER);
         
@@ -85,6 +88,7 @@ public class SceneLoadManager : MainUniversalManagerFramework
             AudioManager.Instance.UserInterfaceAudio.SceneLoadUserInterfaceAudio.SceneLoadEnd);
 
         InvokeOnEndOfSceneLoadEvent();
+        EventSystem.current.enabled = true;
         _sceneTransitionCoroutine = null;
     }
 
@@ -110,8 +114,15 @@ public class SceneLoadManager : MainUniversalManagerFramework
         LoadSceneByID(MAIN_MENU_SCENE_ID);
     }
 
+    public void LoadMapScene()
+    {
+        SelectionManager.Instance.SetSelectedGameMode(EGameMode.Missions);
+        LoadSceneByID(MAP_SCENE_SCENE_ID);
+    }
+
     public void LoadSelectionScene()
     {
+        SelectionManager.Instance.SetSelectedGameMode(EGameMode.Free);
         SelectionManager.Instance.ResetSelectionData();
         LoadSceneByID(SELECTION_SCENE_ID);
     }

@@ -18,6 +18,12 @@ public class MainMenuController : MonoBehaviour
     private void Start()
     {
         PlayMainMenuMusic();
+        ResetSelection();
+    }
+
+    private void ResetSelection()
+    {
+        SelectionManager.Instance.ResetSelectionData();
     }
     
     // Plays the music associated with the boss fight
@@ -27,7 +33,12 @@ public class MainMenuController : MonoBehaviour
     }
     
     #region Buttons
-    public void PlayButtonPressed()
+    public void LoadMapScene()
+    {
+        SceneLoadManager.Instance.LoadMapScene();
+    }
+
+    public void LoadSelectionScene()
     {
         SceneLoadManager.Instance.LoadSelectionScene();
     }

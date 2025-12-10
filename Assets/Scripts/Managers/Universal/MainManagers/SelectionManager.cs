@@ -48,6 +48,8 @@ public class SelectionManager : MainUniversalManagerFramework
 
     private Dictionary<EGameDifficulty, int> _difficultyHeroLimit = new();
 
+    private MissionSO _currentSelectedMission;
+    
     private LevelSO _selectedLevel;
     private BossSO _selectedBoss;
 
@@ -56,8 +58,9 @@ public class SelectionManager : MainUniversalManagerFramework
     private const int _maxHeroes = 5;
     private int _indexOfLastRemovedHero;
 
-    private EGameDifficulty currentEGameDifficulty = EGameDifficulty.Normal;
+    private EGameDifficulty _currentEGameDifficulty = EGameDifficulty.Normal;
 
+    private EGameMode _currentGameMode = EGameMode.Missions;
 
     private UnityEvent<BossSO> _bossSelectionEvent = new UnityEvent<BossSO>();
     private UnityEvent<BossSO> _bossDeselectionEvent = new UnityEvent<BossSO>();
@@ -197,12 +200,18 @@ public class SelectionManager : MainUniversalManagerFramework
         }
     }
 
+    #region Missions 
+    
+    #endregion
+    
     /// <summary>
     /// Removes the currently selected heroes, boss, level
     /// Difficulty is not reset
     /// </summary>
     public void ResetSelectionData()
     {
+        _currentSelectedMission = null;
+        
         _selectedHeroes = new();
         _selectedBoss = null;
         _selectedLevel = null;
@@ -309,15 +318,18 @@ public class SelectionManager : MainUniversalManagerFramework
     #region Getters
     public bool AtMaxBossSelected() => !_selectedBoss.IsUnityNull();
 
-    public float GetDamageMultiplierFromDifficulty() => _difficultyDamageMultiplierDictionary[currentEGameDifficulty];
-    public float GetSpeedMultiplierFromDifficulty() => _difficultyAttackSpeedMultiplierDictionary[currentEGameDifficulty];
-    public float GetHealthMultiplierFromDifficulty() => _difficultyHealthMultiplierDictionary[currentEGameDifficulty];
-    public float GetStaggerMultiplierFromDifficulty() => _difficultyHealthMultiplierDictionary[currentEGameDifficulty];
+    public float GetDamageMultiplierFromDifficulty() => _difficultyDamageMultiplierDictionary[_currentEGameDifficulty];
+    public float GetSpeedMultiplierFromDifficulty() => _difficultyAttackSpeedMultiplierDictionary[_currentEGameDifficulty];
+    public float GetHealthMultiplierFromDifficulty() => _difficultyHealthMultiplierDictionary[_currentEGameDifficulty];
+    public float GetStaggerMultiplierFromDifficulty() => _difficultyHealthMultiplierDictionary[_currentEGameDifficulty];
 
-    public int GetHeroLimitFromDifficulty() => _difficultyHeroLimit[currentEGameDifficulty];
+    public int GetHeroLimitFromDifficulty() => _difficultyHeroLimit[_currentEGameDifficulty];
 
     public List<string> GetDifficultyNames() => _difficultyNames;
     public List<Sprite> GetDifficultyIcons() => _difficultyIcons;
+    public Sprite GetDifficultyIconOfCurrentDifficulty() => GetDifficultyIconFromDifficulty(_currentEGameDifficulty);
+    public Sprite GetDifficultyIconFromDifficulty(EGameDifficulty difficulty) => GetDifficultyIconFromDifficulty((int)difficulty);
+    public Sprite GetDifficultyIconFromDifficulty(int difficulty) => _difficultyIcons[difficulty-1];
 
     public List<HeroSO> GetAllSelectedHeroes() => _selectedHeroes;
     public HeroSO GetHeroAtValue(int val) => _selectedHeroes[val];
@@ -331,6 +343,14 @@ public class SelectionManager : MainUniversalManagerFramework
 
     public BossSO GetSelectedBoss() => _selectedBoss;
     public LevelSO GetSelectedLevel() => _selectedLevel;
+    
+    
+    public EGameDifficulty GetSelectedDifficulty() => _currentEGameDifficulty;
+    
+    public EGameMode GetSelectedGameMode() => _currentGameMode;
+    public bool IsPlayingMissionsMode() => _currentGameMode == EGameMode.Missions;
+    public bool IsPlayingFreeMode() => _currentGameMode == EGameMode.Free;
+    
 
     public UnityEvent<BossSO> GetBossSelectionEvent() => _bossSelectionEvent;
     public UnityEvent<BossSO> GetBossDeselectionEvent() => _bossDeselectionEvent;
@@ -339,11 +359,10 @@ public class SelectionManager : MainUniversalManagerFramework
     public UnityEvent<BossSO> GetBossNotHoveredOverEvent() => _bossNotHoveredOverEvent;
     public UnityEvent<BossSO> GetBossInformationLockedEvent() => _bossInformationLockedEvent;
     public UnityEvent GetBossSelectionChangedEvent() => _bossSelectionChanged;
-
-    public EGameDifficulty GetSelectedDifficulty() => currentEGameDifficulty;
+    
     public UnityEvent<EGameDifficulty> GetDifficultySelectionEvent() => _difficultySelectionEvent;
     public UnityEvent GetInformationUnlockedEvent() => _informationUnlockedEvent;
-
+    
     public UnityEvent<HeroSO> GetHeroSelectionEvent() => _heroSelectionEvent;
     public UnityEvent<HeroSO> GetHeroDeselectionEvent() => _heroDeselectionEvent;
     public UnityEvent<HeroSO> GetHeroSwapEvent() => _heroSwapEvent;
@@ -371,10 +390,30 @@ public class SelectionManager : MainUniversalManagerFramework
     {
         _selectedLevel = levelSO;
     }
+
+    public void SetSelectedLevelAndBoss(LevelSO levelSO)
+    {
+        SetSelectedLevel(levelSO);
+        SetSelectedBoss(levelSO.GetLevelBoss());
+    }
+    
     public void SetSelectedDifficulty(EGameDifficulty eGameDifficulty)
     {
-        currentEGameDifficulty = eGameDifficulty;
+        _currentEGameDifficulty = eGameDifficulty;
         InvokeDifficultySelectionEvent(eGameDifficulty);
+    }
+
+    public void SetSelectedHeroes(HeroSO[] heroes)
+    {
+        foreach (HeroSO hero in heroes)
+        {
+            _selectedHeroes.Add(hero);
+        }
+    }
+    
+    public void SetSelectedGameMode(EGameMode gameMode)
+    {
+        _currentGameMode = gameMode;
     }
     #endregion
 }
@@ -387,3 +426,9 @@ public enum EGameDifficulty
     Mythic,
     MythicPlus
 };
+
+public enum EGameMode
+{
+    Missions,
+    Free
+}

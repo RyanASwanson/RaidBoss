@@ -63,8 +63,67 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
         }
         return false;
     }
+    
+    private HeroBase FindClosestHero(Vector3 startLocation)
+    {
+        List<HeroBase> livingHeroes = HeroesManager.Instance.GetCurrentLivingHeroes();
+            
+        HeroBase closestHero = null;
+        float closestDistance = float.MaxValue;
+            
+        foreach (HeroBase hero in livingHeroes)
+        {
+            if (_controlledHeroes.Contains(hero))
+            {
+                continue;
+            }
+            
+            float heroDistance = Vector3.Distance(startLocation, hero.transform.position);
+            if (heroDistance > _heroControlRange)
+            {
+                continue;
+            }
+            
+            if (heroDistance < closestDistance)
+            {
+                closestDistance = heroDistance;
+                closestHero = hero;
+            }
+        }
+        return closestHero;
+    }
 
+    private void CreateHeroDirectIcon(Vector3 location)
+    {
+        //No icon is created if no heroes as controlled
+        if (_controlledHeroes.Count <= 0)
+        {
+            return;
+        }
+
+        location = CalculateDirectIconLocation(location);
+        Instantiate(_heroDirectIcon, location, Quaternion.identity);
+    }
+
+    /// <summary>
+    /// Determines where the icon for the direct click should appear on the ground
+    /// </summary>
+    /// <param name="location"></param>
+    /// <returns></returns>
+    public Vector3 CalculateDirectIconLocation(Vector3 location)
+    {
+        location = EnvironmentManager.Instance.GetClosestPointToFloor(location);
+        location = new Vector3(location.x, -.75f, location.z);
+        return location;
+    }
+    
+    private IEnumerator ScrollCooldown()
+    {
+        yield return _scrollCooldownWait;
+        _scrollCooldownCoroutine = null;
+    }
     #region Controlling Heroes
+    
     /// <summary>
     /// Swaps which hero is currently being controlled
     /// </summary>
@@ -180,36 +239,7 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
             NewControlledHero(FindClosestHero(clicked.point));
         }
     }
-
-    private HeroBase FindClosestHero(Vector3 startLocation)
-    {
-        List<HeroBase> livingHeroes = HeroesManager.Instance.GetCurrentLivingHeroes();
-            
-        HeroBase closestHero = null;
-        float closestDistance = float.MaxValue;
-            
-        foreach (HeroBase hero in livingHeroes)
-        {
-            if (_controlledHeroes.Contains(hero))
-            {
-                continue;
-            }
-            
-            float heroDistance = Vector3.Distance(startLocation, hero.transform.position);
-            if (heroDistance > _heroControlRange)
-            {
-                continue;
-            }
-            
-            if (heroDistance < closestDistance)
-            {
-                closestDistance = heroDistance;
-                closestHero = hero;
-            }
-        }
-        return closestHero;
-    }
-
+    
     private void PlayerDirectClicked(InputAction.CallbackContext context)
     {
         if (ClickOnPoint(_directClickLayerMask, out RaycastHit clickedOn))
@@ -217,30 +247,6 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
             DirectAllHeroesTo(clickedOn.point);
             CreateHeroDirectIcon(clickedOn.point);
         }
-    }
-
-    private void CreateHeroDirectIcon(Vector3 location)
-    {
-        //No icon is created if no heroes as controlled
-        if (_controlledHeroes.Count <= 0)
-        {
-            return;
-        }
-
-        location = CalculateDirectIconLocation(location);
-        Instantiate(_heroDirectIcon, location, Quaternion.identity);
-    }
-
-    /// <summary>
-    /// Determines where the icon for the direct click should appear on the ground
-    /// </summary>
-    /// <param name="location"></param>
-    /// <returns></returns>
-    public Vector3 CalculateDirectIconLocation(Vector3 location)
-    {
-        location = EnvironmentManager.Instance.GetClosestPointToFloor(location);
-        location = new Vector3(location.x, -.75f, location.z);
-        return location;
     }
 
     private void HeroActiveButton(InputAction.CallbackContext context)
@@ -277,18 +283,6 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
             [pressNumVal].GetSpecificHeroScript().AttemptActivationOfManualAbility();
     }
 
-    /// <summary>
-    /// Returns true if the number is more than the number of heroes,
-    /// or if the hero in that slot doesn't exist
-    /// </summary>
-    /// <param name="pressNumVal"></param>
-    /// <returns></returns>
-    private bool IsInvalidHeroPress(int pressNumVal)
-    {
-        return (HeroesManager.Instance.GetCurrentHeroes().Count <= pressNumVal
-            || HeroesManager.Instance.GetCurrentHeroes()[pressNumVal].IsUnityNull());
-    }
-
     private void MouseScroll(InputAction.CallbackContext context)
     {
         if (!_scrollCooldownCoroutine.IsUnityNull())
@@ -310,12 +304,6 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
         ScrollControlledHero(storedDirection);
 
         _scrollCooldownCoroutine = StartCoroutine(ScrollCooldown());
-    }
-
-    private IEnumerator ScrollCooldown()
-    {
-        yield return _scrollCooldownWait;
-        _scrollCooldownCoroutine = null;
     }
 
     private void EscapePress(InputAction.CallbackContext context)
@@ -398,6 +386,17 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     #endregion
 
     #region Getters
+    /// <summary>
+    /// Returns true if the number is more than the number of heroes,
+    /// or if the hero in that slot doesn't exist
+    /// </summary>
+    /// <param name="pressNumVal"></param>
+    /// <returns></returns>
+    private bool IsInvalidHeroPress(int pressNumVal)
+    {
+        return (HeroesManager.Instance.GetCurrentHeroes().Count <= pressNumVal
+                || HeroesManager.Instance.GetCurrentHeroes()[pressNumVal].IsUnityNull());
+    }
 
     public List<HeroBase> GetAllControlledHeroes() => _controlledHeroes;
 

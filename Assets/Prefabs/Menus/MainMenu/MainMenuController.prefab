@@ -676,7 +676,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8039736765666296196}
         m_TargetAssemblyTypeName: MainMenuController, Assembly-CSharp
-        m_MethodName: PlayButtonPressed
+        m_MethodName: LoadMapScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12830,7 +12830,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Temp '
+  m_text: Free Play
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: abd56d13c429b474c86275f988228652, type: 2}
   m_sharedMaterial: {fileID: -1997395051694013450, guid: abd56d13c429b474c86275f988228652, type: 2}
@@ -15384,14 +15384,14 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 8039736764706919820}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8039736765666296196}
         m_TargetAssemblyTypeName: MainMenuController, Assembly-CSharp
-        m_MethodName: HowToPlayButtonPressed
+        m_MethodName: LoadSelectionScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -17899,7 +17899,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8039736765666296196}
         m_TargetAssemblyTypeName: MainMenuController, Assembly-CSharp
-        m_MethodName: PlayButtonPressed
+        m_MethodName: LoadMapScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

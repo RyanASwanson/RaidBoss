@@ -27,7 +27,6 @@ public class BossManager : MainGameplayManagerFramework
     public override void SetUpMainManager()
     {
         base.SetUpMainManager();
-
         // Sets up the boss base by giving it the BossSO
         _bossBase.SetUp(SelectionManager.Instance.GetSelectedBoss());
     }
