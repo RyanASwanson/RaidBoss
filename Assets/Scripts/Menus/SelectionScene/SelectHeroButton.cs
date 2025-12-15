@@ -27,6 +27,8 @@ public class SelectHeroButton : MonoBehaviour, IPointerClickHandler
     [Space] 
     [SerializeField] private CurveProgression _buttonSizeCurve;
 
+    private bool _isInteractable = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -44,8 +46,7 @@ public class SelectHeroButton : MonoBehaviour, IPointerClickHandler
 
     private void UpdateFreePlayButtonInteractability()
     {
-        bool heroUnlocked = SaveManager.Instance.
-            GSD._heroesUnlocked[_associatedHero.GetHeroName()];
+        bool heroUnlocked = SaveManager.Instance.IsHeroUnlocked(_associatedHero);
         
         SetButtonInteractability(heroUnlocked);
     }
@@ -82,6 +83,11 @@ public class SelectHeroButton : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (!_isInteractable)
+        {
+            return;
+        }
+        
         switch (eventData.button)
         {
             case PointerEventData.InputButton.Left:
@@ -189,6 +195,7 @@ public class SelectHeroButton : MonoBehaviour, IPointerClickHandler
         if (!_heroButton.IsUnityNull())
         {
             _heroButton.interactable = interactable;
+            _isInteractable = interactable;
         }
         
         _lockVisuals.SetActive(!interactable);

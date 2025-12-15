@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using Newtonsoft.Json;
+using Unity.VisualScripting;
 using UnityEngine.Serialization;
 
 public class SaveManager : MainUniversalManagerFramework
@@ -14,10 +15,14 @@ public class SaveManager : MainUniversalManagerFramework
 
     [SerializeField] private List<BossSO> _bossesInGame = new();
     [SerializeField] private List<HeroSO> _heroesInGame = new();
+    [SerializeField] private MissionSO[] _missionsInGame;
 
     [Space]
     [SerializeField] private List<BossSO> _bossesStartingUnlocked = new();
     [SerializeField] private List<HeroSO> _heroesStartingUnlocked = new();
+    
+    [Space]
+    [SerializeField] private List<MissionSO> _missionsStartingUnlocked = new();
 
     /// <summary>
     /// Sets the path to create the save file
@@ -38,45 +43,56 @@ public class SaveManager : MainUniversalManagerFramework
     private void StartingValues()
     {
         GSD = new();
+        GSD.ResetGameSaveData();
         
-        GSD.GameVersion = Application.version;
+        GSD.GetGeneralSaveData().SetGameVersion(Application.version);
         
         //Fills the GSD with default values when the file is created
-        PopulateUnlockedBosses();
-        PopulateUnlockedHeroes();
+        UnlockStartingUnlocks();
+        
         PopulateBossHeroDifficultyDictionary();
 
-        GSD.SetGSDScreenShakeStrength(1);
-        GSD.SetGSDHeroClickAndDrag(false);
+        GSD.GetGeneralSaveData().SetGSDScreenShakeStrength(1);
+        GSD.GetGeneralSaveData().SetGSDHeroClickAndDrag(false);
 
-        GSD.SetGSDMasterVolume(.5f);
-        GSD.SetGSDMusicVolume(.5f);
-        GSD.SetGSDSFXVolume(.5f);
+        GSD.GetGeneralSaveData().SetGSDMasterVolume(.5f);
+        GSD.GetGeneralSaveData().SetGSDMusicVolume(.5f);
+        GSD.GetGeneralSaveData().SetGSDSFXVolume(.5f);
     }
 
-    /// <summary>
-    /// Adds the starting bosses which are unlocked on new save data
-    /// </summary>
-    private void PopulateUnlockedBosses()
+    private void UnlockStartingUnlocks()
     {
-        // Iterate through each boss
-        foreach (BossSO bossSO in _bossesInGame)
+        UnlockStartingCharacters();
+        UnlockStartingMissions();
+    }
+
+    private void UnlockStartingCharacters()
+    {
+        UnlockStartingBosses();
+        UnlockStartingHeroes();
+    }
+
+    private void UnlockStartingBosses()
+    {
+        foreach (BossSO boss in _bossesStartingUnlocked)
         {
-            // Add them to a dictionary with a bool for if they are unlocked or not
-            GSD._bossesUnlocked.Add(bossSO.GetBossName(), _bossesStartingUnlocked.Contains(bossSO));
+            UnlockBoss(boss);
         }
     }
 
-    /// <summary>
-    /// Adds the starting heroes which are unlocked on new save data
-    /// </summary>
-    private void PopulateUnlockedHeroes()
+    private void UnlockStartingHeroes()
     {
-        // Iterate through each hero
-        foreach(HeroSO heroSO in _heroesInGame)
+        foreach (HeroSO hero in _heroesStartingUnlocked)
         {
-            // Add them to a dictionary with a bool for if they are unlocked or not
-            GSD._heroesUnlocked.Add(heroSO.GetHeroName(), _heroesStartingUnlocked.Contains(heroSO));
+            UnlockHero(hero);
+        }
+    }
+
+    private void UnlockStartingMissions()
+    {
+        foreach (MissionSO mission in _missionsStartingUnlocked)
+        {
+            UnlockMission(mission);
         }
     }
 
@@ -86,18 +102,18 @@ public class SaveManager : MainUniversalManagerFramework
     private void PopulateBossHeroDifficultyDictionary()
     {
         //Reset the dictionary
-        GSD._bossHeroBestDifficultyComplete = new();
+        GSD.GetGameplaySaveData().ResetBossHeroDifficulties();
 
         //Iterate through the boss scriptable objects
         foreach(BossSO bossSO in _bossesInGame)
         {
             // Adds the boss to the dictionary
-            GSD._bossHeroBestDifficultyComplete.Add(bossSO.GetBossName(), new Dictionary<string, EGameDifficulty>());
+            GSD.GetGameplaySaveData().GetBossHeroBestDifficulty().Add(bossSO.GetBossName(), new Dictionary<string, EGameDifficulty>());
 
             foreach(HeroSO heroSO in _heroesInGame)
             {
                 //Sets each best difficulty beaten to empty
-                GSD._bossHeroBestDifficultyComplete[bossSO.GetBossName()].Add(heroSO.GetHeroName(), EGameDifficulty.Empty);
+                GSD.GetGameplaySaveData().GetBossHeroBestDifficulty()[bossSO.GetBossName()].Add(heroSO.GetHeroName(), EGameDifficulty.Empty);
             }
         }
     }
@@ -126,7 +142,7 @@ public class SaveManager : MainUniversalManagerFramework
 
             GSD = JsonConvert.DeserializeObject<GameSaveData>(json);
             
-            SelectionManager.Instance.SetSelectedDifficulty((EGameDifficulty)GSD.CurrentDifficultySelected);
+            SelectionManager.Instance.SetSelectedDifficulty((EGameDifficulty)GSD.GetGameplaySaveData().GetCurrentDifficultySelected());
         }
         else
         {
@@ -143,8 +159,14 @@ public class SaveManager : MainUniversalManagerFramework
     public void BossDead()
     {
         SaveBossDifficultyHeroesDictionary();
-        UnlockNextBoss();
-        UnlockNextHero();
+
+        UnlockStartingCharacters();
+
+        if (SelectionManager.Instance.IsPlayingMissionsMode())
+        {
+            MissionComplete();
+        }
+        
         SaveText();
     }
 
@@ -161,10 +183,10 @@ public class SaveManager : MainUniversalManagerFramework
         foreach (HeroSO currentTempHero in tempHeroes)
         {
             //If the current difficulty is more than the current best beaten difficulty against this boss
-            if ((int)tempDifficulty > (int)GSD._bossHeroBestDifficultyComplete[tempBoss.GetBossName()][currentTempHero.GetHeroName()])
+            if ((int)tempDifficulty > (int)GSD.GetGameplaySaveData().GetBossHeroBestDifficulty()[tempBoss.GetBossName()][currentTempHero.GetHeroName()])
             {
                 //Save the current difficulty into the best beaten difficulty
-                GSD._bossHeroBestDifficultyComplete[tempBoss.GetBossName()]
+                GSD.GetGameplaySaveData().GetBossHeroBestDifficulty()[tempBoss.GetBossName()]
                     [currentTempHero.GetHeroName()] = tempDifficulty;
             }
         }
@@ -172,7 +194,7 @@ public class SaveManager : MainUniversalManagerFramework
 
     private void DifficultyChanged(EGameDifficulty gameDifficulty)
     {
-        GSD.SetCurrentDifficultySelectedFromEnum(gameDifficulty);
+        GSD.GetGameplaySaveData().SetCurrentDifficultySelectedFromEnum(gameDifficulty);
         SaveText();
     }
 
@@ -182,10 +204,9 @@ public class SaveManager : MainUniversalManagerFramework
     /// </summary>
     public void ResetGameplaySaveData()
     {
-        GSD.ResetGameplaySaveData();
+        GSD.GetGameplaySaveData().ResetGameplaySaveData();
         
-        PopulateUnlockedBosses();
-        PopulateUnlockedHeroes();
+        UnlockStartingUnlocks();
         
         // Resets the best difficulties beaten
         PopulateBossHeroDifficultyDictionary();
@@ -195,55 +216,79 @@ public class SaveManager : MainUniversalManagerFramework
     }
 
     #region Character Unlocks
-    #region Boss Unlocks
-    /// <summary>
-    /// Unlocks the next boss
-    /// </summary>
-    private void UnlockNextBoss()
+
+    public void UnlockCharacter(CharacterSO character)
     {
-        if (GSD._bossesUnlocked[_bossesInGame[_bossesInGame.Count - 1].GetBossName()])
+        if (character.IsUnityNull())
         {
             return;
         }
-
-        // Iterate through each boss
-        foreach (BossSO bossSO in _bossesInGame)
+        
+        if (character is BossSO bossSO)
         {
-            // Check if the boss hasn't been unlocked yet
-            if (!GSD._bossesUnlocked[bossSO.GetBossName()])
-            {
-                // Unlock the boss
-                GSD._bossesUnlocked[bossSO.GetBossName()] = true;
-                break;
-            }
+            UnlockBoss(bossSO);
+        }
+        else if (character is HeroSO heroSO)
+        {
+            UnlockHero(heroSO);
         }
     }
-    #endregion
 
-    #region Hero Unlocks
-    /// <summary>
-    /// Unlocks the next hero
-    /// </summary>
-    private void UnlockNextHero()
+    public void UnlockBoss(BossSO bossSO)
     {
-        if (GSD._heroesUnlocked[_heroesInGame[_heroesInGame.Count - 1].GetHeroName()])
+        if (bossSO.IsUnityNull())
         {
             return;
         }
-
-        // Iterate through each hero
-        foreach(HeroSO heroSO in _heroesInGame)
+        
+        if (!GSD.GetGameplaySaveData().GetBossesUnlocked().Contains(bossSO.GetBossName()))
         {
-            // Check if the hero hasn't been unlocked yet
-            if (!GSD._heroesUnlocked[heroSO.GetHeroName()])
-            {
-                // Unlock the hero
-                GSD._heroesUnlocked[heroSO.GetHeroName()] = true;
-                break;
-            }
+            GSD.GetGameplaySaveData().GetBossesUnlocked().Add(bossSO.GetBossName());
         }
     }
+
+    public void UnlockHero(HeroSO heroSO)
+    {
+        if (heroSO.IsUnityNull())
+        {
+            return;
+        }
+        
+        if (!GSD.GetGameplaySaveData().GetHeroesUnlocked().Contains(heroSO.GetHeroName()))
+        {
+            GSD.GetGameplaySaveData().GetHeroesUnlocked().Add(heroSO.GetHeroName());
+        }
+    }
+    
     #endregion
+    
+    #region MissionUnlocks
+
+    public void UnlockMission(MissionSO mission)
+    {
+        if (!GSD.GetGameplaySaveData().GetMissionsUnlocked().Contains(mission.GetMissionID()))
+        {
+            GSD.GetGameplaySaveData().GetMissionsUnlocked().Add(mission.GetMissionID());
+        }
+        
+    }
+
+    public void MissionComplete()
+    {
+        if (!GSD.GetGameplaySaveData().GetMissionsComplete().Contains(SelectionManager.Instance.GetCurrentMission().GetMissionID()))
+        {
+            GSD.GetGameplaySaveData().GetMissionsComplete().Add(SelectionManager.Instance.GetCurrentMission().GetMissionID());
+            
+            UnlockCharacter(SelectionManager.Instance.GetCurrentMission().GetCharacterUnlock());
+
+            foreach (MissionSO mission in SelectionManager.Instance.GetCurrentMission().GetMissionUnlocks())
+            {
+                UnlockMission(mission);
+            }
+        }
+        
+        
+    }
     #endregion
 
     #region BaseManager
@@ -276,29 +321,36 @@ public class SaveManager : MainUniversalManagerFramework
 
     #region Getters
 
+    public MissionSO[] GetMissionsInGame() => _missionsInGame;
+
+    public bool IsBossUnlocked(BossSO bossSO) => GSD.GetGameplaySaveData().GetBossesUnlocked().Contains(bossSO.GetBossName());
+    public bool IsHeroUnlocked(HeroSO heroSO) => GSD.GetGameplaySaveData().GetHeroesUnlocked().Contains(heroSO.GetHeroName());
+    
+    public bool IsMissionUnlocked(MissionSO missionSO) => GSD.GetGameplaySaveData().GetMissionsUnlocked().Contains(missionSO.GetMissionID());
+    
     public EGameDifficulty GetBestDifficultyBeatenOnHeroForBoss(BossSO bossSO, HeroSO heroSO)
     {
-        return GSD._bossHeroBestDifficultyComplete[bossSO.GetBossName()][heroSO.GetHeroName()];
+        return GSD.GetGameplaySaveData().GetBossHeroBestDifficulty()[bossSO.GetBossName()][heroSO.GetHeroName()];
     }
 
-    public float GetScreenShakeIntensity() => GSD.GetGSDScreenShakeStrength();
+    public float GetScreenShakeIntensity() => GSD.GetGeneralSaveData().GetGSDScreenShakeStrength();
 
-    public bool GetClickAndDragEnabled() => GSD.GetGSDHeroClickAndDragEnabled();
+    public bool GetClickAndDragEnabled() => GSD.GetGeneralSaveData().GetGSDHeroClickAndDragEnabled();
 
-    public float GetMasterVolume() => GSD.GetGSDMasterVolume();
-    public float GetMusicVolume() => GSD.GetGSDMusicVolume();
-    public float GetSFXVolume() => GSD.GetGSDSFXVolume();
+    public float GetMasterVolume() => GSD.GetGeneralSaveData().GetGSDMasterVolume();
+    public float GetMusicVolume() => GSD.GetGeneralSaveData().GetGSDMusicVolume();
+    public float GetSFXVolume() => GSD.GetGeneralSaveData().GetGSDSFXVolume();
 
     public float GetVolumeFromAudioVCAType(EAudioVCAType audioType)
     {
         switch (audioType)
         {
             case(EAudioVCAType.Master):
-                return GSD.GetGSDMasterVolume();
+                return GSD.GetGeneralSaveData().GetGSDMasterVolume();
             case(EAudioVCAType.Music):
-                return GSD.GetGSDMusicVolume();
+                return GSD.GetGeneralSaveData().GetGSDMusicVolume();
             case(EAudioVCAType.SoundEffect):
-                return GSD.GetGSDSFXVolume();
+                return GSD.GetGeneralSaveData().GetGSDSFXVolume();
             default:
                 return 0;
         }
@@ -313,7 +365,7 @@ public class SaveManager : MainUniversalManagerFramework
     /// <param name="val"></param>
     public void SetScreenShakeStrength(float val)
     {
-        GSD.SetGSDScreenShakeStrength(val);
+        GSD.GetGeneralSaveData().SetGSDScreenShakeStrength(val);
         SaveText();
     }
 
@@ -323,7 +375,7 @@ public class SaveManager : MainUniversalManagerFramework
     /// <param name="volume"></param>
     public void SetMasterAudioVolume(float volume)
     {
-        GSD.SetGSDMasterVolume(volume);
+        GSD.GetGeneralSaveData().SetGSDMasterVolume(volume);
         SaveText();
     }
 
@@ -333,7 +385,7 @@ public class SaveManager : MainUniversalManagerFramework
     /// <param name="volume"></param>
     public void SetMusicAudioVolume(float volume)
     {
-        GSD.SetGSDMusicVolume(volume);
+        GSD.GetGeneralSaveData().SetGSDMusicVolume(volume);
         SaveText();
     }
 
@@ -343,7 +395,7 @@ public class SaveManager : MainUniversalManagerFramework
     /// <param name="volume"></param>
     public void SetSFXAudioVolume(float volume)
     {
-        GSD.SetGSDSFXVolume(volume);
+        GSD.GetGeneralSaveData().SetGSDSFXVolume(volume);
         SaveText();
     }
 
@@ -375,17 +427,19 @@ public class SaveManager : MainUniversalManagerFramework
     /// <param name="sfxVol"></param>
     public void SaveSettingsOptions(float screenShake, bool clickDrag, float masterVol, float musicVol, float sfxVol)
     {
-        GSD.SetGSDScreenShakeStrength(screenShake);
-        GSD.SetGSDHeroClickAndDrag(clickDrag);
+        GSD.GetGeneralSaveData().SetGSDScreenShakeStrength(screenShake);
+        GSD.GetGeneralSaveData().SetGSDHeroClickAndDrag(clickDrag);
 
-        GSD.SetGSDMasterVolume(masterVol);
-        GSD.SetGSDMusicVolume(musicVol);
-        GSD.SetGSDSFXVolume(sfxVol);
+        GSD.GetGeneralSaveData().SetGSDMasterVolume(masterVol);
+        GSD.GetGeneralSaveData().SetGSDMusicVolume(musicVol);
+        GSD.GetGeneralSaveData().SetGSDSFXVolume(sfxVol);
 
         SaveText();
     }
     #endregion
 }
+
+
 
 /// <summary>
 /// The data that is saved
@@ -393,51 +447,109 @@ public class SaveManager : MainUniversalManagerFramework
 [System.Serializable]
 public class GameSaveData
 {
-    public string GameVersion; 
+    public GameplaySaveData _storedGameplaySaveData;
     
-    //TODO Seperate into class for game data and settings data
-    public Dictionary<string, bool> _bossesUnlocked = new();
-    //String is hero name
-    public Dictionary<string, bool> _heroesUnlocked = new();
+    public GeneralSaveData _storedGeneralSaveData;
+
+    public void ResetGameSaveData()
+    {
+        _storedGameplaySaveData = new();
+        _storedGeneralSaveData = new();
+    }
+    
+    #region Getters
+    public GameplaySaveData GetGameplaySaveData() => _storedGameplaySaveData;
+    
+    public GeneralSaveData GetGeneralSaveData() => _storedGeneralSaveData;
+    #endregion
+}
+
+
+
+[System.Serializable]
+public class GameplaySaveData
+{
+    public HashSet<string> BossesUnlocked = new();
+    public HashSet<string> HeroesUnlocked = new();
+    
+    public HashSet<int> MissionsUnlocked = new();
+    public HashSet<int> MissionsComplete = new();
+    
     //First string is boss name, second string is hero name
     //Represents the best difficulty each hero has beaten each boss at
-    public Dictionary<string, Dictionary<string,EGameDifficulty>> _bossHeroBestDifficultyComplete = new();
-
+    public Dictionary<string, Dictionary<string,EGameDifficulty>> BossHeroBestDifficultyComplete = new();
+    
     public int CurrentDifficultySelected = 1;
+    
+    public void ResetGameplaySaveData()
+    {
+        BossesUnlocked = new();
+        HeroesUnlocked = new();
+        
+        MissionsComplete = new();
+        
+        BossHeroBestDifficultyComplete = new();
+    }
+    
+    #region Getters
+    public HashSet<string> GetBossesUnlocked() => BossesUnlocked;
+    public HashSet<string> GetHeroesUnlocked() => HeroesUnlocked;
+    
+    public HashSet<int> GetMissionsUnlocked() => MissionsUnlocked;
+    public HashSet<int> GetMissionsComplete() => MissionsComplete;
+    
+    public Dictionary<string, Dictionary<string, EGameDifficulty>> GetBossHeroBestDifficulty() => BossHeroBestDifficultyComplete;
+    
+    public int GetCurrentDifficultySelected() => CurrentDifficultySelected;
+    #endregion
+    
+    #region Setters
+    
+    public void SetCurrentDifficultySelectedFromEnum(EGameDifficulty difficulty)
+    {
+        CurrentDifficultySelected = (int)difficulty;
+    }
+
+    public void ResetBossHeroDifficulties()
+    {
+        BossHeroBestDifficultyComplete = new();
+    }
+    #endregion
+}
+
+
+
+[System.Serializable]
+public class GeneralSaveData
+{
+    public string GameVersion; 
     
     [Space]
     [Header("Settings")]
-    [Range(0, 1)] public float ScreenShakeStrength = 1;
+    public float ScreenShakeStrength = 1;
     private bool HeroClickAndDragMovementEnabled;
 
     [Range(0, 1)] public float MasterVolume = .5f;
     [Range(0, 1)] public float MusicVolume = .5f;
     [Range(0, 1)] public float SfxVolume = .5f;
-
-    public void ResetGameplaySaveData()
-    {
-        _bossesUnlocked = new();
-        _heroesUnlocked = new();
-        _bossHeroBestDifficultyComplete = new();
-    }
     
     #region Getters
-    public Dictionary<string, Dictionary<string, EGameDifficulty>> GetGSDBossHeroBestDifficulty() => _bossHeroBestDifficultyComplete;
-
+    public string GetGameVersion() => GameVersion;
+    
     public float GetGSDScreenShakeStrength() => ScreenShakeStrength;
     public bool GetGSDHeroClickAndDragEnabled() => HeroClickAndDragMovementEnabled;
 
     public float GetGSDMasterVolume() => MasterVolume;
     public float GetGSDMusicVolume() => MusicVolume;
     public float GetGSDSFXVolume() => SfxVolume;
-
+    
     #endregion
-
+    
     #region Setters
 
-    public void SetCurrentDifficultySelectedFromEnum(EGameDifficulty difficulty)
+    public void SetGameVersion(string gameVersion)
     {
-        CurrentDifficultySelected = (int)difficulty;
+        GameVersion = gameVersion;
     }
     
     public void SetGSDScreenShakeStrength(float screenShake)

@@ -331,6 +331,14 @@ public class SelectionManager : MainUniversalManagerFramework
     public Sprite GetDifficultyIconFromDifficulty(EGameDifficulty difficulty) => GetDifficultyIconFromDifficulty((int)difficulty);
     public Sprite GetDifficultyIconFromDifficulty(int difficulty) => _difficultyIcons[difficulty-1];
 
+
+    public MissionSO GetCurrentMission() => _currentSelectedMission;
+    
+    public BossSO GetSelectedBoss() => _selectedBoss;
+    public LevelSO GetSelectedLevel() => _selectedLevel;
+    
+    public EGameDifficulty GetSelectedDifficulty() => _currentEGameDifficulty;
+    
     public List<HeroSO> GetAllSelectedHeroes() => _selectedHeroes;
     public HeroSO GetHeroAtValue(int val) => _selectedHeroes[val];
     public HeroSO GetHeroAtLastPostion() => GetHeroAtValue(GetSelectedHeroesCount() - 1);
@@ -339,13 +347,6 @@ public class SelectionManager : MainUniversalManagerFramework
     public int GetMaxHeroesCountWithCurrentDifficulty() => GetHeroLimitFromDifficulty();
     public bool AtMaxHeroesSelected() => _selectedHeroes.Count >= GetMaxHeroesCountWithCurrentDifficulty();
     public int GetIndexOfLastHeroRemoved() => _indexOfLastRemovedHero;
-    
-
-    public BossSO GetSelectedBoss() => _selectedBoss;
-    public LevelSO GetSelectedLevel() => _selectedLevel;
-    
-    
-    public EGameDifficulty GetSelectedDifficulty() => _currentEGameDifficulty;
     
     public EGameMode GetSelectedGameMode() => _currentGameMode;
     public bool IsPlayingMissionsMode() => _currentGameMode == EGameMode.Missions;
@@ -373,6 +374,12 @@ public class SelectionManager : MainUniversalManagerFramework
     #endregion
 
     #region Setters
+    
+    public void SetSelectedMission(MissionSO mission)
+    {
+        _currentSelectedMission = mission;
+    }
+    
     public void SetSelectedBoss(BossSO bossSO)
     {
         if (AtMaxBossSelected())

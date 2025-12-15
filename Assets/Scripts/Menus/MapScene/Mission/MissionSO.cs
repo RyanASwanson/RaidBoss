@@ -15,6 +15,13 @@ public class MissionSO : ScriptableObject
     [SerializeField] private HeroSO[] _associatedHeroes;
 
     [Space] 
+    [Header("Unlocks")] 
+    [SerializeField] private CharacterSO _characterUnlock;
+
+    [Space] 
+    [SerializeField] private MissionSO[] _missionUnlocks;
+
+    [Space] 
     [Header("Modifiers")]
     [SerializeField] private float _bossHealthMultiplier = 1;
     [SerializeField] private float _bossStaggerMultiplier = 1;
@@ -35,5 +42,8 @@ public class MissionSO : ScriptableObject
     public EGameDifficulty GetAssociatedDifficulty() =>_associatedDifficulty;
     public LevelSO GetAssociatedLevel() =>_associatedLevel;
     public HeroSO[] GetAssociatedHeroes() =>_associatedHeroes;
+    
+    public CharacterSO GetCharacterUnlock() =>_characterUnlock;
+    public MissionSO[] GetMissionUnlocks() =>_missionUnlocks;
     #endregion
 }

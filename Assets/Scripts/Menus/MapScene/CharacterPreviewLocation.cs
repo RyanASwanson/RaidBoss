@@ -31,6 +31,8 @@ public class CharacterPreviewLocation : MonoBehaviour
         {
             PreviewHero(heroSO);
         }
+
+        _hasCreatedCharacterPreview = true;
         
         _scaleProgression.StartMovingUpOnCurve();
     }

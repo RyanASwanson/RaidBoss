@@ -9,10 +9,13 @@ public class MapController : MonoBehaviour
 {
     public static MapController Instance;
 
-    [SerializeField] private LayerMask _missionLayerMask;
-    
-    private Coroutine _mouseCheckProcess;
-    private const float PLAYER_CLICK_RANGE = 50;
+    [Header("Missions")]
+    [SerializeField] private GameObject _mission;
+    [SerializeField] private GameObject _missionHolder;
+
+    [Space] 
+    [SerializeField] private float _missionCreationXIncrease;
+    [SerializeField] private float _missionCreationYValue;
     
     [Space]
     [Header("Mission Selection Pop Up")]
@@ -27,6 +30,8 @@ public class MapController : MonoBehaviour
     [Header("Camera")]
     [SerializeField] private float _minimumCameraLocation;
     [SerializeField] private float _maximumCameraLocation;
+    
+    [SerializeField] private  float _cameraMissionOffSet;
 
     [Space] 
     [SerializeField] private float _cameraButtonMoveDistance;
@@ -56,7 +61,7 @@ public class MapController : MonoBehaviour
     
     private Coroutine _cameraMovementCoroutine;
 
-    private const float CAMERA_MISSION_OFFSET = -1f;
+    
     private Camera _mainCam;
     
     private UniversalPlayerInputActions _universalPlayerInputActions;
@@ -70,9 +75,10 @@ public class MapController : MonoBehaviour
         SubscribeToEvents();
         
         SelectionManager.Instance.SetSelectedGameMode(EGameMode.Missions);
+
+        CreateMissions();
         
         CameraStart();
-        StartMouseChecks();
         SubscribeToPlayerInput();
     }
 
@@ -82,91 +88,53 @@ public class MapController : MonoBehaviour
         UnsubscribeToPlayerInput();
     }
     
-    #region MouseChecks
+    #region MissionCreation
 
-    private void StartMouseChecks()
+    private void CreateMissions()
     {
-        StopMouseChecks();
-        _mouseCheckProcess = StartCoroutine(CheckMouseLocationProcess());
-    }
+        MissionSO[] allMisions = SaveManager.Instance.GetMissionsInGame();
+        Vector3 spawnLocation = Vector3.zero;
 
-    private void StopMouseChecks()
-    {
-        if (!_mouseCheckProcess.IsUnityNull())
+        for (int i = 0; i < allMisions.Length; i++)
         {
-            StopCoroutine(_mouseCheckProcess);
-            _mouseCheckProcess = null;
+            spawnLocation.Set(_missionCreationXIncrease * i,_missionHolder.transform.position.y, i % 2 == 0 ? _missionCreationYValue : -_missionCreationYValue);
+            CreateMission(allMisions[i],spawnLocation);
         }
     }
 
-    private IEnumerator CheckMouseLocationProcess()
+    private void CreateMission(MissionSO mission, Vector3 location)
     {
-        while (true)
-        {
-            PerformMouseChecks();
-            yield return null;
-        }
+        Instantiate(_mission, _missionHolder.transform).TryGetComponent(out SelectableMission selectableMission);
+        selectableMission.gameObject.transform.position = location;
+        selectableMission.SetAssociatedMission(mission);
     }
-
-    private void PerformMouseChecks()
+    
+    #endregion
+    
+    #region MissionSelection
+    
+    public void SelectMission(SelectableMission mission)
     {
-        if (MouseOnPoint(_missionLayerMask, out RaycastHit hit))
+        if (mission == _currentlySelectedMission)
         {
-            MissionHoveredOver(hit.collider.gameObject);
-        }
-        else if (!_currentlyHoveredOverMission.IsUnityNull())
-        {
-            MissionNoLongerHoveredOver();
-        }
-    }
-
-    private void MissionHoveredOver(GameObject missionObject)
-    {
-        // If there was no previous mission hovered over or the current mission is 
-        if (!_currentlyHoveredOverMission.IsUnityNull() && missionObject == _currentlyHoveredOverMission.gameObject)
-        {
-            //We are already hovering over this mission
             return;
         }
-        
-        if (missionObject.TryGetComponent(out SelectableMission mission))
-        {
-            NewMissionHoveredOver(mission);
-        }
+        NewMissionSelected(mission);
     }
 
-    private void NewMissionHoveredOver(SelectableMission mission)
-    {
-        _currentlyHoveredOverMission = mission;
-    }
-
-    private void MissionNoLongerHoveredOver()
-    {
-        _currentlyHoveredOverMission = null;
-    }
-
-    private void SelectHoveredMission()
-    {
-        if (_currentlySelectedMission != _currentlyHoveredOverMission)
-        {
-            SelectNewHoveredMission();
-        }
-        
-    }
-
-    private void SelectNewHoveredMission()
+    private void NewMissionSelected(SelectableMission mission)
     {
         DeselectSelectedMission();
         
-        _currentlySelectedMission = _currentlyHoveredOverMission;
+        _currentlySelectedMission = mission;
         _previousSelectedMission = _currentlySelectedMission;
         
-        MoveCameraToTarget(_currentlySelectedMission.transform.position.x + CAMERA_MISSION_OFFSET);
+        MoveCameraToTarget(_currentlySelectedMission.transform.position.x + _cameraMissionOffSet);
         
         _currentlySelectedMission.SelectMission();
         ShowMissionSelectionPopUp();
     }
-
+    
     private void DeselectSelectedMission()
     {
         if (_currentlySelectedMission.IsUnityNull())
@@ -177,32 +145,6 @@ public class MapController : MonoBehaviour
         _currentlySelectedMission.DeselectMission();
         HideMissionSelectionPopUp();
         _currentlySelectedMission = null;
-    }
-    
-    /// <summary>
-    /// Finds the object in 3D space at the location in which you clicked
-    /// </summary>
-    /// <param name="detectionLayerMask"> The layer/layers that can be clicked on </param> 
-    /// <param name="rayHit"> Out variable for the object the ray hit </param> 
-    /// <returns> Returns if something was clicked </returns> 
-    private bool MouseOnPoint(LayerMask detectionLayerMask, out RaycastHit rayHit)
-    {
-        Ray clickRay = _mainCam.ScreenPointToRay(Mouse.current.position.ReadValue());
-
-        if (Physics.Raycast(clickRay, out rayHit, PLAYER_CLICK_RANGE,detectionLayerMask))
-        {
-            return true;
-        }
-        return false;
-    }
-    
-    #endregion
-
-    #region MissionSelection
-    
-    public void SelectMission(SelectableMission mission)
-    {
-        
     }
 
     public void PlayMission(SelectableMission mission)
@@ -230,7 +172,6 @@ public class MapController : MonoBehaviour
     }
     #endregion
     
-    
     #region CameraMovement
 
     private void CameraStart()
@@ -238,12 +179,7 @@ public class MapController : MonoBehaviour
         _mainCam = Camera.main;
         SetCameraLocation(_minimumCameraLocation);
     }
-
-    private void Update()
-    {
-
-    }
-
+    
     public void CameraLeftButton()
     {
         DeselectSelectedMission();
@@ -276,8 +212,6 @@ public class MapController : MonoBehaviour
         {
             _cameraTargetDirection = -1;
         }
-        
-        //ebug.Log("starting target direction " + _cameraTargetDirection + "    target " + _cameraTargetLocation + " compared to " + _cameraHolder.transform.position.x);
         
         _cameraMovementCoroutine = StartCoroutine(CameraMoveProcess());
     }
@@ -381,15 +315,6 @@ public class MapController : MonoBehaviour
     #endregion
     
     #region InputActions
-    private void PlayerLeftClickClicked(InputAction.CallbackContext context)
-    {
-        if (_currentlyHoveredOverMission.IsUnityNull())
-        {
-            return;
-        }
-
-        SelectHoveredMission();
-    }
 
     private void PlayerRightClicked(InputAction.CallbackContext context)
     {
@@ -400,8 +325,7 @@ public class MapController : MonoBehaviour
     {
         _universalPlayerInputActions = new UniversalPlayerInputActions();
         _universalPlayerInputActions.GameplayActions.Enable();
-
-        _universalPlayerInputActions.GameplayActions.SelectClick.started += PlayerLeftClickClicked;
+        
         _universalPlayerInputActions.GameplayActions.DirectClick.started += PlayerRightClicked;
 
         _isSubscribedToInput = true;
@@ -410,8 +334,7 @@ public class MapController : MonoBehaviour
     private void UnsubscribeToPlayerInput()
     {
         if (!_isSubscribedToInput) return;
-
-        _universalPlayerInputActions.GameplayActions.SelectClick.started -= PlayerLeftClickClicked;
+        
         _universalPlayerInputActions.GameplayActions.DirectClick.started -= PlayerRightClicked;
         
         _isSubscribedToInput = false;
