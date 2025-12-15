@@ -14,6 +14,9 @@ public class MapController : MonoBehaviour
     [SerializeField] private GameObject _missionHolder;
 
     [Space] 
+    [SerializeField] private float _missionCreationXDefault;
+    
+    [Space]
     [SerializeField] private float _missionCreationXIncrease;
     [SerializeField] private float _missionCreationYValue;
     
@@ -25,6 +28,11 @@ public class MapController : MonoBehaviour
     private SelectableMission _previousSelectedMission;
 
     private SelectableMission _currentlyHoveredOverMission;
+    
+    [Space]
+    [Header("Backgrounds")]
+    [SerializeField] private CurveProgression[] _backgroundCurveProgressions;
+    private CurveProgression _currentBackgroundCurveProgression;
 
     [Space]
     [Header("Camera")]
@@ -97,7 +105,9 @@ public class MapController : MonoBehaviour
 
         for (int i = 0; i < allMisions.Length; i++)
         {
-            spawnLocation.Set(_missionCreationXIncrease * i,_missionHolder.transform.position.y, i % 2 == 0 ? _missionCreationYValue : -_missionCreationYValue);
+            spawnLocation.Set((_missionCreationXIncrease * i) + _missionCreationXDefault
+                ,_missionHolder.transform.position.y, i % 2 == 0 ? _missionCreationYValue : -_missionCreationYValue);
+            
             CreateMission(allMisions[i],spawnLocation);
         }
     }
@@ -128,7 +138,8 @@ public class MapController : MonoBehaviour
         
         _currentlySelectedMission = mission;
         _previousSelectedMission = _currentlySelectedMission;
-        
+
+        UpdateBackground(mission.GetAssociatedMission());
         MoveCameraToTarget(_currentlySelectedMission.transform.position.x + _cameraMissionOffSet);
         
         _currentlySelectedMission.SelectMission();
@@ -170,6 +181,37 @@ public class MapController : MonoBehaviour
     {
         _missionSelectionPopUp.MissionDeselected();
     }
+    #endregion
+    
+    #region Background
+
+    private void UpdateBackground(MissionSO mission)
+    {
+        RemoveCurrentBackground();
+        ShowBackground(mission);
+    }
+
+    private void ShowBackground(MissionSO mission)
+    {
+        _currentBackgroundCurveProgression = _backgroundCurveProgressions[mission.GetAssociatedLevel().GetLevelNumber()];
+        
+        if (_currentBackgroundCurveProgression.IsUnityNull())
+        {
+            return;
+        }
+        
+        _currentBackgroundCurveProgression.StartMovingUpOnCurve();
+    }
+
+    private void RemoveCurrentBackground()
+    {
+        if (_currentBackgroundCurveProgression.IsUnityNull())
+        {
+            return;
+        }
+        _currentBackgroundCurveProgression.StartMovingDownOnCurve();
+    }
+    
     #endregion
     
     #region CameraMovement

@@ -18,8 +18,9 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
+  m_CustomRenderQueue: 3000
+  stringTagMap:
+    RenderType: Transparent
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -98,7 +99,7 @@ Material:
     - _AdditiveSimulatedLightLevel: 0.5
     - _Ambient: 0
     - _BumpScale: 1
-    - _Cull: 0
+    - _Cull: 2
     - _Cutoff: 0.5
     - _DesaturateLightColor: 1
     - _DetailNormalMapScale: 1
@@ -108,7 +109,7 @@ Material:
     - _DistanceFogEndPosition: 0
     - _DistanceFogLength: 0
     - _DistanceFogStartPosition: 10
-    - _DstBlend: 0
+    - _DstBlend: 10
     - _FogHeight: 4.9
     - _FrontLightLevel: 1
     - _FrontOpacityLevel: 1
@@ -140,7 +141,7 @@ Material:
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _Posterize: 0
-    - _RenderMode: 0
+    - _RenderMode: 1
     - _RightLightLevel: 1
     - _RightOpacityLevel: 1
     - _RightTextureLevel: 1
@@ -153,7 +154,7 @@ Material:
     - _SimulatedLightLevel: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _SrcBlend: 1
+    - _SrcBlend: 5
     - _Steps: 2
     - _TopLightLevel: 1
     - _TopOpacityLevel: 1
@@ -164,7 +165,7 @@ Material:
     - _UseExternalColor: 0
     - _ViewDirection: 0
     - _WorldDistanceFog: 0
-    - _ZWrite: 1
+    - _ZWrite: 0
     m_Colors:
     - _CenterColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 0.75294125, g: 1, b: 0.2784314, a: 1}
