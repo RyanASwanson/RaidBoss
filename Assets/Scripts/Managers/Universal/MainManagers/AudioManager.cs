@@ -357,6 +357,22 @@ public class AudioManager : MainUniversalManagerFramework
         }
         PlayMusic(musicID, fadeOutTime,AllMusic[musicID].DefaultInstanceFadeInTime, allowSameSong);
     }
+
+    public void PlayMusic(EMusicTracks musicTrack, bool allowSameSong)
+    {
+        switch (musicTrack)
+        {
+            case EMusicTracks.MainMenu:
+                PlayMusic(MAIN_MENU_MUSIC_ID, allowSameSong);
+                break;
+            case EMusicTracks.Map:
+                PlayMusic(SELECTION_SCENE_MUSIC_ID, allowSameSong);
+                break;
+            case EMusicTracks.Selection:
+                PlayMusic(SELECTION_SCENE_MUSIC_ID, allowSameSong);
+                break;
+        }
+    }
     
     public void PlayMusic(int musicID, float fadeOutTime, float fadeInTime, bool allowSameSong)
     {
@@ -570,4 +586,12 @@ public class AudioManager : MainUniversalManagerFramework
     }
 
     #endregion
+}
+
+public enum EMusicTracks
+{
+    MainMenu,
+    Map,
+    Selection,
+    
 }

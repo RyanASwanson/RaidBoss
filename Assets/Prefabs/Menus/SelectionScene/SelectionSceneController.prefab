@@ -2295,6 +2295,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1211727580956939665}
   - component: {fileID: 1211727580956939670}
+  - component: {fileID: 3705192849010975805}
   m_Layer: 0
   m_Name: SelectionSceneController
   m_TagString: Untagged
@@ -2391,6 +2392,19 @@ MonoBehaviour:
   - {fileID: 8848960893385345125}
   - {fileID: 8848960891732916619}
   - {fileID: 8848960893426199144}
+--- !u!114 &3705192849010975805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1211727580956939664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9428184ddb120cc45b3cf018fc2a8e8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _musicTrack: 2
 --- !u!1 &1211727581028106660
 GameObject:
   m_ObjectHideFlags: 0
@@ -4616,6 +4630,7 @@ GameObject:
   - component: {fileID: 1211727582336824084}
   - component: {fileID: 1211727582336824087}
   - component: {fileID: 6158577010806050574}
+  - component: {fileID: 8019226771390835075}
   m_Layer: 0
   m_Name: BackButton
   m_TagString: Untagged
@@ -4724,19 +4739,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1211727582336824084}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1211727580956939670}
-        m_TargetAssemblyTypeName: SelectionController, Assembly-CSharp
-        m_MethodName: BackToMainMenu
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &6158577010806050574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4750,6 +4753,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _buttonPressAudioID: 00000000
+--- !u!114 &8019226771390835075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1211727582336824081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d62bf692cf9213d41bc36a96da3604c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sceneToLoad: 0
 --- !u!1 &1211727582361574715
 GameObject:
   m_ObjectHideFlags: 0
