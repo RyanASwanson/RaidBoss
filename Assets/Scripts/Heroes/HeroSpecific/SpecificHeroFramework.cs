@@ -45,6 +45,12 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     protected Coroutine _manualAbilityCooldownCoroutine;
 
     #region Basic Abilities
+
+    protected virtual void SetUpBasicAbility()
+    {
+        
+    }
+    
     /// <summary>
     /// Starts the cooldown of the heroes basic ability and stores the coroutine
     /// </summary>
@@ -163,6 +169,15 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     #endregion
 
     #region Manual Abilities
+
+    protected virtual void SetUpManualAbility()
+    {
+        if (SelectionManager.Instance.GetSelectedMissionStatModifiersOut(out MissionStatModifiers missionStatModifiers))
+        {
+            _manualAbilityChargeTime *= missionStatModifiers.GetHeroManualCooldownTimeMultiplier();
+        }
+    }
+    
     /// <summary>
     /// Starts the cooldown of the heroes manual ability and stores the coroutine
     /// </summary>
@@ -246,6 +261,11 @@ public abstract class SpecificHeroFramework : MonoBehaviour
 
     #region Passive Abilities
 
+    protected virtual void SetUpPassiveAbility()
+    {
+        
+    }
+
     protected virtual void TriggerPassiveAbilityAnimation()
     {
         if (!_hasPassiveAbilityAnimation) return;
@@ -324,6 +344,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     {
         _myHeroBase = heroBase;
         SetInitialValues();
+        SetUpAbilities();
         SubscribeToEvents();
     }
 
@@ -332,6 +353,13 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         _basicAbilityAnimationDisableWait = new WaitForSeconds(_basicAbilityAnimationBufferBeforeDisable);
         _manualAbilityAnimationDisableWait = new WaitForSeconds(_manualAbilityAnimationBufferBeforeDisable);
         _passiveAbilityAnimationDisableWait = new WaitForSeconds(_passiveAbilityAnimationBufferBeforeDisable);
+    }
+
+    protected virtual void SetUpAbilities()
+    {
+        SetUpBasicAbility();
+        SetUpManualAbility();
+        SetUpPassiveAbility();
     }
 
     /// <summary>

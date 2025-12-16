@@ -158,13 +158,13 @@ public class SaveManager : MainUniversalManagerFramework
     /// </summary>
     public void BossDead()
     {
-        SaveBossDifficultyHeroesDictionary();
-
-        UnlockStartingCharacters();
-
         if (SelectionManager.Instance.IsPlayingMissionsMode())
         {
             MissionComplete();
+        }
+        else
+        {
+            SaveBossDifficultyHeroesDictionary();
         }
         
         SaveText();
@@ -275,13 +275,13 @@ public class SaveManager : MainUniversalManagerFramework
 
     public void MissionComplete()
     {
-        if (!GSD.GetGameplaySaveData().GetMissionsComplete().Contains(SelectionManager.Instance.GetCurrentMission().GetMissionID()))
+        if (!GSD.GetGameplaySaveData().GetMissionsComplete().Contains(SelectionManager.Instance.GetSelectedMission().GetMissionID()))
         {
-            GSD.GetGameplaySaveData().GetMissionsComplete().Add(SelectionManager.Instance.GetCurrentMission().GetMissionID());
+            GSD.GetGameplaySaveData().GetMissionsComplete().Add(SelectionManager.Instance.GetSelectedMission().GetMissionID());
             
-            UnlockCharacter(SelectionManager.Instance.GetCurrentMission().GetCharacterUnlock());
+            UnlockCharacter(SelectionManager.Instance.GetSelectedMission().GetCharacterUnlock());
 
-            foreach (MissionSO mission in SelectionManager.Instance.GetCurrentMission().GetMissionUnlocks())
+            foreach (MissionSO mission in SelectionManager.Instance.GetSelectedMission().GetMissionUnlocks())
             {
                 UnlockMission(mission);
             }
@@ -485,7 +485,8 @@ public class GameplaySaveData
     {
         BossesUnlocked = new();
         HeroesUnlocked = new();
-        
+
+        MissionsUnlocked = new();
         MissionsComplete = new();
         
         BossHeroBestDifficultyComplete = new();

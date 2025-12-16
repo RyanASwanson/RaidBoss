@@ -20,6 +20,8 @@ public class MapController : MonoBehaviour
     [SerializeField] private float _missionCreationXIncrease;
     [SerializeField] private float _missionCreationYValue;
     
+    private List<SelectableMission> _createdMissions = new List<SelectableMission>();
+    
     [Space]
     [Header("Mission Selection Pop Up")]
     [SerializeField] private MissionSelectionPopUp _missionSelectionPopUp;
@@ -33,6 +35,9 @@ public class MapController : MonoBehaviour
     [Header("Backgrounds")]
     [SerializeField] private CurveProgression[] _backgroundCurveProgressions;
     private CurveProgression _currentBackgroundCurveProgression;
+    
+    [SerializeField] private GeneralVFXFunctionality[] _backgroundParticles;
+    private GeneralVFXFunctionality _currentBackgroundParticles;
 
     [Space]
     [Header("Camera")]
@@ -68,9 +73,6 @@ public class MapController : MonoBehaviour
     private float _cameraVelocity;
     
     private Coroutine _cameraMovementCoroutine;
-
-    
-    private Camera _mainCam;
     
     private UniversalPlayerInputActions _universalPlayerInputActions;
 
@@ -84,7 +86,12 @@ public class MapController : MonoBehaviour
         
         SelectionManager.Instance.SetSelectedGameMode(EGameMode.Missions);
 
+        HideAllBackgroundParticles();
+        // REMOVE THIS IF YOU ADD FUNCTIONALITY FOR STARTING ON A DIFFERENT MISSION THAN THE FIRST
+        ShowStartingBackgroundParticles();
+
         CreateMissions();
+        SelectStartingMission();
         
         CameraStart();
         SubscribeToPlayerInput();
@@ -117,8 +124,14 @@ public class MapController : MonoBehaviour
         Instantiate(_mission, _missionHolder.transform).TryGetComponent(out SelectableMission selectableMission);
         selectableMission.gameObject.transform.position = location;
         selectableMission.SetAssociatedMission(mission);
+        
+        _createdMissions.Add(selectableMission);
     }
-    
+
+    private void SelectStartingMission()
+    {
+        //SelectMission(_createdMissions[0]);
+    }
     #endregion
     
     #region MissionSelection
@@ -188,7 +201,9 @@ public class MapController : MonoBehaviour
     private void UpdateBackground(MissionSO mission)
     {
         RemoveCurrentBackground();
+        RemoveCurrentBackgroundParticles();
         ShowBackground(mission);
+        ShowBackgroundParticles(mission);
     }
 
     private void ShowBackground(MissionSO mission)
@@ -210,6 +225,35 @@ public class MapController : MonoBehaviour
             return;
         }
         _currentBackgroundCurveProgression.StartMovingDownOnCurve();
+
+    }
+
+    private void ShowBackgroundParticles(MissionSO mission)
+    {
+        _currentBackgroundParticles = _backgroundParticles[mission.GetAssociatedLevel().GetLevelNumber()];
+        _currentBackgroundParticles.gameObject.SetActive(true);
+    }
+
+    private void RemoveCurrentBackgroundParticles()
+    {
+        if (_currentBackgroundParticles.IsUnityNull())
+        {
+            return;
+        }
+        _currentBackgroundParticles.gameObject.SetActive(false);
+    }
+
+    private void HideAllBackgroundParticles()
+    {
+        foreach (GeneralVFXFunctionality particle in _backgroundParticles)
+        {
+            particle.gameObject.SetActive(false);
+        }
+    }
+
+    private void ShowStartingBackgroundParticles()
+    {
+        ShowBackgroundParticles(SaveManager.Instance.GetMissionsInGame()[0]);
     }
     
     #endregion
@@ -218,7 +262,6 @@ public class MapController : MonoBehaviour
 
     private void CameraStart()
     {
-        _mainCam = Camera.main;
         SetCameraLocation(_minimumCameraLocation);
     }
     

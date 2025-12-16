@@ -332,7 +332,31 @@ public class SelectionManager : MainUniversalManagerFramework
     public Sprite GetDifficultyIconFromDifficulty(int difficulty) => _difficultyIcons[difficulty-1];
 
 
-    public MissionSO GetCurrentMission() => _currentSelectedMission;
+    public MissionSO GetSelectedMission() => _currentSelectedMission;
+
+    public bool GetSelectedMissionOut(out MissionSO selectedMission)
+    {
+        if (IsPlayingMissionsMode())
+        {
+            selectedMission = GetSelectedMission();
+            return true;
+        }
+
+        selectedMission = new();
+        return false;
+    }
+
+    public bool GetSelectedMissionStatModifiersOut(out MissionStatModifiers selectedMissionStatModifiers)
+    {
+        if (GetSelectedMissionOut(out MissionSO selectedMission))
+        {
+            selectedMissionStatModifiers = selectedMission.GetMissionStatModifiers();
+            return true;
+        }
+
+        selectedMissionStatModifiers = null;
+        return false;
+    }
     
     public BossSO GetSelectedBoss() => _selectedBoss;
     public LevelSO GetSelectedLevel() => _selectedLevel;

@@ -68,6 +68,11 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
 
         _timeUntilNextAbility /= SelectionManager.Instance.GetSpeedMultiplierFromDifficulty();
 
+        if (SelectionManager.Instance.GetSelectedMissionStatModifiersOut(out MissionStatModifiers missionStatModifiers))
+        {
+            _timeUntilNextAbility /= missionStatModifiers.GetBossAttackSpeedMultiplier();
+        }
+
         if (_hasAbilityDuration)
         {
             _abilityDurationWait = new WaitForSeconds(_abilityDuration);

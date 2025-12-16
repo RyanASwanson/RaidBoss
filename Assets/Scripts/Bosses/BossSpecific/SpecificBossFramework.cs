@@ -65,10 +65,25 @@ public abstract class SpecificBossFramework : MonoBehaviour
     /// </summary>
     protected virtual void SetUpReadyBossAbilities()
     {
-        // Iterates through each ability
-        foreach(SpecificBossAbilityFramework ability in _startingBossAbilities)
+        bool[] usableAbilities;
+        if (SelectionManager.Instance.GetSelectedMissionStatModifiersOut(out MissionStatModifiers missionStatModifiers))
         {
-            AddAbilityToBossReadyAttacks(ability);
+            usableAbilities = missionStatModifiers.GetBossAbilitiesUsable();
+        }
+        else
+        {
+            usableAbilities = new bool[]{true, true, true, true, true};
+        }
+        
+        // Iterates through each ability
+        for (int i = 0; i < _startingBossAbilities.Count; i++)
+        {
+            if (!usableAbilities[i])
+            {
+                _attackRepititionProtection = Mathf.Clamp(_attackRepititionProtection -1, 0, int.MaxValue);
+                continue;
+            }
+            AddAbilityToBossReadyAttacks(_startingBossAbilities[i]);
         }
     }
 
@@ -467,6 +482,14 @@ public abstract class SpecificBossFramework : MonoBehaviour
         if (_abilityLocked.IsUnityNull())
         {
             return;
+        }
+
+        if (SelectionManager.Instance.GetSelectedMissionOut(out MissionSO mission))
+        {
+            if (!mission.GetMissionStatModifiers().GetBossAbilitiesUsable()[_abilityLocked.GetAbilityID()])
+            {
+                return;
+            }
         }
         
         AddAbilityToBossReadyAttacks(_abilityLocked);
