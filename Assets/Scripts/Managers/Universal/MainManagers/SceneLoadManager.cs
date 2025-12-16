@@ -44,6 +44,25 @@ public class SceneLoadManager : MainUniversalManagerFramework
         }
     }
 
+    public void LoadSceneByEnum(ELoadableScenes scene)
+    {
+
+        switch (scene)
+        {
+            case ELoadableScenes.MainMenu:
+                LoadMainMenuScene();
+                break;
+            case ELoadableScenes.Map:
+                LoadMapScene();
+                break;
+            case ELoadableScenes.Selection:
+                LoadSelectionScene();
+                break;
+            default:
+                break;
+        }
+    }
+
     /// <summary>
     /// Returns if a scene load can occur.
     /// Prevented if scene load is currently in process.
@@ -117,6 +136,7 @@ public class SceneLoadManager : MainUniversalManagerFramework
     public void LoadMapScene()
     {
         SelectionManager.Instance.SetSelectedGameMode(EGameMode.Missions);
+        SelectionManager.Instance.ResetSelectionData();
         LoadSceneByID(MAP_SCENE_SCENE_ID);
     }
 
@@ -167,3 +187,10 @@ public class SceneLoadManager : MainUniversalManagerFramework
     public UnityEvent GetOnGameplaySceneLoaded() => _onGameplaySceneLoaded;
     #endregion
 }
+
+public enum ELoadableScenes
+{
+    MainMenu,
+    Map,
+    Selection
+};

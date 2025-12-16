@@ -4,6 +4,7 @@ using UnityEngine;
 using System.IO;
 using Newtonsoft.Json;
 using Unity.VisualScripting;
+using UnityEngine.Events;
 using UnityEngine.Serialization;
 
 public class SaveManager : MainUniversalManagerFramework
@@ -23,6 +24,10 @@ public class SaveManager : MainUniversalManagerFramework
     
     [Space]
     [SerializeField] private List<MissionSO> _missionsStartingUnlocked = new();
+
+    private const int HEROES_REQUIRED_FOR_FREE_PLAY = 3;
+
+    private UnityEvent _onGameplaySaveDataReset = new UnityEvent();
 
     /// <summary>
     /// Sets the path to create the save file
@@ -210,6 +215,8 @@ public class SaveManager : MainUniversalManagerFramework
         
         // Resets the best difficulties beaten
         PopulateBossHeroDifficultyDictionary();
+        
+        InvokeOnGameplaySaveDataReset();
 
         // Saves the changes into the text file
         SaveText();
@@ -259,7 +266,28 @@ public class SaveManager : MainUniversalManagerFramework
             GSD.GetGameplaySaveData().GetHeroesUnlocked().Add(heroSO.GetHeroName());
         }
     }
+
+    public void UnlockAllCharacters()
+    {
+        UnlockAllBosses();
+        UnlockAllHeroes();
+    }
     
+    public void UnlockAllBosses()
+    {
+        foreach (BossSO bossSO in _bossesInGame)
+        {
+            UnlockBoss(bossSO);
+        }
+    }
+
+    public void UnlockAllHeroes()
+    {
+        foreach (HeroSO heroSO in _heroesInGame)
+        {
+            UnlockHero(heroSO);
+        }
+    }
     #endregion
     
     #region MissionUnlocks
@@ -318,6 +346,14 @@ public class SaveManager : MainUniversalManagerFramework
     }
 
     #endregion
+    
+    #region Events
+
+    private void InvokeOnGameplaySaveDataReset()
+    {
+        _onGameplaySaveDataReset?.Invoke();
+    }
+    #endregion
 
     #region Getters
 
@@ -332,6 +368,8 @@ public class SaveManager : MainUniversalManagerFramework
     {
         return GSD.GetGameplaySaveData().GetBossHeroBestDifficulty()[bossSO.GetBossName()][heroSO.GetHeroName()];
     }
+
+    public bool IsFreePlayUnlocked() => GSD.GetGameplaySaveData().HeroesUnlocked.Count >= HEROES_REQUIRED_FOR_FREE_PLAY;
 
     public float GetScreenShakeIntensity() => GSD.GetGeneralSaveData().GetGSDScreenShakeStrength();
 
@@ -436,6 +474,9 @@ public class SaveManager : MainUniversalManagerFramework
 
         SaveText();
     }
+    
+    
+    public UnityEvent GetOnGameplaySaveDataReset()=> _onGameplaySaveDataReset;
     #endregion
 }
 

@@ -103,6 +103,7 @@ public class MapController : MonoBehaviour
         UnsubscribeToPlayerInput();
     }
     
+    
     #region MissionCreation
 
     private void CreateMissions()

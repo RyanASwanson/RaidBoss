@@ -36,12 +36,12 @@ public class DebugScript : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Y))
         {
-            SaveManager.Instance.BossDead();
+            SaveManager.Instance.UnlockAllCharacters();
         }
 
         if (Input.GetKeyDown(KeyCode.U))
         {
-            BossStats.Instance.DealDamageToBoss(99999);
+            BossStats.Instance.DealDamageToBoss((BossStats.Instance.GetBossMaxHealth()/2) + 1);
         }
         
         if (Input.GetKeyDown(KeyCode.I))
@@ -61,7 +61,7 @@ public class DebugScript : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.P))
         {
-            BossStats.Instance.DealDamageToBoss((BossStats.Instance.GetBossMaxHealth()/2) + 1);
+            
         }
 
         if (Input.GetKeyDown(KeyCode.L))

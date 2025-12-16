@@ -73,7 +73,7 @@ public class BossStats : BossChildrenFunctionality
             _bossMaxHealth *= missionStatModifiers.GetBossHealthMultiplier();
 
             _bossDefaultStaggerMax *= missionStatModifiers.GetBossStaggerMultiplier();
-
+            
             _bossDamageResistanceChangeOnStagger *=
                 missionStatModifiers.GetBossDamageResistanceChangeOnStaggerMultiplier();
             
@@ -286,6 +286,8 @@ public class BossStats : BossChildrenFunctionality
     public void ChangeBossDamageResistance(float changeValue)
     {
         _bossDamageResistanceMultiplier+= changeValue;
+        
+        _bossDamageResistanceMultiplier = Mathf.Clamp(_bossDamageResistanceMultiplier, 0.001f, int.MaxValue);
     }
 
     private void DecreaseBossDamageResistanceOnStagger()

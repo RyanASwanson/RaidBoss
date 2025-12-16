@@ -6,24 +6,10 @@ using UnityEngine.UI;
 
 public class MainMenuController : MonoBehaviour
 {
-    [Header("Main")]
-    [SerializeField] private Button _playButton;
-    [SerializeField] private Button _extrasButton;
-    [SerializeField] private Button _quitButton;
-    
-    [Space]
-    [Header("Extras")]
-    [SerializeField] private GameObject _controlsCanvas;
-
     private void Start()
     {
         PlayMainMenuMusic();
-        ResetSelection();
-    }
-
-    private void ResetSelection()
-    {
-        SelectionManager.Instance.ResetSelectionData();
+        
     }
     
     // Plays the music associated with the boss fight
@@ -33,16 +19,6 @@ public class MainMenuController : MonoBehaviour
     }
     
     #region Buttons
-    public void LoadMapScene()
-    {
-        SceneLoadManager.Instance.LoadMapScene();
-    }
-
-    public void LoadSelectionScene()
-    {
-        SceneLoadManager.Instance.LoadSelectionScene();
-    }
-
     public void QuitButtonPressed()
     {
         Application.Quit();

@@ -186,6 +186,8 @@ GameObject:
   - component: {fileID: 704539997544946068}
   - component: {fileID: 5350456440899777314}
   - component: {fileID: 5460050675158133756}
+  - component: {fileID: 6269347690301555580}
+  - component: {fileID: 2220804327595807341}
   m_Layer: 5
   m_Name: SelectionButton
   m_TagString: Untagged
@@ -295,10 +297,39 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5350456440899777314}
   m_OnClick:
     m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &6269347690301555580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 545407545833695803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d62bf692cf9213d41bc36a96da3604c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sceneToLoad: 1
+--- !u!114 &2220804327595807341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 545407545833695803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f81cc56a6aaddaf42842ad99bf3f6ebc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _associatedGameMode: 1
+  _playingAssociatedGameModeEvent:
+    m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7770494632605610084}
-        m_TargetAssemblyTypeName: WinLoseScreenFunctionality, Assembly-CSharp
-        m_MethodName: BackToSelectionScreen
+      - m_Target: {fileID: 6269347690301555580}
+        m_TargetAssemblyTypeName: SceneLoadButton, Assembly-CSharp
+        m_MethodName: SetSceneToLoadToSelection
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -308,6 +339,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _notPlayingAssociatedGameModeEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &706038309350146338
 GameObject:
   m_ObjectHideFlags: 0
@@ -2211,6 +2245,8 @@ GameObject:
   - component: {fileID: 3794446177690593815}
   - component: {fileID: 2107622523813844046}
   - component: {fileID: 4356208385643712377}
+  - component: {fileID: 5999848285276011306}
+  - component: {fileID: 6780687517584113619}
   m_Layer: 5
   m_Name: SelectionButton
   m_TagString: Untagged
@@ -2320,10 +2356,39 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2107622523813844046}
   m_OnClick:
     m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &5999848285276011306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3810350800490763981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d62bf692cf9213d41bc36a96da3604c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sceneToLoad: 1
+--- !u!114 &6780687517584113619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3810350800490763981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f81cc56a6aaddaf42842ad99bf3f6ebc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _associatedGameMode: 1
+  _playingAssociatedGameModeEvent:
+    m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7770494632605610084}
-        m_TargetAssemblyTypeName: WinLoseScreenFunctionality, Assembly-CSharp
-        m_MethodName: BackToSelectionScreen
+      - m_Target: {fileID: 5999848285276011306}
+        m_TargetAssemblyTypeName: SceneLoadButton, Assembly-CSharp
+        m_MethodName: SetSceneToLoadToSelection
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2333,6 +2398,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _notPlayingAssociatedGameModeEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &3847187185586134706
 GameObject:
   m_ObjectHideFlags: 0
@@ -3118,6 +3186,8 @@ GameObject:
   - component: {fileID: 5067233323045503210}
   - component: {fileID: 1588549016633275204}
   - component: {fileID: 5859537719610599762}
+  - component: {fileID: 4229181080320391784}
+  - component: {fileID: 4951563357282863229}
   m_Layer: 5
   m_Name: SelectionButton
   m_TagString: Untagged
@@ -3227,10 +3297,39 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1588549016633275204}
   m_OnClick:
     m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &4229181080320391784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5518673146000595405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d62bf692cf9213d41bc36a96da3604c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sceneToLoad: 1
+--- !u!114 &4951563357282863229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5518673146000595405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f81cc56a6aaddaf42842ad99bf3f6ebc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _associatedGameMode: 1
+  _playingAssociatedGameModeEvent:
+    m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4796474967394971821}
-        m_TargetAssemblyTypeName: PauseScreenFunctionality, Assembly-CSharp
-        m_MethodName: BackToSelectionScreen
+      - m_Target: {fileID: 4229181080320391784}
+        m_TargetAssemblyTypeName: LoadSceneButton, Assembly-CSharp
+        m_MethodName: SetSceneToLoadToSelection
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3240,6 +3339,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _notPlayingAssociatedGameModeEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &5708142084361904582
 GameObject:
   m_ObjectHideFlags: 0

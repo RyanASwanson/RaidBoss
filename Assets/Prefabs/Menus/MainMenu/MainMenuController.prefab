@@ -560,9 +560,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5569035909088113116}
   - component: {fileID: 1821407233733799333}
-  - component: {fileID: 1319409325903704526}
   - component: {fileID: 4123613004744621097}
   - component: {fileID: 8864003908861073336}
+  - component: {fileID: 4967466827236359148}
   m_Layer: 0
   m_Name: PlayButton (1)
   m_TagString: Untagged
@@ -600,36 +600,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 393027324545574951}
   m_CullTransparentMesh: 1
---- !u!114 &1319409325903704526
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 393027324545574951}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6e86d859da9bc91438de80dac304cf82, type: 3}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!114 &4123613004744621097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -673,19 +643,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2301660169119480754}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8039736765666296196}
-        m_TargetAssemblyTypeName: MainMenuController, Assembly-CSharp
-        m_MethodName: LoadMapScene
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &8864003908861073336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -699,6 +657,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _buttonPressAudioID: 00000000
+--- !u!114 &4967466827236359148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 393027324545574951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d62bf692cf9213d41bc36a96da3604c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sceneToLoad: 1
 --- !u!1 &427161825208432353
 GameObject:
   m_ObjectHideFlags: 0
@@ -10565,7 +10536,7 @@ GameObject:
   - component: {fileID: 2191827609157184191}
   - component: {fileID: 2301660169119480754}
   m_Layer: 0
-  m_Name: PlayButton (2)
+  m_Name: ButtonVisuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15279,8 +15250,10 @@ GameObject:
   - component: {fileID: 8039736764706919820}
   - component: {fileID: 8039736764706919823}
   - component: {fileID: 2703171677934865342}
+  - component: {fileID: 4854013781574483696}
+  - component: {fileID: 8561032588535005432}
   m_Layer: 0
-  m_Name: OtherButton
+  m_Name: FreePlayButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15388,19 +15361,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8039736764706919820}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8039736765666296196}
-        m_TargetAssemblyTypeName: MainMenuController, Assembly-CSharp
-        m_MethodName: LoadSelectionScene
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &2703171677934865342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15414,6 +15375,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _buttonPressAudioID: 00000000
+--- !u!114 &4854013781574483696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8039736764706919809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d62bf692cf9213d41bc36a96da3604c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sceneToLoad: 2
+--- !u!114 &8561032588535005432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8039736764706919809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc8a908a3c759b44f803e9b7ed31fd26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8039736764763936894
 GameObject:
   m_ObjectHideFlags: 0
@@ -17787,6 +17773,7 @@ GameObject:
   - component: {fileID: 8039736765521900886}
   - component: {fileID: 8039736765521900905}
   - component: {fileID: 6347361261299236057}
+  - component: {fileID: 3585612047674738030}
   m_Layer: 0
   m_Name: PlayButton
   m_TagString: Untagged
@@ -17896,19 +17883,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8039736765521900886}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8039736765666296196}
-        m_TargetAssemblyTypeName: MainMenuController, Assembly-CSharp
-        m_MethodName: LoadMapScene
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &6347361261299236057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17922,6 +17897,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _buttonPressAudioID: 00000000
+--- !u!114 &3585612047674738030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8039736765521900907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d62bf692cf9213d41bc36a96da3604c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sceneToLoad: 1
 --- !u!1 &8039736765546142533
 GameObject:
   m_ObjectHideFlags: 0
@@ -18587,10 +18575,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 161a6b4907ecf3a42978ac3c9b734453, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playButton: {fileID: 8039736765521900905}
-  _extrasButton: {fileID: 0}
-  _quitButton: {fileID: 8039736765783471583}
-  _controlsCanvas: {fileID: 8039736765505119122}
 --- !u!1 &8039736765673821196
 GameObject:
   m_ObjectHideFlags: 0
