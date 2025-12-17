@@ -392,7 +392,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
     {
         if (_nextAttackProcess.IsUnityNull())
         {
-            Debug.LogError("Boss was unable to stop next attack process");
+            //Debug.LogError("Boss was unable to stop next attack process");
             return;
         }
         
@@ -529,7 +529,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
         GameStateManager.Instance.GetBattleWonEvent().AddListener(BossDied);
         
         //Listens for when the boss is staggered
-        _myBossBase.GetBossStaggeredEvent().AddListener(BossStaggerOccured);
+        BossBase.Instance.GetBossStaggeredEvent().AddListener(BossStaggerOccured);
         //Listens for when the boss stagger ends
         _myBossBase.GetBossNoLongerStaggeredEvent().AddListener(BossNoLongerStaggeredOccured);
         

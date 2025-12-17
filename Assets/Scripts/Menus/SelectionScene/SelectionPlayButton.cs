@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,12 +6,23 @@ using UnityEngine.UI;
 
 public class SelectionPlayButton : MonoBehaviour
 {
+    [SerializeField] private bool _doesUpdateIconsOnStart;
+    
+    [Space]
     [SerializeField] private Image _bossSelectedIcon;
     [SerializeField] private Image[] _heroSelectedIcons;
     [SerializeField] private CurveProgression _curveScaleProgression;
 
     private Button _button;
-    
+
+    private void Start()
+    {
+        if (_doesUpdateIconsOnStart)
+        {
+            UpdateBossAndHeroSelectionIcons();
+        }
+    }
+
     public void SetUpPlayButton()
     {
         _button = GetComponent<Button>();

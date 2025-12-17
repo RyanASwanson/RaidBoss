@@ -20,8 +20,16 @@ public class SelectableMission : MonoBehaviour
     [SerializeField] private MeshRenderer[] _missionPlatformRenderers;
     
     [Space]
+    [SerializeField] private Material _lockedMissionMaterial;
+
+    [Space] 
+    [SerializeField] private MeshRenderer _missionSelectCenter;
+    
+    [Space]
     [SerializeField] private CharacterPreviewLocation _bossPreviewHolder;
     [SerializeField] private CharacterPreviewLocation[] _heroPreviewHolders;
+
+    private bool _isMissionUnlocked;
 
     private void Start()
     {
@@ -34,9 +42,21 @@ public class SelectableMission : MonoBehaviour
 
     private void PerformMissionVisualsSetUp()
     {
+        if (_isMissionUnlocked)
+        {
+            SetMaterialOfPlatforms(_associatedMission.GetAssociatedLevel().GetLevelBoss().GetMiniFloorMaterial());
+        }
+        else
+        {
+            SetMaterialOfPlatforms(_associatedMission.GetAssociatedLevel().GetLevelBoss().GetMiniFloorLockedMaterial());
+        }
+    }
+
+    private void SetMaterialOfPlatforms(Material newMaterial)
+    {
         foreach (MeshRenderer renderer in _missionPlatformRenderers)
         {
-            renderer.material = _associatedMission.GetAssociatedLevel().GetLevelBoss().GetMiniFloorMaterial();
+            renderer.material = newMaterial;
         }
     }
 
@@ -47,7 +67,12 @@ public class SelectableMission : MonoBehaviour
     
     private void SetMissionLockStatus(bool interactable)
     {
+        _isMissionUnlocked = interactable;
+        
         _selectButton.interactable = interactable;
+        
+        _missionSelectCenter.gameObject.SetActive(interactable);
+        //gameObject.SetActive(interactable);
     }
 
     public void InformControllerOfSelection()

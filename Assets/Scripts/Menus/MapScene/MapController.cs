@@ -24,12 +24,14 @@ public class MapController : MonoBehaviour
     
     [Space]
     [Header("Mission Selection Pop Up")]
-    [SerializeField] private MissionSelectionPopUp _missionSelectionPopUp;
+    [SerializeField] private GeneralScrollPopUp generalScrollPopUp;
     
     private SelectableMission _currentlySelectedMission;
     private SelectableMission _previousSelectedMission;
 
     private SelectableMission _currentlyHoveredOverMission;
+
+    private SelectableMission _startingCameraLocationMission;
     
     [Space]
     [Header("Backgrounds")]
@@ -125,6 +127,11 @@ public class MapController : MonoBehaviour
         Instantiate(_mission, _missionHolder.transform).TryGetComponent(out SelectableMission selectableMission);
         selectableMission.gameObject.transform.position = location;
         selectableMission.SetAssociatedMission(mission);
+
+        if (mission.GetMissionID() == SaveManager.Instance.GetNextMissionID())
+        {
+            _startingCameraLocationMission = selectableMission;
+        }
         
         _createdMissions.Add(selectableMission);
     }
@@ -154,7 +161,7 @@ public class MapController : MonoBehaviour
         _previousSelectedMission = _currentlySelectedMission;
 
         UpdateBackground(mission.GetAssociatedMission());
-        MoveCameraToTarget(_currentlySelectedMission.transform.position.x + _cameraMissionOffSet);
+        MoveCameraToTarget(_currentlySelectedMission);
         
         _currentlySelectedMission.SelectMission();
         ShowMissionSelectionPopUp();
@@ -181,19 +188,14 @@ public class MapController : MonoBehaviour
     
     #region MissionSelectionPopUp
 
-    private void SetMissionSelectionPopUpLocationToCurrentMission()
-    {
-        //_currentlyHoveredOverMission
-    }
-
     private void ShowMissionSelectionPopUp()
     {
-        _missionSelectionPopUp.MissionSelected();
+        generalScrollPopUp.ShowScroll();
     }
 
     private void HideMissionSelectionPopUp()
     {
-        _missionSelectionPopUp.MissionDeselected();
+        generalScrollPopUp.HideScroll();
     }
     #endregion
     
@@ -263,7 +265,14 @@ public class MapController : MonoBehaviour
 
     private void CameraStart()
     {
-        SetCameraLocation(_minimumCameraLocation);
+        if (!_startingCameraLocationMission.IsUnityNull())
+        {
+            SetCameraLocation(_startingCameraLocationMission);
+        }
+        else
+        {
+            SetCameraLocation(_minimumCameraLocation);
+        }
     }
     
     public void CameraLeftButton()
@@ -302,6 +311,16 @@ public class MapController : MonoBehaviour
         _cameraMovementCoroutine = StartCoroutine(CameraMoveProcess());
     }
 
+    private void MoveCameraToTarget(SelectableMission mission)
+    {
+        MoveCameraToTarget(CalculateCameraLocationOfMission(mission));
+    }
+
+    private float CalculateCameraLocationOfMission(SelectableMission mission)
+    {
+        return mission.transform.position.x + _cameraMissionOffSet;
+    }
+
     private void StopCameraMoveProcess()
     {
         if (!_cameraMovementCoroutine.IsUnityNull())
@@ -319,6 +338,11 @@ public class MapController : MonoBehaviour
     {
         xLocation = ClampLocationWithinLimits(xLocation);
         _cameraHolder.transform.position = new Vector3(xLocation,_cameraHolder.transform.position.y,_cameraHolder.transform.position.z);
+    }
+
+    private void SetCameraLocation(SelectableMission mission)
+    {
+        SetCameraLocation(CalculateCameraLocationOfMission(mission));
     }
 
     private float ClampLocationWithinLimits(float clampValue)

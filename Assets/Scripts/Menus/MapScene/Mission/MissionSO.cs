@@ -15,6 +15,10 @@ public class MissionSO : ScriptableObject
     [SerializeField] private HeroSO[] _associatedHeroes;
 
     [Space] 
+    [Header("Tutorials")]
+    [SerializeField] private GameObject[] _tutorialPages;
+
+    [Space] 
     [Header("Unlocks")] 
     [SerializeField] private CharacterSO _characterUnlock;
 
@@ -32,6 +36,8 @@ public class MissionSO : ScriptableObject
     public EGameDifficulty GetAssociatedDifficulty() =>_associatedDifficulty;
     public LevelSO GetAssociatedLevel() =>_associatedLevel;
     public HeroSO[] GetAssociatedHeroes() =>_associatedHeroes;
+
+    public GameObject[] GetTutorialPages() => _tutorialPages;
     
     public CharacterSO GetCharacterUnlock() =>_characterUnlock;
     public MissionSO[] GetMissionUnlocks() =>_missionUnlocks;

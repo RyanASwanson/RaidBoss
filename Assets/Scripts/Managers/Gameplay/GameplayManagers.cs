@@ -16,7 +16,6 @@ public class GameplayManagers : CoreManagersFramework
     [SerializeField] private EnvironmentManager _environmentManager;
     [SerializeField] private GameUIManager _gameUIManager;
     
-
     /// <summary>
     /// Contains all managers to set up. Order of managers is order of setup.
     /// </summary>

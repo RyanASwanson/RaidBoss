@@ -2655,7 +2655,7 @@ MonoBehaviour:
   _missionCreationXDefault: 2
   _missionCreationXIncrease: 3.25
   _missionCreationYValue: 1.625
-  _missionSelectionPopUp: {fileID: 2125598945840804889}
+  generalScrollPopUp: {fileID: 2125598945840804889}
   _backgroundCurveProgressions:
   - {fileID: 0}
   - {fileID: 5466738888376404440}
@@ -2916,7 +2916,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5450047591048211561}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.78, z: 22.00522}
+  m_LocalPosition: {x: 0, y: -1.5, z: 22.01}
   m_LocalScale: {x: 70, y: 17.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3062,6 +3062,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c209f73eecbd2a44a8ceff1c1c7a88c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _doesUpdateIconsOnStart: 0
   _bossSelectedIcon: {fileID: 6972659807435488779}
   _heroSelectedIcons:
   - {fileID: 8647405572311238674}
@@ -3943,6 +3944,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40078760e885b4e45a228c248779090c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _defaultScrollLength: 90
   _popUpScrollUI: {fileID: 5760344835489753394}
 --- !u!1 &7547577401815349575
 GameObject:

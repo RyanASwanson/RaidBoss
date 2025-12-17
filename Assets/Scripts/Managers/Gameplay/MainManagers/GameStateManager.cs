@@ -9,8 +9,9 @@ using UnityEngine.Events;
 /// </summary>
 public class GameStateManager : MainGameplayManagerFramework
 {
-    public static GameStateManager Instance; 
+    public static GameStateManager Instance;
     
+    [SerializeField] private float _characterSpawnDelay;
     [Tooltip("The time before the battle begins")]
     [SerializeField] private float _timeToStart;
 
@@ -24,13 +25,20 @@ public class GameStateManager : MainGameplayManagerFramework
 
     private EGameplayStates _currentEGameplayState = EGameplayStates.PreBattle;
 
+    private UnityEvent _startOfCharacterSpawningEvent = new UnityEvent();
+    
     private UnityEvent _startOfBattleEvent = new UnityEvent();
 
     private UnityEvent _battleLostEvent = new UnityEvent();
     private UnityEvent _battleWonEvent = new UnityEvent();
 
     private UnityEvent _battleWonOrLostEvent = new UnityEvent();
-
+    
+    public void StartProgressToStart()
+    {
+        StartCoroutine(ProgressToStart());
+    }
+    
     /// <summary>
     /// Starts the battle with a delay
     /// </summary>
@@ -39,6 +47,11 @@ public class GameStateManager : MainGameplayManagerFramework
     {
         //Waits for a brief period before the battle is started
         yield return new WaitForSeconds(_timeToStart);
+        StartBattle();
+    }
+
+    private void StartBattle()
+    {
         SetGameplayState(EGameplayStates.Battle);
     }
 
@@ -127,11 +140,21 @@ public class GameStateManager : MainGameplayManagerFramework
     public override void SetUpMainManager()
     {
         base.SetUpMainManager();
-        StartCoroutine(ProgressToStart());
+        InvokeStartOfCharacterSpawningEvent();
+        if (!SelectionManager.Instance.IsPlayingMissionsMode())
+        {
+            StartProgressToStart();
+        }
+        
     }
     #endregion
     
     #region Events
+
+    public void InvokeStartOfCharacterSpawningEvent()
+    {
+        _startOfCharacterSpawningEvent?.Invoke();
+    }
     public void InvokeStartOfBattleEvent()
     {
         _startOfBattleEvent?.Invoke();
@@ -167,6 +190,7 @@ public class GameStateManager : MainGameplayManagerFramework
     #region Getters
     public bool GetIsFightOver() => _currentEGameplayState >= EGameplayStates.PostBattleLost;
 
+    public UnityEvent GetStartOfCharacterSpawningEvent() => _startOfCharacterSpawningEvent;
     public UnityEvent GetStartOfBattleEvent() => _startOfBattleEvent;
     public UnityEvent GetBattleLostEvent() => _battleLostEvent;
     public UnityEvent GetBattleWonEvent() => _battleWonEvent;

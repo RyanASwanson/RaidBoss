@@ -118,6 +118,7 @@ public class CameraGameManager : MainGameplayManagerFramework
 
     private void CameraShakeOnBossStagger()
     {
+        Debug.Log("Log" + _bossStaggerShake.Frequency + " " + _bossStaggerShake.Intensity + " " + _bossStaggerShake.Intensity);
         StartCameraShake(_bossStaggerShake);
     }
 

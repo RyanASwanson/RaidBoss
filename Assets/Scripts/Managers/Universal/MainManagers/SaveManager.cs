@@ -97,7 +97,7 @@ public class SaveManager : MainUniversalManagerFramework
     {
         foreach (MissionSO mission in _missionsStartingUnlocked)
         {
-            UnlockMission(mission);
+            UnlockMission(mission, false);
         }
     }
 
@@ -292,13 +292,16 @@ public class SaveManager : MainUniversalManagerFramework
     
     #region MissionUnlocks
 
-    public void UnlockMission(MissionSO mission)
+    public void UnlockMission(MissionSO mission, bool doesUpdateNextMission)
     {
         if (!GSD.GetGameplaySaveData().GetMissionsUnlocked().Contains(mission.GetMissionID()))
         {
             GSD.GetGameplaySaveData().GetMissionsUnlocked().Add(mission.GetMissionID());
+            if (doesUpdateNextMission)
+            {
+                GSD.GetGameplaySaveData().SetNextMissionID(mission.GetMissionID());
+            }
         }
-        
     }
 
     public void MissionComplete()
@@ -309,13 +312,18 @@ public class SaveManager : MainUniversalManagerFramework
             
             UnlockCharacter(SelectionManager.Instance.GetSelectedMission().GetCharacterUnlock());
 
-            foreach (MissionSO mission in SelectionManager.Instance.GetSelectedMission().GetMissionUnlocks())
+            MissionSO[] missionUnlocks = SelectionManager.Instance.GetSelectedMission().GetMissionUnlocks();
+
+            for (int i = 0; i < missionUnlocks.Length; i++)
             {
-                UnlockMission(mission);
+                // Unlocks the mission
+                // If this is the first mission in the set of unlocks call this function with a true bool
+                UnlockMission(missionUnlocks[i], i == 0);
             }
+            
         }
         
-        
+        SaveText();
     }
     #endregion
 
@@ -358,6 +366,8 @@ public class SaveManager : MainUniversalManagerFramework
     #region Getters
 
     public MissionSO[] GetMissionsInGame() => _missionsInGame;
+    
+    public int GetNextMissionID() => GSD.GetGameplaySaveData().GetNextMissionID();
 
     public bool IsBossUnlocked(BossSO bossSO) => GSD.GetGameplaySaveData().GetBossesUnlocked().Contains(bossSO.GetBossName());
     public bool IsHeroUnlocked(HeroSO heroSO) => GSD.GetGameplaySaveData().GetHeroesUnlocked().Contains(heroSO.GetHeroName());
@@ -515,6 +525,8 @@ public class GameplaySaveData
     
     public HashSet<int> MissionsUnlocked = new();
     public HashSet<int> MissionsComplete = new();
+
+    public int NextMissionID = 0;
     
     //First string is boss name, second string is hero name
     //Represents the best difficulty each hero has beaten each boss at
@@ -530,6 +542,8 @@ public class GameplaySaveData
         MissionsUnlocked = new();
         MissionsComplete = new();
         
+        NextMissionID = SaveManager.Instance.GetMissionsInGame()[0].GetMissionID();
+        
         BossHeroBestDifficultyComplete = new();
     }
     
@@ -540,12 +554,19 @@ public class GameplaySaveData
     public HashSet<int> GetMissionsUnlocked() => MissionsUnlocked;
     public HashSet<int> GetMissionsComplete() => MissionsComplete;
     
+    public int GetNextMissionID() => NextMissionID;
+    
     public Dictionary<string, Dictionary<string, EGameDifficulty>> GetBossHeroBestDifficulty() => BossHeroBestDifficultyComplete;
     
     public int GetCurrentDifficultySelected() => CurrentDifficultySelected;
     #endregion
     
     #region Setters
+
+    public void SetNextMissionID(int missionID)
+    {
+        NextMissionID = missionID;
+    }
     
     public void SetCurrentDifficultySelectedFromEnum(EGameDifficulty difficulty)
     {

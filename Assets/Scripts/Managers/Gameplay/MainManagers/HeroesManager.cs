@@ -23,6 +23,11 @@ public class HeroesManager : MainGameplayManagerFramework
     
     private UnityEvent<HeroBase> _onHeroDiedEvent = new UnityEvent<HeroBase>();
 
+    private void StartHeroSpawning()
+    {
+        StartCoroutine(SpawnHeroesAtSpawnPoints());
+    }
+    
     /// <summary>
     /// Spawns all selected heroes from the selection manager
     /// Uses the spawn points from the environment manager
@@ -134,11 +139,12 @@ public class HeroesManager : MainGameplayManagerFramework
         Instance = this;
     }
 
-    public override void SetUpMainManager()
+    protected override void SubscribeToEvents()
     {
-        base.SetUpMainManager();
-        StartCoroutine(SpawnHeroesAtSpawnPoints());
+        base.SubscribeToEvents();
+        GameStateManager.Instance.GetStartOfCharacterSpawningEvent().AddListener(StartHeroSpawning);
     }
+
     #endregion
     
     #region Events

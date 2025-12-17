@@ -17,17 +17,26 @@ MonoBehaviour:
 
     Begins'
   _associatedDifficulty: 4
-  _associatedLevel: {fileID: 11400000, guid: 8493e996e77df644ab18a699456b6c06, type: 2}
+  _associatedLevel: {fileID: 11400000, guid: 53e846bb7c637be46af02e5cd8741558, type: 2}
   _associatedHeroes:
-  - {fileID: 11400000, guid: fa900cf8282b2814fb9eb1a8cc860cd0, type: 2}
-  - {fileID: 11400000, guid: feb7336736898914f8630a93fd41a2bd, type: 2}
+  - {fileID: 11400000, guid: 77065cfc021c68f45b33aa0acd24fa46, type: 2}
+  - {fileID: 11400000, guid: 2b5cc09a0a41a0c40a6b8c0fa2ebb464, type: 2}
+  - {fileID: 11400000, guid: f6c84c9f4fbb63d48b70719944c773d1, type: 2}
+  - {fileID: 11400000, guid: 0128339a05223db40aae2581988a9ea0, type: 2}
+  - {fileID: 11400000, guid: fe9a9a645a446584c83f77cfdad05c43, type: 2}
   _characterUnlock: {fileID: 0}
-  _missionUnlocks: []
-  _bossHealthMultiplier: 1
-  _bossStaggerMultiplier: 1
-  _bossAbilitiesUsable: 0101010101
-  _heroHealthMultiplier: 1
-  _heroDamageMultiplier: 1
-  _heroStaggerMultiplier: 1
-  _heroHealingMultiplier: 1
-  _heroManualCooldownMultiplier: 1
+  _missionUnlocks:
+  - {fileID: 11400000, guid: 969ba0805bf40174990c5c889b926c13, type: 2}
+  _missionStatModifiers:
+    _bossHealthMultiplier: 1
+    _bossStaggerMultiplier: 1
+    _bossAttackSpeedMultiplier: 1
+    _bossDamageResistanceChangeOnStaggerMultiplier: 1
+    _bossEnrageTimeMultiplier: 1
+    _bossEnrageDamageMultiplier: 1
+    _bossAbilitiesUsable: 0101010101
+    _heroHealthMultiplier: 1
+    _heroDamageMultiplier: 1
+    _heroStaggerMultiplier: 1
+    _heroHealingReceivedMultiplier: 1
+    _heroManualCooldownTimeMultiplier: 1

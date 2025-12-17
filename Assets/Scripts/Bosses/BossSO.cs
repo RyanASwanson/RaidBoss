@@ -41,7 +41,10 @@ public class BossSO : CharacterSO
     [Space] 
     [Header("Environment")] 
     [SerializeField] private Material _floorMaterial;
+    [Space]
     [SerializeField] private Material _miniFloorMaterial;
+    [SerializeField] private Material _miniFloorLockedMaterial;
+    [Space]
     [SerializeField] private Material _backgroundMaterial;
     [SerializeField] private GameObject _backgroundParticles;
 
@@ -81,6 +84,7 @@ public class BossSO : CharacterSO
     
     public Material GetFloorMaterial() => _floorMaterial;
     public Material GetMiniFloorMaterial() => _miniFloorMaterial;
+    public Material GetMiniFloorLockedMaterial() => _miniFloorLockedMaterial;
     public Material GetBackgroundMaterial() => _backgroundMaterial;
     public GameObject GetBackgroundParticles() => _backgroundParticles;
 
