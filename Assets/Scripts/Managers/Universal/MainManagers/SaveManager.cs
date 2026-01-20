@@ -29,6 +29,8 @@ public class SaveManager : MainUniversalManagerFramework
 
     private UnityEvent _onGameplaySaveDataReset = new UnityEvent();
 
+    #region InitialValues
+    
     /// <summary>
     /// Sets the path to create the save file
     /// </summary>
@@ -54,8 +56,8 @@ public class SaveManager : MainUniversalManagerFramework
         
         //Fills the GSD with default values when the file is created
         UnlockStartingUnlocks();
-        
-        PopulateBossHeroDifficultyDictionary();
+
+        ResetBossHeroDifficultyDictionary();
 
         GSD.GetGeneralSaveData().SetGSDScreenShakeStrength(1);
         GSD.GetGeneralSaveData().SetGSDHeroClickAndDrag(false);
@@ -101,14 +103,20 @@ public class SaveManager : MainUniversalManagerFramework
         }
     }
 
+    private void ResetBossHeroDifficultyDictionary()
+    {
+        //Reset the dictionary
+        GSD.GetGameplaySaveData().ResetBossHeroDifficulties();
+        
+        PopulateBossHeroDifficultyDictionary();
+    }
+    
     /// <summary>
     /// Populates the dictionary for what heroes have beaten what bosses on what difficulty
     /// </summary>
     private void PopulateBossHeroDifficultyDictionary()
     {
-        //Reset the dictionary
-        GSD.GetGameplaySaveData().ResetBossHeroDifficulties();
-
+        /*
         //Iterate through the boss scriptable objects
         foreach(BossSO bossSO in _bossesInGame)
         {
@@ -120,8 +128,27 @@ public class SaveManager : MainUniversalManagerFramework
                 //Sets each best difficulty beaten to empty
                 GSD.GetGameplaySaveData().GetBossHeroBestDifficulty()[bossSO.GetBossName()].Add(heroSO.GetHeroName(), EGameDifficulty.Empty);
             }
+        }*/
+        
+        foreach (BossSO bossSO in _bossesInGame)
+        {
+            if (!GSD.GetGameplaySaveData().GetBossHeroBestDifficulty().ContainsKey(bossSO.GetBossName()))
+            {
+                GSD.GetGameplaySaveData().GetBossHeroBestDifficulty().Add(bossSO.GetBossName(), new Dictionary<string, EGameDifficulty>());
+            }
+
+            foreach (HeroSO heroSO in _heroesInGame)
+            {
+                if (!GSD.GetGameplaySaveData().GetBossHeroBestDifficulty()[bossSO.GetBossName()]
+                        .ContainsKey(heroSO.GetHeroName()))
+                {
+                    GSD.GetGameplaySaveData().GetBossHeroBestDifficulty()[bossSO.GetBossName()].Add(heroSO.GetHeroName(), EGameDifficulty.Empty);
+                }
+            }
         }
     }
+    
+    #endregion
 
     /// <summary>
     /// Saves all data into the Json file.
@@ -148,6 +175,8 @@ public class SaveManager : MainUniversalManagerFramework
             GSD = JsonConvert.DeserializeObject<GameSaveData>(json);
             
             SelectionManager.Instance.SetSelectedDifficulty((EGameDifficulty)GSD.GetGameplaySaveData().GetCurrentDifficultySelected());
+
+            UpdateOldSaveData();
         }
         else
         {
@@ -157,6 +186,14 @@ public class SaveManager : MainUniversalManagerFramework
             SaveText();
         }
     }
+
+    #region OldSaveData
+    private void UpdateOldSaveData()
+    {
+        PopulateBossHeroDifficultyDictionary();
+    }
+    
+    #endregion
 
     /// <summary>
     /// Called when the boss dies. Saves any needed information as a result.
@@ -214,7 +251,7 @@ public class SaveManager : MainUniversalManagerFramework
         UnlockStartingUnlocks();
         
         // Resets the best difficulties beaten
-        PopulateBossHeroDifficultyDictionary();
+        ResetBossHeroDifficultyDictionary();
         
         InvokeOnGameplaySaveDataReset();
 
