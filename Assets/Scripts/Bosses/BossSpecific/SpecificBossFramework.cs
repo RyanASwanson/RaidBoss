@@ -43,11 +43,18 @@ public abstract class SpecificBossFramework : MonoBehaviour
     /// </summary>
     protected virtual void StartFight()
     {
+        CreateSpecificBossInstance();
+        
         SetUpReadyBossAbilities();
 
         AssignInitialHeroTargets();
 
         StartCoroutine(InitialAttackDelay());
+    }
+
+    protected virtual void CreateSpecificBossInstance()
+    {
+        
     }
 
     /// <summary>

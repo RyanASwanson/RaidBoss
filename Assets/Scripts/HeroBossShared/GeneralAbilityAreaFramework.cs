@@ -11,8 +11,11 @@ public abstract class GeneralAbilityAreaFramework : MonoBehaviour
     [SerializeField] private bool _hasLifetime;
     [SerializeField] private float _lifetime;
 
+    [Space] 
+    [SerializeField] private bool _hasColliderActivationDelay;
+    [SerializeField] private float _colliderActivationDelay;
+    
     [Space]
-
     [SerializeField] private bool _hasColliderLifetime;
     [SerializeField] private float _colliderLifetime;
 
@@ -39,14 +42,35 @@ public abstract class GeneralAbilityAreaFramework : MonoBehaviour
     {
         if (_hasLifetime)
         {
-            StartCoroutine(LifetimeDestruction());
+            StartLifeTime();
+        }
+
+        if (_hasColliderActivationDelay)
+        {
+            StartColliderActivationDelay();
         }
 
         if (_hasColliderLifetime)
         {
-            StartCoroutine(ColliderLifetime());
+            StartColliderLifetime();
         }
 
+    }
+
+    public void StartLifeTime()
+    {
+        StartCoroutine(LifetimeDestruction());
+    }
+
+    public void StartColliderActivationDelay()
+    {
+        ToggleProjectileCollider(false);
+        StartCoroutine(ColliderActivationDelay());
+    }
+
+    public void StartColliderLifetime()
+    {
+        StartCoroutine(ColliderLifetime());
     }
 
     protected virtual IEnumerator LifetimeDestruction()
@@ -54,6 +78,12 @@ public abstract class GeneralAbilityAreaFramework : MonoBehaviour
         yield return new WaitForSeconds(_lifetime);
         InvokeDestructionEvent();
         Destroy(gameObject);
+    }
+
+    protected virtual IEnumerator ColliderActivationDelay()
+    {
+        yield return new WaitForSeconds(_colliderActivationDelay);
+        ToggleProjectileCollider(true);
     }
 
     protected virtual IEnumerator ColliderLifetime()

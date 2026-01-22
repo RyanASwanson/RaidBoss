@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8160784457914201950}
-  - component: {fileID: 8356901923490564483}
+  - component: {fileID: 369159119829130634}
   m_Layer: 0
   m_Name: Visuals
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   m_Father: {fileID: 4545186188398149081}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &8356901923490564483
+--- !u!95 &369159119829130634
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -43,7 +43,7 @@ Animator:
   m_GameObject: {fileID: 4450407942096603400}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 748508cb204619343bed30b445fa9793, type: 2}
+  m_Controller: {fileID: 9100000, guid: cee10cf53f6cf1346b39b912fbce63c7, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -63,7 +63,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4545186188398149081}
-  - component: {fileID: 2443881102737730131}
+  - component: {fileID: 5206788908727424054}
   m_Layer: 0
   m_Name: ThunderLord
   m_TagString: Untagged
@@ -89,7 +89,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2443881102737730131
+--- !u!114 &5206788908727424054
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -98,27 +98,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 4545186188398149087}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba65d028ddbdb6141baff32c22148d45, type: 3}
+  m_Script: {fileID: 11500000, guid: a9f9f69aab3e3144fbcf5edc4555933d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _startingBossAbilities:
-  - {fileID: 3096328167594813309}
-  - {fileID: 405979615435828702}
-  - {fileID: 4612319725948324344}
-  - {fileID: 6150399971058834797}
+  - {fileID: 5667357943851986085}
+  - {fileID: 9068373570298051135}
+  - {fileID: 6145514171566248491}
+  - {fileID: 3735870002245042852}
   _attackRepititionProtection: 2
   _abilityLocked: {fileID: 0}
   _bossVisualsBase: {fileID: 1959938029746022254}
   _bossSpecificUI: {fileID: 0}
-  _bossSpecificAnimator: {fileID: 8356901923490564483}
-  _delayBetweenFiendSpawns: 0.2
-  _minionFreezeDuration: 32
-  _frostFiend: {fileID: 4319846792845351859, guid: 8be3f146f99a44a40b078f1c62c6a543, type: 3}
-  _frostFiendSpawnLocations:
-  - {x: 4, y: 0, z: 4}
-  - {x: 4, y: 0, z: -4}
-  - {x: -4, y: 0, z: -4}
-  - {x: -4, y: 0, z: 4}
+  _bossSpecificAnimator: {fileID: 369159119829130634}
+  _impendingStorm: {fileID: 4229742585446162984}
 --- !u!1 &5828132170197320695
 GameObject:
   m_ObjectHideFlags: 0
@@ -128,10 +121,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 650819122494557096}
-  - component: {fileID: 3096328167594813309}
-  - component: {fileID: 405979615435828702}
-  - component: {fileID: 4612319725948324344}
-  - component: {fileID: 6150399971058834797}
+  - component: {fileID: 5667357943851986085}
+  - component: {fileID: 9068373570298051135}
+  - component: {fileID: 6145514171566248491}
+  - component: {fileID: 3735870002245042852}
+  - component: {fileID: 4229742585446162984}
   m_Layer: 0
   m_Name: AttackFunctionality
   m_TagString: Untagged
@@ -154,7 +148,7 @@ Transform:
   m_Father: {fileID: 4545186188398149081}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3096328167594813309
+--- !u!114 &5667357943851986085
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -163,7 +157,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5828132170197320695}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f388e4436767ed645840b258e25391cd, type: 3}
+  m_Script: {fileID: 11500000, guid: 5eaa2b29249b1f447a5cd25f41c88901, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _abilityID: 0
@@ -171,8 +165,44 @@ MonoBehaviour:
   _doesBossFollowTarget: 1
   _specificAreaTarget: {x: 0, y: -0.75, z: 0}
   _specificLookTarget: {x: 0, y: 0, z: 0}
-  _targetZoneDuration: 3.75
-  _abilityWindUpTime: 3.75
+  _targetZoneDuration: 4
+  _abilityWindUpTime: 4
+  _timeUntilNextAbility: 8.5
+  _hasAbilityDuration: 0
+  _abilityDuration: 0
+  _hasScreenShake: 0
+  _screenShakeData:
+    Intensity: 0
+    Frequency: 0
+    Duration: 0
+  _animationTriggerName: 
+  _abilityPrepAudioDelay: 0
+  _abilityStartAudioDelay: 0
+  _maxAttacks: 3
+  _distanceBetweenAttacks: 2
+  _targetZoneMaxTimeBetweenAttacks: 5
+  _timeBetweenAttacks: 0.5
+  _targetZone: {fileID: 1208680779745207093, guid: 8a40bf3aedb772a409124b12140d2c8d, type: 3}
+  _damageZone: {fileID: 8222421579856251735, guid: dcc36f5cffa892c4891860735dff6446, type: 3}
+--- !u!114 &9068373570298051135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5828132170197320695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6b23d1b33ac06d4c9456e76e53efc1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _abilityID: 3
+  _targetMethod: 0
+  _doesBossFollowTarget: 0
+  _specificAreaTarget: {x: 0, y: -0.75, z: 0}
+  _specificLookTarget: {x: 0, y: 0, z: 0}
+  _targetZoneDuration: 3.5
+  _abilityWindUpTime: 3.5
   _timeUntilNextAbility: 7
   _hasAbilityDuration: 0
   _abilityDuration: 0
@@ -181,13 +211,12 @@ MonoBehaviour:
     Intensity: 0
     Frequency: 0
     Duration: 0
-  _animationTriggerName: AvalancheUsed
+  _animationTriggerName: EncirclingVinesUsed
   _abilityPrepAudioDelay: 0
   _abilityStartAudioDelay: 0
-  _spawnDistance: 0.75
-  _targetZone: {fileID: 3605259648855355395, guid: 5ea109a33bb35e745b5a02f408b4bd62, type: 3}
-  _avalanche: {fileID: 2471156726173324083, guid: 8ebc3a21d78da014997cba6692c4cdc5, type: 3}
---- !u!114 &405979615435828702
+  _targetZone: {fileID: 1433578388064543568, guid: 5bc2b4850d852f34bb9f9d51540763f0, type: 3}
+  _encirclingVines: {fileID: 5689458550558832625, guid: 7ca7480609fd18b48be3def648c774d3, type: 3}
+--- !u!114 &6145514171566248491
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -196,39 +225,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5828132170197320695}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aaa90ce2a49ee394896daf4c14bc8daf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _abilityID: 1
-  _targetMethod: 3
-  _doesBossFollowTarget: 0
-  _specificAreaTarget: {x: 0, y: -0.75, z: 0}
-  _specificLookTarget: {x: 0, y: 0, z: -1}
-  _targetZoneDuration: 4
-  _abilityWindUpTime: 4
-  _timeUntilNextAbility: 7
-  _hasAbilityDuration: 0
-  _abilityDuration: 0
-  _hasScreenShake: 1
-  _screenShakeData:
-    Intensity: 1.5
-    Frequency: 0.005
-    Duration: 0.6
-  _animationTriggerName: FrostBiteUsed
-  _abilityPrepAudioDelay: 0
-  _abilityStartAudioDelay: 0
-  _targetZone: {fileID: 2211366326432838849, guid: d36208d6aa1560b419e84a731dd44436, type: 3}
-  _frostBite: {fileID: 4952030211282154280, guid: 773d57770c0431440aa80206dd66a2e5, type: 3}
---- !u!114 &4612319725948324344
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5828132170197320695}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65e452bae361e574caa42fa254a46884, type: 3}
+  m_Script: {fileID: 11500000, guid: 2657cc0281bc47f4eb15ffcc5c3effee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _abilityID: 2
@@ -236,9 +233,9 @@ MonoBehaviour:
   _doesBossFollowTarget: 0
   _specificAreaTarget: {x: 0, y: -0.75, z: 0}
   _specificLookTarget: {x: 0, y: 0, z: 0}
-  _targetZoneDuration: 4
-  _abilityWindUpTime: 4
-  _timeUntilNextAbility: 7
+  _targetZoneDuration: 4.25
+  _abilityWindUpTime: 4.25
+  _timeUntilNextAbility: 8.25
   _hasAbilityDuration: 0
   _abilityDuration: 0
   _hasScreenShake: 0
@@ -246,13 +243,12 @@ MonoBehaviour:
     Intensity: 0
     Frequency: 0
     Duration: 0
-  _animationTriggerName: IcicleRainUsed
+  _animationTriggerName: 
   _abilityPrepAudioDelay: 0
   _abilityStartAudioDelay: 0
-  _targetZone: {fileID: 7689631090584172797, guid: e96247fc7a6c48444bf412931ec24820, type: 3}
-  _icicleRain: {fileID: 6168952705891034285, guid: ae7d4aea0c8fb354a83741959dca9aac, type: 3}
-  _icicleRainUpwardsVisual: {fileID: 5308917902783970043, guid: 95dc4f035a43061468172c24f44ede62, type: 3}
---- !u!114 &6150399971058834797
+  _thunderclapSafeZone: {fileID: 7718226737763188153, guid: 830c3088a220f6c44a46f099071caf4d, type: 3}
+  _thunderclapTargetZone: {fileID: 2217925734466085317, guid: 63abf0c8926b26246890a1e65f558133, type: 3}
+--- !u!114 &3735870002245042852
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -261,35 +257,65 @@ MonoBehaviour:
   m_GameObject: {fileID: 5828132170197320695}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cce05481e7cd5994297070ab24f2c19f, type: 3}
+  m_Script: {fileID: 11500000, guid: 6a2d290d5f794b3468bb5550fa3c959f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _abilityID: 3
-  _targetMethod: 3
+  _targetMethod: 0
+  _doesBossFollowTarget: 0
+  _specificAreaTarget: {x: 0, y: 0, z: 0}
+  _specificLookTarget: {x: 0, y: 0, z: 0}
+  _targetZoneDuration: 3
+  _abilityWindUpTime: 3
+  _timeUntilNextAbility: 7
+  _hasAbilityDuration: 0
+  _abilityDuration: 0
+  _hasScreenShake: 0
+  _screenShakeData:
+    Intensity: 0
+    Frequency: 0
+    Duration: 0
+  _animationTriggerName: 
+  _abilityPrepAudioDelay: 0
+  _abilityStartAudioDelay: 0
+  _overChargeTargetZone: {fileID: 5635105519515695266, guid: 94488cdea02c87c439a5d9e0484e7a9c, type: 3}
+--- !u!114 &4229742585446162984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5828132170197320695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 527fbb9ac03d13e42aa67930ca7c45b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _abilityID: 4
+  _targetMethod: 0
   _doesBossFollowTarget: 0
   _specificAreaTarget: {x: 0, y: -0.75, z: 0}
-  _specificLookTarget: {x: 0, y: 0, z: -1}
-  _targetZoneDuration: 4
-  _abilityWindUpTime: 4
-  _timeUntilNextAbility: 7
-  _hasAbilityDuration: 1
-  _abilityDuration: 2.5
-  _hasScreenShake: 1
+  _specificLookTarget: {x: 0, y: 0, z: 0}
+  _targetZoneDuration: 0
+  _abilityWindUpTime: 0
+  _timeUntilNextAbility: 0
+  _hasAbilityDuration: 0
+  _abilityDuration: 0
+  _hasScreenShake: 0
   _screenShakeData:
-    Intensity: 0.5
-    Frequency: 0.005
-    Duration: 0.6
-  _animationTriggerName: BlizzardUsed
-  _abilityPrepAudioDelay: 3.5
+    Intensity: 0
+    Frequency: 0
+    Duration: 0
+  _animationTriggerName: 
+  _abilityPrepAudioDelay: 0
   _abilityStartAudioDelay: 0
-  _targetZone: {fileID: 2689930242057131082, guid: 0732da893e9e9ba4ba39f8ce8c955acd, type: 3}
-  _blizzard: {fileID: 3859843530844199412, guid: 1d37505881c450847a564ee408ce4246, type: 3}
-  _previewGlow: {fileID: 749745350822895344, guid: c4fcbfb6fd69d0142be112ecbe9aa2d7, type: 3}
-  _allTargets:
-  - _attackLocation: {x: 4, y: -0.75, z: 0}
-  - _attackLocation: {x: 0, y: -0.75, z: -4}
-  - _attackLocation: {x: -4, y: -0.75, z: 0}
-  - _attackLocation: {x: 0, y: -0.75, z: 4}
+  _baseRotationSpeed: 2.5
+  _difficultyRotationMultiplier:
+  - 1
+  - 1.1
+  - 1.2
+  - 1.3
+  _impendingStormTargetZone: {fileID: 4420273998558425968, guid: 73533755deba99a448f8b928b2333e51, type: 3}
 --- !u!1 &5840844531538604685
 GameObject:
   m_ObjectHideFlags: 0

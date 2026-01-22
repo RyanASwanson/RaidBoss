@@ -9,8 +9,7 @@ public class SBA_Scorch : SpecificBossAbilityFramework
 {
     [SerializeField] private GameObject _targetZone;
     [SerializeField] private GameObject _scorch;
-
-
+    
 
     #region Base Ability
 

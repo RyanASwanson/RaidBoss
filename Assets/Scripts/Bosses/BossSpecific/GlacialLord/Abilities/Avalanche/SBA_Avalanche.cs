@@ -73,10 +73,11 @@ public class SBA_Avalanche : SpecificBossAbilityFramework
 
             _storedTargetZone.transform.LookAt(_storedTarget.transform);
             _storedTargetZone.transform.eulerAngles = new Vector3(0, _storedTargetZone.transform.eulerAngles.y, 0);
-
+            
+            //Now performed by TargetZoneScaleToEdgeOfMapScript
             //Set the scale of the target zone to be the length of the distance from boss to edge of map
-            _storedTargetZone.transform.localScale = new(_storedTargetZone.transform.localScale.x,
-                _storedTargetZone.transform.localScale.y, Vector3.Distance(transform.position, _edgeOfMap) / 2);
+            /*_storedTargetZone.transform.localScale = new(_storedTargetZone.transform.localScale.x,
+                _storedTargetZone.transform.localScale.y, Vector3.Distance(transform.position, _edgeOfMap) / 2);*/
 
             yield return null;
             

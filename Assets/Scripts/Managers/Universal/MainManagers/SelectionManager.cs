@@ -362,6 +362,7 @@ public class SelectionManager : MainUniversalManagerFramework
     public LevelSO GetSelectedLevel() => _selectedLevel;
     
     public EGameDifficulty GetSelectedDifficulty() => _currentEGameDifficulty;
+    public int GetSelectedDifficultyID() => ((int)_currentEGameDifficulty)-1;
     
     public List<HeroSO> GetAllSelectedHeroes() => _selectedHeroes;
     public HeroSO GetHeroAtValue(int val) => _selectedHeroes[val];
