@@ -103,7 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _startingBossAbilities:
   - {fileID: 5667357943851986085}
-  - {fileID: 9068373570298051135}
+  - {fileID: 3549437259548910070}
   - {fileID: 6145514171566248491}
   - {fileID: 3735870002245042852}
   _attackRepititionProtection: 2
@@ -122,7 +122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 650819122494557096}
   - component: {fileID: 5667357943851986085}
-  - component: {fileID: 9068373570298051135}
+  - component: {fileID: 3549437259548910070}
   - component: {fileID: 6145514171566248491}
   - component: {fileID: 3735870002245042852}
   - component: {fileID: 4229742585446162984}
@@ -169,7 +169,7 @@ MonoBehaviour:
   _abilityWindUpTime: 4
   _timeUntilNextAbility: 8.5
   _hasAbilityDuration: 0
-  _abilityDuration: 0
+  _abilityDuration: 3.5
   _hasScreenShake: 0
   _screenShakeData:
     Intensity: 0
@@ -179,12 +179,12 @@ MonoBehaviour:
   _abilityPrepAudioDelay: 0
   _abilityStartAudioDelay: 0
   _maxAttacks: 3
-  _distanceBetweenAttacks: 2
+  _distanceBetweenAttacks: 1.75
   _targetZoneMaxTimeBetweenAttacks: 5
   _timeBetweenAttacks: 0.5
   _targetZone: {fileID: 1208680779745207093, guid: 8a40bf3aedb772a409124b12140d2c8d, type: 3}
   _damageZone: {fileID: 8222421579856251735, guid: dcc36f5cffa892c4891860735dff6446, type: 3}
---- !u!114 &9068373570298051135
+--- !u!114 &3549437259548910070
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -193,16 +193,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 5828132170197320695}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6b23d1b33ac06d4c9456e76e53efc1f, type: 3}
+  m_Script: {fileID: 11500000, guid: 87c39368264d53a4ca0b67ada6b9e130, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _abilityID: 3
+  _abilityID: 1
   _targetMethod: 0
   _doesBossFollowTarget: 0
-  _specificAreaTarget: {x: 0, y: -0.75, z: 0}
+  _specificAreaTarget: {x: 0, y: 0, z: 0}
   _specificLookTarget: {x: 0, y: 0, z: 0}
-  _targetZoneDuration: 3.5
-  _abilityWindUpTime: 3.5
+  _targetZoneDuration: 3
+  _abilityWindUpTime: 3
   _timeUntilNextAbility: 7
   _hasAbilityDuration: 0
   _abilityDuration: 0
@@ -211,11 +211,11 @@ MonoBehaviour:
     Intensity: 0
     Frequency: 0
     Duration: 0
-  _animationTriggerName: EncirclingVinesUsed
+  _animationTriggerName: 
   _abilityPrepAudioDelay: 0
   _abilityStartAudioDelay: 0
-  _targetZone: {fileID: 1433578388064543568, guid: 5bc2b4850d852f34bb9f9d51540763f0, type: 3}
-  _encirclingVines: {fileID: 5689458550558832625, guid: 7ca7480609fd18b48be3def648c774d3, type: 3}
+  _targetZone: {fileID: 8963338468080177397, guid: 3b2a1152cee789640bbd3953cdca7447, type: 3}
+  _staticChargeObject: {fileID: 1018945838009949968, guid: f749c391d7fb10d42824caf0e2b77939, type: 3}
 --- !u!114 &6145514171566248491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -229,10 +229,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _abilityID: 2
-  _targetMethod: 0
+  _targetMethod: 3
   _doesBossFollowTarget: 0
   _specificAreaTarget: {x: 0, y: -0.75, z: 0}
-  _specificLookTarget: {x: 0, y: 0, z: 0}
+  _specificLookTarget: {x: 0, y: 0, z: -1}
   _targetZoneDuration: 4.25
   _abilityWindUpTime: 4.25
   _timeUntilNextAbility: 8.25
@@ -261,7 +261,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _abilityID: 3
-  _targetMethod: 0
+  _targetMethod: 3
   _doesBossFollowTarget: 0
   _specificAreaTarget: {x: 0, y: 0, z: 0}
   _specificLookTarget: {x: 0, y: 0, z: 0}

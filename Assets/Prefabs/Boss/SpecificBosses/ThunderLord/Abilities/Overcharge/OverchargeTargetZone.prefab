@@ -143,7 +143,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 475ff4c5aed64074a851089e467f6afd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bossTargetZone: []
+  _bossTargetZone:
+  - {fileID: 9189426423980799772}
 --- !u!114 &3808299046507966078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -219,6 +220,14 @@ PrefabInstance:
       propertyPath: _targetZones.Array.data[0]
       value: 
       objectReference: {fileID: 2699778981102600185}
+    - target: {fileID: 4827130972294422793, guid: 246c2215125a93d49b05e3888d0d50af, type: 3}
+      propertyPath: _additionalGameObjectReferences.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4827130972294422793, guid: 246c2215125a93d49b05e3888d0d50af, type: 3}
+      propertyPath: _additionalGameObjectReferences.Array.data[0]
+      value: 
+      objectReference: {fileID: 1242698761167072506}
     - target: {fileID: 5577047726698959772, guid: 246c2215125a93d49b05e3888d0d50af, type: 3}
       propertyPath: m_Name
       value: TargetZoneAnimVisualsHolder
@@ -240,3 +249,14 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5577047726698959772, guid: 246c2215125a93d49b05e3888d0d50af, type: 3}
   m_PrefabInstance: {fileID: 4429867126497711637}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &9189426423980799772 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4827130972294422793, guid: 246c2215125a93d49b05e3888d0d50af, type: 3}
+  m_PrefabInstance: {fileID: 4429867126497711637}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8079365328374138249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bde5517895593f41886eb06a2a43fd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

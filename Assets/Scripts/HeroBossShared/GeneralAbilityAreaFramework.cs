@@ -102,10 +102,20 @@ public abstract class GeneralAbilityAreaFramework : MonoBehaviour
         }
     }
 
-    protected virtual IEnumerator DisableColliderForDuration(float duration)
+    public void StartDisableColliderForDuration(float duration)
+    {
+        StartCoroutine(DisableColliderForDuration(new WaitForSeconds(duration)));
+    }
+
+    public void StartDisableColliderForDuration(WaitForSeconds waitDuration)
+    {
+        StartCoroutine(DisableColliderForDuration(waitDuration));
+    }
+
+    protected virtual IEnumerator DisableColliderForDuration(WaitForSeconds waitDuration)
     {
         ToggleProjectileCollider(false);
-        yield return new WaitForSeconds(duration);
+        yield return waitDuration;
         ToggleProjectileCollider(true);
     }
 

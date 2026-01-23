@@ -26,10 +26,13 @@ public class SBA_Thunderbolt : SpecificBossAbilityFramework
         CreateTargetZone();
         Vector3 lastAttackLocation = _storedTarget.transform.position;
         float timeSinceLastAttack = 0;
+
+        float processDuration = 0;
         
-        while (!_storedTarget.IsUnityNull())
+        while (!_storedTarget.IsUnityNull() && processDuration < _abilityDuration)
         {
             timeSinceLastAttack += Time.deltaTime;
+            processDuration += Time.deltaTime;
             
             if (Vector3.Distance(lastAttackLocation, _storedTarget.transform.position) > _distanceBetweenAttacks
                 || timeSinceLastAttack > _targetZoneMaxTimeBetweenAttacks)

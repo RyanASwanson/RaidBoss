@@ -16,6 +16,9 @@ public class FollowObject : MonoBehaviour
     [SerializeField] private bool _doesSetRotationOnFollowStart;
     [SerializeField] private Vector3 _followStartEulerAngles;
 
+    [Space] 
+    [SerializeField] private Vector3 _followLocationOffset;
+
     [Space]
     [SerializeField] private GameObject _startFollowObject;
     
@@ -119,7 +122,7 @@ public class FollowObject : MonoBehaviour
     {
         while (!_currentFollowTarget.IsUnityNull())
         {
-            transform.position = _currentFollowTarget.transform.position;
+            transform.position = _currentFollowTarget.transform.position + _followLocationOffset;
             yield return null;
         }
     }

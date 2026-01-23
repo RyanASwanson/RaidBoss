@@ -41,7 +41,8 @@ public class GeneralHeroHealArea : GeneralAbilityAreaFramework
 
         if (HitHero(collision, _stayEvent, _stayHealingPerTick) && _stayHealingTickRate > 0)
         {
-            StartCoroutine(DisableColliderForDuration(_stayHealingTickRate));
+            // TODO Rework to ignore hero rather than disable collider
+            StartDisableColliderForDuration(_stayHealingTickRate);
         }
     }
 
@@ -85,9 +86,6 @@ public class GeneralHeroHealArea : GeneralAbilityAreaFramework
         }
             
     }
-
-
-    
 
     #region Getters
     public UnityEvent<Collider> GetEnterEvent() => _enterEvent;

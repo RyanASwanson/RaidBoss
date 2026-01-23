@@ -14,6 +14,8 @@ public class GeneralRotation : MonoBehaviour
     [Space]
     [SerializeField] private Vector3 _rotationPerSecond;
 
+    private Vector3 _storedRotation;
+    
     [Space] 
     [SerializeField] private GameObject _rotationIndepedentParent;
 
@@ -75,13 +77,20 @@ public class GeneralRotation : MonoBehaviour
 
     private IEnumerator RotationWithParent()
     {
-        Vector3 storedRotation = Vector3.zero;
+        _storedRotation = Vector3.zero;
         while (!gameObject.IsUnityNull())
         {
-            storedRotation += _rotationPerSecond * Time.deltaTime;
-            transform.localEulerAngles = -_rotationIndepedentParent.transform.eulerAngles + storedRotation;
+            /*_storedRotation += _rotationPerSecond * Time.deltaTime;
+            transform.localEulerAngles = -_rotationIndepedentParent.transform.eulerAngles + _storedRotation;*/
+            AddRotationWithParent(_rotationPerSecond * Time.deltaTime);
             yield return null;
         }
+    }
+
+    public void AddRotationWithParent(Vector3 rotation)
+    {
+        _storedRotation += rotation;
+        transform.localEulerAngles = -_rotationIndepedentParent.transform.eulerAngles + _storedRotation;
     }
     
     public void UpdateRotationProgress(float rotationProgress)

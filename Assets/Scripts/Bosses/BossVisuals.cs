@@ -44,11 +44,13 @@ public class BossVisuals : BossChildrenFunctionality
     /// <param name="lookLocation"></param>
     public void BossLookAt(Vector3 lookLocation)
     {
+        StopBossLookAt();
         _bossLookAtCoroutine = StartCoroutine(LookAtProcess(lookLocation));
     }
 
     public void BossLookAt(GameObject lookTarget, float duration)
     {
+        StopBossLookAt();
         _bossLookAtCoroutine = StartCoroutine(LookAtProcess(lookTarget, duration));
     }
 

@@ -83,4 +83,5 @@ public class SBA_Thunderclap : SpecificBossAbilityFramework
 
         base.AbilityStart();
     }
+
 }

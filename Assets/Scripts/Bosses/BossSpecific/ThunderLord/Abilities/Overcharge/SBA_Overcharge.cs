@@ -17,6 +17,8 @@ public class SBA_Overcharge : SpecificBossAbilityFramework
         BossTargetZoneParent targetZone = Instantiate(_overChargeTargetZone, _storedTargetLocation, Quaternion.identity).GetComponent<BossTargetZoneParent>();
         _currentTargetZones.Add(targetZone);
         SB_ThunderLord.Instance.ChildGameObjectToImpendingStorm(targetZone.gameObject);
+        
+        BossVisuals.Instance.BossLookAt(targetZone.GetBossTargetZones()[0].GetAdditionalGameObjectReferences()[0], _abilityWindUpTime);
     }
 
     protected override void AbilityStart()

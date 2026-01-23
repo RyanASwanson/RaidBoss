@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3498579247180883948}
   - component: {fileID: 7762766003304483491}
   m_Layer: 0
-  m_Name: Upwards Particles
+  m_Name: DownwardsParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -169,8 +169,8 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1.5
-      minScalar: 1.2
+      scalar: -1.5
+      minScalar: -1.2
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1306,17 +1306,17 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 0, g: 0.82566833, b: 1, a: 1}
-        key1: {r: 0.46207267, g: 0.93333334, b: 0, a: 1}
-        key2: {r: 0.7732558, g: 1, b: 0, a: 0}
-        key3: {r: 0.98360974, g: 1, b: 0.13679248, a: 0}
+        key1: {r: 0.34021592, g: 0.7903379, b: 0.8867924, a: 1}
+        key2: {r: 0.54716974, g: 0.77190024, b: 0.8207547, a: 0}
+        key3: {r: 1, g: 1, b: 1, a: 0}
         key4: {r: 0.98360974, g: 1, b: 0.13679248, a: 0}
         key5: {r: 0.4129634, g: 0, b: 1, a: 0}
         key6: {r: 0, g: 0, b: 0, a: 0}
         key7: {r: 0, g: 0, b: 0, a: 0}
         ctime0: 5397
-        ctime1: 19661
-        ctime2: 33539
-        ctime3: 52043
+        ctime1: 31611
+        ctime2: 46838
+        ctime3: 65535
         ctime4: 58018
         ctime5: 59174
         ctime6: 0
@@ -4824,7 +4824,7 @@ GameObject:
   - component: {fileID: 2234490008856550376}
   - component: {fileID: 3604207397693820418}
   m_Layer: 0
-  m_Name: Random Particles
+  m_Name: RandomParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5034,8 +5034,8 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 0.8867924, g: 0.8867924, b: 0.8867924, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 1}
+      minColor: {r: 0.57198393, g: 0.3198053, b: 0.9245283, a: 1}
+      maxColor: {r: 0.8747885, g: 0.71644706, b: 0.990566, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -9573,7 +9573,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 33c86a51522980d4da6a79535a9076b7, type: 2}
+  - {fileID: 2100000, guid: 208e50e964412dc4a85c895b1d5d6439, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

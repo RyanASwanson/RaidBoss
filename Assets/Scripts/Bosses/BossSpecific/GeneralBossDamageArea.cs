@@ -9,7 +9,9 @@ using UnityEngine.Events;
 public class GeneralBossDamageArea : GeneralAbilityAreaFramework
 {
     [Space]
+    [SerializeField] private bool _canPreventReHitWithoutInitialDamage;
     [SerializeField] private float _preventReHitDuration;
+
     [Space]
 
     [Header("Enter")]
@@ -23,6 +25,10 @@ public class GeneralBossDamageArea : GeneralAbilityAreaFramework
     [Header("Exit")]
     [SerializeField] private float _exitDamage;
     [SerializeField] private UnityEvent<Collider> _exitEvent;
+
+    [Space] 
+    [Header("Hit")]
+    [SerializeField] private UnityEvent<HeroBase> _generalHitEvent;
 
     private List<HeroBase> _heroesToIgnore = new();
 
@@ -88,9 +94,11 @@ public class GeneralBossDamageArea : GeneralAbilityAreaFramework
                 return false;
 
             hitEvent?.Invoke(collision);
+            
+            _generalHitEvent?.Invoke(heroBase);
 
             //Ignores the hero for a duration
-            if (_preventReHitDuration > 0 && abilityDamage > 0)
+            if (_preventReHitDuration > 0 && (_canPreventReHitWithoutInitialDamage || abilityDamage > 0))
             {
                 StartCoroutine(IgnoreHeroForDuration(heroBase));
             }
@@ -130,5 +138,14 @@ public class GeneralBossDamageArea : GeneralAbilityAreaFramework
         yield return new WaitForSeconds(_preventReHitDuration);
         _heroesToIgnore.Remove(heroBase);
     }
+    
+    #region Getters
 
+    public UnityEvent<Collider> GetEnterEvent() => _enterEvent;
+    public UnityEvent<Collider> GetStayEvent() => _stayEvent;
+    public UnityEvent<Collider> GetExitEvent() => _exitEvent;
+    
+    public UnityEvent<HeroBase> GetGeneralHitEvent() => _generalHitEvent;
+
+    #endregion
 }

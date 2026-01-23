@@ -94,6 +94,8 @@ public class SBA_ImpendingStorm : SpecificBossAbilityFramework
     public float GetAttackRotation() => _attackRotation;
 
     public float GetOppositeAttackRotation() => _attackRotation + 180;
+    
+    public Vector3 GetImpendingStormDirection() => _currentImpendingStormTargetZone.transform.forward;
 
     #endregion
 }
