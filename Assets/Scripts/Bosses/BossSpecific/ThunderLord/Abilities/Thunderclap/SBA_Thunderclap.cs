@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class SBA_Thunderclap : SpecificBossAbilityFramework
 {
+    [SerializeField] private bool _doesThunderclapFollowImpendingStorm;
+    
+    [Space]
     [SerializeField] private GameObject _thunderclapSafeZone;
     [SerializeField] private GameObject _thunderclapTargetZone;
+    [SerializeField] private GameObject _thunderclapDamageZone;
     
     private BossTargetZoneParent _currentDamageTargetZone;
     
@@ -79,7 +83,13 @@ public class SBA_Thunderclap : SpecificBossAbilityFramework
         }
 
         //Spawn the damage zone
-        //Instantiate(_lavaBlast, _specificAreaTarget, Quaternion.identity);
+        GameObject thunderClap = Instantiate(_thunderclapDamageZone, transform.position, Quaternion.identity);
+        
+        SB_ThunderLord.Instance.ChildGameObjectToImpendingStorm(thunderClap);
+        if (!_doesThunderclapFollowImpendingStorm)
+        {
+            thunderClap.transform.SetParent(null);
+        }
 
         base.AbilityStart();
     }

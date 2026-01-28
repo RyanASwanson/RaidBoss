@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7340287790343081672}
-  - component: {fileID: 632727741417229346}
   m_Layer: 0
   m_Name: Visuals
   m_TagString: Untagged
@@ -33,27 +32,6 @@ Transform:
   m_Father: {fileID: 1694177004724123762}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &632727741417229346
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 19533150213777189}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 13837d4a0d05c91499e1dc325e8e28ca, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &67737127216543128
 GameObject:
   m_ObjectHideFlags: 0
@@ -108,8 +86,12 @@ MonoBehaviour:
   - {fileID: 5207342555288860306}
   _hasLifetime: 0
   _lifetime: 0
+  _hasColliderActivationDelay: 0
+  _colliderActivationDelay: 0
   _hasColliderLifetime: 0
   _colliderLifetime: 0
+  _doesHitCenteredVFXCopyRotation: 0
+  _hitCenteredVFXCopyTarget: {fileID: 0}
   _hitCenteredVFX: {fileID: 0}
   _lifetimeEndEvent:
     m_PersistentCalls:
@@ -117,6 +99,7 @@ MonoBehaviour:
   _colliderLifetimeEndEvent:
     m_PersistentCalls:
       m_Calls: []
+  _canPreventReHitWithoutInitialDamage: 0
   _preventReHitDuration: 0.5
   _enterDamage: 0
   _enterEvent:
@@ -128,6 +111,9 @@ MonoBehaviour:
       m_Calls: []
   _exitDamage: 0
   _exitEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _generalHitEvent:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &8301264482093360685

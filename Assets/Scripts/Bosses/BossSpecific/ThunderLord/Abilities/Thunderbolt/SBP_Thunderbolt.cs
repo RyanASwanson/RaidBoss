@@ -12,6 +12,11 @@ public class SBP_Thunderbolt : BossProjectileFramework
     
     [Space]
     [SerializeField] private GeneralVFXFunctionality _cloudVFXFunctionality;
+    [SerializeField] private GeneralVFXFunctionality _sparkImpactVFXFunctionality;
+    [SerializeField] private GeneralVFXFunctionality _sparkImpactUpwardsVFXFunctionality;
+    [SerializeField] private CustomCanvasDecal _impactDecal;
+    
+    [SerializeField] private GeneralVFXFunctionality[] _impactVFXFunctionality;
     
     [Space]
     [SerializeField] private GeneralBossDamageArea _damageZoneArea;
@@ -33,8 +38,16 @@ public class SBP_Thunderbolt : BossProjectileFramework
         {
             StopCoroutine(_thunderboltActivationCoroutine);
         }
+
+        if (_activationDelay > 0)
+        {
+            _thunderboltActivationCoroutine = StartCoroutine(DelayActivation());
+        }
+        else
+        {
+            ActivateThunderbolt();
+        }
         
-        _thunderboltActivationCoroutine = StartCoroutine(DelayActivation());
     }
 
     private IEnumerator DelayActivation()
@@ -48,6 +61,17 @@ public class SBP_Thunderbolt : BossProjectileFramework
         _damageZoneArea.StartColliderActivationDelay();
         _damageZoneArea.StartColliderLifetime();
         _cloudVFXFunctionality.SetLoopOfParticleSystems(false);
+        
+        /*_sparkImpactVFXFunctionality.PlayAllParticleSystems();
+        _sparkImpactUpwardsVFXFunctionality.PlayAllParticleSystems();*/
+
+        foreach (GeneralVFXFunctionality vfx in _impactVFXFunctionality)
+        {
+            vfx.PlayAllParticleSystems();
+        }
+        
+        _impactDecal.ActivateCustomDecal();
+        
         _scaleCurve.StartMovingUpOnCurve();
     }
 

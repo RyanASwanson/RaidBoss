@@ -21,6 +21,10 @@ public class CustomCanvasDecal : MonoBehaviour
         {
             ActivateCustomDecal();
         }
+        else
+        {
+            _associatedImage.enabled = false;
+        }
     }
 
     public void ShowCustomCanvasDecal(Sprite showSprite)
@@ -30,10 +34,11 @@ public class CustomCanvasDecal : MonoBehaviour
         ActivateCustomDecal();
     }
 
-    private void ActivateCustomDecal()
+    public void ActivateCustomDecal()
     {
         if (_hasImageTransparencyCurve)
         {
+            _associatedImage.enabled = true;
             _imageTransparencyCurve.StartMovingUpOnCurve();
         }
     }

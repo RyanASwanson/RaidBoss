@@ -32,7 +32,7 @@ public class SBP_MagmaWave : BossProjectileFramework
         Vector3 moveDirection = (_myBossBase.transform.position - transform.position).normalized;
         while (true)
         {
-            transform.position += moveDirection * _projectileSpeed * Time.deltaTime;
+            transform.position += moveDirection * (_projectileSpeed * Time.deltaTime);
             CheckBossDistance();
             yield return null;
         }
@@ -45,7 +45,6 @@ public class SBP_MagmaWave : BossProjectileFramework
     /// <param name="lookLocation"></param>
     private void ProjectileLookAt(Vector3 lookLocation)
     {
-        
         transform.LookAt(lookLocation);
         transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
     }

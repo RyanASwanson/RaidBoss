@@ -12,12 +12,19 @@ public class SBA_ImpendingStorm : SpecificBossAbilityFramework
     private float _rotationSpeed;
 
     private float _attackRotation = 0;
+
+    [Space] 
+    [SerializeField] private float _attackDelay;
+    [SerializeField] private float _attackSpawnOffset;
+    private float _attackTimer;
     
     [Space]
     [SerializeField] private GameObject _impendingStormTargetZone;
+    [SerializeField] private GameObject _impendingStormProjectile;
     private GameObject _currentImpendingStormTargetZone;
     
     private Coroutine _rotationCoroutine;
+    private Coroutine _attackCoroutine;
 
     public GameObject BattleStart()
     {
@@ -25,7 +32,7 @@ public class SBA_ImpendingStorm : SpecificBossAbilityFramework
 
         CreateImpendingStormTargetZone();
         
-        StartRotateImpendingStorm();
+        StartImpendingStorm();
 
         return _currentImpendingStormTargetZone;
     }
@@ -43,6 +50,18 @@ public class SBA_ImpendingStorm : SpecificBossAbilityFramework
         
         _currentImpendingStormTargetZone.transform.position = new Vector3(_currentImpendingStormTargetZone.transform.position.x,
             _specificAreaTarget.y, _currentImpendingStormTargetZone.transform.position.z);
+    }
+
+    private void StartImpendingStorm()
+    {
+        StartRotateImpendingStorm();
+        StartImpendingStormAttack();
+    }
+
+    private void StopImpendingStorm()
+    {
+        StopRotateImpendingStorm();
+        StopImpendingStormAttack();
     }
 
     private void StartRotateImpendingStorm()
@@ -88,6 +107,49 @@ public class SBA_ImpendingStorm : SpecificBossAbilityFramework
         _currentImpendingStormTargetZone.transform.eulerAngles = new Vector3(0, _attackRotation, 0);
     }
     
+    private void StartImpendingStormAttack()
+    {
+        if (_attackCoroutine.IsUnityNull())
+        {
+            StopImpendingStormAttack();
+        }
+
+        _attackCoroutine = StartCoroutine(ImpendingStormAttack());
+    }
+
+    private void StopImpendingStormAttack()
+    {
+        if (!_attackCoroutine.IsUnityNull())
+        {
+            StopCoroutine(_attackCoroutine);
+        }
+    }
+    
+    private IEnumerator ImpendingStormAttack()
+    {
+        while (true)
+        {
+            _attackTimer += Time.deltaTime;
+            if (_attackTimer >= _attackDelay)
+            {
+                _attackTimer -= _attackDelay;
+                SpawnImpendingStormProjectile();
+            }
+            yield return null;
+        }
+    }
+
+    private void SpawnImpendingStormProjectile()
+    {
+        GameObject impendingStormProjectile = Instantiate(_impendingStormProjectile, _specificLookTarget, Quaternion.identity);
+        impendingStormProjectile.transform.eulerAngles = new Vector3(0,_attackRotation,0);
+        impendingStormProjectile.transform.position += impendingStormProjectile.transform.forward * _attackSpawnOffset;
+
+        if (impendingStormProjectile.TryGetComponent(out SBP_ImpendingStorm impendingStorm))
+        {
+            impendingStorm.SetUpProjectile(_myBossBase, _abilityID);
+        }
+    }
     
     #region Getters
 

@@ -232,8 +232,11 @@ public class BossTargetZone : BossProjectileFramework
     /// </summary>
     private void PlayDisappearAnimation()
     {
-        _targetAnimator.SetInteger(TARGET_ZONE_DISAPPEAR_ANIM_INT, (int)_targetZoneDisappearType);
-        _targetAnimator.speed = _targetZoneDisappearSpeedMultiplier;
+        if (!_targetAnimator.IsUnityNull())
+        {
+            _targetAnimator.SetInteger(TARGET_ZONE_DISAPPEAR_ANIM_INT, (int)_targetZoneDisappearType);
+            _targetAnimator.speed = _targetZoneDisappearSpeedMultiplier;
+        }
     }
     #endregion
     
