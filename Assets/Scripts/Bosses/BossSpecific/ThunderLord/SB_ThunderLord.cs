@@ -22,6 +22,13 @@ public class SB_ThunderLord : SpecificBossFramework
         _impendingStormTargetZone = _impendingStorm.BattleStart();
         base.StartFight();
     }
+
+    protected override void BossDied()
+    {
+        /*BossVisuals.Instance.AddOutlineToBoss();
+        BossVisuals.Instance.SetOutLineColor(Color.black);*/
+        base.BossDied();
+    }
     #endregion
 
     public void ChildGameObjectToImpendingStorm(GameObject childObject)

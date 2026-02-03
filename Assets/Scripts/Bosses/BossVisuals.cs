@@ -219,7 +219,7 @@ public class BossVisuals : BossChildrenFunctionality
     }
     
     #region BossOutline
-    private void AddOutlineToBoss()
+    public void AddOutlineToBoss()
     {
         _addedOutline = _myBossBase.GetAssociatedBossObject().AddComponent<Outline>();
 
@@ -295,6 +295,36 @@ public class BossVisuals : BossChildrenFunctionality
     public void SetVisualObjectBase(GameObject newBase)
     {
         _visualObjectBase = newBase;
+    }
+
+    public void SetOutlineWidth(float newOutlineWidth)
+    {
+        if (_addedOutline.IsUnityNull())
+        {
+            return;
+        }
+        
+        _addedOutline.OutlineWidth = newOutlineWidth;
+    }
+
+    public void SetOutLineColor(Color newOutLineColor)
+    {
+        if (_addedOutline.IsUnityNull())
+        {
+            return;
+        }
+        
+        _addedOutline.OutlineColor = newOutLineColor;
+    }
+
+    public void SetOutlineMode(Outline.Mode newOutlineMode)
+    {
+        if (_addedOutline.IsUnityNull())
+        {
+            return;
+        }
+        
+        _addedOutline.OutlineMode = newOutlineMode;
     }
 
     #endregion
