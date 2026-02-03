@@ -245,8 +245,8 @@ MonoBehaviour:
   _doesBeginScalingOnEnable: 0
   _doesResetScaleOnScalingEnable: 0
   _scalingTime: 0
-  _hasOverrideStartingScale: 0
-  _overrideStartingScale: {x: 0, y: 0, z: 0}
+  _hasOverrideStartingScale: 1
+  _overrideStartingScale: {x: 1, y: 1, z: 1}
   _endingScale: {x: 1.2, y: 1.2, z: 1.2}
   _curveProgression: {fileID: 630635978826542057}
 --- !u!114 &630635978826542057
@@ -268,12 +268,14 @@ MonoBehaviour:
   _maxCurveValue: 1
   _hasDefaultValue: 0
   _defaultValue: 0
-  _doesResetToDefaultProgressOnEnable: 0
+  _doesResetToDefaultProgressOnEnable: 1
   _doesAutomaticallyMoveDownOnHittingMax: 0
+  _doesAutomaticallyMoveUpOnHittingMin: 0
   _hasIncreaseDelay: 0
   _increaseDelay: 0
   _hasDecreaseDelay: 0
   _decreaseDelay: 0
+  _doesLerpUnchained: 0
   _curve:
     serializedVersion: 2
     m_Curve:

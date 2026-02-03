@@ -213,6 +213,10 @@ public class BossTargetZone : BossProjectileFramework
     {
         foreach (MeshRenderer renderer in _targetZones)
         {
+            if (renderer.IsUnityNull())
+            {
+                continue;
+            }
             renderer.material = newMaterial;
         }
     }

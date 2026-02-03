@@ -7,14 +7,22 @@ using Random = UnityEngine.Random;
 
 public class CustomObjectEmitter : MonoBehaviour
 {
+    [SerializeField] private bool _doesStartEmissionOnEnable;
+    
+    [Space]
     [SerializeField] private bool _hasEmissionDuration;
     [SerializeField] private float _emissionDuration;
     private float _emissionTime;
-    [Space]
     
+    [Space]
     [SerializeField] private float _emissionRate;
-    [Space]
+    [SerializeField] private float _emissionRateVariance;
+    private float _currentEmissionRate;
+
+    [Space] 
+    [SerializeField] private bool _doesSetSelfAsParent;
     
+    [Space]
     [SerializeField] private float _emittedObjectMoveSpeed;
     [SerializeField] private float _emittedObjectDuration;
 
@@ -22,8 +30,8 @@ public class CustomObjectEmitter : MonoBehaviour
     [SerializeField] private ECustomObjectEmitterType _emitterType;
     
     [Space]
-    [SerializeField] private float _minimumAngleIncrease;
-    [SerializeField] private float _maximumAngleIncrease;
+    [SerializeField] private Vector3 _minimumAngleIncrease;
+    [SerializeField] private Vector3 _maximumAngleIncrease;
 
     private Vector3 _currentRotation;
     
@@ -34,15 +42,21 @@ public class CustomObjectEmitter : MonoBehaviour
     
     bool _isEmitting;
 
-    private void Start()
+    private void OnEnable()
     {
         _currentRotation = FullRandomVector();
+        CalculateEmissionRate();
+        
+        if (_doesStartEmissionOnEnable)
+        {
+            StartEmittingObject();
+        }
     }
     
     public void StartEmittingObject()
     {
         StopEmittingObject();
-
+        
         _emittingCoroutine = StartCoroutine(ObjectEmittingProcess());
     }
 
@@ -63,7 +77,7 @@ public class CustomObjectEmitter : MonoBehaviour
         {
             _emissionTime += Time.deltaTime;
             emitCreationTimer += Time.deltaTime;
-            if (emitCreationTimer > _emissionRate)
+            if (emitCreationTimer > _currentEmissionRate)
             {
                 CreateEmittingObject();
                 emitCreationTimer = 0;
@@ -74,13 +88,34 @@ public class CustomObjectEmitter : MonoBehaviour
         _isEmitting = false;
     }
 
+    private void CalculateEmissionRate()
+    {
+        _currentEmissionRate = _emissionRate + Random.Range(-_emissionRateVariance, _emissionRateVariance);
+    }
+
     private void CreateEmittingObject()
     {
+        CalculateEmissionRate();
+        
         GameObject createdObject = Instantiate(_emitObject, transform.position, Quaternion.identity);
+
+        if (_doesSetSelfAsParent)
+        {
+            createdObject.transform.SetParent(transform);
+            createdObject.transform.localScale = Vector3.one;
+        }
         
         createdObject.transform.eulerAngles = RandomDirectionVector();
+
+        if (_emittedObjectMoveSpeed > 0)
+        {
+            StartCoroutine(MoveEmittedObject(createdObject));
+        }
+        else
+        {
+            Destroy(createdObject, _emittedObjectDuration);
+        }
         
-        StartCoroutine(MoveEmittedObject(createdObject));
     }
 
     private Vector3 RandomDirectionVector()
@@ -90,7 +125,10 @@ public class CustomObjectEmitter : MonoBehaviour
             case ECustomObjectEmitterType.FullRandom:
                 return FullRandomVector();
             case ECustomObjectEmitterType.RangeIncreaseRandom:
-                _currentRotation += new Vector3(0, Random.Range(_minimumAngleIncrease, _maximumAngleIncrease), 0);
+                _currentRotation += new Vector3(
+                    Random.Range(_minimumAngleIncrease.x, _maximumAngleIncrease.x),
+                    Random.Range(_minimumAngleIncrease.y, _maximumAngleIncrease.y),
+                    Random.Range(_minimumAngleIncrease.z, _maximumAngleIncrease.z));
                 return _currentRotation;
             default:
                 return Vector3.zero;
@@ -99,13 +137,14 @@ public class CustomObjectEmitter : MonoBehaviour
 
     private Vector3 FullRandomVector()
     {
-        return new Vector3(0, Random.Range(0,360), 0);
+        //return Random.rotation.eulerAngles;
+        return new Vector3(Random.Range(0,_maximumAngleIncrease.x), Random.Range(0,_maximumAngleIncrease.y), Random.Range(0,_maximumAngleIncrease.x));
     }
 
     private IEnumerator MoveEmittedObject(GameObject gameObject)
     {
         float objectDuration = 0;
-        while (objectDuration < _emittedObjectDuration)
+        while (!gameObject.IsUnityNull() && objectDuration < _emittedObjectDuration)
         {
             objectDuration += Time.deltaTime;
             gameObject.transform.position += gameObject.transform.forward * (_emittedObjectMoveSpeed * Time.deltaTime);

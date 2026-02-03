@@ -7,6 +7,7 @@ using UnityEngine.Events;
 public abstract class GeneralAbilityAreaFramework : MonoBehaviour
 {
     [SerializeField] private List<Collider> _areaColliders;
+    protected bool _areCollidersActive = true;
 
     [SerializeField] private bool _hasLifetime;
     [SerializeField] private float _lifetime;
@@ -93,9 +94,15 @@ public abstract class GeneralAbilityAreaFramework : MonoBehaviour
         ToggleProjectileCollider(false);
     }
 
+    protected bool IsCollisionActive()
+    {
+        return enabled && _areCollidersActive;
+    }
+
 
     public void ToggleProjectileCollider(bool colliderEnabled)
     {
+        _areCollidersActive = colliderEnabled;
         foreach (Collider col in _areaColliders)
         {
             col.enabled = colliderEnabled;

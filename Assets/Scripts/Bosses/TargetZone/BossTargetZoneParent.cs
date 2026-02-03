@@ -8,6 +8,8 @@ public class BossTargetZoneParent : MonoBehaviour
 {
     [SerializeField] private BossTargetZone[] _bossTargetZone;
 
+    private bool _isDestroyingSelf = false;
+
     private void OnEnable()
     {
         if (_bossTargetZone.IsUnityNull() || _bossTargetZone.Length == 0)
@@ -18,6 +20,11 @@ public class BossTargetZoneParent : MonoBehaviour
 
     public void RemoveBossTargetZones()
     {
+        if (_isDestroyingSelf)
+        {
+            return;
+        }
+        
         float longestDestroy = 0;
         foreach (BossTargetZone bossTargetZone in _bossTargetZone)
         {
@@ -43,6 +50,7 @@ public class BossTargetZoneParent : MonoBehaviour
     private void DestroyTargetZoneParent(float destroyDelay)
     {
         Destroy(gameObject,destroyDelay);
+        _isDestroyingSelf = true;
     }
     
     public BossTargetZone[] GetBossTargetZones() => _bossTargetZone;

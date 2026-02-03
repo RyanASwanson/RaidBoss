@@ -115,8 +115,8 @@ MonoBehaviour:
   _emittedObjectMoveSpeed: 3
   _emittedObjectDuration: 1
   _emitterType: 1
-  _minimumAngleIncrease: 70
-  _maximumAngleIncrease: 150
+  _minimumAngleIncrease: {x: 0, y: 70, z: 0}
+  _maximumAngleIncrease: {x: 0, y: 150, z: 0}
   _emitObject: {fileID: 1219978722810171359, guid: 1f535eb7cb706f54db77489f38d475f1, type: 3}
 --- !u!1 &5316999915757931883
 GameObject:
@@ -202,6 +202,8 @@ MonoBehaviour:
   _doesResetRotationOnRotationEnable: 0
   _rotationPerSecond: {x: 0, y: 180, z: 0}
   _rotationIndepedentParent: {fileID: 0}
+  _targetLocalEulerAngles: {x: 0, y: 0, z: 0}
+  _curveProgression: {fileID: 0}
 --- !u!1 &7750021935093475007
 GameObject:
   m_ObjectHideFlags: 0

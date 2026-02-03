@@ -39,7 +39,7 @@ public class GeneralBossDamageArea : GeneralAbilityAreaFramework
     /// <param name="collision"></param>
     private void OnTriggerEnter(Collider collision)
     {
-        if (!enabled)
+        if (!IsCollisionActive())
         {
             return;
         }
@@ -53,7 +53,7 @@ public class GeneralBossDamageArea : GeneralAbilityAreaFramework
     /// <param name="collision"></param>
     private void OnTriggerStay(Collider collision)
     {
-        if (!enabled)
+        if (!IsCollisionActive())
         {
             return;
         }
@@ -67,7 +67,7 @@ public class GeneralBossDamageArea : GeneralAbilityAreaFramework
     /// <param name="collision"></param>
     private void OnTriggerExit(Collider collision)
     {
-        if (!enabled)
+        if (!IsCollisionActive())
         {
             return;
         }

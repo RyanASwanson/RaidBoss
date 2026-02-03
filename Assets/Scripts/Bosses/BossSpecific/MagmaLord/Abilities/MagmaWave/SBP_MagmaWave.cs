@@ -7,7 +7,11 @@ public class SBP_MagmaWave : BossProjectileFramework
     [SerializeField] private float _projectileSpeed;
     [SerializeField] private float _distanceThreshold;
 
-    [Space]
+    [Space] 
+    [SerializeField] private float _destroyDelay;
+
+    [Space] 
+    [SerializeField] private GeneralVFXFunctionality _detachVFX;
     [SerializeField] private Animator _waveAnimator;
 
     private const string REMOVE_PROJECTILE_ANIM_TRIGGER = "WaveEnd";
@@ -66,7 +70,21 @@ public class SBP_MagmaWave : BossProjectileFramework
     /// </summary>
     private void ProjectileReachedEndOfPath()
     {
+        StartCoroutine(EndPathDestroyDelay());
         _waveAnimator.SetTrigger(REMOVE_PROJECTILE_ANIM_TRIGGER);
+    }
+
+    private IEnumerator EndPathDestroyDelay()
+    {
+        yield return new WaitForSeconds(_destroyDelay);
+        DestroyWave();
+    }
+
+    private void DestroyWave()
+    {
+        _detachVFX.SetLoopOfParticleSystems(false);
+        _detachVFX.DetachVisualEffect();
+        Destroy(gameObject);
     }
 
     #region Base Ability

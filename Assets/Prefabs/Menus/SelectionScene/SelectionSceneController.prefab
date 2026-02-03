@@ -119,10 +119,12 @@ MonoBehaviour:
   _defaultValue: 0
   _doesResetToDefaultProgressOnEnable: 1
   _doesAutomaticallyMoveDownOnHittingMax: 1
+  _doesAutomaticallyMoveUpOnHittingMin: 0
   _hasIncreaseDelay: 0
   _increaseDelay: 0
   _hasDecreaseDelay: 0
   _decreaseDelay: 0
+  _doesLerpUnchained: 0
   _curve:
     serializedVersion: 2
     m_Curve:
@@ -436,10 +438,12 @@ MonoBehaviour:
   _defaultValue: 0
   _doesResetToDefaultProgressOnEnable: 1
   _doesAutomaticallyMoveDownOnHittingMax: 1
+  _doesAutomaticallyMoveUpOnHittingMin: 0
   _hasIncreaseDelay: 0
   _increaseDelay: 0
   _hasDecreaseDelay: 0
   _decreaseDelay: 0
+  _doesLerpUnchained: 0
   _curve:
     serializedVersion: 2
     m_Curve:
@@ -1577,7 +1581,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 585188cdc4600544eb408bee749e4b3a, type: 3}
-    m_FontSize: 72
+    m_FontSize: 78
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -3455,7 +3459,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 155}
+  m_AnchoredPosition: {x: 0, y: 158}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1211727581857705879
@@ -4117,8 +4121,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
-  m_fontSizeBase: 72
+  m_fontSize: 78
+  m_fontSizeBase: 78
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -6880,8 +6884,8 @@ MonoBehaviour:
   _doesBeginScalingOnEnable: 0
   _doesResetScaleOnScalingEnable: 0
   _scalingTime: 0
-  _hasOverrideStartingScale: 0
-  _overrideStartingScale: {x: 0, y: 0, z: 0}
+  _hasOverrideStartingScale: 1
+  _overrideStartingScale: {x: 1, y: 1, z: 1}
   _endingScale: {x: 1.2, y: 1.2, z: 1.2}
   _curveProgression: {fileID: 2211543563081097595}
 --- !u!114 &2211543563081097595
@@ -6903,12 +6907,14 @@ MonoBehaviour:
   _maxCurveValue: 1
   _hasDefaultValue: 0
   _defaultValue: 0
-  _doesResetToDefaultProgressOnEnable: 0
+  _doesResetToDefaultProgressOnEnable: 1
   _doesAutomaticallyMoveDownOnHittingMax: 0
+  _doesAutomaticallyMoveUpOnHittingMin: 0
   _hasIncreaseDelay: 0
   _increaseDelay: 0
   _hasDecreaseDelay: 0
   _decreaseDelay: 0
+  _doesLerpUnchained: 0
   _curve:
     serializedVersion: 2
     m_Curve:
@@ -7869,10 +7875,12 @@ MonoBehaviour:
   _defaultValue: 0
   _doesResetToDefaultProgressOnEnable: 1
   _doesAutomaticallyMoveDownOnHittingMax: 1
+  _doesAutomaticallyMoveUpOnHittingMin: 0
   _hasIncreaseDelay: 0
   _increaseDelay: 0
   _hasDecreaseDelay: 0
   _decreaseDelay: 0
+  _doesLerpUnchained: 0
   _curve:
     serializedVersion: 2
     m_Curve:
@@ -8310,8 +8318,8 @@ MonoBehaviour:
   _doesBeginScalingOnEnable: 0
   _doesResetScaleOnScalingEnable: 0
   _scalingTime: 0
-  _hasOverrideStartingScale: 0
-  _overrideStartingScale: {x: 0, y: 0, z: 0}
+  _hasOverrideStartingScale: 1
+  _overrideStartingScale: {x: 1, y: 1, z: 1}
   _endingScale: {x: 1.2, y: 1.2, z: 1.2}
   _curveProgression: {fileID: 4128997298740383270}
 --- !u!114 &4128997298740383270
@@ -8333,12 +8341,14 @@ MonoBehaviour:
   _maxCurveValue: 1
   _hasDefaultValue: 0
   _defaultValue: 0
-  _doesResetToDefaultProgressOnEnable: 0
+  _doesResetToDefaultProgressOnEnable: 1
   _doesAutomaticallyMoveDownOnHittingMax: 0
+  _doesAutomaticallyMoveUpOnHittingMin: 0
   _hasIncreaseDelay: 0
   _increaseDelay: 0
   _hasDecreaseDelay: 0
   _decreaseDelay: 0
+  _doesLerpUnchained: 0
   _curve:
     serializedVersion: 2
     m_Curve:
@@ -8794,8 +8804,8 @@ MonoBehaviour:
   _doesBeginScalingOnEnable: 0
   _doesResetScaleOnScalingEnable: 0
   _scalingTime: 0
-  _hasOverrideStartingScale: 0
-  _overrideStartingScale: {x: 0, y: 0, z: 0}
+  _hasOverrideStartingScale: 1
+  _overrideStartingScale: {x: 1, y: 1, z: 1}
   _endingScale: {x: 1.2, y: 1.2, z: 1.2}
   _curveProgression: {fileID: 1428753526061762713}
 --- !u!114 &1428753526061762713
@@ -8817,12 +8827,14 @@ MonoBehaviour:
   _maxCurveValue: 1
   _hasDefaultValue: 0
   _defaultValue: 0
-  _doesResetToDefaultProgressOnEnable: 0
+  _doesResetToDefaultProgressOnEnable: 1
   _doesAutomaticallyMoveDownOnHittingMax: 0
+  _doesAutomaticallyMoveUpOnHittingMin: 0
   _hasIncreaseDelay: 0
   _increaseDelay: 0
   _hasDecreaseDelay: 0
   _decreaseDelay: 0
+  _doesLerpUnchained: 0
   _curve:
     serializedVersion: 2
     m_Curve:
@@ -9528,10 +9540,12 @@ MonoBehaviour:
   _defaultValue: 0
   _doesResetToDefaultProgressOnEnable: 0
   _doesAutomaticallyMoveDownOnHittingMax: 1
+  _doesAutomaticallyMoveUpOnHittingMin: 0
   _hasIncreaseDelay: 0
   _increaseDelay: 0
   _hasDecreaseDelay: 0
   _decreaseDelay: 0
+  _doesLerpUnchained: 0
   _curve:
     serializedVersion: 2
     m_Curve:

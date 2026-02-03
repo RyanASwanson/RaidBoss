@@ -181,7 +181,7 @@ MonoBehaviour:
   _maxAttacks: 3
   _distanceBetweenAttacks: 1.75
   _targetZoneMaxTimeBetweenAttacks: 5
-  _timeBetweenAttacks: 0.5
+  _timeBetweenAttacks: 0.45
   _targetZone: {fileID: 1208680779745207093, guid: 8a40bf3aedb772a409124b12140d2c8d, type: 3}
   _damageZone: {fileID: 8222421579856251735, guid: dcc36f5cffa892c4891860735dff6446, type: 3}
 --- !u!114 &3549437259548910070
@@ -317,8 +317,33 @@ MonoBehaviour:
   - 1
   - 1
   - 1
-  _attackDelay: 1.5
-  _attackSpawnOffset: 1
+  _maxBossHealthRotationMultiplier: 1.2
+  _bossHealthRotationMultiplierCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.044174906
+      outSlope: 0.044174906
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.26694915
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1.2903085
+      outSlope: 1.2903085
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.09322035
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _attackDelay: 1.25
+  _attackSpawnOffset: 1.35
   _impendingStormTargetZone: {fileID: 4420273998558425968, guid: 73533755deba99a448f8b928b2333e51, type: 3}
   _impendingStormProjectile: {fileID: 7473947792879290714, guid: d73ce7ebc07b08e43a50b76e436b843e, type: 3}
 --- !u!1 &5840844531538604685

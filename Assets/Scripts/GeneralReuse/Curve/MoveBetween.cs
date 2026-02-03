@@ -22,6 +22,7 @@ public class MoveBetween : MonoBehaviour
     
     
     [Space]
+    [SerializeField] private Vector3 _defaultEndPosition;
     [SerializeField] private CurveProgression _curveProgression;
 
     private GameObject _moveTarget;
@@ -53,6 +54,12 @@ public class MoveBetween : MonoBehaviour
         StartMoveProcess(targetPosition);
     }
 
+    public void StartMoveProcessWithCurveProgression()
+    {
+        StartMoveProcessWithCurveProgression(_defaultEndPosition);
+
+    }
+
     public void StartMoveProcessWithCurveProgression(Vector3 targetPosition)
     {
         if (_hasDefaultStartPosition)
@@ -62,7 +69,6 @@ public class MoveBetween : MonoBehaviour
         _moveTargetPosition = targetPosition;
         
         _curveProgression.StartMovingUpOnCurve();
-        Debug.Log("Start Moving up on curve");
     }
 
     public void StopMoveProcess()

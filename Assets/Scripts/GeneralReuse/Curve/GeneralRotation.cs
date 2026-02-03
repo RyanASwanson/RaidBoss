@@ -70,9 +70,14 @@ public class GeneralRotation : MonoBehaviour
     {
         while (!gameObject.IsUnityNull())
         {
-            transform.eulerAngles += _rotationPerSecond * Time.deltaTime;
+            AddRotationWithoutParent(_rotationPerSecond * Time.deltaTime);
             yield return null;
         }
+    }
+
+    public void AddRotationWithoutParent(Vector3 rotation)
+    {
+        transform.eulerAngles += rotation;
     }
 
     private IEnumerator RotationWithParent()

@@ -34,6 +34,7 @@ public class CurveProgression : MonoBehaviour
     
     [Space] 
     [SerializeField] private bool _doesAutomaticallyMoveDownOnHittingMax;
+    [SerializeField] private bool _doesAutomaticallyMoveUpOnHittingMin;
 
     [Space] 
     [SerializeField] private bool _hasIncreaseDelay;
@@ -47,6 +48,9 @@ public class CurveProgression : MonoBehaviour
     private WaitForSeconds _decreaseWait;
     
     private Coroutine _decreaseWaitCoroutine;
+
+    [Space] 
+    [SerializeField] private bool _doesLerpUnchained;
     
     [Space]
     [SerializeField] private AnimationCurve _curve;
@@ -198,7 +202,15 @@ public class CurveProgression : MonoBehaviour
     private void UpdateCurveProgress()
     {
         _curveEvaluated = _curve.Evaluate(_movementProgress);
-        CurveValue = Mathf.Lerp(_minCurveValue,_maxCurveValue, _curveEvaluated);
+        if (_doesLerpUnchained)
+        {
+            CurveValue = Mathf.LerpUnclamped(_minCurveValue,_maxCurveValue, _curveEvaluated);
+        }
+        else
+        {
+            CurveValue = Mathf.Lerp(_minCurveValue,_maxCurveValue, _curveEvaluated);
+        }
+        
         InvokeOnCurveValueChanged();
     }
 
@@ -272,6 +284,11 @@ public class CurveProgression : MonoBehaviour
         CurveStatus = ECurveStatus.AtMinValue;
         UpdateCurveProgress();
         InvokeOnMinValueReached();
+
+        if (_doesAutomaticallyMoveUpOnHittingMin)
+        {
+            StartMovingUpOnCurve();
+        }
     }
 
     public void InvokeOnSetUpComplete()
@@ -281,7 +298,6 @@ public class CurveProgression : MonoBehaviour
 
     public void InvokeOnCurveValueChanged()
     {
-        //Debug.Log("Curve value " + CurveValue);
         OnCurveValueChanged?.Invoke(CurveValue);
     }
 

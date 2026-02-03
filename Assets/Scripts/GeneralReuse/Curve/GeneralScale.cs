@@ -87,14 +87,14 @@ public class GeneralScale : MonoBehaviour
         {
             scaleProgress += Time.deltaTime * _scalingTime;
             
-            transform.localScale = Vector3.Lerp(_startingScale, _endingScale, scaleProgress);
+            transform.localScale = Vector3.LerpUnclamped(_startingScale, _endingScale, scaleProgress);
             yield return null;
         }
     }
 
     public void UpdateLocalScale(float scaleProgress)
     {
-        transform.localScale = Vector3.Lerp(_startingScale, _endingScale, scaleProgress);
+        transform.localScale = Vector3.LerpUnclamped(_startingScale, _endingScale, scaleProgress);
     }
 
     public void SubscribeToEvents()

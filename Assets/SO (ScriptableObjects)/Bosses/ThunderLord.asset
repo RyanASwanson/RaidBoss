@@ -20,7 +20,7 @@ MonoBehaviour:
   _bossMusicID: 2
   _maxHP: 250
   _baseStaggerMax: 75
-  _staggerDuration: 14
+  _staggerDuration: 15
   _rotationSpeed: 3
   _damageIncrementMultiplier: 1.05
   _damageResistanceChangeOnStagger: 0.15
@@ -39,23 +39,72 @@ MonoBehaviour:
   _bossSelectedColor: {r: 1, g: 1, b: 1, a: 1}
   _bossSelectionIcon: {fileID: 21300000, guid: f35f76d47fe648f49abf433b0c9ed820, type: 3}
   _bossAbilities:
-  - _abilityName: Ability Name
+  - _abilityName: Thunderbolt
     _abilityType: 0
-    _abilityDescription: Ability Description
-    _abilityImage: {fileID: 21300000, guid: 9aebd705574f9e642aef1e5f59b3e4d8, type: 3}
-  - _abilityName: Ability Name
+    _abilityDescription: 'The Thunder
+
+      Lord strikes the
+
+      location of
+      a hero
+
+      multiple times'
+    _abilityImage: {fileID: 21300000, guid: 01b682509d32bf84882de00cff8e0b61, type: 3}
+  - _abilityName: 'Static
+
+      Charge'
     _abilityType: 0
-    _abilityDescription: Ability Description
-    _abilityImage: {fileID: 21300000, guid: 9aebd705574f9e642aef1e5f59b3e4d8, type: 3}
-  - _abilityName: Ability Name
+    _abilityDescription: 'The Thunder Lord
+
+      creates a projectile
+
+      that
+      follows a hero
+
+      and damages them if
+
+      it hits a seperate hero
+
+      then
+      switches targets'
+    _abilityImage: {fileID: 21300000, guid: c6cf640e6963c2c42a828612e3fb3bfc, type: 3}
+  - _abilityName: Thunderclap
     _abilityType: 0
-    _abilityDescription: Ability Description
-    _abilityImage: {fileID: 21300000, guid: 9aebd705574f9e642aef1e5f59b3e4d8, type: 3}
-  - _abilityName: Ability Name
+    _abilityDescription: 'The Thunder Lord
+
+      deals damage in an
+
+      area
+      relative to
+
+      Impending Storm if no
+
+      hero is on the opposite
+
+      side
+      of the arena'
+    _abilityImage: {fileID: 21300000, guid: 6057d9efe5bf23a4fb082ef14b9b6564, type: 3}
+  - _abilityName: Overcharge
     _abilityType: 0
-    _abilityDescription: Ability Description
-    _abilityImage: {fileID: 21300000, guid: 9aebd705574f9e642aef1e5f59b3e4d8, type: 3}
-  - _abilityName: Ability Name
+    _abilityDescription: 'Impending
+
+      Storm flips to
+
+      the other side
+
+      of
+      the arena'
+    _abilityImage: {fileID: 21300000, guid: 253cd7720f7d2cc4fa9ea29579531b4b, type: 3}
+  - _abilityName: 'Impending
+
+      Storm'
     _abilityType: 1
-    _abilityDescription: Ability Description
-    _abilityImage: {fileID: 21300000, guid: 9aebd705574f9e642aef1e5f59b3e4d8, type: 3}
+    _abilityDescription: 'The Thunder
+
+      Lord constantly
+
+      fires projectiles
+      in
+
+      a rotating pattern'
+    _abilityImage: {fileID: 21300000, guid: 14c93fe0f30d36f48a2ea7e744d2589f, type: 3}

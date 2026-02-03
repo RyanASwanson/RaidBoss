@@ -334,7 +334,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 11, y: 0}
+  m_AnchoredPosition: {x: 9, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4729718462638527206
@@ -622,6 +622,16 @@ MonoBehaviour:
   _curveDecreaseTime: 0.2
   _minCurveValue: 0
   _maxCurveValue: 1
+  _hasDefaultValue: 0
+  _defaultValue: 0
+  _doesResetToDefaultProgressOnEnable: 0
+  _doesAutomaticallyMoveDownOnHittingMax: 0
+  _doesAutomaticallyMoveUpOnHittingMin: 0
+  _hasIncreaseDelay: 0
+  _increaseDelay: 0
+  _hasDecreaseDelay: 0
+  _decreaseDelay: 0
+  _doesLerpUnchained: 0
   _curve:
     serializedVersion: 2
     m_Curve:
@@ -646,6 +656,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  OnSetUpComplete:
+    m_PersistentCalls:
+      m_Calls: []
   _onStartedIncreasing:
     m_PersistentCalls:
       m_Calls: []
@@ -699,6 +712,16 @@ MonoBehaviour:
   _curveDecreaseTime: 0.3
   _minCurveValue: 0
   _maxCurveValue: 1
+  _hasDefaultValue: 0
+  _defaultValue: 0
+  _doesResetToDefaultProgressOnEnable: 0
+  _doesAutomaticallyMoveDownOnHittingMax: 0
+  _doesAutomaticallyMoveUpOnHittingMin: 0
+  _hasIncreaseDelay: 0
+  _increaseDelay: 0
+  _hasDecreaseDelay: 0
+  _decreaseDelay: 0
+  _doesLerpUnchained: 0
   _curve:
     serializedVersion: 2
     m_Curve:
@@ -723,6 +746,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  OnSetUpComplete:
+    m_PersistentCalls:
+      m_Calls: []
   _onStartedIncreasing:
     m_PersistentCalls:
       m_Calls: []
@@ -776,6 +802,16 @@ MonoBehaviour:
   _curveDecreaseTime: 0.2
   _minCurveValue: 0
   _maxCurveValue: 4.347826
+  _hasDefaultValue: 0
+  _defaultValue: 0
+  _doesResetToDefaultProgressOnEnable: 0
+  _doesAutomaticallyMoveDownOnHittingMax: 0
+  _doesAutomaticallyMoveUpOnHittingMin: 0
+  _hasIncreaseDelay: 0
+  _increaseDelay: 0
+  _hasDecreaseDelay: 0
+  _decreaseDelay: 0
+  _doesLerpUnchained: 0
   _curve:
     serializedVersion: 2
     m_Curve:
@@ -800,6 +836,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  OnSetUpComplete:
+    m_PersistentCalls:
+      m_Calls: []
   _onStartedIncreasing:
     m_PersistentCalls:
       m_Calls: []

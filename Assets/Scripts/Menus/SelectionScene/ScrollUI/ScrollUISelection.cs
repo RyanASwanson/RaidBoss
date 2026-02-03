@@ -208,7 +208,8 @@ public class ScrollUISelection : MonoBehaviour
 
     private void SetContentsScale(float scale)
     {
-        _contents.position = _scrollMiddle.position;
+        //_contents.position = _scrollMiddle.position;
+        _contents.position = new Vector3(_contents.position.x,_scrollMiddle.position.y,_contents.position.z);
         _contents.transform.localScale = new Vector3(scale, scale, scale);   
     }
     #endregion

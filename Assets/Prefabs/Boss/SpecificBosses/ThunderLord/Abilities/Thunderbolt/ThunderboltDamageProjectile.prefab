@@ -9947,6 +9947,7 @@ MonoBehaviour:
   _defaultValue: 0
   _doesResetToDefaultProgressOnEnable: 0
   _doesAutomaticallyMoveDownOnHittingMax: 1
+  _doesAutomaticallyMoveUpOnHittingMin: 0
   _hasIncreaseDelay: 0
   _increaseDelay: 0
   _hasDecreaseDelay: 1
@@ -10275,6 +10276,7 @@ MonoBehaviour:
   _defaultValue: 0
   _doesResetToDefaultProgressOnEnable: 0
   _doesAutomaticallyMoveDownOnHittingMax: 0
+  _doesAutomaticallyMoveUpOnHittingMin: 0
   _hasIncreaseDelay: 0
   _increaseDelay: 0
   _hasDecreaseDelay: 0
@@ -11197,7 +11199,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 17
+      scalar: 14
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -11333,11 +11335,11 @@ ParticleSystem:
         - serializedVersion: 3
           time: 1
           value: 0
-          inSlope: -1.5512704
-          outSlope: -1.5512704
+          inSlope: -1.5777872
+          outSlope: -1.5777872
           tangentMode: 0
           weightedMode: 0
-          inWeight: 0.18447363
+          inWeight: 0.14106813
           outWeight: 0.33333334
         m_PreInfinity: 2
         m_PostInfinity: 2

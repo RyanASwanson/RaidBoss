@@ -55,7 +55,7 @@ public class GeneralTranslate : MonoBehaviour
     
     public void UpdateAccelerationCurve(float scaleProgress)
     {
-        _acceleration = Mathf.Lerp(0, _speed, scaleProgress);
+        _acceleration = Mathf.LerpUnclamped(0, _speed, scaleProgress);
     }
 
     public void SubscribeToEvents()

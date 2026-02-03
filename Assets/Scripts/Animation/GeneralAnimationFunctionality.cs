@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// Provides general functionality for animations to play
@@ -8,6 +9,10 @@ using UnityEngine;
 public class GeneralAnimationFunctionality : MonoBehaviour
 {
     [SerializeField] private List<GameObject> _vfxList;
+
+    [Space] 
+    [SerializeField] private UnityEvent _onDestroySelfEvent;
+    [SerializeField] private UnityEvent _onDestroyParentEvent;
 
     public void CreateVFXAtCurrentLocation(int vfxID)
     {
@@ -21,11 +26,19 @@ public class GeneralAnimationFunctionality : MonoBehaviour
 
     public void DestroySelf()
     {
+        _onDestroySelfEvent.Invoke();
         Destroy(gameObject);
     }
 
     public void DestroyParent()
     {
+        _onDestroyParentEvent.Invoke();
         Destroy(transform.parent.gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        _onDestroySelfEvent.RemoveAllListeners();   
+        _onDestroyParentEvent.RemoveAllListeners();
     }
 }

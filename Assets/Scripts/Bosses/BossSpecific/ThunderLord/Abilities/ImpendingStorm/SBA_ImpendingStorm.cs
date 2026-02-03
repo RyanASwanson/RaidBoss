@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -9,6 +10,10 @@ public class SBA_ImpendingStorm : SpecificBossAbilityFramework
     [SerializeField] private float _baseRotationSpeed;
     [SerializeField] private float[] _difficultyRotationMultiplier;
 
+    [SerializeField] private float _maxBossHealthRotationMultiplier;
+    [SerializeField] private AnimationCurve _bossHealthRotationMultiplierCurve;
+
+    private float _battleStartRotationSpeed;
     private float _rotationSpeed;
 
     private float _attackRotation = 0;
@@ -28,7 +33,10 @@ public class SBA_ImpendingStorm : SpecificBossAbilityFramework
 
     public GameObject BattleStart()
     {
-        _rotationSpeed = _baseRotationSpeed * _difficultyRotationMultiplier[(int)SelectionManager.Instance.GetSelectedDifficulty()-1];
+        SubscribeToEvents();
+        
+        _battleStartRotationSpeed = _baseRotationSpeed * _difficultyRotationMultiplier[(int)SelectionManager.Instance.GetSelectedDifficulty()-1];
+        _rotationSpeed = _battleStartRotationSpeed;
 
         CreateImpendingStormTargetZone();
         
@@ -149,6 +157,24 @@ public class SBA_ImpendingStorm : SpecificBossAbilityFramework
         {
             impendingStorm.SetUpProjectile(_myBossBase, _abilityID);
         }
+    }
+
+    private void BossDamaged(float damage)
+    {
+        UpdateRotationSpeed();
+    }
+
+    private void UpdateRotationSpeed()
+    {
+        float bossHealthRotationSpeedMultiplier = _bossHealthRotationMultiplierCurve.Evaluate(1 - BossStats.Instance.GetBossHealthPercentage());
+        bossHealthRotationSpeedMultiplier = Mathf.Lerp(1, _maxBossHealthRotationMultiplier, bossHealthRotationSpeedMultiplier);
+        _rotationSpeed = _baseRotationSpeed * bossHealthRotationSpeedMultiplier;
+
+    }
+
+    private void SubscribeToEvents()
+    {
+        _myBossBase.GetBossDamagedEvent().AddListener(BossDamaged);
     }
     
     #region Getters
