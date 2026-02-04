@@ -16,14 +16,15 @@ public class MoveBetween : MonoBehaviour
     [Space] 
     [SerializeField] private bool _hasDefaultStartPosition;
     [SerializeField] private Vector3 _defaultStartPosition;
-
-    [Space] 
-    [SerializeField] private UnityEvent _onEndOfMovement;
-    
     
     [Space]
     [SerializeField] private Vector3 _defaultEndPosition;
+    
+    [Space]
     [SerializeField] private CurveProgression _curveProgression;
+    
+    [Space] 
+    [SerializeField] private UnityEvent _onEndOfMovement;
 
     private GameObject _moveTarget;
     private Vector3 _moveTargetPosition;
@@ -33,6 +34,7 @@ public class MoveBetween : MonoBehaviour
 
     private void OnEnable()
     {
+        _moveTargetPosition = _defaultEndPosition;
         SubscribeToEvents();
     }
 

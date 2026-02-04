@@ -33,6 +33,10 @@ public class CustomObjectEmitter : MonoBehaviour
     [SerializeField] private Vector3 _minimumAngleIncrease;
     [SerializeField] private Vector3 _maximumAngleIncrease;
 
+    [Space] 
+    [SerializeField] private float _minimumObjectScaleMultiplier = 1;
+    [SerializeField] private float _maximumObjectScaleMultiplier = 1;
+
     private Vector3 _currentRotation;
     
     [Space]
@@ -106,6 +110,7 @@ public class CustomObjectEmitter : MonoBehaviour
         }
         
         createdObject.transform.eulerAngles = RandomDirectionVector();
+        createdObject.gameObject.transform.localScale *= Random.Range(_minimumObjectScaleMultiplier, _maximumObjectScaleMultiplier);
 
         if (_emittedObjectMoveSpeed > 0)
         {
