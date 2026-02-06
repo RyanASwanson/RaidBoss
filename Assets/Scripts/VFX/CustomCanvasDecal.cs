@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class CustomCanvasDecal : MonoBehaviour
 {
-    [SerializeField] private bool _activateOnEnable;
+    [SerializeField] private bool _isVisibleOnEnable;
     
     [Space]
     [SerializeField] private Image _associatedImage;
@@ -17,14 +17,7 @@ public class CustomCanvasDecal : MonoBehaviour
 
     private void OnEnable()
     {
-        if (_activateOnEnable)
-        {
-            ActivateCustomDecal();
-        }
-        else
-        {
-            _associatedImage.enabled = false;
-        }
+        _associatedImage.enabled = _isVisibleOnEnable;
     }
 
     public void ShowCustomCanvasDecal(Sprite showSprite)

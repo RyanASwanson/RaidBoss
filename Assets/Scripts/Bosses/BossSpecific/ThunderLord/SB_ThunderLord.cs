@@ -6,7 +6,11 @@ public class SB_ThunderLord : SpecificBossFramework
 {
     public static SB_ThunderLord Instance;
     
+    [Space]
     [SerializeField] private SBA_ImpendingStorm _impendingStorm;
+
+    [Space] 
+    [SerializeField] private GameObject _deathVFX;
     
     private GameObject _impendingStormTargetZone;
     
@@ -28,6 +32,8 @@ public class SB_ThunderLord : SpecificBossFramework
         /*BossVisuals.Instance.AddOutlineToBoss();
         BossVisuals.Instance.SetOutLineColor(Color.black);*/
         base.BossDied();
+        
+        Instantiate(_deathVFX, _bossVisualsBase.transform.position, Quaternion.identity);
     }
     #endregion
 

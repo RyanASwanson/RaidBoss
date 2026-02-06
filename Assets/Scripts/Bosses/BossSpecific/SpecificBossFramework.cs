@@ -23,7 +23,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
     protected BossBase _myBossBase;
 
     [Header("GameObjects")]
-    [SerializeField] private GameObject _bossVisualsBase;
+    [SerializeField] protected GameObject _bossVisualsBase;
     [SerializeField] protected GameObject _bossSpecificUI;
 
     protected GameObject _storedBossUI;

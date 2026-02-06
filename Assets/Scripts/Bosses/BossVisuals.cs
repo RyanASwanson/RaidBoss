@@ -122,6 +122,8 @@ public class BossVisuals : BossChildrenFunctionality
             _visualObjectBase.transform.rotation = Quaternion.Lerp
                 (startingRotation, toRotation, progress);
             
+            /*Quaternion.RotateTowards(startingRotation, toRotation, _rotateSpeed * Time.deltaTime);*/
+            
             _visualObjectBase.transform.eulerAngles = new Vector3(0, _visualObjectBase.transform.eulerAngles.y, 0);
             
             //transform.LookAt(target.transform.position);
@@ -209,13 +211,13 @@ public class BossVisuals : BossChildrenFunctionality
 
     private void BattleWon()
     {
+        StopBossLookAt();
         BossSpecificDeathAnimTrigger();
-        //OutlineToggle(true);
     }
 
     private void BattleLost()
     {
-
+        StopBossLookAt();
     }
     
     #region BossOutline

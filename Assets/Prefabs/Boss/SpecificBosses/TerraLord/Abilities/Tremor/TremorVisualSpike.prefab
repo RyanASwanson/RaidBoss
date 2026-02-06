@@ -375,6 +375,34 @@ PrefabInstance:
       propertyPath: _curve.m_Curve.Array.data[2].tangentMode
       value: 34
       objectReference: {fileID: 0}
+    - target: {fileID: 6554286416419259353, guid: 0de184045f6873c408878831f196d378, type: 3}
+      propertyPath: OnSetUpComplete.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6554286416419259353, guid: 0de184045f6873c408878831f196d378, type: 3}
+      propertyPath: OnSetUpComplete.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6554286416419259353, guid: 0de184045f6873c408878831f196d378, type: 3}
+      propertyPath: OnSetUpComplete.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 572582121702456741}
+    - target: {fileID: 6554286416419259353, guid: 0de184045f6873c408878831f196d378, type: 3}
+      propertyPath: OnSetUpComplete.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6554286416419259353, guid: 0de184045f6873c408878831f196d378, type: 3}
+      propertyPath: OnSetUpComplete.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ActivateCustomDecal
+      objectReference: {fileID: 0}
+    - target: {fileID: 6554286416419259353, guid: 0de184045f6873c408878831f196d378, type: 3}
+      propertyPath: OnSetUpComplete.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CustomCanvasDecal, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6554286416419259353, guid: 0de184045f6873c408878831f196d378, type: 3}
+      propertyPath: OnSetUpComplete.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 6664898179517157944, guid: 0de184045f6873c408878831f196d378, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -424,6 +452,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6749189652527367559, guid: 0de184045f6873c408878831f196d378, type: 3}
+      propertyPath: _isVisibleOnEnable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6749189652527367559, guid: 0de184045f6873c408878831f196d378, type: 3}
       propertyPath: _hasImageTransparencyCurve
       value: 1
       objectReference: {fileID: 0}
@@ -438,3 +470,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6664898179517157944, guid: 0de184045f6873c408878831f196d378, type: 3}
   m_PrefabInstance: {fileID: 6511017988059215906}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &572582121702456741 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6749189652527367559, guid: 0de184045f6873c408878831f196d378, type: 3}
+  m_PrefabInstance: {fileID: 6511017988059215906}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4af1f8ec298afe1449637b508b40c252, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -26,7 +26,7 @@ public class SBA_ImpendingStorm : SpecificBossAbilityFramework
     [Space]
     [SerializeField] private GameObject _impendingStormTargetZone;
     [SerializeField] private GameObject _impendingStormProjectile;
-    private GameObject _currentImpendingStormTargetZone;
+    private BossTargetZoneParent _currentImpendingStormTargetZone;
     
     private Coroutine _rotationCoroutine;
     private Coroutine _attackCoroutine;
@@ -42,7 +42,7 @@ public class SBA_ImpendingStorm : SpecificBossAbilityFramework
         
         StartImpendingStorm();
 
-        return _currentImpendingStormTargetZone;
+        return _currentImpendingStormTargetZone.gameObject;
     }
 
     public void ActivateOvercharge()
@@ -52,7 +52,9 @@ public class SBA_ImpendingStorm : SpecificBossAbilityFramework
 
     private void CreateImpendingStormTargetZone()
     {
-        _currentImpendingStormTargetZone = Instantiate(_impendingStormTargetZone, transform.position, Quaternion.identity);
+        _currentImpendingStormTargetZone = 
+            Instantiate(_impendingStormTargetZone, transform.position, Quaternion.identity)
+                .GetComponent<BossTargetZoneParent>();
         
         //_currentImpendingStormTargetZone.transform.SetParent(BossBase.Instance.GetSpecificBossScript().transform);
         
@@ -172,9 +174,29 @@ public class SBA_ImpendingStorm : SpecificBossAbilityFramework
 
     }
 
+    private void BossStaggered()
+    {
+        StopImpendingStormAttack();
+    }
+
+    private void BossNoLongerStaggered()
+    {
+        StartImpendingStormAttack();
+    }
+
+    private void BattleOver()
+    {
+        StopImpendingStorm();
+        _currentImpendingStormTargetZone.RemoveBossTargetZones();
+    }
+
     private void SubscribeToEvents()
     {
         _myBossBase.GetBossDamagedEvent().AddListener(BossDamaged);
+        
+        _myBossBase.GetBossStaggeredEvent().AddListener(BossStaggered);
+        _myBossBase.GetBossNoLongerStaggeredEvent().AddListener(BossNoLongerStaggered);
+        GameStateManager.Instance.GetBattleWonOrLostEvent().AddListener(BattleOver);
     }
     
     #region Getters

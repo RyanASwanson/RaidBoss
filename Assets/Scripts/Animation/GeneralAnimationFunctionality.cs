@@ -30,8 +30,6 @@ public class GeneralAnimationFunctionality : MonoBehaviour
     
     private void CreateVFXAtTargetLocation(int vfxID)
     {
-        Debug.Log("Created");
-
         CreateVFX(vfxID, _vfxTargetLocation.transform);
 
     }
