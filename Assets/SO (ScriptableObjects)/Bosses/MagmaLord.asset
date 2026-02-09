@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: MagmaLord
   m_EditorClassIdentifier: 
   _name: Magma Lord
+  _selectionScreenName: 'Magma
+
+    Lord'
   _bossID: 0
   _bossMusicID: 2
   _maxHP: 250
@@ -22,53 +25,72 @@ MonoBehaviour:
   _damageIncrementMultiplier: 1.05
   _damageResistanceChangeOnStagger: 0.15
   _fightStartDelay: 1.5
-  _enrageTime: 200
+  _enrageTime: 180
   _enrageDamageMultiplier: 2
   _bossPrefab: {fileID: 7107661797792204574, guid: 60af20eb747065c438b9c82d3b46c59e, type: 3}
   _bossIcon: {fileID: 21300000, guid: 21d4b6b1ff7b4a44e98295360c31c422, type: 3}
+  _floorMaterial: {fileID: 2100000, guid: 0ab886077d8ff854999683aa4bb3e217, type: 2}
+  _miniFloorMaterial: {fileID: 2100000, guid: 483089e60be2af440bb9c26546e5e149, type: 2}
+  _miniFloorLockedMaterial: {fileID: 2100000, guid: 8ad6661593a7a424faf1d5ee174ffe13, type: 2}
+  _backgroundMaterial: {fileID: 2100000, guid: 8d2f36d01f36e8642b5f41a8eccc22dd, type: 2}
+  _backgroundParticles: {fileID: 4980922677642885067, guid: 190d91df6e0a32c47b95d6e0a092ff48, type: 3}
   _bossHighlightedColor: {r: 1, g: 0.77135277, b: 0, a: 1}
   _bossPressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
   _bossSelectedColor: {r: 1, g: 1, b: 1, a: 1}
+  _bossSelectionIcon: {fileID: 21300000, guid: 1f6452ea0a0a2ff4597ae74b9436e245, type: 3}
   _bossAbilities:
   - _abilityName: Meteor
     _abilityType: 0
-    _abilityDescription: 'The Magma Lord launches
+    _abilityDescription: 'The Magma Lord
 
-      a meteor from the sky
+      launches a meteor
 
-      which
+      from the
+      sky which
+
       follows its target'
     _abilityImage: {fileID: 21300000, guid: 3378e285c3ebc5b40a15698d0b2abda4, type: 3}
   - _abilityName: Magma Wave
     _abilityType: 0
-    _abilityDescription: 'The Magma Lord creates a
+    _abilityDescription: 'The Magma Lord
 
-      wave on the outside of
-      the
+      creates a wave
 
-      arena that moves inwards'
+      on the outside
+      of
+
+      the arena that
+
+      moves inwards'
     _abilityImage: {fileID: 21300000, guid: 84030649f0f14bd43bfbf065cfc89a0d, type: 3}
   - _abilityName: Lava Blast
     _abilityType: 0
-    _abilityDescription: 'The Magma Lord damages
+    _abilityDescription: 'The Magma Lord
 
-      all distant heroes if no
+      damages all distant
 
-      hero
+      heroes
+      if no hero
+
       is up close'
     _abilityImage: {fileID: 21300000, guid: 45021def284c3fd409ffd816a7e447b0, type: 3}
   - _abilityName: Scorch
     _abilityType: 0
-    _abilityDescription: 'The Magma Lord damages
+    _abilityDescription: 'The Magma Lord
 
-      all heroes around it'
+      damages all heroes
+
+      close to
+      it'
     _abilityImage: {fileID: 21300000, guid: b8580abf2331f0442bc603c1eb6ef082, type: 3}
   - _abilityName: Volcano
     _abilityType: 0
-    _abilityDescription: 'The Magma Lord creates
+    _abilityDescription: 'The Magma Lord
 
-      fissures randomly around
+      creates fissures
 
-      the
-      arena'
+      randomly
+      around
+
+      the arena'
     _abilityImage: {fileID: 21300000, guid: 3f36a531e11b5f74aa9726acfffe8707, type: 3}

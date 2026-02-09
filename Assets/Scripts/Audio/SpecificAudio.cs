@@ -13,10 +13,6 @@ using UnityEngine.Serialization;
 public class SpecificAudio
 {
     public string AudioName;
-
-    [Space]
-    [Header("Delays")] 
-    public float DefaultStartDelay;
     
     [Space]
     [Header("Fade Times")]
@@ -107,8 +103,6 @@ public class SpecificAudio
     }
     
     public bool HasAudioTracks() => AudioTracks.Length > 0;
-    public bool HasDefaultDelay() => DefaultStartDelay > 0;
-    public bool ShouldUseAudioDelay() => HasDefaultDelay() && DefaultPlayType == ESpecificAudioPlayType.OneShot;
 
     #endregion
 }

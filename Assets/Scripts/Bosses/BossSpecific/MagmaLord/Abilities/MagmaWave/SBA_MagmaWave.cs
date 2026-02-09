@@ -47,7 +47,7 @@ public class SBA_MagmaWave : SpecificBossAbilityFramework
         newTargetZone.transform.eulerAngles = new Vector3(0, newTargetZone.transform.eulerAngles.y, 0);
 
         //Adds the newly spawn target zone into the list of target zones currently active
-        _currentTargetZones.Add(newTargetZone);
+        _currentTargetZones.Add(newTargetZone.GetComponent<BossTargetZoneParent>());
 
         base.StartShowTargetZone();
     }

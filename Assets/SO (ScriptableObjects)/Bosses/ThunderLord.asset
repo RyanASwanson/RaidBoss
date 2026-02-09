@@ -1,0 +1,110 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c5c7c63fa9fece468a73e969f83e50e, type: 3}
+  m_Name: ThunderLord
+  m_EditorClassIdentifier: 
+  _name: Thunder Lord
+  _selectionScreenName: 'Thunder
+
+    Lord'
+  _bossID: 3
+  _bossMusicID: 2
+  _maxHP: 250
+  _baseStaggerMax: 75
+  _staggerDuration: 15
+  _rotationSpeed: 3
+  _damageIncrementMultiplier: 1.05
+  _damageResistanceChangeOnStagger: 0.15
+  _fightStartDelay: 1.5
+  _enrageTime: 180
+  _enrageDamageMultiplier: 2
+  _bossPrefab: {fileID: 4545186188398149087, guid: b957cd9513f6701418f71e07da17d51f, type: 3}
+  _bossIcon: {fileID: 21300000, guid: 27d69f4fa696fc443ba68f63258d742c, type: 3}
+  _floorMaterial: {fileID: 2100000, guid: c9983282f3a72214eb51c72723297d70, type: 2}
+  _miniFloorMaterial: {fileID: 2100000, guid: 404ca711399ebdd4b9dfdcc60c659bd8, type: 2}
+  _miniFloorLockedMaterial: {fileID: 2100000, guid: 8979b437f98dc8b4f8e4d99523d40dda, type: 2}
+  _backgroundMaterial: {fileID: 2100000, guid: 1c6347adc2742f34e87cd3ae8a394462, type: 2}
+  _backgroundParticles: {fileID: 2076903321650355745, guid: cea3c8d1ab2b8b74083e18f163888eb8, type: 3}
+  _bossHighlightedColor: {r: 1, g: 0.99412286, b: 0, a: 1}
+  _bossPressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+  _bossSelectedColor: {r: 1, g: 1, b: 1, a: 1}
+  _bossSelectionIcon: {fileID: 21300000, guid: f35f76d47fe648f49abf433b0c9ed820, type: 3}
+  _bossAbilities:
+  - _abilityName: Thunderbolt
+    _abilityType: 0
+    _abilityDescription: 'The Thunder
+
+      Lord strikes the
+
+      location of
+      a hero
+
+      multiple times'
+    _abilityImage: {fileID: 21300000, guid: 01b682509d32bf84882de00cff8e0b61, type: 3}
+  - _abilityName: 'Static
+
+      Charge'
+    _abilityType: 0
+    _abilityDescription: 'The Thunder Lord
+
+      creates a projectile
+
+      that
+      follows a hero
+
+      and damages them if
+
+      it hits a seperate hero
+
+      then
+      switches targets'
+    _abilityImage: {fileID: 21300000, guid: c6cf640e6963c2c42a828612e3fb3bfc, type: 3}
+  - _abilityName: Thunderclap
+    _abilityType: 0
+    _abilityDescription: 'The Thunder Lord
+
+      deals damage in an
+
+      area
+      relative to
+
+      Impending Storm if no
+
+      hero is on the opposite
+
+      side
+      of the arena'
+    _abilityImage: {fileID: 21300000, guid: 6057d9efe5bf23a4fb082ef14b9b6564, type: 3}
+  - _abilityName: Overcharge
+    _abilityType: 0
+    _abilityDescription: 'Impending
+
+      Storm flips to
+
+      the other side
+
+      of
+      the arena'
+    _abilityImage: {fileID: 21300000, guid: 253cd7720f7d2cc4fa9ea29579531b4b, type: 3}
+  - _abilityName: 'Impending
+
+      Storm'
+    _abilityType: 1
+    _abilityDescription: 'The Thunder
+
+      Lord constantly
+
+      fires projectiles
+      in
+
+      a rotating pattern'
+    _abilityImage: {fileID: 21300000, guid: 14c93fe0f30d36f48a2ea7e744d2589f, type: 3}

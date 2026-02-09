@@ -2,9 +2,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
 
 public class SelectionController : MonoBehaviour
 {
+    public static SelectionController Instance;
+    
     [Header("Boss")]
     [SerializeField] private BossPillar _bossPillar;
 
@@ -14,7 +17,9 @@ public class SelectionController : MonoBehaviour
     [Header("Center")]
     [Header("Center-Boss")]
     [SerializeField] private GameObject _bossDescription;
+    [SerializeField] private CurveProgression _bossDescriptionCurve;
 
+    [Space]
     [SerializeField] private TMP_Text _bossNameText;
     [SerializeField] private Text _bossNameBorder;
 
@@ -22,25 +27,12 @@ public class SelectionController : MonoBehaviour
     [SerializeField] private List<Image> _bossAbilityImageIcons;
 
     [Space]
-    [SerializeField] private Animator _bossAbilityDescriptionAnimator;
-
-    [Space]
-    [SerializeField] private Text _bossAbilityBackgroundNameText;
-    [SerializeField] private TMP_Text _bossAbilityNameText;
-
-    [SerializeField] private Text _bossAbilityBackgroundTypeText;
-    [SerializeField] private TMP_Text _bossAbilityTypeText;
-
-    [SerializeField] private Text _bossAbilityBackgroundDescriptionText;
-    [SerializeField] private TMP_Text _bossAbilityDescriptionText;
-
-
+    [SerializeField] private ScrollUISelection _bossScrollUI;
+    
     private int _currentBossAbilityID = -1;
 
     [Header("Center-General")]
-    [SerializeField] private bool _requiresMaxCharacters;
-
-    [SerializeField] private Button _fightButton;
+    [SerializeField] private SelectionPlayButton _fightButton;
 
     private bool _maxCharactersSelected = false;
 
@@ -50,7 +42,9 @@ public class SelectionController : MonoBehaviour
     [Space]
     [Header("Center-Hero")]
     [SerializeField] private GameObject _heroDescription;
+    [SerializeField] private CurveProgression _heroDescriptionCurve;
 
+    [Space]
     [SerializeField] private TMP_Text _heroNameText;
     [SerializeField] private Text _heroNameBorder;
 
@@ -76,21 +70,8 @@ public class SelectionController : MonoBehaviour
     private HeroSO _lastHeroHoveredOver;
     private HeroSO _heroUIToDisplay;
 
-    [Space]
-    [SerializeField] private Animator _heroAbilityDescriptionAnimator;
-
-    private const string SHOW_ABILITY_DESCRIPTION_ANIM_BOOL = "ShowDescription";
-    private const string SWAP_ABILITY_DESCRIPTION_ANIM_TRIGGER = "SwapDescription";
-
-    [Space]
-    [SerializeField] private Text _heroAbilityBackgroundNameText;
-    [SerializeField] private TMP_Text _heroAbilityNameText;
-
-    [SerializeField] private Text _heroAbilityBackgroundTypeText;
-    [SerializeField] private TMP_Text _heroAbilityTypeText;
-
-    [SerializeField] private Text _heroAbilityBackgroundDescriptionText;
-    [SerializeField] private TMP_Text _heroAbilityDescriptionText;
+    [Space] 
+    [SerializeField] private ScrollUISelection _heroScrollUI;
 
     private int _currentHeroAbilityID = -1;
 
@@ -103,15 +84,16 @@ public class SelectionController : MonoBehaviour
     private int _previousMaxHeroes;
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
+        Instance = this;
         SubscribeToEvents();
+        
+        SelectionManager.Instance.SetSelectedGameMode(EGameMode.Free);
 
         BossSideStart();
         CenterStart();
         HeroSideStart();
-        
-        PlaySelectionSceneMusic();
     }
 
     #region Boss Side
@@ -120,17 +102,19 @@ public class SelectionController : MonoBehaviour
 
     }
 
-    private void NewBossAdded(BossSO bossSO)
+    private void NewBossAddedSelection(BossSO bossSO)
     {
         _bossPillar.ShowBossOnPillar(bossSO, false);
+        
+        PlayBossSelectedAudio(bossSO);
 
         CheckMaxCharactersSelected();
 
     }
 
-    private void BossRemoved(BossSO bossSO)
+    private void BossRemovedSelection(BossSO bossSO)
     {
-        _bossPillar.RemoveBossOnPillar();
+        _bossPillar.DeselectBossOnPillar();
 
         CheckMaxCharactersNoLongerSelected();
     }
@@ -158,28 +142,39 @@ public class SelectionController : MonoBehaviour
 
     private void BossHoveredOver(BossSO bossSO)
     {
-        //if (bossSO == _lastBossHoveredOver ||_selectionManager.AtMaxBossSelected()) return;
-        if (bossSO == _lastBossHoveredOver)
-        {
-            return;
-        }
-
         _lastHeroHoveredOver = null;
         _lastBossHoveredOver = bossSO;
-
-        NewBossHoveredOver(bossSO);
+        
+        if (SelectionManager.Instance.GetSelectedBoss() == bossSO)
+        {
+            OldBossHoveredOver(bossSO);
+        }
+        else
+        {
+            NewBossHoveredOver(bossSO);
+        }
     }
 
     private void NewBossHoveredOver(BossSO bossSO)
     {
-        if (!IsSelectionInformationLocked)
-        {
-            DisplayBossInformation(bossSO);
-        }
-
-        UpdateHeroButtonDifficultyBeaten();
+        GeneralBossHoveredOver(bossSO);
         
         _bossPillar.ShowBossOnPillar(bossSO, true);
+        
+    }
+
+    private void OldBossHoveredOver(BossSO bossSO)
+    {
+        GeneralBossHoveredOver(bossSO);
+        
+        _bossPillar.PlayBossHoverAnimation();
+    }
+
+    private void GeneralBossHoveredOver(BossSO bossSO)
+    {
+        AttemptDisplayBossInformation(bossSO);
+
+        UpdateHeroButtonDifficultyBeaten(bossSO);
     }
 
     /// <summary>
@@ -188,20 +183,25 @@ public class SelectionController : MonoBehaviour
     /// <param name="bossSO"> The scriptable object of the boss no longer hovered over</param>
     private void BossNotHoveredOver(BossSO bossSO)
     {
-        //Check if the boss is not the selected boss
-        if (bossSO != SelectionManager.Instance.GetSelectedBoss())
+        if (SelectionManager.Instance.AtMaxBossSelected())
         {
-            //Start the animation of removing the boss
-            _bossPillar.AnimateOutBossOnPillar();
-            //Hover over the selected boss
-            if (SelectionManager.Instance.AtMaxBossSelected())
-                BossHoveredOver(SelectionManager.Instance.GetSelectedBoss());
+            if (bossSO != SelectionManager.Instance.GetSelectedBoss())
             {
-                return;
+                NewBossHoveredOver(SelectionManager.Instance.GetSelectedBoss());
             }
         }
+        else
+        {
+            _bossPillar.AnimateOutBossOnPillar();
+        }
+    }
 
-        //_lastBossHoveredOver = null;
+    public void AttemptDisplayBossInformation(BossSO bossSO)
+    {
+        if (!IsSelectionInformationLocked)
+        {
+            DisplayBossInformation(bossSO);
+        }
     }
 
     public void DisplayBossInformation(BossSO bossSO)
@@ -212,8 +212,10 @@ public class SelectionController : MonoBehaviour
         _bossDescription.SetActive(true);
         HideFullHeroDescription();
 
-        _bossNameText.text = bossSO.GetBossName();
-        _bossNameBorder.text = bossSO.GetBossName();
+        _bossDescriptionCurve.StartMovingUpOnCurve();
+
+        _bossNameText.text = bossSO.GetBossSelectionScreenName();
+        _bossNameBorder.text = bossSO.GetBossSelectionScreenName();
 
         HideBossAbilityDescription();
 
@@ -266,44 +268,7 @@ public class SelectionController : MonoBehaviour
     public void ShowBossAbilityDescription(int abilityID)
     {
         _currentBossAbilityID = abilityID;
-        _bossAbilityDescriptionAnimator.SetBool(SHOW_ABILITY_DESCRIPTION_ANIM_BOOL, true);
-    }
-
-    private void UpdateBossAbilityNameText(string newText)
-    {
-        _bossAbilityBackgroundNameText.text = newText;
-        _bossAbilityNameText.text = newText;
-    }
-
-    private void UpdateBossAbilityTypeText(string newText)
-    {
-        _bossAbilityBackgroundTypeText.text = newText;
-        _bossAbilityTypeText.text = newText;
-    }
-
-    private void UpdateBossAbilityDescriptionText(string newText)
-    {
-        _bossAbilityBackgroundDescriptionText.text = newText;
-        _bossAbilityDescriptionText.text = newText;
-    }
-
-    
-
-    public void BossAbilityDescriptionChanged()
-    {
-        if (_currentBossAbilityID == -1)
-        {
-            return;
-        }
-        
-        UpdateBossAbilityNameText(_bossUIToDisplay.GetBossAbilityInformation()
-            [_currentBossAbilityID]._abilityName);
-
-        UpdateBossAbilityTypeText(_bossUIToDisplay.GetBossAbilityInformation()
-            [_currentBossAbilityID]._abilityType.ToString());
-
-        UpdateBossAbilityDescriptionText(_bossUIToDisplay.GetBossAbilityInformation()
-            [_currentBossAbilityID]._abilityDescription);
+        _bossScrollUI.ShowNewScroll(90);
     }
 
     /// <summary>
@@ -314,7 +279,7 @@ public class SelectionController : MonoBehaviour
     private void SwapBossAbilityDescription(int abilityID)
     {
         _currentBossAbilityID = abilityID;
-        _bossAbilityDescriptionAnimator.SetTrigger(SWAP_ABILITY_DESCRIPTION_ANIM_TRIGGER);
+        _bossScrollUI.ShowNewScroll(90);
     }
 
     /// <summary>
@@ -323,8 +288,9 @@ public class SelectionController : MonoBehaviour
     /// </summary>
     private void HideBossAbilityDescription()
     {
-        _bossAbilityDescriptionAnimator.SetBool(SHOW_ABILITY_DESCRIPTION_ANIM_BOOL, false);
         _currentBossAbilityID = -1;
+        
+        _bossScrollUI.HideScroll();
     }
 
     private void HideFullBossDescription()
@@ -337,7 +303,7 @@ public class SelectionController : MonoBehaviour
     #region Center - General
     private void FightButtonStartingInteractability()
     {
-        _fightButton.interactable = !_requiresMaxCharacters;
+        _fightButton.SetUpPlayButton();
     }
 
     private void UnlockCharacterInformation()
@@ -351,7 +317,15 @@ public class SelectionController : MonoBehaviour
     /// </summary>
     private void CheckMaxCharactersSelected()
     {
-        if (SelectionManager.Instance.AtMaxBossSelected() && SelectionManager.Instance.AtMaxHeroesSelected() && _requiresMaxCharacters)
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        if (!DebugScript.Instance.RequiresMaxCharactersSelected)
+        {
+            MaxCharactersSelected();
+            return;
+        }
+#endif
+        
+        if (SelectionManager.Instance.AtMaxBossSelected() && SelectionManager.Instance.AtMaxHeroesSelected())
         {
             MaxCharactersSelected();
         }
@@ -363,7 +337,7 @@ public class SelectionController : MonoBehaviour
     private void MaxCharactersSelected()
     {
         _maxCharactersSelected = true;
-        _fightButton.interactable = true ;
+        _fightButton.MaxCharactersSelected(true);
     }
     
     private void CheckMaxCharactersNoLongerSelected()
@@ -377,7 +351,7 @@ public class SelectionController : MonoBehaviour
     private void NoLongerMaxHeroesSelected()
     {
         _maxCharactersSelected = false;
-        _fightButton.interactable = false;
+        _fightButton.MaxCharactersSelected(false);
     }
 
 
@@ -394,30 +368,25 @@ public class SelectionController : MonoBehaviour
     #region Center - Hero
     private void HeroHoveredOver(HeroSO heroSO)
     {
-        //Stop if it is the same hero as the previous
-        if (heroSO == _lastHeroHoveredOver)
-        {
-            return;
-        }
-        //Stop if the hero is selected already
-        if (SelectionManager.Instance.GetAllSelectedHeroes().Contains(heroSO) &&
-            SelectionManager.Instance.GetHeroAtLastPostion() != heroSO)
-        {
-            return;
-        }
-
         _lastBossHoveredOver = null;
         _lastHeroHoveredOver = heroSO;
         
-        NewHeroHoveredOver(heroSO);
+        if (SelectionManager.Instance.GetAllSelectedHeroes().Contains(heroSO))
+        {
+            OldHeroHoveredOver(heroSO);
+        }
+        else
+        {
+            NewHeroHoveredOver(heroSO);
+        }
+        
+        //NewHeroHoveredOver(heroSO);
+        
     }
 
     private void NewHeroHoveredOver(HeroSO heroSO)
     {
-        if (!IsSelectionInformationLocked)
-        {
-            DisplayHeroInformation(heroSO);
-        }
+        GeneralHeroHoveredOver(heroSO);
 
         int heroPillarNum = SelectionManager.Instance.GetSelectedHeroesCount();
 
@@ -429,37 +398,25 @@ public class SelectionController : MonoBehaviour
         _heroPillars[heroPillarNum ].ShowHeroOnPillar(heroSO, true);
     }
 
+    private void OldHeroHoveredOver(HeroSO heroSO)
+    {
+        GeneralHeroHoveredOver(heroSO);
+
+        HeroPillar heroPillar = FindHeroPillarWithHero(heroSO);
+        if (!heroPillar.IsUnityNull())
+        {
+            heroPillar.PlayHeroHoverAnimation();
+        }
+    }
+
+    private void GeneralHeroHoveredOver(HeroSO heroSO)
+    {
+        AttemptDisplayHeroInformation(heroSO);
+    }
+
     private void HeroNotHoveredOver(HeroSO heroSO)
     {
-
-        /*if (_selectionManager.AtMaxHeroesSelected()) 
-        {
-            print("first");
-            if(_selectionManager.GetHeroAtLastPostion() != heroSO)
-            {
-                print("RemoveLast");
-                int hpn = UniversalManagers.Instance.GetSelectionManager().GetSelectedHeroesCount();
-
-                _heroPillars[hpn-1].AnimateOutHeroOnPillar();
-
-                _lastHeroHoveredOver = null;
-
-                NewHeroHoveredOver(_selectionManager.GetHeroAtLastPostion());
-            }
-            return;
-        }
-
-
-        if (_selectionManager.GetAllSelectedHeroes().Contains(heroSO)) return;
-
-        int heroPillarNum = UniversalManagers.Instance.GetSelectionManager().GetSelectedHeroesCount();
-
-        _heroPillars[heroPillarNum].AnimateOutHeroOnPillar();
-
-        _lastHeroHoveredOver = null;*/
-
-
-
+        
         if (SelectionManager.Instance.GetAllSelectedHeroes().Contains(heroSO))
         {
             return;
@@ -484,6 +441,14 @@ public class SelectionController : MonoBehaviour
         }
     }
 
+    private void AttemptDisplayHeroInformation(HeroSO heroSO)
+    {
+        if (!IsSelectionInformationLocked)
+        {
+            DisplayHeroInformation(heroSO);
+        }
+    }
+
     private void DisplayHeroInformation(HeroSO heroSO)
     {
         _heroUIToDisplay = heroSO;
@@ -491,6 +456,8 @@ public class SelectionController : MonoBehaviour
         //Show hero description and hide boss description
         HideFullBossDescription();
         _heroDescription.SetActive(true);
+        
+        _heroDescriptionCurve.StartMovingUpOnCurve();
 
         //Updates the text to display the heroes name
         _heroNameText.text = heroSO.GetHeroName();
@@ -572,65 +539,22 @@ public class SelectionController : MonoBehaviour
     public void ShowHeroAbilityDescription(int abilityID)
     {
         _currentHeroAbilityID = abilityID;
-        _heroAbilityDescriptionAnimator.SetBool(SHOW_ABILITY_DESCRIPTION_ANIM_BOOL, true);
+        
+        _heroScrollUI.ShowNewScroll(90);
     }
-
-    private void UpdateHeroAbilityNameText(string newText)
-    {
-        _heroAbilityBackgroundNameText.text = newText;
-        _heroAbilityNameText.text = newText;
-    }
-
-    private void UpdateHeroAbilityTypeText(string newText)
-    {
-        _heroAbilityBackgroundTypeText.text = newText;
-        _heroAbilityTypeText.text = newText;
-    }
-
-    private void UpdateHeroAbilityDescriptionText(string newText)
-    {
-        _heroAbilityBackgroundDescriptionText.text = newText;
-        _heroAbilityDescriptionText.text = newText;
-    }
-
     
-    /// <summary>
-    /// Changes which ability is being displayed
-    /// Can update the ability name, type, and description text
-    /// Presents the hero ability based on which hero ability ID is currently active
-    /// </summary>
-    public void HeroAbilityDescriptionChanged()
-    {
-        switch(_currentHeroAbilityID)
-        {
-            case (0):
-                UpdateHeroAbilityNameText(_heroUIToDisplay.GetHeroBasicAbilityName());
-                UpdateHeroAbilityTypeText(EHeroAbilityType.Basic.ToString());
-                UpdateHeroAbilityDescriptionText(_heroUIToDisplay.GetHeroBasicAbilityDescription());
-                return;
-            case (1):
-                UpdateHeroAbilityNameText(_heroUIToDisplay.GetHeroManualAbilityName());
-                UpdateHeroAbilityTypeText(EHeroAbilityType.Manual.ToString());
-                UpdateHeroAbilityDescriptionText(_heroUIToDisplay.GetHeroManualAbilityDescription());
-                return;
-            case (2):
-                UpdateHeroAbilityNameText(_heroUIToDisplay.GetHeroPassiveAbilityName());
-                UpdateHeroAbilityTypeText(EHeroAbilityType.Passive.ToString());
-                UpdateHeroAbilityDescriptionText(_heroUIToDisplay.GetHeroPassiveAbilityDescription());
-                return;
-        }
-    }
-
     private void SwapHeroAbilityDescription(int abilityID)
     {
         _currentHeroAbilityID = abilityID;
-        _heroAbilityDescriptionAnimator.SetTrigger(SWAP_ABILITY_DESCRIPTION_ANIM_TRIGGER);
+        
+        _heroScrollUI.ShowNewScroll(90);
     }
 
     private void HideHeroAbilityDescription()
     {
-        _heroAbilityDescriptionAnimator.SetBool(SHOW_ABILITY_DESCRIPTION_ANIM_BOOL, false);
         _currentHeroAbilityID = -1;
+        
+        _heroScrollUI.HideScroll();
     }
 
     private void HideFullHeroDescription()
@@ -733,7 +657,7 @@ public class SelectionController : MonoBehaviour
         }
     }
 
-    private void NewHeroAdded(HeroSO heroSO)
+    private void NewHeroAddedSelection(HeroSO heroSO)
     {
         int heroPillarNum = SelectionManager.Instance.GetSelectedHeroesCount();
 
@@ -743,6 +667,8 @@ public class SelectionController : MonoBehaviour
         {
             MoveHeroPillar(heroPillarNum, true);
         }
+        
+        PlayHeroSelectedAudio(heroSO);
 
         CheckMaxCharactersSelected();
     }
@@ -752,7 +678,7 @@ public class SelectionController : MonoBehaviour
     /// Removes a hero from the pillar and makes a pillar move down
     /// </summary>
     /// <param name="heroSO"></param>
-    private void HeroRemoved(HeroSO heroSO)
+    private void HeroRemovedSelection(HeroSO heroSO)
     {
         int heroPillarNum = SelectionManager.Instance.GetSelectedHeroesCount() + 1;
 
@@ -763,7 +689,9 @@ public class SelectionController : MonoBehaviour
         }
 
         //Remove the hero on the pillar that had a hero removed
-        _heroPillars[SelectionManager.Instance.GetIndexOfLastHeroRemoved()].RemoveHeroOnPillar();
+        //_heroPillars[SelectionManager.Instance.GetIndexOfLastHeroRemoved()].RemoveHeroOnPillar();
+        // Deselects the hero on the pillar
+        _heroPillars[SelectionManager.Instance.GetIndexOfLastHeroRemoved()].DeselectHeroOnPillar();
         RearrangeHeroesOnPillars();
 
         CheckMaxCharactersNoLongerSelected();
@@ -813,7 +741,7 @@ public class SelectionController : MonoBehaviour
 
         if(!_heroPillars[pillarNum].HasStoredHero() && _heroPillars[pillarNum+1].HasStoredHero())
         {
-            _heroPillars[pillarNum].ShowHeroOnPillar(_heroPillars[pillarNum + 1].GetStoredHero(),true);
+            _heroPillars[pillarNum].ShowHeroOnPillar(_heroPillars[pillarNum + 1].GetStoredHero(),true, true);
             _heroPillars[pillarNum + 1].RemoveHeroOnPillar();
         }
         MoveNextHeroBackToCurrentPillar(pillarNum + 1);
@@ -826,33 +754,40 @@ public class SelectionController : MonoBehaviour
     }
 
 
-    private void UpdateHeroButtonDifficultyBeaten()
+    private void UpdateHeroButtonDifficultyBeaten(BossSO bossSO)
     {
         foreach(SelectHeroButton selectHeroButton in _heroSelectionButtons)
         {
-            selectHeroButton.SetBestDifficultyBeatenIcon(_lastBossHoveredOver);
+            selectHeroButton.SetBestDifficultyBeatenIcon(bossSO);
         }
     }
     #endregion
+    
+    #region Audio
 
-    #region General
-
-    private void PlaySelectionSceneMusic()
+    private void PlayBossSelectedAudio(BossSO selectedBoss)
     {
-        AudioManager.Instance.PlayMusic(AudioManager.SELECTION_SCENE_MUSIC_ID, false);
+        /*AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.UserInterfaceAudio.SelectionSceneUserInterfaceAudio.BossSelected);*/
+        
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificBossAudio[selectedBoss.GetBossID()].SelectionSelectedAudio);
     }
     
-    public void BackToMainMenu()
+    private void PlayHeroSelectedAudio(HeroSO selectedHero)
     {
-        SceneLoadManager.Instance.LoadMainMenuScene();
+        /*AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.UserInterfaceAudio.SelectionSceneUserInterfaceAudio.HeroSelected);*/
+        
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificHeroAudio[selectedHero.GetHeroID()].SelectionSelectedAudio);
     }
-
     #endregion
 
     private void SubscribeToEvents()
     {
-        SelectionManager.Instance.GetBossSelectionEvent().AddListener(NewBossAdded);
-        SelectionManager.Instance.GetBossDeselectionEvent().AddListener(BossRemoved);
+        SelectionManager.Instance.GetBossSelectionEvent().AddListener(NewBossAddedSelection);
+        SelectionManager.Instance.GetBossDeselectionEvent().AddListener(BossRemovedSelection);
 
         SelectionManager.Instance.GetBossSwapEvent().AddListener(SwapBoss);
 
@@ -861,8 +796,8 @@ public class SelectionController : MonoBehaviour
         
         SelectionManager.Instance.GetBossInformationLockedEvent().AddListener(InformationLockBoss);
 
-        SelectionManager.Instance.GetHeroSelectionEvent().AddListener(NewHeroAdded);
-        SelectionManager.Instance.GetHeroDeselectionEvent().AddListener(HeroRemoved);
+        SelectionManager.Instance.GetHeroSelectionEvent().AddListener(NewHeroAddedSelection);
+        SelectionManager.Instance.GetHeroDeselectionEvent().AddListener(HeroRemovedSelection);
 
         SelectionManager.Instance.GetHeroSwapEvent().AddListener(SwapHero);
 
@@ -875,4 +810,14 @@ public class SelectionController : MonoBehaviour
         
         SelectionManager.Instance.GetInformationUnlockedEvent().AddListener(UnlockCharacterInformation);
     }
+    
+    #region Getters
+
+    public int GetCurrentBossAbilityID() => _currentBossAbilityID;
+    public int GetCurrentHeroAbilityID() => _currentHeroAbilityID;
+    
+    public BossSO GetBossUIToDisplay() => _bossUIToDisplay;
+    public HeroSO GetHeroUIToDisplay() => _heroUIToDisplay;
+
+    #endregion
 }

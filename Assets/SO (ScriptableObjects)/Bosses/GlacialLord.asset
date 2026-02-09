@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: GlacialLord
   m_EditorClassIdentifier: 
   _name: Glacial Lord
+  _selectionScreenName: 'Glacial
+
+    Lord'
   _bossID: 2
   _bossMusicID: 2
   _maxHP: 250
@@ -22,13 +25,19 @@ MonoBehaviour:
   _damageIncrementMultiplier: 1.05
   _damageResistanceChangeOnStagger: 0.15
   _fightStartDelay: 1.5
-  _enrageTime: 200
+  _enrageTime: 180
   _enrageDamageMultiplier: 2
   _bossPrefab: {fileID: 1438817367525158931, guid: 90d1fcf58573b984bbd180922f864468, type: 3}
   _bossIcon: {fileID: 21300000, guid: 9981069ecead844448de5cc5ddda52a1, type: 3}
+  _floorMaterial: {fileID: 2100000, guid: ff9be8495c10ae5459f8b13c09883284, type: 2}
+  _miniFloorMaterial: {fileID: 2100000, guid: fd83ce7dacee5654c85b2efbc24df22a, type: 2}
+  _miniFloorLockedMaterial: {fileID: 2100000, guid: 563fc88c5ef66e04283bf32ffd71deb5, type: 2}
+  _backgroundMaterial: {fileID: 2100000, guid: d41b6927499266c40b69effda9b35595, type: 2}
+  _backgroundParticles: {fileID: 5876734845234006166, guid: ff800e669fbfc8844a0059f1ac4e860d, type: 3}
   _bossHighlightedColor: {r: 0, g: 0.4764049, b: 1, a: 1}
   _bossPressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
   _bossSelectedColor: {r: 1, g: 1, b: 1, a: 1}
+  _bossSelectionIcon: {fileID: 21300000, guid: b5e4c5ee2c1f19a4e868e4cfee35f04f, type: 3}
   _bossAbilities:
   - _abilityName: Avalanche
     _abilityType: 0
@@ -37,35 +46,57 @@ MonoBehaviour:
       creates an avalanche
 
       moving
-      outwards from the
+      outwards from
 
-      center, and can hit Frost Fiends'
+      the center, and can
+
+      hit Frost Fiends'
     _abilityImage: {fileID: 21300000, guid: 9c81f702c5a68504d82d37e003b6498e, type: 3}
   - _abilityName: Frostbite
     _abilityType: 0
-    _abilityDescription: "The Frost Fiends\nfire projectiles towards \nthe center
-      of the arena\nif they are not frozen"
+    _abilityDescription: 'The Frost Fiends
+
+      fire projectiles
+
+      towards
+      the center
+
+      of the arena if
+
+      they are not frozen'
     _abilityImage: {fileID: 21300000, guid: 36ecb8e389538a34a889a0d39fff8166, type: 3}
   - _abilityName: Icicle Rain
     _abilityType: 0
-    _abilityDescription: 'Icicles fall from the sky
+    _abilityDescription: 'Icicles fall from the
 
-      near a hero but can hit
+      skynear a hero but
 
-      Frost
-      Fiends as well'
+      can
+      hit Frost Fiends
+
+      as well'
     _abilityImage: {fileID: 21300000, guid: ad3bf41d497ce854a9d83f63309ef827, type: 3}
   - _abilityName: Blizzard
     _abilityType: 0
     _abilityDescription: 'The Frost Fiends deal
 
-      damage in an area between
+      damage in an area
 
+      between
       unfrozen
-      minions.'
+
+      minions'
     _abilityImage: {fileID: 21300000, guid: d2d147ce23a427546a8633529766753f, type: 3}
   - _abilityName: Frost Fiends
     _abilityType: 1
-    _abilityDescription: "The Glacial Lord has\nminions which attack,\nbut can be
-      stunned by\nhitting them with \nboss attacks"
+    _abilityDescription: 'The Glacial Lord has
+
+      minions which attack,
+
+      but
+      can be stunned by
+
+      hitting them with
+
+      boss attacks'
     _abilityImage: {fileID: 21300000, guid: e52a946485e5bd14e89a47eaa57b38dc, type: 3}

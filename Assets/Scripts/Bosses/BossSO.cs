@@ -11,6 +11,7 @@ public class BossSO : CharacterSO
 {
     [Header("General")]
     [SerializeField] private string _name;
+    [TextArea(2, 4)][SerializeField] private string _selectionScreenName;
     [SerializeField] private int _bossID;
     [SerializeField] private int _bossMusicID;
 
@@ -36,17 +37,31 @@ public class BossSO : CharacterSO
 
     [Header("Visuals")]
     [SerializeField] private Sprite _bossIcon;
+    
+    [Space] 
+    [Header("Environment")] 
+    [SerializeField] private Material _floorMaterial;
+    [Space]
+    [SerializeField] private Material _miniFloorMaterial;
+    [SerializeField] private Material _miniFloorLockedMaterial;
+    [Space]
+    [SerializeField] private Material _backgroundMaterial;
+    [SerializeField] private GameObject _backgroundParticles;
 
     [Header("Selection")]
     [SerializeField] private Color _bossHighlightedColor;
     [SerializeField] private Color _bossPressedColor;
     [SerializeField] private Color _bossSelectedColor;
 
+    [SerializeField] private Sprite _bossSelectionIcon;
+
     [Header("Ability Information")]
     [SerializeField] private List<BossAbilityInformation> _bossAbilities;
+    
 
     #region Getters
     public string GetBossName() => _name;
+    public string GetBossSelectionScreenName() => _selectionScreenName;
     public int GetBossID() => _bossID;
     public int GetBossMusicID() => _bossMusicID;
     public float GetMaxHP() => _maxHP;
@@ -66,10 +81,18 @@ public class BossSO : CharacterSO
     public GameObject GetBossPrefab() => _bossPrefab;
 
     public Sprite GetBossIcon() => _bossIcon;
+    
+    public Material GetFloorMaterial() => _floorMaterial;
+    public Material GetMiniFloorMaterial() => _miniFloorMaterial;
+    public Material GetMiniFloorLockedMaterial() => _miniFloorLockedMaterial;
+    public Material GetBackgroundMaterial() => _backgroundMaterial;
+    public GameObject GetBackgroundParticles() => _backgroundParticles;
 
     public Color GetBossHighlightedColor() => _bossHighlightedColor;
     public Color GetBossPressedColor() => _bossPressedColor;
     public Color GetBossSelectedColor() => _bossSelectedColor;
+    
+    public Sprite GetBossSelectionIcon() => _bossSelectionIcon;
 
     public List<BossAbilityInformation> GetBossAbilityInformation() => _bossAbilities;
     #endregion
@@ -78,7 +101,7 @@ public class BossSO : CharacterSO
 [System.Serializable]
 public class BossAbilityInformation
 {
-    public string _abilityName;
+    [TextArea(1, 2)] public string _abilityName;
     public BossAbilityType _abilityType;
     [TextArea(5, 10)] public string _abilityDescription;
 

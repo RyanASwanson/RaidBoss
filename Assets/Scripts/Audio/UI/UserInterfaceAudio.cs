@@ -10,7 +10,11 @@ public class UserInterfaceAudio
     
     public SelectionSceneUserInterfaceAudio SelectionSceneUserInterfaceAudio;
     
+    public GameplayUserInterfaceAudio GameplayUserInterfaceAudio;
+    
     public SceneLoadUserInterfaceAudio SceneLoadUserInterfaceAudio;
+    
+    public ButtonUserInterfaceAudio ButtonUserInterfaceAudio;
     
     public SpecificAudio[] GeneralUIAudio;
 }
@@ -29,6 +33,17 @@ public class SelectionSceneUserInterfaceAudio
     public SpecificAudio[] DifficultySelected;
     
     public SpecificAudio HeroSelected;
+
+    [Space] 
+    public SpecificAudio ScrollOpenStart;
+}
+
+[System.Serializable]
+public class GameplayUserInterfaceAudio
+{
+    public SpecificAudio BattleWon;
+    
+    public SpecificAudio BattleLost;
 }
 
 [System.Serializable]
@@ -39,4 +54,10 @@ public class SceneLoadUserInterfaceAudio
     public SpecificAudio SceneLoadMiddle;
     
     public SpecificAudio SceneLoadEnd;
+}
+
+[System.Serializable]
+public class ButtonUserInterfaceAudio
+{
+    public SpecificAudio[] ButtonPressedAudio;
 }

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3605259648855355394}
   - component: {fileID: 2885857645027697288}
+  - component: {fileID: 5251854533982758623}
   m_Layer: 0
   m_Name: AvalancheTargetZone
   m_TagString: Untagged
@@ -46,6 +47,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bossTargetZone: []
+--- !u!114 &5251854533982758623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3605259648855355395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a491eaf479da40c41b176afec6c1ce8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _doesScaleOnStart: 0
+  _doesConstantlyScale: 1
+  _storedTargetZone:
+  - {fileID: 5283248210622585601}
 --- !u!1 &3605259649703309174
 GameObject:
   m_ObjectHideFlags: 0
@@ -211,6 +228,11 @@ PrefabInstance:
 --- !u!4 &2424125225961377891 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6708946914597959060, guid: e75204733c1e99544ae06c62d51823d3, type: 3}
+  m_PrefabInstance: {fileID: 8988849096994170359}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5283248210622585601 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3886343564204785398, guid: e75204733c1e99544ae06c62d51823d3, type: 3}
   m_PrefabInstance: {fileID: 8988849096994170359}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &7606089137253353025 stripped

@@ -8,6 +8,10 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
     [SerializeField] private GameObject _targetZone;
     [SerializeField] private GameObject _blizzard;
 
+    [Space] 
+    [SerializeField] private GameObject _previewGlow;
+
+    [Space]
     [SerializeField] private List<BlizzardTargets> _allTargets;
 
     private int _setUpTargetsCounter = 0;
@@ -15,39 +19,50 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
 
     private List<BlizzardTargets> _currentTargets = new();
     private List<BlizzardTargets> _activeTargets = new();
+    
+    private List<BlizzardPreviewGlow> _currentPreviewZones = new();
 
     private SB_GlacialLord _glacialLord;
 
-    private List<BlizzardTargets> DetermineTargets()
+    private void DetermineTargets(bool swapTargets)
     {
         List<BlizzardTargets> newTargets = new();
 
         for (int i = 0; i < _allTargets.Count; i++)
         {
             if ((i % 2 == 0) == _verticalTarget)
+            {
                 newTargets.Add(_allTargets[i]);
+            }
         }
 
-        _verticalTarget = !_verticalTarget;
+        if (swapTargets)
+        {
+            _verticalTarget = !_verticalTarget;
+        }
 
-        return newTargets;
+        _currentTargets = newTargets;
     }
+    
+    
 
-    private void CreateTargetZone(Vector3 location)
+    private void CreateTargetZone(Vector3 location, bool isDeactivated, BlizzardTargets targets)
     {
-        GameObject newTargetZone = Instantiate(_targetZone, location, Quaternion.identity);
+        BossTargetZoneParent newTargetZone = Instantiate(_targetZone, location, Quaternion.identity).GetComponent<BossTargetZoneParent>();
+
+        foreach (GlacialLord_FrostFiend fiend in targets.GetAssociatedFiends())
+        {
+            fiend.SetCurrentTargetZone(newTargetZone);
+        }
+
+        if (isDeactivated)
+        {
+            newTargetZone.SetTargetZoneDeactivatedStatesOfAllTargetZones(true);
+        }
+        
         _currentTargetZones.Add(newTargetZone);
     }
-
-    #region Base Ability
-    public override void AbilitySetUp(BossBase bossBase)
-    {
-        base.AbilitySetUp(bossBase);
-        _glacialLord = (SB_GlacialLord)_mySpecificBoss;
-
-        _glacialLord.GetFrostFiendSpawnedEvent().AddListener(FrostFiendSpawned);
-    }
-
+    
     private void FrostFiendSpawned(GlacialLord_FrostFiend newFiend)
     {
         int currentTarget = _setUpTargetsCounter;
@@ -61,25 +76,62 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
 
         _setUpTargetsCounter++;
     }
+    
+    #region PreviewZones
+
+    private void CreateInitialPreviewZones()
+    {
+        DetermineTargets(true);
+
+        for (int i = 0; i < _currentTargets.Count; i++)
+        {
+            CreatePreviewZone();
+        }
+
+        SetPreviewZoneLocations();
+    }
+
+    private void SetPreviewZoneLocations()
+    {
+        for (int i = 0; i < _currentTargets.Count; i++)
+        {
+            _currentPreviewZones[i].MovePreviewGlowToTargetLocation(_currentTargets[i].GetAttackLocation());
+        }
+    }
+
+    private void CreatePreviewZone()
+    {
+        _currentPreviewZones.Add(Instantiate(_previewGlow, transform.position, Quaternion.identity).GetComponent<BlizzardPreviewGlow>());
+    }
+    
+    #endregion
+
+    #region Base Ability
+    public override void AbilitySetUp(BossBase bossBase)
+    {
+        base.AbilitySetUp(bossBase);
+        _glacialLord = (SB_GlacialLord)_mySpecificBoss;
+
+        _glacialLord.GetFrostFiendSpawnedEvent().AddListener(FrostFiendSpawned);
+        GameStateManager.Instance.GetStartOfBattleEvent().AddListener(CreateInitialPreviewZones);
+    }
+    
 
     protected override void StartShowTargetZone()
     {
         base.StartShowTargetZone();
 
-        _currentTargets = DetermineTargets();
-
         foreach(BlizzardTargets targets in _currentTargets)
         {
             if (targets.AreAnyMinionsFrozen())
             {
+                CreateTargetZone(targets.GetAttackLocation(),true, targets);
                 targets.CallFailedOnUnfrozenMinions();
                 continue;
             }
-
-            CreateTargetZone(targets.GetAttackLocation());
-
+            
+            CreateTargetZone(targets.GetAttackLocation(),false, targets);
             targets.CallBlizzardAttackOnMinions();
-
             _activeTargets.Add(targets);
         }
     }
@@ -96,6 +148,12 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
         }
 
         _activeTargets.Clear();
+    }
+
+    protected override void AbilityDurationEnded()
+    {
+        DetermineTargets(true);
+        SetPreviewZoneLocations();
     }
     #endregion
 }
@@ -128,11 +186,27 @@ public class BlizzardTargets
         return null;
     }
 
+    /*public void CallBlizzardAttackOnMinions()
+    {
+        foreach (GlacialLord_FrostFiend fiend in _associatedFiends)
+        {
+            if (!fiend.IsMinionFrozen())
+            {
+                fiend.BlizzardAttack(_attackLocation);
+            }
+            else
+            {
+                fiend.BlizzardFailed();
+            }
+            
+        }
+    }*/
     public void CallBlizzardAttackOnMinions()
     {
         foreach (GlacialLord_FrostFiend fiend in _associatedFiends)
         {
             fiend.BlizzardAttack();
+            fiend.PlayBlizzardMinionEffect(_attackLocation);
         }
     }
 
@@ -143,6 +217,7 @@ public class BlizzardTargets
             if(!fiend.IsMinionFrozen())
             {
                 fiend.BlizzardFailed();
+                fiend.PlayBlizzardMinionEffect(_attackLocation);
             }
         }
     }

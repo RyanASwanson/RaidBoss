@@ -12,8 +12,8 @@ using UnityEngine.UI;
 public class SelectHeroButton : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private HeroSO _associatedHero;
-    [Space]
 
+    [Space]
     [SerializeField] private Image _iconVisuals;
     [SerializeField] private Button _heroButton;
     private bool _buttonHasBeenPressed = false;
@@ -24,44 +24,70 @@ public class SelectHeroButton : MonoBehaviour, IPointerClickHandler
 
     [SerializeField] private GameObject _lockVisuals;
 
+    [Space] 
+    [SerializeField] private CurveProgression _buttonSizeCurve;
+
+    private bool _isInteractable = false;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        UpdateButtonInteractability();
-        SetButtonHeroIconVisuals();
+        if (SelectionManager.Instance.IsPlayingMissionsMode())
+        {
+            SetDefaultIconColor();
+        }
+        else
+        {
+            UpdateFreePlayButtonInteractability();
+            SetButtonHeroIconVisuals();
+        }
     }
 
-    private void UpdateButtonInteractability()
+    private void UpdateFreePlayButtonInteractability()
     {
-        bool heroUnlocked = SaveManager.Instance.
-            GSD._heroesUnlocked[_associatedHero.GetHeroName()];
-
+        bool heroUnlocked = SaveManager.Instance.IsHeroUnlocked(_associatedHero);
         
-        _heroButton.interactable = heroUnlocked;
-        
-        _lockVisuals.SetActive(!heroUnlocked);
+        SetButtonInteractability(heroUnlocked);
     }
 
     private void SetButtonHeroIconVisuals()
     {
-        _defaultColor = _iconVisuals.color;
+        SetDefaultIconColor();
         //Sets the image to be the hero icon
         _iconVisuals.sprite = _associatedHero.GetHeroIcon();
 
-        //Get the colorblock for the button
-        ColorBlock colorVar = _heroButton.colors;
-        //Set the highlighted color for the button to be the hero highlighted color
-        colorVar.highlightedColor = _associatedHero.GetHeroHighlightedColor();
-        //Set the pressed color for the button to be the hero highlighted color
-        colorVar.pressedColor = _associatedHero.GetHeroPressedColor();
-        //Sets the colorblock for the button
-        _heroButton.colors = colorVar;
+        if (!_heroButton.IsUnityNull())
+        {
+            //Get the colorblock for the button
+            ColorBlock colorVar = _heroButton.colors;
+            //Set the highlighted color for the button to be the hero highlighted color
+            colorVar.highlightedColor = _associatedHero.GetHeroHighlightedColor();
+            //Set the pressed color for the button to be the hero highlighted color
+            colorVar.pressedColor = _associatedHero.GetHeroPressedColor();
+            //Sets the colorblock for the button
+            _heroButton.colors = colorVar;
+        }
+    }
 
+    private void SetDefaultIconColor()
+    {
+        _defaultColor = _iconVisuals.color;
+    }
+
+    public void ClearButtonHeroIconVisuals()
+    {
+        _iconVisuals.sprite = null;
+        _iconVisuals.color = _defaultColor;
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (!_isInteractable)
+        {
+            return;
+        }
+        
         switch (eventData.button)
         {
             case PointerEventData.InputButton.Left:
@@ -85,6 +111,7 @@ public class SelectHeroButton : MonoBehaviour, IPointerClickHandler
             //Prevent button press at max heroes just in case
             //if (UniversalManagers.Instance.GetSelectionManager().AtMaxHeroesSelected()) return;
             HeroSelect();
+            _buttonSizeCurve.StartMovingUpOnCurve();
         }
         else
         {
@@ -160,5 +187,27 @@ public class SelectHeroButton : MonoBehaviour, IPointerClickHandler
 
     #region Getters
     public HeroSO GetAssociatedHero() => _associatedHero;
+    #endregion
+    
+    #region Setters
+    public void SetButtonInteractability(bool interactable)
+    {
+        if (!_heroButton.IsUnityNull())
+        {
+            _heroButton.interactable = interactable;
+            _isInteractable = interactable;
+        }
+        
+        _lockVisuals.SetActive(!interactable);
+    }
+
+    public void SetAssociatedHero(HeroSO hero)
+    {
+        _associatedHero = hero;
+
+        SetButtonHeroIconVisuals();
+    }
+    
+    
     #endregion
 }

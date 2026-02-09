@@ -25,6 +25,8 @@ public class SBA_CrystalBarrage : SpecificBossAbilityFramework
 
     [Space]
     [SerializeField] private float _spawnYEulerVariance;
+    [SerializeField] private float _fallingTime;
+    private WaitForSeconds _fallingWait;
 
     [Space]
     [SerializeField] private GameObject _targetZone;
@@ -33,6 +35,8 @@ public class SBA_CrystalBarrage : SpecificBossAbilityFramework
 
     [Space]
     [SerializeField] private GameObject _upwardsCrystalSource;
+    
+    public const int CRYSTAL_BARRAGE_IMPACT_AUDIO_ID = 0;
 
     #region Target Location
 
@@ -127,7 +131,8 @@ public class SBA_CrystalBarrage : SpecificBossAbilityFramework
         for (int i = 0; i < _projectileCount; i++)
         {
             CreateDamageProjectile();
-            yield return new WaitForSeconds(_timeBetweenProjectiles);
+            StartCoroutine(PlayProjectileImpactDelay());
+            yield return _delayBetweenProjectiles;
         }
     }
 
@@ -143,6 +148,20 @@ public class SBA_CrystalBarrage : SpecificBossAbilityFramework
 
         Instantiate(_crystalBarrage, spawnLocation, Quaternion.Euler(spawnEulerAngles));
     }
+
+    private IEnumerator PlayProjectileImpactDelay()
+    {
+        yield return _fallingWait;
+        PlayProjectileImpactSFX();
+    }
+    
+    private void PlayProjectileImpactSFX()
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
+                BossAbilityAudio[_abilityID].GeneralAbilityAudio[CRYSTAL_BARRAGE_IMPACT_AUDIO_ID]);
+    }
+    
     #endregion
 
     #region Base Ability
@@ -151,6 +170,7 @@ public class SBA_CrystalBarrage : SpecificBossAbilityFramework
         base.AbilitySetUp(bossBase);
         
         _delayBetweenProjectiles = new WaitForSeconds(_timeBetweenProjectiles);
+        _fallingWait = new WaitForSeconds(_fallingTime);
         
         CalculateTargetLocations();
     }
@@ -163,7 +183,7 @@ public class SBA_CrystalBarrage : SpecificBossAbilityFramework
     {
         DetermineTargetLocation();
 
-        _currentTargetZones.Add(Instantiate(_targetZone, _currentTargetLocation, Quaternion.identity));
+        _currentTargetZones.Add(Instantiate(_targetZone, _currentTargetLocation, Quaternion.identity).GetComponent<BossTargetZoneParent>());
 
         StartUpwardsProjectileProcess();
 

@@ -102,6 +102,8 @@ MonoBehaviour:
   _lifetime: 0
   _hasColliderLifetime: 0
   _colliderLifetime: 0
+  _doesHitCenteredVFXCopyRotation: 1
+  _hitCenteredVFXCopyTarget: {fileID: 981364444542151498}
   _hitCenteredVFX: {fileID: 5936102655003475163, guid: 61d58714d6bac2249b129cf3637f015f, type: 3}
   _lifetimeEndEvent:
     m_PersistentCalls:
@@ -165,6 +167,10 @@ MonoBehaviour:
   _edgeOfMapLayer:
     serializedVersion: 2
     m_Bits: 1024
+  _screenShakeData:
+    Intensity: 1.5
+    Frequency: 0.005
+    Duration: 0.6
   _minionHit: {fileID: 2317208844631602424}
   _damageArea: {fileID: 7793616011216568591}
 --- !u!114 &2317208844631602424

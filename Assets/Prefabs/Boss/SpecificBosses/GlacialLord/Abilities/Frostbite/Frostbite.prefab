@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _projectileInterval: 0.4
+  _impactAudioPitchIncrease: 0.15
   _projectileStartVFX: {fileID: 7638835145899312396, guid: 3f53ef9a9bd7bf74bbf59a7a458ab79f, type: 3}
   _projectiles:
   - {fileID: 8117712218339213286}
@@ -67,8 +68,13 @@ MonoBehaviour:
   _areaColliders: []
   _hasLifetime: 1
   _lifetime: 3
+  _hasColliderLifetime: 0
+  _colliderLifetime: 0
   _hitCenteredVFX: {fileID: 0}
-  _lifeTimeEndEvent:
+  _lifetimeEndEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _colliderLifetimeEndEvent:
     m_PersistentCalls:
       m_Calls: []
   _preventReHitDuration: 0

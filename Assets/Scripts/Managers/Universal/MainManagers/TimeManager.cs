@@ -11,18 +11,9 @@ public class TimeManager : MainUniversalManagerFramework
 {
     public static TimeManager Instance;
     
-    private List<float> _appliedSlowedTimeVariations = new List<float>();
-
-    private bool _canUpdateTimeVariation = true;
-
-    [Space]
     [Header("Boss Values")]
     [SerializeField] private float _bossStaggerTimeSpeed;
     [SerializeField] private float _bossStaggerDuration;
-    [Space]
-
-    [SerializeField] private float _bossDeathTimeSpeed;
-    [SerializeField] private float _bossDeathDuration;
 
     [Space]
     [Header("Hero Values")]
@@ -33,19 +24,50 @@ public class TimeManager : MainUniversalManagerFramework
     [SerializeField] private float _heroDeathTimeSpeed;
     [SerializeField] private float _heroDeathDuration;
 
-    private bool _gamePaused = false;
+    [Space] 
+    [Header("Battle Values")]
+    [SerializeField] private float _battleWonTimeSpeed;
+    [SerializeField] private float _battleWonDuration;
+    
+    [Space]
+    [SerializeField] private float _battleLostTimeSpeed;
+    [SerializeField] private float _battleLostDuration;
+
+    private List<float> _appliedSlowedTimeVariations = new List<float>();
+
+    private bool _canUpdateTimeVariation = true;
+
+    private bool _isTimeStopped = false;
+    private bool _isGamePaused = false;
+    
+    private UnityEvent _timeStoppedEvent = new UnityEvent();
+    private UnityEvent _timeResumedEvent = new UnityEvent();
 
     private UnityEvent _gamePausedEvent = new UnityEvent();
     private UnityEvent _gameUnpausedEvent = new UnityEvent();
-
-
+    
     public void PressGamePauseButton()
     {
-        _gamePaused = !_gamePaused;
-        if (_gamePaused)
-            FreezeTime();
+        ToggleTimeStop(true);
+    }
+
+    public void ToggleTimeStop(bool doesPauseToggle)
+    {
+        _isTimeStopped = !_isTimeStopped;
+
+        if (doesPauseToggle)
+        {
+            _isGamePaused = !_isGamePaused;
+        }
+        
+        if (_isTimeStopped)
+        {
+            FreezeTime(doesPauseToggle);
+        }
         else
-            UnfreezeTime();
+        {
+            UnfreezeTime(doesPauseToggle);
+        }
     }
 
 
@@ -56,7 +78,10 @@ public class TimeManager : MainUniversalManagerFramework
     /// <param name="duration"> The duration is relative to the current time scale</param> 
     public void AddNewTimeVariationForDuration(float timeVariation, float duration)
     {
-        if (!_canUpdateTimeVariation) return;
+        if (!_canUpdateTimeVariation)
+        {
+            return;
+        }
 
         StartCoroutine(AddTimeVariationProcess(timeVariation, duration));
     }
@@ -114,7 +139,7 @@ public class TimeManager : MainUniversalManagerFramework
     /// </summary>
     public void BossDiedTimeSlow()
     {
-        AddNewTimeVariationForDuration(_bossDeathTimeSpeed, _bossDeathDuration);
+        AddNewTimeVariationForDuration(_battleWonTimeSpeed, _battleWonDuration);
     }
 
     /// <summary>
@@ -131,6 +156,11 @@ public class TimeManager : MainUniversalManagerFramework
     public void HeroDiedTimeSlow()
     {
         AddNewTimeVariationForDuration(_heroDeathTimeSpeed, _heroDeathDuration);
+    }
+
+    public void BattleLostTimeSlow()
+    {
+        AddNewTimeVariationForDuration(_battleLostTimeSpeed, _battleLostDuration);
     }
 
     /// <summary>
@@ -153,19 +183,31 @@ public class TimeManager : MainUniversalManagerFramework
     /// <summary>
     /// Freezes the game and invokes game paused event
     /// </summary>
-    public void FreezeTime()
+    public void FreezeTime(bool doesPause)
     {
         SetTimeScale(0);
-        InvokeGamePausedEvent();
+        
+        InvokeTimeStoppedEvent();
+
+        if (doesPause)
+        {
+            InvokeGamePausedEvent();
+        }
     }
 
     /// <summary>
     /// Returns time to normal based on time variations and invokes game unpaused event
     /// </summary>
-    public void UnfreezeTime()
+    public void UnfreezeTime(bool isPaused)
     {
         DetermineCurrentTimeSpeedBasedOnList();
-        InvokeGameUnpausedEvent();
+        
+        InvokeTimeResumedEvent();
+
+        if (isPaused)
+        {
+            InvokeGameUnpausedEvent();
+        }
     }
 
     /// <summary>
@@ -173,7 +215,7 @@ public class TimeManager : MainUniversalManagerFramework
     /// </summary>
     private void SceneLoadStart()
     {
-        _gamePaused = false;
+        _isGamePaused = false;
         _canUpdateTimeVariation = false;
         SetTimeToNormalSpeedOverride();
     }
@@ -201,6 +243,17 @@ public class TimeManager : MainUniversalManagerFramework
     #endregion
 
     #region Events
+
+    private void InvokeTimeStoppedEvent()
+    {
+        _timeStoppedEvent?.Invoke();
+    }
+
+    private void InvokeTimeResumedEvent()
+    {
+        _timeResumedEvent?.Invoke();
+    }
+    
     private void InvokeGamePausedEvent()
     {
         _gamePausedEvent?.Invoke();
@@ -213,9 +266,15 @@ public class TimeManager : MainUniversalManagerFramework
     #endregion
 
     #region Getters
-    public bool GetGamePaused() => _gamePaused;
+    public bool GetTimeStopped() => _isTimeStopped;
+    public bool GetGamePaused() => _isGamePaused;
+    
+    public UnityEvent GetTimeStoppedEvent() => _timeStoppedEvent;
+    public UnityEvent GetTimeResumedEvent() => _timeResumedEvent;
 
     public UnityEvent GetGamePausedEvent() => _gamePausedEvent;
     public UnityEvent GetGameUnpausedEvent() => _gameUnpausedEvent;
+    
+    
     #endregion
 }

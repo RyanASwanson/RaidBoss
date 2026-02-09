@@ -13,6 +13,7 @@ public class SH_Guardian : SpecificHeroFramework
     
     [Space]
     [SerializeField] private float _heroManualAbilityDuration;
+    [Range(0,1)][SerializeField] private float _heroManualDamageResistance;
     private WaitForSeconds _heroManualAbilityWait;
 
     [SerializeField] private GameObject _tauntIcon;
@@ -20,6 +21,9 @@ public class SH_Guardian : SpecificHeroFramework
     private Animator _currentTauntIconAnimator;
 
     private const string TAUNT_ICON_SHOW_ANIM_BOOL = "Show";
+
+    [SerializeField] private GameObject _tauntVfxObject;
+    private FollowObject _currentTauntVfx;
 
     [Space]
     [SerializeField] private float _heroPassiveAbilityDuration;
@@ -57,9 +61,22 @@ public class SH_Guardian : SpecificHeroFramework
 
     private IEnumerator ManualDuration()
     {
+        //_heroManualDamageResistance
+        _myHeroBase.GetHeroStats().ChangeCurrentHeroDamageResistance(_heroManualDamageResistance);
+        
         _currentTauntIconAnimator.SetBool(TAUNT_ICON_SHOW_ANIM_BOOL, true);
+        
+        _currentTauntVfx.gameObject.SetActive(true);
+        _currentTauntVfx.StartFollowingObject(gameObject);
+        
         yield return _heroManualAbilityWait;
+        
+        _myHeroBase.GetHeroStats().ChangeCurrentHeroDamageResistance(-_heroManualDamageResistance);
+        
         _currentTauntIconAnimator.SetBool(TAUNT_ICON_SHOW_ANIM_BOOL, false);
+        
+        _currentTauntVfx.StopFollowingDelayed(.5f);
+        //_currentTauntVfx.gameObject.SetActive(false);
     }
     #endregion
 
@@ -125,6 +142,8 @@ public class SH_Guardian : SpecificHeroFramework
         base.BattleStarted();
         _currentTauntIcon = _myHeroBase.GetHeroUIManager().CreateObjectOnGeneralOrigin(_tauntIcon);
         _currentTauntIconAnimator = _currentTauntIcon.GetComponent<Animator>();
+        
+        _currentTauntVfx = Instantiate(_tauntVfxObject, Vector3.zero, Quaternion.identity).GetComponent<FollowObject>();
     }
 
     /// <summary>

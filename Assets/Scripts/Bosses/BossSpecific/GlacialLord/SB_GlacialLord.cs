@@ -62,6 +62,14 @@ public class SB_GlacialLord : SpecificBossFramework
             frostFiend.FrostFiendDeath();
         }
     }
+
+    public void FreezeAllFrostFiends()
+    {
+        foreach (GlacialLord_FrostFiend frostFiend in _allFrostFiends)
+        {
+            frostFiend.FreezeMinion();
+        }
+    }
     #endregion
 
     #region BaseBoss

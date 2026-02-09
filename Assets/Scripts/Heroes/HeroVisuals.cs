@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class HeroVisuals : HeroChildrenFunctionality
 {
-    [SerializeField] private MeshRenderer _controlIcon;
+    [SerializeField] private CurveProgression _controlIcon;
     [SerializeField] private GameObject _healthStatusIcon;
     [Space]
 
@@ -57,7 +57,7 @@ public class HeroVisuals : HeroChildrenFunctionality
 
     private Animator _heroSpecificAnimator;
     
-    private const string HERO_IDLE_ANIM_TRIGGER = "G_HeroIdle";
+    private const string HERO_IDLE_ANIM_BOOL = "G_HeroIdle";
     private const string HERO_WALKING_ANIM_BOOL = "G_HeroWalking";
 
     private const string HERO_BASIC_ANIM_TRIGGER = "G_HeroBasic";
@@ -206,7 +206,7 @@ public class HeroVisuals : HeroChildrenFunctionality
     /// </summary>
     private void StartHeroSpecificIdleAnimation()
     {
-        HeroSpecificAnimationTrigger(HERO_IDLE_ANIM_TRIGGER);
+        HeroSpecificAnimationBool(HERO_IDLE_ANIM_BOOL, true);
     }
 
 
@@ -323,7 +323,7 @@ public class HeroVisuals : HeroChildrenFunctionality
     /// </summary>
     private void HeroControlStart()
     {
-        _controlIcon.enabled = true;
+        _controlIcon.StartMovingUpOnCurve();
     }
 
     /// <summary>
@@ -331,7 +331,7 @@ public class HeroVisuals : HeroChildrenFunctionality
     /// </summary>
     private void HeroControlStop()
     {
-        _controlIcon.enabled = false;
+        _controlIcon.StartMovingDownOnCurve();
     }
     #endregion
 
@@ -348,11 +348,12 @@ public class HeroVisuals : HeroChildrenFunctionality
     #endregion
 
     #region Hero Outline
-    private void AddOutlineToHero()
+    private void AddOutlineToHero(HeroSO heroSO)
     {
         _addedOutline = _myHeroBase.GetAssociatedHeroObject().AddComponent<Outline>();
 
         _addedOutline.OutlineWidth = _outlineWidth;
+        _addedOutline.OutlineColor = heroSO.GetHeroOutlineColor();
         _addedOutline.OutlineMode = _outlineMode;
     }
     #endregion
@@ -396,7 +397,7 @@ public class HeroVisuals : HeroChildrenFunctionality
 
         StartHeroSpecificIdleAnimation();
 
-        AddOutlineToHero();
+        AddOutlineToHero(heroSO);
 
         base.HeroSOAssigned(heroSO);
     }

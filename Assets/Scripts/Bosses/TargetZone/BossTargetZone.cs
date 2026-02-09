@@ -3,12 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Serialization;
 
 public class BossTargetZone : BossProjectileFramework
 {
     [SerializeField] protected Material _noHeroInRangeMat;
     [SerializeField] protected Material _heroInRangeMat;
+    [SerializeField] protected Material _deactivatedMat;
+    
+    protected EBossTargetZoneStatus _targetZoneStatus = EBossTargetZoneStatus.NoHeroInRange;
+    protected EBossTargetZoneStatus _targetZoneNonDeactivatedStatus = EBossTargetZoneStatus.NoHeroInRange;
 
     [Space]
     [SerializeField] private EBossTargetZoneAppearType _targetZoneAppearType;
@@ -22,12 +27,17 @@ public class BossTargetZone : BossProjectileFramework
     [SerializeField] private float _materialChangeDelay;
 
     private bool _isDelayingMaterialChange = true;
+    private bool _isRemoving = false;
 
     [Space] 
     [SerializeField] private GameObject _visualsHolder;
     [SerializeField] private MeshRenderer[] _targetZones;
     
     [SerializeField] private GameObject[] _additionalGameObjectReferences;
+
+    [Space] 
+    [SerializeField] private UnityEvent _onTargetZoneSetToHeroInRange;
+    [SerializeField] private UnityEvent _onTargetZoneSetToNoHeroInRange;
     
     private Animator _targetAnimator;
 
@@ -44,6 +54,12 @@ public class BossTargetZone : BossProjectileFramework
     {
         PlayAppearAnimation();
         StartCoroutine(DelayInitialMaterialChange());
+    }
+
+    protected void OnDestroy()
+    {
+        _onTargetZoneSetToHeroInRange.RemoveAllListeners();
+        _onTargetZoneSetToNoHeroInRange.RemoveAllListeners();
     }
 
     protected void PlayAppearAnimation()
@@ -90,6 +106,7 @@ public class BossTargetZone : BossProjectileFramework
     protected virtual void FirstHeroInRange()
     {
         SetTargetZonesToHeroInRange();
+        InvokeOnTargetZoneSetToHeroInRange();
     }
 
     /// <summary>
@@ -115,34 +132,102 @@ public class BossTargetZone : BossProjectileFramework
     protected virtual void NoMoreHeroesInRange()
     {
         SetTargetZonesToNoHero();
+        InvokeOnTargetZoneSetToNoHeroInRange();
     }
 
     protected virtual void SetTargetZonesToHeroInRange()
     {
-        SetAllTargetZonesToMaterial(_heroInRangeMat);
+        _targetZoneNonDeactivatedStatus = EBossTargetZoneStatus.HeroInRange;
+        if (AttemptAllTargetZonesToMaterial(_heroInRangeMat))
+        {
+            _targetZoneStatus = EBossTargetZoneStatus.HeroInRange;
+        }
     }
 
     protected virtual void SetTargetZonesToNoHero()
     {
-        SetAllTargetZonesToMaterial(_noHeroInRangeMat);
-    }
-
-    protected void SetAllTargetZonesToMaterial(Material newMaterial)
-    {
-        if (_isDelayingMaterialChange)
+        _targetZoneNonDeactivatedStatus = EBossTargetZoneStatus.NoHeroInRange;
+        if (AttemptAllTargetZonesToMaterial(_noHeroInRangeMat))
         {
+            _targetZoneStatus = EBossTargetZoneStatus.NoHeroInRange;
+        }
+    }
+    
+    public void SetTargetZoneDeactivatedState(bool shouldDeactivate)
+    {
+        if (shouldDeactivate)
+        {
+            if (_targetZoneStatus == EBossTargetZoneStatus.Deactivated)
+            {
+                // Stop if we are already deactivated
+                return;
+            }
+
+            ForceSetMaterialToDeactivatedState();
+            _targetZoneStatus = EBossTargetZoneStatus.Deactivated;
             return;
         }
+        
+        _targetZoneStatus = _targetZoneNonDeactivatedStatus;
+        // Note that this is using _targetZoneNonDeactivatedStatus not _targetZoneStatus
+        switch (_targetZoneNonDeactivatedStatus)
+        {
+            case EBossTargetZoneStatus.NoHeroInRange:
+                SetTargetZonesToNoHero();
+                return;
+            case EBossTargetZoneStatus.HeroInRange:
+                SetTargetZonesToHeroInRange();
+                return;
+            default:
+                return;
+        }
+    }
+    
+    public void ForceSetMaterialToDeactivatedState()
+    {
+        SetTargetZonesToMaterial(_deactivatedMat);
+    }
+
+    protected bool AttemptAllTargetZonesToMaterial(Material newMaterial)
+    {
+        if (_targetZoneStatus == EBossTargetZoneStatus.Deactivated)
+        {
+            return false;
+        }
+        
+        if (_isDelayingMaterialChange)
+        {
+            return false;
+        }
+
+        if (_isRemoving)
+        {
+            return false;
+        }
+
+        SetTargetZonesToMaterial(newMaterial);
+        return true;
+    }
+
+    protected void SetTargetZonesToMaterial(Material newMaterial)
+    {
         foreach (MeshRenderer renderer in _targetZones)
         {
+            if (renderer.IsUnityNull())
+            {
+                continue;
+            }
             renderer.material = newMaterial;
         }
     }
+    
+  
     
     #region Removal
 
     public void RemoveTargetZone()
     {
+        _isRemoving = true;
         PlayDisappearAnimation();
     }
 
@@ -151,8 +236,11 @@ public class BossTargetZone : BossProjectileFramework
     /// </summary>
     private void PlayDisappearAnimation()
     {
-        _targetAnimator.SetInteger(TARGET_ZONE_DISAPPEAR_ANIM_INT, (int)_targetZoneDisappearType);
-        _targetAnimator.speed = _targetZoneDisappearSpeedMultiplier;
+        if (!_targetAnimator.IsUnityNull())
+        {
+            _targetAnimator.SetInteger(TARGET_ZONE_DISAPPEAR_ANIM_INT, (int)_targetZoneDisappearType);
+            _targetAnimator.speed = _targetZoneDisappearSpeedMultiplier;
+        }
     }
     #endregion
     
@@ -192,6 +280,19 @@ public class BossTargetZone : BossProjectileFramework
     }
     #endregion
     
+    #region Events
+
+    public void InvokeOnTargetZoneSetToHeroInRange()
+    {
+        _onTargetZoneSetToHeroInRange.Invoke();
+    }
+
+    public void InvokeOnTargetZoneSetToNoHeroInRange()
+    {
+        _onTargetZoneSetToNoHeroInRange.Invoke();
+    }
+    #endregion
+    
     #region Getters
     /// <summary>
     /// Check if any heroes are currently in the safe zone
@@ -202,6 +303,9 @@ public class BossTargetZone : BossProjectileFramework
     public GameObject[] GetAdditionalGameObjectReferences() => _additionalGameObjectReferences;
 
     public float GetDisappearTime() => TARGET_ZONE_APPEAR_DISAPPEAR_TIME / _targetZoneDisappearSpeedMultiplier;
+    
+    public UnityEvent GetOnTargetZoneSetToHeroInRange() => _onTargetZoneSetToHeroInRange;
+    public UnityEvent GetOnTargetZoneSetToNoHeroInRange() => _onTargetZoneSetToNoHeroInRange;
     #endregion
 
     #region Setters
@@ -225,3 +329,10 @@ public enum EBossTargetZoneDisappearType
     None,
     Shrink
 }
+
+public enum EBossTargetZoneStatus
+{
+    NoHeroInRange,
+    HeroInRange,
+    Deactivated,
+};

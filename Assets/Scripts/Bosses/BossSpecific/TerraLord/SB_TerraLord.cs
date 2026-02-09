@@ -15,11 +15,24 @@ public class SB_TerraLord : SpecificBossFramework
 
     [SerializeField] private float _zRotationMultiplier;
 
-    [Space]
+    [Space] 
+    [SerializeField] private float _baseWeightMultiplier;
     [SerializeField] private List<float> _difficultyWeightMultiplier;
+
+    [SerializeField] private AnimationCurve _movingTowardsMaxMultiplierBasedOnProgress;
+    [SerializeField] private AnimationCurve _movingAwayFromMaxMultiplierBasedOnProgress;
+
+    [Space] 
+    [SerializeField] private CinemachineCameraShakeData _passiveMaxShake;
+
+    private WaitForSeconds _passiveTickWait;
+    
     private float _passiveHeroWeightMultiplier;
 
     private float _passiveCounterValue = 0;
+    private float _passiveCounterProgressTowardsMax = 0;
+
+    private bool _isPassiveMovingTowardsMax = false;
     
     private Coroutine _passiveProcessCoroutine;
 
@@ -33,13 +46,16 @@ public class SB_TerraLord : SpecificBossFramework
     /// </summary>
     private void StartPassiveProcess()
     {
-        SetStartingPassiveWeightMultiplier();
-
         if (!_passiveProcessCoroutine.IsUnityNull())
         {
             return;
         }
 
+        if (GameStateManager.Instance.GetIsFightOver())
+        {
+            return;
+        }
+        
         _passiveProcessCoroutine = StartCoroutine(PassiveProcess());
     }
 
@@ -51,7 +67,7 @@ public class SB_TerraLord : SpecificBossFramework
         //Gets the difficulty
         EGameDifficulty selectedDifficulty = SelectionManager.Instance.GetSelectedDifficulty();
         //Scales the speed of the passive based on the difficulty
-        _passiveHeroWeightMultiplier = _difficultyWeightMultiplier[(int)selectedDifficulty-1];
+        _passiveHeroWeightMultiplier = _baseWeightMultiplier * _difficultyWeightMultiplier[(int)selectedDifficulty-1];
     }
 
     /// <summary>
@@ -62,7 +78,7 @@ public class SB_TerraLord : SpecificBossFramework
     {
         while(HeroesManager.Instance.GetCurrentLivingHeroes().Count > 0)
         {
-            yield return new WaitForSeconds(_passiveTickRate);
+            yield return _passiveTickWait;
             PassiveTick();
         }
     }
@@ -92,6 +108,7 @@ public class SB_TerraLord : SpecificBossFramework
         //Scales the speed of the passive with how many heroes are alive
         weightCounter /= HeroesManager.Instance.GetCurrentLivingHeroes().Count;
 
+
         return weightCounter;
     }
 
@@ -101,7 +118,24 @@ public class SB_TerraLord : SpecificBossFramework
     /// <param name="val"></param>
     private void ChangePassiveCounterValue(float val)
     {
+        _isPassiveMovingTowardsMax = (val > 0 != _passiveCounterValue + val > 0);
+        if (_isPassiveMovingTowardsMax)
+        {
+            // We are moving away from max
+            //Debug.Log("Moving down " + _passiveCounterValue + " " + val + "       " + _movingAwayFromMaxMultiplierBasedOnProgress.Evaluate(_passiveCounterProgressTowardsMax));
+            val *= _movingAwayFromMaxMultiplierBasedOnProgress.Evaluate(_passiveCounterProgressTowardsMax);
+        }
+        else
+        {
+            // We are moving towards max
+            // Switching sides also counts as moving towards max even though we are initially moving away from max
+            //  as we switch sides part way through
+            //Debug.Log("Moving up " + _passiveCounterValue+ " " + val + "       " + _movingTowardsMaxMultiplierBasedOnProgress.Evaluate(_passiveCounterProgressTowardsMax));
+            val *= _movingTowardsMaxMultiplierBasedOnProgress.Evaluate(_passiveCounterProgressTowardsMax);
+        }
+        
         _passiveCounterValue += val;
+        _passiveCounterProgressTowardsMax = Mathf.Abs(_passiveCounterValue / _passiveMaxValue);
 
         //Rotates the camera to demonstrate the imbalance of the arena
         RotateCameraBasedOnPassive(val);
@@ -163,6 +197,8 @@ public class SB_TerraLord : SpecificBossFramework
     private void PassiveMax()
     {
         HeroesManager.Instance.ForceKillAllHeroes();
+        
+        CameraGameManager.Instance.StartCameraShake(_passiveMaxShake);
     }
     #endregion
 
@@ -174,6 +210,9 @@ public class SB_TerraLord : SpecificBossFramework
     {
         base.StartFight();
         
+        _passiveTickWait = new WaitForSeconds(_passiveTickRate);
+        
+        SetStartingPassiveWeightMultiplier();
         StartPassiveProcess();
     }
 
@@ -196,6 +235,14 @@ public class SB_TerraLord : SpecificBossFramework
 
         StartPassiveProcess();
     }
+
+    protected override void BossDied()
+    {
+        base.BossDied();
+
+        StopPassiveProcess();
+    }
+
     #endregion
 
     #region Events

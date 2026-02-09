@@ -17,8 +17,8 @@ MonoBehaviour:
   _hasUIManager: 1
   _maxHP: 60
   _moveSpeed: 3
-  _angularSpeed: 120
-  _moveAcceleration: 8
+  _angularSpeed: 140
+  _moveAcceleration: 9
   _aggro: 8
   _damageResistance: 1
   _heroPrefab: {fileID: 3785805659243771074, guid: 5015a195fbb27f04dbda8271c9eff1a5, type: 3}
@@ -36,29 +36,41 @@ MonoBehaviour:
   _heroHighlightedColor: {r: 0.39607847, g: 1, b: 0, a: 1}
   _heroPressedColor: {r: 0.7830189, g: 0.7830189, b: 0.7830189, a: 1}
   _heroSelectedColor: {r: 1, g: 1, b: 1, a: 1}
+  _heroOutlineColor: {r: 0.39607847, g: 1, b: 0, a: 1}
   _heroUIColor: {r: 0.39607847, g: 1, b: 0, a: 1}
   _basicAbilityName: Shield Slam
-  _basicAbilityDescription: 'The Guardian slams his shield
+  _basicAbilityDescription: 'The Guardian slams
 
-    into the ground to
-    inflict
+    his shield into the
+
+    ground
+    to inflict
 
     heavy stagger in
 
     a circular area'
   _manualAbilityName: Taunt
-  _manualAbilityDescription: 'The Guardian taunts the boss,
+  _manualAbilityDescription: 'The Guardian taunts
 
-    causing all targeted
+    the boss, causing all
+
+    targeted
     attacks to
 
     be targeted to him for
 
-    the duration'
-  _passiveAbilityName: Resilience
-  _passiveAbilityDescription: 'When the Guardian takes damage
+    the duration and
 
-    he reduces incoming
-    damage for a
+    reduces damage
+    taken'
+  _passiveAbilityName: Resilience
+  _passiveAbilityDescription: 'When the Guardian
+
+    takes damage he
+
+    reduces
+    damage
+
+    taken for a
 
     short period'

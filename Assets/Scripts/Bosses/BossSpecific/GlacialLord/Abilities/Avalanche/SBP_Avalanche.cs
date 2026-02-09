@@ -18,6 +18,8 @@ public class SBP_Avalanche : BossProjectileFramework
     [SerializeField] private float _wallContactDistance;
     [SerializeField] private Vector3 _wallContactHalfExtents;
     [SerializeField] private LayerMask _edgeOfMapLayer;
+    [Space]
+    [SerializeField] protected CinemachineCameraShakeData _screenShakeData;
 
     [Space]
     [SerializeField] private GlacialLordSelfMinionHit _minionHit;
@@ -43,7 +45,7 @@ public class SBP_Avalanche : BossProjectileFramework
     {
         while (true)
         {
-            transform.position += transform.forward * _projectileSpeed * _projectileAcceleration * Time.deltaTime;
+            transform.position += transform.forward * (_projectileSpeed * _projectileAcceleration * Time.deltaTime);
             CheckForEnd();
             yield return null;
         }
@@ -75,7 +77,7 @@ public class SBP_Avalanche : BossProjectileFramework
     private void ProjectileLookAt(Vector3 lookLocation)
     {
         transform.LookAt(lookLocation);
-        transform.eulerAngles.Set(0, transform.eulerAngles.y, 0);
+        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
     }
 
     private void CheckForEnd()
@@ -93,8 +95,14 @@ public class SBP_Avalanche : BossProjectileFramework
     private void AtEndOfPath()
     {
         _specificBossAbility.ProjectileReachedEndOfPath();
+        PlayAvalancheEndScreenShake();
         _minionHit.MinionContactFromDistance();
         _damageArea.DestroyProjectile();
+    }
+    
+    private void PlayAvalancheEndScreenShake()
+    {
+        CameraGameManager.Instance.StartCameraShake(_screenShakeData);
     }
 
     #region Base Ability

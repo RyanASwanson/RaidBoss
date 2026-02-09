@@ -7,6 +7,13 @@ using UnityEngine;
 /// </summary>
 public class SB_MagmaLord : SpecificBossFramework
 {
-    //As this boss doesn't have any particularly unique mechanics this script is sparse
-    //This provides a script that can be added to if functionality is needed to expand
+    [Space] 
+    [SerializeField] private GameObject _deathEffect;
+
+    protected override void BossDied()
+    {
+        base.BossDied();
+        Instantiate(_deathEffect, transform);
+        //Instantiate(_deathEffect, transform.position, transform.rotation);
+    }
 }

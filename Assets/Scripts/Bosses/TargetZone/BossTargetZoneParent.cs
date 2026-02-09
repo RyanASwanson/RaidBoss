@@ -8,7 +8,9 @@ public class BossTargetZoneParent : MonoBehaviour
 {
     [SerializeField] private BossTargetZone[] _bossTargetZone;
 
-    public void Start()
+    private bool _isDestroyingSelf = false;
+
+    private void OnEnable()
     {
         if (_bossTargetZone.IsUnityNull() || _bossTargetZone.Length == 0)
         {
@@ -18,6 +20,11 @@ public class BossTargetZoneParent : MonoBehaviour
 
     public void RemoveBossTargetZones()
     {
+        if (_isDestroyingSelf)
+        {
+            return;
+        }
+        
         float longestDestroy = 0;
         foreach (BossTargetZone bossTargetZone in _bossTargetZone)
         {
@@ -32,8 +39,19 @@ public class BossTargetZoneParent : MonoBehaviour
         DestroyTargetZoneParent(longestDestroy * 2);
     }
 
+    public void SetTargetZoneDeactivatedStatesOfAllTargetZones(bool shouldDeactivate)
+    {
+        foreach (BossTargetZone targetZone in _bossTargetZone)
+        {
+            targetZone.SetTargetZoneDeactivatedState(shouldDeactivate);
+        }
+    }
+
     private void DestroyTargetZoneParent(float destroyDelay)
     {
         Destroy(gameObject,destroyDelay);
+        _isDestroyingSelf = true;
     }
+    
+    public BossTargetZone[] GetBossTargetZones() => _bossTargetZone;
 }

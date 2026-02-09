@@ -75,6 +75,14 @@ public class GeneralVFXFunctionality : MonoBehaviour
     
     #endregion
 
+    public void PlayAllParticleSystems()
+    {
+        foreach (ParticleSystem ps in _particleSystems)
+        {
+            ps.Play();
+        }
+    }
+    
     public void SetLoopOfParticleSystems(bool shouldLoop)
     {
         foreach(ParticleSystem ps in _particleSystems)

@@ -7,16 +7,22 @@ using UnityEngine.Events;
 public abstract class GeneralAbilityAreaFramework : MonoBehaviour
 {
     [SerializeField] private List<Collider> _areaColliders;
+    protected bool _areCollidersActive = true;
 
     [SerializeField] private bool _hasLifetime;
     [SerializeField] private float _lifetime;
 
+    [Space] 
+    [SerializeField] private bool _hasColliderActivationDelay;
+    [SerializeField] private float _colliderActivationDelay;
+    
     [Space]
-
     [SerializeField] private bool _hasColliderLifetime;
     [SerializeField] private float _colliderLifetime;
 
-    [Space]
+    [Space] 
+    [SerializeField] private bool _doesHitCenteredVFXCopyRotation;
+    [SerializeField] private Transform _hitCenteredVFXCopyTarget;
     [SerializeField] private GameObject _hitCenteredVFX;
 
     [SerializeField] private UnityEvent _lifetimeEndEvent;
@@ -37,14 +43,35 @@ public abstract class GeneralAbilityAreaFramework : MonoBehaviour
     {
         if (_hasLifetime)
         {
-            StartCoroutine(LifetimeDestruction());
+            StartLifeTime();
+        }
+
+        if (_hasColliderActivationDelay)
+        {
+            StartColliderActivationDelay();
         }
 
         if (_hasColliderLifetime)
         {
-            StartCoroutine(ColliderLifetime());
+            StartColliderLifetime();
         }
 
+    }
+
+    public void StartLifeTime()
+    {
+        StartCoroutine(LifetimeDestruction());
+    }
+
+    public void StartColliderActivationDelay()
+    {
+        ToggleProjectileCollider(false);
+        StartCoroutine(ColliderActivationDelay());
+    }
+
+    public void StartColliderLifetime()
+    {
+        StartCoroutine(ColliderLifetime());
     }
 
     protected virtual IEnumerator LifetimeDestruction()
@@ -54,6 +81,12 @@ public abstract class GeneralAbilityAreaFramework : MonoBehaviour
         Destroy(gameObject);
     }
 
+    protected virtual IEnumerator ColliderActivationDelay()
+    {
+        yield return new WaitForSeconds(_colliderActivationDelay);
+        ToggleProjectileCollider(true);
+    }
+
     protected virtual IEnumerator ColliderLifetime()
     {
         yield return new WaitForSeconds(_colliderLifetime);
@@ -61,19 +94,35 @@ public abstract class GeneralAbilityAreaFramework : MonoBehaviour
         ToggleProjectileCollider(false);
     }
 
+    protected bool IsCollisionActive()
+    {
+        return enabled && _areCollidersActive;
+    }
+
 
     public void ToggleProjectileCollider(bool colliderEnabled)
     {
+        _areCollidersActive = colliderEnabled;
         foreach (Collider col in _areaColliders)
         {
             col.enabled = colliderEnabled;
         }
     }
 
-    protected virtual IEnumerator DisableColliderForDuration(float duration)
+    public void StartDisableColliderForDuration(float duration)
+    {
+        StartCoroutine(DisableColliderForDuration(new WaitForSeconds(duration)));
+    }
+
+    public void StartDisableColliderForDuration(WaitForSeconds waitDuration)
+    {
+        StartCoroutine(DisableColliderForDuration(waitDuration));
+    }
+
+    protected virtual IEnumerator DisableColliderForDuration(WaitForSeconds waitDuration)
     {
         ToggleProjectileCollider(false);
-        yield return new WaitForSeconds(duration);
+        yield return waitDuration;
         ToggleProjectileCollider(true);
     }
 
@@ -89,7 +138,19 @@ public abstract class GeneralAbilityAreaFramework : MonoBehaviour
             return;
         }
 
-        Instantiate(_hitCenteredVFX, transform.position, Quaternion.identity);
+        GameObject destructionVfx = Instantiate(_hitCenteredVFX, transform.position, Quaternion.identity);
+        if (_doesHitCenteredVFXCopyRotation)
+        {
+            if (!_hitCenteredVFXCopyTarget.IsUnityNull())
+            {
+                destructionVfx.transform.localEulerAngles = _hitCenteredVFXCopyTarget.localEulerAngles;
+            }
+            else
+            {
+                destructionVfx.transform.localEulerAngles = transform.localEulerAngles;
+            }
+            
+        }
     }
 
     public void DestroyProjectile()

@@ -31,6 +31,15 @@ public class AudioManager : MainUniversalManagerFramework
     [SerializeField] private string _pausableBusPath;
     [SerializeField] private string _unpausableBusPath;
     
+    [Space] 
+    [Header("Bus Settings")] 
+    [SerializeField] private float _defaultPausableBusFadeTime;
+    
+    private Bus _pausableAudioBus;
+
+    private float _pausableBusCurrentVolume = 1;
+    private Coroutine _pausableAudioVolumeCoroutine;
+    
     #region InitialValues
 
     private void SetInitialAudioVolumeValues()
@@ -72,13 +81,12 @@ public class AudioManager : MainUniversalManagerFramework
     private int _currentMusicID = -1;
     private EventInstance _currentMusicInstance;
     private Coroutine _musicChangeCoroutine;
+    private Coroutine _musicVolumeChangeCoroutine;
     private SpecificAudio _currentMusic;
     
     private Dictionary<EventInstance, Coroutine> _changeInstanceVolumeDictionary = new Dictionary<EventInstance, Coroutine>();
     
     private Dictionary<SpecificAudio, EventInstance> _referenceInstanceDictionary = new Dictionary<SpecificAudio, EventInstance>();
-
-    private Bus _pausableAudioBus;
     
     #endregion
     
@@ -134,11 +142,6 @@ public class AudioManager : MainUniversalManagerFramework
     
     public bool PlayOneShotFromSpecificAudio(SpecificAudio specificAudio, ESpecificAudioTrackChoice trackChoice)
     {
-        if (specificAudio.HasDefaultDelay())
-        {
-            PlayOneShotFromSpecificAudioDelayed(specificAudio, trackChoice, specificAudio.DefaultStartDelay);
-            return true;
-        }
         return PlaySpecificAudioAsOneShot(specificAudio.GetAudioTrackFromTrackChoice(trackChoice));
     }
     
@@ -154,16 +157,6 @@ public class AudioManager : MainUniversalManagerFramework
         return true;
     }
     
-    public Coroutine PlayOneShotFromSpecificAudioDelayed(SpecificAudio specificAudio, ESpecificAudioTrackChoice trackChoice, float startDelay)
-    {
-        return StartCoroutine(DelayPlayingAudio(specificAudio,  trackChoice, startDelay));
-    }
-
-    private IEnumerator DelayPlayingAudio(SpecificAudio specificAudio, ESpecificAudioTrackChoice trackChoice, float startDelay)
-    {
-        yield return new WaitForSeconds(startDelay);
-        PlaySpecificAudioAsOneShot(specificAudio.GetAudioTrackFromTrackChoice(trackChoice));
-    }
     #endregion OneShot
 
     #region PlayAudio
@@ -305,12 +298,12 @@ public class AudioManager : MainUniversalManagerFramework
         StopSpecificAudioInstance(eventInstance, doesAddToVolumeAdjustmentDictionary);
     }
 
-    public void StartAdjustInstanceVolumeOverTime(EventInstance eventInstance, 
+    public Coroutine StartAdjustInstanceVolumeOverTime(EventInstance eventInstance, 
         bool doesStopPreviousVolumeAdjustment, bool doesAddToVolumeAdjustmentDictionary, float endVolume, float adjustTime)
     {
         if (eventInstance.IsUnityNull())
         {
-            return;
+            return null;
         }
         
         if (doesStopPreviousVolumeAdjustment && _changeInstanceVolumeDictionary.TryGetValue(eventInstance, out Coroutine coroutine))
@@ -323,6 +316,7 @@ public class AudioManager : MainUniversalManagerFramework
         {
             _changeInstanceVolumeDictionary[eventInstance] = adjustInstanceVolumeCoroutine;
         }
+        return adjustInstanceVolumeCoroutine;
     }
 
     /// <summary>
@@ -363,6 +357,22 @@ public class AudioManager : MainUniversalManagerFramework
         }
         PlayMusic(musicID, fadeOutTime,AllMusic[musicID].DefaultInstanceFadeInTime, allowSameSong);
     }
+
+    public void PlayMusic(EMusicTracks musicTrack, bool allowSameSong)
+    {
+        switch (musicTrack)
+        {
+            case EMusicTracks.MainMenu:
+                PlayMusic(MAIN_MENU_MUSIC_ID, allowSameSong);
+                break;
+            case EMusicTracks.Map:
+                PlayMusic(SELECTION_SCENE_MUSIC_ID, allowSameSong);
+                break;
+            case EMusicTracks.Selection:
+                PlayMusic(SELECTION_SCENE_MUSIC_ID, allowSameSong);
+                break;
+        }
+    }
     
     public void PlayMusic(int musicID, float fadeOutTime, float fadeInTime, bool allowSameSong)
     {
@@ -371,6 +381,8 @@ public class AudioManager : MainUniversalManagerFramework
             AudioDebug("Attempted to play the same music. Music ID: " + musicID);
             return;
         }
+
+        StopChangeCurrentMusicVolume();
 
         if (!_musicChangeCoroutine.IsUnityNull())
         {
@@ -385,24 +397,48 @@ public class AudioManager : MainUniversalManagerFramework
         // If there is a music track already playing
         if (IsMusicAlreadyPlaying())
         {
-            Debug.Log("Fading out " + newMusicID + " with a fade out of " + fadeOutTime);
             // Fade out that track
             StartFadeOutStopInstance(_currentMusicInstance, fadeOutTime);
             yield return fadeOutTime;
         }
         else
         {
-            Debug.Log("Failed " + _currentMusicID);
+            AudioDebug("Failed to fade out current track");
         }
         
         if (PlaySpecificAudio(specificAudio,out EventInstance eventInstance))
         {
-            Debug.Log("Setting new music ID: " + newMusicID);
             _currentMusicID = newMusicID;
             _currentMusic = specificAudio;
             _currentMusicInstance = eventInstance;
             
             yield return fadeInTime;
+        }
+
+        _musicChangeCoroutine = null;
+    }
+
+    public void StartChangeCurrentMusicVolume(float endVolume, float adjustTime)
+    {
+        // If the music is currently changing
+        // Note that _musicChangeCoroutine is being used not _musicVolumeChangeCoroutine
+        if (!_musicChangeCoroutine.IsUnityNull())
+        {
+            return;
+        }
+        
+        StopChangeCurrentMusicVolume();
+        
+        _musicVolumeChangeCoroutine = StartAdjustInstanceVolumeOverTime(_currentMusicInstance,
+            false,false,endVolume,adjustTime);
+    }
+
+    public void StopChangeCurrentMusicVolume()
+    {
+        if (!_musicVolumeChangeCoroutine.IsUnityNull())
+        {
+            StopCoroutine(_musicVolumeChangeCoroutine);
+            _musicVolumeChangeCoroutine = null;
         }
     }
 
@@ -428,6 +464,56 @@ public class AudioManager : MainUniversalManagerFramework
     public void UnpausePausableAudio()
     {
         _pausableAudioBus.setPaused(false);
+    }
+
+    public void FadeOutPausableAudio()
+    {
+        FadeOutPausableAudio(_defaultPausableBusFadeTime);
+    }
+
+    public void FadeOutPausableAudio(float fadeTime)
+    {
+        StopPausableAudioVolumeProcess();
+        _pausableAudioVolumeCoroutine = StartCoroutine(FadeBusAudioVolume(_pausableAudioBus, 0, fadeTime, true));
+    }
+
+    public void FadeInPausableAudio()
+    {
+        FadeInPausableAudio(_defaultPausableBusFadeTime);
+    }
+    
+    public void FadeInPausableAudio(float fadeTime)
+    {
+        StopPausableAudioVolumeProcess();
+        _pausableAudioVolumeCoroutine = StartCoroutine(FadeBusAudioVolume(_pausableAudioBus, 1, fadeTime, false));
+    }
+
+    private void StopPausableAudioVolumeProcess()
+    {
+        if (!_pausableAudioVolumeCoroutine.IsUnityNull())
+        {
+            StopCoroutine(_pausableAudioVolumeCoroutine);
+        }
+    }
+
+
+    private IEnumerator FadeBusAudioVolume(Bus targetBus, float endVolume, float fadeTime, bool doesCancelEventsOnEnd)
+    {
+        targetBus.getVolume(out float startVolume);
+        float timer = 0;
+        while (timer < 1)
+        {
+            timer += Time.deltaTime/ fadeTime;
+            
+            targetBus.setVolume(Mathf.Lerp(startVolume, endVolume, timer));
+            yield return null;
+        }
+        targetBus.setVolume(endVolume);
+        
+        if (doesCancelEventsOnEnd)
+        {
+            targetBus.stopAllEvents(STOP_MODE.IMMEDIATE);
+        }
     }
     #endregion Pausing
 
@@ -470,6 +556,9 @@ public class AudioManager : MainUniversalManagerFramework
         TimeManager.Instance.GetGamePausedEvent().AddListener(PausePausableAudio);
         TimeManager.Instance.GetGameUnpausedEvent().AddListener(UnpausePausableAudio);
         SceneLoadManager.Instance.GetOnEndOfSceneLoad().AddListener(UnpausePausableAudio);
+        
+        SceneLoadManager.Instance.GetOnStartOfSceneLoad().AddListener(FadeOutPausableAudio);
+        SceneLoadManager.Instance.GetOnEndOfSceneLoad().AddListener(FadeInPausableAudio);
     }
 
     #endregion
@@ -497,4 +586,12 @@ public class AudioManager : MainUniversalManagerFramework
     }
 
     #endregion
+}
+
+public enum EMusicTracks
+{
+    MainMenu,
+    Map,
+    Selection,
+    
 }

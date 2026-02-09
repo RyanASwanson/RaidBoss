@@ -23,7 +23,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
     protected BossBase _myBossBase;
 
     [Header("GameObjects")]
-    [SerializeField] private GameObject _bossVisualsBase;
+    [SerializeField] protected GameObject _bossVisualsBase;
     [SerializeField] protected GameObject _bossSpecificUI;
 
     protected GameObject _storedBossUI;
@@ -43,11 +43,18 @@ public abstract class SpecificBossFramework : MonoBehaviour
     /// </summary>
     protected virtual void StartFight()
     {
+        CreateSpecificBossInstance();
+        
         SetUpReadyBossAbilities();
 
         AssignInitialHeroTargets();
 
         StartCoroutine(InitialAttackDelay());
+    }
+
+    protected virtual void CreateSpecificBossInstance()
+    {
+        
     }
 
     /// <summary>
@@ -65,10 +72,25 @@ public abstract class SpecificBossFramework : MonoBehaviour
     /// </summary>
     protected virtual void SetUpReadyBossAbilities()
     {
-        // Iterates through each ability
-        foreach(SpecificBossAbilityFramework ability in _startingBossAbilities)
+        bool[] usableAbilities;
+        if (SelectionManager.Instance.GetSelectedMissionStatModifiersOut(out MissionStatModifiers missionStatModifiers))
         {
-            AddAbilityToBossReadyAttacks(ability);
+            usableAbilities = missionStatModifiers.GetBossAbilitiesUsable();
+        }
+        else
+        {
+            usableAbilities = new bool[]{true, true, true, true, true};
+        }
+        
+        // Iterates through each ability
+        for (int i = 0; i < _startingBossAbilities.Count; i++)
+        {
+            if (!usableAbilities[i])
+            {
+                _attackRepititionProtection = Mathf.Clamp(_attackRepititionProtection -1, 0, int.MaxValue);
+                continue;
+            }
+            AddAbilityToBossReadyAttacks(_startingBossAbilities[i]);
         }
     }
 
@@ -377,12 +399,19 @@ public abstract class SpecificBossFramework : MonoBehaviour
     {
         if (_nextAttackProcess.IsUnityNull())
         {
-            Debug.LogError("Boss was unable to stop next attack process");
+            //Debug.LogError("Boss was unable to stop next attack process");
             return;
         }
         
         StopCoroutine(_nextAttackProcess);
         _nextAttackProcess = null;
+    }
+
+    public virtual void SkipCurrentAttack()
+    {
+        _currentAbility.StopBossAbility();
+        StopNextAttackProcess();
+        StartNextAbility();
     }
 
     /// <summary>
@@ -461,6 +490,14 @@ public abstract class SpecificBossFramework : MonoBehaviour
         {
             return;
         }
+
+        if (SelectionManager.Instance.GetSelectedMissionOut(out MissionSO mission))
+        {
+            if (!mission.GetMissionStatModifiers().GetBossAbilitiesUsable()[_abilityLocked.GetAbilityID()])
+            {
+                return;
+            }
+        }
         
         AddAbilityToBossReadyAttacks(_abilityLocked);
     }
@@ -499,7 +536,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
         GameStateManager.Instance.GetBattleWonEvent().AddListener(BossDied);
         
         //Listens for when the boss is staggered
-        _myBossBase.GetBossStaggeredEvent().AddListener(BossStaggerOccured);
+        BossBase.Instance.GetBossStaggeredEvent().AddListener(BossStaggerOccured);
         //Listens for when the boss stagger ends
         _myBossBase.GetBossNoLongerStaggeredEvent().AddListener(BossNoLongerStaggeredOccured);
         

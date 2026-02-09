@@ -267,8 +267,12 @@ MonoBehaviour:
   - {fileID: 3117898044262246605}
   _hasLifetime: 1
   _lifetime: 4
+  _hasColliderActivationDelay: 0
+  _colliderActivationDelay: 0
   _hasColliderLifetime: 0
   _colliderLifetime: 0
+  _doesHitCenteredVFXCopyRotation: 0
+  _hitCenteredVFXCopyTarget: {fileID: 0}
   _hitCenteredVFX: {fileID: 0}
   _lifetimeEndEvent:
     m_PersistentCalls:
@@ -276,8 +280,9 @@ MonoBehaviour:
   _colliderLifetimeEndEvent:
     m_PersistentCalls:
       m_Calls: []
+  _canPreventReHitWithoutInitialDamage: 0
   _preventReHitDuration: 4
-  _enterDamage: 5
+  _enterDamage: 4.5
   _enterEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -287,6 +292,9 @@ MonoBehaviour:
       m_Calls: []
   _exitDamage: 0
   _exitEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _generalHitEvent:
     m_PersistentCalls:
       m_Calls: []
 --- !u!54 &8560503281689201345
@@ -326,6 +334,10 @@ MonoBehaviour:
   - {fileID: 3987000067859621704}
   - {fileID: 1253106088173453851}
   _randomRotation: {x: 0, y: 10, z: 10}
+  _spikeCameraShakeDate:
+    Intensity: 0.75
+    Frequency: 0.005
+    Duration: 0.6
   _spikeStartVFX: {fileID: 732951501355936762, guid: 0691459e835f04d4092c7b453a9d71f0, type: 3}
 --- !u!1 &8560503282452747703
 GameObject:

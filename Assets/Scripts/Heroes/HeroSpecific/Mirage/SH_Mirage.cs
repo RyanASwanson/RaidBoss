@@ -15,10 +15,16 @@ public class SH_Mirage : SpecificHeroFramework
     [SerializeField] private GameObject _basicTargetZone;
     private GameObject _currentBasicTargetZone;
     private const float _targetZoneYOffset = -.5f;
+
+    [SerializeField] private GameObject _basicAbilityCastVFX;
     
     [SerializeField] private float _cloneBasicAudioPitchOffset;
+    private static Vector3 CLONE_BASIC_PROJECTILE_EULER_OFFSET = new Vector3(0, 90, 0);
     
     private const int CLONE_BASIC_AUDIO_ID = 0;
+    
+    [Space]
+    [SerializeField] private GameObject _manualAbilityVFX;
 
     [Space]
     [SerializeField] private float _cloneSpawnDelay;
@@ -77,21 +83,34 @@ public class SH_Mirage : SpecificHeroFramework
 
     public override void ActivateBasicAbilities()
     {
-        CreateBasicAbilityProjectile();
+        CreateBasicAbilityProjectile(true);
+        CreateBasicAbilityCastVFX(gameObject);
         base.ActivateBasicAbilities();
     }
 
     /// <summary>
     /// Spawns and sets up the projectile for the basic ability
     /// </summary>
-    public void CreateBasicAbilityProjectile()
+    public void CreateBasicAbilityProjectile(bool castByHero)
     {
         //Spawns the projectile at the location of the midpoint
-        GameObject _newestProjectile = Instantiate(_basicProjectile, 
+        GameObject newestProjectile = Instantiate(_basicProjectile, 
             _currentBasicTargetZone.transform.position, _currentBasicTargetZone.transform.rotation);
 
+        if (!castByHero)
+        {
+            newestProjectile.transform.localEulerAngles += CLONE_BASIC_PROJECTILE_EULER_OFFSET;
+        }
+
         //Performs the set up for the damage area so that it knows it's owner
-        _newestProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(_myHeroBase);
+        newestProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(_myHeroBase);
+    }
+
+    private void CreateBasicAbilityCastVFX(GameObject caster)
+    {
+        GameObject spawnedVFX = Instantiate(_basicAbilityCastVFX, caster.transform.position, Quaternion.identity);
+        spawnedVFX.transform.LookAt(FindHeroCloneMidpoint());
+        spawnedVFX.transform.eulerAngles = new Vector3(0,spawnedVFX.transform.eulerAngles.y, 0);
     }
 
     private void PlayMirageBasicAbilityAudio()
@@ -121,6 +140,8 @@ public class SH_Mirage : SpecificHeroFramework
     public override void ActivateManualAbilities()
     {
         base.ActivateManualAbilities();
+        Instantiate(_manualAbilityVFX, transform.position, Quaternion.identity);
+        Instantiate(_manualAbilityVFX, _cloneBase.transform.position, Quaternion.identity);
         //This doesn't do any override as the animation has a trigger on it which calls CloneSwap
     }
 
@@ -163,7 +184,8 @@ public class SH_Mirage : SpecificHeroFramework
     public void CloneBasicAbility()
     {
         PlayMirageBasicAbilityAudio();
-        CreateBasicAbilityProjectile();
+        CreateBasicAbilityProjectile(false);
+        CreateBasicAbilityCastVFX(_cloneBase.gameObject);
     }
 
     /// <summary>

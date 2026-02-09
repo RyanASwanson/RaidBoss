@@ -24,9 +24,18 @@ public class BossVisuals : BossChildrenFunctionality
     private Animator _bossSpecificAnimator;
 
     private const string SPECIFIC_BOSS_LEVEL_INTRO_ANIM_TRIGGER = "G_BossIntro";
-    private const string SPECIFIC_BOSS_IDLE_ANIM_TRIGGER = "G_BossIdle";
+    private const string SPECIFIC_BOSS_IDLE_ANIM_BOOL = "G_BossIdle";
     private const string BOSS_STAGGER_ANIM_TRIGGER = "G_BossStagger";
     private const string BOSS_DEATH_ANIM_TRIGGER = "G_BossDeath";
+
+    [Space] 
+    [SerializeField] private MoveBetween _introProgression;
+    
+    [Space]
+    [SerializeField] private float _outlineWidth;
+    [SerializeField] private Color _outlineColor;
+    [SerializeField] private Outline.Mode _outlineMode;
+    private Outline _addedOutline;
 
     #region Directional Look
     /// <summary>
@@ -35,11 +44,13 @@ public class BossVisuals : BossChildrenFunctionality
     /// <param name="lookLocation"></param>
     public void BossLookAt(Vector3 lookLocation)
     {
+        StopBossLookAt();
         _bossLookAtCoroutine = StartCoroutine(LookAtProcess(lookLocation));
     }
 
     public void BossLookAt(GameObject lookTarget, float duration)
     {
+        StopBossLookAt();
         _bossLookAtCoroutine = StartCoroutine(LookAtProcess(lookTarget, duration));
     }
 
@@ -111,6 +122,8 @@ public class BossVisuals : BossChildrenFunctionality
             _visualObjectBase.transform.rotation = Quaternion.Lerp
                 (startingRotation, toRotation, progress);
             
+            /*Quaternion.RotateTowards(startingRotation, toRotation, _rotateSpeed * Time.deltaTime);*/
+            
             _visualObjectBase.transform.eulerAngles = new Vector3(0, _visualObjectBase.transform.eulerAngles.y, 0);
             
             //transform.LookAt(target.transform.position);
@@ -127,7 +140,31 @@ public class BossVisuals : BossChildrenFunctionality
         BossDamagedAnimation();
     }
 
+    public void StartBossSpecificAnimationBool(string boolName, bool boolStatus)
+    {
+        if (boolName == string.Empty)
+        {
+            return;
+        }
 
+        _bossSpecificAnimator.SetBool(boolName, boolStatus);
+    }
+
+    public void StartBossSpecificAnimationTrigger(string triggerName)
+    {
+        if (triggerName == string.Empty)
+        {
+            return;
+        }
+
+        _bossSpecificAnimator.SetTrigger(triggerName);
+    }
+    
+    /*private void PlayBossIntro()
+    {
+        _introProgression.StartMoveProcessWithCurveProgression(Vector3.zero);
+    }*/
+    
     /// <summary>
     /// Starts the general boss level intro animation
     /// </summary>
@@ -144,18 +181,13 @@ public class BossVisuals : BossChildrenFunctionality
         _bossGeneralAnimator.SetTrigger(BOSS_DAMAGED_ANIM_TRIGGER);
     }
 
-    public void StartBossSpecificAnimationTrigger(string triggerName)
-    {
-        if (triggerName == string.Empty) return;
-
-        _bossSpecificAnimator.SetTrigger(triggerName);
-    }
-
     private void BossFullyStaggered()
     {
         TimeManager.Instance.BossStaggeredTimeSlow();
         BossSpecificStaggerAnimTrigger();
     }
+
+    
 
     private void BossSpecificLevelIntroTrigger()
     {
@@ -164,7 +196,7 @@ public class BossVisuals : BossChildrenFunctionality
 
     private void BossSpecificIdleAnimation()
     {
-        StartBossSpecificAnimationTrigger(SPECIFIC_BOSS_IDLE_ANIM_TRIGGER);
+        StartBossSpecificAnimationBool(SPECIFIC_BOSS_IDLE_ANIM_BOOL, true);
     }
 
     private void BossSpecificStaggerAnimTrigger()
@@ -179,13 +211,32 @@ public class BossVisuals : BossChildrenFunctionality
 
     private void BattleWon()
     {
+        StopBossLookAt();
         BossSpecificDeathAnimTrigger();
     }
 
     private void BattleLost()
     {
-
+        StopBossLookAt();
     }
+    
+    #region BossOutline
+    public void AddOutlineToBoss()
+    {
+        _addedOutline = _myBossBase.GetAssociatedBossObject().AddComponent<Outline>();
+
+        _addedOutline.OutlineWidth = _outlineWidth;
+        _addedOutline.OutlineColor = _outlineColor;
+        _addedOutline.OutlineMode = _outlineMode;
+
+        OutlineToggle(false);
+    }
+
+    private void OutlineToggle(bool isOutlineOn)
+    {
+        _addedOutline.enabled = isOutlineOn;
+    }
+    #endregion
 
     public override void ChildFuncSetUp(BossBase bossBase)
     {
@@ -195,6 +246,10 @@ public class BossVisuals : BossChildrenFunctionality
         _visualObjectBase.transform.eulerAngles = new Vector3(0, 180, 0);
 
         BossLevelIntroAnimation();
+        // TODO Switch to PlayBossIntro which uses a curve progression instead of animation
+        //PlayBossIntro();
+        
+        //AddOutlineToBoss();
     }
 
     private void SetFromSO(BossSO bossSO)
@@ -229,7 +284,7 @@ public class BossVisuals : BossChildrenFunctionality
 
         GameStateManager.Instance.GetBattleWonEvent().AddListener(BattleWon);
         
-        GameStateManager.Instance.GetBattleLostEvent().AddListener(BattleWon);
+        GameStateManager.Instance.GetBattleLostEvent().AddListener(BattleLost);
     }
     #endregion
 
@@ -242,6 +297,36 @@ public class BossVisuals : BossChildrenFunctionality
     public void SetVisualObjectBase(GameObject newBase)
     {
         _visualObjectBase = newBase;
+    }
+
+    public void SetOutlineWidth(float newOutlineWidth)
+    {
+        if (_addedOutline.IsUnityNull())
+        {
+            return;
+        }
+        
+        _addedOutline.OutlineWidth = newOutlineWidth;
+    }
+
+    public void SetOutLineColor(Color newOutLineColor)
+    {
+        if (_addedOutline.IsUnityNull())
+        {
+            return;
+        }
+        
+        _addedOutline.OutlineColor = newOutLineColor;
+    }
+
+    public void SetOutlineMode(Outline.Mode newOutlineMode)
+    {
+        if (_addedOutline.IsUnityNull())
+        {
+            return;
+        }
+        
+        _addedOutline.OutlineMode = newOutlineMode;
     }
 
     #endregion

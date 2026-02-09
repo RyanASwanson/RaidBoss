@@ -119,8 +119,12 @@ MonoBehaviour:
   - {fileID: 1202132379755321836}
   _hasLifetime: 0
   _lifetime: 0
+  _hasColliderActivationDelay: 0
+  _colliderActivationDelay: 0
   _hasColliderLifetime: 0
   _colliderLifetime: 0
+  _doesHitCenteredVFXCopyRotation: 0
+  _hitCenteredVFXCopyTarget: {fileID: 0}
   _hitCenteredVFX: {fileID: 3441087648407882265, guid: 516634b61b250d44d853a13b0b70bf62, type: 3}
   _lifetimeEndEvent:
     m_PersistentCalls:
@@ -151,6 +155,9 @@ MonoBehaviour:
       m_Calls: []
   _exitDamage: 0
   _exitEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _generalHitEvent:
     m_PersistentCalls:
       m_Calls: []
 --- !u!65 &1202132379755321836
@@ -299,8 +306,12 @@ MonoBehaviour:
   - {fileID: 7427630861823656495}
   _hasLifetime: 0
   _lifetime: 0
+  _hasColliderActivationDelay: 0
+  _colliderActivationDelay: 0
   _hasColliderLifetime: 0
   _colliderLifetime: 0
+  _doesHitCenteredVFXCopyRotation: 0
+  _hitCenteredVFXCopyTarget: {fileID: 0}
   _hitCenteredVFX: {fileID: 3441087648407882265, guid: 516634b61b250d44d853a13b0b70bf62, type: 3}
   _lifetimeEndEvent:
     m_PersistentCalls:
@@ -331,6 +342,9 @@ MonoBehaviour:
       m_Calls: []
   _exitDamage: 0
   _exitEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _generalHitEvent:
     m_PersistentCalls:
       m_Calls: []
 --- !u!65 &7427630861823656495
@@ -477,10 +491,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _entombCompleteDelay: 0.75
-  _entombPersistantTime: 20
+  _entombPersistantTime: 22
   _closingWalls:
   - {fileID: 2753615494377525193}
   - {fileID: 2338302277446499341}
+  _screenShakeData:
+    Intensity: 1.5
+    Frequency: 0.005
+    Duration: 0.6
   _closedParticleVFX: {fileID: 4243768886966575998, guid: 141f187b2d69d4541bb02abe5ff49ad8, type: 3}
   _navMeshObstacle: {fileID: 4253151356447421041}
   _environmentCollider: {fileID: 8734023338100501375}
@@ -544,7 +562,7 @@ NavMeshObstacle:
   m_Enabled: 0
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_Extents: {x: 0.675, y: 0.675, z: 0.675}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
@@ -561,5 +579,5 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1.25, y: 1.25, z: 1.25}
   m_Center: {x: 0, y: 0, z: 0}

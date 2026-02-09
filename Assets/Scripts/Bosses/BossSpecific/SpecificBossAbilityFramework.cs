@@ -23,23 +23,36 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     [SerializeField] protected float _abilityWindUpTime;
     [SerializeField] protected float _timeUntilNextAbility;
 
+    [Space] 
+    [SerializeField] protected bool _hasAbilityDuration;
+    [SerializeField] protected float _abilityDuration;
+    protected WaitForSeconds _abilityDurationWait;
+
     [Space]
     [Tooltip("If the ability has any screen shake")]
     [SerializeField] protected bool _hasScreenShake;
-    [SerializeField] protected float _screenShakeIntensity;
-    [SerializeField] protected float _screenShakeFrequency;
-    [SerializeField] protected float _screenShakeDuration;
+    [SerializeField] protected CinemachineCameraShakeData _screenShakeData;
 
     [Space]
     [SerializeField] protected string _animationTriggerName;
 
-    protected List<GameObject> _currentTargetZones = new List<GameObject>();
+    [Space] 
+    [SerializeField] protected float _abilityPrepAudioDelay;
+    [SerializeField] protected float _abilityStartAudioDelay;
+
+    protected WaitForSeconds _abilityPrepAudioWait;
+    protected WaitForSeconds _abilityStartAudioWait;
+    protected Coroutine _abilityPrepAudioWaitCoroutine;
+    protected Coroutine _abilityStartAudioWaitCoroutine;
+
+    protected List<BossTargetZoneParent> _currentTargetZones = new List<BossTargetZoneParent>();
     
     protected Vector3 _storedTargetLocation;
     protected HeroBase _storedTarget;
 
     protected Coroutine _abilityWindUpProcess;
     protected Coroutine _targetZoneRemovalProcess;
+    protected Coroutine _abilityDurationProcess;
 
     protected BossBase _myBossBase;
     protected SpecificBossFramework _mySpecificBoss;
@@ -54,6 +67,18 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
         _mySpecificBoss = bossBase.GetSpecificBossScript();
 
         _timeUntilNextAbility /= SelectionManager.Instance.GetSpeedMultiplierFromDifficulty();
+
+        if (SelectionManager.Instance.GetSelectedMissionStatModifiersOut(out MissionStatModifiers missionStatModifiers))
+        {
+            _timeUntilNextAbility /= missionStatModifiers.GetBossAttackSpeedMultiplier();
+        }
+
+        if (_hasAbilityDuration)
+        {
+            _abilityDurationWait = new WaitForSeconds(_abilityDuration);
+        }
+
+        SetUpAbilityAudioDelays();
     }
 
     /// <summary>
@@ -81,7 +106,7 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     protected virtual void AbilityPrep()
     {
         StartShowTargetZone();
-        PlayAbilityPrepAudio();
+        AttemptPlayAbilityPrepAudio();
         StartAbilityWindUp();
     }
 
@@ -134,16 +159,30 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
         }
 
         //Iterates through all target zones and removes them
-        foreach(GameObject currentZone in _currentTargetZones)
+        foreach(BossTargetZoneParent currentZone in _currentTargetZones)
         {
-            if(currentZone.TryGetComponent<BossTargetZoneParent>(out BossTargetZoneParent targetZoneParent))
-            {
-                targetZoneParent.RemoveBossTargetZones();
-            }
+            currentZone.RemoveBossTargetZones();
         }
         _currentTargetZones.Clear();
     }
 
+    protected virtual void SetStateOfCurrentTargetZonesToDeactivated()
+    {
+        SetDeactivatedStateOfCurrentTargetZones(true);
+    }
+    
+    protected virtual void SetStateOfCurrentTargetZonesToActivated()
+    {
+        SetDeactivatedStateOfCurrentTargetZones(false);
+    }
+    
+    protected virtual void SetDeactivatedStateOfCurrentTargetZones(bool shouldDeactivate)
+    {
+        foreach (BossTargetZoneParent targetZone in _currentTargetZones)
+        {
+            targetZone.SetTargetZoneDeactivatedStatesOfAllTargetZones(shouldDeactivate);
+        }
+    }
     #endregion
 
     /// <summary>
@@ -181,7 +220,35 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     protected virtual void AbilityStart()
     {
         ScreenShakeCheck();
-        PlayAbilityStartAudio();
+        AttemptPlayAbilityStartAudio();
+        StartAbilityDuration();
+    }
+
+    protected virtual void StartAbilityDuration()
+    {
+        if (_hasAbilityDuration)
+        {
+            _abilityDurationProcess = StartCoroutine(AbilityDuration());
+        }
+    }
+
+    protected virtual void StopAbilityDuration()
+    {
+        if (!_abilityDurationProcess.IsUnityNull())
+        {
+            StopCoroutine(_abilityDurationProcess);
+        }
+    }
+
+    protected virtual IEnumerator AbilityDuration()
+    {
+        yield return _abilityDurationWait;
+        AbilityDurationEnded();
+    }
+
+    protected virtual void AbilityDurationEnded()
+    {
+        
     }
 
     /// <summary>
@@ -200,17 +267,31 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     /// </summary>
     protected virtual void AbilityScreenShake()
     {
-        CameraGameManager.Instance.StartCameraShake
-            (_screenShakeIntensity, _screenShakeFrequency, _screenShakeDuration);
+        CameraGameManager.Instance.StartCameraShake(_screenShakeData);
     }
 
     public virtual void StopBossAbility()
     {
         StopAbilityWindUp();
+        StopAbilityDelayedAudio();
         RemoveTargetZones();
+        StopAbilityDuration();
     }
 
     #region AbilityAudio
+
+    protected virtual void SetUpAbilityAudioDelays()
+    {
+        if (_abilityPrepAudioDelay > 0)
+        {
+            _abilityPrepAudioWait = new WaitForSeconds(_abilityPrepAudioDelay);
+        }
+
+        if (_abilityStartAudioDelay > 0)
+        {
+            _abilityStartAudioWait = new WaitForSeconds(_abilityStartAudioDelay);
+        }
+    }
 
     protected virtual void PlayTargetZoneSpawnedAudio()
     {
@@ -225,7 +306,24 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     {
         
     }
+
+    protected virtual void AttemptPlayAbilityPrepAudio()
+    {
+        if (_abilityPrepAudioDelay > 0)
+        {
+            _abilityPrepAudioWaitCoroutine = StartCoroutine(AbilityPrepAudioDelay());
+        }
+        else
+        {
+            PlayAbilityPrepAudio();
+        }
+    }
     
+    protected virtual IEnumerator AbilityPrepAudioDelay()
+    {
+        yield return _abilityPrepAudioWait;
+        PlayAbilityPrepAudio();
+    }
 
     protected virtual void PlayAbilityPrepAudio()
     {
@@ -237,11 +335,30 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
         }
     }
 
+    
+
     protected virtual void AbilityAudioPrepPlayed(EventInstance eventInstance)
     {
         
     }
     
+    protected virtual void AttemptPlayAbilityStartAudio()
+    {
+        if (_abilityStartAudioDelay > 0)
+        {
+            _abilityStartAudioWaitCoroutine = StartCoroutine(AbilityStartAudioDelay());
+        }
+        else
+        {
+            PlayAbilityStartAudio();
+        }
+    }
+    
+    protected virtual IEnumerator AbilityStartAudioDelay()
+    {
+        yield return _abilityStartAudioWait;
+        PlayAbilityStartAudio();
+    }
     
     /// <summary>
     /// Plays the audio associated with the ability being started
@@ -260,7 +377,19 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     {
         
     }
-    
+
+    protected virtual void StopAbilityDelayedAudio()
+    {
+        if (!_abilityPrepAudioWaitCoroutine.IsUnityNull())
+        {
+            StopCoroutine(_abilityPrepAudioWaitCoroutine);
+        }
+
+        if (!_abilityStartAudioWaitCoroutine.IsUnityNull())
+        {
+            StopCoroutine(_abilityStartAudioWaitCoroutine);
+        }
+    }
     #endregion AbilityAudio
 
     #region RETIRED Targeting

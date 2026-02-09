@@ -7,7 +7,11 @@ public class SBP_MagmaWave : BossProjectileFramework
     [SerializeField] private float _projectileSpeed;
     [SerializeField] private float _distanceThreshold;
 
-    [Space]
+    [Space] 
+    [SerializeField] private float _destroyDelay;
+
+    [Space] 
+    [SerializeField] private GeneralVFXFunctionality _detachVFX;
     [SerializeField] private Animator _waveAnimator;
 
     private const string REMOVE_PROJECTILE_ANIM_TRIGGER = "WaveEnd";
@@ -32,7 +36,7 @@ public class SBP_MagmaWave : BossProjectileFramework
         Vector3 moveDirection = (_myBossBase.transform.position - transform.position).normalized;
         while (true)
         {
-            transform.position += moveDirection * _projectileSpeed * Time.deltaTime;
+            transform.position += moveDirection * (_projectileSpeed * Time.deltaTime);
             CheckBossDistance();
             yield return null;
         }
@@ -45,7 +49,6 @@ public class SBP_MagmaWave : BossProjectileFramework
     /// <param name="lookLocation"></param>
     private void ProjectileLookAt(Vector3 lookLocation)
     {
-        
         transform.LookAt(lookLocation);
         transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
     }
@@ -67,7 +70,21 @@ public class SBP_MagmaWave : BossProjectileFramework
     /// </summary>
     private void ProjectileReachedEndOfPath()
     {
+        StartCoroutine(EndPathDestroyDelay());
         _waveAnimator.SetTrigger(REMOVE_PROJECTILE_ANIM_TRIGGER);
+    }
+
+    private IEnumerator EndPathDestroyDelay()
+    {
+        yield return new WaitForSeconds(_destroyDelay);
+        DestroyWave();
+    }
+
+    private void DestroyWave()
+    {
+        _detachVFX.SetLoopOfParticleSystems(false);
+        _detachVFX.DetachVisualEffect();
+        Destroy(gameObject);
     }
 
     #region Base Ability

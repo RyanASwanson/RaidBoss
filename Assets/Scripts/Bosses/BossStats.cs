@@ -51,12 +51,9 @@ public class BossStats : BossChildrenFunctionality
         //Set the boss max health to be the max hp from the SO and multiplied by the difficulty modifier
         _bossMaxHealth = bossSO.GetMaxHP() * 
             SelectionManager.Instance.GetHealthMultiplierFromDifficulty();
+        
         _bossDefaultStaggerMax = bossSO.GetBaseStaggerMax() *
             SelectionManager.Instance.GetStaggerMultiplierFromDifficulty();
-        
-        //Sets the starting health and stagger values
-        _currentHealth = _bossMaxHealth;
-        _currentStaggerCounter = 0;
 
         //Sets the stagger duration from the SO
         _bossStaggerDuration = bossSO.GetStaggerDuration();
@@ -70,6 +67,24 @@ public class BossStats : BossChildrenFunctionality
 
         _currentTimeUntilEnrage = bossSO.GetEnrageTime();
         _storedEnrageMultiplier = bossSO.GetEnrageDamageMultiplier();
+
+        if (SelectionManager.Instance.GetSelectedMissionStatModifiersOut(out MissionStatModifiers missionStatModifiers))
+        {
+            _bossMaxHealth *= missionStatModifiers.GetBossHealthMultiplier();
+
+            _bossDefaultStaggerMax *= missionStatModifiers.GetBossStaggerMultiplier();
+            
+            _bossDamageResistanceChangeOnStagger *=
+                missionStatModifiers.GetBossDamageResistanceChangeOnStaggerMultiplier();
+            
+            _currentTimeUntilEnrage *= missionStatModifiers.GetBossEnrageTimeMultiplier();
+
+            _storedEnrageMultiplier *= missionStatModifiers.GetBossEnrageDamageMultiplier();
+        }
+        
+        //Sets the starting health and stagger values
+        _currentHealth = _bossMaxHealth;
+        _currentStaggerCounter = 0;
     }
 #endregion
 
@@ -255,6 +270,7 @@ public class BossStats : BossChildrenFunctionality
     /// </summary>
     private void EnrageMax()
     {
+        Debug.Log("Boss Enraged");
         _isBossEnraged = true;
         _bossEnrageDamageMultiplier = _storedEnrageMultiplier;
         _myBossBase.InvokeBossEnragedEvent();
@@ -270,6 +286,8 @@ public class BossStats : BossChildrenFunctionality
     public void ChangeBossDamageResistance(float changeValue)
     {
         _bossDamageResistanceMultiplier+= changeValue;
+        
+        _bossDamageResistanceMultiplier = Mathf.Clamp(_bossDamageResistanceMultiplier, 0.001f, int.MaxValue);
     }
 
     private void DecreaseBossDamageResistanceOnStagger()

@@ -12,7 +12,7 @@ public class SBA_IcicleRain : SpecificBossAbilityFramework
     [SerializeField] private GameObject _icicleRain;
     [SerializeField] private GameObject _icicleRainUpwardsVisual;
     
-    private GameObject _newestTargetZone;
+    private BossTargetZoneParent _newestTargetZone;
 
     public const int ICICLE_RAIN_IMPACT_AUDIO_ID = 0;
 
@@ -45,12 +45,12 @@ public class SBA_IcicleRain : SpecificBossAbilityFramework
     protected override void StartShowTargetZone()
     {
         //Spawns the target area
-        _newestTargetZone = Instantiate(_targetZone, _storedTargetLocation, Quaternion.identity);
+        _newestTargetZone = Instantiate(_targetZone, _storedTargetLocation, Quaternion.identity).GetComponent<BossTargetZoneParent>();
         //Adds the target area to the list of target areas
         _currentTargetZones.Add(_newestTargetZone);
 
         //Makes the target area follow the hero that is being targetted
-        StartCoroutine(FollowHeroTarget(_newestTargetZone));
+        StartCoroutine(FollowHeroTarget(_newestTargetZone.gameObject));
 
         base.StartShowTargetZone();
     }

@@ -56,7 +56,7 @@ public class GeneralHeroDamageArea : GeneralAbilityAreaFramework
         if (HitBoss(collision, _stayEvent,
             _stayDamagePerTick, _stayStaggerPerTick) && (_stayDamageTickRate > 0))
         {
-            StartCoroutine(DisableColliderForDuration(_stayDamageTickRate));
+            StartDisableColliderForDuration(_stayDamageTickRate);
         }
     }
 

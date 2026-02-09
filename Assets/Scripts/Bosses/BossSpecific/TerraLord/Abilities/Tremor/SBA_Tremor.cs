@@ -9,6 +9,8 @@ public class SBA_Tremor : SpecificBossAbilityFramework
 {
     [SerializeField] private GameObject _targetZone;
     [SerializeField] private GameObject _tremor;
+    
+    public const int TREMOR_IMPACT_AUDIO_ID = 0;
 
     #region Base Ability
     /// <summary>
@@ -16,7 +18,7 @@ public class SBA_Tremor : SpecificBossAbilityFramework
     /// </summary>
     protected override void StartShowTargetZone()
     {
-        _currentTargetZones.Add(Instantiate(_targetZone, _specificAreaTarget, Quaternion.identity));
+        _currentTargetZones.Add(Instantiate(_targetZone, _specificAreaTarget, Quaternion.identity).GetComponent<BossTargetZoneParent>());
         base.StartShowTargetZone();
     }
 

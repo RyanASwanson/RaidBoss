@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Serialization;
 
 public class GlacialLord_FrostFiend : BossMinionBase
@@ -20,6 +22,9 @@ public class GlacialLord_FrostFiend : BossMinionBase
     [SerializeField] private ParticleSystem _frozenEffectCrackedVFX;
     
     [Space]
+    [SerializeField] private GeneralVFXFunctionality _blizzardVFXFunctionality;
+    
+    [Space]
     [SerializeField] private Animator _frostFiendAnimator;
 
     private const string _fiendFrozenAnimTrigger = "FiendFrozen";
@@ -30,13 +35,18 @@ public class GlacialLord_FrostFiend : BossMinionBase
     private const string _fiendFrostbiteAnimTrigger = "FrostbiteAttack";
     
     private const string _fiendDeathAnimTrigger = "FiendDeath";
-
+    
     private bool _isMinionFrozen;
     private static float _freezeDuration;
     private static float _timeBeforeFreezeCrack;
     
     private float _timeFrozen = 0;
     private bool _isFreezeCracked = false;
+    private Coroutine _frozenCoroutine;
+    
+    private UnityEvent _onMinionFrozen = new UnityEvent();
+
+    private BossTargetZoneParent _currentTargetZone;
 
     private const int FROST_FIEND_ABILITY_ID = 4;
     
@@ -58,6 +68,15 @@ public class GlacialLord_FrostFiend : BossMinionBase
     public void BlizzardFailed()
     {
         BlizzardFailedAnim();
+
+    }
+
+    public void PlayBlizzardMinionEffect(Vector3 targetLocation)
+    {
+        _blizzardVFXFunctionality.transform.LookAt(targetLocation);
+        _blizzardVFXFunctionality.transform.eulerAngles = new Vector3(0, _blizzardVFXFunctionality.transform.eulerAngles.y, 0);
+
+        _blizzardVFXFunctionality.PlayAllParticleSystems();
     }
 
     public void FrostbiteAttack()
@@ -68,6 +87,11 @@ public class GlacialLord_FrostFiend : BossMinionBase
     public void FrostFiendDeath()
     {
         DeathAnim();
+    }
+
+    public void SetCurrentTargetZone(BossTargetZoneParent target)
+    {
+        _currentTargetZone = target;
     }
 
     #region Freezing
@@ -87,6 +111,12 @@ public class GlacialLord_FrostFiend : BossMinionBase
         }
 
         _isMinionFrozen = true;
+        InvokeOnMinionFrozen();
+
+        if (!_currentTargetZone.IsUnityNull())
+        {
+            _currentTargetZone.SetTargetZoneDeactivatedStatesOfAllTargetZones(true);
+        }
         
         _isFreezeCracked = false;
         CrackFreezeEffect(_isFreezeCracked);
@@ -94,7 +124,8 @@ public class GlacialLord_FrostFiend : BossMinionBase
         PlayMinionFrozenAudio();
         FreezeAnim();
         
-        StartCoroutine(FreezeProcess());
+        StopFreezeProcess();
+        _frozenCoroutine = StartCoroutine(FreezeProcess());
     }
     
 
@@ -117,6 +148,14 @@ public class GlacialLord_FrostFiend : BossMinionBase
         }
         
         UnfreezeMinion();
+    }
+
+    private void StopFreezeProcess()
+    {
+        if (!_frozenCoroutine.IsUnityNull())
+        {
+            StopCoroutine(_frozenCoroutine);
+        }
     }
 
     private void UnfreezeMinion()
@@ -189,8 +228,18 @@ public class GlacialLord_FrostFiend : BossMinionBase
     }
 
     #endregion
+    
+    #region Events
+
+    private void InvokeOnMinionFrozen()
+    {
+        _onMinionFrozen?.Invoke();
+    }
+    #endregion
 
     #region Getters
     public bool IsMinionFrozen() => _isMinionFrozen;
+    
+    public UnityEvent GetOnMinionFrozen() => _onMinionFrozen;
     #endregion
 }

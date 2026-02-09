@@ -72,6 +72,15 @@ public class HeroStats : HeroChildrenFunctionality
         _heroDefaultAcceleration = heroSO.GetMoveAcceleration();
         _heroDefaultAggro = heroSO.GetAggro();
         _heroDefaultDamageResistance = heroSO.GetDamageResistance();
+
+        if (SelectionManager.Instance.GetSelectedMissionStatModifiersOut(out MissionStatModifiers missionStatModifiers))
+        {
+            _heroMaxHealth *= missionStatModifiers.GetHeroHealthMultiplier();
+            
+            _currentDamageMultiplier *= missionStatModifiers.GetHeroDamageMultiplier();
+            _currentStaggerMultiplier *= missionStatModifiers.GetHeroStaggerMultiplier();
+            _currentHealingReceivedMultiplier *= missionStatModifiers.GetHeroHealingReceivedMultiplier();
+        }
     }
 
     /// <summary>

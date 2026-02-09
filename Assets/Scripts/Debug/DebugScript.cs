@@ -10,17 +10,24 @@ public class DebugScript : MonoBehaviour
 {
     public static DebugScript Instance;
     
+    public bool RequiresMaxCharactersSelected;
+    
     private void Start()
     {
         if(Instance.IsUnityNull())
         {
             Instance = this;
+            transform.SetParent(null);
             DontDestroyOnLoad(gameObject);
         }
         else
         {
             Destroy(gameObject);
         }
+        
+#if !UNITY_EDITOR && !DEVELOPMENT_BUILD
+        RequiresMaxCharactersSelected = true;
+#endif
     }
 
 #if UNITY_EDITOR
@@ -29,12 +36,12 @@ public class DebugScript : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Y))
         {
-            SaveManager.Instance.BossDead();
+            SaveManager.Instance.UnlockAllCharacters();
         }
 
         if (Input.GetKeyDown(KeyCode.U))
         {
-            BossStats.Instance.DealDamageToBoss(99999);
+            BossStats.Instance.DealDamageToBoss((BossStats.Instance.GetBossMaxHealth()/2) + 1);
         }
         
         if (Input.GetKeyDown(KeyCode.I))
@@ -54,7 +61,7 @@ public class DebugScript : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.P))
         {
-            BossStats.Instance.DealDamageToBoss((BossStats.Instance.GetBossMaxHealth()/2) + 1);
+            
         }
 
         if (Input.GetKeyDown(KeyCode.L))
@@ -62,8 +69,20 @@ public class DebugScript : MonoBehaviour
             List<HeroBase> heroes = PlayerInputGameplayManager.Instance.GetAllControlledHeroes();
             
             heroes[0].GetHeroStats().KillHero();
-            
-           
+        }
+
+        if (Input.GetKeyDown(KeyCode.Semicolon))
+        {
+            if (SelectionManager.Instance.GetSelectedBoss().GetBossID() == 2)
+            {
+                SB_GlacialLord glacialLord = (SB_GlacialLord)BossBase.Instance.GetSpecificBossScript();
+                glacialLord.FreezeAllFrostFiends();
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Quote))
+        {
+            BossBase.Instance.GetSpecificBossScript().SkipCurrentAttack();
         }
     }
 #endif

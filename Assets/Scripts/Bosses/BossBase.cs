@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -54,7 +55,7 @@ public class BossBase : MonoBehaviour
         
         PlayBossFightMusic();
     }
-    
+
     /// <summary>
     /// Establishes the instance for the BossBase
     /// </summary>

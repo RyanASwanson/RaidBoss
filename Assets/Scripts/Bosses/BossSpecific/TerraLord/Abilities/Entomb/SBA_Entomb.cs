@@ -47,7 +47,7 @@ public class SBA_Entomb : SpecificBossAbilityFramework
     {
         CalculateAttackRotation();
 
-        _currentTargetZones.Add(Instantiate(_targetZone, _storedTargetLocation, _storedTargetRotation));
+        _currentTargetZones.Add(Instantiate(_targetZone, _storedTargetLocation, _storedTargetRotation).GetComponent<BossTargetZoneParent>());
 
         base.StartShowTargetZone();
     }

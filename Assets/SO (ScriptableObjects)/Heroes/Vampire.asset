@@ -17,13 +17,13 @@ MonoBehaviour:
   _hasUIManager: 1
   _maxHP: 50
   _moveSpeed: 3
-  _angularSpeed: 120
-  _moveAcceleration: 8
+  _angularSpeed: 140
+  _moveAcceleration: 9
   _aggro: 8
   _damageResistance: 1
   _heroPrefab: {fileID: 6798539756391374170, guid: 6a2c3942828746a43ba849071fce1710, type: 3}
   _heroIcon: {fileID: 21300000, guid: cb844acb71a440d42b466821e2a37512, type: 3}
-  _heroBasicAbilityIcon: {fileID: 21300000, guid: bfc49b3d51b6ae64a86e8ac7a6cb14f8, type: 3}
+  _heroBasicAbilityIcon: {fileID: 21300000, guid: f76c063393ef8e645a7ae785867d7cbc, type: 3}
   _heroManualAbilityIcon: {fileID: 21300000, guid: 3f0341e4515938443b042eb518d670d0, type: 3}
   _heroPassiveAbilityIcon: {fileID: 21300000, guid: 2705d83ecbf743347b995d114c502128, type: 3}
   _survivalStat: 5
@@ -36,18 +36,27 @@ MonoBehaviour:
   _heroHighlightedColor: {r: 1, g: 0.16509432, b: 0.16509432, a: 1}
   _heroPressedColor: {r: 0.7830189, g: 0.7830189, b: 0.7830189, a: 1}
   _heroSelectedColor: {r: 1, g: 1, b: 1, a: 1}
-  _heroUIColor: {r: 0.45098042, g: 0.0627451, b: 0.0627451, a: 1}
+  _heroOutlineColor: {r: 0.745283, g: 0, b: 0, a: 1}
+  _heroUIColor: {r: 0.5471698, g: 0, b: 0, a: 1}
   _basicAbilityName: Blood Lance
-  _basicAbilityDescription: "The Vampire fires a projectile \nthat splits after a
-    \nshort distance"
+  _basicAbilityDescription: 'The Vampire fires
+
+    a projectile
+
+    that splits
+    after a
+
+    short distance'
   _manualAbilityName: Bat Swarm
-  _manualAbilityDescription: 'The Vampire becomes immune
+  _manualAbilityDescription: 'The Vampire
 
-    to damage and gains
+    becomes immune
 
-    increased
-    healing'
+    to damage and
+    gains
+
+    increased healing'
   _passiveAbilityName: Lifesteal
-  _passiveAbilityDescription: 'The Vampire heals for
+  _passiveAbilityDescription: 'The Vampire heals
 
-    damage dealt'
+    for damage dealt'

@@ -16,6 +16,7 @@ public class LevelSO : ScriptableObject
     public int GetLevelNumber() => _levelNumber;
     public int GetLevelBuildID() => _levelBuildID;
     public BossSO GetLevelBoss() => _associatedBoss;
+    
     #endregion
 
     #region Setters

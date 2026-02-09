@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: TerraLord
   m_EditorClassIdentifier: 
   _name: Terra Lord
+  _selectionScreenName: 'Terra
+
+    Lord'
   _bossID: 1
   _bossMusicID: 2
   _maxHP: 250
@@ -22,62 +25,86 @@ MonoBehaviour:
   _damageIncrementMultiplier: 1.05
   _damageResistanceChangeOnStagger: 0.15
   _fightStartDelay: 1.5
-  _enrageTime: 200
+  _enrageTime: 180
   _enrageDamageMultiplier: 2
   _bossPrefab: {fileID: 501763575178469067, guid: a5c2fc6b57543e841872d88998c5cbd0, type: 3}
   _bossIcon: {fileID: 21300000, guid: 6adf6c78c6c82a24c97ad89a6d504a43, type: 3}
+  _floorMaterial: {fileID: 2100000, guid: d7dc27c7dbe139046a781b7920657a1e, type: 2}
+  _miniFloorMaterial: {fileID: 2100000, guid: 5ede7a7eee39beb40989a6fd0e03c143, type: 2}
+  _miniFloorLockedMaterial: {fileID: 2100000, guid: 1bb6566fbd872d84291e0933ddb56317, type: 2}
+  _backgroundMaterial: {fileID: 2100000, guid: eda7132c9c410734189dee47c981e344, type: 2}
+  _backgroundParticles: {fileID: 8216859312972270686, guid: 318fcab3c9b604941826e190d75d6bfc, type: 3}
   _bossHighlightedColor: {r: 0.72156864, g: 1, b: 0.19215688, a: 1}
   _bossPressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
   _bossSelectedColor: {r: 1, g: 1, b: 1, a: 1}
+  _bossSelectionIcon: {fileID: 21300000, guid: 645f4972ce2264a4e9726b920066b98f, type: 3}
   _bossAbilities:
-  - _abilityName: Crystal Barrage
+  - _abilityName: 'Crystal
+
+      Barrage'
     _abilityType: 0
-    _abilityDescription: 'The Terra Lord fires several
+    _abilityDescription: 'The Terra Lord
 
-      crystals that cover
-      a
+      fires several
 
-      quarter of the arena'
+      crystals that
+
+      cover
+      a quarter
+
+      of the arena'
     _abilityImage: {fileID: 21300000, guid: 79466d8e9f95ef945994fe0492809aae, type: 3}
   - _abilityName: Tremor
     _abilityType: 0
-    _abilityDescription: 'The Terra Lord creates
+    _abilityDescription: 'The Terra Lord
 
-      spikes in the middle
+      creates spikes
+
+      in the middle
 
       of
       the arena'
     _abilityImage: {fileID: 21300000, guid: 2de6b1a97ced3e542bd621f5e13543f7, type: 3}
   - _abilityName: Entomb
     _abilityType: 0
-    _abilityDescription: 'The Terra Lord creates two
+    _abilityDescription: 'The Terra Lord
 
-      pillars which close in
-      and
+      creates two pillars
+
+      which
+      close in and
 
       create a wall that
 
       hinders movement'
     _abilityImage: {fileID: 21300000, guid: bc7f6787f19233c489333ec2d063c42f, type: 3}
-  - _abilityName: Encircling Vines
+  - _abilityName: 'Encircling
+
+      Vines'
     _abilityType: 0
-    _abilityDescription: 'The Terra Lord creates
+    _abilityDescription: 'The Terra Lord
 
-      vines that surround a hero
+      creates vines that
 
-      and
-      damage heroes
+      surround
+      a hero
+
+      and damage heroes
 
       around them'
     _abilityImage: {fileID: 21300000, guid: 4390ee7a10a2e4f40bfba77d0a66da93, type: 3}
-  - _abilityName: Unstable Precipice
+  - _abilityName: 'Unstable
+
+      Precipice'
     _abilityType: 1
-    _abilityDescription: 'The Arena becomes more
+    _abilityDescription: 'The Arena becomes
 
-      unstable as heroes remain
+      more unstable as
 
-      on
-      either side for extended
+      heroes
+      remain on
 
-      periods. Don''t let it flip!'
+      either side for
+
+      extended periods.'
     _abilityImage: {fileID: 21300000, guid: c891d6ee2630d11468a6f57578f964b1, type: 3}

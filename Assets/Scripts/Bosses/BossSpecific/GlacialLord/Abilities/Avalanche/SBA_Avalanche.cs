@@ -39,15 +39,6 @@ public class SBA_Avalanche : SpecificBossAbilityFramework
     }
     
     #region Base Ability
-    protected override void AbilityPrep()
-    {
-        //Determines the location of the edge of the map
-        //Direction determined by the direction of the current target
-        
-
-        base.AbilityPrep();
-    }
-
     protected override void StartShowTargetZone()
     {
         _storedTargetZone = Instantiate(_targetZone, transform.position, Quaternion.identity);
@@ -57,7 +48,7 @@ public class SBA_Avalanche : SpecificBossAbilityFramework
             _specificAreaTarget.y, _storedTargetZone.transform.position.z);
 
         //Adds the newly spawn target zone into the list of target zones currently active
-        _currentTargetZones.Add(_storedTargetZone);
+        _currentTargetZones.Add(_storedTargetZone.GetComponent<BossTargetZoneParent>());
 
         StartCoroutine(UpdateTargetZone());
 
@@ -82,10 +73,11 @@ public class SBA_Avalanche : SpecificBossAbilityFramework
 
             _storedTargetZone.transform.LookAt(_storedTarget.transform);
             _storedTargetZone.transform.eulerAngles = new Vector3(0, _storedTargetZone.transform.eulerAngles.y, 0);
-
+            
+            //Now performed by TargetZoneScaleToEdgeOfMapScript
             //Set the scale of the target zone to be the length of the distance from boss to edge of map
-            _storedTargetZone.transform.localScale = new(_storedTargetZone.transform.localScale.x,
-                _storedTargetZone.transform.localScale.y, Vector3.Distance(transform.position, _edgeOfMap) / 2);
+            /*_storedTargetZone.transform.localScale = new(_storedTargetZone.transform.localScale.x,
+                _storedTargetZone.transform.localScale.y, Vector3.Distance(transform.position, _edgeOfMap) / 2);*/
 
             yield return null;
             

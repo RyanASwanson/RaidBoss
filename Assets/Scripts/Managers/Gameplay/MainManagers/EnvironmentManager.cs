@@ -24,6 +24,44 @@ public class EnvironmentManager : MainGameplayManagerFramework
     [Tooltip("The max distance that is checked to find the edge of the map")]
     private const float _distanceToEdgeOfMap = 25;
 
+    [Space] 
+    [Header("Boss Unique Visuals")] 
+    [SerializeField] private MeshRenderer _mainFloor;
+    [SerializeField] private MeshRenderer _lowerFloor1;
+    [SerializeField] private MeshRenderer _lowerFloor2;
+    [SerializeField] private MeshRenderer _backWall;
+    [SerializeField] private GameObject _backgroundParticleBase;
+
+    [Space]
+    [SerializeField] private float _battleWonEffectDuration;
+    
+    [SerializeField] private GameObject _battleWonEffect;
+
+    private void BattleWon()
+    {
+        StartCoroutine(BattleWonEffect());
+    }
+
+    private IEnumerator BattleWonEffect()
+    {
+        _battleWonEffect.SetActive(true);
+        
+        yield return new WaitForSeconds(_battleWonEffectDuration);
+        
+        _battleWonEffect.SetActive(false);
+    }
+
+    private void SetEnvironmentVisualsFromBoss()
+    {
+        _mainFloor.material = BossBase.Instance.GetBossSO().GetFloorMaterial();
+        _lowerFloor1.material = BossBase.Instance.GetBossSO().GetFloorMaterial();
+        _lowerFloor2.material = BossBase.Instance.GetBossSO().GetFloorMaterial();
+        
+        _backWall.material = BossBase.Instance.GetBossSO().GetBackgroundMaterial();
+        
+        Instantiate(BossBase.Instance.GetBossSO().GetBackgroundParticles(), _backgroundParticleBase.transform);
+    }
+
     #region BaseManager
     /// <summary>
     /// Establishes the Instance for the Environment manager
@@ -32,6 +70,17 @@ public class EnvironmentManager : MainGameplayManagerFramework
     {
         base.SetUpInstance();
         Instance = this;
+    }
+
+    public override void SetUpMainManager()
+    {
+        base.SetUpMainManager();
+        SetEnvironmentVisualsFromBoss();
+    }
+
+    protected override void SubscribeToEvents()
+    {
+        //GameStateManager.Instance.GetBattleWonEvent().AddListener(BattleWon);
     }
     #endregion
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,10 +14,11 @@ public class SBA_LavaBlast : SpecificBossAbilityFramework
     [SerializeField] private GameObject _targetZone;
     [SerializeField] private GameObject _lavaBlast;
     
-
     [SerializeField] private GameObject _failedVFX;
 
-    private Queue<GameObject> _storedSafeZones = new Queue<GameObject>();
+    private Queue<BossTargetZoneParent> _storedSafeZones = new Queue<BossTargetZoneParent>();
+    
+    private BossTargetZoneParent _currentDamageTargetZone;
 
     private const int LAVA_BLAST_FAILED_AUDIO_ID = 0;
     
@@ -26,7 +28,7 @@ public class SBA_LavaBlast : SpecificBossAbilityFramework
     /// <returns></returns>
     private bool IsHeroInSafeZone()
     {
-        return _storedSafeZones.Dequeue().GetComponentInChildren<BossAbilitySafeZone>().DoesZoneContainHero();
+        return _storedSafeZones.Dequeue().GetBossTargetZones()[0].DoesZoneContainHero();
     }
 
     /// <summary>
@@ -55,17 +57,29 @@ public class SBA_LavaBlast : SpecificBossAbilityFramework
     /// </summary>
     protected override void StartShowTargetZone()
     {
-        GameObject newSafeZone = Instantiate(_safeZone, _specificAreaTarget, Quaternion.identity);
-        GameObject newTargetZone = Instantiate(_targetZone, _specificAreaTarget, Quaternion.identity);
+        BossTargetZoneParent newSafeZone = Instantiate(_safeZone, _specificAreaTarget, Quaternion.identity).GetComponent<BossTargetZoneParent>();
+        _currentDamageTargetZone = Instantiate(_targetZone, _specificAreaTarget, Quaternion.identity).GetComponent<BossTargetZoneParent>();
+        
+        newSafeZone.GetBossTargetZones()[0].GetOnTargetZoneSetToHeroInRange().AddListener(SetStateOfCurrentTargetZonesToDeactivated);
+        newSafeZone.GetBossTargetZones()[0].GetOnTargetZoneSetToNoHeroInRange().AddListener(SetStateOfCurrentTargetZonesToActivated);
 
         _storedSafeZones.Enqueue(newSafeZone);
 
         _currentTargetZones.Add(newSafeZone);
-        _currentTargetZones.Add(newTargetZone);
+        _currentTargetZones.Add(_currentDamageTargetZone);
 
         base.StartShowTargetZone();
     }
 
+    protected override void SetStateOfCurrentTargetZonesToDeactivated()
+    {
+        _currentDamageTargetZone.SetTargetZoneDeactivatedStatesOfAllTargetZones(true);
+    }
+
+    protected override void SetStateOfCurrentTargetZonesToActivated()
+    {
+        _currentDamageTargetZone.SetTargetZoneDeactivatedStatesOfAllTargetZones(false);
+    }
 
     protected override void AbilityStart()
     {

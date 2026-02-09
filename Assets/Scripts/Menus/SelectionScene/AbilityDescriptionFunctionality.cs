@@ -1,29 +1,88 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
-public class AbilityDescriptionFunctionality : MonoBehaviour
+public class AbilityDescriptionFunctionality : ScrollUIContents
 {
-    [SerializeField] private bool _bossOrHero;
-
-    [Space]
-    [SerializeField] private SelectionController _selectionController;
+    [SerializeField] private bool _isBoss;
     
-    public void ChangeBossHeroAbilityText()
+    [Space]
+    [SerializeField] private TextWithBackground _abilityNameText;
+    [SerializeField] private TextWithBackground _abilityTypeText;
+    [SerializeField] private TextWithBackground _abilityDescriptionText;
+
+    public override int UpdateContentsAndCountLines()
     {
-        if (_bossOrHero)
-            ChangeBossAbilityText();
+        if (_isBoss)
+        {
+            ChangeBossAbilityDescription();
+        }
         else
-            ChangeHeroAbilityText();
+        {
+            ChangeHeroAbilityDescription();
+        }
+        return CountLines();
+    }
+    
+    public void ChangeBossAbilityDescription()
+    {
+        int abilityID = SelectionController.Instance.GetCurrentBossAbilityID();
+        
+        _abilityNameText.UpdateText(SelectionController.Instance.GetBossUIToDisplay().GetBossAbilityInformation()[abilityID]._abilityName);
+        _abilityTypeText.UpdateText(SelectionController.Instance.GetBossUIToDisplay().GetBossAbilityInformation()[abilityID]._abilityType.ToString());
+        _abilityDescriptionText.UpdateText(SelectionController.Instance.GetBossUIToDisplay().GetBossAbilityInformation()[abilityID]._abilityDescription);
+    }
+    
+    public void ChangeHeroAbilityDescription()
+    {
+        int abilityID = SelectionController.Instance.GetCurrentHeroAbilityID();
+        
+        _abilityNameText.UpdateText(SelectionController.Instance.GetHeroUIToDisplay().GetAbilityNameFromID(abilityID));
+        
+        EHeroAbilityType type = (EHeroAbilityType)abilityID;
+        _abilityTypeText.UpdateText(type.ToString());
+        
+        _abilityDescriptionText.UpdateText(SelectionController.Instance.GetHeroUIToDisplay().GetAbilityDescriptionFromID(abilityID));
     }
 
-    private void ChangeHeroAbilityText()
+    private int CountLines()
     {
-        _selectionController.HeroAbilityDescriptionChanged();
+        if (_doesCountLines)
+        {
+            int topLines = _abilityNameText.CurrentString.Split('\n').Length;
+            int middleLines = _abilityTypeText.CurrentString.Split('\n').Length;
+            int bottomLines = _abilityDescriptionText.CurrentString.Split('\n').Length;
+            
+            TotalLines = topLines + middleLines + bottomLines;
+            bool isEven = TotalLines % 2 == 0;
+            
+            
+            LineLength = TotalLines * _lineDistance;
+            
+            float currentHeight = (int)(TotalLines / 2) * _lineDistance;
+            if (isEven)
+            {
+                currentHeight -= _lineDistance / 2;
+            }
+            
+            
+            _abilityNameText.GetRectTransform().localPosition = new Vector3(0,currentHeight, 0);
+            
+            currentHeight -= topLines * _lineDistance;
+            
+            
+            _abilityTypeText.GetRectTransform().localPosition = new Vector3(0,currentHeight, 0);
+            
+            currentHeight -= middleLines * _lineDistance;
+            
+            
+            _abilityDescriptionText.GetRectTransform().localPosition = new Vector3(0,currentHeight, 0);
+            
+            
+            //Debug.Log("Total lines " +TotalLines + " " + topLines + " " + middleLines + " " + bottomLines);
+        }
+        return TotalLines;
     }
-
-    private void ChangeBossAbilityText()
-    {
-        _selectionController.BossAbilityDescriptionChanged();
-    }
+    
 }

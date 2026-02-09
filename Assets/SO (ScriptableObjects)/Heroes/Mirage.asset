@@ -17,43 +17,54 @@ MonoBehaviour:
   _hasUIManager: 1
   _maxHP: 45
   _moveSpeed: 4
-  _angularSpeed: 120
-  _moveAcceleration: 8
+  _angularSpeed: 140
+  _moveAcceleration: 9
   _aggro: 2
   _damageResistance: 1
   _heroPrefab: {fileID: 6743143820658176241, guid: 5aa92bc4493817444b608df0b15f2e6a, type: 3}
   _heroIcon: {fileID: 21300000, guid: 907986429f001e94f80f4d482d34513b, type: 3}
   _heroBasicAbilityIcon: {fileID: 21300000, guid: c5d2e63deba4afb4299ff5a01de3f206, type: 3}
-  _heroManualAbilityIcon: {fileID: 21300000, guid: cc73c377a2f1f6d489e1fee45cb15de1, type: 3}
-  _heroPassiveAbilityIcon: {fileID: 21300000, guid: 9a9468215be2ca6488e0b159d8153429, type: 3}
+  _heroManualAbilityIcon: {fileID: 21300000, guid: 9a9468215be2ca6488e0b159d8153429, type: 3}
+  _heroPassiveAbilityIcon: {fileID: 21300000, guid: cc73c377a2f1f6d489e1fee45cb15de1, type: 3}
   _survivalStat: 3
   _damageStat: 3
   _staggerStat: 1
   _speedStat: 3
-  _utilityStat: 3
+  _utilityStat: 2
   _heroRange: 2
   _heroDifficulty: 2
   _heroHighlightedColor: {r: 1, g: 0.9227423, b: 0.13679248, a: 1}
   _heroPressedColor: {r: 0.7830189, g: 0.7830189, b: 0.7830189, a: 1}
   _heroSelectedColor: {r: 1, g: 1, b: 1, a: 1}
+  _heroOutlineColor: {r: 0.91372555, g: 0.7686275, b: 0.16078432, a: 1}
   _heroUIColor: {r: 0.91372555, g: 0.7686275, b: 0.16078432, a: 1}
   _basicAbilityName: Sandblast
-  _basicAbilityDescription: 'The Mirage deals damage
+  _basicAbilityDescription: 'The Mirage deals
 
-    in the center between it
+    damage in the
 
-    and
-    it''s clone'
-  _manualAbilityName: Sandstone Clone
-  _manualAbilityDescription: 'The Mirage switches places
+    center between
+    it
 
-    with its clone. '
+    and it''s clone'
+  _manualAbilityName: 'Sandstone
+
+    Clone'
+  _manualAbilityDescription: 'The Mirage
+
+    switches places
+
+    with its clone'
   _passiveAbilityName: Diversion
-  _passiveAbilityDescription: 'The Mirage''s clone can be
+  _passiveAbilityDescription: 'The Mirage''s clone
 
-    targeted by the boss
+    can be targeted
 
-    and
+    by the
+    boss and
+
     casts Sandblast
 
-    when it would take damage'
+    when it would
+
+    take damage'

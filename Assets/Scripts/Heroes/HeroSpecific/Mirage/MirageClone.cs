@@ -40,6 +40,21 @@ public class MirageClone : SpecificHeroFramework
     {
         StopCooldownBasicAbility();
     }*/
+    public override void ActivateBasicAbilities()
+    {
+        //base.ActivateBasicAbilities();
+        TriggerBasicAbilityAnimation();
+        _mirageOwner.CloneBasicAbility();
+    }
+    
+    private void CloneCounterAttack(float damage)
+    {
+        if(_basicAbilityCooldownCoroutine.IsUnityNull())
+        {
+            ActivateBasicAbilities();
+            _basicAbilityCooldownCoroutine = StartCoroutine(ReHitCooldown());
+        }
+    }
 
     private IEnumerator ReHitCooldown()
     {
@@ -56,22 +71,7 @@ public class MirageClone : SpecificHeroFramework
         _myHeroBase.transform.position = heroTransform.position;
         _myHeroBase.transform.rotation = heroTransform.rotation;
     }
-
-    private void CloneCounterAttack(float damage)
-    {
-        if(_basicAbilityCooldownCoroutine.IsUnityNull())
-        {
-            ActivateBasicAbilities();
-            _basicAbilityCooldownCoroutine = StartCoroutine(ReHitCooldown());
-        }
-    }
-
-    public override void ActivateBasicAbilities()
-    {
-        //base.ActivateBasicAbilities();
-        TriggerBasicAbilityAnimation();
-        _mirageOwner.CloneBasicAbility();
-    }
+    
     #endregion
 
     /// <summary>

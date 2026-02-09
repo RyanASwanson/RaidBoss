@@ -17,8 +17,8 @@ MonoBehaviour:
   _hasUIManager: 1
   _maxHP: 50
   _moveSpeed: 4
-  _angularSpeed: 120
-  _moveAcceleration: 8
+  _angularSpeed: 140
+  _moveAcceleration: 9
   _aggro: 3
   _damageResistance: 1
   _heroPrefab: {fileID: 8488318069239813181, guid: c24f08a30bfda3446b0584b9559d10d6, type: 3}
@@ -36,20 +36,33 @@ MonoBehaviour:
   _heroHighlightedColor: {r: 0.25943398, g: 0.45176697, b: 1, a: 1}
   _heroPressedColor: {r: 0.7830189, g: 0.7830189, b: 0.7830189, a: 1}
   _heroSelectedColor: {r: 1, g: 1, b: 1, a: 1}
+  _heroOutlineColor: {r: 0, g: 0.25925922, b: 1, a: 1}
   _heroUIColor: {r: 0.25882354, g: 0.45098042, b: 1, a: 1}
   _basicAbilityName: Tornado
-  _basicAbilityDescription: 'The Shaman performs a vertical
+  _basicAbilityDescription: 'The Shaman
+
+    performs a vertical
 
     tornado attack'
-  _manualAbilityName: Ball Lightning
-  _manualAbilityDescription: 'The Shaman creates a lightning
+  _manualAbilityName: 'Ball
+
+    Lightning'
+  _manualAbilityDescription: 'The Shaman
+
+    creates a lightning
 
     orb that bounces
+
     between
+    heroes
 
-    heroes and his totem'
+    and his totem'
   _passiveAbilityName: Spirit Totem
-  _passiveAbilityDescription: 'When the Shaman uses their manual
+  _passiveAbilityDescription: 'When the Shaman
 
-    ability they
-    place a totem'
+    uses their Ball
+
+    Lightning
+    he
+
+    places a totem'

@@ -7,7 +7,7 @@ public abstract class HeroProjectileFramework : MonoBehaviour
     protected HeroBase _myHeroBase;
     protected SpecificHeroFramework _mySpecificHero;
     protected EHeroAbilityType _heroAbilityType;
-
+    
     public virtual void SetUpProjectile(HeroBase heroBase, EHeroAbilityType heroAbilityType)
     {
         _myHeroBase = heroBase;
@@ -19,4 +19,5 @@ public abstract class HeroProjectileFramework : MonoBehaviour
     {
 
     }
+    
 }

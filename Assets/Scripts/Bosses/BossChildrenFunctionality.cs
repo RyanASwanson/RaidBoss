@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class BossChildrenFunctionality : MonoBehaviour
 {
+    // TODO Remove this boss base
     protected BossBase _myBossBase;
     
     public virtual void ChildFuncSetUp(BossBase bossBase)

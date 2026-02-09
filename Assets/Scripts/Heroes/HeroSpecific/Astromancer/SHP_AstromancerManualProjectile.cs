@@ -1,151 +1,103 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-/// <summary>
-/// Provides the functionality for the Astromancers manual ability.
-/// SHP stands for Specific Hero Projectile
-/// </summary>
 public class SHP_AstromancerManualProjectile : HeroProjectileFramework
 {
-    [SerializeField] private float _damage;
-    [SerializeField] private float _stagger;
-    [SerializeField] private float _attackRate;
+    [SerializeField] private float _projectileDamage;
+    [SerializeField] private float _projectileStagger;
 
     [Space]
-    [SerializeField] private float _rotationSpeed;
-    [SerializeField] private float _yOffset;
+    [SerializeField] private float _moveTime;
+    [SerializeField] private AnimationCurve _moveTowardsTargetCurve;
     
     [Space]
+    [SerializeField] private float _offsetAmount;
+    [SerializeField] private AnimationCurve _offsetCurve;
+    private Vector3 _offset;
+    
+    [Space] 
+    [SerializeField] private float _minHeight;
+    [SerializeField] private float _maxHeight;
+    [SerializeField] private AnimationCurve _moveVerticalCurve;
+
+    [Space] 
     [SerializeField] private GameObject _visualsHolder;
-    [SerializeField] private GameObject _heroSideVFXHolder;
-    [SerializeField] private GameObject _bossSideVFXHolder;
-
-    [Space]
-    [SerializeField] private GameObject _heroSideAttackVFX;
-    [SerializeField] private GameObject _bossSideAttackVFX;
-
-    private List<GameObject> _createdVFX = new List<GameObject>();
-
-    /// <summary>
-    /// Performs the set up needed to make the ability work
-    /// </summary>
-    private void InitialSetup()
-    {
-        Vector3 heroLoc = new Vector3(_myHeroBase.transform.position.x, 
-            _myHeroBase.transform.position.y + _yOffset, _myHeroBase.transform.position.z);
-        
-
-        Vector3 bossLoc = BossBase.Instance.transform.position;
-        bossLoc = new Vector3(bossLoc.x, 0, bossLoc.z);
-
-        float length = Vector3.Distance(heroLoc, bossLoc);
-
-        transform.position = Vector3.Lerp(heroLoc, bossLoc, .5f);
-
-        transform.LookAt(_myHeroBase.transform.position);
-        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
-
-        _visualsHolder.transform.localScale = new Vector3(_visualsHolder.transform.localScale.x,
-            _visualsHolder.transform.localScale.y, length * _visualsHolder.transform.localScale.z);
-
-        CreateInitialVFX(heroLoc, bossLoc, length);
-    }
-
-    private void CreateInitialVFX(Vector3 heroLoc, Vector3 bossLoc, float length)
-    {
-        GameObject heroSideVFX = Instantiate(_heroSideAttackVFX, _heroSideVFXHolder.transform.position, Quaternion.identity);
-        heroSideVFX.transform.LookAt(bossLoc);
-        heroSideVFX.transform.eulerAngles = new Vector3(0,heroSideVFX.transform.eulerAngles.y, 0);
-        
-        _createdVFX.Add(heroSideVFX);
-
-        GameObject bossSideVFX = Instantiate(_bossSideAttackVFX, _bossSideVFXHolder.transform.position, Quaternion.identity);
-        bossSideVFX.transform.LookAt(heroLoc);
-        bossSideVFX.transform.eulerAngles = new Vector3(0, bossSideVFX.transform.eulerAngles.y, 0);
-
-        _createdVFX.Add(bossSideVFX);
-    }
+    [SerializeField] private GeneralHeroDamageArea _damageArea;
+    
     
     /// <summary>
-    /// Starts updating the visuals and damage/stagger dealt
-    /// </summary>
-    private void StartProcesses()
-    {
-        StartCoroutine(UpdateVisuals());
-        StartCoroutine(DamageTick());
-    }
-
-    private IEnumerator UpdateVisuals()
-    {
-        while(!gameObject.IsUnityNull())
-        {
-            _visualsHolder.transform.Rotate(new Vector3(0, 0, Time.deltaTime * _rotationSpeed));
-            yield return null;
-        }
-    }
-    
-    /// <summary>
-    /// Deals damage and stagger to the boss every tick relative to the attack rate
+    /// The process of moving the passive projectile from where its created
+    /// to the location of the boss
     /// </summary>
     /// <returns></returns>
-    private IEnumerator DamageTick()
+    private IEnumerator MoveProcess()
     {
-        while(!gameObject.IsUnityNull())
+        Vector3 targetLoc = BossBase.Instance.transform.position;
+        Vector3 startLoc = transform.position;
+        
+        Vector3 direction = (targetLoc - startLoc).normalized;
+        
+        transform.LookAt(targetLoc);
+        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+
+        float moveTimer = 0;
+
+        while (moveTimer < 1)
         {
-            _myHeroBase.GetSpecificHeroScript().DamageBoss(_damage);
-            _myHeroBase.GetSpecificHeroScript().StaggerBoss(_stagger);
-            yield return new WaitForSeconds(_attackRate);
+            moveTimer += Time.deltaTime / _moveTime;
+
+            Vector3 moveTowardsLocation =
+                Vector3.LerpUnclamped(startLoc, targetLoc, _moveTowardsTargetCurve.Evaluate(moveTimer));
+            
+            _visualsHolder.transform.localPosition = _offset * _offsetCurve.Evaluate(moveTimer);
+            
+            float verticalLocation = Mathf.Lerp(_minHeight, _maxHeight, _moveVerticalCurve.Evaluate(moveTimer));
+            
+            //transform.position = new Vector3(sideOffset.x, verticalLocation, sideOffset.z);
+            // Sets the location of the projectile
+            transform.position = new Vector3(moveTowardsLocation.x, verticalLocation, moveTowardsLocation.z);
+            
+            // Makes the visuals look at the target
+            _visualsHolder.transform.LookAt(targetLoc);
+            _visualsHolder.transform.eulerAngles = new Vector3(0, _visualsHolder.transform.eulerAngles.y, 0);
+            
+            
+            yield return null;
         }
+        
+        EndOfMovement();
     }
     
     /// <summary>
-    /// Stops the manual ability and removes the vfx
+    /// Is called when the projectile reaches the location of the boss
     /// </summary>
-    public void StopManual()
+    private void EndOfMovement()
     {
-        DestroyVFX();
-        Destroy(gameObject);
+        _mySpecificHero.DamageBoss(_projectileDamage);
+        _mySpecificHero.StaggerBoss(_projectileStagger);
+
+        _damageArea.DestroyProjectile();
     }
 
-    /// <summary>
-    /// Removes all vfx associated will the ability
-    /// </summary>
-    private void DestroyVFX()
+    public void AdditionalSetUp(bool isRight)
     {
-        //TODO rework to have _createdVFX store the actual vfx script
-        foreach(GameObject vfx in _createdVFX)
+        if (isRight)
         {
-            GeneralVFXFunctionality generalVFX = vfx.GetComponent<GeneralVFXFunctionality>();
-            //Stops the looping of the vfx
-            generalVFX.SetLoopOfParticleSystems(false);
-            //Makes the vfx not childed to the ability
-            generalVFX.DetachVisualEffect();
-            //Starts the destruction of the vfx
-            generalVFX.StartDelayedLifetime();
+            _offset = new Vector3(_offsetAmount,0,0);
+        }
+        else
+        {
+            _offset = new Vector3(-_offsetAmount,0,0);
         }
     }
 
     #region Base Ability
-    /// <summary>
-    /// Performs the needed set up for the projectile
-    /// </summary>
-    /// <param name="heroBase"></param>
     public override void SetUpProjectile(HeroBase heroBase, EHeroAbilityType heroAbilityType)
     {
         base.SetUpProjectile(heroBase, heroAbilityType);
-        InitialSetup();
-        SubscribeToEvents();
-        StartProcesses();
-    }
 
-    /// <summary>
-    /// Subscribes to any needed events
-    /// </summary>
-    private void SubscribeToEvents()
-    {
-        _myHeroBase.GetHeroStartedMovingEvent().AddListener(StopManual);
+        StartCoroutine(MoveProcess());
     }
     #endregion
 }

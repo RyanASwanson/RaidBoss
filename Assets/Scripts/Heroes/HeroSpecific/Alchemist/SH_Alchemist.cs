@@ -13,11 +13,17 @@ public class SH_Alchemist : SpecificHeroFramework
     [Space]
     [SerializeField] private List<GameObject> _manualProjectiles;
 
+    private int _lastManualProjectileIndex = -1;
+
     [Space]
     [SerializeField] private GameObject _passiveProjectile;
 
     [Space]
     [SerializeField] private float _potionDistanceMultiplier;
+    
+    public const int ALCHEMIST_POTION_LANDED_AUDIO_ID = 0;
+    public const int ALCHEMIST_POTION_PICKED_UP_AUDIO_ID = 1;
+    public const int ALCHEMIST_POTION_BUFF_ACTIVATED_AUDIO_ID = 2;
 
     #region Basic Abilities
     public override void ActivateBasicAbilities()
@@ -47,7 +53,16 @@ public class SH_Alchemist : SpecificHeroFramework
     /// <returns></returns>
     private GameObject PickManualPotion()
     {
-        return _manualProjectiles[Random.Range(0, _manualProjectiles.Count)];
+        int currentManualProjectileIndex;
+        // Prevent repeats
+        do
+        {
+            currentManualProjectileIndex = Random.Range(0, _manualProjectiles.Count);
+        } 
+        while (currentManualProjectileIndex == _lastManualProjectileIndex);
+        
+        _lastManualProjectileIndex = currentManualProjectileIndex;
+        return _manualProjectiles[_lastManualProjectileIndex];
     }
     #endregion
 

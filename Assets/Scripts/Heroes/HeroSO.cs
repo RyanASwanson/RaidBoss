@@ -46,14 +46,16 @@ public class HeroSO : CharacterSO
     [SerializeField] private Color _heroPressedColor;
     [SerializeField] private Color _heroSelectedColor;
 
+    [SerializeField] private Color _heroOutlineColor;
+    
     [SerializeField] private Color _heroUIColor;
 
     [Header("Ability Information")]
-    [SerializeField] private string _basicAbilityName;
+    [TextArea(1, 2)][SerializeField] private string _basicAbilityName;
     [TextArea(4, 10)] [SerializeField] private string _basicAbilityDescription;
-    [SerializeField] private string _manualAbilityName;
+    [TextArea(1, 2)][SerializeField] private string _manualAbilityName;
     [TextArea(4, 10)] [SerializeField] private string _manualAbilityDescription;
-    [SerializeField] private string _passiveAbilityName;
+    [TextArea(1, 2)][SerializeField] private string _passiveAbilityName;
     [TextArea(4, 10)] [SerializeField] private string _passiveAbilityDescription;
 
     #region Getters
@@ -87,6 +89,7 @@ public class HeroSO : CharacterSO
     public Color GetHeroHighlightedColor() => _heroHighlightedColor;
     public Color GetHeroPressedColor() => _heroPressedColor;
     public Color GetHeroSelectedColor() => _heroSelectedColor;
+    public Color GetHeroOutlineColor() => _heroOutlineColor;
     public Color GetHeroUIColor() => _heroUIColor;
 
     public string GetHeroBasicAbilityName() => _basicAbilityName;
@@ -95,6 +98,36 @@ public class HeroSO : CharacterSO
     public string GetHeroManualAbilityDescription() => _manualAbilityDescription;
     public string GetHeroPassiveAbilityName() => _passiveAbilityName;
     public string GetHeroPassiveAbilityDescription() => _passiveAbilityDescription;
+
+    public string GetAbilityNameFromID(int id)
+    {
+        switch (id)
+        {
+            case(0):
+                return GetHeroBasicAbilityName();
+            case(1):
+                return GetHeroManualAbilityName();
+            case(2):
+                return GetHeroPassiveAbilityName();
+        }
+
+        return string.Empty;
+    }
+    
+    public string GetAbilityDescriptionFromID(int id)
+    {
+        switch (id)
+        {
+            case(0):
+                return GetHeroBasicAbilityDescription();
+            case(1):
+                return GetHeroManualAbilityDescription();
+            case(2):
+                return GetHeroPassiveAbilityDescription();
+        }
+
+        return string.Empty;
+    }
     #endregion
 }
 

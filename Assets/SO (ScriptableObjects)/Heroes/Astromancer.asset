@@ -17,14 +17,14 @@ MonoBehaviour:
   _hasUIManager: 1
   _maxHP: 35
   _moveSpeed: 3
-  _angularSpeed: 120
-  _moveAcceleration: 8
+  _angularSpeed: 140
+  _moveAcceleration: 9
   _aggro: 2
   _damageResistance: 1
   _heroPrefab: {fileID: 908535587928924494, guid: 3601bc766bf167e448435daf0fae416c, type: 3}
-  _heroIcon: {fileID: 21300000, guid: 7d38f48dced9c214981452847db09538, type: 3}
+  _heroIcon: {fileID: 21300000, guid: de4cd028229d01d41b498bca06f0c960, type: 3}
   _heroBasicAbilityIcon: {fileID: 21300000, guid: 90a97845e8c5d6b4fb158d2e572af5c8, type: 3}
-  _heroManualAbilityIcon: {fileID: 21300000, guid: 9aebd705574f9e642aef1e5f59b3e4d8, type: 3}
+  _heroManualAbilityIcon: {fileID: 21300000, guid: 55efa58f25f54b34f8ea506ecabd4f8d, type: 3}
   _heroPassiveAbilityIcon: {fileID: 21300000, guid: 842cf0206d9baa44b86423dcff5761c3, type: 3}
   _survivalStat: 1
   _damageStat: 5
@@ -36,27 +36,44 @@ MonoBehaviour:
   _heroHighlightedColor: {r: 0.08962262, g: 0.2079505, b: 1, a: 1}
   _heroPressedColor: {r: 0.7830189, g: 0.7830189, b: 0.7830189, a: 1}
   _heroSelectedColor: {r: 1, g: 1, b: 1, a: 1}
+  _heroOutlineColor: {r: 0.45099443, g: 0, b: 0.8962264, a: 1}
   _heroUIColor: {r: 0.41176474, g: 0.09019608, b: 1, a: 1}
-  _basicAbilityName: Shooting Star
-  _basicAbilityDescription: 'The Astromancer launches a projectile
+  _basicAbilityName: 'Shooting
 
-    at the boss,
-    it then bounces back. If
+    Star'
+  _basicAbilityDescription: 'The Astromancer
 
-    caught by the Astromancer
+    launches a projectile
 
-    it reflects again'
-  _manualAbilityName: Celestial Beam
-  _manualAbilityDescription: 'The Astromancer channels a laser
+    which
+    bounces back.
 
-    that is fired
-    until he next moves'
+    If caught by the
+
+    Astromancer it
+
+    reflects again'
+  _manualAbilityName: 'Celestial
+
+    Onslaught'
+  _manualAbilityDescription: 'The Astromancer
+
+    fires an onslaught
+
+    of projectiles
+    that
+
+    fire faster the longer
+
+    it is channeled'
   _passiveAbilityName: Stars Align
-  _passiveAbilityDescription: 'When the Astromancer reflects
+  _passiveAbilityDescription: 'When the
 
-    his Shooting Star
-    back at the
+    Astromancer reflects
 
-    boss it reduces the cooldown
+    his Shooting
+    Star it
 
-    of Celestial Beam'
+    reduces the cooldown
+
+    of Celestial Onslaught'

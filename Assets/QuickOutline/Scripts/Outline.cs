@@ -315,3 +315,11 @@ public class Outline : MonoBehaviour {
     }
   }
 }
+
+/*
+public class OutlineData
+{
+  public float _outlineWidth;
+  public Color _outlineColor;
+  public Outline.Mode _outlineMode;
+}*/

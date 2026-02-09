@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -22,20 +24,30 @@ public class SelectBossLevelButton : MonoBehaviour, IPointerClickHandler
 
     [SerializeField] private GameObject _lockVisuals;
 
+    [Space] 
+    [SerializeField] private CurveProgression _buttonSizeCurve;
+    
+    private bool _isInteractable = false;
+
     // Start is called before the first frame update
     void Start()
     {
-        UpdateButtonInteractability();
-        SetButtonBossIconVisuals();
+        if (SelectionManager.Instance.IsPlayingMissionsMode())
+        {
+            SetDefaultIconColor();
+        }
+        else
+        {
+            UpdateFreePlayButtonInteractability();
+            SetButtonBossIconVisuals();
+        }
     }
 
-    private void UpdateButtonInteractability()
+    private void UpdateFreePlayButtonInteractability()
     {
-        bool bossUnlocked = SaveManager.Instance.
-            GSD._bossesUnlocked[_associatedLevel.GetLevelBoss().GetBossName()];
-
-        _levelBossButton.interactable = bossUnlocked;
-        _lockVisuals.SetActive(!bossUnlocked);
+        bool bossUnlocked = SaveManager.Instance.IsBossUnlocked(_associatedLevel.GetLevelBoss());
+        
+        SetButtonInteractability(bossUnlocked);
     }
 
     private void SetButtonBossIconVisuals()
@@ -53,8 +65,18 @@ public class SelectBossLevelButton : MonoBehaviour, IPointerClickHandler
         _levelBossButton.colors = colorVar;
     }
     
+    private void SetDefaultIconColor()
+    {
+        _defaultColor = _iconVisuals.color;
+    }
+    
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (!_isInteractable)
+        {
+            return;
+        }
+        
         switch (eventData.button)
         {
             case PointerEventData.InputButton.Left:
@@ -76,6 +98,7 @@ public class SelectBossLevelButton : MonoBehaviour, IPointerClickHandler
         if (!_buttonHasBeenPressed)
         {
             BossLevelSelect();
+            _buttonSizeCurve.StartMovingUpOnCurve();
         }
         else
         {
@@ -126,5 +149,18 @@ public class SelectBossLevelButton : MonoBehaviour, IPointerClickHandler
     #region Getters
     public LevelSO GetAssociatedLevel() => _associatedLevel;
     public BossSO GetAssociatedBoss() => _associatedLevel.GetLevelBoss();
+    #endregion
+    
+    #region Setters
+    private void SetButtonInteractability(bool interactable)
+    {
+        if (!_levelBossButton.IsUnityNull())
+        {
+            _levelBossButton.interactable = interactable;
+            _isInteractable = interactable;
+        }
+        
+        _lockVisuals.SetActive(!interactable);
+    }
     #endregion
 }

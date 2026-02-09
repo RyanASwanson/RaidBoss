@@ -16,6 +16,9 @@ public class SBP_Tremor : BossProjectileFramework
     [Header("Individual Spikes")]
     [SerializeField] private Vector3 _randomRotation;
 
+    [Space] 
+    [SerializeField] private CinemachineCameraShakeData _spikeCameraShakeDate;
+
     [Space]
     [SerializeField] private GameObject _spikeStartVFX;
 
@@ -32,6 +35,9 @@ public class SBP_Tremor : BossProjectileFramework
             i++;
             SpawnSpike(_spikes[i]);
 
+            PlayProjectileImpactSFX();
+            PlaySpikeScreenShake();
+            
             yield return _spikeSeperationWait;
         }
     }
@@ -44,7 +50,7 @@ public class SBP_Tremor : BossProjectileFramework
     {
         spike.SetActive(true);
 
-        RandomSpikeRotation(spike);
+        RandomSpikeRotation(spike.transform.GetChild(0).gameObject);
         CreateSpikeStartVFX(spike);
     }
 
@@ -64,6 +70,18 @@ public class SBP_Tremor : BossProjectileFramework
     private void CreateSpikeStartVFX(GameObject spike)
     {
         Instantiate(_spikeStartVFX, spike.transform.position, Quaternion.identity);
+    }
+    
+    private void PlaySpikeScreenShake()
+    {
+        CameraGameManager.Instance.StartCameraShake(_spikeCameraShakeDate);
+    }
+    
+    private void PlayProjectileImpactSFX()
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
+                BossAbilityAudio[_abilityID].GeneralAbilityAudio[SBA_Tremor.TREMOR_IMPACT_AUDIO_ID]);
     }
 
     #region Base Ability

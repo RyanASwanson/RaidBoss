@@ -9,27 +9,13 @@ using UnityEngine;
 /// </summary>
 public class SHP_FaeBasicProjectile : HeroProjectileFramework
 {
-    [SerializeField] private float _projectileSpeed;
-
-    /// <summary>
-    /// Moves the projectile in a given direction
-    /// </summary>
-    /// <param name="direction"> The direction to move in</param>
-    /// <returns></returns>
-    private IEnumerator MoveProjectile(Vector3 direction)
-    {
-        while (!gameObject.IsUnityNull())
-        {
-            transform.position += direction * _projectileSpeed * Time.deltaTime;
-            yield return null;
-        }
-    }
+    [SerializeField] private GeneralTranslate _generalTranslate;
 
     #region Base Ability
     public override void SetUpProjectile(HeroBase heroBase, EHeroAbilityType heroAbilityType)
     {
         base.SetUpProjectile(heroBase, heroAbilityType);
-        StartCoroutine(MoveProjectile(transform.forward));
+        _generalTranslate.StartMoving(transform.forward);
     }
     #endregion
 }

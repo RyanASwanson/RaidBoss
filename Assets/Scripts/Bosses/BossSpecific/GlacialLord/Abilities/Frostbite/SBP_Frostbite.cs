@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using FMOD.Studio;
 using UnityEngine;
 
 public class SBP_Frostbite : BossProjectileFramework
 {
     [SerializeField] private float _projectileInterval;
+    
+    [SerializeField] private float _impactAudioPitchIncrease;
 
     [SerializeField] private GameObject _projectileStartVFX;
 
@@ -24,7 +27,7 @@ public class SBP_Frostbite : BossProjectileFramework
         for (int i = 0; i <= _projectiles.Count - 1; i++)
         {
             SpawnProjectile(_projectiles[i]);
-            PlayProjectileSFX();
+            PlayProjectileSFX(i);
             yield return new WaitForSeconds(_projectileInterval);
         }
     }
@@ -48,11 +51,14 @@ public class SBP_Frostbite : BossProjectileFramework
         Instantiate(_projectileStartVFX, spike.transform.position, Quaternion.identity);
     }
 
-    private void PlayProjectileSFX()
+    private void PlayProjectileSFX(int frostBiteSet)
     {
         AudioManager.Instance.PlaySpecificAudio(
             AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
-                BossAbilityAudio[_abilityID].GeneralAbilityAudio[SBA_Frostbite.FROSTBITE_IMPACT_AUDIO_ID]);
+                BossAbilityAudio[_abilityID].GeneralAbilityAudio[SBA_Frostbite.FROSTBITE_IMPACT_AUDIO_ID], out EventInstance eventInstance);
+        
+        eventInstance.getPitch(out float pitch);
+        eventInstance.setPitch(pitch + (frostBiteSet * _impactAudioPitchIncrease));
     }
 
     #region Base Ability

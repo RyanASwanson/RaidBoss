@@ -73,14 +73,17 @@ public class SHP_AstromancerBasicProjectile : HeroProjectileFramework
     /// <param name="collider"></param>
     public void HitHero(Collider collider)
     {
-
         HeroBase storedSpecificHero = collider.gameObject.GetComponentInParent<HeroBase>();
-        if (storedSpecificHero != _myHeroBase) return;
+        if (storedSpecificHero != _myHeroBase)
+        {
+            return;
+        }
 
         _generalDamageArea.enabled = true;
         _generalHealArea.enabled = false;
 
         FlipDirection();
+        PlayReflectAudio();
         TriggerHeroPassive();
     }
 
@@ -95,6 +98,13 @@ public class SHP_AstromancerBasicProjectile : HeroProjectileFramework
     public void TriggerHeroPassive()
     {
         _astromancerScript.ActivatePassiveAbilities();
+    }
+    
+    private void PlayReflectAudio()
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificHeroAudio[_myHeroBase.GetHeroSO().GetHeroID()]
+                .MiscellaneousHeroAudio[SH_Astromancer.BASIC_PROJECTILE_REFLECT_AUDIO_ID]);
     }
 
 
