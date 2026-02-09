@@ -14,5 +14,6 @@ public class SB_MagmaLord : SpecificBossFramework
     {
         base.BossDied();
         Instantiate(_deathEffect, transform);
+        //Instantiate(_deathEffect, transform.position, transform.rotation);
     }
 }
