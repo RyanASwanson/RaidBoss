@@ -5085,7 +5085,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.23529413, g: 0.23529413, b: 0.23529413, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -7604,10 +7604,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5096317417016496627}
-  - component: {fileID: 8583201614957696677}
   - component: {fileID: 4806341880440619815}
   m_Layer: 0
-  m_Name: MainMenuBackground
+  m_Name: MainMenuDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7630,27 +7629,6 @@ Transform:
   m_Father: {fileID: 8039736765666296199}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &8583201614957696677
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4546381241664160187}
-  m_Enabled: 0
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: bf625d4028b62b04aa98debdc3b29c11, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &4806341880440619815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7663,7 +7641,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d447b881fb157be48b0271a6bb634159, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _displayTime: 4
+  _displayTime: 9
   _fadeTime: 0.5
   _foregroundTransparencyCurve: {fileID: 1555119371317621734}
   _displaySections:
