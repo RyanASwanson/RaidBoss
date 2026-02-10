@@ -16,6 +16,8 @@ public class SpecificBossAudio
     
     public SpecificBossAbilityAudio[] BossAbilityAudio;
 
+    public SpecificAudio BossAmbience;
+
     public SpecificAudio BossDeathAudio;
     
     public SpecificAudio[] MiscellaneousBossAudio;

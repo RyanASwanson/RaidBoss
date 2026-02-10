@@ -9,6 +9,8 @@ public class SBA_StaticCharge : SpecificBossAbilityFramework
     [SerializeField] private GameObject _staticChargeObject;
 
     private BossTargetZoneParent _newestTargetZone;
+    
+    public const int STATIC_CHARGE_ATTACK_HIT_AUDIO_ID = 0;
 
     private void StartFollowingBossTarget(GameObject followGameObject)
     {

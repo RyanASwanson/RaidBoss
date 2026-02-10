@@ -73,6 +73,8 @@ public class SBP_Thunderbolt : BossProjectileFramework
         _impactDecal.ActivateCustomDecal();
         
         _scaleCurve.StartMovingUpOnCurve();
+
+        PlayProjectileActivationSFX();
     }
 
     public void CancelThunderboltActivation()
@@ -82,6 +84,13 @@ public class SBP_Thunderbolt : BossProjectileFramework
         {
             StopCoroutine(_thunderboltActivationCoroutine);
         }
+    }
+    
+    private void PlayProjectileActivationSFX()
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
+                BossAbilityAudio[_abilityID].GeneralAbilityAudio[SBA_Thunderbolt.THUNDERBOLT_ACTIVATION_AUDIO_ID]);
     }
     
 }

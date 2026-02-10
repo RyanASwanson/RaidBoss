@@ -213,11 +213,18 @@ public class BossVisuals : BossChildrenFunctionality
     {
         StopBossLookAt();
         BossSpecificDeathAnimTrigger();
+        PlayBossDeathAudio();
     }
 
     private void BattleLost()
     {
         StopBossLookAt();
+    }
+
+    private void PlayBossDeathAudio()
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].BossDeathAudio);
     }
     
     #region BossOutline
