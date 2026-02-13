@@ -16,7 +16,7 @@ public class MissionSO : ScriptableObject
 
     [Space] 
     [Header("Tutorials")]
-    [SerializeField] private GameObject[] _tutorialPages;
+    [SerializeField] private TutorialPage[] _tutorialPages;
 
     [Space] 
     [Header("Unlocks")] 
@@ -37,7 +37,7 @@ public class MissionSO : ScriptableObject
     public LevelSO GetAssociatedLevel() =>_associatedLevel;
     public HeroSO[] GetAssociatedHeroes() =>_associatedHeroes;
 
-    public GameObject[] GetTutorialPages() => _tutorialPages;
+    public TutorialPage[] GetTutorialPages() => _tutorialPages;
     
     public CharacterSO GetCharacterUnlock() =>_characterUnlock;
     public MissionSO[] GetMissionUnlocks() =>_missionUnlocks;
@@ -80,4 +80,12 @@ public class MissionStatModifiers
     public float GetHeroHealingReceivedMultiplier() =>_heroHealingReceivedMultiplier;
     public float GetHeroManualCooldownTimeMultiplier() =>_heroManualCooldownTimeMultiplier;
     #endregion
+}
+
+[System.Serializable]
+public class TutorialPage
+{
+    [TextArea(1, 2)] public string TutorialPageTitle;
+    public float TutorialPageTitleWidth;
+    public GameObject TutorialPageObject;
 }

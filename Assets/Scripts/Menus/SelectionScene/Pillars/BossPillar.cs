@@ -16,8 +16,6 @@ public class BossPillar : MonoBehaviour
     private BossSO _bossSelectedOnPillar;
     private BossSO _storedBoss;
     
-    private const string BOSS_SPECIFIC_SELECTED_ANIM_TRIGGER = "G_BossSelected";
-    
     [Space]
     [SerializeField] private Animator _pillarAnimator;
 
@@ -28,12 +26,12 @@ public class BossPillar : MonoBehaviour
     
     private Animator _bossSpecificAnimator;
     
-    private const string BOSS_SELECTED_ANIM_BOOL = "BossSelected";
-    private const string BOSS_IDLE_ANIM_BOOL = "G_BossIdle";
+    private const string BOSS_PILLAR_SELECTED_ANIM_BOOL = "BossSelected";
+    
 
     private void Start()
     {
-        SetBossPreviewAnimation(false);
+        SetPillarBossPreviewAnimation(false);
     }
     
     public void MovePillar(bool moveUp)
@@ -57,12 +55,12 @@ public class BossPillar : MonoBehaviour
         
         if (_bossSelectedOnPillar == bossSO)
         {
-            SetBossPreviewAnimation(true);
+            SetPillarBossPreviewAnimation(true);
             PlayBossIdleAnimation();
         }
         else
         {
-            SetBossPreviewAnimation(!newBoss);
+            SetPillarBossPreviewAnimation(!newBoss);
         }
 
         if (!newBoss)
@@ -86,7 +84,7 @@ public class BossPillar : MonoBehaviour
     public void RemoveBossOnPillar()
     {
         _storedBoss = null;
-        SetBossPreviewAnimation(false);
+        SetPillarBossPreviewAnimation(false);
         Destroy(_currentBossVisual);
     }
     
@@ -94,7 +92,7 @@ public class BossPillar : MonoBehaviour
     {
         _storedBoss = null;
         _bossSelectedOnPillar = null;
-        SetBossPreviewAnimation(false);
+        SetPillarBossPreviewAnimation(false);
     }
 
     public void AnimateOutBossOnPillar()
@@ -108,19 +106,20 @@ public class BossPillar : MonoBehaviour
         _bossSpawnAnimator.SetTrigger(NEW_BOSS_HOVER_ANIM_TRIGGER);
     }
     
-    public void SetBossPreviewAnimation(bool isBossSelected)
+    public void SetPillarBossPreviewAnimation(bool isBossSelected)
     {
-        _bossSpawnAnimator.SetBool(BOSS_SELECTED_ANIM_BOOL,isBossSelected);
+        _bossSpawnAnimator.SetBool(BOSS_PILLAR_SELECTED_ANIM_BOOL,isBossSelected);
     }
     
     public void StartBossSelectedAnimation()
     {
-        _bossSpecificAnimator.SetTrigger(BOSS_SPECIFIC_SELECTED_ANIM_TRIGGER);
+        _bossSpecificAnimator.SetTrigger(BossVisuals.BOSS_SPECIFIC_SELECTED_ANIM_TRIGGER);
+
     }
     
     public void PlayBossIdleAnimation()
     {
-        _bossSpecificAnimator.SetBool(BOSS_IDLE_ANIM_BOOL,true);
+        _bossSpecificAnimator.SetBool(BossVisuals.SPECIFIC_BOSS_IDLE_ANIM_BOOL,true);
     }
 
     #region Getters

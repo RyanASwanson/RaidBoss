@@ -24,7 +24,8 @@ public class BossVisuals : BossChildrenFunctionality
     private Animator _bossSpecificAnimator;
 
     private const string SPECIFIC_BOSS_LEVEL_INTRO_ANIM_TRIGGER = "G_BossIntro";
-    private const string SPECIFIC_BOSS_IDLE_ANIM_BOOL = "G_BossIdle";
+    public const string BOSS_SPECIFIC_SELECTED_ANIM_TRIGGER = "G_BossSelected";
+    public const string SPECIFIC_BOSS_IDLE_ANIM_BOOL = "G_BossIdle";
     private const string BOSS_STAGGER_ANIM_TRIGGER = "G_BossStagger";
     private const string BOSS_DEATH_ANIM_TRIGGER = "G_BossDeath";
 

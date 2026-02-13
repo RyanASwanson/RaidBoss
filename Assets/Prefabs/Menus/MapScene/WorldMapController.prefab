@@ -1149,7 +1149,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 1.85, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7073218130161574087
@@ -1226,6 +1226,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9de85d1209140ca489d71dedc3889c4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hasDefaultText: 0
+  _defaultText: 
   _text: {fileID: 2711821327163107586}
   _backgroundText: {fileID: 3765167002264587565}
 --- !u!1 &2179198044007120995
@@ -2591,7 +2593,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _curveName: Contents
-  _curveIncreaseTime: 0.5
+  _curveIncreaseTime: 0.4
   _curveDecreaseTime: 0.2
   _minCurveValue: 0
   _maxCurveValue: 4.347826
@@ -2904,6 +2906,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mission: {fileID: 1997563194935706778, guid: b37ced658fd2f2442a8a1f04f160eba0, type: 3}
   _missionHolder: {fileID: 5294471709216641407}
+  _victoryStandard: {fileID: 84773752785426710, guid: 5fb6cd399bf6d764e99499c278cab8a9, type: 3}
   _missionCreationXDefault: 2
   _missionCreationXIncrease: 3.25
   _missionCreationYValue: 1.625
@@ -5535,7 +5538,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 11, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8984581339144546950

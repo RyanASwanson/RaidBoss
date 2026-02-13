@@ -10,7 +10,7 @@ public class SelectableMission : MonoBehaviour
 
     [Space] 
     [SerializeField] private float _timeBetweenCharacterSpawns;
-    private WaitForSeconds _waitTimeBetweenCharacterSpawns;
+    private static WaitForSeconds _waitTimeBetweenCharacterSpawns;
     private Coroutine _characterSpawnCoroutine;
 
     [Space] 
@@ -22,8 +22,11 @@ public class SelectableMission : MonoBehaviour
     [Space]
     [SerializeField] private Material _lockedMissionMaterial;
 
+    [Space]
+    [SerializeField] private Transform _missionSpecificStandardParent;
+
     [Space] 
-    [SerializeField] private MeshRenderer _missionSelectCenter;
+    [SerializeField] private GameObject _missionSelectCenter;
     
     [Space]
     [SerializeField] private CharacterPreviewLocation _bossPreviewHolder;
@@ -36,8 +39,13 @@ public class SelectableMission : MonoBehaviour
         UnlockMissionBasedOnSave();
 
         PerformMissionVisualsSetUp();
-        
-        _waitTimeBetweenCharacterSpawns = new WaitForSeconds(_timeBetweenCharacterSpawns);
+
+        ChangeStandard();
+
+        if (_waitTimeBetweenCharacterSpawns.IsUnityNull())
+        {
+            _waitTimeBetweenCharacterSpawns = new WaitForSeconds(_timeBetweenCharacterSpawns);
+        }
     }
 
     private void PerformMissionVisualsSetUp()
@@ -72,7 +80,27 @@ public class SelectableMission : MonoBehaviour
         _selectButton.interactable = interactable;
         
         _missionSelectCenter.gameObject.SetActive(interactable);
-        //gameObject.SetActive(interactable);
+    }
+
+    private void ChangeStandard()
+    {
+        //TEMP CODE
+        CreateBanner(_associatedMission.GetAssociatedLevel().GetLevelBoss().GetBossStandard());
+        return;
+        
+        if (SaveManager.Instance.IsMissionCompleted(_associatedMission))
+        {
+            CreateBanner(MapController.Instance.GetVictoryStandard());
+        }
+        else
+        {
+            CreateBanner(_associatedMission.GetAssociatedLevel().GetLevelBoss().GetBossStandard());
+        }
+    }
+
+    private void CreateBanner(GameObject banner)
+    {
+        Instantiate(banner, _missionSpecificStandardParent);
     }
 
     public void InformControllerOfSelection()
@@ -117,13 +145,15 @@ public class SelectableMission : MonoBehaviour
 
     private IEnumerator ShowAllPreviewsProcess()
     {
-        _bossPreviewHolder.PreviewCharacter(SelectionManager.Instance.GetSelectedBoss());
+        _bossPreviewHolder.PreviewCharacterAndPerformAnimations(SelectionManager.Instance.GetSelectedBoss(),true,true);
+        
         yield return _waitTimeBetweenCharacterSpawns;
         
         List<HeroSO> heroes = SelectionManager.Instance.GetAllSelectedHeroes();
         for (int i = 0; i < heroes.Count; i++)
         {
-            _heroPreviewHolders[i].PreviewCharacter(heroes[i]);
+            _heroPreviewHolders[i].PreviewCharacterAndPerformAnimations(heroes[i],true,true);
+            
             yield return _waitTimeBetweenCharacterSpawns;
         }
     }
@@ -138,6 +168,7 @@ public class SelectableMission : MonoBehaviour
             _heroPreviewHolders[i].RemoveCharacterPreview();
         }
     }
+    
     #endregion
     
     #region Getters

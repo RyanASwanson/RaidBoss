@@ -12,6 +12,9 @@ public class MapController : MonoBehaviour
     [Header("Missions")]
     [SerializeField] private GameObject _mission;
     [SerializeField] private GameObject _missionHolder;
+    
+    [Space] 
+    [SerializeField] private GameObject _victoryStandard;
 
     [Space] 
     [SerializeField] private float _missionCreationXDefault;
@@ -461,6 +464,8 @@ public class MapController : MonoBehaviour
     }
     
     #region Getters
+
+    public GameObject GetVictoryStandard() => _victoryStandard;
 
     public SelectableMission GetSelectedMission() => _currentlySelectedMission;
 

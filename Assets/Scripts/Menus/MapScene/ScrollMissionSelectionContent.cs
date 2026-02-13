@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ScrollMissionContent : ScrollUIContents
+public class ScrollMissionSelectionContent : ScrollUIContents
 {
     [Space]
     [SerializeField] private TextWithBackground _titleText;
@@ -35,8 +35,6 @@ public class ScrollMissionContent : ScrollUIContents
         {
             _heroIcons[heroIteration].SetAssociatedHero(selectedHeroes[heroIteration]);
             _heroIcons[heroIteration].SetButtonInteractability(true);
-            //_heroIcons[heroIteration].enabled = true;
-            //_heroIcons[heroIteration].sprite = selectedHeroes[heroIteration].GetHeroIcon();
         }
 
         for (; heroIteration < _heroIcons.Length; heroIteration++)

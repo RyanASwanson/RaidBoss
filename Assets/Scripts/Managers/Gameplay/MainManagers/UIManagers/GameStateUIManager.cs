@@ -37,7 +37,7 @@ public class GameStateUIManager : GameUIChildrenFunctionality
         yield return new WaitForSeconds(_loseUIDelay);
         _loseUI.SetActive(true);
     }
-
+    
     #region BaseManager
     /// <summary>
     /// Establishes the Instance for the Game State UI Manager

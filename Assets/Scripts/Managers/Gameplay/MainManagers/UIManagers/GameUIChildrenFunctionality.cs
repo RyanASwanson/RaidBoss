@@ -22,10 +22,13 @@ public abstract class GameUIChildrenFunctionality : MonoBehaviour
     {
         
     }
-    
+
     /// <summary>
     /// Subscribes to any events
     /// </summary>
-    protected abstract void SubscribeToEvents();
+    protected virtual void SubscribeToEvents()
+    {
+        
+    }
 
 }
