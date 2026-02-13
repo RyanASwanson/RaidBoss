@@ -20,6 +20,8 @@ public class SBA_Thunderbolt : SpecificBossAbilityFramework
     [SerializeField] private GameObject _damageZone;
     
     private List<SBP_Thunderbolt> _currentThunderbolts = new List<SBP_Thunderbolt>();
+    
+    public const int THUNDERBOLT_ACTIVATION_AUDIO_ID = 0;
 
     private IEnumerator ThunderBoltTargetZoneCreationProcess()
     {
@@ -39,6 +41,12 @@ public class SBA_Thunderbolt : SpecificBossAbilityFramework
             {
                 lastAttackLocation = _storedTarget.transform.position;
                 timeSinceLastAttack = 0;
+
+                if (_currentTargetZones.Count != 0)
+                {
+                    PlayTargetZoneSpawnedAudio();
+                }
+                
                 CreateTargetZone();
                 if (_currentTargetZones.Count >= _maxAttacks)
                 {

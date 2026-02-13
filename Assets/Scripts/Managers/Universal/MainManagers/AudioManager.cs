@@ -83,6 +83,9 @@ public class AudioManager : MainUniversalManagerFramework
     private Coroutine _musicChangeCoroutine;
     private Coroutine _musicVolumeChangeCoroutine;
     private SpecificAudio _currentMusic;
+
+    private EventInstance _currentBossBackgroundInstance;
+    private SpecificAudio _currentBossBackgroundAudio;
     
     private Dictionary<EventInstance, Coroutine> _changeInstanceVolumeDictionary = new Dictionary<EventInstance, Coroutine>();
     
@@ -454,6 +457,28 @@ public class AudioManager : MainUniversalManagerFramework
     
     #endregion
     
+    #region BackgroundAudio
+
+    public void PlayBossBackgroundAudio()
+    {
+        _currentBossBackgroundAudio =
+            AllSpecificBossAudio[BossBase.Instance.GetBossSO().GetBossID()].BossAmbience;
+        
+        PlaySpecificAudio(_currentBossBackgroundAudio, out EventInstance eventInstance);
+        _currentBossBackgroundInstance = eventInstance;
+    }
+
+    private void StopBossBackgroundAudio()
+    {
+        if (_currentBossBackgroundInstance.IsUnityNull() || !_currentBossBackgroundInstance.isValid())
+        {
+            return;
+        }
+
+        StartFadeOutStopInstance(_currentBossBackgroundInstance, _currentBossBackgroundAudio);
+    }
+    #endregion
+    
     #region Pausing
 
     public void PausePausableAudio()
@@ -559,6 +584,8 @@ public class AudioManager : MainUniversalManagerFramework
         
         SceneLoadManager.Instance.GetOnStartOfSceneLoad().AddListener(FadeOutPausableAudio);
         SceneLoadManager.Instance.GetOnEndOfSceneLoad().AddListener(FadeInPausableAudio);
+        
+        SceneLoadManager.Instance.GetOnStartOfSceneLoad().AddListener(StopBossBackgroundAudio);
     }
 
     #endregion

@@ -60,12 +60,14 @@ public class ScrollUISelection : MonoBehaviour
         _middleScrollStartingScale = _scrollMiddle.localScale;
 
         SubscribeToEvents();
+        
+        _scrollUIContents.SetUpContents(this);
     }
 
     public void ShowNewScroll(float unscrollSize)
     {
         _targetScrollSize = unscrollSize;
-
+        
         if (_appearingCurve.CurveStatus == ECurveStatus.AtMinValue ||
             _appearingCurve.CurveStatus == ECurveStatus.Decreasing)
         {
@@ -208,8 +210,10 @@ public class ScrollUISelection : MonoBehaviour
 
     private void SetContentsScale(float scale)
     {
-        //_contents.position = _scrollMiddle.position;
-        _contents.position = new Vector3(_contents.position.x,_scrollMiddle.position.y,_contents.position.z);
+        _contents.position = _scrollMiddle.position;
+        //Previously this line was used so the contents game object could be adjusted on the x
+        //_contents.position = new Vector3(_contents.position.x,_scrollMiddle.position.y,_contents.position.z);
+        //_contents.position = new Vector3(_scrollMiddle.position.x,_scrollMiddle.position.y,_contents.position.z);
         _contents.transform.localScale = new Vector3(scale, scale, scale);   
     }
     #endregion

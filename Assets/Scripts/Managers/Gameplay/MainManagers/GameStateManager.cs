@@ -141,7 +141,13 @@ public class GameStateManager : MainGameplayManagerFramework
     {
         base.SetUpMainManager();
         InvokeStartOfCharacterSpawningEvent();
-        if (!SelectionManager.Instance.IsPlayingMissionsMode())
+
+        if (SelectionManager.Instance.GetSelectedMissionOut(out MissionSO mission) &&
+            mission.GetTutorialPages().Length > 0)
+        {
+            
+        }
+        else
         {
             StartProgressToStart();
         }

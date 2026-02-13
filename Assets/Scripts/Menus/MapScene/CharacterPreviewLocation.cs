@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -8,13 +9,29 @@ public class CharacterPreviewLocation : MonoBehaviour
 {
     [SerializeField] private CurveProgression _scaleProgression;
     
+    private CharacterSO _currentCharacterSO;
     private GameObject _currentCharacterPreview;
 
     private Animator _characterAnimator;
 
     private bool _hasCreatedCharacterPreview;
 
+    public void PreviewCharacterAndPerformAnimations(CharacterSO characterSO, bool doesSelectedAnim, bool doesIdleAnim)
+    {
+        PreviewCharacter(characterSO);
+        
+        if (doesSelectedAnim)
+        {
+            PerformCharacterSelectedAnimation();
+        }
 
+        if (doesIdleAnim)
+        {
+            PerformCharacterIdleAnimation();
+        }
+        
+    }
+    
     public void PreviewCharacter(CharacterSO characterSO)
     {
         //If there is a hero on the pillar remove them
@@ -23,6 +40,7 @@ public class CharacterPreviewLocation : MonoBehaviour
             RemoveCharacterPreview();
         }
 
+        _currentCharacterSO = characterSO;
         if (characterSO is BossSO bossSO)
         {
             PreviewBoss(bossSO);
@@ -44,7 +62,6 @@ public class CharacterPreviewLocation : MonoBehaviour
             _currentCharacterPreview = Instantiate(bossSO.GetBossPrefab(), transform);
         }
         
-        
         _characterAnimator = _currentCharacterPreview.GetComponentInChildren<Animator>();
     }
     
@@ -58,32 +75,52 @@ public class CharacterPreviewLocation : MonoBehaviour
         
         _characterAnimator = _currentCharacterPreview.GetComponent<Animator>();
         
-        /*
-        //Rotates the hero
-        _currentHeroVisual.transform.eulerAngles += new Vector3(0,180,0);
-        //Sets the stored hero
-        _storedHero = heroSO;
+    }
 
-        if (_heroSelectedOnPillar == heroSO || heroAlreadySelectedOverride)
+    public void PerformCharacterSelectedAnimation()
+    {
+        if (_characterAnimator.IsUnityNull())
         {
-            SetHeroPreviewAnimation(true);
-            PlayHeroIdleAnimation();
-        }
-        else
-        {
-            SetHeroPreviewAnimation(!newHero);
-        }
-
-        if (!newHero)
-        {
-            HeroSelectedOnPillar();
             return;
         }
-
-        PlayHeroHoverAnimation();
-        _heroSpawnAnimator.ResetTrigger(REMOVE_HERO_ON_PILLAR_ANIM_TRIGGER);*/
+        
+        if (_currentCharacterSO is BossSO)
+        {
+            _characterAnimator.SetTrigger(BossVisuals.BOSS_SPECIFIC_SELECTED_ANIM_TRIGGER);
+        }
+        else if(_currentCharacterSO is HeroSO)
+        {
+            _characterAnimator.SetTrigger(HeroVisuals.HERO_SPECIFIC_SELECTED_ANIM_TRIGGER);
+        }
+        
     }
     
+    public void PerformCharacterIdleAnimation()
+    {
+        if (_characterAnimator.IsUnityNull())
+        {
+            return;
+        }
+        
+        if (_currentCharacterSO is BossSO)
+        {
+            _characterAnimator.SetBool(BossVisuals.SPECIFIC_BOSS_IDLE_ANIM_BOOL,true);
+        }
+        else if(_currentCharacterSO is HeroSO)
+        {
+            _characterAnimator.SetBool(HeroVisuals.HERO_IDLE_ANIM_BOOL,true);
+        }
+        
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            PerformCharacterSelectedAnimation();
+        }
+    }
+
     public void RemoveCharacterPreview()
     {
         _scaleProgression.StartMovingDownOnCurve();

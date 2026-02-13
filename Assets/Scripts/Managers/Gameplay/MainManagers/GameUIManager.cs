@@ -14,10 +14,7 @@ public class GameUIManager : MainGameplayManagerFramework
     private GameUIChildrenFunctionality[] _childrenUIFunctionality;
 
     [SerializeField] private List<HeroUIManager> _heroUIManagers;
-
-    [Space] 
-    [SerializeField] private MissionTutorialVisuals _missionTutorialVisuals;
-
+    
     private int _heroUIManagersAssigned = 0;
 
     /// <summary>
@@ -44,13 +41,6 @@ public class GameUIManager : MainGameplayManagerFramework
         }
     }
     
-    #region Tutorial
-
-    private void CreateMissionTutorial()
-    {
-        _missionTutorialVisuals.SetUpMissionTutorials();
-    }
-    #endregion
 
     #region BaseManager
     /// <summary>
@@ -63,7 +53,6 @@ public class GameUIManager : MainGameplayManagerFramework
         _childrenUIFunctionality = GetComponentsInChildren<GameUIChildrenFunctionality>();
         
         SetUpChildrenUIInstances();
-        CreateMissionTutorial();
     }
 
     /// <summary>

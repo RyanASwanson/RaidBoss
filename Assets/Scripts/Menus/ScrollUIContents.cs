@@ -9,6 +9,14 @@ public class ScrollUIContents : MonoBehaviour
     
     internal int TotalLines;
     internal float LineLength;
+
+    protected ScrollUISelection _associatedScrollUISelection;
+
+    public virtual void SetUpContents(ScrollUISelection selection)
+    {
+        _associatedScrollUISelection = selection;
+    }
+    
     public virtual int UpdateContentsAndCountLines()
     {
         return TotalLines;

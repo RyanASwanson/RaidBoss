@@ -489,11 +489,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2930577082210676883, guid: b30be74494dc02f429e331376638e4ad, type: 3}
   m_PrefabInstance: {fileID: 497493319253816297}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &3375679574174025095 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2900213954362979950, guid: b30be74494dc02f429e331376638e4ad, type: 3}
-  m_PrefabInstance: {fileID: 497493319253816297}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &3400874290642661498 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3014358061604357011, guid: b30be74494dc02f429e331376638e4ad, type: 3}
@@ -843,6 +838,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &7927083884972268248 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7558688628277127473, guid: b30be74494dc02f429e331376638e4ad, type: 3}
+  m_PrefabInstance: {fileID: 497493319253816297}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &7998445426455190217 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7631169477974255904, guid: b30be74494dc02f429e331376638e4ad, type: 3}
@@ -1062,6 +1062,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3783645661561410873}
     m_Modifications:
+    - target: {fileID: 8047004674052233, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
+      propertyPath: _missionTutorialUIObjectParent
+      value: 
+      objectReference: {fileID: 7927083884972268248}
     - target: {fileID: 233360647747506127, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
       propertyPath: _virtualCamera
       value: 
@@ -1413,7 +1417,7 @@ PrefabInstance:
     - target: {fileID: 6852689720151987571, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
       propertyPath: _tutorialHolder
       value: 
-      objectReference: {fileID: 3375679574174025095}
+      objectReference: {fileID: 0}
     - target: {fileID: 6852689720151987571, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
       propertyPath: _missionTutorialVisuals
       value: 

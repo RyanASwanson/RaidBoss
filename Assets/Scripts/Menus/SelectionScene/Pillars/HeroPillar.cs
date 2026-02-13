@@ -20,8 +20,6 @@ public class HeroPillar : MonoBehaviour
     private HeroSO _heroSelectedOnPillar;
     private HeroSO _storedHero;
     
-    private const string HERO_SPECIFIC_SELECTED_ANIM_TRIGGER = "G_HeroSelected";
-    
     [Space]
     [SerializeField] private Animator _pillarAnimator;
 
@@ -33,8 +31,7 @@ public class HeroPillar : MonoBehaviour
 
     private Animator _heroSpecificAnimator;
     
-    private const string HERO_SELECTED_ANIM_BOOL = "HeroSelected";
-    private const string HERO_IDLE_ANIM_BOOL = "G_HeroIdle";
+    private const string HERO_PILLAR_SELECTED_ANIM_BOOL = "HeroSelected";
 
     private void Start()
     {
@@ -131,17 +128,19 @@ public class HeroPillar : MonoBehaviour
     
     public void SetHeroPreviewAnimation(bool isHeroSelected)
     {
-        _heroSpawnAnimator.SetBool(HERO_SELECTED_ANIM_BOOL,isHeroSelected);
+        _heroSpawnAnimator.SetBool(HERO_PILLAR_SELECTED_ANIM_BOOL,isHeroSelected);
     }
     
     public void StartHeroSelectedAnimation()
     {
-        _heroSpecificAnimator.SetTrigger(HERO_SPECIFIC_SELECTED_ANIM_TRIGGER);
+        //_heroSpecificAnimator.SetTrigger(HERO_SPECIFIC_SELECTED_ANIM_TRIGGER);
+        _heroSpecificAnimator.SetTrigger(HeroVisuals.HERO_SPECIFIC_SELECTED_ANIM_TRIGGER);
     }
     
     public void PlayHeroIdleAnimation()
     {
-        _heroSpecificAnimator.SetBool(HERO_IDLE_ANIM_BOOL,true);
+        //_heroSpecificAnimator.SetBool(HERO_IDLE_ANIM_BOOL,true);
+        _heroSpecificAnimator.SetBool(HeroVisuals.HERO_IDLE_ANIM_BOOL,true);
     }
 
     #region PreviewPillar

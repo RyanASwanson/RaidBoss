@@ -30,6 +30,8 @@ public class SBA_ImpendingStorm : SpecificBossAbilityFramework
     
     private Coroutine _rotationCoroutine;
     private Coroutine _attackCoroutine;
+    
+    public const int IMPENDING_STORM_ATTACK_AUDIO_ID = 0;
 
     public GameObject BattleStart()
     {
@@ -159,6 +161,15 @@ public class SBA_ImpendingStorm : SpecificBossAbilityFramework
         {
             impendingStorm.SetUpProjectile(_myBossBase, _abilityID);
         }
+        
+        PlayAttackAudio();
+    }
+
+    private void PlayAttackAudio()
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
+                BossAbilityAudio[_abilityID].GeneralAbilityAudio[SBA_ImpendingStorm.IMPENDING_STORM_ATTACK_AUDIO_ID]);
     }
 
     private void BossDamaged(float damage)

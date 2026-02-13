@@ -21,6 +21,8 @@ public class GeneralRotation : MonoBehaviour
 
     [Space] 
     [Header("Rotate with curve and target")]
+    [SerializeField] private bool _hasStartRotationOverride;
+    [SerializeField] private Vector3 _startRotationOverride;
     [SerializeField] private Vector3 _targetLocalEulerAngles;
     [SerializeField] private CurveProgression _curveProgression;
     private Vector3 _startLocalEulerAngles;
@@ -28,7 +30,16 @@ public class GeneralRotation : MonoBehaviour
     void OnEnable()
     {
         SubscribeToEvents();
-        _startLocalEulerAngles = transform.localEulerAngles;
+
+        if (_hasStartRotationOverride)
+        {
+            _startLocalEulerAngles = _startRotationOverride;
+        }
+        else
+        {
+            _startLocalEulerAngles = transform.localEulerAngles;
+        }
+        
         if (_doesBeginRotationOnEnable)
         {
             BeginRotation();

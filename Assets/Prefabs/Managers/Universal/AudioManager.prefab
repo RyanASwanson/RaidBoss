@@ -173,7 +173,7 @@ MonoBehaviour:
         DefaultAudioChoice: 0
         AudioTracks: []
       AbilityStart:
-        AudioName: 
+        AudioName: LavaBlast
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
         DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
@@ -255,6 +255,14 @@ MonoBehaviour:
             Data3: 437322369
             Data4: -952020448
           Path: event:/SoundEffect/Bosses/Specific/MagmaLord/Abilities/Volcano/Volcano1
+    BossAmbience:
+      AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+      DefaultPlayType: 0
+      DefaultAudioChoice: 0
+      AudioTracks: []
     BossDeathAudio:
       AudioName: 
       DefaultInstanceFadeInTime: 0
@@ -416,6 +424,14 @@ MonoBehaviour:
             Data4: 395443640
           Path: event:/SoundEffect/Bosses/Specific/TerraLord/Abilities/EncirclingVines/TerraLordEncirclingVines
       GeneralAbilityAudio: []
+    BossAmbience:
+      AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+      DefaultPlayType: 0
+      DefaultAudioChoice: 0
+      AudioTracks: []
     BossDeathAudio:
       AudioName: 
       DefaultInstanceFadeInTime: 0
@@ -609,6 +625,14 @@ MonoBehaviour:
         DefaultPlayType: 0
         DefaultAudioChoice: 0
         AudioTracks: []
+    BossAmbience:
+      AudioName: 
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+      DefaultPlayType: 0
+      DefaultAudioChoice: 0
+      AudioTracks: []
     BossDeathAudio:
       AudioName: GlacialLordDeath
       DefaultInstanceFadeInTime: 0
@@ -634,13 +658,13 @@ MonoBehaviour:
       DefaultAudioChoice: 0
       AudioTracks:
       - Guid:
-          Data1: 0
-          Data2: 0
-          Data3: 0
-          Data4: 0
-        Path: 
+          Data1: -1363530573
+          Data2: 1116071005
+          Data3: 1785673656
+          Data4: -1112083907
+        Path: event:/SoundEffect/Bosses/Specific/ThunderLord/Abilities/Thunderbolt/ThunderLordThunderbolt
     BossAbilityAudio:
-    - AbilityName: Ability1
+    - AbilityName: Thunderbolt
       AbilityPrep:
         AudioName: 
         DefaultInstanceFadeInTime: 0
@@ -658,7 +682,7 @@ MonoBehaviour:
         DefaultAudioChoice: 0
         AudioTracks: []
       GeneralAbilityAudio:
-      - AudioName: AvalancheEnd
+      - AudioName: ThunderboltActivation
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
         DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
@@ -666,43 +690,49 @@ MonoBehaviour:
         DefaultAudioChoice: 0
         AudioTracks:
         - Guid:
-            Data1: 1147553792
-            Data2: 1317690109
-            Data3: 1551506360
-            Data4: -1183196043
-          Path: event:/SoundEffect/Bosses/Specific/GlacialLord/Abilities/Avalanche/GlacialLordAvalancheEnd
-    - AbilityName: Ability2
+            Data1: -1363530573
+            Data2: 1116071005
+            Data3: 1785673656
+            Data4: -1112083907
+          Path: event:/SoundEffect/Bosses/Specific/ThunderLord/Abilities/Thunderbolt/ThunderLordThunderbolt
+    - AbilityName: StaticCharge
       AbilityPrep:
-        AudioName: 
+        AudioName: StaticCharge
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
         DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
         DefaultPlayType: 0
         DefaultAudioChoice: 0
-        AudioTracks: []
+        AudioTracks:
+        - Guid:
+            Data1: 1019476985
+            Data2: 1261553801
+            Data3: 413196713
+            Data4: 1388448461
+          Path: event:/SoundEffect/Bosses/Specific/ThunderLord/Abilities/StaticCharge/ThunderLordStaticCharge
       AbilityStart:
         AudioName: 
-        DefaultInstanceFadeInTime: 0
-        DefaultInstanceFadeOutTime: 0
-        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
-        DefaultPlayType: 0
-        DefaultAudioChoice: 0
-        AudioTracks: []
-      GeneralAbilityAudio:
-      - AudioName: FrostbiteImpact
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
         DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
         DefaultPlayType: 1
         DefaultAudioChoice: 0
+        AudioTracks: []
+      GeneralAbilityAudio:
+      - AudioName: StaticChargeAttackHit
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
         AudioTracks:
         - Guid:
-            Data1: 1562464140
-            Data2: 1266068515
-            Data3: 1576794780
-            Data4: 531507209
-          Path: event:/SoundEffect/Bosses/Specific/GlacialLord/Abilities/Frostbite/GlacialLordFrostBiteImpact
-    - AbilityName: Ability3
+            Data1: -586800513
+            Data2: 1242921837
+            Data3: -221529700
+            Data4: 1083843066
+          Path: event:/SoundEffect/Bosses/Specific/ThunderLord/Abilities/StaticCharge/ThunderLordStaticChargeAttackHit
+    - AbilityName: Thunderclap
       AbilityPrep:
         AudioName: 
         DefaultInstanceFadeInTime: 0
@@ -712,13 +742,19 @@ MonoBehaviour:
         DefaultAudioChoice: 0
         AudioTracks: []
       AbilityStart:
-        AudioName: 
+        AudioName: Thunderclap
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
         DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
         DefaultPlayType: 0
         DefaultAudioChoice: 0
-        AudioTracks: []
+        AudioTracks:
+        - Guid:
+            Data1: -442606594
+            Data2: 1073978133
+            Data3: 2090665127
+            Data4: -318463521
+          Path: event:/SoundEffect/Bosses/Specific/ThunderLord/Abilities/Thunderclap/ThunderLordThunderclap
       GeneralAbilityAudio:
       - AudioName: IcicleRainImpact
         DefaultInstanceFadeInTime: 0
@@ -733,31 +769,31 @@ MonoBehaviour:
             Data3: -1154776157
             Data4: -391687094
           Path: event:/SoundEffect/Bosses/Specific/GlacialLord/Abilities/IcicleRain/GlacialLordIcicleRainImpact
-    - AbilityName: Ability4
+    - AbilityName: Overcharge
       AbilityPrep:
-        AudioName: Blizzard
+        AudioName: 
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
         DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
-        DefaultPlayType: 0
+        DefaultPlayType: 1
         DefaultAudioChoice: 0
         AudioTracks:
         - Guid:
-            Data1: 120834238
-            Data2: 1121841214
-            Data3: -1759271489
-            Data4: 152789143
-          Path: event:/SoundEffect/Bosses/Specific/GlacialLord/Abilities/Blizzard/GlacialLordBlizzard
+            Data1: 311079646
+            Data2: 1128440064
+            Data3: -1779581
+            Data4: -804043991
+          Path: event:/SoundEffect/Bosses/Specific/ThunderLord/Abilities/Overcharge/ThunderLordOvercharge
       AbilityStart:
         AudioName: 
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
         DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
-        DefaultPlayType: 0
+        DefaultPlayType: 1
         DefaultAudioChoice: 0
         AudioTracks: []
       GeneralAbilityAudio: []
-    - AbilityName: Ability5
+    - AbilityName: ImpendingStorm
       AbilityPrep:
         AudioName: 
         DefaultInstanceFadeInTime: 0
@@ -775,41 +811,47 @@ MonoBehaviour:
         DefaultAudioChoice: 0
         AudioTracks: []
       GeneralAbilityAudio:
-      - AudioName: FrostFiendFrozen
+      - AudioName: 
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
         DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
         DefaultPlayType: 0
-        DefaultAudioChoice: 0
+        DefaultAudioChoice: 1
         AudioTracks:
         - Guid:
-            Data1: -2110969223
-            Data2: 1324381196
-            Data3: 778295958
-            Data4: -1347071492
-          Path: event:/SoundEffect/Bosses/Specific/GlacialLord/Abilities/FrostFiends/FrostFriendFrozen
-      - AudioName: FrostFiendFreezeCracked
-        DefaultInstanceFadeInTime: 0
-        DefaultInstanceFadeOutTime: 0
-        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
-        DefaultPlayType: 0
-        DefaultAudioChoice: 0
-        AudioTracks:
+            Data1: -1949135384
+            Data2: 1297142234
+            Data3: -64034380
+            Data4: -1020005259
+          Path: event:/SoundEffect/Bosses/Specific/ThunderLord/Abilities/ImpendingStorm/ThunderLordImpendingStormAttack1
         - Guid:
-            Data1: 286344570
-            Data2: 1145233931
-            Data3: -2080586576
-            Data4: 958039007
-          Path: event:/SoundEffect/Bosses/Specific/GlacialLord/Abilities/FrostFiends/FrostFiendFrozenCracked
-      - AudioName: FrostFiendUnfrozen
-        DefaultInstanceFadeInTime: 0
-        DefaultInstanceFadeOutTime: 0
-        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
-        DefaultPlayType: 0
-        DefaultAudioChoice: 0
-        AudioTracks: []
+            Data1: -1405329700
+            Data2: 1331166085
+            Data3: 1540112830
+            Data4: -383119157
+          Path: event:/SoundEffect/Bosses/Specific/ThunderLord/Abilities/ImpendingStorm/ThunderLordImpendingStormAttack2
+        - Guid:
+            Data1: -1850533541
+            Data2: 1212186599
+            Data3: -403281508
+            Data4: 2145027524
+          Path: event:/SoundEffect/Bosses/Specific/ThunderLord/Abilities/ImpendingStorm/ThunderLordImpendingStormAttack3
+    BossAmbience:
+      AudioName: ThunderLordAmbience
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+      DefaultPlayType: 1
+      DefaultAudioChoice: 0
+      AudioTracks:
+      - Guid:
+          Data1: 327012091
+          Data2: 1205306152
+          Data3: -149384782
+          Data4: 1622480293
+        Path: event:/SoundEffect/Bosses/Specific/ThunderLord/Ambiance/ThunderLordAmbience
     BossDeathAudio:
-      AudioName: GlacialLordDeath
+      AudioName: LightningLordDeath
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
       DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
@@ -817,11 +859,11 @@ MonoBehaviour:
       DefaultAudioChoice: 0
       AudioTracks:
       - Guid:
-          Data1: -2010039722
-          Data2: 1326281992
-          Data3: -1767041863
-          Data4: -1424051282
-        Path: event:/SoundEffect/Bosses/Specific/GlacialLord/Death/GlacialLordDeath
+          Data1: 631850944
+          Data2: 1337766433
+          Data3: -1597217908
+          Data4: -2100746564
+        Path: event:/SoundEffect/Bosses/Specific/ThunderLord/Death/ThunderLordDeath
     MiscellaneousBossAudio: []
   GeneralHeroAudio:
     HealthAudio:
@@ -1704,7 +1746,7 @@ MonoBehaviour:
         Data2: 1188430325
         Data3: -255086407
         Data4: 1308351786
-      Path: event:/Music/GeneralMusic/MainMenu/TempMainMenuMusic
+      Path: event:/Music/GeneralMusic/MainMenu/MainMenuMusic
   - AudioName: SelectionScene
     DefaultInstanceFadeInTime: 2
     DefaultInstanceFadeOutTime: 2
@@ -1717,7 +1759,7 @@ MonoBehaviour:
         Data2: 1081772072
         Data3: 1284008608
         Data4: -1888883267
-      Path: event:/Music/GeneralMusic/SelectionScene/TempSelectionSceneMusic
+      Path: event:/Music/GeneralMusic/SelectionScene/SelectionSceneMusic
   - AudioName: BasicBoss
     DefaultInstanceFadeInTime: 2
     DefaultInstanceFadeOutTime: 1
@@ -1730,4 +1772,4 @@ MonoBehaviour:
         Data2: 1237879241
         Data3: -1616860529
         Data4: -763068705
-      Path: event:/Music/BossMusic/TempBossMusic
+      Path: event:/Music/BossMusic/BossMusic

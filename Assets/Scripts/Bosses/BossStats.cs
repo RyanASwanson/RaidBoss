@@ -152,9 +152,6 @@ public class BossStats : BossChildrenFunctionality
     {
         _isBossDead = true;
         
-        AudioManager.Instance.PlaySpecificAudio(
-            AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].BossDeathAudio);
-        
         GameStateManager.Instance.SetGameplayState(EGameplayStates.PostBattleWon);
     }
 

@@ -43,7 +43,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.95, y: 1, z: 6.6}
+  m_Size: {x: 1, y: 1, z: 6.6}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5144331112689753758
 GameObject:
@@ -97,8 +97,8 @@ MonoBehaviour:
   _lifetime: 2
   _hasColliderActivationDelay: 1
   _colliderActivationDelay: 0.15
-  _hasColliderLifetime: 0
-  _colliderLifetime: 0
+  _hasColliderLifetime: 1
+  _colliderLifetime: 1
   _doesHitCenteredVFXCopyRotation: 0
   _hitCenteredVFXCopyTarget: {fileID: 0}
   _hitCenteredVFX: {fileID: 0}
@@ -109,12 +109,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   _canPreventReHitWithoutInitialDamage: 0
-  _preventReHitDuration: 2
-  _enterDamage: 5
+  _preventReHitDuration: 3
+  _enterDamage: 0
   _enterEvent:
     m_PersistentCalls:
       m_Calls: []
-  _stayDamagePerTick: 0
+  _stayDamagePerTick: 5
   _stayEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -139,7 +139,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 62
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!1 &5144331113989341675
 GameObject:
@@ -315,7 +315,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.95, y: 1, z: 6.6}
+  m_Size: {x: 1, y: 1, z: 6.6}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6071356270660476145
 GameObject:

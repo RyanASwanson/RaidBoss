@@ -52,6 +52,8 @@ public class SBP_StaticCharge : BossProjectileFramework
         _currentTarget = heroTarget;
         _doesDealDamageOnMovingIn = true;
 
+        PlayAttackHitAudio();
+
         _damageArea.ToggleProjectileCollider(false);
 
         StartMoveIntoHero();
@@ -121,6 +123,13 @@ public class SBP_StaticCharge : BossProjectileFramework
         //StartMoveIntoHero();
         _removalCurve.StartMovingUpOnCurve();
         _isDurationOver = true;
+    }
+
+    private void PlayAttackHitAudio()
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
+                BossAbilityAudio[_abilityID].GeneralAbilityAudio[SBA_StaticCharge.STATIC_CHARGE_ATTACK_HIT_AUDIO_ID]);
     }
 
     private void SubscribeToEvents()
