@@ -383,11 +383,16 @@ public class HeroUIManager : GameUIChildrenFunctionality
 
     private void CreateDamageHealingNumber(float damageHealing, GameObject number, RectTransform spawnOrigin)
     {
+        if (damageHealing <= 0)
+        {
+            return;
+        }
+        
         GameObject newNumber = Instantiate(number, spawnOrigin);
 
         damageHealing = Mathf.RoundToInt(damageHealing);
         //Makes sure the value shown isn't less than 1
-        if (damageHealing <= 0)
+        if (damageHealing < 1)
         {
             damageHealing = 1;
         }

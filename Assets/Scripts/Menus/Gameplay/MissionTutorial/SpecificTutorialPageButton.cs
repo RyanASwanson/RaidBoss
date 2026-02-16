@@ -36,7 +36,6 @@ public class SpecificTutorialPageButton : MonoBehaviour
     private void ButtonPressed()
     {
         _missionTutorialVisuals.PageButtonPressed(_associatedPageID);
-        ToggleButton(false);
     }
 
     public void ButtonNoLongerPressed()

@@ -84,10 +84,6 @@ public class SelectableMission : MonoBehaviour
 
     private void ChangeStandard()
     {
-        //TEMP CODE
-        CreateBanner(_associatedMission.GetAssociatedLevel().GetLevelBoss().GetBossStandard());
-        return;
-        
         if (SaveManager.Instance.IsMissionCompleted(_associatedMission))
         {
             CreateBanner(MapController.Instance.GetVictoryStandard());

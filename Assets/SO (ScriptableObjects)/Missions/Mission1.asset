@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 693bc80e562020641a7353805d099d2c, type: 3}
+  m_Name: Mission1
+  m_EditorClassIdentifier: 
+  _missionID: 0
+  _missionName: 'Calm Before
+
+    The Storm'
+  _associatedDifficulty: 1
+  _associatedLevel: {fileID: 11400000, guid: 763a87e823e4c5d4d8c9e44aa8aa4a02, type: 2}
+  _associatedHeroes:
+  - {fileID: 11400000, guid: fa900cf8282b2814fb9eb1a8cc860cd0, type: 2}
+  _tutorialPages:
+  - TutorialPageTitle: Getting Started
+    TutorialPageTitleWidth: 950
+    TutorialPageObject: {fileID: 56602214658788877, guid: c7e140a9258e9ca4ba2ead9c1b039a83, type: 3}
+  - TutorialPageTitle: Dealing Damage
+    TutorialPageTitleWidth: 950
+    TutorialPageObject: {fileID: 1361608881346829063, guid: b918748c87cbf7947a492eecab105570, type: 3}
+  - TutorialPageTitle: Hero Attacks
+    TutorialPageTitleWidth: 825
+    TutorialPageObject: {fileID: 4046889762311388820, guid: e5c2677cd62813544a3fb530a6043bf3, type: 3}
+  - TutorialPageTitle: Boss Attacks
+    TutorialPageTitleWidth: 800
+    TutorialPageObject: {fileID: 6092024638617178909, guid: 814a0e8da54d8034787f243cdb8806e9, type: 3}
+  - TutorialPageTitle: Target Zones
+    TutorialPageTitleWidth: 825
+    TutorialPageObject: {fileID: 4438352936261308925, guid: 9c2704576fc818f4fa8a1f5ca09c1a4d, type: 3}
+  - TutorialPageTitle: Controlling Heroes
+    TutorialPageTitleWidth: 1100
+    TutorialPageObject: {fileID: 5347949729066444080, guid: 6d28e278659e265469b4b3f3fdaea857, type: 3}
+  - TutorialPageTitle: Movement
+    TutorialPageTitleWidth: 650
+    TutorialPageObject: {fileID: 2377732808123424606, guid: 2988838b73ab01447bec0bb4ca23a5a8, type: 3}
+  - TutorialPageTitle: Hero Health
+    TutorialPageTitleWidth: 725
+    TutorialPageObject: {fileID: 9076303323236452357, guid: 65885b93f7ddead4e954b5a3308811f4, type: 3}
+  _characterUnlock: {fileID: 0}
+  _missionUnlocks:
+  - {fileID: 11400000, guid: f4d416b708afb4e45a47eb872b8aa2ad, type: 2}
+  _missionStatModifiers:
+    _bossHealthMultiplier: 0.075
+    _bossStaggerMultiplier: 1
+    _bossAttackSpeedMultiplier: 0.75
+    _bossDamageResistanceChangeOnStaggerMultiplier: 1
+    _bossEnrageTimeMultiplier: 1.5
+    _bossEnrageDamageMultiplier: 1
+    _bossAbilitiesUsable: 0001000100
+    _heroHealthMultiplier: 1
+    _heroDamageMultiplier: 1
+    _heroStaggerMultiplier: 0
+    _heroHealingReceivedMultiplier: 1
+    _heroManualCooldownTimeMultiplier: 999

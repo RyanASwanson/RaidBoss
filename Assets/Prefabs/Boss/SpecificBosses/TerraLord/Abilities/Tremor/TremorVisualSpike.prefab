@@ -300,16 +300,28 @@ PrefabInstance:
       value: CustomCanvasDecal
       objectReference: {fileID: 0}
     - target: {fileID: 6554286416419259353, guid: 0de184045f6873c408878831f196d378, type: 3}
-      propertyPath: _curveIncreaseTime
+      propertyPath: _increaseDelay
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6554286416419259353, guid: 0de184045f6873c408878831f196d378, type: 3}
+      propertyPath: _hasIncreaseDelay
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6554286416419259353, guid: 0de184045f6873c408878831f196d378, type: 3}
+      propertyPath: _curveDecreaseTime
       value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 6554286416419259353, guid: 0de184045f6873c408878831f196d378, type: 3}
+      propertyPath: _curveIncreaseTime
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6554286416419259353, guid: 0de184045f6873c408878831f196d378, type: 3}
       propertyPath: _curve.m_Curve.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6554286416419259353, guid: 0de184045f6873c408878831f196d378, type: 3}
       propertyPath: _curve.m_Curve.Array.data[1].time
-      value: 0.05
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6554286416419259353, guid: 0de184045f6873c408878831f196d378, type: 3}
       propertyPath: _curve.m_Curve.Array.data[2].time
@@ -325,7 +337,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6554286416419259353, guid: 0de184045f6873c408878831f196d378, type: 3}
       propertyPath: _curve.m_Curve.Array.data[0].inSlope
-      value: 20
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6554286416419259353, guid: 0de184045f6873c408878831f196d378, type: 3}
       propertyPath: _curve.m_Curve.Array.data[1].inSlope
@@ -337,11 +349,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6554286416419259353, guid: 0de184045f6873c408878831f196d378, type: 3}
       propertyPath: _curve.m_Curve.Array.data[0].outSlope
-      value: 20
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6554286416419259353, guid: 0de184045f6873c408878831f196d378, type: 3}
       propertyPath: _curve.m_Curve.Array.data[1].inWeight
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6554286416419259353, guid: 0de184045f6873c408878831f196d378, type: 3}
       propertyPath: _curve.m_Curve.Array.data[1].outSlope
@@ -357,15 +369,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6554286416419259353, guid: 0de184045f6873c408878831f196d378, type: 3}
       propertyPath: _curve.m_Curve.Array.data[0].outWeight
-      value: 0.33333334
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6554286416419259353, guid: 0de184045f6873c408878831f196d378, type: 3}
       propertyPath: _curve.m_Curve.Array.data[1].outWeight
-      value: 0.9907408
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6554286416419259353, guid: 0de184045f6873c408878831f196d378, type: 3}
+      propertyPath: _doesAutomaticallyMoveDownOnHittingMax
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6554286416419259353, guid: 0de184045f6873c408878831f196d378, type: 3}
       propertyPath: _curve.m_Curve.Array.data[0].tangentMode
-      value: 34
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6554286416419259353, guid: 0de184045f6873c408878831f196d378, type: 3}
       propertyPath: _curve.m_Curve.Array.data[1].tangentMode

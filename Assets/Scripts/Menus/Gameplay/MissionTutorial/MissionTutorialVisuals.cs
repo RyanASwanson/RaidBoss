@@ -26,8 +26,9 @@ public class MissionTutorialVisuals : MonoBehaviour
 
     [Space] 
     [SerializeField] private GameObject _specificPageButtonHolder;
-    
-    [Space]
+
+    [Space] 
+    [SerializeField] private CurveProgression _playButtonScaleCurve;
     [SerializeField] private SelectionPlayButton _playButton;
     
     private int _currentPageID = 0;
@@ -39,9 +40,7 @@ public class MissionTutorialVisuals : MonoBehaviour
     private float _specificPageButtonStartX;
 
     private bool _hasLastPageBeenVisited = false;
-
-    private int _lastButtonIDPressed = 0;
-
+    
     public void SetUpMissionTutorials()
     {
         SubscribeToEvents();
@@ -85,8 +84,8 @@ public class MissionTutorialVisuals : MonoBehaviour
             return;
         }
         
-        _specificPageButtons[_lastButtonIDPressed].ButtonNoLongerPressed();
-        _lastButtonIDPressed = pageNumber;
+        _specificPageButtons[_previousPageID].ButtonNoLongerPressed();
+        _specificPageButtons[pageNumber].ToggleButton(false);
         
         _currentPageID = pageNumber;
         StartShowNewPage();
@@ -109,8 +108,6 @@ public class MissionTutorialVisuals : MonoBehaviour
     public void NewPageStartDisplay()
     {
         UpdatePreviousPageID();
-
-        
         
         // If the last page has not been visited and we just opened the last page
         if (!_hasLastPageBeenVisited && _currentPageID == _totalPages - 1)
@@ -204,6 +201,7 @@ public class MissionTutorialVisuals : MonoBehaviour
     public void CloseTutorial()
     {
         _scrollPopUp.HideScroll();
+        _playButtonScaleCurve.StartMovingDownOnCurve();
         GameStateManager.Instance.StartProgressToStart();
     }
     

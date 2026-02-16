@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 693bc80e562020641a7353805d099d2c, type: 3}
+  m_Name: Mission2
+  m_EditorClassIdentifier: 
+  _missionID: 1
+  _missionName: 'Unique
+
+    Strengths'
+  _associatedDifficulty: 1
+  _associatedLevel: {fileID: 11400000, guid: 763a87e823e4c5d4d8c9e44aa8aa4a02, type: 2}
+  _associatedHeroes:
+  - {fileID: 11400000, guid: fa900cf8282b2814fb9eb1a8cc860cd0, type: 2}
+  _tutorialPages:
+  - TutorialPageTitle: Hero Abilities
+    TutorialPageTitleWidth: 850
+    TutorialPageObject: {fileID: 8750728817935801621, guid: 9483afc74ad8ff54c95e676ba73cf10e, type: 3}
+  - TutorialPageTitle: Basic Abilities
+    TutorialPageTitleWidth: 850
+    TutorialPageObject: {fileID: 3845465221852469479, guid: dafbfcc7deaa27a4c9a71255d4664dfa, type: 3}
+  - TutorialPageTitle: Active Abilities
+    TutorialPageTitleWidth: 900
+    TutorialPageObject: {fileID: 7540855285076040560, guid: c4b8974b89a98ed439e77371f53ab917, type: 3}
+  - TutorialPageTitle: Active Controls
+    TutorialPageTitleWidth: 900
+    TutorialPageObject: {fileID: 1129636447609664897, guid: 0f4e5988edeeb9d41b72057acf93d8d7, type: 3}
+  - TutorialPageTitle: Passive Abilities
+    TutorialPageTitleWidth: 925
+    TutorialPageObject: {fileID: 2310163673000323531, guid: f23aac6ee40f45a41888887fb80a9058, type: 3}
+  _characterUnlock: {fileID: 0}
+  _missionUnlocks:
+  - {fileID: 11400000, guid: 4ca6bd1d159eefd4fb7c2110f515fdf5, type: 2}
+  _missionStatModifiers:
+    _bossHealthMultiplier: 0.08
+    _bossStaggerMultiplier: 1
+    _bossAttackSpeedMultiplier: 0.8
+    _bossDamageResistanceChangeOnStaggerMultiplier: 1
+    _bossEnrageTimeMultiplier: 1.5
+    _bossEnrageDamageMultiplier: 1
+    _bossAbilitiesUsable: 0101000100
+    _heroHealthMultiplier: 1
+    _heroDamageMultiplier: 1
+    _heroStaggerMultiplier: 0
+    _heroHealingReceivedMultiplier: 1
+    _heroManualCooldownTimeMultiplier: 1
