@@ -20,15 +20,24 @@ MonoBehaviour:
   _associatedLevel: {fileID: 11400000, guid: 763a87e823e4c5d4d8c9e44aa8aa4a02, type: 2}
   _associatedHeroes:
   - {fileID: 11400000, guid: fa900cf8282b2814fb9eb1a8cc860cd0, type: 2}
-  _tutorialPages: []
+  _tutorialPages:
+  - TutorialPageTitle: Stagger
+    TutorialPageTitleWidth: 525
+    TutorialPageObject: {fileID: 3329338498852402970, guid: fa39d419e016a044d9f7291c665430cc, type: 3}
+  - TutorialPageTitle: Safe Zones
+    TutorialPageTitleWidth: 700
+    TutorialPageObject: {fileID: 7178563929003201772, guid: 9426d59606a1fa3489f16944b144a34e, type: 3}
+  - TutorialPageTitle: Enrage
+    TutorialPageTitleWidth: 475
+    TutorialPageObject: {fileID: 4708004903980926461, guid: c09e281a3cc3e6745b22ff35bbd936b5, type: 3}
   _characterUnlock: {fileID: 0}
   _missionUnlocks:
   - {fileID: 11400000, guid: fcfd0a27990972e44bfdc6fac01bea39, type: 2}
   _missionStatModifiers:
     _bossHealthMultiplier: 0.1
-    _bossStaggerMultiplier: 0.15
+    _bossStaggerMultiplier: 0.75
     _bossAttackSpeedMultiplier: 0.9
-    _bossDamageResistanceChangeOnStaggerMultiplier: 1
+    _bossDamageResistanceChangeOnStaggerMultiplier: 1.5
     _bossEnrageTimeMultiplier: 1
     _bossEnrageDamageMultiplier: 1
     _bossAbilitiesUsable: 0101010101

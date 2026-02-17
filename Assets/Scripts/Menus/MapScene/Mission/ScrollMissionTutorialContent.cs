@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ScrollMissionTutorialContent : ScrollUIContents
@@ -12,9 +13,12 @@ public class ScrollMissionTutorialContent : ScrollUIContents
     [SerializeField] private GameObject _missionPageHolder;
     
     [Space]
+    [SerializeField] private GameObject _defaultSpecificTutorialPage;
+    
+    [Space]
     [SerializeField] private MissionTutorialVisuals _missionTutorialVisuals;
     
-    private GameObject[] _tutorialPages;
+    private SpecificTutorialPage[] _tutorialPages;
 
     private MissionSO _currentMission;
 
@@ -23,7 +27,7 @@ public class ScrollMissionTutorialContent : ScrollUIContents
         if (SelectionManager.Instance.GetSelectedMissionOut(out MissionSO mission))
         {
             _currentMission = mission;
-            _tutorialPages = new GameObject[mission.GetTutorialPages().Length];
+            _tutorialPages = new SpecificTutorialPage[mission.GetTutorialPages().Length];
 
             for (int i = 0; i < _tutorialPages.Length; i++)
             {
@@ -34,16 +38,26 @@ public class ScrollMissionTutorialContent : ScrollUIContents
     
     private void CreateMissionTutorialPage(int index)
     {
-        GameObject newPage = Instantiate(_currentMission.GetTutorialPages()[index].TutorialPageObject, _missionPageHolder.transform);
+        SpecificTutorialPage newPage;
+        newPage = Instantiate(_defaultSpecificTutorialPage, _missionPageHolder.transform).GetComponent<SpecificTutorialPage>();
+        
+        /*if (!_currentMission.GetTutorialPages()[index].TutorialPageObject.IsUnityNull())
+        {
+            newPage= Instantiate(_currentMission.GetTutorialPages()[index].TutorialPageObject, _missionPageHolder.transform)
+                    .GetComponent<SpecificTutorialPage>();
+        }*/
+        
+        newPage.SetUpPage(_currentMission.GetTutorialPages()[index]);
+        
         _tutorialPages[index] = newPage;
         
-        newPage.SetActive(index == 0);
+        newPage.gameObject.SetActive(index == 0);
     }
 
     public override int UpdateContentsAndCountLines()
     {
-        _tutorialPages[_missionTutorialVisuals.GetPreviousPageID()].SetActive(false);
-        _tutorialPages[_missionTutorialVisuals.GetCurrentPageID()].SetActive(true);
+        _tutorialPages[_missionTutorialVisuals.GetPreviousPageID()].gameObject.SetActive(false);
+        _tutorialPages[_missionTutorialVisuals.GetCurrentPageID()].gameObject.SetActive(true);
         
         _titleText.UpdateText(_currentMission.GetTutorialPages()[_missionTutorialVisuals.GetCurrentPageID()].TutorialPageTitle);
         

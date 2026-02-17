@@ -13,19 +13,32 @@ MonoBehaviour:
   m_Name: Mission5
   m_EditorClassIdentifier: 
   _missionID: 4
-  _missionName: 'The Battle
+  _missionName: 'The
 
-    Begins'
-  _associatedDifficulty: 4
-  _associatedLevel: {fileID: 11400000, guid: f4cdc78ddb5cc51429696d5d12e95a4f, type: 2}
+    Samurai'
+  _associatedDifficulty: 1
+  _associatedLevel: {fileID: 11400000, guid: 763a87e823e4c5d4d8c9e44aa8aa4a02, type: 2}
   _associatedHeroes:
   - {fileID: 11400000, guid: fa900cf8282b2814fb9eb1a8cc860cd0, type: 2}
-  _tutorialPages: []
-  _characterUnlock: {fileID: 0}
+  - {fileID: 11400000, guid: 0128339a05223db40aae2581988a9ea0, type: 2}
+  _tutorialPages:
+  - TutorialPageTitle: The Samurai
+    TutorialPageTitleWidth: 800
+    TutorialPageObject: {fileID: 1202841191805210517, guid: 6467219dab1de9c4295c97564b1abab1, type: 3}
+  - TutorialPageTitle: Iaijutsu
+    TutorialPageTitleWidth: 800
+    TutorialPageObject: {fileID: 1202841191805210517, guid: 6467219dab1de9c4295c97564b1abab1, type: 3}
+  - TutorialPageTitle: The Samurai
+    TutorialPageTitleWidth: 800
+    TutorialPageObject: {fileID: 1202841191805210517, guid: 6467219dab1de9c4295c97564b1abab1, type: 3}
+  - TutorialPageTitle: Bushido
+    TutorialPageTitleWidth: 800
+    TutorialPageObject: {fileID: 1202841191805210517, guid: 6467219dab1de9c4295c97564b1abab1, type: 3}
+  _characterUnlock: {fileID: 11400000, guid: 0128339a05223db40aae2581988a9ea0, type: 2}
   _missionUnlocks:
   - {fileID: 11400000, guid: 5a9388c2a2f1b0e4a85421c9ae9d644d, type: 2}
   _missionStatModifiers:
-    _bossHealthMultiplier: 1
+    _bossHealthMultiplier: 0.2
     _bossStaggerMultiplier: 1
     _bossAttackSpeedMultiplier: 1
     _bossDamageResistanceChangeOnStaggerMultiplier: 1

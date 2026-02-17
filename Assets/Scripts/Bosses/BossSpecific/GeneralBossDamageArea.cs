@@ -120,11 +120,7 @@ public class GeneralBossDamageArea : GeneralAbilityAreaFramework
     /// <param name="abilityDamage"> The amount of damage being dealt </param>
     private void DealDamage(HeroBase heroBase, float abilityDamage)
     {
-        if (abilityDamage > 0)
-        {
-            heroBase.GetHeroStats()
-                .DealDamageToHero(abilityDamage * BossStats.Instance.GetCombinedBossDamageMultiplier());
-        }
+        BossBase.Instance.GetSpecificBossScript().DamageHero(heroBase,abilityDamage);
     }
 
     /// <summary>

@@ -18,23 +18,13 @@ public class TextWithBackground : MonoBehaviour
 
     internal string CurrentString;
 
-    private void Start()
+    private void Awake()
     {
         _rectTransform = GetComponent<RectTransform>();
 
         if (_hasDefaultText)
         {
             UpdateText(_defaultText);
-        }
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            Debug.Log(_text.text);
-            Debug.Log(_text.GetRenderedValues(true));
-            Debug.Log(_text.textBounds);
         }
     }
 
@@ -48,6 +38,11 @@ public class TextWithBackground : MonoBehaviour
     public void UpdateTextColor(Color color)
     {
         _text.color = color;
+    }
+
+    public void UpdateLocation(Vector2 location)
+    {
+        _rectTransform.anchoredPosition = location;
     }
 
     #region Getters

@@ -87,5 +87,12 @@ public class TutorialPage
 {
     [TextArea(1, 2)] public string TutorialPageTitle;
     public float TutorialPageTitleWidth;
+
+    [Space]
+    public Vector2 DefaultTextLocation;
+    [TextArea(1, 6)]public string DefaultText;
+
+    [Space] 
+    public Vector2 TutorialPageObjectLocation;
     public GameObject TutorialPageObject;
 }

@@ -33,6 +33,9 @@ public class BossStats : BossChildrenFunctionality
     private float _bossEnrageDamageMultiplier = 1;
     private float _storedEnrageMultiplier;
 
+    private float _scalingEnrageDamageMultiplierScaleRate;
+    private float _storedScalingEnrageDamageMultiplier = 1;
+
     private float _currentTimeUntilEnrage;
     private Coroutine _enrageCoroutine;
 
@@ -67,6 +70,9 @@ public class BossStats : BossChildrenFunctionality
 
         _currentTimeUntilEnrage = bossSO.GetEnrageTime();
         _storedEnrageMultiplier = bossSO.GetEnrageDamageMultiplier();
+
+        // Gets the scaling enrage damage multiplier rate and divides it by 60 to get the rate in seconds
+        _scalingEnrageDamageMultiplierScaleRate = bossSO.GetEnrageScalingDamageMultiplierIncreasePerSecond();
 
         if (SelectionManager.Instance.GetSelectedMissionStatModifiersOut(out MissionStatModifiers missionStatModifiers))
         {
@@ -271,6 +277,23 @@ public class BossStats : BossChildrenFunctionality
         _isBossEnraged = true;
         _bossEnrageDamageMultiplier = _storedEnrageMultiplier;
         _myBossBase.InvokeBossEnragedEvent();
+
+        StartScalingEnrageMultiplier();
+    }
+
+    private void StartScalingEnrageMultiplier()
+    {
+        StartCoroutine(ScalingEnrageMultiplierProcess());
+    }
+
+    private IEnumerator ScalingEnrageMultiplierProcess()
+    {
+        while (true)
+        {
+            _storedScalingEnrageDamageMultiplier += _scalingEnrageDamageMultiplierScaleRate * Time.deltaTime;
+            Debug.Log(_storedScalingEnrageDamageMultiplier);
+            yield return null;
+        }
     }
     #endregion
 
@@ -341,7 +364,7 @@ public class BossStats : BossChildrenFunctionality
 
     public float GetBossEnrageDamageMultiplier() => _bossEnrageDamageMultiplier;
 
-    public float GetCombinedBossDamageMultiplier() => _baseBossDamageMultiplier * _bossEnrageDamageMultiplier;
+    public float GetCombinedBossDamageMultiplier() => _baseBossDamageMultiplier * _bossEnrageDamageMultiplier * _storedScalingEnrageDamageMultiplier;
     #endregion
 
     #region Setters
