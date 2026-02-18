@@ -23,13 +23,58 @@ MonoBehaviour:
   _tutorialPages:
   - TutorialPageTitle: Stagger
     TutorialPageTitleWidth: 525
-    TutorialPageObject: {fileID: 3329338498852402970, guid: fa39d419e016a044d9f7291c665430cc, type: 3}
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'When heroes attack, they deal stagger as
+
+      well as damage.
+      When the boss takes enough
+
+      stagger they are stunned and take increased
+
+      damage.
+      You can see the stagger progress of
+
+      the boss in yellow at the top of
+      the screen.'
+    TutorialPageObjectLocation: {x: 0, y: -70}
+    TutorialPageObject: {fileID: 1907742723051834283, guid: 0c6ded0d6b92d2b4d9a4b594df0f6f8c, type: 3}
+    TutorialPageCharacterTutorial:
+      TutorialPageCharacterLocation: {x: 0, y: 0}
+      TutorialPageCharacterIcon: {fileID: 0}
+      TutorialPageCharacterBackground: {fileID: 0}
   - TutorialPageTitle: Safe Zones
     TutorialPageTitleWidth: 700
-    TutorialPageObject: {fileID: 7178563929003201772, guid: 9426d59606a1fa3489f16944b144a34e, type: 3}
+    DefaultTextLocation: {x: 0, y: 60}
+    DefaultText: 'Some boss attacks have blue safe zones.
+
+      If at least one
+      hero is in the safe zone it will
+
+      prevent the attack entirely.'
+    TutorialPageObjectLocation: {x: 0, y: -45}
+    TutorialPageObject: {fileID: 8878142049407289308, guid: 57c07eee93d31b4408341ca174634d15, type: 3}
+    TutorialPageCharacterTutorial:
+      TutorialPageCharacterLocation: {x: 0, y: 0}
+      TutorialPageCharacterIcon: {fileID: 0}
+      TutorialPageCharacterBackground: {fileID: 0}
   - TutorialPageTitle: Enrage
     TutorialPageTitleWidth: 475
-    TutorialPageObject: {fileID: 4708004903980926461, guid: c09e281a3cc3e6745b22ff35bbd936b5, type: 3}
+    DefaultTextLocation: {x: 0, y: 0}
+    DefaultText: 'Don''t take too long during a
+
+      fight as the boss will eventually
+      get
+
+      enraged and will deal increased
+
+      damage with its attacks.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialPageCharacterLocation: {x: 0, y: 0}
+      TutorialPageCharacterIcon: {fileID: 0}
+      TutorialPageCharacterBackground: {fileID: 0}
+  _tutorialHero: {fileID: 0}
   _characterUnlock: {fileID: 0}
   _missionUnlocks:
   - {fileID: 11400000, guid: fcfd0a27990972e44bfdc6fac01bea39, type: 2}

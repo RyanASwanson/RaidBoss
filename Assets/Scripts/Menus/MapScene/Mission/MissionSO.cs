@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "MissionScriptableObject", menuName = "MissionScriptableObject", order = 3)]
@@ -27,6 +28,9 @@ public class MissionSO : ScriptableObject
 
     [Space] 
     [Header("Modifiers")]
+    [SerializeField] private MissionModifierSO[] _missionModifiers;
+    
+    [Space]
     [SerializeField] private MissionStatModifiers _missionStatModifiers;
     
     #region Getters
@@ -42,6 +46,7 @@ public class MissionSO : ScriptableObject
     public CharacterSO GetCharacterUnlock() =>_characterUnlock;
     public MissionSO[] GetMissionUnlocks() =>_missionUnlocks;
     
+    public MissionModifierSO[] GetMissionModifiers() =>_missionModifiers;
     public MissionStatModifiers GetMissionStatModifiers() =>_missionStatModifiers;
     #endregion
 }
@@ -86,7 +91,7 @@ public class MissionStatModifiers
 public class TutorialPage
 {
     [TextArea(1, 2)] public string TutorialPageTitle;
-    public float TutorialPageTitleWidth;
+    public float TutorialPageTitleWidth ;
 
     [Space]
     public Vector2 DefaultTextLocation;
@@ -95,4 +100,22 @@ public class TutorialPage
     [Space] 
     public Vector2 TutorialPageObjectLocation;
     public GameObject TutorialPageObject;
+
+    [Space] 
+    public TutorialPageCharacterTutorial TutorialPageCharacterTutorial;
+}
+
+[System.Serializable]
+public class TutorialPageCharacterTutorial
+{
+    public Vector2 TutorialCharacterIconLocation;
+    public float TutorialCharacterIconScaleMultiplier = 1;
+    
+    public Sprite TutorialPageCharacterIcon;
+    public Sprite TutorialPageCharacterBackground;
+
+    #region Getters
+    public bool HasCharacterDisplayIcon() => !TutorialPageCharacterIcon.IsUnityNull();
+    
+    #endregion
 }

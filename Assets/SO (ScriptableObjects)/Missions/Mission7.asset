@@ -13,19 +13,96 @@ MonoBehaviour:
   m_Name: Mission7
   m_EditorClassIdentifier: 
   _missionID: 6
-  _missionName: 'The Battle
+  _missionName: 'The
 
-    Begins'
-  _associatedDifficulty: 4
-  _associatedLevel: {fileID: 11400000, guid: 8493e996e77df644ab18a699456b6c06, type: 2}
+    Reaper'
+  _associatedDifficulty: 1
+  _associatedLevel: {fileID: 11400000, guid: 53e846bb7c637be46af02e5cd8741558, type: 2}
   _associatedHeroes:
   - {fileID: 11400000, guid: fa900cf8282b2814fb9eb1a8cc860cd0, type: 2}
-  _tutorialPages: []
-  _characterUnlock: {fileID: 0}
+  - {fileID: 11400000, guid: 0128339a05223db40aae2581988a9ea0, type: 2}
+  - {fileID: 11400000, guid: 2b5cc09a0a41a0c40a6b8c0fa2ebb464, type: 2}
+  _tutorialPages:
+  - TutorialPageTitle: The Reaper
+    TutorialPageTitleWidth: 800
+    DefaultTextLocation: {x: 0, y: 45}
+    DefaultText: 'In desparate times, unlikely alliances
+
+      are forged. The Reaper
+      is a nimble and
+
+      unstoppable damage dealer. It drifts
+
+      throughout
+      the battlefield leaving death
+
+      in its wake.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 2d250d8fa55e1ff40bb7a9f16562db97, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: cad11a2bf12278c46a02ba6a7ef54eec, type: 3}
+  - TutorialPageTitle: Soul Scythe
+    TutorialPageTitleWidth: 775
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'The Reaper''s basic ability is Soul Scythe.
+
+      The Reaper has
+      a scythe constantly
+
+      around it, allowing it to deal rapid
+
+      damage
+      and stagger, even when moving.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: ff7625caa79635949b51aa618fa3fcd4, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  - TutorialPageTitle: Death's Approach
+    TutorialPageTitleWidth: 1050
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'The Reaper''s active ability is Death''s Approach.
+
+      The Reaper
+      creates a skull that moves
+
+      towards the Reaper dealing damage.
+
+      Keep
+      moving to keep the skull near the boss.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 4354925d3cdfb0f4880d705122445053, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  - TutorialPageTitle: Rebirth
+    TutorialPageTitleWidth: 575
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'The Reaper''s passive ability is Rebirth.
+
+      The Reaper persists
+      after being killed for
+
+      a short period of time.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: fe6d030b04450f043a079a46a9c747c1, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  _characterUnlock: {fileID: 11400000, guid: 2b5cc09a0a41a0c40a6b8c0fa2ebb464, type: 2}
   _missionUnlocks:
   - {fileID: 11400000, guid: 891da014c2e98db41900484d53a617bc, type: 2}
   _missionStatModifiers:
-    _bossHealthMultiplier: 1
+    _bossHealthMultiplier: 0.55
     _bossStaggerMultiplier: 1
     _bossAttackSpeedMultiplier: 1
     _bossDamageResistanceChangeOnStaggerMultiplier: 1

@@ -10,6 +10,7 @@ public class SB_TerraLord : SpecificBossFramework
 
     [Header("Unstable Precipice")]
     [SerializeField] private float _passiveTickRate;
+    [SerializeField] private float _minimumTickValue;
 
     [SerializeField] private float _passiveMaxValue;
 
@@ -107,8 +108,16 @@ public class SB_TerraLord : SpecificBossFramework
 
         //Scales the speed of the passive with how many heroes are alive
         weightCounter /= HeroesManager.Instance.GetCurrentLivingHeroes().Count;
-
-
+        
+        if (weightCounter > 0 && weightCounter < _minimumTickValue)
+        {
+            weightCounter = _minimumTickValue;
+        }
+        else if (weightCounter < 0 && weightCounter > -_minimumTickValue)
+        {
+            weightCounter = -_minimumTickValue;
+        }
+        
         return weightCounter;
     }
 
@@ -122,7 +131,6 @@ public class SB_TerraLord : SpecificBossFramework
         if (_isPassiveMovingTowardsMax)
         {
             // We are moving away from max
-            //Debug.Log("Moving down " + _passiveCounterValue + " " + val + "       " + _movingAwayFromMaxMultiplierBasedOnProgress.Evaluate(_passiveCounterProgressTowardsMax));
             val *= _movingAwayFromMaxMultiplierBasedOnProgress.Evaluate(_passiveCounterProgressTowardsMax);
         }
         else
@@ -130,12 +138,13 @@ public class SB_TerraLord : SpecificBossFramework
             // We are moving towards max
             // Switching sides also counts as moving towards max even though we are initially moving away from max
             //  as we switch sides part way through
-            //Debug.Log("Moving up " + _passiveCounterValue+ " " + val + "       " + _movingTowardsMaxMultiplierBasedOnProgress.Evaluate(_passiveCounterProgressTowardsMax));
             val *= _movingTowardsMaxMultiplierBasedOnProgress.Evaluate(_passiveCounterProgressTowardsMax);
         }
         
         _passiveCounterValue += val;
         _passiveCounterProgressTowardsMax = Mathf.Abs(_passiveCounterValue / _passiveMaxValue);
+        
+        //Debug.Log("End result" + val);
 
         //Rotates the camera to demonstrate the imbalance of the arena
         RotateCameraBasedOnPassive(val);

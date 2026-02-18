@@ -183,6 +183,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _vfxList: []
+  _isVFXChilded: 0
+  _vfxTargetLocation: {fileID: 0}
+  _onDestroySelfEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _onDestroyParentEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &5625124808452255017
 GameObject:
   m_ObjectHideFlags: 0
@@ -267,12 +275,21 @@ MonoBehaviour:
   - {fileID: 6863626491617554043}
   _hasLifetime: 0
   _lifetime: 0
+  _hasColliderActivationDelay: 0
+  _colliderActivationDelay: 0
+  _hasColliderLifetime: 0
+  _colliderLifetime: 0
+  _doesHitCenteredVFXCopyRotation: 0
+  _hitCenteredVFXCopyTarget: {fileID: 0}
   _hitCenteredVFX: {fileID: 0}
-  _lifeTimeEndEvent:
+  _lifetimeEndEvent:
     m_PersistentCalls:
       m_Calls: []
-  _enterDamage: 11
-  _enterStagger: 5
+  _colliderLifetimeEndEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _enterDamage: 10.5
+  _enterStagger: 3
   _enterEvent:
     m_PersistentCalls:
       m_Calls:

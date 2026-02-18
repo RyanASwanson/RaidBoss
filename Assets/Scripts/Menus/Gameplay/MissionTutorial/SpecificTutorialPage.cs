@@ -10,6 +10,9 @@ public class SpecificTutorialPage : MonoBehaviour
     [Space] 
     [SerializeField] private Transform _missionPageHolder;
     
+    [Space]
+    [SerializeField] private GameObject _characterIconTutorialVisual;
+    
     public virtual void SetUpPage(TutorialPage tutorialPage)
     {
         _defaultText.UpdateText(tutorialPage.DefaultText);
@@ -19,8 +22,14 @@ public class SpecificTutorialPage : MonoBehaviour
         {
             GameObject newPage = Instantiate(tutorialPage.TutorialPageObject, _missionPageHolder);
             newPage.GetComponent<RectTransform>().anchoredPosition = tutorialPage.TutorialPageObjectLocation;
-            Debug.Log("Created tutorial page at " + tutorialPage.TutorialPageTitle);
         }
-        
+
+        if (tutorialPage.TutorialPageCharacterTutorial.HasCharacterDisplayIcon())
+        {
+            CharacterIconTutorialVisuals iconTutorialVisuals = 
+                Instantiate(_characterIconTutorialVisual, _missionPageHolder).GetComponent<CharacterIconTutorialVisuals>();
+            
+            iconTutorialVisuals.SetUp(tutorialPage.TutorialPageCharacterTutorial);
+        }
     }
 }

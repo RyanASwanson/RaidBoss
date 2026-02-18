@@ -41,12 +41,6 @@ public class ScrollMissionTutorialContent : ScrollUIContents
         SpecificTutorialPage newPage;
         newPage = Instantiate(_defaultSpecificTutorialPage, _missionPageHolder.transform).GetComponent<SpecificTutorialPage>();
         
-        /*if (!_currentMission.GetTutorialPages()[index].TutorialPageObject.IsUnityNull())
-        {
-            newPage= Instantiate(_currentMission.GetTutorialPages()[index].TutorialPageObject, _missionPageHolder.transform)
-                    .GetComponent<SpecificTutorialPage>();
-        }*/
-        
         newPage.SetUpPage(_currentMission.GetTutorialPages()[index]);
         
         _tutorialPages[index] = newPage;

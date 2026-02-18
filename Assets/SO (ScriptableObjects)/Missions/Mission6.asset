@@ -13,27 +13,83 @@ MonoBehaviour:
   m_Name: Mission6
   m_EditorClassIdentifier: 
   _missionID: 5
-  _missionName: 'The Battle
+  _missionName: 'The Terra
 
-    Begins'
-  _associatedDifficulty: 4
-  _associatedLevel: {fileID: 11400000, guid: 763a87e823e4c5d4d8c9e44aa8aa4a02, type: 2}
+    Lord'
+  _associatedDifficulty: 1
+  _associatedLevel: {fileID: 11400000, guid: 53e846bb7c637be46af02e5cd8741558, type: 2}
   _associatedHeroes:
   - {fileID: 11400000, guid: fa900cf8282b2814fb9eb1a8cc860cd0, type: 2}
-  _tutorialPages: []
-  _characterUnlock: {fileID: 0}
+  - {fileID: 11400000, guid: 0128339a05223db40aae2581988a9ea0, type: 2}
+  _tutorialPages:
+  - TutorialPageTitle: The Terra Lord
+    TutorialPageTitleWidth: 900
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'A new foe has appeared. The Terra
+
+      Lord harnesses nature
+      itself to
+
+      crush you. Like all bosses, it has its
+
+      own unique set
+      of attacks.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -60}
+      TutorialCharacterIconScaleMultiplier: 1.075
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 6adf6c78c6c82a24c97ad89a6d504a43, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: b2bea2ea6395a3a4698f324d28df7139, type: 3}
+  - TutorialPageTitle: Unstable Precipice
+    TutorialPageTitleWidth: 1075
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'On top a unique set of attacks you also
+
+      need to be wary
+      of the Terra Lord''s passive
+
+      ability, Unstable Precipice. The arena
+      will
+
+      begin to tilt in the direction with more heroes.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -60}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: c891d6ee2630d11468a6f57578f964b1, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  - TutorialPageTitle: Staying Balanced
+    TutorialPageTitleWidth: 975
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'You can keep track of the current balance
+
+      at the top of
+      the screen. If it reaches the end
+
+      in either direction, you lose.'
+    TutorialPageObjectLocation: {x: 0, y: -70}
+    TutorialPageObject: {fileID: 8277734731874736608, guid: b0ad0110275716c43850993be7f84d1a, type: 3}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: 0}
+      TutorialCharacterIconScaleMultiplier: 0
+      TutorialPageCharacterIcon: {fileID: 0}
+      TutorialPageCharacterBackground: {fileID: 0}
+  _characterUnlock: {fileID: 11400000, guid: be74862a2a733b44c8683efb08f6f861, type: 2}
   _missionUnlocks:
   - {fileID: 11400000, guid: 1da492c6ee012114b9206705ff83b5dd, type: 2}
   _missionStatModifiers:
-    _bossHealthMultiplier: 1
+    _bossHealthMultiplier: 0.35
     _bossStaggerMultiplier: 1
     _bossAttackSpeedMultiplier: 1
     _bossDamageResistanceChangeOnStaggerMultiplier: 1
     _bossEnrageTimeMultiplier: 1
     _bossEnrageDamageMultiplier: 1
-    _bossAbilitiesUsable: 0101010101
+    _bossAbilitiesUsable: 0101000001
     _heroHealthMultiplier: 1
     _heroDamageMultiplier: 1
     _heroStaggerMultiplier: 1
     _heroHealingReceivedMultiplier: 1
     _heroManualCooldownTimeMultiplier: 1
+  _missionModifiers: []

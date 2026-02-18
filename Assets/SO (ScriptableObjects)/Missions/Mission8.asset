@@ -13,21 +13,61 @@ MonoBehaviour:
   m_Name: Mission8
   m_EditorClassIdentifier: 
   _missionID: 7
-  _missionName: 'The Battle
+  _missionName: 'Mission
 
-    Begins'
-  _associatedDifficulty: 4
-  _associatedLevel: {fileID: 11400000, guid: 8493e996e77df644ab18a699456b6c06, type: 2}
+    Modifiers'
+  _associatedDifficulty: 1
+  _associatedLevel: {fileID: 11400000, guid: 763a87e823e4c5d4d8c9e44aa8aa4a02, type: 2}
   _associatedHeroes:
   - {fileID: 11400000, guid: fa900cf8282b2814fb9eb1a8cc860cd0, type: 2}
-  _tutorialPages: []
+  - {fileID: 11400000, guid: 0128339a05223db40aae2581988a9ea0, type: 2}
+  - {fileID: 11400000, guid: 2b5cc09a0a41a0c40a6b8c0fa2ebb464, type: 2}
+  _tutorialPages:
+  - TutorialPageTitle: Mission Modifiers
+    TutorialPageTitleWidth: 1060
+    DefaultTextLocation: {x: 0, y: 55}
+    DefaultText: 'Some missions will have modifiers that
+
+      change how you will
+      play. They
+
+      can be seen near the bottom of the
+
+      mission scroll
+      in the mission selection.'
+    TutorialPageObjectLocation: {x: 0, y: -50}
+    TutorialPageObject: {fileID: 2628942221242811885, guid: 9080da42fa575a2468505ae80afe1fc1, type: 3}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: 0}
+      TutorialCharacterIconScaleMultiplier: 0
+      TutorialPageCharacterIcon: {fileID: 0}
+      TutorialPageCharacterBackground: {fileID: 0}
+  - TutorialPageTitle: 'Modifier: Brittle'
+    TutorialPageTitleWidth: 1000
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'Boss health is increased, but the
+
+      boss takes significantly
+      increased
+
+      damage while staggered.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -60}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 62e8a26981a4b464ea424d1c7d1ef962, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: 818d8b766be8c0d4687ee74e218b8deb, type: 3}
   _characterUnlock: {fileID: 0}
-  _missionUnlocks: []
+  _missionUnlocks:
+  - {fileID: 11400000, guid: 8906b8ba7d67be44ba9658f6d55eca9a, type: 2}
+  _missionModifiers:
+  - {fileID: 11400000, guid: 552c5c9b813bd4f429e0c22b5df61aa5, type: 2}
   _missionStatModifiers:
-    _bossHealthMultiplier: 1
-    _bossStaggerMultiplier: 1
+    _bossHealthMultiplier: 2
+    _bossStaggerMultiplier: 0.9
     _bossAttackSpeedMultiplier: 1
-    _bossDamageResistanceChangeOnStaggerMultiplier: 1
+    _bossDamageResistanceChangeOnStaggerMultiplier: 4
     _bossEnrageTimeMultiplier: 1
     _bossEnrageDamageMultiplier: 1
     _bossAbilitiesUsable: 0101010101
