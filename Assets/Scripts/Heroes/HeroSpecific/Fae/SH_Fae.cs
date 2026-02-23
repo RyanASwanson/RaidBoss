@@ -58,6 +58,7 @@ public class SH_Fae : SpecificHeroFramework
     [SerializeField] private float _passiveBasicAttackSpeedChangeManual;
 
     private float _currentPassiveBasicAttackSpeed = 1;
+    private bool _passiveBonusActive = false;
 
     private HeroStats _heroStats;
 
@@ -328,22 +329,42 @@ public class SH_Fae : SpecificHeroFramework
     #region Passive Abilities
     private void IncreaseBasicAttackSpeedOnMoveStart()
     {
-        _currentPassiveBasicAttackSpeed += _passiveBasicAttackSpeedChangeWalking;
+        if (_passiveBonusActive)
+        {
+            return;
+        }
+        _myHeroBase.GetHeroStats().ChangeCurrentBasicAbilityCooldownRate(_passiveBasicAttackSpeedChangeWalking);
+        _passiveBonusActive = true;
     }
 
     private void DecreaseBasicAttackSpeedOnMoveEnd()
     {
-        _currentPassiveBasicAttackSpeed -= _passiveBasicAttackSpeedChangeWalking;
+        if (!_passiveBonusActive)
+        {
+            return;
+        }
+        _myHeroBase.GetHeroStats().ChangeCurrentBasicAbilityCooldownRate(1/_passiveBasicAttackSpeedChangeWalking);
+        _passiveBonusActive = false;
     }
 
     private void IncreaseBasicAttackSpeedOnManualStart()
     {
-        _currentPassiveBasicAttackSpeed += _passiveBasicAttackSpeedChangeManual;
+        if (_passiveBonusActive)
+        {
+            return;
+        }
+        _myHeroBase.GetHeroStats().ChangeCurrentBasicAbilityCooldownRate(_passiveBasicAttackSpeedChangeWalking);
+        _passiveBonusActive = true;
     }
 
     private void DecreaseBasicAttackSpeedOnManualEnd()
     {
-        _currentPassiveBasicAttackSpeed -= _passiveBasicAttackSpeedChangeManual;
+        if (!_passiveBonusActive)
+        {
+            return;
+        }
+        _myHeroBase.GetHeroStats().ChangeCurrentBasicAbilityCooldownRate(1/_passiveBasicAttackSpeedChangeWalking);
+        _passiveBonusActive = false;
     }
 
     #endregion

@@ -8,6 +8,7 @@ public class MissionSO : ScriptableObject
 {
     [SerializeField] private int _missionID;
     [TextArea(1, 2)] [SerializeField] private string _missionName;
+    [SerializeField] private float _missionTitleScale = 1;
 
     [Space] 
     [Header("Selection")]
@@ -36,6 +37,7 @@ public class MissionSO : ScriptableObject
     #region Getters
     public int GetMissionID() =>_missionID;
     public string GetMissionName() =>_missionName;
+    public float GetMissionTitleScale() =>_missionTitleScale;
     
     public EGameDifficulty GetAssociatedDifficulty() =>_associatedDifficulty;
     public LevelSO GetAssociatedLevel() =>_associatedLevel;

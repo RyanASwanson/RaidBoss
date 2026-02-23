@@ -16,6 +16,7 @@ MonoBehaviour:
   _missionName: 'Staggering
 
     Blow'
+  _missionTitleScale: 1
   _associatedDifficulty: 1
   _associatedLevel: {fileID: 11400000, guid: 763a87e823e4c5d4d8c9e44aa8aa4a02, type: 2}
   _associatedHeroes:
@@ -39,7 +40,8 @@ MonoBehaviour:
     TutorialPageObjectLocation: {x: 0, y: -70}
     TutorialPageObject: {fileID: 1907742723051834283, guid: 0c6ded0d6b92d2b4d9a4b594df0f6f8c, type: 3}
     TutorialPageCharacterTutorial:
-      TutorialPageCharacterLocation: {x: 0, y: 0}
+      TutorialCharacterIconLocation: {x: 0, y: 0}
+      TutorialCharacterIconScaleMultiplier: 1
       TutorialPageCharacterIcon: {fileID: 0}
       TutorialPageCharacterBackground: {fileID: 0}
   - TutorialPageTitle: Safe Zones
@@ -54,7 +56,8 @@ MonoBehaviour:
     TutorialPageObjectLocation: {x: 0, y: -45}
     TutorialPageObject: {fileID: 8878142049407289308, guid: 57c07eee93d31b4408341ca174634d15, type: 3}
     TutorialPageCharacterTutorial:
-      TutorialPageCharacterLocation: {x: 0, y: 0}
+      TutorialCharacterIconLocation: {x: 0, y: 0}
+      TutorialCharacterIconScaleMultiplier: 1
       TutorialPageCharacterIcon: {fileID: 0}
       TutorialPageCharacterBackground: {fileID: 0}
   - TutorialPageTitle: Enrage
@@ -71,15 +74,16 @@ MonoBehaviour:
     TutorialPageObjectLocation: {x: 0, y: 0}
     TutorialPageObject: {fileID: 0}
     TutorialPageCharacterTutorial:
-      TutorialPageCharacterLocation: {x: 0, y: 0}
+      TutorialCharacterIconLocation: {x: 0, y: 0}
+      TutorialCharacterIconScaleMultiplier: 1
       TutorialPageCharacterIcon: {fileID: 0}
       TutorialPageCharacterBackground: {fileID: 0}
-  _tutorialHero: {fileID: 0}
   _characterUnlock: {fileID: 0}
   _missionUnlocks:
   - {fileID: 11400000, guid: fcfd0a27990972e44bfdc6fac01bea39, type: 2}
+  _missionModifiers: []
   _missionStatModifiers:
-    _bossHealthMultiplier: 0.1
+    _bossHealthMultiplier: 0.125
     _bossStaggerMultiplier: 0.75
     _bossAttackSpeedMultiplier: 0.9
     _bossDamageResistanceChangeOnStaggerMultiplier: 1.5

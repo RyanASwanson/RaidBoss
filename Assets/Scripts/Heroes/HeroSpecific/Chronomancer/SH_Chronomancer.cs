@@ -106,8 +106,13 @@ public class SH_Chronomancer : SpecificHeroFramework
     /// </summary>
     private void IncreaseCurrentAttackRotation()
     {
+        if (_storedDirectionObj.IsUnityNull())
+        {
+            return;
+        }
+        
         _currentAttackDirection = Quaternion.Euler(_attackRotationIncrease) * _currentAttackDirection;
-
+        
         //Rotates the target direction object for the basic ability
         _storedDirectionObj.transform.localEulerAngles += _attackRotationIncrease;
     }

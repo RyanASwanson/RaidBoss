@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -18,10 +19,16 @@ public class SHP_ReaperManualProjectile : HeroProjectileFramework
     
     private IEnumerator MoveProjectile()
     {
+        Vector3 targetLocation = _myHeroBase.gameObject.transform.position;
         while (true)
         {
+            if (!_myHeroBase.IsUnityNull())
+            {
+                targetLocation = _myHeroBase.gameObject.transform.position;
+            }
+            
             transform.position = Vector3.MoveTowards(transform.position,
-                _myHeroBase.gameObject.transform.position, _projectileSpeed * Time.deltaTime);
+                targetLocation, _projectileSpeed * Time.deltaTime);
 
             transform.LookAt(_myHeroBase.gameObject.transform.position);
             transform.eulerAngles.Set(0, transform.eulerAngles.y, 0);

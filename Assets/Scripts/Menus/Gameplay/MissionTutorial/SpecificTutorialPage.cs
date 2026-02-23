@@ -31,5 +31,6 @@ public class SpecificTutorialPage : MonoBehaviour
             
             iconTutorialVisuals.SetUp(tutorialPage.TutorialPageCharacterTutorial);
         }
+        
     }
 }

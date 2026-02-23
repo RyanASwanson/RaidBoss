@@ -1,0 +1,133 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 693bc80e562020641a7353805d099d2c, type: 3}
+  m_Name: Mission19
+  m_EditorClassIdentifier: 
+  _missionID: 18
+  _missionName: 'The
+
+    Mirage'
+  _missionTitleScale: 1
+  _associatedDifficulty: 2
+  _associatedLevel: {fileID: 11400000, guid: f4cdc78ddb5cc51429696d5d12e95a4f, type: 2}
+  _associatedHeroes:
+  - {fileID: 11400000, guid: e3a0dad03ec099242b69fcc0759e259a, type: 2}
+  - {fileID: 11400000, guid: feb7336736898914f8630a93fd41a2bd, type: 2}
+  - {fileID: 11400000, guid: d7f1d550a7767a0449286a45aa1aeb8d, type: 2}
+  - {fileID: 11400000, guid: 5cd74adfdadc94247a4cc60ba024fe89, type: 2}
+  _tutorialPages:
+  - TutorialPageTitle: The Mirage
+    TutorialPageTitleWidth: 735
+    DefaultTextLocation: {x: 0, y: 45}
+    DefaultText: 'The Mirage is a deceptive and
+
+      complex damage dealer. It
+      utilizes
+
+      a clone to decieve the boss and
+
+      counterattack.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 907986429f001e94f80f4d482d34513b, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: cad11a2bf12278c46a02ba6a7ef54eec, type: 3}
+  - TutorialPageTitle: Mirage Clone
+    TutorialPageTitleWidth: 800
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'The Mirage has a sand
+
+      clone that is utilized in
+
+      all
+      of its abilities.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: cc73c377a2f1f6d489e1fee45cb15de1, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  - TutorialPageTitle: Sandblast
+    TutorialPageTitleWidth: 625
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'The Mirage''s basic ability is
+
+      Sandblast. The Mirage creates
+
+      pillars
+      that stab at the midpoint
+
+      between the Mirage and it''s clone.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: c5d2e63deba4afb4299ff5a01de3f206, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  - TutorialPageTitle: Sandstone Clone
+    TutorialPageTitleWidth: 1025
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'The Mirage''s active ability is
+
+      Sandstone Clone. The Mirage
+
+      swaps
+      places with its clone with
+
+      a short cooldown.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 9a9468215be2ca6488e0b159d8153429, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  - TutorialPageTitle: Diversion
+    TutorialPageTitleWidth: 650
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'The Mirage''s passive ability is
+
+      Diversion. The Mirage''s
+      clone can be
+
+      targeted and attacked by the boss. If it
+
+      gets hit
+      by the boss it casts Sandblast.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: cc73c377a2f1f6d489e1fee45cb15de1, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  _characterUnlock: {fileID: 11400000, guid: d7f1d550a7767a0449286a45aa1aeb8d, type: 2}
+  _missionUnlocks:
+  - {fileID: 11400000, guid: 0d97b8018ae513f4ca2cd3f5da3f6edf, type: 2}
+  _missionModifiers: []
+  _missionStatModifiers:
+    _bossHealthMultiplier: 1
+    _bossStaggerMultiplier: 1
+    _bossAttackSpeedMultiplier: 1
+    _bossDamageResistanceChangeOnStaggerMultiplier: 1
+    _bossEnrageTimeMultiplier: 1
+    _bossEnrageDamageMultiplier: 1
+    _bossAbilitiesUsable: 0101010101
+    _heroHealthMultiplier: 1
+    _heroDamageMultiplier: 1
+    _heroStaggerMultiplier: 1
+    _heroHealingReceivedMultiplier: 1
+    _heroManualCooldownTimeMultiplier: 1

@@ -88,6 +88,8 @@ public class BossStats : BossChildrenFunctionality
             _storedEnrageMultiplier *= missionStatModifiers.GetBossEnrageDamageMultiplier();
         }
         
+        GameplayModifiersManager.Instance.AdjustBossStatsFromModifiers(this);
+        
         //Sets the starting health and stagger values
         _currentHealth = _bossMaxHealth;
         _currentStaggerCounter = 0;
@@ -356,6 +358,8 @@ public class BossStats : BossChildrenFunctionality
     public float GetBossStaggerPercentage() => _currentStaggerCounter / _bossDefaultStaggerMax;
 
     public float GetStaggerDuration() => _bossStaggerDuration;
+    
+    public float GetBossDamageResistanceChangeOnStagger() => _bossDamageResistanceChangeOnStagger;
 
     public bool GetIsBossStaggered() => _isBossStaggered;
     public bool GetIsBossEnraged() => _isBossEnraged;
@@ -400,5 +404,9 @@ public class BossStats : BossChildrenFunctionality
     {
         _baseBossDamageMultiplier *= amount;
     }
+    
+    public float SetBossMaxHealth(float value) => _bossMaxHealth = value;
+    public float SetBossMaxStagger(float value) => _bossDefaultStaggerMax = value;
+    public float SetBossDamageResistanceChangeOnStagger(float value) => _bossDamageResistanceChangeOnStagger = value;
     #endregion
 }

@@ -1,0 +1,81 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 693bc80e562020641a7353805d099d2c, type: 3}
+  m_Name: Mission14
+  m_EditorClassIdentifier: 
+  _missionID: 13
+  _missionName: 'Shared
+
+    Survival'
+  _missionTitleScale: 1
+  _associatedDifficulty: 2
+  _associatedLevel: {fileID: 11400000, guid: 763a87e823e4c5d4d8c9e44aa8aa4a02, type: 2}
+  _associatedHeroes:
+  - {fileID: 11400000, guid: fa900cf8282b2814fb9eb1a8cc860cd0, type: 2}
+  - {fileID: 11400000, guid: 2b5cc09a0a41a0c40a6b8c0fa2ebb464, type: 2}
+  - {fileID: 11400000, guid: 0128339a05223db40aae2581988a9ea0, type: 2}
+  - {fileID: 11400000, guid: 5cd74adfdadc94247a4cc60ba024fe89, type: 2}
+  _tutorialPages:
+  - TutorialPageTitle: 'Modifier: Shared Survival'
+    TutorialPageTitleWidth: 1525
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'If one hero dies, you instantly
+
+      lose the fight. Make sure
+      no
+
+      hero is left behind or they
+
+      will all pay the price.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -60}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 77b75c240f3e778428dc63b532fd2c77, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: 818d8b766be8c0d4687ee74e218b8deb, type: 3}
+  - TutorialPageTitle: Staving off death
+    TutorialPageTitleWidth: 1075
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'Remember that the Reaper persists
+
+      after death for a short
+      period. You
+
+      still have a brief chance even if
+
+      the Reaper perishes.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -60}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: fe6d030b04450f043a079a46a9c747c1, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  _characterUnlock: {fileID: 0}
+  _missionUnlocks:
+  - {fileID: 11400000, guid: 73897f07d3f6333449a9c3992f854a50, type: 2}
+  _missionModifiers:
+  - {fileID: 11400000, guid: d77d306ec0a4d884d82eb9316c908513, type: 2}
+  _missionStatModifiers:
+    _bossHealthMultiplier: 1
+    _bossStaggerMultiplier: 1
+    _bossAttackSpeedMultiplier: 1
+    _bossDamageResistanceChangeOnStaggerMultiplier: 1
+    _bossEnrageTimeMultiplier: 1
+    _bossEnrageDamageMultiplier: 1
+    _bossAbilitiesUsable: 0101010101
+    _heroHealthMultiplier: 1
+    _heroDamageMultiplier: 1
+    _heroStaggerMultiplier: 1
+    _heroHealingReceivedMultiplier: 1
+    _heroManualCooldownTimeMultiplier: 1

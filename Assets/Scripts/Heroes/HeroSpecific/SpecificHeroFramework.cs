@@ -73,7 +73,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         _basicAbilityCurrentCharge = 0;
         while (_basicAbilityCurrentCharge < _basicAbilityChargeTime)
         {
-            CooldownAddToBasicAbilityCharge(Time.deltaTime);
+            CooldownAddToBasicAbilityCharge(Time.deltaTime * _myHeroBase.GetHeroStats().GetBasicAbilityCooldownRateMultiplier());
             yield return null;
         }
 
@@ -199,7 +199,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     {
         while (_manualAbilityCurrentCharge < _manualAbilityChargeTime)
         {
-            AddToManualAbilityChargeTime(Time.deltaTime);
+            AddToManualAbilityChargeTime(Time.deltaTime * _myHeroBase.GetHeroStats().GetManualAbilityCooldownRateMultiplier());
             yield return null;
         }
 

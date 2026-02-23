@@ -8,14 +8,6 @@ using UnityEngine;
 /// </summary>
 public class GameplayManagers : CoreManagersFramework
 {
-    [SerializeField] private BossManager _bossManager;
-    [SerializeField] private PlayerInputGameplayManager _playerInputManager;
-    [SerializeField] private GameStateManager _gameStateManager;
-    [SerializeField] private CameraGameManager _cameraManager;
-    [SerializeField] private HeroesManager _heroesManager;
-    [SerializeField] private EnvironmentManager _environmentManager;
-    [SerializeField] private GameUIManager _gameUIManager;
-    
     /// <summary>
     /// Contains all managers to set up. Order of managers is order of setup.
     /// </summary>

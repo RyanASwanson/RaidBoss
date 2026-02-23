@@ -1,0 +1,119 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 693bc80e562020641a7353805d099d2c, type: 3}
+  m_Name: Mission13
+  m_EditorClassIdentifier: 
+  _missionID: 12
+  _missionName: 'The
+
+    Vampire'
+  _missionTitleScale: 1
+  _associatedDifficulty: 2
+  _associatedLevel: {fileID: 11400000, guid: 8493e996e77df644ab18a699456b6c06, type: 2}
+  _associatedHeroes:
+  - {fileID: 11400000, guid: 77065cfc021c68f45b33aa0acd24fa46, type: 2}
+  - {fileID: 11400000, guid: 2b5cc09a0a41a0c40a6b8c0fa2ebb464, type: 2}
+  - {fileID: 11400000, guid: e3a0dad03ec099242b69fcc0759e259a, type: 2}
+  - {fileID: 11400000, guid: 5cd74adfdadc94247a4cc60ba024fe89, type: 2}
+  _tutorialPages:
+  - TutorialPageTitle: The Vampire
+    TutorialPageTitleWidth: 825
+    DefaultTextLocation: {x: 0, y: 43}
+    DefaultText: 'The Vampire is a bloodthirsty
+
+      and unkillable tank. She inflicts
+
+      heavy
+      stagger, all while healing
+
+      from any damage dealt.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -60}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: cb844acb71a440d42b466821e2a37512, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: cad11a2bf12278c46a02ba6a7ef54eec, type: 3}
+  - TutorialPageTitle: Blood Lance
+    TutorialPageTitleWidth: 775
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'The Vampire''s basic ability is Blood Lance.
+
+      The Vampire
+      fires a projectile that splits
+
+      into 3 projectiles after a short distance
+      dealing
+
+      heavy stagger. Line up the distance just right
+
+      to get
+      the most use out of it.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: f76c063393ef8e645a7ae785867d7cbc, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  - TutorialPageTitle: Bat Swarm
+    TutorialPageTitleWidth: 725
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'The Vampire''s basic ability is Bat Swarm.
+
+      The Vampire disperses
+      into a swarm of bats
+
+      becoming immune to damage and gaining
+
+      increased
+      healing.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 3f0341e4515938443b042eb518d670d0, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  - TutorialPageTitle: Lifesteal
+    TutorialPageTitleWidth: 640
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'The Vampire''s basic ability is Lifesteal.
+
+      The Vampire heals
+      proportional
+
+      to the damage she deals.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -55}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 2705d83ecbf743347b995d114c502128, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  _characterUnlock: {fileID: 11400000, guid: 77065cfc021c68f45b33aa0acd24fa46, type: 2}
+  _missionUnlocks:
+  - {fileID: 11400000, guid: 661092f62fe15ea43acd481bcd130baf, type: 2}
+  _missionModifiers: []
+  _missionStatModifiers:
+    _bossHealthMultiplier: 1
+    _bossStaggerMultiplier: 1
+    _bossAttackSpeedMultiplier: 1
+    _bossDamageResistanceChangeOnStaggerMultiplier: 1
+    _bossEnrageTimeMultiplier: 1
+    _bossEnrageDamageMultiplier: 1
+    _bossAbilitiesUsable: 0101010101
+    _heroHealthMultiplier: 1
+    _heroDamageMultiplier: 1
+    _heroStaggerMultiplier: 1
+    _heroHealingReceivedMultiplier: 1
+    _heroManualCooldownTimeMultiplier: 1

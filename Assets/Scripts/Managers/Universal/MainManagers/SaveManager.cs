@@ -343,7 +343,7 @@ public class SaveManager : MainUniversalManagerFramework
 
     public void MissionComplete()
     {
-        if (!GSD.GetGameplaySaveData().GetMissionsComplete().Contains(SelectionManager.Instance.GetSelectedMission().GetMissionID()))
+        /*if (!GSD.GetGameplaySaveData().GetMissionsComplete().Contains(SelectionManager.Instance.GetSelectedMission().GetMissionID()))
         {
             GSD.GetGameplaySaveData().GetMissionsComplete().Add(SelectionManager.Instance.GetSelectedMission().GetMissionID());
             
@@ -358,6 +358,19 @@ public class SaveManager : MainUniversalManagerFramework
                 UnlockMission(missionUnlocks[i], i == 0);
             }
             
+        }*/
+        
+        GSD.GetGameplaySaveData().GetMissionsComplete().Add(SelectionManager.Instance.GetSelectedMission().GetMissionID());
+            
+        UnlockCharacter(SelectionManager.Instance.GetSelectedMission().GetCharacterUnlock());
+
+        MissionSO[] missionUnlocks = SelectionManager.Instance.GetSelectedMission().GetMissionUnlocks();
+
+        for (int i = 0; i < missionUnlocks.Length; i++)
+        {
+            // Unlocks the mission
+            // If this is the first mission in the set of unlocks call this function with a true bool
+            UnlockMission(missionUnlocks[i], i == 0);
         }
         
         SaveText();

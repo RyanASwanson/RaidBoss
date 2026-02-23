@@ -59,6 +59,8 @@ public class SelectionManager : MainUniversalManagerFramework
     private int _indexOfLastRemovedHero;
 
     private EGameDifficulty _currentEGameDifficulty = EGameDifficulty.Normal;
+    
+    private List<MissionModifierSO> _currentMissionModifiers = new List<MissionModifierSO>();
 
     private EGameMode _currentGameMode = EGameMode.Missions;
 
@@ -200,9 +202,25 @@ public class SelectionManager : MainUniversalManagerFramework
         }
     }
 
-    #region Missions 
-    
-    #endregion
+    public void AddMissionModifier(MissionModifierSO missionModifierSO)
+    {
+        if (_currentMissionModifiers.Contains(missionModifierSO))
+        {
+            return;
+        }
+        
+        _currentMissionModifiers.Add(missionModifierSO);
+    }
+
+    public void RemoveMissionModifier(MissionModifierSO missionModifierSO)
+    {
+        if (!_currentMissionModifiers.Contains(missionModifierSO))
+        {
+            return;
+        }
+        
+        _currentMissionModifiers.Remove(missionModifierSO);
+    }
     
     /// <summary>
     /// Removes the currently selected heroes, boss, level
@@ -215,6 +233,8 @@ public class SelectionManager : MainUniversalManagerFramework
         _selectedHeroes = new();
         _selectedBoss = null;
         _selectedLevel = null;
+
+        _currentMissionModifiers.Clear();
     }
 
     #region BaseManager
@@ -330,6 +350,7 @@ public class SelectionManager : MainUniversalManagerFramework
     public Sprite GetDifficultyIconOfCurrentDifficulty() => GetDifficultyIconFromDifficulty(_currentEGameDifficulty);
     public Sprite GetDifficultyIconFromDifficulty(EGameDifficulty difficulty) => GetDifficultyIconFromDifficulty((int)difficulty);
     public Sprite GetDifficultyIconFromDifficulty(int difficulty) => _difficultyIcons[difficulty-1];
+    public List<MissionModifierSO> GetMissionModifiers() => _currentMissionModifiers;
 
 
     public MissionSO GetSelectedMission() => _currentSelectedMission;
@@ -442,11 +463,21 @@ public class SelectionManager : MainUniversalManagerFramework
             _selectedHeroes.Add(hero);
         }
     }
+
+    public void SetSelectedModifiers(MissionModifierSO[] missionModifiers)
+    {
+        foreach (MissionModifierSO modifier in missionModifiers)
+        {
+            _currentMissionModifiers.Add(modifier);
+        }
+    }
     
     public void SetSelectedGameMode(EGameMode gameMode)
     {
         _currentGameMode = gameMode;
     }
+    
+    
     #endregion
 }
 

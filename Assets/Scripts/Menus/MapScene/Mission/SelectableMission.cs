@@ -111,6 +111,7 @@ public class SelectableMission : MonoBehaviour
         SelectionManager.Instance.SetSelectedDifficulty(_associatedMission.GetAssociatedDifficulty());
         SelectionManager.Instance.SetSelectedLevelAndBoss(_associatedMission.GetAssociatedLevel());
         SelectionManager.Instance.SetSelectedHeroes(_associatedMission.GetAssociatedHeroes());
+        SelectionManager.Instance.SetSelectedModifiers(_associatedMission.GetMissionModifiers());
 
         ShowAllPreviews();
     }

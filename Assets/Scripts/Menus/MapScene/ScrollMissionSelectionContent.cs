@@ -7,6 +7,7 @@ public class ScrollMissionSelectionContent : ScrollUIContents
 {
     [Space]
     [SerializeField] private TextWithBackground _titleText;
+    private Vector3 _titleScale;
 
     [Space] 
     [SerializeField] private Image _bossIcon;
@@ -31,6 +32,8 @@ public class ScrollMissionSelectionContent : ScrollUIContents
         MissionSO missionSO = MapController.Instance.GetSelectedMission().GetAssociatedMission();
         
         _titleText.UpdateText(missionSO.GetMissionName());
+        _titleScale.Set(missionSO.GetMissionTitleScale(),missionSO.GetMissionTitleScale(),missionSO.GetMissionTitleScale());
+        _titleText.transform.localScale = _titleScale;
 
         _bossIcon.sprite = missionSO.GetAssociatedLevel().GetLevelBoss().GetBossIcon();
 

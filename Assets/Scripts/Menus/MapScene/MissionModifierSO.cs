@@ -10,6 +10,9 @@ public class MissionModifierSO : ScriptableObject
 
     [Space] 
     [SerializeField] private Sprite _modifierSprite;
+
+    [Space]
+    [SerializeField] private GameObject _missionModifierObject;
     
     
     #region Getters
@@ -17,5 +20,7 @@ public class MissionModifierSO : ScriptableObject
     public string GetModifierDescription() => _modifierDescription;
     
     public Sprite GetModifierSprite() => _modifierSprite;
+    
+    public GameObject GetMissionModifierObject() => _missionModifierObject;
     #endregion
 }

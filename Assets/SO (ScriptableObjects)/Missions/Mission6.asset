@@ -16,6 +16,7 @@ MonoBehaviour:
   _missionName: 'The Terra
 
     Lord'
+  _missionTitleScale: 1
   _associatedDifficulty: 1
   _associatedLevel: {fileID: 11400000, guid: 53e846bb7c637be46af02e5cd8741558, type: 2}
   _associatedHeroes:
@@ -79,8 +80,9 @@ MonoBehaviour:
   _characterUnlock: {fileID: 11400000, guid: be74862a2a733b44c8683efb08f6f861, type: 2}
   _missionUnlocks:
   - {fileID: 11400000, guid: 1da492c6ee012114b9206705ff83b5dd, type: 2}
+  _missionModifiers: []
   _missionStatModifiers:
-    _bossHealthMultiplier: 0.35
+    _bossHealthMultiplier: 0.45
     _bossStaggerMultiplier: 1
     _bossAttackSpeedMultiplier: 1
     _bossDamageResistanceChangeOnStaggerMultiplier: 1
@@ -92,4 +94,3 @@ MonoBehaviour:
     _heroStaggerMultiplier: 1
     _heroHealingReceivedMultiplier: 1
     _heroManualCooldownTimeMultiplier: 1
-  _missionModifiers: []

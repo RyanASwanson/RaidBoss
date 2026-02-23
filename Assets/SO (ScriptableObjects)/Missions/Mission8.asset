@@ -13,64 +13,104 @@ MonoBehaviour:
   m_Name: Mission8
   m_EditorClassIdentifier: 
   _missionID: 7
-  _missionName: 'Mission
+  _missionName: 'The
 
-    Modifiers'
+    Shaman'
+  _missionTitleScale: 1
   _associatedDifficulty: 1
   _associatedLevel: {fileID: 11400000, guid: 763a87e823e4c5d4d8c9e44aa8aa4a02, type: 2}
   _associatedHeroes:
-  - {fileID: 11400000, guid: fa900cf8282b2814fb9eb1a8cc860cd0, type: 2}
   - {fileID: 11400000, guid: 0128339a05223db40aae2581988a9ea0, type: 2}
   - {fileID: 11400000, guid: 2b5cc09a0a41a0c40a6b8c0fa2ebb464, type: 2}
+  - {fileID: 11400000, guid: e3a0dad03ec099242b69fcc0759e259a, type: 2}
   _tutorialPages:
-  - TutorialPageTitle: Mission Modifiers
-    TutorialPageTitleWidth: 1060
-    DefaultTextLocation: {x: 0, y: 55}
-    DefaultText: 'Some missions will have modifiers that
+  - TutorialPageTitle: The Shaman
+    TutorialPageTitleWidth: 775
+    DefaultTextLocation: {x: 0, y: 45}
+    DefaultText: 'The Shaman is a well rounded and
 
-      change how you will
-      play. They
+      strategic damage dealer.
+      He deals damage
 
-      can be seen near the bottom of the
+      over wide areas while waiting for his
 
-      mission scroll
-      in the mission selection.'
-    TutorialPageObjectLocation: {x: 0, y: -50}
-    TutorialPageObject: {fileID: 2628942221242811885, guid: 9080da42fa575a2468505ae80afe1fc1, type: 3}
-    TutorialPageCharacterTutorial:
-      TutorialCharacterIconLocation: {x: 0, y: 0}
-      TutorialCharacterIconScaleMultiplier: 0
-      TutorialPageCharacterIcon: {fileID: 0}
-      TutorialPageCharacterBackground: {fileID: 0}
-  - TutorialPageTitle: 'Modifier: Brittle'
-    TutorialPageTitleWidth: 1000
-    DefaultTextLocation: {x: 0, y: 40}
-    DefaultText: 'Boss health is increased, but the
-
-      boss takes significantly
-      increased
-
-      damage while staggered.'
+      opportunity
+      to line up repeated damage.'
     TutorialPageObjectLocation: {x: 0, y: 0}
     TutorialPageObject: {fileID: 0}
     TutorialPageCharacterTutorial:
-      TutorialCharacterIconLocation: {x: 0, y: -60}
+      TutorialCharacterIconLocation: {x: 0, y: -65}
       TutorialCharacterIconScaleMultiplier: 1
-      TutorialPageCharacterIcon: {fileID: 21300000, guid: 62e8a26981a4b464ea424d1c7d1ef962, type: 3}
-      TutorialPageCharacterBackground: {fileID: 21300000, guid: 818d8b766be8c0d4687ee74e218b8deb, type: 3}
-  _characterUnlock: {fileID: 0}
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 50055fdb0508a044691e25a12d99168b, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: cad11a2bf12278c46a02ba6a7ef54eec, type: 3}
+  - TutorialPageTitle: Tornado
+    TutorialPageTitleWidth: 560
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'The Shaman''s basic ability is
+
+      Tornado. The Shaman creates
+      a
+
+      tornado which deals damage and
+
+      low stagger vertically.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 8bdea33b2b0c3674fa19fde192c3bec8, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  - TutorialPageTitle: Ball Lightning
+    TutorialPageTitleWidth: 880
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'The Shaman''s active ability is Ball Lightning.
+
+      The Shaman
+      fires a ball of lightning that bounces
+
+      between all heroes. Line it up
+      to hit the boss
+
+      multiple times.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 53c272ff603dd9d48a50f92ca834ec29, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  - TutorialPageTitle: Spirit Totem
+    TutorialPageTitleWidth: 740
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'The Shaman''s passive ability is Spirit Totem.
+
+      The Shaman
+      creates a totem at his location after
+
+      using Ball Lightning. The next
+      use of Ball Lightning
+
+      will bounce off of the totem as well as all heroes.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 8a84224464139aa4790c50fec3f988e0, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  _characterUnlock: {fileID: 11400000, guid: e3a0dad03ec099242b69fcc0759e259a, type: 2}
   _missionUnlocks:
-  - {fileID: 11400000, guid: 8906b8ba7d67be44ba9658f6d55eca9a, type: 2}
-  _missionModifiers:
-  - {fileID: 11400000, guid: 552c5c9b813bd4f429e0c22b5df61aa5, type: 2}
+  - {fileID: 11400000, guid: 891da014c2e98db41900484d53a617bc, type: 2}
+  _missionModifiers: []
   _missionStatModifiers:
-    _bossHealthMultiplier: 2
-    _bossStaggerMultiplier: 0.9
+    _bossHealthMultiplier: 0.8
+    _bossStaggerMultiplier: 1
     _bossAttackSpeedMultiplier: 1
-    _bossDamageResistanceChangeOnStaggerMultiplier: 4
+    _bossDamageResistanceChangeOnStaggerMultiplier: 1
     _bossEnrageTimeMultiplier: 1
     _bossEnrageDamageMultiplier: 1
-    _bossAbilitiesUsable: 0101010101
+    _bossAbilitiesUsable: 0101010001
     _heroHealthMultiplier: 1
     _heroDamageMultiplier: 1
     _heroStaggerMultiplier: 1
