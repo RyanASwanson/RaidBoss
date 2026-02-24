@@ -215,6 +215,7 @@ public class TimeManager : MainUniversalManagerFramework
     /// </summary>
     private void SceneLoadStart()
     {
+        _isTimeStopped = false;
         _isGamePaused = false;
         _canUpdateTimeVariation = false;
         SetTimeToNormalSpeedOverride();

@@ -1,49 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4046221609831077168
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6062665454146747523}
-  - component: {fileID: 5025199056829597426}
-  m_Layer: 0
-  m_Name: AchievementManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6062665454146747523
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4046221609831077168}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5149610026413585995}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5025199056829597426
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4046221609831077168}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbd0838eb58b53944aa9e95d94ff0efd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &5149610026413585993
 GameObject:
   m_ObjectHideFlags: 0
@@ -343,6 +299,68 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 4329529563638863157, guid: bae7cb101f37cf54f9be87c31ed8214b, type: 3}
   m_PrefabInstance: {fileID: 6357875367270620547}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6481994399548325562
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 5149610026413585995}
+    m_Modifications:
+    - target: {fileID: 997056436109623865, guid: 4bf31c91add03b242baeb99fe8429f40, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 997056436109623865, guid: 4bf31c91add03b242baeb99fe8429f40, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 997056436109623865, guid: 4bf31c91add03b242baeb99fe8429f40, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 997056436109623865, guid: 4bf31c91add03b242baeb99fe8429f40, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 997056436109623865, guid: 4bf31c91add03b242baeb99fe8429f40, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 997056436109623865, guid: 4bf31c91add03b242baeb99fe8429f40, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 997056436109623865, guid: 4bf31c91add03b242baeb99fe8429f40, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 997056436109623865, guid: 4bf31c91add03b242baeb99fe8429f40, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 997056436109623865, guid: 4bf31c91add03b242baeb99fe8429f40, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 997056436109623865, guid: 4bf31c91add03b242baeb99fe8429f40, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 997056436109623865, guid: 4bf31c91add03b242baeb99fe8429f40, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7049182960768756618, guid: 4bf31c91add03b242baeb99fe8429f40, type: 3}
+      propertyPath: m_Name
+      value: AchievementManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4bf31c91add03b242baeb99fe8429f40, type: 3}
+--- !u!4 &6062665454146747523 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 997056436109623865, guid: 4bf31c91add03b242baeb99fe8429f40, type: 3}
+  m_PrefabInstance: {fileID: 6481994399548325562}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7844806641798241885
 PrefabInstance:

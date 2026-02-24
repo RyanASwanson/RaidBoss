@@ -8,9 +8,9 @@ public class AchievementManager : MainUniversalManagerFramework
 {
     public static AchievementManager Instance;
 
-    [SerializeField] private AchievementData[] _achievementsInGame;
+    [SerializeField] private AchievementSO[] _achievementsInGame;
     
-    private UnityEvent<AchievementData> _onAchievementUnlocked = new UnityEvent<AchievementData>();
+    private UnityEvent<AchievementSO> _onAchievementUnlocked = new UnityEvent<AchievementSO>();
 
 
     public void UnlockAchievement(int id)
@@ -18,8 +18,9 @@ public class AchievementManager : MainUniversalManagerFramework
         UnlockAchievement(_achievementsInGame[id]);
     }
 
-    public void UnlockAchievement(AchievementData achievement)
+    public void UnlockAchievement(AchievementSO achievement)
     {
+        Debug.Log("Achievement Unlocked" + achievement.name);
         InvokeOnAchievementUnlocked(achievement);
     }
     
@@ -33,23 +34,13 @@ public class AchievementManager : MainUniversalManagerFramework
     
     #region Events
 
-    public void InvokeOnAchievementUnlocked(AchievementData achievementData)
+    public void InvokeOnAchievementUnlocked(AchievementSO achievementData)
     {
         _onAchievementUnlocked.Invoke(achievementData);
     }
     #endregion
     
     #region Getters
-    public UnityEvent<AchievementData> GetOnAchievementUnlocked() => _onAchievementUnlocked;
+    public UnityEvent<AchievementSO> GetOnAchievementUnlocked() => _onAchievementUnlocked;
     #endregion
-}
-
-[System.Serializable]
-public class AchievementData
-{
-    public string AchievmentName;
-    public string AchievementUnlockName;
-    public int AchievmentID;
-    [TextArea(1, 2)] public string AchievementDescription;
-    
 }

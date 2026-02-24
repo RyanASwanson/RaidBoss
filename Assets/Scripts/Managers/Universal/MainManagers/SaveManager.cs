@@ -372,6 +372,13 @@ public class SaveManager : MainUniversalManagerFramework
             // If this is the first mission in the set of unlocks call this function with a true bool
             UnlockMission(missionUnlocks[i], i == 0);
         }
+
+        AchievementSO[] achievementUnlocks = SelectionManager.Instance.GetSelectedMission().GetAchievementUnlocks();
+
+        for (int i = 0; i < achievementUnlocks.Length; i++)
+        {
+            AchievementManager.Instance.UnlockAchievement(achievementUnlocks[i]);
+        }
         
         SaveText();
     }

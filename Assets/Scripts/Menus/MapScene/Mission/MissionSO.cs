@@ -27,6 +27,9 @@ public class MissionSO : ScriptableObject
     [Space] 
     [SerializeField] private MissionSO[] _missionUnlocks;
 
+    [Space]
+    [SerializeField] private AchievementSO[] _achievementUnlocks;
+
     [Space] 
     [Header("Modifiers")]
     [SerializeField] private MissionModifierSO[] _missionModifiers;
@@ -47,6 +50,7 @@ public class MissionSO : ScriptableObject
     
     public CharacterSO GetCharacterUnlock() =>_characterUnlock;
     public MissionSO[] GetMissionUnlocks() =>_missionUnlocks;
+    public AchievementSO[] GetAchievementUnlocks() =>_achievementUnlocks;
     
     public MissionModifierSO[] GetMissionModifiers() =>_missionModifiers;
     public MissionStatModifiers GetMissionStatModifiers() =>_missionStatModifiers;

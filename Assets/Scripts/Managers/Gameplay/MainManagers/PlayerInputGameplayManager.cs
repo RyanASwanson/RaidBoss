@@ -122,6 +122,7 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
         yield return _scrollCooldownWait;
         _scrollCooldownCoroutine = null;
     }
+    
     #region Controlling Heroes
     
     /// <summary>
