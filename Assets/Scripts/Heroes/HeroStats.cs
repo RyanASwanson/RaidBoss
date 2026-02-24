@@ -121,6 +121,8 @@ public class HeroStats : HeroChildrenFunctionality
         _currentHealth -= damage / _currentDamageResistance;
         _myHeroBase.InvokeHeroDamagedEvent(damage / _currentDamageResistance);
         
+        HeroesManager.Instance.InvokeOnHeroDamagedEvent(_myHeroBase);
+        
         AudioManager.Instance.PlaySpecificAudio(
             AudioManager.Instance.GeneralHeroAudio.HealthAudio.HeroTookDamage);
         
@@ -160,6 +162,8 @@ public class HeroStats : HeroChildrenFunctionality
         //Find the difference between the starting and final health
         healthDifference = _currentHealth - healthDifference;
         _myHeroBase.InvokeHeroHealedEvent(healthDifference);
+        
+        HeroesManager.Instance.InvokeOnHeroHealedEvent(_myHeroBase);
         
         AudioManager.Instance.PlaySpecificAudio(
             AudioManager.Instance.GeneralHeroAudio.HealthAudio.HeroTookHealing);

@@ -293,7 +293,6 @@ public class BossStats : BossChildrenFunctionality
         while (true)
         {
             _storedScalingEnrageDamageMultiplier += _scalingEnrageDamageMultiplierScaleRate * Time.deltaTime;
-            Debug.Log(_storedScalingEnrageDamageMultiplier);
             yield return null;
         }
     }

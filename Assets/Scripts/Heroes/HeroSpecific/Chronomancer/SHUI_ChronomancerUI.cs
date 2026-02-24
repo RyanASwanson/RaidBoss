@@ -7,18 +7,22 @@ using UnityEngine.UI;
 
 public class SHUI_ChronomancerUI : SpecificHeroUIFramework
 {
-    [SerializeField] private TMP_Text _text;
-    [SerializeField] private Text _textBackground;
+    [SerializeField] private TextWithBackground _textWithBackground;
 
     [Space] 
     [SerializeField] private float _startingScale;
     [SerializeField] private float _maxScale;
     [SerializeField] private float _healingForMaxScale;
     [SerializeField] private AnimationCurve _scaleCurve;
+    private float _scaleProgress;
 
     [Space] 
     [SerializeField] private float _activationTime;
     private WaitForSeconds _activationWait;
+
+    [Space] 
+    [SerializeField] private Image _upperSand;
+    [SerializeField] private Image _lowerSand;
     
     [Space]
     [SerializeField] private Animator _uiAnimator;
@@ -43,7 +47,7 @@ public class SHUI_ChronomancerUI : SpecificHeroUIFramework
         _activationWait = new WaitForSeconds(_activationTime);
     }
     
-    private void UpdateSpecificHeroText(float value)
+    private void UpdateHealthStoredDisplayText(float value)
     {
         int newValue = Mathf.RoundToInt(value);
         if (_lastTextNumber > newValue)
@@ -60,6 +64,7 @@ public class SHUI_ChronomancerUI : SpecificHeroUIFramework
         SetTextNumber();
 
         ModifyTextScale();
+        UpdateSandFill();
     }
 
     private void SetTextNumber()
@@ -68,9 +73,13 @@ public class SHUI_ChronomancerUI : SpecificHeroUIFramework
         {
             return;
         }
-        
-        _text.text = _lastTextNumber.ToString();
-        _textBackground.text = _lastTextNumber.ToString();
+
+        _textWithBackground.UpdateText(_lastTextNumber.ToString());
+    }
+
+    private void ResetSpecificHeroText()
+    {
+        UpdateHealthStoredDisplayText(0);
     }
 
     private void ModifyTextScale()
@@ -79,9 +88,15 @@ public class SHUI_ChronomancerUI : SpecificHeroUIFramework
         {
             return;
         }
-        float scaleProgress = Mathf.Clamp(_lastTextNumber / _healingForMaxScale, 0,1);
-        float newScale = Mathf.Lerp(_startingScale,_maxScale,_scaleCurve.Evaluate(scaleProgress));
+        _scaleProgress = Mathf.Clamp(_lastTextNumber / _healingForMaxScale, 0,1);
+        float newScale = Mathf.Lerp(_startingScale,_maxScale,_scaleCurve.Evaluate(_scaleProgress));
         _numberHolder.transform.localScale = new Vector3(newScale, newScale, newScale);
+    }
+
+    private void UpdateSandFill()
+    {
+        _upperSand.fillAmount = 1-_scaleProgress;
+        _lowerSand.fillAmount = _scaleProgress;
     }
 
     private void AbilityActivation()
@@ -96,8 +111,8 @@ public class SHUI_ChronomancerUI : SpecificHeroUIFramework
         yield return _activationWait;
         StopActivationAnimation();
         _isActivationProcessActive = false;
-
-        SetTextNumber();
+        
+        ResetSpecificHeroText();
         ModifyTextScale();
     }
 
@@ -130,15 +145,17 @@ public class SHUI_ChronomancerUI : SpecificHeroUIFramework
     protected override void SubscribeToEvents()
     {
         base.SubscribeToEvents();
-        _associatedChronomancer.GetOnStoredHealingUpdated().AddListener(UpdateSpecificHeroText);
+        _associatedChronomancer.GetOnStoredHealingUpdated().AddListener(UpdateHealthStoredDisplayText);
         _associatedChronomancer._myHeroBase.GetHeroManualAbilityAttemptEvent().AddListener(AbilityActivation);
+        _associatedChronomancer._myHeroBase.GetHeroDiedEvent().AddListener(ResetSpecificHeroText);
     }
 
     protected override void UnsubscribeToEvents()
     {
         base.UnsubscribeToEvents();
-        _associatedChronomancer.GetOnStoredHealingUpdated().RemoveListener(UpdateSpecificHeroText);
+        _associatedChronomancer.GetOnStoredHealingUpdated().RemoveListener(UpdateHealthStoredDisplayText);
         _associatedChronomancer._myHeroBase.GetHeroManualAbilityAttemptEvent().RemoveListener(AbilityActivation);
+        _associatedChronomancer._myHeroBase.GetHeroDiedEvent().RemoveListener(ResetSpecificHeroText);
     }
     #endregion
 }

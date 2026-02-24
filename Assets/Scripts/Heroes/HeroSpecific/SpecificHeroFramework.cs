@@ -419,6 +419,13 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         _myHeroBase.GetHeroDiedEvent().AddListener(HeroDied);
     }
 
+    protected virtual void UnsubscribeFromEvents()
+    {
+        GameStateManager.Instance.GetStartOfBattleEvent().RemoveListener(BattleStarted);
+        GameStateManager.Instance.GetBattleWonEvent().RemoveListener(BattleWon);
+        _myHeroBase.GetHeroDiedEvent().RemoveListener(HeroDied);
+    }
+
     #region Getters
     public float GetBasicAbilityChargeTime() => _basicAbilityChargeTime;
 
