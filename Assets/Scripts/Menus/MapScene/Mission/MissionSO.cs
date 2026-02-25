@@ -15,6 +15,9 @@ public class MissionSO : ScriptableObject
     [SerializeField] private EGameDifficulty _associatedDifficulty;
     [SerializeField] private LevelSO _associatedLevel;
     [SerializeField] private HeroSO[] _associatedHeroes;
+    
+    [Space]
+    [SerializeField] private MissionDisplayHighlight[] _missionDisplayHighlights;
 
     [Space] 
     [Header("Tutorials")]
@@ -45,6 +48,8 @@ public class MissionSO : ScriptableObject
     public EGameDifficulty GetAssociatedDifficulty() =>_associatedDifficulty;
     public LevelSO GetAssociatedLevel() =>_associatedLevel;
     public HeroSO[] GetAssociatedHeroes() =>_associatedHeroes;
+    
+    public MissionDisplayHighlight[] GetMissionDisplayHighlights() => _missionDisplayHighlights;
 
     public TutorialPage[] GetTutorialPages() => _tutorialPages;
     
@@ -125,3 +130,18 @@ public class TutorialPageCharacterTutorial
     
     #endregion
 }
+
+[System.Serializable]
+public class MissionDisplayHighlight
+{
+    public EMissionDisplayHighlightType HighlightType;
+    public int HightlightID;
+}
+
+public enum EMissionDisplayHighlightType
+{
+    Boss,
+    Difficulty,
+    Hero,
+    MissionModifier
+};

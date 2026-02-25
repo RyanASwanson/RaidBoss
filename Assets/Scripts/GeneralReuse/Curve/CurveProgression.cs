@@ -31,6 +31,8 @@ public class CurveProgression : MonoBehaviour
 
     [Space] 
     [SerializeField] private bool _doesResetToDefaultProgressOnEnable;
+
+    [SerializeField] private bool _doesStartMovingUpOnEnable;
     
     [Space] 
     [SerializeField] private bool _doesAutomaticallyMoveDownOnHittingMax;
@@ -93,6 +95,11 @@ public class CurveProgression : MonoBehaviour
         if (_doesResetToDefaultProgressOnEnable)
         {
             ResetCurve();
+        }
+
+        if (_doesStartMovingUpOnEnable)
+        {
+            StartMovingUpOnCurve();
         }
     }
 

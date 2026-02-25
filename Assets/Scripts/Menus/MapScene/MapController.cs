@@ -433,6 +433,11 @@ public class MapController : MonoBehaviour
     {
         DeselectSelectedMission();
     }
+
+    private void PlayerEscapePressed(InputAction.CallbackContext context)
+    {
+        DeselectSelectedMission();
+    }
     
     private void SubscribeToPlayerInput()
     {
@@ -440,6 +445,7 @@ public class MapController : MonoBehaviour
         _universalPlayerInputActions.GameplayActions.Enable();
         
         _universalPlayerInputActions.GameplayActions.DirectClick.started += PlayerRightClicked;
+        _universalPlayerInputActions.GameplayActions.EscapePress.started += PlayerEscapePressed;
 
         _isSubscribedToInput = true;
     }
@@ -449,6 +455,9 @@ public class MapController : MonoBehaviour
         if (!_isSubscribedToInput) return;
         
         _universalPlayerInputActions.GameplayActions.DirectClick.started -= PlayerRightClicked;
+        _universalPlayerInputActions.GameplayActions.EscapePress.started -= PlayerEscapePressed;
+        
+        _universalPlayerInputActions.GameplayActions.Disable();
         
         _isSubscribedToInput = false;
     }
