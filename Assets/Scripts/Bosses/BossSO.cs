@@ -32,6 +32,8 @@ public class BossSO : CharacterSO
     [SerializeField] private float _enrageTime;
     [SerializeField] private float _enrageDamageMultiplier;
 
+    [SerializeField] private float _enrageScalingDamageMultiplierIncreasePerMinute;
+
     [Header("Prefabs")]
     [SerializeField] private GameObject _bossPrefab;
 
@@ -80,6 +82,10 @@ public class BossSO : CharacterSO
     
     public float GetEnrageTime() => _enrageTime;
     public float GetEnrageDamageMultiplier() => _enrageDamageMultiplier;
+    public float GetEnrageScalingDamageMultiplierIncreasePerMinute() => _enrageScalingDamageMultiplierIncreasePerMinute;
+
+    public float GetEnrageScalingDamageMultiplierIncreasePerSecond() =>
+        _enrageScalingDamageMultiplierIncreasePerMinute / 60;
 
     public GameObject GetBossPrefab() => _bossPrefab;
 

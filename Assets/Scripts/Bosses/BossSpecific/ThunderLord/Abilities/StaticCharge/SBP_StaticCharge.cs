@@ -81,7 +81,7 @@ public class SBP_StaticCharge : BossProjectileFramework
     {
         if (_doesDealDamageOnMovingIn)
         {
-            _previousTarget.GetHeroStats().DealDamageToHero(_damageToFollowTargetOnSwap);
+            _mySpecificBoss.DamageHero(_previousTarget, _damageToFollowTargetOnSwap);
         }
 
         if (_currentSwaps < _maxSwaps && !_isDurationOver)

@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 693bc80e562020641a7353805d099d2c, type: 3}
+  m_Name: Mission9
+  m_EditorClassIdentifier: 
+  _missionID: 8
+  _missionName: 'Mission
+
+    Modifiers'
+  _missionTitleScale: 1
+  _associatedDifficulty: 1
+  _associatedLevel: {fileID: 11400000, guid: 53e846bb7c637be46af02e5cd8741558, type: 2}
+  _associatedHeroes:
+  - {fileID: 11400000, guid: fa900cf8282b2814fb9eb1a8cc860cd0, type: 2}
+  - {fileID: 11400000, guid: 2b5cc09a0a41a0c40a6b8c0fa2ebb464, type: 2}
+  - {fileID: 11400000, guid: e3a0dad03ec099242b69fcc0759e259a, type: 2}
+  _tutorialPages:
+  - TutorialPageTitle: Mission Modifiers
+    TutorialPageTitleWidth: 1060
+    DefaultTextLocation: {x: 0, y: 55}
+    DefaultText: 'Some missions will have modifiers that
+
+      change how you will
+      play. They
+
+      can be seen near the bottom of the
+
+      mission scroll
+      in the mission selection.'
+    TutorialPageObjectLocation: {x: 0, y: -50}
+    TutorialPageObject: {fileID: 2628942221242811885, guid: 9080da42fa575a2468505ae80afe1fc1, type: 3}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: 0}
+      TutorialCharacterIconScaleMultiplier: 0
+      TutorialPageCharacterIcon: {fileID: 0}
+      TutorialPageCharacterBackground: {fileID: 0}
+  - TutorialPageTitle: 'Modifier: Brittle'
+    TutorialPageTitleWidth: 1000
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'Boss health is increased, but the
+
+      boss takes significantly
+      increased
+
+      damage while staggered.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -60}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 62e8a26981a4b464ea424d1c7d1ef962, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: 818d8b766be8c0d4687ee74e218b8deb, type: 3}
+  _characterUnlock: {fileID: 0}
+  _missionUnlocks:
+  - {fileID: 11400000, guid: 60df7f5cd6ce1b94084820bf0fd741e3, type: 2}
+  _missionModifiers:
+  - {fileID: 11400000, guid: 552c5c9b813bd4f429e0c22b5df61aa5, type: 2}
+  _missionStatModifiers:
+    _bossHealthMultiplier: 0.8
+    _bossStaggerMultiplier: 1
+    _bossAttackSpeedMultiplier: 1
+    _bossDamageResistanceChangeOnStaggerMultiplier: 1
+    _bossEnrageTimeMultiplier: 1
+    _bossEnrageDamageMultiplier: 1
+    _bossAbilitiesUsable: 0101010101
+    _heroHealthMultiplier: 1
+    _heroDamageMultiplier: 1
+    _heroStaggerMultiplier: 1
+    _heroHealingReceivedMultiplier: 1
+    _heroManualCooldownTimeMultiplier: 1

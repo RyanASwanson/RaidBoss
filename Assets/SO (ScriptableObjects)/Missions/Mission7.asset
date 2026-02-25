@@ -1,0 +1,118 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 693bc80e562020641a7353805d099d2c, type: 3}
+  m_Name: Mission7
+  m_EditorClassIdentifier: 
+  _missionID: 6
+  _missionName: 'The
+
+    Reaper'
+  _missionTitleScale: 1
+  _associatedDifficulty: 1
+  _associatedLevel: {fileID: 11400000, guid: 53e846bb7c637be46af02e5cd8741558, type: 2}
+  _associatedHeroes:
+  - {fileID: 11400000, guid: fa900cf8282b2814fb9eb1a8cc860cd0, type: 2}
+  - {fileID: 11400000, guid: 0128339a05223db40aae2581988a9ea0, type: 2}
+  - {fileID: 11400000, guid: 2b5cc09a0a41a0c40a6b8c0fa2ebb464, type: 2}
+  _tutorialPages:
+  - TutorialPageTitle: The Reaper
+    TutorialPageTitleWidth: 800
+    DefaultTextLocation: {x: 0, y: 45}
+    DefaultText: 'In desparate times, unlikely alliances
+
+      are forged. The Reaper
+      is a nimble and
+
+      unstoppable damage dealer. It drifts
+
+      throughout
+      the battlefield leaving death
+
+      in its wake.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 2d250d8fa55e1ff40bb7a9f16562db97, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: cad11a2bf12278c46a02ba6a7ef54eec, type: 3}
+  - TutorialPageTitle: Soul Scythe
+    TutorialPageTitleWidth: 775
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'The Reaper''s basic ability is Soul Scythe.
+
+      The Reaper has
+      a scythe constantly
+
+      around it, allowing it to deal rapid
+
+      damage
+      and stagger, even when moving.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: ff7625caa79635949b51aa618fa3fcd4, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  - TutorialPageTitle: Death's Approach
+    TutorialPageTitleWidth: 1050
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'The Reaper''s active ability is Death''s Approach.
+
+      The Reaper
+      creates a skull that moves
+
+      towards the Reaper dealing damage.
+
+      Keep
+      moving to keep the skull near the boss.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 4354925d3cdfb0f4880d705122445053, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  - TutorialPageTitle: Rebirth
+    TutorialPageTitleWidth: 575
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'The Reaper''s passive ability is Rebirth.
+
+      The Reaper persists
+      after being killed for
+
+      a short period of time.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: fe6d030b04450f043a079a46a9c747c1, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  _characterUnlock: {fileID: 11400000, guid: 2b5cc09a0a41a0c40a6b8c0fa2ebb464, type: 2}
+  _missionUnlocks:
+  - {fileID: 11400000, guid: 8906b8ba7d67be44ba9658f6d55eca9a, type: 2}
+  _missionModifiers: []
+  _missionStatModifiers:
+    _bossHealthMultiplier: 0.65
+    _bossStaggerMultiplier: 1
+    _bossAttackSpeedMultiplier: 1
+    _bossDamageResistanceChangeOnStaggerMultiplier: 1
+    _bossEnrageTimeMultiplier: 1
+    _bossEnrageDamageMultiplier: 1
+    _bossAbilitiesUsable: 0101010101
+    _heroHealthMultiplier: 1
+    _heroDamageMultiplier: 1
+    _heroStaggerMultiplier: 1
+    _heroHealingReceivedMultiplier: 1
+    _heroManualCooldownTimeMultiplier: 1

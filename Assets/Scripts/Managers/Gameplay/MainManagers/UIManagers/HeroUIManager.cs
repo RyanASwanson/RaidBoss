@@ -16,6 +16,7 @@ public class HeroUIManager : GameUIChildrenFunctionality
     [SerializeField] private Animator _heroUIGeneralAnimator;
 
     private const string GENERAL_INTRO_ANIM_TRIGGER = "ShowGeneralUIIntro";
+    private const string GENERAL_HERO_DIED_ANIM_TRIGGER = "HeroDiedUI";
 
     [Header("Background")]
     [SerializeField] private GameObject _backgroundHolder;
@@ -355,6 +356,12 @@ public class HeroUIManager : GameUIChildrenFunctionality
         _associatedHeroHealthBarCombined.SetInteger(COMBINED_HEALTH_BAR_STATUS_ANIM_INT, animID);
     }
 
+
+    private void HeroDied()
+    {
+        SetCombinedHealthBarAnim(0);
+        GeneralUIHeroDiedAnimation();
+    }
     #endregion
 
     /*public GameObject AddObjectToGeneralOrigin(GameObject gameObject)
@@ -383,11 +390,16 @@ public class HeroUIManager : GameUIChildrenFunctionality
 
     private void CreateDamageHealingNumber(float damageHealing, GameObject number, RectTransform spawnOrigin)
     {
+        if (damageHealing <= 0)
+        {
+            return;
+        }
+        
         GameObject newNumber = Instantiate(number, spawnOrigin);
 
         damageHealing = Mathf.RoundToInt(damageHealing);
         //Makes sure the value shown isn't less than 1
-        if (damageHealing <= 0)
+        if (damageHealing < 1)
         {
             damageHealing = 1;
         }
@@ -450,6 +462,11 @@ public class HeroUIManager : GameUIChildrenFunctionality
         _heroUIGeneralAnimator.SetTrigger(GENERAL_INTRO_ANIM_TRIGGER);
     }
 
+    private void GeneralUIHeroDiedAnimation()
+    {
+        _heroUIGeneralAnimator.SetTrigger(GENERAL_HERO_DIED_ANIM_TRIGGER);
+    }
+
     #region BaseManager
     /// <summary>
     /// Performs the initial set up on the Hero UI Manager
@@ -474,6 +491,8 @@ public class HeroUIManager : GameUIChildrenFunctionality
         _associatedHeroBase.GetHeroHealedAboveQuarterEvent().AddListener(HeroInjured);
         _associatedHeroBase.GetHeroDamagedUnderHalfEvent().AddListener(HeroInjured);
         _associatedHeroBase.GetHeroDamagedUnderQuarterEvent().AddListener(HeroCritical);
+        
+        _associatedHeroBase.GetHeroDiedEvent().AddListener(HeroDied);
 
         //Update manual charge bar when cooling down
         _associatedHeroBase.GetHeroManualAbilityChargingEvent().AddListener(AssociatedHeroManualCharging);

@@ -1,0 +1,134 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 693bc80e562020641a7353805d099d2c, type: 3}
+  m_Name: Mission10
+  m_EditorClassIdentifier: 
+  _missionID: 9
+  _missionName: 'The
+
+    Chronomancer'
+  _missionTitleScale: 0.95
+  _associatedDifficulty: 1
+  _associatedLevel: {fileID: 11400000, guid: 763a87e823e4c5d4d8c9e44aa8aa4a02, type: 2}
+  _associatedHeroes:
+  - {fileID: 11400000, guid: 0128339a05223db40aae2581988a9ea0, type: 2}
+  - {fileID: 11400000, guid: e3a0dad03ec099242b69fcc0759e259a, type: 2}
+  - {fileID: 11400000, guid: 5cd74adfdadc94247a4cc60ba024fe89, type: 2}
+  _tutorialPages:
+  - TutorialPageTitle: Healing
+    TutorialPageTitleWidth: 525
+    DefaultTextLocation: {x: 0, y: 0}
+    DefaultText: 'Some heroes have ways in which they
+
+      can heal themselves
+      or other heroes. Utilize
+
+      the healing sustain yourself in harder fights.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: 0}
+      TutorialCharacterIconScaleMultiplier: 0
+      TutorialPageCharacterIcon: {fileID: 0}
+      TutorialPageCharacterBackground: {fileID: 0}
+  - TutorialPageTitle: The Chronomancer
+    TutorialPageTitleWidth: 1100
+    DefaultTextLocation: {x: 0, y: 45}
+    DefaultText: 'The Chronomancer is a clutch and
+
+      precise healer. She can
+      undo major
+
+      mistakes, while providing some
+
+      utility to help allies
+      deal damage.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: fe2bf9c72fd89414ca1dc07e70fefe01, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: cad11a2bf12278c46a02ba6a7ef54eec, type: 3}
+  - TutorialPageTitle: Time Blast
+    TutorialPageTitleWidth: 650
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'The Chronomancer''s basic ability is Time Blast.
+
+      The Chronomancer
+      fires a projectile in a
+
+      clockwork pattern that can heal allies, and
+
+      damage
+      the boss.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 561524586736d2e4ca7cedbe3c90cc73, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  - TutorialPageTitle: Rewind
+    TutorialPageTitleWidth: 525
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'The Chronomancer''s active ability
+
+      is Rewind. The Chronomancer
+      reverses
+
+      all damage taken by heroes
+
+      in the past few seconds.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 25df8652d4f478243847ad1e38f346be, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  - TutorialPageTitle: Accelerate
+    TutorialPageTitleWidth: 650
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'The Chronomancer''s passive ability is Accelerate.
+
+      The Chronomancer
+      speeds up the next use
+
+      of a heroes basic ability, when she affects
+
+      them
+      with her abilities.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 8e71ba263f0bcd44986d875d9e85e80d, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  _characterUnlock: {fileID: 11400000, guid: 5cd74adfdadc94247a4cc60ba024fe89, type: 2}
+  _missionUnlocks:
+  - {fileID: 11400000, guid: 6681a386d1d2482499068e402344fd59, type: 2}
+  _missionModifiers: []
+  _missionStatModifiers:
+    _bossHealthMultiplier: 0.7
+    _bossStaggerMultiplier: 0.9
+    _bossAttackSpeedMultiplier: 1
+    _bossDamageResistanceChangeOnStaggerMultiplier: 1
+    _bossEnrageTimeMultiplier: 1
+    _bossEnrageDamageMultiplier: 1
+    _bossAbilitiesUsable: 0101010101
+    _heroHealthMultiplier: 1
+    _heroDamageMultiplier: 1
+    _heroStaggerMultiplier: 1
+    _heroHealingReceivedMultiplier: 1
+    _heroManualCooldownTimeMultiplier: 1

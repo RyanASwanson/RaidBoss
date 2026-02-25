@@ -84,10 +84,6 @@ public class SelectableMission : MonoBehaviour
 
     private void ChangeStandard()
     {
-        //TEMP CODE
-        CreateBanner(_associatedMission.GetAssociatedLevel().GetLevelBoss().GetBossStandard());
-        return;
-        
         if (SaveManager.Instance.IsMissionCompleted(_associatedMission))
         {
             CreateBanner(MapController.Instance.GetVictoryStandard());
@@ -115,6 +111,7 @@ public class SelectableMission : MonoBehaviour
         SelectionManager.Instance.SetSelectedDifficulty(_associatedMission.GetAssociatedDifficulty());
         SelectionManager.Instance.SetSelectedLevelAndBoss(_associatedMission.GetAssociatedLevel());
         SelectionManager.Instance.SetSelectedHeroes(_associatedMission.GetAssociatedHeroes());
+        SelectionManager.Instance.SetSelectedModifiers(_associatedMission.GetMissionModifiers());
 
         ShowAllPreviews();
     }

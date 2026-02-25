@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class MissionTutorialVisuals : MonoBehaviour
@@ -26,8 +27,9 @@ public class MissionTutorialVisuals : MonoBehaviour
 
     [Space] 
     [SerializeField] private GameObject _specificPageButtonHolder;
-    
-    [Space]
+
+    [Space] 
+    [SerializeField] private CurveProgression _playButtonScaleCurve;
     [SerializeField] private SelectionPlayButton _playButton;
     
     private int _currentPageID = 0;
@@ -39,9 +41,10 @@ public class MissionTutorialVisuals : MonoBehaviour
     private float _specificPageButtonStartX;
 
     private bool _hasLastPageBeenVisited = false;
-
-    private int _lastButtonIDPressed = 0;
-
+    
+    private UniversalPlayerInputActions _universalPlayerInputActions;
+    private bool _isSubscribedToInput = false;
+    
     public void SetUpMissionTutorials()
     {
         SubscribeToEvents();
@@ -50,11 +53,13 @@ public class MissionTutorialVisuals : MonoBehaviour
         SetArrowTransforms();
         SetPageButtonInteractability();
         SetUpPlayButton();
+        SubscribeToPlayerInput();
     }
 
     private void OnDestroy()
     {
         UnsubscribeFromEvents();
+        UnsubscribeToPlayerInput();
     }
     
     private void CreateMissionTutorials()
@@ -64,6 +69,7 @@ public class MissionTutorialVisuals : MonoBehaviour
             gameObject.SetActive(false);
             return;
         }
+        ToggleTutorialOpen(true);
 
         if (SelectionManager.Instance.GetSelectedMissionOut(out MissionSO mission))
         {
@@ -75,7 +81,11 @@ public class MissionTutorialVisuals : MonoBehaviour
         
         _scrollPopUp.ShowScroll();
     }
-    
+
+    private void ToggleTutorialOpen(bool isOpen)
+    {
+        PlayerInputGameplayManager.Instance.UpdateIsTutorialOpen(isOpen);
+    }
     
     #region ChangePage
     public void SetTargetPageNumber(int pageNumber)
@@ -85,8 +95,8 @@ public class MissionTutorialVisuals : MonoBehaviour
             return;
         }
         
-        _specificPageButtons[_lastButtonIDPressed].ButtonNoLongerPressed();
-        _lastButtonIDPressed = pageNumber;
+        _specificPageButtons[_previousPageID].ButtonNoLongerPressed();
+        _specificPageButtons[pageNumber].ToggleButton(false);
         
         _currentPageID = pageNumber;
         StartShowNewPage();
@@ -109,8 +119,6 @@ public class MissionTutorialVisuals : MonoBehaviour
     public void NewPageStartDisplay()
     {
         UpdatePreviousPageID();
-
-        
         
         // If the last page has not been visited and we just opened the last page
         if (!_hasLastPageBeenVisited && _currentPageID == _totalPages - 1)
@@ -187,6 +195,13 @@ public class MissionTutorialVisuals : MonoBehaviour
     {
         SetTargetPageNumber(pageNumber);
     }
+    
+    private void PageNumberPressed(InputAction.CallbackContext context)
+    {
+        int pressNumVal = (int)context.ReadValue<float>();
+        
+        SetTargetPageNumber(pressNumVal);
+    }
     #endregion
     
     #region PlayButton
@@ -203,18 +218,53 @@ public class MissionTutorialVisuals : MonoBehaviour
     // Function called by button
     public void CloseTutorial()
     {
+        ToggleTutorialOpen(false);
+        
         _scrollPopUp.HideScroll();
+        _playButtonScaleCurve.StartMovingDownOnCurve();
+
+        UnsubscribeToPlayerInput();
+        
         GameStateManager.Instance.StartProgressToStart();
     }
     
-    
-
     private void SubscribeToEvents()
     {
+        
     }
 
     private void UnsubscribeFromEvents()
     {
+        
+    }
+
+    private void SubscribeToPlayerInput()
+    {
+        if (_isSubscribedToInput)
+        {
+            return;
+        }
+        
+        _universalPlayerInputActions = new UniversalPlayerInputActions();
+        _universalPlayerInputActions.GameplayActions.Enable();
+        
+        _universalPlayerInputActions.GameplayActions.NumberPress.started += PageNumberPressed;
+
+        _isSubscribedToInput = true;
+    }
+
+    private void UnsubscribeToPlayerInput()
+    {
+        if (!_isSubscribedToInput)
+        {
+            return;
+        }
+        
+        _universalPlayerInputActions.GameplayActions.NumberPress.started -= PageNumberPressed;
+        
+        _universalPlayerInputActions.Disable();
+
+        _isSubscribedToInput = false;
     }
 
     #region Getters

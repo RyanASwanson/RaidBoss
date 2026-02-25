@@ -104,6 +104,7 @@ MonoBehaviour:
   _bossSpecificUI: {fileID: 1920656781970688667, guid: 1d77e8c29d89b094b99a43973beb50c6, type: 3}
   _bossSpecificAnimator: {fileID: 1530244410539311288}
   _passiveTickRate: 2
+  _minimumTickValue: 1
   _passiveMaxValue: 50
   _zRotationMultiplier: 0.07
   _baseWeightMultiplier: 2
@@ -141,21 +142,21 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
+      value: 1.5
+      inSlope: -0.5
+      outSlope: -0.5
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0
-      outSlope: 0
+      inSlope: -0.5
+      outSlope: -0.5
       tangentMode: 34
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.33333334
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2

@@ -239,12 +239,17 @@ public class BossUIManager : GameUIChildrenFunctionality
     #region Damage Stagger Numbers
     private void CreateDamageStaggerNumber(EDamageNumberType numberType, float damageStagger, GameObject number, RectTransform spawnOrigin)
     {
+        if (damageStagger <= 0)
+        {
+            return;
+        }
+        
         GameObject newNumber = Instantiate(number, spawnOrigin);
 
         damageStagger = Mathf.RoundToInt(damageStagger);
 
         //Makes sure the value shown isn't less than 1
-        if (damageStagger <= 0)
+        if (damageStagger < 1)
         {
             damageStagger = 1;
         }

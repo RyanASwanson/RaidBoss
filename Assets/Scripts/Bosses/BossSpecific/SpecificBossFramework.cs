@@ -240,6 +240,18 @@ public abstract class SpecificBossFramework : MonoBehaviour
     #endregion
 
     #region Ability Functionality
+
+    public virtual void DamageHero(HeroBase heroBase, float damage)
+    {
+        if (damage <= 0)
+        {
+            return;
+        }
+        
+        heroBase.GetHeroStats()
+            .DealDamageToHero(damage * BossStats.Instance.GetCombinedBossDamageMultiplier());
+    }
+    
     /// <summary>
     /// Adds an ability to the list of attacks that the boss can randomly pick to use
     /// </summary>

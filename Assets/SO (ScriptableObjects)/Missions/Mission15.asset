@@ -1,0 +1,113 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 693bc80e562020641a7353805d099d2c, type: 3}
+  m_Name: Mission15
+  m_EditorClassIdentifier: 
+  _missionID: 14
+  _missionName: 'The
+
+    Fae'
+  _missionTitleScale: 1
+  _associatedDifficulty: 2
+  _associatedLevel: {fileID: 11400000, guid: 53e846bb7c637be46af02e5cd8741558, type: 2}
+  _associatedHeroes:
+  - {fileID: 11400000, guid: fa900cf8282b2814fb9eb1a8cc860cd0, type: 2}
+  - {fileID: 11400000, guid: 77065cfc021c68f45b33aa0acd24fa46, type: 2}
+  - {fileID: 11400000, guid: e3a0dad03ec099242b69fcc0759e259a, type: 2}
+  - {fileID: 11400000, guid: feb7336736898914f8630a93fd41a2bd, type: 2}
+  _tutorialPages:
+  - TutorialPageTitle: The Fae
+    TutorialPageTitleWidth: 535
+    DefaultTextLocation: {x: 0, y: 45}
+    DefaultText: 'The Fae is a quick and
+
+      reckless damage dealer. She
+
+      spins
+      around the battlefield
+
+      unleashing a torrent of arrows.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 4dcb96ecf6438af4eaabb65c39d2cd81, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: cad11a2bf12278c46a02ba6a7ef54eec, type: 3}
+  - TutorialPageTitle: Multishot
+    TutorialPageTitleWidth: 635
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'The Fae''s basic ability is Multishot.
+
+      The Fae fires arrows
+      around her in
+
+      4 diagonal directions.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: ae08c1101f2f79b44acc726e516f5084, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  - TutorialPageTitle: Flurry
+    TutorialPageTitleWidth: 510
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'The Fae''s active ability is Flurry.
+
+      The Fae bounces around
+      uncontrollably,
+
+      dealing damage when she collides with
+
+      the boss.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: a157f7d99ad33a64184d1317ec333ced, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  - TutorialPageTitle: Fleet-footed
+    TutorialPageTitleWidth: 740
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'The Fae''s passive ability is Fleet-footed.
+
+      The Fae can
+      use Multishot while moving
+
+      and fires it more frequently while doing
+      so.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 55feda8602a75f44a9042cd1a82dbfb0, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  _characterUnlock: {fileID: 11400000, guid: feb7336736898914f8630a93fd41a2bd, type: 2}
+  _missionUnlocks:
+  - {fileID: 11400000, guid: 5521ecdde3083a642b11424d27c3edee, type: 2}
+  _missionModifiers: []
+  _missionStatModifiers:
+    _bossHealthMultiplier: 1
+    _bossStaggerMultiplier: 1
+    _bossAttackSpeedMultiplier: 1
+    _bossDamageResistanceChangeOnStaggerMultiplier: 1
+    _bossEnrageTimeMultiplier: 1
+    _bossEnrageDamageMultiplier: 1
+    _bossAbilitiesUsable: 0101010101
+    _heroHealthMultiplier: 1
+    _heroDamageMultiplier: 1
+    _heroStaggerMultiplier: 1
+    _heroHealingReceivedMultiplier: 1
+    _heroManualCooldownTimeMultiplier: 1

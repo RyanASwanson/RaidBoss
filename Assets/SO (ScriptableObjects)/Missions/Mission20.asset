@@ -1,0 +1,118 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 693bc80e562020641a7353805d099d2c, type: 3}
+  m_Name: Mission20
+  m_EditorClassIdentifier: 
+  _missionID: 19
+  _missionName: 'The
+
+    Alchemist'
+  _missionTitleScale: 1
+  _associatedDifficulty: 2
+  _associatedLevel: {fileID: 11400000, guid: f4cdc78ddb5cc51429696d5d12e95a4f, type: 2}
+  _associatedHeroes:
+  - {fileID: 11400000, guid: fa900cf8282b2814fb9eb1a8cc860cd0, type: 2}
+  - {fileID: 11400000, guid: 0128339a05223db40aae2581988a9ea0, type: 2}
+  - {fileID: 11400000, guid: d7f1d550a7767a0449286a45aa1aeb8d, type: 2}
+  - {fileID: 11400000, guid: fe9a9a645a446584c83f77cfdad05c43, type: 2}
+  _tutorialPages:
+  - TutorialPageTitle: The Alchemist
+    TutorialPageTitleWidth: 900
+    DefaultTextLocation: {x: 0, y: 45}
+    DefaultText: 'The Alchemist is a volatile and
+
+      supportive healer. She provides
+      her
+
+      team with good healing and
+
+      unpredictable buffs.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 5beb97f5d3328b343bc51eace7c1f5f9, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: cad11a2bf12278c46a02ba6a7ef54eec, type: 3}
+  - TutorialPageTitle: Healing Potion
+    TutorialPageTitleWidth: 875
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'The Alchemist''s basic ability is
+
+      Healing Potion. The Alchemist
+
+      tosses
+      a potion that can be picked
+
+      up by allies to heal them.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 8124561ae48a5d441bf108b12425b1e6, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  - TutorialPageTitle: Mystery Concoction
+    TutorialPageTitleWidth: 1150
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'The Alchemist''s active ability is
+
+      Mystery Concoction. The
+      Alchemist
+
+      throws a potion that randomly provide a
+
+      buff to damage,
+      stagger, speed, or healing.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: efe33500d0a820f47a78c45ca3abf2d0, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  - TutorialPageTitle: Lifeforce Reaction
+    TutorialPageTitleWidth: 1110
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'The Alchemist''s passive ability is
+
+      Lifeforce Reaction.
+      When a potion
+
+      is picked up it fires a projectile towards
+
+      the
+      boss to deal minor damage.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 7a2c8587479913e45b739fa8ca468970, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  _characterUnlock: {fileID: 11400000, guid: fe9a9a645a446584c83f77cfdad05c43, type: 2}
+  _missionUnlocks:
+  - {fileID: 11400000, guid: 29e3be598c0789c4d9959d8bcda1e184, type: 2}
+  _missionModifiers: []
+  _missionStatModifiers:
+    _bossHealthMultiplier: 1
+    _bossStaggerMultiplier: 1
+    _bossAttackSpeedMultiplier: 1
+    _bossDamageResistanceChangeOnStaggerMultiplier: 1
+    _bossEnrageTimeMultiplier: 1
+    _bossEnrageDamageMultiplier: 1
+    _bossAbilitiesUsable: 0101010101
+    _heroHealthMultiplier: 1
+    _heroDamageMultiplier: 1
+    _heroStaggerMultiplier: 1
+    _heroHealingReceivedMultiplier: 1
+    _heroManualCooldownTimeMultiplier: 1

@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 693bc80e562020641a7353805d099d2c, type: 3}
+  m_Name: Mission18
+  m_EditorClassIdentifier: 
+  _missionID: 17
+  _missionName: 'The Thunder
+
+    Lord'
+  _missionTitleScale: 1
+  _associatedDifficulty: 2
+  _associatedLevel: {fileID: 11400000, guid: f4cdc78ddb5cc51429696d5d12e95a4f, type: 2}
+  _associatedHeroes:
+  - {fileID: 11400000, guid: 77065cfc021c68f45b33aa0acd24fa46, type: 2}
+  - {fileID: 11400000, guid: 2b5cc09a0a41a0c40a6b8c0fa2ebb464, type: 2}
+  - {fileID: 11400000, guid: f6c84c9f4fbb63d48b70719944c773d1, type: 2}
+  - {fileID: 11400000, guid: 5cd74adfdadc94247a4cc60ba024fe89, type: 2}
+  _tutorialPages:
+  - TutorialPageTitle: The Thunder Lord
+    TutorialPageTitleWidth: 1090
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'A new foe has appeared. The Thunder
+
+      Lord exploits its power
+      of storms to
+
+      unleash relentless attack that keep
+
+      you on your
+      toes.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -60}
+      TutorialCharacterIconScaleMultiplier: 1.075
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 27d69f4fa696fc443ba68f63258d742c, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: b2bea2ea6395a3a4698f324d28df7139, type: 3}
+  - TutorialPageTitle: Impending Storm
+    TutorialPageTitleWidth: 1035
+    DefaultTextLocation: {x: 0, y: 35}
+    DefaultText: 'The Thunder Lord has a segment of
+
+      the arena that it constantly
+      fires
+
+      projectiles towards. This area will rotate
+
+      around so stay
+      on the move to avoid it.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 14c93fe0f30d36f48a2ea7e744d2589f, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  _characterUnlock: {fileID: 11400000, guid: d54b61fd9d0149a4d8c9f81ff54b24f1, type: 2}
+  _missionUnlocks:
+  - {fileID: 11400000, guid: 718aeed55d16f1a49a527021660d8f9d, type: 2}
+  _missionModifiers: []
+  _missionStatModifiers:
+    _bossHealthMultiplier: 1
+    _bossStaggerMultiplier: 1
+    _bossAttackSpeedMultiplier: 1
+    _bossDamageResistanceChangeOnStaggerMultiplier: 1
+    _bossEnrageTimeMultiplier: 1
+    _bossEnrageDamageMultiplier: 1
+    _bossAbilitiesUsable: 0100010101
+    _heroHealthMultiplier: 1
+    _heroDamageMultiplier: 1
+    _heroStaggerMultiplier: 1
+    _heroHealingReceivedMultiplier: 1
+    _heroManualCooldownTimeMultiplier: 1

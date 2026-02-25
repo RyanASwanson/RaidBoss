@@ -57,7 +57,7 @@ public class SH_Mirage : SpecificHeroFramework
     /// <returns></returns>
     private IEnumerator MoveBasicTargetZone()
     {
-        while(!this.IsUnityNull() && !_currentBasicTargetZone.IsUnityNull())
+        while(!this.IsUnityNull() && !_currentBasicTargetZone.IsUnityNull() && !_cloneBase.IsUnityNull())
         {
             _currentBasicTargetZone.transform.position = FindHeroCloneMidpoint();
 

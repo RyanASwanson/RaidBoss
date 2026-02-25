@@ -260,6 +260,8 @@ MonoBehaviour:
   - {fileID: 9120810543019325691}
   _hasLifetime: 1
   _lifetime: 1.5
+  _hasColliderActivationDelay: 0
+  _colliderActivationDelay: 0
   _hasColliderLifetime: 0
   _colliderLifetime: 0
   _doesHitCenteredVFXCopyRotation: 0
@@ -271,7 +273,7 @@ MonoBehaviour:
   _colliderLifetimeEndEvent:
     m_PersistentCalls:
       m_Calls: []
-  _enterDamage: 6
+  _enterDamage: 6.5
   _enterStagger: 1.5
   _enterEvent:
     m_PersistentCalls:
@@ -316,6 +318,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _vfxList: []
+  _isVFXChilded: 0
+  _vfxTargetLocation: {fileID: 0}
+  _onDestroySelfEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _onDestroyParentEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &120095638258848549
 PrefabInstance:
   m_ObjectHideFlags: 0

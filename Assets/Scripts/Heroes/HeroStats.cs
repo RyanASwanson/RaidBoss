@@ -36,6 +36,9 @@ public class HeroStats : HeroChildrenFunctionality
     private int _healingTakenOverridesCounter = 0;
     private int _deathOverridesCounter = 0;
 
+    private float _basicAbilityCooldownRateMultiplier = 1;
+    private float _manualAbilityCooldownRateMultiplier = 1;
+
     [SerializeField] private Sprite _damageBuffIcon;
     [SerializeField] private Sprite _staggerBuffIcon;
     [SerializeField] private Sprite _speedBuffIcon;
@@ -81,6 +84,8 @@ public class HeroStats : HeroChildrenFunctionality
             _currentStaggerMultiplier *= missionStatModifiers.GetHeroStaggerMultiplier();
             _currentHealingReceivedMultiplier *= missionStatModifiers.GetHeroHealingReceivedMultiplier();
         }
+        
+        GameplayModifiersManager.Instance.AdjustHeroStatsFromModifiers(this);
     }
 
     /// <summary>
@@ -115,6 +120,8 @@ public class HeroStats : HeroChildrenFunctionality
         
         _currentHealth -= damage / _currentDamageResistance;
         _myHeroBase.InvokeHeroDamagedEvent(damage / _currentDamageResistance);
+        
+        HeroesManager.Instance.InvokeOnHeroDamagedEvent(_myHeroBase);
         
         AudioManager.Instance.PlaySpecificAudio(
             AudioManager.Instance.GeneralHeroAudio.HealthAudio.HeroTookDamage);
@@ -155,6 +162,8 @@ public class HeroStats : HeroChildrenFunctionality
         //Find the difference between the starting and final health
         healthDifference = _currentHealth - healthDifference;
         _myHeroBase.InvokeHeroHealedEvent(healthDifference);
+        
+        HeroesManager.Instance.InvokeOnHeroHealedEvent(_myHeroBase);
         
         AudioManager.Instance.PlaySpecificAudio(
             AudioManager.Instance.GeneralHeroAudio.HealthAudio.HeroTookHealing);
@@ -201,6 +210,8 @@ public class HeroStats : HeroChildrenFunctionality
     public void ForceKillHero()
     {
         _myHeroBase.InvokeHeroDiedEvent();
+        
+        HeroesManager.Instance.HeroDied(_myHeroBase);
     }
 
     private void SetPreviousHealthValue()
@@ -489,6 +500,16 @@ public class HeroStats : HeroChildrenFunctionality
     {
         _currentDamageResistance += changeValue;
     }
+
+    public void ChangeCurrentBasicAbilityCooldownRate(float changeValue)
+    {
+        _basicAbilityCooldownRateMultiplier *= changeValue;
+    }
+
+    public void ChangeCurrentManualAbilityCooldownRate(float changeValue)
+    {
+        _manualAbilityCooldownRateMultiplier *= changeValue;
+    }
     #endregion
     
     #region Base Hero
@@ -531,9 +552,14 @@ public class HeroStats : HeroChildrenFunctionality
     public float GetCurrentStaggerMultiplier() => _currentStaggerMultiplier;
     public float GetCurrentHealingDealtMultiplier() => _currentHealingDealtMultiplier;
     public float GetCurrentHealingReceivedMultiplier() => _currentHealingReceivedMultiplier;
+
+    public float GetBasicAbilityCooldownRateMultiplier() => _basicAbilityCooldownRateMultiplier;
+    public float GetManualAbilityCooldownRateMultiplier() => _manualAbilityCooldownRateMultiplier;
+
     #endregion
 
     #region Setters
+
     #endregion
 }
 

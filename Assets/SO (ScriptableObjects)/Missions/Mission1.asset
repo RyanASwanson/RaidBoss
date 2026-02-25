@@ -1,0 +1,196 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 693bc80e562020641a7353805d099d2c, type: 3}
+  m_Name: Mission1
+  m_EditorClassIdentifier: 
+  _missionID: 0
+  _missionName: 'Getting
+
+    Started'
+  _missionTitleScale: 1
+  _associatedDifficulty: 1
+  _associatedLevel: {fileID: 11400000, guid: 763a87e823e4c5d4d8c9e44aa8aa4a02, type: 2}
+  _associatedHeroes:
+  - {fileID: 11400000, guid: fa900cf8282b2814fb9eb1a8cc860cd0, type: 2}
+  _tutorialPages:
+  - TutorialPageTitle: Getting Started
+    TutorialPageTitleWidth: 950
+    DefaultTextLocation: {x: 0, y: 0}
+    DefaultText: 'Welcome to Mini Raid Leader,
+
+      and thank you for playing!
+
+
+      The
+      objective is simply to defeat
+
+      the boss before the heroes you control
+
+      get
+      defeated.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: 0}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 0}
+      TutorialPageCharacterBackground: {fileID: 0}
+  - TutorialPageTitle: Dealing Damage
+    TutorialPageTitleWidth: 950
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'In order to defeat the boss you
+
+      need to deal enough damage.
+
+      You
+      can see the health of the boss
+
+      in red at the top of the screen.'
+    TutorialPageObjectLocation: {x: 0, y: -60}
+    TutorialPageObject: {fileID: 9093224980658605011, guid: e3e5188ec91ae274897052dca3d4bee3, type: 3}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: 0}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 0}
+      TutorialPageCharacterBackground: {fileID: 0}
+  - TutorialPageTitle: Hero Attacks
+    TutorialPageTitleWidth: 825
+    DefaultTextLocation: {x: 0, y: 0}
+    DefaultText: 'All heroes have unique attacks and
+
+      abilities to damage the
+      boss.
+
+      The current hero will attack on his own
+
+      in an area around
+      him, so move him
+
+      close enough to the boss to hit it.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: 0}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 0}
+      TutorialPageCharacterBackground: {fileID: 0}
+  - TutorialPageTitle: Boss Attacks
+    TutorialPageTitleWidth: 800
+    DefaultTextLocation: {x: 0, y: 0}
+    DefaultText: 'Don''t expect the boss to go down
+
+      without a fight. Bosses
+      will fight back
+
+      with their own attacks. Different bosses
+
+      have
+      different attacks.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 6092024638617178909, guid: 814a0e8da54d8034787f243cdb8806e9, type: 3}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: 0}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 0}
+      TutorialPageCharacterBackground: {fileID: 0}
+  - TutorialPageTitle: Target Zones
+    TutorialPageTitleWidth: 825
+    DefaultTextLocation: {x: 0, y: 65}
+    DefaultText: 'You can see where a boss is going to
+
+      attack via a red target
+      zone on the ground.
+
+      Be sure to move heroes out of these areas.'
+    TutorialPageObjectLocation: {x: 0, y: -45}
+    TutorialPageObject: {fileID: 3386847294244547101, guid: 9c2704576fc818f4fa8a1f5ca09c1a4d, type: 3}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: 0}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 0}
+      TutorialPageCharacterBackground: {fileID: 0}
+  - TutorialPageTitle: Controlling Heroes
+    TutorialPageTitleWidth: 1100
+    DefaultTextLocation: {x: 0, y: 0}
+    DefaultText: 'To begin controlling a hero you first need
+
+      to select them.
+      To select a hero you can
+
+      left click on them or their UI, or cycle through
+
+      heroes
+      with the scroll wheel.
+
+      You can also press keys 1-5 depending on
+
+      the
+      slot of the hero.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: 0}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 0}
+      TutorialPageCharacterBackground: {fileID: 0}
+  - TutorialPageTitle: Movement
+    TutorialPageTitleWidth: 650
+    DefaultTextLocation: {x: 0, y: 55}
+    DefaultText: 'Right click on an area to move your selected
+
+      hero to that
+      area. Heroes have different move
+
+      speeds. A hero must be selected before
+
+      it
+      can be moved.'
+    TutorialPageObjectLocation: {x: 0, y: -55}
+    TutorialPageObject: {fileID: 6974186948824029009, guid: 5c895358ecfca9741b9f7116874209f3, type: 3}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: 0}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 0}
+      TutorialPageCharacterBackground: {fileID: 0}
+  - TutorialPageTitle: Hero Health
+    TutorialPageTitleWidth: 725
+    DefaultTextLocation: {x: 0, y: 65}
+    DefaultText: 'Be wary of the health of your heroes.
+
+      You lose if they all
+      die.'
+    TutorialPageObjectLocation: {x: 0, y: -65}
+    TutorialPageObject: {fileID: 8802351148540139332, guid: f3392225c887db54483b384ed8160506, type: 3}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: 0}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 0}
+      TutorialPageCharacterBackground: {fileID: 0}
+  _characterUnlock: {fileID: 0}
+  _missionUnlocks:
+  - {fileID: 11400000, guid: f4d416b708afb4e45a47eb872b8aa2ad, type: 2}
+  _achievementUnlocks:
+  - {fileID: 11400000, guid: fa2381551512f2648a617445d083f95f, type: 2}
+  _missionModifiers: []
+  _missionStatModifiers:
+    _bossHealthMultiplier: 0.075
+    _bossStaggerMultiplier: 1
+    _bossAttackSpeedMultiplier: 0.75
+    _bossDamageResistanceChangeOnStaggerMultiplier: 1
+    _bossEnrageTimeMultiplier: 1.5
+    _bossEnrageDamageMultiplier: 1
+    _bossAbilitiesUsable: 0001000100
+    _heroHealthMultiplier: 1
+    _heroDamageMultiplier: 1
+    _heroStaggerMultiplier: 0
+    _heroHealingReceivedMultiplier: 1
+    _heroManualCooldownTimeMultiplier: 999

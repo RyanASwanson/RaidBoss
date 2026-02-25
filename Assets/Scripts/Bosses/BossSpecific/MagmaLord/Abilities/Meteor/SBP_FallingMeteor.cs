@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SBP_FallingMeteor : BossProjectileFramework
@@ -15,9 +16,15 @@ public class SBP_FallingMeteor : BossProjectileFramework
     
     private IEnumerator LookAtTarget(GameObject target)
     {
+        Vector3 targetLocation = target.transform.position;
         while (true)
         {
-            transform.LookAt(target.transform.position);
+            if (!target.IsUnityNull())
+            {
+                targetLocation = target.transform.position;
+            }
+            
+            transform.LookAt(targetLocation);
             transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
             yield return null;
         }

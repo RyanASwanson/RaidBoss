@@ -21,6 +21,9 @@ public class HeroesManager : MainGameplayManagerFramework
     private List<HeroBase> _currentHeroes = new List<HeroBase>();
     private List<HeroBase> _currentLivingHeroes = new List<HeroBase>();
     
+    private UnityEvent<HeroBase> _onHeroDamagedEvent = new UnityEvent<HeroBase>();
+    private UnityEvent<HeroBase> _onHeroHealedEvent = new UnityEvent<HeroBase>();
+    
     private UnityEvent<HeroBase> _onHeroDiedEvent = new UnityEvent<HeroBase>();
 
     private void StartHeroSpawning()
@@ -148,7 +151,16 @@ public class HeroesManager : MainGameplayManagerFramework
     #endregion
     
     #region Events
-
+    public void InvokeOnHeroDamagedEvent(HeroBase heroBase)
+    {
+        _onHeroDamagedEvent?.Invoke(heroBase);
+    }
+    
+    public void InvokeOnHeroHealedEvent(HeroBase heroBase)
+    {
+        _onHeroHealedEvent?.Invoke(heroBase);
+    }
+    
     public void InvokeOnHeroDiedEvent(HeroBase heroBase)
     {
         _onHeroDiedEvent?.Invoke(heroBase);
@@ -162,6 +174,8 @@ public class HeroesManager : MainGameplayManagerFramework
     public int GetAmountOfLivingHeroes() => _currentLivingHeroes.Count;
     public int GetAmountOfDeadHeroes() => _currentHeroes.Count - _currentLivingHeroes.Count;
 
+    public UnityEvent<HeroBase> GetOnHeroDamagedEvent() => _onHeroDamagedEvent;
+    public UnityEvent<HeroBase> GetOnHeroHealedEvent() => _onHeroHealedEvent;
     public UnityEvent<HeroBase> GetOnHeroDiedEvent() => _onHeroDiedEvent;
 
     #endregion

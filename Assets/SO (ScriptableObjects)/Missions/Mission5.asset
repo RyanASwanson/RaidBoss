@@ -1,0 +1,136 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 693bc80e562020641a7353805d099d2c, type: 3}
+  m_Name: Mission5
+  m_EditorClassIdentifier: 
+  _missionID: 4
+  _missionName: 'The
+
+    Samurai'
+  _missionTitleScale: 1
+  _associatedDifficulty: 1
+  _associatedLevel: {fileID: 11400000, guid: 763a87e823e4c5d4d8c9e44aa8aa4a02, type: 2}
+  _associatedHeroes:
+  - {fileID: 11400000, guid: fa900cf8282b2814fb9eb1a8cc860cd0, type: 2}
+  - {fileID: 11400000, guid: 0128339a05223db40aae2581988a9ea0, type: 2}
+  _tutorialPages:
+  - TutorialPageTitle: The Samurai
+    TutorialPageTitleWidth: 800
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'The Samurai is a patient and
+
+      powerful damage dealer. He
+      waits
+
+      for the perfect opportunity to strike
+
+      to inflict significant
+      damage.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -60}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: b67f04937cc8392458406b7729aec76c, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: cad11a2bf12278c46a02ba6a7ef54eec, type: 3}
+  - TutorialPageTitle: Iaijutsu
+    TutorialPageTitleWidth: 525
+    DefaultTextLocation: {x: 0, y: 45}
+    DefaultText: 'The Samurai''s basic ability is Iaijutsu.
+
+      The Samurai performs
+      a quick slash
+
+      dealing damage and low stagger
+
+      horizontally to
+      the Samurai.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -60}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 8a1873f858671ac4fb01ca7d26e13bb8, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  - TutorialPageTitle: Yanagi-uke
+    TutorialPageTitleWidth: 760
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'The Samurai''s active ability is Yanagi-uke.
+
+      The Samurai
+      readies himself for an oncoming
+
+      attack, and if hit by the boss within
+      a short period
+
+      he ignores the damage and deals large
+
+      damage and
+      good stagger to the boss.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -67}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: c4ffd0422e3f38b4ea00552a56f91dfa, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  - TutorialPageTitle: Bushido
+    TutorialPageTitleWidth: 550
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'The Samurai''s passive ability is Bushido.
+
+      When the Samurai
+      deals damage he
+
+      reduces the cooldown of Yanagi-uke.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -60}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: c8ba492d6fd4a5640b7f5420e45ee4e7, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  - TutorialPageTitle: Swapping Heroes
+    TutorialPageTitleWidth: 1000
+    DefaultTextLocation: {x: 0, y: 0}
+    DefaultText: 'Remember that you have to select
+
+      a hero before they can
+      be moved.
+
+      Get used to swapping heroes regularly.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: 0}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 0}
+      TutorialPageCharacterBackground: {fileID: 0}
+  _characterUnlock: {fileID: 11400000, guid: 0128339a05223db40aae2581988a9ea0, type: 2}
+  _missionUnlocks:
+  - {fileID: 11400000, guid: 5a9388c2a2f1b0e4a85421c9ae9d644d, type: 2}
+  _achievementUnlocks:
+  - {fileID: 11400000, guid: 6306b74bf97411641b5ddd99b26875ae, type: 2}
+  _missionModifiers: []
+  _missionStatModifiers:
+    _bossHealthMultiplier: 0.4
+    _bossStaggerMultiplier: 1
+    _bossAttackSpeedMultiplier: 1
+    _bossDamageResistanceChangeOnStaggerMultiplier: 1
+    _bossEnrageTimeMultiplier: 1
+    _bossEnrageDamageMultiplier: 1
+    _bossAbilitiesUsable: 0101010101
+    _heroHealthMultiplier: 1
+    _heroDamageMultiplier: 1
+    _heroStaggerMultiplier: 1
+    _heroHealingReceivedMultiplier: 1
+    _heroManualCooldownTimeMultiplier: 1

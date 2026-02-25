@@ -1,0 +1,118 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 693bc80e562020641a7353805d099d2c, type: 3}
+  m_Name: Mission8
+  m_EditorClassIdentifier: 
+  _missionID: 7
+  _missionName: 'The
+
+    Shaman'
+  _missionTitleScale: 1
+  _associatedDifficulty: 1
+  _associatedLevel: {fileID: 11400000, guid: 763a87e823e4c5d4d8c9e44aa8aa4a02, type: 2}
+  _associatedHeroes:
+  - {fileID: 11400000, guid: 0128339a05223db40aae2581988a9ea0, type: 2}
+  - {fileID: 11400000, guid: 2b5cc09a0a41a0c40a6b8c0fa2ebb464, type: 2}
+  - {fileID: 11400000, guid: e3a0dad03ec099242b69fcc0759e259a, type: 2}
+  _tutorialPages:
+  - TutorialPageTitle: The Shaman
+    TutorialPageTitleWidth: 775
+    DefaultTextLocation: {x: 0, y: 45}
+    DefaultText: 'The Shaman is a well rounded and
+
+      strategic damage dealer.
+      He deals damage
+
+      over wide areas while waiting for his
+
+      opportunity
+      to line up repeated damage.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 50055fdb0508a044691e25a12d99168b, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: cad11a2bf12278c46a02ba6a7ef54eec, type: 3}
+  - TutorialPageTitle: Tornado
+    TutorialPageTitleWidth: 560
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'The Shaman''s basic ability is
+
+      Tornado. The Shaman creates
+      a
+
+      tornado which deals damage and
+
+      low stagger vertically.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 8bdea33b2b0c3674fa19fde192c3bec8, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  - TutorialPageTitle: Ball Lightning
+    TutorialPageTitleWidth: 880
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'The Shaman''s active ability is Ball Lightning.
+
+      The Shaman
+      fires a ball of lightning that bounces
+
+      between all heroes. Line it up
+      to hit the boss
+
+      multiple times.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 53c272ff603dd9d48a50f92ca834ec29, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  - TutorialPageTitle: Spirit Totem
+    TutorialPageTitleWidth: 740
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'The Shaman''s passive ability is Spirit Totem.
+
+      The Shaman
+      creates a totem at his location after
+
+      using Ball Lightning. The next
+      use of Ball Lightning
+
+      will bounce off of the totem as well as all heroes.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 8a84224464139aa4790c50fec3f988e0, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  _characterUnlock: {fileID: 11400000, guid: e3a0dad03ec099242b69fcc0759e259a, type: 2}
+  _missionUnlocks:
+  - {fileID: 11400000, guid: 891da014c2e98db41900484d53a617bc, type: 2}
+  _missionModifiers: []
+  _missionStatModifiers:
+    _bossHealthMultiplier: 0.8
+    _bossStaggerMultiplier: 1
+    _bossAttackSpeedMultiplier: 1
+    _bossDamageResistanceChangeOnStaggerMultiplier: 1
+    _bossEnrageTimeMultiplier: 1
+    _bossEnrageDamageMultiplier: 1
+    _bossAbilitiesUsable: 0101010001
+    _heroHealthMultiplier: 1
+    _heroDamageMultiplier: 1
+    _heroStaggerMultiplier: 1
+    _heroHealingReceivedMultiplier: 1
+    _heroManualCooldownTimeMultiplier: 1

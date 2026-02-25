@@ -73,7 +73,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         _basicAbilityCurrentCharge = 0;
         while (_basicAbilityCurrentCharge < _basicAbilityChargeTime)
         {
-            CooldownAddToBasicAbilityCharge(Time.deltaTime);
+            CooldownAddToBasicAbilityCharge(Time.deltaTime * _myHeroBase.GetHeroStats().GetBasicAbilityCooldownRateMultiplier());
             yield return null;
         }
 
@@ -199,7 +199,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     {
         while (_manualAbilityCurrentCharge < _manualAbilityChargeTime)
         {
-            AddToManualAbilityChargeTime(Time.deltaTime);
+            AddToManualAbilityChargeTime(Time.deltaTime * _myHeroBase.GetHeroStats().GetManualAbilityCooldownRateMultiplier());
             yield return null;
         }
 
@@ -417,6 +417,13 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         GameStateManager.Instance.GetStartOfBattleEvent().AddListener(BattleStarted);
         GameStateManager.Instance.GetBattleWonEvent().AddListener(BattleWon);
         _myHeroBase.GetHeroDiedEvent().AddListener(HeroDied);
+    }
+
+    protected virtual void UnsubscribeFromEvents()
+    {
+        GameStateManager.Instance.GetStartOfBattleEvent().RemoveListener(BattleStarted);
+        GameStateManager.Instance.GetBattleWonEvent().RemoveListener(BattleWon);
+        _myHeroBase.GetHeroDiedEvent().RemoveListener(HeroDied);
     }
 
     #region Getters

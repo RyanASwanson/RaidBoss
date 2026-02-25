@@ -7,6 +7,7 @@ public class ScrollMissionSelectionContent : ScrollUIContents
 {
     [Space]
     [SerializeField] private TextWithBackground _titleText;
+    private Vector3 _titleScale;
 
     [Space] 
     [SerializeField] private Image _bossIcon;
@@ -14,6 +15,14 @@ public class ScrollMissionSelectionContent : ScrollUIContents
 
     [Space] 
     [SerializeField] private SelectHeroButton[] _heroIcons;
+
+    [Space] 
+    [SerializeField] private GameObject _noModifiersText;
+    [SerializeField] private RectTransform _modifierIconsHolder;
+
+    [Space] 
+    [SerializeField] private float _distanceBetweenMissionModifierIcons;
+    [SerializeField] private SelectMissionModifierButton[] _missionModifierIcons;
     
     [Space]
     [SerializeField] private SelectionPlayButton _playButton;
@@ -23,6 +32,8 @@ public class ScrollMissionSelectionContent : ScrollUIContents
         MissionSO missionSO = MapController.Instance.GetSelectedMission().GetAssociatedMission();
         
         _titleText.UpdateText(missionSO.GetMissionName());
+        _titleScale.Set(missionSO.GetMissionTitleScale(),missionSO.GetMissionTitleScale(),missionSO.GetMissionTitleScale());
+        _titleText.transform.localScale = _titleScale;
 
         _bossIcon.sprite = missionSO.GetAssociatedLevel().GetLevelBoss().GetBossIcon();
 
@@ -41,6 +52,34 @@ public class ScrollMissionSelectionContent : ScrollUIContents
         {
             _heroIcons[heroIteration].ClearButtonHeroIconVisuals();
             _heroIcons[heroIteration].SetButtonInteractability(false);
+        }
+
+        if (missionSO.GetMissionModifiers().Length > 0)
+        {
+            _noModifiersText.SetActive(false);
+            _modifierIconsHolder.gameObject.SetActive(true);
+            
+            _modifierIconsHolder.anchoredPosition = new Vector2(
+                (-_distanceBetweenMissionModifierIcons/2) * (missionSO.GetMissionModifiers().Length-1),0);
+            
+            for (int i = 0; i < _missionModifierIcons.Length; i++)
+            {
+                if (i >= missionSO.GetMissionModifiers().Length)
+                {
+                    _missionModifierIcons[i].gameObject.SetActive(false);
+                }
+                else
+                {
+                    _missionModifierIcons[i].gameObject.SetActive(true);
+                    _missionModifierIcons[i].SetAssociatedModifier(missionSO.GetMissionModifiers()[i]);
+          
+                }
+            }
+        }
+        else
+        {
+            _noModifiersText.SetActive(true);
+            _modifierIconsHolder.gameObject.SetActive(false);
         }
         
         _playButton.UpdateBossAndHeroSelectionIcons();

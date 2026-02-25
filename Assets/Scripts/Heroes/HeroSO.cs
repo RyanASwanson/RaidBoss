@@ -11,6 +11,7 @@ public class HeroSO : CharacterSO
     [Header("General")]
     [SerializeField] private string _name;
     [SerializeField] private int _heroID;
+    [SerializeField] private float _selectionDisplayScaleMultiplier;
     [SerializeField] private bool _hasUIManager;
 
     [Header("Stats")]
@@ -61,6 +62,7 @@ public class HeroSO : CharacterSO
     #region Getters
     public string GetHeroName() => _name;
     public int GetHeroID() => _heroID;
+    public float GetSelectionDisplayScaleMultiplier() => _selectionDisplayScaleMultiplier;
     public bool GetHasUIManager() => _hasUIManager;
 
     public float GetMaxHP() => _maxHP;

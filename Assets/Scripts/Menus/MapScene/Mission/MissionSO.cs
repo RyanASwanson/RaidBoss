@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "MissionScriptableObject", menuName = "MissionScriptableObject", order = 3)]
@@ -7,6 +8,7 @@ public class MissionSO : ScriptableObject
 {
     [SerializeField] private int _missionID;
     [TextArea(1, 2)] [SerializeField] private string _missionName;
+    [SerializeField] private float _missionTitleScale = 1;
 
     [Space] 
     [Header("Selection")]
@@ -25,13 +27,20 @@ public class MissionSO : ScriptableObject
     [Space] 
     [SerializeField] private MissionSO[] _missionUnlocks;
 
+    [Space]
+    [SerializeField] private AchievementSO[] _achievementUnlocks;
+
     [Space] 
     [Header("Modifiers")]
+    [SerializeField] private MissionModifierSO[] _missionModifiers;
+    
+    [Space]
     [SerializeField] private MissionStatModifiers _missionStatModifiers;
     
     #region Getters
     public int GetMissionID() =>_missionID;
     public string GetMissionName() =>_missionName;
+    public float GetMissionTitleScale() =>_missionTitleScale;
     
     public EGameDifficulty GetAssociatedDifficulty() =>_associatedDifficulty;
     public LevelSO GetAssociatedLevel() =>_associatedLevel;
@@ -41,7 +50,9 @@ public class MissionSO : ScriptableObject
     
     public CharacterSO GetCharacterUnlock() =>_characterUnlock;
     public MissionSO[] GetMissionUnlocks() =>_missionUnlocks;
+    public AchievementSO[] GetAchievementUnlocks() =>_achievementUnlocks;
     
+    public MissionModifierSO[] GetMissionModifiers() =>_missionModifiers;
     public MissionStatModifiers GetMissionStatModifiers() =>_missionStatModifiers;
     #endregion
 }
@@ -86,6 +97,31 @@ public class MissionStatModifiers
 public class TutorialPage
 {
     [TextArea(1, 2)] public string TutorialPageTitle;
-    public float TutorialPageTitleWidth;
+    public float TutorialPageTitleWidth ;
+
+    [Space]
+    public Vector2 DefaultTextLocation;
+    [TextArea(1, 6)]public string DefaultText;
+
+    [Space] 
+    public Vector2 TutorialPageObjectLocation;
     public GameObject TutorialPageObject;
+
+    [Space] 
+    public TutorialPageCharacterTutorial TutorialPageCharacterTutorial;
+}
+
+[System.Serializable]
+public class TutorialPageCharacterTutorial
+{
+    public Vector2 TutorialCharacterIconLocation;
+    public float TutorialCharacterIconScaleMultiplier = 1;
+    
+    public Sprite TutorialPageCharacterIcon;
+    public Sprite TutorialPageCharacterBackground;
+
+    #region Getters
+    public bool HasCharacterDisplayIcon() => !TutorialPageCharacterIcon.IsUnityNull();
+    
+    #endregion
 }
