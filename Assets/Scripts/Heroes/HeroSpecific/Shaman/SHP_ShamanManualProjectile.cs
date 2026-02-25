@@ -55,6 +55,11 @@ public class SHP_ShamanManualProjectile : HeroProjectileFramework
             travelToObjects.Add(totem.gameObject);
         }
 
+        if (travelToObjects.Count <= 0)
+        {
+            travelToObjects.Add(BossBase.Instance.gameObject);
+        }
+
         //Goes through the list of living heroes to determine which is the next target
         //Remove the hero from the list of heroObjects after find the target
         Vector3 lastCheckedLocation = _mySpecificHero.gameObject.transform.position;

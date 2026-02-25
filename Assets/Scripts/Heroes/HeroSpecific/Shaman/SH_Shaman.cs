@@ -15,6 +15,7 @@ public class SH_Shaman : SpecificHeroFramework
 
     [SerializeField] private GameObject _totem;
     private GameObject _currentTotem;
+    private CurveProgression _currentTotemCurveProgression;
 
     #region Basic Abilities
     public override void ActivateBasicAbilities()
@@ -47,6 +48,7 @@ public class SH_Shaman : SpecificHeroFramework
     {
         GameObject spawnedProjectile = Instantiate(_manualProjectile, 
             _myHeroBase.transform.position, Quaternion.identity);
+        
         spawnedProjectile.GetComponent<HeroProjectileFramework>().SetUpProjectile(_myHeroBase, EHeroAbilityType.Manual);
 
         spawnedProjectile.GetComponent<SHP_ShamanManualProjectile>().AdditionalSetUp(_currentTotem);
@@ -65,11 +67,11 @@ public class SH_Shaman : SpecificHeroFramework
     {
         if (!_currentTotem.IsUnityNull())
         {
-            // TODO replace with totem have a vanish animation
-            Destroy(_currentTotem);
+            _currentTotemCurveProgression.StartMovingDownOnCurve();
         }
 
         _currentTotem = Instantiate(_totem, transform.position, Quaternion.identity);
+        _currentTotemCurveProgression = _currentTotem.GetComponent<CurveProgression>();
     }
     #endregion
 }
