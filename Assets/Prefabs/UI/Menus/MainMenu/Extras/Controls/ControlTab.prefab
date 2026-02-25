@@ -654,7 +654,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
-  m_EffectDistance: {x: 3, y: 1}
+  m_EffectDistance: {x: 5, y: 1}
   m_UseGraphicAlpha: 1
 --- !u!114 &262577139319913035
 MonoBehaviour:
@@ -669,7 +669,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
-  m_EffectDistance: {x: 1, y: 3}
+  m_EffectDistance: {x: 1, y: 5}
   m_UseGraphicAlpha: 1
 --- !u!114 &7202273916208875520
 MonoBehaviour:
@@ -951,6 +951,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9de85d1209140ca489d71dedc3889c4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hasDefaultText: 0
+  _defaultText: 
   _text: {fileID: 6677768837660976464}
   _backgroundText: {fileID: 7202273916208875520}
 --- !u!1 &6144650100045648826
@@ -1219,9 +1221,14 @@ MonoBehaviour:
   _maxCurveValue: 1
   _hasDefaultValue: 0
   _defaultValue: 0
+  _doesResetToDefaultProgressOnEnable: 0
   _doesAutomaticallyMoveDownOnHittingMax: 0
+  _doesAutomaticallyMoveUpOnHittingMin: 0
+  _hasIncreaseDelay: 0
+  _increaseDelay: 0
   _hasDecreaseDelay: 0
   _decreaseDelay: 0
+  _doesLerpUnchained: 0
   _curve:
     serializedVersion: 2
     m_Curve:
