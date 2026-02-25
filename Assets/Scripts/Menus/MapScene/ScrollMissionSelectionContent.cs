@@ -115,38 +115,43 @@ public class ScrollMissionSelectionContent : ScrollUIContents
     private void DisplayHighlightContents()
     {
         int highLightID = 0;
-        Vector3 highLightLocation = new Vector3();
+        Vector2 highLightLocation = new Vector3();
+        MissionDisplayHighlight highLight;
         
         for (; highLightID < _selectedMission.GetMissionDisplayHighlights().Length; highLightID++)
         {
-            switch (_selectedMission.GetMissionDisplayHighlights()[highLightID].HighlightType)
+            highLight = _selectedMission.GetMissionDisplayHighlights()[highLightID];
+            switch (highLight.HighlightType)
             {
                 case EMissionDisplayHighlightType.Boss:
                 {
-                    highLightLocation = _bossHighlightHolder.anchoredPosition + _bossHighlightOffset;
+                    _highlightIcons[highLightID].SetParent(_bossHighlightHolder);
+                    highLightLocation = _bossHighlightOffset;
                     break;
                 }
                 case EMissionDisplayHighlightType.Difficulty:
                 {
-                    highLightLocation = _difficultyHighlightHolder.anchoredPosition + _difficultyHighlightOffset;
+                    _highlightIcons[highLightID].SetParent(_difficultyHighlightHolder);
+                    highLightLocation = _difficultyHighlightOffset;
                     break;
                 }
                 case EMissionDisplayHighlightType.Hero:
                 {
-                    highLightLocation = _heroHighlightHolders
-                        [_selectedMission.GetMissionDisplayHighlights()[highLightID].HightlightID].anchoredPosition
-                                        + _heroHighlightOffset;
+                    _highlightIcons[highLightID].SetParent(_heroHighlightHolders[highLight.HightlightID]);
+                    highLightLocation =  _heroHighlightOffset;
                     break;
                 }
                 case EMissionDisplayHighlightType.MissionModifier:
                 {
-                    highLightLocation = _missionModifiersHighlightHolders
-                        [_selectedMission.GetMissionDisplayHighlights()[highLightID].HightlightID].anchoredPosition
-                                        + _missionModifierHighlightOffset;
+                    _highlightIcons[highLightID].SetParent(_missionModifiersHighlightHolders[highLight.HightlightID]);
+                    highLightLocation = _missionModifierHighlightOffset;
                     break;
                 }
             }
+            
+            _highlightIcons[highLightID].localScale = Vector3.one;
             _highlightIcons[highLightID].anchoredPosition = highLightLocation;
+            //_highlightIcons[highLightID].anchoredPosition = highLightLocation;
             _highlightIcons[highLightID].gameObject.SetActive(true);
         }
 
