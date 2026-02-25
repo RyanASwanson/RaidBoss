@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class MissionTutorialVisuals : MonoBehaviour
@@ -41,6 +42,9 @@ public class MissionTutorialVisuals : MonoBehaviour
 
     private bool _hasLastPageBeenVisited = false;
     
+    private UniversalPlayerInputActions _universalPlayerInputActions;
+    private bool _isSubscribedToInput = false;
+    
     public void SetUpMissionTutorials()
     {
         SubscribeToEvents();
@@ -49,11 +53,13 @@ public class MissionTutorialVisuals : MonoBehaviour
         SetArrowTransforms();
         SetPageButtonInteractability();
         SetUpPlayButton();
+        SubscribeToPlayerInput();
     }
 
     private void OnDestroy()
     {
         UnsubscribeFromEvents();
+        UnsubscribeToPlayerInput();
     }
     
     private void CreateMissionTutorials()
@@ -63,6 +69,7 @@ public class MissionTutorialVisuals : MonoBehaviour
             gameObject.SetActive(false);
             return;
         }
+        ToggleTutorialOpen(true);
 
         if (SelectionManager.Instance.GetSelectedMissionOut(out MissionSO mission))
         {
@@ -74,7 +81,11 @@ public class MissionTutorialVisuals : MonoBehaviour
         
         _scrollPopUp.ShowScroll();
     }
-    
+
+    private void ToggleTutorialOpen(bool isOpen)
+    {
+        PlayerInputGameplayManager.Instance.UpdateIsTutorialOpen(isOpen);
+    }
     
     #region ChangePage
     public void SetTargetPageNumber(int pageNumber)
@@ -184,6 +195,13 @@ public class MissionTutorialVisuals : MonoBehaviour
     {
         SetTargetPageNumber(pageNumber);
     }
+    
+    private void PageNumberPressed(InputAction.CallbackContext context)
+    {
+        int pressNumVal = (int)context.ReadValue<float>();
+        
+        SetTargetPageNumber(pressNumVal);
+    }
     #endregion
     
     #region PlayButton
@@ -200,19 +218,53 @@ public class MissionTutorialVisuals : MonoBehaviour
     // Function called by button
     public void CloseTutorial()
     {
+        ToggleTutorialOpen(false);
+        
         _scrollPopUp.HideScroll();
         _playButtonScaleCurve.StartMovingDownOnCurve();
+
+        UnsubscribeToPlayerInput();
+        
         GameStateManager.Instance.StartProgressToStart();
     }
     
-    
-
     private void SubscribeToEvents()
     {
+        
     }
 
     private void UnsubscribeFromEvents()
     {
+        
+    }
+
+    private void SubscribeToPlayerInput()
+    {
+        if (_isSubscribedToInput)
+        {
+            return;
+        }
+        
+        _universalPlayerInputActions = new UniversalPlayerInputActions();
+        _universalPlayerInputActions.GameplayActions.Enable();
+        
+        _universalPlayerInputActions.GameplayActions.NumberPress.started += PageNumberPressed;
+
+        _isSubscribedToInput = true;
+    }
+
+    private void UnsubscribeToPlayerInput()
+    {
+        if (!_isSubscribedToInput)
+        {
+            return;
+        }
+        
+        _universalPlayerInputActions.GameplayActions.NumberPress.started -= PageNumberPressed;
+        
+        _universalPlayerInputActions.Disable();
+
+        _isSubscribedToInput = false;
     }
 
     #region Getters

@@ -20,8 +20,7 @@ public class SelectionController : MonoBehaviour
     [SerializeField] private CurveProgression _bossDescriptionCurve;
 
     [Space]
-    [SerializeField] private TMP_Text _bossNameText;
-    [SerializeField] private Text _bossNameBorder;
+    [SerializeField] private TextWithBackground _bossNameText;
 
     [Space]
     [SerializeField] private List<Image> _bossAbilityImageIcons;
@@ -45,8 +44,7 @@ public class SelectionController : MonoBehaviour
     [SerializeField] private CurveProgression _heroDescriptionCurve;
 
     [Space]
-    [SerializeField] private TMP_Text _heroNameText;
-    [SerializeField] private Text _heroNameBorder;
+    [SerializeField] private TextWithBackground _heroNameText;
 
     [Space]
     [SerializeField] private List<StatCounter> _statCounters;
@@ -58,7 +56,6 @@ public class SelectionController : MonoBehaviour
     [Space]
     [SerializeField] private Image _difficultyIcon;
     [SerializeField] private List<Sprite> _difficultyIconSprites;
-    
 
     [Space]
     [SerializeField] private Image _heroBasicIcon;
@@ -213,9 +210,9 @@ public class SelectionController : MonoBehaviour
         HideFullHeroDescription();
 
         _bossDescriptionCurve.StartMovingUpOnCurve();
-
-        _bossNameText.text = bossSO.GetBossSelectionScreenName();
-        _bossNameBorder.text = bossSO.GetBossSelectionScreenName();
+        
+        _bossNameText.UpdateText(bossSO.GetBossSelectionScreenName());
+        _bossNameText.UpdateTextColor(bossSO.GetBossHighlightedColor());
 
         HideBossAbilityDescription();
 
@@ -460,8 +457,11 @@ public class SelectionController : MonoBehaviour
         _heroDescriptionCurve.StartMovingUpOnCurve();
 
         //Updates the text to display the heroes name
-        _heroNameText.text = heroSO.GetHeroName();
-        _heroNameBorder.text = heroSO.GetHeroName();
+        _heroNameText.UpdateText(heroSO.GetHeroName());
+        _heroNameText.UpdateTextColor(heroSO.GetHeroHighlightedColor());
+        
+        float textScale = heroSO.GetSelectionDisplayScaleMultiplier();
+        _heroNameText.transform.localScale = new Vector3(textScale,textScale,textScale);
 
         HideHeroAbilityDescription();
 

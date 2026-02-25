@@ -20,6 +20,9 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     [Space]
     [SerializeField] private float _heroControlRange;
     private bool _clickAndDragEnabled;
+
+    private bool _canControlHero = true;
+    private bool _isTutorialPreventingControl = false;
     
     [Space]
     [SerializeField] private LayerMask _selectClickLayerMask;
@@ -113,7 +116,7 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     public Vector3 CalculateDirectIconLocation(Vector3 location)
     {
         location = EnvironmentManager.Instance.GetClosestPointToFloor(location);
-        location = new Vector3(location.x, -.75f, location.z);
+        location.Set(location.x, -.75f, location.z);
         return location;
     }
     
@@ -131,6 +134,10 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     /// <param name="newHero"></param>
     private void NewControlledHero(HeroBase newHero)
     {
+        if (!_canControlHero)
+        {
+            return;
+        }
         if (newHero.IsUnityNull())
         {
             return;
@@ -182,12 +189,6 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
 
         NewControlledHeroByID(direction);
         
-    }
-
-    //TODO function for if we ever want to select multiple heroes
-    private void NewControlledHeroes()
-    {
-
     }
 
     public void RemoveControlledHero(HeroBase heroToRemove)
@@ -311,6 +312,19 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     {
         TimeManager.Instance.PressGamePauseButton();
     }
+
+    #region ControlsEnabled
+    private void UpdateCanControlHero()
+    {
+        _canControlHero = !_isTutorialPreventingControl;
+    }
+
+    public void UpdateIsTutorialOpen(bool isTutorialOpen)
+    {
+        _isTutorialPreventingControl = isTutorialOpen;
+        UpdateCanControlHero();
+    }
+    #endregion
 
     private void SubscribeToPlayerInput()
     {
