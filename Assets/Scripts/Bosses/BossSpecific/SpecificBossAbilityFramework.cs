@@ -22,11 +22,14 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     [SerializeField] protected float _targetZoneDuration;
     [SerializeField] protected float _abilityWindUpTime;
     [SerializeField] protected float _timeUntilNextAbility;
+    protected WaitForSeconds _targetZoneWait;
 
     [Space] 
     [SerializeField] protected bool _hasAbilityDuration;
     [SerializeField] protected float _abilityDuration;
+    [SerializeField] protected float _delayedIndividualTargetZoneRemovalTime;
     protected WaitForSeconds _abilityDurationWait;
+    protected WaitForSeconds _delayedIndividualTargetZoneRemovalWait;
 
     [Space]
     [Tooltip("If the ability has any screen shake")]
@@ -72,10 +75,17 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
         {
             _timeUntilNextAbility /= missionStatModifiers.GetBossAttackSpeedMultiplier();
         }
+        
+        _targetZoneWait = new WaitForSeconds(_targetZoneDuration);
 
         if (_hasAbilityDuration)
         {
             _abilityDurationWait = new WaitForSeconds(_abilityDuration);
+        }
+
+        if (_delayedIndividualTargetZoneRemovalTime > 0)
+        {
+            _delayedIndividualTargetZoneRemovalWait = new WaitForSeconds(_delayedIndividualTargetZoneRemovalTime);
         }
 
         SetUpAbilityAudioDelays();
@@ -142,7 +152,7 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     /// <returns></returns>
     protected virtual IEnumerator TargetZonesProcess()
     {
-        yield return new WaitForSeconds(_targetZoneDuration);
+        yield return _targetZoneWait;
         RemoveTargetZones();
     }
 
@@ -161,7 +171,40 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
         //Iterates through all target zones and removes them
         foreach(BossTargetZoneParent currentZone in _currentTargetZones)
         {
+            if (currentZone.IsUnityNull())
+            {
+                continue;
+            }
+            
             currentZone.RemoveBossTargetZones();
+        }
+        _currentTargetZones.Clear();
+    }
+
+    protected void StartRemoveIndividualTargetZonesDelayedProcess()
+    {
+        StartCoroutine(RemoveIndividualTargetZonesDelayedProcess());
+    }
+    
+    protected IEnumerator RemoveIndividualTargetZonesDelayedProcess()
+    {
+        StopTargetZoneRemovalProcess();
+        
+        if (_currentTargetZones.Count == 0)
+        {
+            yield break;
+        }
+        
+        //Iterates through all target zones and removes them
+        foreach(BossTargetZoneParent currentZone in _currentTargetZones)
+        {
+            if (currentZone.IsUnityNull())
+            {
+                continue;
+            }
+            
+            currentZone.RemoveBossTargetZones();
+            yield return _delayedIndividualTargetZoneRemovalWait;
         }
         _currentTargetZones.Clear();
     }
