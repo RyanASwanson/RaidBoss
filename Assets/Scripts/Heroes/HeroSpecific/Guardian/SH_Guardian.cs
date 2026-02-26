@@ -31,6 +31,13 @@ public class SH_Guardian : SpecificHeroFramework
     private WaitForSeconds _heroPassiveWait;
 
     [SerializeField] private List<ParticleSystem> _passiveEyeVFX;
+
+    [Space] 
+    [SerializeField] private SwapTextures _swapTexture;
+
+    private const int SWAP_TEXTURE_DEFAULT_ID = 0;
+    private const int SWAP_TEXTURE_PASSIVE_ID = 1;
+    
     private Coroutine _passiveCoroutine;
 
     #region Basic Abilities
@@ -100,9 +107,11 @@ public class SH_Guardian : SpecificHeroFramework
 
     private IEnumerator PassiveAbilityProcess()
     {
+        _swapTexture.SwapTexture(SWAP_TEXTURE_PASSIVE_ID);
         _myHeroBase.GetHeroStats().ChangeCurrentHeroDamageResistance(_heroPassiveDamageResistance);
         ActivatePassiveVFX();
         yield return _heroPassiveWait;
+        _swapTexture.SwapTexture(SWAP_TEXTURE_DEFAULT_ID);
         _myHeroBase.GetHeroStats().ChangeCurrentHeroDamageResistance(-_heroPassiveDamageResistance);
 
         _passiveCoroutine = null;
@@ -118,6 +127,7 @@ public class SH_Guardian : SpecificHeroFramework
             particleSystem.Play();
         }
     }
+    
     #endregion
 
     #region Base Hero

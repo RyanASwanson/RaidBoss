@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3785805659243771132}
   - component: {fileID: 3785805659243771075}
   - component: {fileID: 6106147606101072469}
+  - component: {fileID: 1753988462140501055}
   m_Layer: 0
   m_Name: Guardian
   m_TagString: Untagged
@@ -66,6 +67,7 @@ MonoBehaviour:
   _passiveEyeVFX:
   - {fileID: 5628816040913483727}
   - {fileID: 1777372058153511750}
+  _swapTexture: {fileID: 1753988462140501055}
 --- !u!95 &6106147606101072469
 Animator:
   serializedVersion: 5
@@ -87,6 +89,23 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1753988462140501055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3785805659243771074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7295096076386064f9f0cb6fafbd92ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _swapGroup:
+  - _renderer: {fileID: 2437663353008865151}
+    _swapMaterial: {fileID: 2100000, guid: 03e634aa8726c8542a1ab1829d975627, type: 2}
+  - _renderer: {fileID: 2437663353008865151}
+    _swapMaterial: {fileID: 2100000, guid: 0ddd0062d021c4043ac1167f388768e0, type: 2}
 --- !u!1001 &6943679836090464861
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -147,6 +166,11 @@ PrefabInstance:
 --- !u!198 &1777372058153511750 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 8716319596191617307, guid: 86e1069d04b28064997abddb6976f8ff, type: 3}
+  m_PrefabInstance: {fileID: 6943679836090464861}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &2437663353008865151 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4722228593606935842, guid: 86e1069d04b28064997abddb6976f8ff, type: 3}
   m_PrefabInstance: {fileID: 6943679836090464861}
   m_PrefabAsset: {fileID: 0}
 --- !u!198 &5628816040913483727 stripped
