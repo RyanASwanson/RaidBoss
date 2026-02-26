@@ -161,7 +161,6 @@ public class MapController : MonoBehaviour
         DeselectSelectedMission();
         
         _currentlySelectedMission = mission;
-        _previousSelectedMission = _currentlySelectedMission;
 
         UpdateBackground(mission.GetAssociatedMission());
         MoveCameraToTarget(_currentlySelectedMission);
@@ -179,6 +178,8 @@ public class MapController : MonoBehaviour
         
         _currentlySelectedMission.DeselectMission();
         HideMissionSelectionPopUp();
+        
+        _previousSelectedMission = _currentlySelectedMission;
         _currentlySelectedMission = null;
     }
 
@@ -206,6 +207,12 @@ public class MapController : MonoBehaviour
 
     private void UpdateBackground(MissionSO mission)
     {
+        if (!_previousSelectedMission.IsUnityNull() && mission.GetAssociatedLevel().GetLevelNumber() ==
+            _previousSelectedMission.GetAssociatedMission().GetAssociatedLevel().GetLevelNumber())
+        {
+            return;
+        }
+        
         RemoveCurrentBackground();
         RemoveCurrentBackgroundParticles();
         ShowBackground(mission);
