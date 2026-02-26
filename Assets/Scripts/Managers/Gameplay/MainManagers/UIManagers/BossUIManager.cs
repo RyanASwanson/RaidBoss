@@ -21,6 +21,21 @@ public class BossUIManager : GameUIChildrenFunctionality
     [SerializeField] private float _timeForRecentHealthDrainStart;
     [SerializeField] private float _recentHealthDrainPercentPerSecond;
 
+    [Space]
+    [SerializeField] private RectTransform[] _healthChipRectTransforms;
+    [SerializeField] private CurveProgression[] _healthChipScaleCurves;
+
+    [SerializeField] private float _healthChipLength;
+    [SerializeField] private float _healthChipOffset;
+    [SerializeField] private AnimationCurve _healthChipScaleCurve;
+    
+    [SerializeField] private RectTransform[] _staggerChipRectTransforms;
+    [SerializeField] private CurveProgression[] _staggerChipScaleCurves;
+
+    [SerializeField] private float _staggerChipLength;
+    [SerializeField] private float _staggerChipOffset;
+    [SerializeField] private AnimationCurve _staggerChipScaleCurve;
+
     private Coroutine _startHealthBarDrainCoroutine;
 
     [Header("BossStaggerBar")]
@@ -67,6 +82,8 @@ public class BossUIManager : GameUIChildrenFunctionality
     {
         SetHealthBarPercentage();
         StartRecentHealthBarDrain();
+        
+        ShowHealthChips();
 
         CreateDamageStaggerNumber(EDamageNumberType.Damage, damage, _damageNumber, _damageNumbersOrigin);
     }
@@ -119,6 +136,23 @@ public class BossUIManager : GameUIChildrenFunctionality
         }
     }
 
+    private void ShowHealthChips()
+    {
+        Vector2 chipLocation = Vector3.zero;
+        for (int i = 0; i < _healthChipScaleCurves.Length; i++)
+        {
+            chipLocation.Set(Mathf.Lerp(0,_healthChipLength,_healthBars[0].fillAmount)+_healthChipOffset,0);
+            if (i == 0)
+            {
+                chipLocation.x *= -1;
+            }
+            
+            _healthChipRectTransforms[i].anchoredPosition = chipLocation;
+            _healthChipRectTransforms[i].GetChild(0).localScale = Vector3.one * _healthChipScaleCurve.Evaluate(_healthBars[0].fillAmount);
+            _healthChipScaleCurves[i].StartMovingUpOnCurve();
+        }
+    }
+
     #endregion
 
     #region Stagger Bar
@@ -127,6 +161,8 @@ public class BossUIManager : GameUIChildrenFunctionality
     {
         SetStaggerBarPercentage();
         StartRecentStaggerBarDrain();
+
+        ShowStaggerChips();
 
         CreateDamageStaggerNumber(EDamageNumberType.Stagger, stagger, _staggerNumber, _staggerNumbersOrigin);
     }
@@ -224,6 +260,23 @@ public class BossUIManager : GameUIChildrenFunctionality
     private void SetRecentStaggerBarToStaggerDurationPercentage(float staggerPercent)
     {
         SetRecentStaggerBarPercentage(1-staggerPercent);
+    }
+    
+    private void ShowStaggerChips()
+    {
+        Vector2 chipLocation = Vector3.zero;
+        for (int i = 0; i < _staggerChipScaleCurves.Length; i++)
+        {
+            chipLocation.Set(Mathf.Lerp(0,_staggerChipLength,_staggerBars[0].fillAmount)+_staggerChipOffset,0);
+            if (i == 0)
+            {
+                chipLocation.x *= -1;
+            }
+            
+            _staggerChipRectTransforms[i].anchoredPosition = chipLocation;
+            _staggerChipRectTransforms[i].GetChild(0).localScale = Vector3.one * _staggerChipScaleCurve.Evaluate(_staggerBars[0].fillAmount);
+            _staggerChipScaleCurves[i].StartMovingUpOnCurve();
+        }
     }
     #endregion
 

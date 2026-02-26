@@ -202,7 +202,7 @@ public class SaveManager : MainUniversalManagerFramework
     {
         if (SelectionManager.Instance.IsPlayingMissionsMode())
         {
-            MissionComplete();
+            CompleteCurrentMission();
         }
         else
         {
@@ -341,30 +341,23 @@ public class SaveManager : MainUniversalManagerFramework
         }
     }
 
-    public void MissionComplete()
+    public void UnlockNextMissions()
     {
-        /*if (!GSD.GetGameplaySaveData().GetMissionsComplete().Contains(SelectionManager.Instance.GetSelectedMission().GetMissionID()))
-        {
-            GSD.GetGameplaySaveData().GetMissionsComplete().Add(SelectionManager.Instance.GetSelectedMission().GetMissionID());
-            
-            UnlockCharacter(SelectionManager.Instance.GetSelectedMission().GetCharacterUnlock());
+        MissionComplete(_missionsInGame[GSD.GetGameplaySaveData().NextMissionID]);
+    }
 
-            MissionSO[] missionUnlocks = SelectionManager.Instance.GetSelectedMission().GetMissionUnlocks();
+    public void CompleteCurrentMission()
+    {
+        MissionComplete(SelectionManager.Instance.GetSelectedMission());
+    }
 
-            for (int i = 0; i < missionUnlocks.Length; i++)
-            {
-                // Unlocks the mission
-                // If this is the first mission in the set of unlocks call this function with a true bool
-                UnlockMission(missionUnlocks[i], i == 0);
-            }
+    public void MissionComplete(MissionSO mission)
+    {
+        GSD.GetGameplaySaveData().GetMissionsComplete().Add(mission.GetMissionID());
             
-        }*/
-        
-        GSD.GetGameplaySaveData().GetMissionsComplete().Add(SelectionManager.Instance.GetSelectedMission().GetMissionID());
-            
-        UnlockCharacter(SelectionManager.Instance.GetSelectedMission().GetCharacterUnlock());
+        UnlockCharacter(mission.GetCharacterUnlock());
 
-        MissionSO[] missionUnlocks = SelectionManager.Instance.GetSelectedMission().GetMissionUnlocks();
+        MissionSO[] missionUnlocks = mission.GetMissionUnlocks();
 
         for (int i = 0; i < missionUnlocks.Length; i++)
         {
@@ -373,7 +366,7 @@ public class SaveManager : MainUniversalManagerFramework
             UnlockMission(missionUnlocks[i], i == 0);
         }
 
-        AchievementSO[] achievementUnlocks = SelectionManager.Instance.GetSelectedMission().GetAchievementUnlocks();
+        AchievementSO[] achievementUnlocks = mission.GetAchievementUnlocks();
 
         for (int i = 0; i < achievementUnlocks.Length; i++)
         {
@@ -572,8 +565,6 @@ public class GameSaveData
     public GeneralSaveData GetGeneralSaveData() => _storedGeneralSaveData;
     #endregion
 }
-
-
 
 [System.Serializable]
 public class GameplaySaveData

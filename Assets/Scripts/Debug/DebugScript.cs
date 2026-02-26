@@ -34,6 +34,11 @@ public class DebugScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.T))
+        {
+            SaveManager.Instance.UnlockNextMissions();
+        }
+        
         if(Input.GetKeyDown(KeyCode.Y))
         {
             SaveManager.Instance.UnlockAllCharacters();
