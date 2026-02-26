@@ -309,6 +309,12 @@ public class SelectionController : MonoBehaviour
         SelectionLockedCharacter = null;
     }
 
+    private void CheckMaxCharactersSelectionStatus()
+    {
+        CheckMaxCharactersNoLongerSelected();
+        CheckMaxCharactersSelected();
+    }
+
     /// <summary>
     /// Checks if the player has selected all the heroes and the boss
     /// </summary>
@@ -618,6 +624,8 @@ public class SelectionController : MonoBehaviour
         ShowHeroPreviewPillars();
             
         _previousMaxHeroes = SelectionManager.Instance.GetMaxHeroesCountWithCurrentDifficulty();
+
+        CheckMaxCharactersSelectionStatus();
     }
 
     private void HeroLimitReduced()

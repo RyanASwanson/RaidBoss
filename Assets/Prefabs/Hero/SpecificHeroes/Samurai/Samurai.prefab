@@ -52,11 +52,16 @@ MonoBehaviour:
   _hasBasicAbilityAnimation: 1
   _hasManualAbilityAnimation: 1
   _hasPassiveAbilityAnimation: 0
+  _basicAbilityAnimationBufferBeforeDisable: 0.25
+  _manualAbilityAnimationBufferBeforeDisable: 0.25
+  _passiveAbilityAnimationBufferBeforeDisable: 0.25
+  _heroSpecificUI: {fileID: 0}
   _basicProjectile: {fileID: 5625124809019392836, guid: de7156d0f762a6e4d9414d853c7e7058, type: 3}
   _manualAbilityDuration: 2
   _manualAbilityParryDamage: 40
   _manualAbilityParryStagger: 15
   _parryBonusIFrames: 3
+  _parryEffect: {fileID: 7161449249740579407, guid: 14989cb0a1dedfc4a8293e0b73d36e6e, type: 3}
   _passiveRechargeManualAmount: 3
 --- !u!95 &1969857870274726929
 Animator:

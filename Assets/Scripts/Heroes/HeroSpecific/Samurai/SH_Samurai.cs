@@ -16,7 +16,9 @@ public class SH_Samurai : SpecificHeroFramework
     [SerializeField] float _manualAbilityParryStagger;
     [SerializeField] float _parryBonusIFrames;
 
-    [Space]
+    [Space] 
+    [SerializeField] private GameObject _parryEffect;
+    
     [SerializeField] float _passiveRechargeManualAmount;
 
     private Coroutine _parryCoroutine;
@@ -102,6 +104,7 @@ public class SH_Samurai : SpecificHeroFramework
 
         SuccessfulParryAnimation();
         PlayParryAudio();
+        Instantiate(_parryEffect, BossBase.Instance.gameObject.transform.position, Quaternion.identity);
 
         StartSuccessfulParryIFrames();
     }
