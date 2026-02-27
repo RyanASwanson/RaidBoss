@@ -17,9 +17,13 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     private WaitForSeconds _scrollCooldownWait;
     private Coroutine _scrollCooldownCoroutine;
 
-    [Space]
+    [Space] 
+    [SerializeField] private bool _doesSelectClickFindSelectedHero;
     [SerializeField] private float _heroControlRange;
     private bool _clickAndDragEnabled;
+
+    [Space] 
+    [SerializeField] private bool _canSelectAlreadySelectedHero;
 
     private bool _canControlHero = true;
     private bool _isTutorialPreventingControl = false;
@@ -67,21 +71,24 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
         return false;
     }
     
-    private HeroBase FindClosestHero(Vector3 startLocation)
+    private HeroBase FindClosestHero(Vector3 startLocation, bool canFindSelectedHero)
     {
+        startLocation.Set(startLocation.x,0,startLocation.z);
         List<HeroBase> livingHeroes = HeroesManager.Instance.GetCurrentLivingHeroes();
             
         HeroBase closestHero = null;
         float closestDistance = float.MaxValue;
+        Vector3 heroLocation = startLocation;
             
         foreach (HeroBase hero in livingHeroes)
         {
-            if (_controlledHeroes.Contains(hero))
+            if (!canFindSelectedHero && _controlledHeroes.Contains(hero))
             {
                 continue;
             }
+            heroLocation.Set(hero.transform.position.x,0,hero.transform.position.z);
             
-            float heroDistance = Vector3.Distance(startLocation, hero.transform.position);
+            float heroDistance = Vector3.Distance(startLocation, heroLocation);
             if (heroDistance > _heroControlRange)
             {
                 continue;
@@ -139,6 +146,11 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
             return;
         }
         if (newHero.IsUnityNull())
+        {
+            return;
+        }
+
+        if (!_canSelectAlreadySelectedHero && _controlledHeroes.Contains(newHero))
         {
             return;
         }
@@ -238,7 +250,7 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     {
         if (ClickOnPoint(_selectClickLayerMask, out RaycastHit clicked))
         {
-            NewControlledHero(FindClosestHero(clicked.point));
+            NewControlledHero(FindClosestHero(clicked.point,_doesSelectClickFindSelectedHero));
         }
     }
     
