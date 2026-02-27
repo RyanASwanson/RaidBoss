@@ -321,13 +321,12 @@ public class SelectionController : MonoBehaviour
     private void CheckMaxCharactersSelected()
     {
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
-        if (!DebugScript.Instance.RequiresMaxCharactersSelected)
+        if (!DebugScript.Instance.IsUnityNull() && !DebugScript.Instance.RequiresMaxCharactersSelected)
         {
             MaxCharactersSelected();
             return;
         }
 #endif
-        
         if (SelectionManager.Instance.AtMaxBossSelected() && SelectionManager.Instance.AtMaxHeroesSelected())
         {
             MaxCharactersSelected();
@@ -382,9 +381,6 @@ public class SelectionController : MonoBehaviour
         {
             NewHeroHoveredOver(heroSO);
         }
-        
-        //NewHeroHoveredOver(heroSO);
-        
     }
 
     private void NewHeroHoveredOver(HeroSO heroSO)
@@ -620,11 +616,9 @@ public class SelectionController : MonoBehaviour
         {
             HeroLimitIncreased();
         }
-        
         ShowHeroPreviewPillars();
             
         _previousMaxHeroes = SelectionManager.Instance.GetMaxHeroesCountWithCurrentDifficulty();
-
         CheckMaxCharactersSelectionStatus();
     }
 

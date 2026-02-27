@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 3073542927443306918}
   - component: {fileID: 6054229843837090619}
   - component: {fileID: 1969857870274726929}
+  - component: {fileID: 1475367915714421285}
+  - component: {fileID: 6485131445182798027}
   m_Layer: 0
   m_Name: Samurai
   m_TagString: Untagged
@@ -62,6 +64,7 @@ MonoBehaviour:
   _manualAbilityParryStagger: 15
   _parryBonusIFrames: 3
   _parryEffect: {fileID: 7161449249740579407, guid: 14989cb0a1dedfc4a8293e0b73d36e6e, type: 3}
+  _samuraiParryColorVisualsCurve: {fileID: 6485131445182798027}
   _passiveRechargeManualAmount: 3
 --- !u!95 &1969857870274726929
 Animator:
@@ -84,6 +87,112 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1475367915714421285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3073542927443306904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369bcc862835c2b41a6b1d018a12a33c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _propertyType: 2
+  _propertyName: _Color
+  _progressMultiplier: 1
+  _hasOverrideStartingColors: 0
+  _overrideStartingColors: []
+  _endColors:
+  - {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  - {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
+  - {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
+  - {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
+  - {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
+  - {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
+  - {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
+  - {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
+  - {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
+  _isUsingSharedMaterial: 0
+  _meshRenderers:
+  - {fileID: 1100229941749505095}
+  - {fileID: 5528176610306058101}
+  - {fileID: 9201603664934097462}
+  - {fileID: 2671788372545259887}
+  - {fileID: 6735909170961084479}
+  - {fileID: 5965426153710923844}
+  - {fileID: 1407180209992377238}
+  - {fileID: 4029077964117359033}
+  - {fileID: 1101391292748961779}
+  _curveProgression: {fileID: 6485131445182798027}
+--- !u!114 &6485131445182798027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3073542927443306904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 508c048b50abf854791f2f498bb01037, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _curveName: SamuraiColor
+  _curveIncreaseTime: 0.25
+  _curveDecreaseTime: 0.1
+  _minCurveValue: 0
+  _maxCurveValue: 1
+  _hasDefaultValue: 0
+  _defaultValue: 0
+  _doesResetToDefaultProgressOnEnable: 0
+  _doesStartMovingUpOnEnable: 0
+  _doesAutomaticallyMoveDownOnHittingMax: 0
+  _doesAutomaticallyMoveUpOnHittingMin: 0
+  _hasIncreaseDelay: 0
+  _increaseDelay: 0
+  _hasDecreaseDelay: 0
+  _decreaseDelay: 0
+  _doesLerpUnchained: 0
+  _curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  OnSetUpComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  _onStartedIncreasing:
+    m_PersistentCalls:
+      m_Calls: []
+  _onStartedDecreasing:
+    m_PersistentCalls:
+      m_Calls: []
+  _onMaxValueReached:
+    m_PersistentCalls:
+      m_Calls: []
+  _onMinValueReached:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &3199649369657559844
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -141,8 +250,53 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03a1ad8fdf6a464499839823b663af84, type: 3}
+--- !u!23 &1100229941749505095 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2532075685808674659, guid: 03a1ad8fdf6a464499839823b663af84, type: 3}
+  m_PrefabInstance: {fileID: 3199649369657559844}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1101391292748961779 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2535418484527946967, guid: 03a1ad8fdf6a464499839823b663af84, type: 3}
+  m_PrefabInstance: {fileID: 3199649369657559844}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1407180209992377238 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4602747900294064306, guid: 03a1ad8fdf6a464499839823b663af84, type: 3}
+  m_PrefabInstance: {fileID: 3199649369657559844}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &2671788372545259887 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 681003933999137355, guid: 03a1ad8fdf6a464499839823b663af84, type: 3}
+  m_PrefabInstance: {fileID: 3199649369657559844}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2989001938757471895 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 368276246379496883, guid: 03a1ad8fdf6a464499839823b663af84, type: 3}
+  m_PrefabInstance: {fileID: 3199649369657559844}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &4029077964117359033 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1985341045577904797, guid: 03a1ad8fdf6a464499839823b663af84, type: 3}
+  m_PrefabInstance: {fileID: 3199649369657559844}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &5528176610306058101 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6980429271925238865, guid: 03a1ad8fdf6a464499839823b663af84, type: 3}
+  m_PrefabInstance: {fileID: 3199649369657559844}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &5965426153710923844 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 9128237193733503840, guid: 03a1ad8fdf6a464499839823b663af84, type: 3}
+  m_PrefabInstance: {fileID: 3199649369657559844}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &6735909170961084479 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8150866158050065179, guid: 03a1ad8fdf6a464499839823b663af84, type: 3}
+  m_PrefabInstance: {fileID: 3199649369657559844}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &9201603664934097462 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6040974038806403346, guid: 03a1ad8fdf6a464499839823b663af84, type: 3}
   m_PrefabInstance: {fileID: 3199649369657559844}
   m_PrefabAsset: {fileID: 0}

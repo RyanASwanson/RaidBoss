@@ -182,8 +182,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _propertyType: 0
   _propertyName: _HeightFogDensity
+  _progressMultiplier: 1
   _isUsingSharedMaterial: 1
   _meshRenderer: {fileID: 3015996135364964812}
+  _meshRenderers:
+  - {fileID: 6856550235061818274}
   _curveProgression: {fileID: 1839482245816804616}
 --- !u!114 &1839482245816804616
 MonoBehaviour:
@@ -205,11 +208,14 @@ MonoBehaviour:
   _hasDefaultValue: 0
   _defaultValue: 0
   _doesResetToDefaultProgressOnEnable: 0
+  _doesStartMovingUpOnEnable: 0
   _doesAutomaticallyMoveDownOnHittingMax: 0
+  _doesAutomaticallyMoveUpOnHittingMin: 0
   _hasIncreaseDelay: 0
   _increaseDelay: 0
   _hasDecreaseDelay: 0
   _decreaseDelay: 0
+  _doesLerpUnchained: 0
   _curve:
     serializedVersion: 2
     m_Curve:

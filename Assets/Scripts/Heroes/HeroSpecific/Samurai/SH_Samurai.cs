@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,6 +19,8 @@ public class SH_Samurai : SpecificHeroFramework
 
     [Space] 
     [SerializeField] private GameObject _parryEffect;
+
+    [SerializeField] private CurveProgression _samuraiParryColorVisualsCurve;
     
     [SerializeField] float _passiveRechargeManualAmount;
 
@@ -70,7 +73,7 @@ public class SH_Samurai : SpecificHeroFramework
 
         yield return new WaitForSeconds(_manualAbilityDuration);
 
-        EndParry();
+        ParryDurationOver();
         _parryCoroutine = null;
     }
 
@@ -78,20 +81,26 @@ public class SH_Samurai : SpecificHeroFramework
     {
         _myHeroBase.GetHeroStats().AddDamageTakenOverrideCounter();
         _myHeroBase.GetHeroDamagedOverrideEvent().AddListener(ParryAttack);
+        _samuraiParryColorVisualsCurve.StartMovingUpOnCurve();
     }
 
-    private void EndParry()
+    private void ParryDurationOver()
     {
-        _myHeroBase.GetHeroStats().RemoveDamageTakenOverrideCounter();
-        _myHeroBase.GetHeroDamagedOverrideEvent().RemoveListener(ParryAttack);
+        GeneralParryEnd();
     }
 
     private void StopParryEarly()
     {
         StopCoroutine(_parryCoroutine);
         _parryCoroutine = null;
+        GeneralParryEnd();
+    }
+
+    private void GeneralParryEnd()
+    {
         _myHeroBase.GetHeroStats().RemoveDamageTakenOverrideCounter();
         _myHeroBase.GetHeroDamagedOverrideEvent().RemoveListener(ParryAttack);
+        _samuraiParryColorVisualsCurve.StartMovingDownOnCurve();
     }
 
     public void ParryAttack(float damagePrevented)
