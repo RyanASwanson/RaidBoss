@@ -8,11 +8,6 @@ using UnityEngine;
 /// </summary>
 public class UniversalManagers : CoreManagersFramework
 {
-    private SceneLoadManager _sceneLoadManager;
-    private SelectionManager _selectionManager;
-    private TimeManager _timeManager;
-    private SaveManager _saveManager;
-
     /// <summary>
     /// Contains all managers to set up. Order of managers is order of setup.
     /// </summary>
