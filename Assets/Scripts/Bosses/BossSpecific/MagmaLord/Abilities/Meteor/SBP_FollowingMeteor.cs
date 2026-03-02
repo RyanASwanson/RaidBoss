@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -26,6 +27,10 @@ public class SBP_FollowingMeteor : BossProjectileFramework
     /// <param name="heroBase"></param>
     private void StartProjectileMovement(HeroBase heroBase)
     {
+        if (heroBase.IsUnityNull())
+        {
+            return;
+        }
         ProjectileLookAt(heroBase.transform.position);
         
         _rotationCurveProgression.StartMovingUpOnCurve();
@@ -94,7 +99,7 @@ public class SBP_FollowingMeteor : BossProjectileFramework
     /// Provides the projectile with any additional information it may need
     /// </summary>
     /// <param name="heroBase"></param>
-    public void AdditionalSetUp(HeroBase heroBase)
+    public void AdditionalSetUp(HeroBase heroBase, Vector3 lookEuler)
     {
         StartProjectileMovement(heroBase);
     }

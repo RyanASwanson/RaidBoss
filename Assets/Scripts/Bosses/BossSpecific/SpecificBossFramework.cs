@@ -215,6 +215,26 @@ public abstract class SpecificBossFramework : MonoBehaviour
         return null;
     }
 
+    public virtual void AddHeroOverrideAggro(HeroBase heroBase)
+    {
+        if (_aggroOverrides.Contains(heroBase))
+        {
+            return;
+        }
+        
+        _aggroOverrides.Add(heroBase);
+    }
+
+    public virtual void RemoveHeroOverrideAggro(HeroBase heroBase)
+    {
+        if (!_aggroOverrides.Contains(heroBase))
+        {
+            return;
+        }
+        
+        _aggroOverrides.Remove(heroBase);
+    }
+
     /// <summary>
     /// Starts the process of having a hero be the sole target for boss abilities
     /// </summary>

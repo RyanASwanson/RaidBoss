@@ -60,7 +60,7 @@ public class SH_Guardian : SpecificHeroFramework
     #region Manual Abilities
     public override void ActivateManualAbilities()
     {
-        BossBase.Instance.GetSpecificBossScript().StartHeroOverrideAggro(_myHeroBase, _heroManualAbilityDuration);
+        BossBase.Instance.GetSpecificBossScript().AddHeroOverrideAggro(_myHeroBase);
         StartCoroutine(ManualDuration());
 
         base.ActivateManualAbilities();
@@ -77,6 +77,13 @@ public class SH_Guardian : SpecificHeroFramework
         _currentTauntVfx.StartFollowingObject(gameObject);
         
         yield return _heroManualAbilityWait;
+
+        ManualEnded();
+    }
+
+    private void ManualEnded()
+    {
+        BossBase.Instance.GetSpecificBossScript().RemoveHeroOverrideAggro(_myHeroBase);
         
         _myHeroBase.GetHeroStats().ChangeCurrentHeroDamageResistance(-_heroManualDamageResistance);
         
@@ -154,6 +161,12 @@ public class SH_Guardian : SpecificHeroFramework
         _currentTauntIconAnimator = _currentTauntIcon.GetComponent<Animator>();
         
         _currentTauntVfx = Instantiate(_tauntVfxObject, Vector3.zero, Quaternion.identity).GetComponent<FollowObject>();
+    }
+
+    protected override void HeroDied()
+    {
+        base.HeroDied();
+        ManualEnded();
     }
 
     /// <summary>

@@ -102,11 +102,12 @@ public class SBA_Meteor : SpecificBossAbilityFramework
     {
         if (!BossStats.Instance.GetIsBossStaggered())
         {
+            Vector3 meteorLookRotation = _storedFallingMeteor.transform.rotation.eulerAngles;
             FallingMeteorContact();
 
             _storedTargetLocation = new Vector3(_storedTargetLocation.x, -.3f, _storedTargetLocation.z);
             _storedMovingMeteor = Instantiate(_movingMeteor, _storedTargetLocation, Quaternion.identity);
-            _storedMovingMeteor.GetComponent<SBP_FollowingMeteor>().AdditionalSetUp(_storedTarget);
+            _storedMovingMeteor.GetComponent<SBP_FollowingMeteor>().AdditionalSetUp(_storedTarget, meteorLookRotation);
         }
         
         base.AbilityStart();
