@@ -26,6 +26,15 @@ public class SB_TerraLord : SpecificBossFramework
     [Space] 
     [SerializeField] private CinemachineCameraShakeData _passiveMaxShake;
 
+    [Space] 
+    [SerializeField] private float _fallingRubbleAppearThreshold;
+    [SerializeField] private Vector3 _fallingRubblePositionOffset;
+    [SerializeField] private GameObject _fallingRubbleVFX;
+
+    private GeneralVFXFunctionality _leftFallingRubble;
+    private GeneralVFXFunctionality _rightFallingRubble;
+    private GeneralVFXFunctionality _activeFallingRubble;
+
     private WaitForSeconds _passiveTickWait;
     
     private float _passiveHeroWeightMultiplier;
@@ -148,19 +157,11 @@ public class SB_TerraLord : SpecificBossFramework
 
         //Rotates the camera to demonstrate the imbalance of the arena
         RotateCameraBasedOnPassive(val);
+        DetermineActivationOfRubble();
         InvokePassivePercentUpdate();
 
         //Checks if the passive value is too far in either direction
         CheckPassiveMax();
-    }
-
-    /// <summary>
-    /// Gets a value from -1 to 1 of how far the balance is in either direction
-    /// </summary>
-    /// <returns></returns>
-    private float GetPassiveCounterPercent()
-    {
-        return Mathf.Clamp(_passiveCounterValue / _passiveMaxValue, -_passiveMaxValue, _passiveMaxValue);
     }
 
     /// <summary>
@@ -211,6 +212,45 @@ public class SB_TerraLord : SpecificBossFramework
     }
     #endregion
 
+    #region Rubble
+
+    private void CreateRubbleVFX()
+    {
+        _leftFallingRubble = Instantiate(_fallingRubbleVFX, 
+            CameraGameManager.Instance.GetVirtualCamera().gameObject.transform).GetComponent<GeneralVFXFunctionality>();
+        
+        _leftFallingRubble.transform.localPosition -= _fallingRubblePositionOffset;
+        
+        _rightFallingRubble = Instantiate(_fallingRubbleVFX, 
+            CameraGameManager.Instance.GetVirtualCamera().gameObject.transform).GetComponent<GeneralVFXFunctionality>();
+        
+        _rightFallingRubble.transform.localPosition += _fallingRubblePositionOffset;
+    }
+
+    private void DetermineActivationOfRubble()
+    {
+        if (_passiveCounterValue >= _fallingRubbleAppearThreshold || _passiveCounterValue <= -_fallingRubbleAppearThreshold)
+        {
+            _activeFallingRubble = _passiveCounterValue > 0 ? _rightFallingRubble : _leftFallingRubble;
+            _activeFallingRubble.PlayAllParticleSystems();
+            _activeFallingRubble.SetLoopOfParticleSystems(true);
+        }
+
+        if (!_activeFallingRubble.IsUnityNull())
+        {
+            if (Mathf.Abs(_passiveCounterValue) < _fallingRubbleAppearThreshold)
+            {
+                _activeFallingRubble.SetLoopOfParticleSystems(false);
+            }
+            else
+            {
+                _activeFallingRubble.SetEmissionRateMultiplierWithCurve(
+                    (Mathf.Abs(_passiveCounterValue)- _fallingRubbleAppearThreshold)/ (_passiveMaxValue- _fallingRubbleAppearThreshold));
+            }
+        }
+    }
+    #endregion
+    
     #region BaseBoss
     /// <summary>
     /// Called when the fight begins.
@@ -223,6 +263,9 @@ public class SB_TerraLord : SpecificBossFramework
         
         SetStartingPassiveWeightMultiplier();
         StartPassiveProcess();
+
+        CreateRubbleVFX();
+
     }
 
     /// <summary>
@@ -262,6 +305,20 @@ public class SB_TerraLord : SpecificBossFramework
     #endregion
 
     #region Getters
+    /// <summary>
+    /// Gets a value from -1 to 1 of how far the balance is in either direction
+    /// </summary>
+    /// <returns></returns>
+    private float GetPassiveCounterPercent()
+    {
+        return Mathf.Clamp(_passiveCounterValue / _passiveMaxValue, -_passiveMaxValue, _passiveMaxValue);
+    }
+
+    private float GetPassiveCounterPercentageAbsolute()
+    {
+        return Mathf.Abs(GetPassiveCounterPercent());
+    }
+    
     public UnityEvent<float> GetPassivePercentUpdatedEvent() => _onPassivePercentUpdated;
     #endregion
 }

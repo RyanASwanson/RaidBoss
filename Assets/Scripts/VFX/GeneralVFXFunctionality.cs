@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,12 +17,27 @@ public class GeneralVFXFunctionality : MonoBehaviour
     [Tooltip("The time before the visual effect detaches from its parent")]
     [SerializeField] private float _detachTime;
 
+    [Space] 
+    [SerializeField] private bool _hasCustomEmmisionRateCurve;
+    [SerializeField] private float _customEmissionCurveMultiplier;
+    [SerializeField] private AnimationCurve _customEmissionRateCurve;
+    private float[] _startingParticleSystemsEmissionRates;
+
     [Space]
     [SerializeField] private List<ParticleSystem> _particleSystems;
 
     // Start is called before the first frame update
     void Start()
     {
+        if (_hasCustomEmmisionRateCurve)
+        {
+            _startingParticleSystemsEmissionRates = new float[_particleSystems.Count];
+            for (int i = 0; i < _particleSystems.Count; i++)
+            {
+                _startingParticleSystemsEmissionRates[i] = _particleSystems[i].emission.rateOverTimeMultiplier;
+            }
+        }
+        
         if (_hasLifeTime)
         {
             DestroyOverLifeTime();
@@ -89,6 +105,23 @@ public class GeneralVFXFunctionality : MonoBehaviour
         {
             var psMain = ps.main;
             psMain.loop = shouldLoop;
+        }
+    }
+
+    public void SetEmissionRateMultiplierWithCurve(float emissionRateMultiplier)
+    {
+        emissionRateMultiplier = _customEmissionRateCurve.Evaluate(emissionRateMultiplier) * _customEmissionCurveMultiplier;
+
+        SetEmissionRateMultiplier(emissionRateMultiplier);
+        
+    }
+
+    public void SetEmissionRateMultiplier(float emissionRateMultiplier)
+    {
+        for (int i = 0; i < _particleSystems.Count; i++)
+        {
+            ParticleSystem.EmissionModule emissionModule = _particleSystems[i].emission;
+            emissionModule.rateOverTimeMultiplier = emissionRateMultiplier * _startingParticleSystemsEmissionRates[i];
         }
     }
 

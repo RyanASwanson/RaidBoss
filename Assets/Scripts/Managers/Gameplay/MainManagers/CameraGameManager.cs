@@ -223,6 +223,7 @@ public class CameraGameManager : MainGameplayManagerFramework
 
     #region Getters
     public Camera GetGameplayCamera() => _gameplayCamera;
+    public CinemachineVirtualCamera GetVirtualCamera() => _virtualCamera;
     #endregion
 }
 
