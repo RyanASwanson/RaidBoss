@@ -21,7 +21,11 @@ public class AchievementManager : MainUniversalManagerFramework
 
     public void UnlockAchievement(AchievementSO achievement)
     {
-        Debug.Log("Achievement Unlocked" + achievement.name);
+        if (DebugScript.Instance.ShowAchievementUnlocks)
+        {
+            Debug.Log("Achievement Unlocked" + achievement.name);
+        }
+
         InvokeOnAchievementUnlocked(achievement);
         
         SteamAchievementUnlock(achievement);

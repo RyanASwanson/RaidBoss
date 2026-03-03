@@ -116,19 +116,7 @@ public class SaveManager : MainUniversalManagerFramework
     /// </summary>
     private void PopulateBossHeroDifficultyDictionary()
     {
-        /*
         //Iterate through the boss scriptable objects
-        foreach(BossSO bossSO in _bossesInGame)
-        {
-            // Adds the boss to the dictionary
-            GSD.GetGameplaySaveData().GetBossHeroBestDifficulty().Add(bossSO.GetBossName(), new Dictionary<string, EGameDifficulty>());
-
-            foreach(HeroSO heroSO in _heroesInGame)
-            {
-                //Sets each best difficulty beaten to empty
-                GSD.GetGameplaySaveData().GetBossHeroBestDifficulty()[bossSO.GetBossName()].Add(heroSO.GetHeroName(), EGameDifficulty.Empty);
-            }
-        }*/
         
         foreach (BossSO bossSO in _bossesInGame)
         {
@@ -191,8 +179,16 @@ public class SaveManager : MainUniversalManagerFramework
     private void UpdateOldSaveData()
     {
         PopulateBossHeroDifficultyDictionary();
+        UpdateMissionUnlocksFromOldSaveData();
     }
-    
+
+    private void UpdateMissionUnlocksFromOldSaveData()
+    {
+        foreach (int i in GSD.GetGameplaySaveData().MissionsComplete)
+        {
+            MissionComplete(_missionsInGame[i]);
+        }
+    }
     #endregion
 
     /// <summary>
@@ -353,10 +349,29 @@ public class SaveManager : MainUniversalManagerFramework
 
     public void MissionComplete(MissionSO mission)
     {
-        GSD.GetGameplaySaveData().GetMissionsComplete().Add(mission.GetMissionID());
-            
-        UnlockCharacter(mission.GetCharacterUnlock());
+        AddMissionAsComplete(mission);
 
+        UnlockCharacterFromMission(mission);
+
+        UnlockMissionsFromMission(mission);
+
+        UnlockAchievementsFromMission(mission);
+        
+        SaveText();
+    }
+
+    public void AddMissionAsComplete(MissionSO mission)
+    {
+        GSD.GetGameplaySaveData().GetMissionsComplete().Add(mission.GetMissionID());
+    }
+
+    public void UnlockCharacterFromMission(MissionSO mission)
+    {
+        UnlockCharacter(mission.GetCharacterUnlock());
+    }
+
+    public void UnlockMissionsFromMission(MissionSO mission)
+    {
         MissionSO[] missionUnlocks = mission.GetMissionUnlocks();
 
         for (int i = 0; i < missionUnlocks.Length; i++)
@@ -365,15 +380,16 @@ public class SaveManager : MainUniversalManagerFramework
             // If this is the first mission in the set of unlocks call this function with a true bool
             UnlockMission(missionUnlocks[i], i == 0);
         }
+    }
 
+    public void UnlockAchievementsFromMission(MissionSO mission)
+    {
         AchievementSO[] achievementUnlocks = mission.GetAchievementUnlocks();
 
         for (int i = 0; i < achievementUnlocks.Length; i++)
         {
             AchievementManager.Instance.UnlockAchievement(achievementUnlocks[i]);
         }
-        
-        SaveText();
     }
     #endregion
 

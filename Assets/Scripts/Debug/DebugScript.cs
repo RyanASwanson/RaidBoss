@@ -10,9 +10,12 @@ public class DebugScript : MonoBehaviour
 {
     public static DebugScript Instance;
     
-    public bool RequiresMaxCharactersSelected;
+    internal bool IsEditor = false;
     
-    private void Start()
+    public bool RequiresMaxCharactersSelected;
+    public bool ShowAchievementUnlocks;
+    
+    public void PerformDebugScriptSetUp()
     {
         if(Instance.IsUnityNull())
         {
@@ -26,6 +29,7 @@ public class DebugScript : MonoBehaviour
         }
         
 #if !UNITY_EDITOR && !DEVELOPMENT_BUILD
+        IsEditor = true;
         RequiresMaxCharactersSelected = true;
 #endif
     }
