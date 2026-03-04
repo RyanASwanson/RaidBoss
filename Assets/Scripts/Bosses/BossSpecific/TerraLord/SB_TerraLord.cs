@@ -11,6 +11,7 @@ public class SB_TerraLord : SpecificBossFramework
     [Header("Unstable Precipice")]
     [SerializeField] private float _passiveTickRate;
     [SerializeField] private float _minimumTickValue;
+    [SerializeField] private float _maximumTickValue;
 
     [SerializeField] private float _passiveMaxValue;
 
@@ -25,16 +26,7 @@ public class SB_TerraLord : SpecificBossFramework
 
     [Space] 
     [SerializeField] private CinemachineCameraShakeData _passiveMaxShake;
-
-    [Space] 
-    [SerializeField] private float _fallingRubbleAppearThreshold;
-    [SerializeField] private Vector3 _fallingRubblePositionOffset;
-    [SerializeField] private GameObject _fallingRubbleVFX;
-
-    private GeneralVFXFunctionality _leftFallingRubble;
-    private GeneralVFXFunctionality _rightFallingRubble;
-    private GeneralVFXFunctionality _activeFallingRubble;
-
+    
     private WaitForSeconds _passiveTickWait;
     
     private float _passiveHeroWeightMultiplier;
@@ -45,10 +37,35 @@ public class SB_TerraLord : SpecificBossFramework
     private bool _isPassiveMovingTowardsMax = false;
     
     private Coroutine _passiveProcessCoroutine;
-
+    
     //Invokes the passive counter value scaled from -1 to 1
     private UnityEvent<float> _onPassivePercentUpdated = new UnityEvent<float>();
 
+    [Space] 
+    [SerializeField] private float _fallingRubbleAppearThreshold;
+    [SerializeField] private Vector3 _fallingRubblePositionOffset;
+    [SerializeField] private GameObject _fallingRubbleVFX;
+
+    private GeneralVFXFunctionality _leftFallingRubble;
+    private GeneralVFXFunctionality _rightFallingRubble;
+    private GeneralVFXFunctionality _activeFallingRubble;
+
+    private float rubbleProgressPercent;
+    private bool _isRubbleFalling = false;
+
+    [Space] 
+    [SerializeField] private float _minimumFallingRubbleAudioRate;
+    [SerializeField] private float _maximumFallingRubbleAudioRate;
+    [SerializeField] private AnimationCurve _fallingRubbleAudioRateCurve;
+
+    [SerializeField] private float _rubbleAudioStopDelay;
+
+    private float _currentFallingRubbleAudioRate;
+    private float _timeSinceLastRubbleAudioPlayed;
+    private Coroutine _fallingRubbleAudioCoroutine;
+
+    public const int RUBBLE_FALL_AUDIO_ID = 0;
+    
     #region Passive
 
     /// <summary>
@@ -125,6 +142,15 @@ public class SB_TerraLord : SpecificBossFramework
         else if (weightCounter < 0 && weightCounter > -_minimumTickValue)
         {
             weightCounter = -_minimumTickValue;
+        }
+
+        if (weightCounter > _maximumTickValue)
+        {
+            weightCounter = _maximumTickValue;
+        }
+        else if (weightCounter < -_maximumTickValue)
+        {
+            weightCounter = -_maximumTickValue;
         }
         
         return weightCounter;
@@ -231,9 +257,13 @@ public class SB_TerraLord : SpecificBossFramework
     {
         if (_passiveCounterValue >= _fallingRubbleAppearThreshold || _passiveCounterValue <= -_fallingRubbleAppearThreshold)
         {
+            _isRubbleFalling = true;
+            
             _activeFallingRubble = _passiveCounterValue > 0 ? _rightFallingRubble : _leftFallingRubble;
             _activeFallingRubble.PlayAllParticleSystems();
             _activeFallingRubble.SetLoopOfParticleSystems(true);
+            
+            StartPlayRubbleAudioProcess();
         }
 
         if (!_activeFallingRubble.IsUnityNull())
@@ -241,13 +271,71 @@ public class SB_TerraLord : SpecificBossFramework
             if (Mathf.Abs(_passiveCounterValue) < _fallingRubbleAppearThreshold)
             {
                 _activeFallingRubble.SetLoopOfParticleSystems(false);
+
+                _isRubbleFalling = false;
             }
             else
             {
-                _activeFallingRubble.SetEmissionRateMultiplierWithCurve(
-                    (Mathf.Abs(_passiveCounterValue)- _fallingRubbleAppearThreshold)/ (_passiveMaxValue- _fallingRubbleAppearThreshold));
+                rubbleProgressPercent = (Mathf.Abs(_passiveCounterValue)- _fallingRubbleAppearThreshold) / (
+                    _passiveMaxValue - _fallingRubbleAppearThreshold);
+                
+                _activeFallingRubble.SetEmissionRateMultiplierWithCurve(rubbleProgressPercent);
+
+                DetermineFallingRubbleAudioRate();
             }
         }
+    }
+
+    private void StartPlayRubbleAudioProcess()
+    {
+        StopPlayRubbleAudioProcess();
+
+        DetermineFallingRubbleAudioRate();
+        rubbleProgressPercent = 0;
+        
+        _fallingRubbleAudioCoroutine = StartCoroutine(PlayRubbleAudioProcess());
+    }
+
+    private void StopPlayRubbleAudioProcess()
+    {
+        if (!_fallingRubbleAudioCoroutine.IsUnityNull())
+        {
+            StopCoroutine(_fallingRubbleAudioCoroutine);
+        }
+    }
+
+    private IEnumerator PlayRubbleAudioProcess()
+    {
+        float rubbleContinueTimer = 0;
+        while (_isRubbleFalling || rubbleContinueTimer <= _rubbleAudioStopDelay)
+        {
+            if (!_isRubbleFalling)
+            {
+                rubbleContinueTimer += Time.deltaTime;
+            }
+            
+            _timeSinceLastRubbleAudioPlayed += Time.deltaTime;
+
+            if (_timeSinceLastRubbleAudioPlayed >= _currentFallingRubbleAudioRate)
+            {
+                _timeSinceLastRubbleAudioPlayed = 0;
+                PlayRubbleAudio();
+            }
+
+            yield return null;
+        }
+    }
+    
+    private void PlayRubbleAudio()
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].MiscellaneousBossAudio[RUBBLE_FALL_AUDIO_ID]);
+    }
+
+    private void DetermineFallingRubbleAudioRate()
+    {
+        _currentFallingRubbleAudioRate = Mathf.Lerp(_minimumFallingRubbleAudioRate, _maximumFallingRubbleAudioRate, 
+            _fallingRubbleAudioRateCurve.Evaluate(rubbleProgressPercent));
     }
     #endregion
     

@@ -440,7 +440,38 @@ MonoBehaviour:
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
-    MiscellaneousBossAudio: []
+    MiscellaneousBossAudio:
+    - AudioName: RubbleFalling
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+      DefaultPlayType: 0
+      DefaultAudioChoice: 1
+      AudioTracks:
+      - Guid:
+          Data1: 720555684
+          Data2: 1168863050
+          Data3: -1406935372
+          Data4: -1730623548
+        Path: event:/SoundEffect/Bosses/Specific/TerraLord/General/Rubble/TerraLordFallingRubble1
+      - Guid:
+          Data1: 1321346646
+          Data2: 1336427475
+          Data3: -1375342174
+          Data4: 138633713
+        Path: event:/SoundEffect/Bosses/Specific/TerraLord/General/Rubble/TerraLordFallingRubble2
+      - Guid:
+          Data1: 778484705
+          Data2: 1316701240
+          Data3: -1392800335
+          Data4: 1371420736
+        Path: event:/SoundEffect/Bosses/Specific/TerraLord/General/Rubble/TerraLordFallingRubble3
+      - Guid:
+          Data1: -1807710363
+          Data2: 1135988524
+          Data3: -576174181
+          Data4: -1106421311
+        Path: event:/SoundEffect/Bosses/Specific/TerraLord/General/Rubble/TerraLordFallingRubble4
   - AssociatedBoss: GlacialLord
     SelectionSelectedAudio:
       AudioName: GlacialLordSelected
