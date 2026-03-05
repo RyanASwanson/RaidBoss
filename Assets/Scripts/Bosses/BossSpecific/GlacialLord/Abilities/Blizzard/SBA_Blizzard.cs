@@ -23,6 +23,8 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
     private List<BlizzardPreviewGlow> _currentPreviewZones = new();
 
     private SB_GlacialLord _glacialLord;
+    
+    public const int BLIZZARD_MINIONS_ACTIVE_ABILITY_PREP_WIND_AUDIO_ID = 0;
 
     private void DetermineTargets(bool swapTargets)
     {
@@ -70,12 +72,31 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
         _allTargets[currentTarget].AddFrostFiendToList(newFiend);
 
         currentTarget--;
-        if (currentTarget < 0) currentTarget = 3;
+        if (currentTarget < 0)
+        {
+            currentTarget = 3;
+        }
 
         _allTargets[currentTarget].AddFrostFiendToList(newFiend);
 
         _setUpTargetsCounter++;
     }
+
+    private void PlayMinionsActiveAbilityPrepWind()
+    {
+        foreach (BlizzardTargets targets in _activeTargets)
+        {
+            if (targets.AreAllMinionsFrozen())
+            {
+                return;
+            }
+        }
+        
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
+                BossAbilityAudio[_abilityID].GeneralAbilityAudio[BLIZZARD_MINIONS_ACTIVE_ABILITY_PREP_WIND_AUDIO_ID]);
+    }
+    
     
     #region PreviewZones
 
@@ -120,7 +141,7 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
     protected override void StartShowTargetZone()
     {
         base.StartShowTargetZone();
-
+        
         foreach(BlizzardTargets targets in _currentTargets)
         {
             if (targets.AreAnyMinionsFrozen())
@@ -134,6 +155,8 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
             targets.CallBlizzardAttackOnMinions();
             _activeTargets.Add(targets);
         }
+
+        PlayMinionsActiveAbilityPrepWind();
     }
 
     protected override void AbilityStart()
@@ -154,6 +177,20 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
     {
         DetermineTargets(true);
         SetPreviewZoneLocations();
+    }
+
+    protected override void AttemptPlayAbilityPrepAudio()
+    {
+        foreach (BlizzardTargets targets in _currentTargets)
+        {
+            if (!targets.AreAnyMinionsFrozen())
+            {
+                base.AttemptPlayAbilityPrepAudio();
+                return;
+            }
+        }
+        
+        
     }
     #endregion
 }
@@ -176,6 +213,15 @@ public class BlizzardTargets
         return false;
     }
 
+    public bool AreAllMinionsFrozen()
+    {
+        foreach (GlacialLord_FrostFiend fiend in _associatedFiends)
+        {
+            if (!fiend.IsMinionFrozen()) return false;
+        }
+        return true;
+    }
+
     public GlacialLord_FrostFiend GetUnfrozenFiend()
     {
         foreach(GlacialLord_FrostFiend fiend in _associatedFiends)
@@ -185,22 +231,7 @@ public class BlizzardTargets
         }
         return null;
     }
-
-    /*public void CallBlizzardAttackOnMinions()
-    {
-        foreach (GlacialLord_FrostFiend fiend in _associatedFiends)
-        {
-            if (!fiend.IsMinionFrozen())
-            {
-                fiend.BlizzardAttack(_attackLocation);
-            }
-            else
-            {
-                fiend.BlizzardFailed();
-            }
-            
-        }
-    }*/
+    
     public void CallBlizzardAttackOnMinions()
     {
         foreach (GlacialLord_FrostFiend fiend in _associatedFiends)

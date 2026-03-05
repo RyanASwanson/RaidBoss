@@ -41,10 +41,18 @@ public class SBP_FallingMeteor : BossProjectileFramework
         _meteorAnimator.SetTrigger(REMOVE_PROJECTILE_ANIM_TRIGGER);
     }
 
+    private void PlayFallingMeteorSFX()
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
+                BossAbilityAudio[_abilityID].GeneralAbilityAudio[0]);
+    }
+
     #region Base Ability
 
     public void AdditionalSetUp(GameObject target)
     {
+        PlayFallingMeteorSFX();
         StartCoroutine(LookAtTarget(target));
     }
     #endregion

@@ -61,9 +61,6 @@ public class SBP_Thunderbolt : BossProjectileFramework
         _damageZoneArea.StartColliderActivationDelay();
         _damageZoneArea.StartColliderLifetime();
         _cloudVFXFunctionality.SetLoopOfParticleSystems(false);
-        
-        /*_sparkImpactVFXFunctionality.PlayAllParticleSystems();
-        _sparkImpactUpwardsVFXFunctionality.PlayAllParticleSystems();*/
 
         foreach (GeneralVFXFunctionality vfx in _impactVFXFunctionality)
         {

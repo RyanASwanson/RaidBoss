@@ -43,7 +43,8 @@ public class SBA_CrystalBarrage : SpecificBossAbilityFramework
     [Space]
     [SerializeField] private GameObject _upwardsCrystalSource;
     
-    public const int CRYSTAL_BARRAGE_IMPACT_AUDIO_ID = 0;
+    public const int CRYSTAL_BARRAGE_UPWARDS_PROJECTILE_SPAWNED_AUDIO_ID = 0;
+    public const int CRYSTAL_BARRAGE_IMPACT_AUDIO_ID = 1;
 
     #region Target Location
 
@@ -122,6 +123,10 @@ public class SBA_CrystalBarrage : SpecificBossAbilityFramework
         for (int i = 0; i < _projectileCount; i++)
         {
             _currentTargetZones.Add((Instantiate(_individualTargetZone, _targetLocations[i], Quaternion.identity).GetComponent<BossTargetZoneParent>()));
+            if (i != 0)
+            {
+                PlayTargetZoneSpawnedAudio();
+            }
             yield return _delayBetweenProjectiles;
         }
     }
@@ -163,6 +168,15 @@ public class SBA_CrystalBarrage : SpecificBossAbilityFramework
         Vector3 spawnLocation = _upwardsCrystalSource.transform.position + randomSpawnVariance;
 
         Instantiate(_barrageUpwardsVisual, spawnLocation, Quaternion.identity);
+
+        PlayUpwardsProjectileSpawnedSFX();
+    }
+    
+    private void PlayUpwardsProjectileSpawnedSFX()
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
+                BossAbilityAudio[_abilityID].GeneralAbilityAudio[CRYSTAL_BARRAGE_UPWARDS_PROJECTILE_SPAWNED_AUDIO_ID]);
     }
 
     #endregion

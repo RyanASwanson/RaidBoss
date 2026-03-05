@@ -138,7 +138,20 @@ MonoBehaviour:
         DefaultPlayType: 0
         DefaultAudioChoice: 0
         AudioTracks: []
-      GeneralAbilityAudio: []
+      GeneralAbilityAudio:
+      - AudioName: MeteorFalling
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: 569854717
+            Data2: 1180302161
+            Data3: 369206455
+            Data4: -194734643
+          Path: event:/SoundEffect/Bosses/Specific/MagmaLord/Abilities/Meteor/MagmaLordMeteorFalling
     - AbilityName: MagmaWave
       AbilityPrep:
         AudioName: MagmaWave
@@ -312,6 +325,19 @@ MonoBehaviour:
         DefaultAudioChoice: 0
         AudioTracks: []
       GeneralAbilityAudio:
+      - AudioName: CrystalBarrageUpwardsProjectileSpawned
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 1
+        AudioTracks:
+        - Guid:
+            Data1: -1847234724
+            Data2: 1310399417
+            Data3: -1986205300
+            Data4: -1523275132
+          Path: event:/SoundEffect/Bosses/Specific/TerraLord/Abilities/CrystalBarrage/TerraLordCrystalBarrageUpwardsProjectileSpawned
       - AudioName: CrystalBarrageImpact
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
@@ -610,7 +636,33 @@ MonoBehaviour:
         DefaultPlayType: 0
         DefaultAudioChoice: 0
         AudioTracks: []
-      GeneralAbilityAudio: []
+      GeneralAbilityAudio:
+      - AudioName: BlizzardWindPrep
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: 1457016540
+            Data2: 1122457008
+            Data3: -1662507104
+            Data4: -1995274222
+          Path: event:/SoundEffect/Bosses/Specific/GlacialLord/Abilities/Blizzard/GlacialLordBlizzardWindPrep
+      - AudioName: BlizzardActivePrep
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: 120834238
+            Data2: 1121841214
+            Data3: -1759271489
+            Data4: 152789143
+          Path: event:/SoundEffect/Bosses/Specific/GlacialLord/Abilities/Blizzard/GlacialLordBlizzard
     - AbilityName: FrostFiends
       AbilityPrep:
         AudioName: 

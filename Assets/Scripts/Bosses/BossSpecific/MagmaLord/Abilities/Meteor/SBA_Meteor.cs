@@ -90,6 +90,7 @@ public class SBA_Meteor : SpecificBossAbilityFramework
     {
         _storedFallingMeteor = Instantiate(_fallingMeteor, _storedTargetLocation, _fallingMeteor.transform.rotation);
         _storedFallingMeteorFunc = _storedFallingMeteor.GetComponent<SBP_FallingMeteor>();
+        _storedFallingMeteorFunc.SetUpProjectile(_myBossBase,_abilityID);
         _storedFallingMeteorFunc.AdditionalSetUp(_storedTarget.gameObject);
 
         base.StartAbilityWindUp();

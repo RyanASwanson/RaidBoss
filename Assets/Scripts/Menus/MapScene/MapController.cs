@@ -167,6 +167,8 @@ public class MapController : MonoBehaviour
         
         _currentlySelectedMission.SelectMission();
         ShowMissionSelectionPopUp();
+
+        PlayMissionSelectedAudio(mission);
     }
     
     private void DeselectSelectedMission()
@@ -181,6 +183,14 @@ public class MapController : MonoBehaviour
         
         _previousSelectedMission = _currentlySelectedMission;
         _currentlySelectedMission = null;
+    }
+
+    private void PlayMissionSelectedAudio(SelectableMission mission)
+    {
+        
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificBossAudio[
+                mission.GetAssociatedMission().GetAssociatedLevel().GetLevelBoss().GetBossID()].SelectionSelectedAudio);
     }
 
     public void PlayMission(SelectableMission mission)
