@@ -25,16 +25,12 @@ public class SBP_FollowingMeteor : BossProjectileFramework
     /// Makes the projectile look at the target hero and start moving 
     /// </summary>
     /// <param name="heroBase"></param>
-    private void StartProjectileMovement(HeroBase heroBase)
+    private void StartProjectileMovement(Vector3 storedTargetLocation)
     {
-        if (heroBase.IsUnityNull())
-        {
-            return;
-        }
-        ProjectileLookAt(heroBase.transform.position);
+        ProjectileLookAt(storedTargetLocation);
         
         _rotationCurveProgression.StartMovingUpOnCurve();
-        StartCoroutine(MoveProjectile(DetermineMovementDirection(heroBase.transform.position)));
+        StartCoroutine(MoveProjectile(DetermineMovementDirection(storedTargetLocation)));
     }
 
     /// <summary>
@@ -55,7 +51,6 @@ public class SBP_FollowingMeteor : BossProjectileFramework
 
             ProjectileLookAt(transform.position + direction);
         }
-            
 
         //Return the direction with 0 in the y
         return new Vector3(direction.x, 0, direction.z).normalized;
@@ -98,10 +93,10 @@ public class SBP_FollowingMeteor : BossProjectileFramework
     /// Called when projectile is created
     /// Provides the projectile with any additional information it may need
     /// </summary>
-    /// <param name="heroBase"></param>
-    public void AdditionalSetUp(HeroBase heroBase, Vector3 lookEuler)
+    /// <param name="storedTargetLocation"></param>
+    public void AdditionalSetUp(Vector3 storedTargetLocation)
     {
-        StartProjectileMovement(heroBase);
+        StartProjectileMovement(storedTargetLocation);
     }
     #endregion
 }

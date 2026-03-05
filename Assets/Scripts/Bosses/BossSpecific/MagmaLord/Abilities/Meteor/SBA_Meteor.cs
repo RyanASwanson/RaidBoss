@@ -17,23 +17,13 @@ public class SBA_Meteor : SpecificBossAbilityFramework
 
     //[SerializeField] private Vector3 _fallingMeteorAngleVariance;
 
+    private Vector3 _storedHeroLocation;
+
     private GameObject _storedFallingMeteor;
     private SBP_FallingMeteor _storedFallingMeteorFunc;
     private GameObject _storedMovingMeteor;
 
     
-    protected IEnumerator FollowingDirectionalTargetZone(GameObject targetZone)
-    {
-        StartCoroutine(HideTargetZoneUntilNonZero(targetZone));
-
-        while(!targetZone.IsUnityNull() && !_storedTarget.IsUnityNull())
-        {
-            targetZone.transform.LookAt(_storedTarget.transform.position);
-            targetZone.transform.eulerAngles = new Vector3(0, targetZone.transform.eulerAngles.y, 0);
-            yield return null;
-        }
-    }
-
     /// <summary>
     /// Waits until the hero that is being targetted is not directly on top of the target zone
     /// </summary>
@@ -41,10 +31,31 @@ public class SBA_Meteor : SpecificBossAbilityFramework
     /// <returns></returns>
     protected IEnumerator HideTargetZoneUntilNonZero(GameObject targetZone)
     {
-        targetZone.SetActive(false);
+        //targetZone.SetActive(false);
+        Vector3 startingLookLocation = _myBossBase.gameObject.transform.position;
+
+        /*List<HeroBase> heroes = HeroesManager.Instance.GetCurrentLivingHeroes();
+        float lowestDistance = float.MaxValue;
+        foreach (HeroBase hero in heroes)
+        {
+            if (hero == _storedTarget)
+            {
+                continue;
+            }
+
+            float heroDistance = Vector3.Distance(_storedHeroLocation, targetZone.transform.position);
+            if (heroDistance < lowestDistance)
+            {
+                lowestDistance = heroDistance;
+                startingLookLocation = hero.transform.position;
+            }
+        }*/
+        
+        targetZone.transform.LookAt(startingLookLocation);
+        targetZone.transform.eulerAngles = new Vector3(0, targetZone.transform.eulerAngles.y, 0);
 
         //If that direction is close to zero choose a random direction instead
-        while (targetZone.IsUnityNull() &&
+        while (!targetZone.IsUnityNull() && !_storedTarget.IsUnityNull() &&
                (Mathf.Abs(targetZone.transform.position.x - _storedTarget.transform.position.x) < .1f &&
                 Mathf.Abs(targetZone.transform.position.z - _storedTarget.transform.position.z) < .1f))
         {
@@ -53,7 +64,21 @@ public class SBA_Meteor : SpecificBossAbilityFramework
 
         if (!targetZone.IsUnityNull())
         {
-            targetZone.SetActive(true);
+            StartCoroutine(FollowingDirectionalTargetZone(targetZone));
+        }
+    }
+    
+    protected IEnumerator FollowingDirectionalTargetZone(GameObject targetZone)
+    {
+        while(!targetZone.IsUnityNull())
+        {
+            if (!_storedTarget.IsUnityNull())
+            {
+                _storedHeroLocation = _storedTarget.transform.position;
+            }
+            targetZone.transform.LookAt(_storedHeroLocation);
+            targetZone.transform.eulerAngles = new Vector3(0, targetZone.transform.eulerAngles.y, 0);
+            yield return null;
         }
     }
 
@@ -78,7 +103,8 @@ public class SBA_Meteor : SpecificBossAbilityFramework
         BossTargetZoneParent targetZone = Instantiate(_targetZone, _storedTargetLocation, Quaternion.identity).GetComponent<BossTargetZoneParent>();
         _currentTargetZones.Add(targetZone);
         
-        StartCoroutine(FollowingDirectionalTargetZone(targetZone.GetBossTargetZones()[0].GetAdditionalGameObjectReferences()[0]));
+        _storedHeroLocation = _myBossBase.gameObject.transform.position;
+        StartCoroutine(HideTargetZoneUntilNonZero(targetZone.GetBossTargetZones()[0].GetAdditionalGameObjectReferences()[0]));
 
         base.StartShowTargetZone();
     }
@@ -103,12 +129,11 @@ public class SBA_Meteor : SpecificBossAbilityFramework
     {
         if (!BossStats.Instance.GetIsBossStaggered())
         {
-            Vector3 meteorLookRotation = _storedFallingMeteor.transform.rotation.eulerAngles;
             FallingMeteorContact();
 
             _storedTargetLocation = new Vector3(_storedTargetLocation.x, -.3f, _storedTargetLocation.z);
             _storedMovingMeteor = Instantiate(_movingMeteor, _storedTargetLocation, Quaternion.identity);
-            _storedMovingMeteor.GetComponent<SBP_FollowingMeteor>().AdditionalSetUp(_storedTarget, meteorLookRotation);
+            _storedMovingMeteor.GetComponent<SBP_FollowingMeteor>().AdditionalSetUp(_storedHeroLocation);
         }
         
         base.AbilityStart();
