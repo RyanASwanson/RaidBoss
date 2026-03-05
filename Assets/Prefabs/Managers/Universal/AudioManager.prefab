@@ -256,13 +256,19 @@ MonoBehaviour:
             Data4: -952020448
           Path: event:/SoundEffect/Bosses/Specific/MagmaLord/Abilities/Volcano/Volcano1
     BossAmbience:
-      AudioName: 
+      AudioName: MagmaLordAmbience
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
       DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
-      DefaultPlayType: 0
+      DefaultPlayType: 1
       DefaultAudioChoice: 0
-      AudioTracks: []
+      AudioTracks:
+      - Guid:
+          Data1: 371400367
+          Data2: 1315570359
+          Data3: 1604243888
+          Data4: -694740449
+        Path: event:/SoundEffect/Bosses/Specific/MagmaLord/Ambience/MagmaLordAmbience
     BossDeathAudio:
       AudioName: 
       DefaultInstanceFadeInTime: 0
@@ -657,13 +663,19 @@ MonoBehaviour:
         DefaultAudioChoice: 0
         AudioTracks: []
     BossAmbience:
-      AudioName: 
+      AudioName: GlacialLordAmbience
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
       DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
-      DefaultPlayType: 0
+      DefaultPlayType: 1
       DefaultAudioChoice: 0
-      AudioTracks: []
+      AudioTracks:
+      - Guid:
+          Data1: -1731654865
+          Data2: 1246295946
+          Data3: -1010370382
+          Data4: 505415788
+        Path: event:/SoundEffect/Bosses/Specific/GlacialLord/Ambience/GlacialLordAmbience
     BossDeathAudio:
       AudioName: GlacialLordDeath
       DefaultInstanceFadeInTime: 0
@@ -880,7 +892,7 @@ MonoBehaviour:
           Data2: 1205306152
           Data3: -149384782
           Data4: 1622480293
-        Path: event:/SoundEffect/Bosses/Specific/ThunderLord/Ambiance/ThunderLordAmbience
+        Path: event:/SoundEffect/Bosses/Specific/ThunderLord/Ambience/ThunderLordAmbience
     BossDeathAudio:
       AudioName: LightningLordDeath
       DefaultInstanceFadeInTime: 0
