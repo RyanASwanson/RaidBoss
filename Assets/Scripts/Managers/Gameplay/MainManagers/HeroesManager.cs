@@ -90,10 +90,16 @@ public class HeroesManager : MainGameplayManagerFramework
     {
         //Removes the hero from the list of living heroes
         _currentLivingHeroes.Remove(deadHero);
+        
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.GeneralHeroAudio.HealthAudio.HeroDied);
+        
         //Checks if the game should be declared a loss
         if (CheckIfAllHeroesDead())
         {
             TimeManager.Instance.BattleLostTimeSlow();
+            AudioManager.Instance.PlaySpecificAudio(
+                AudioManager.Instance.GeneralHeroAudio.HealthAudio.LastHeroDied);
         }
         else
         {

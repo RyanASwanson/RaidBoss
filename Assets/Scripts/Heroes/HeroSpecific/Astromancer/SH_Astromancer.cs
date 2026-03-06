@@ -113,8 +113,6 @@ public class SH_Astromancer : SpecificHeroFramework
                 
                 currentManualProjectileSpawnRate = Mathf.Lerp(_minManualProjectileSpawnRate,
                     _maxManualProjectileSpawnRate, _manualProjectileSpawnCurve.Evaluate(tempProgress));
-                
-                //Debug.Log(currentManualProjectileSpawnRate);
             }
             else
             {
@@ -216,6 +214,12 @@ public class SH_Astromancer : SpecificHeroFramework
     #endregion
 
     #region Base Hero
+
+    protected override void BattleWon()
+    {
+        base.BattleWon();
+        EndManualAbility();
+    }
 
     #endregion
 

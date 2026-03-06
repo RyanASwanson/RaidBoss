@@ -17,6 +17,8 @@ public class GeneralBossHealthStaggerAudio
     public SpecificAudio BossTookDamage;
     
     public SpecificAudio BossStaggered;
+
+    public SpecificAudio GeneralBossDied;
 }
 
 [System.Serializable]

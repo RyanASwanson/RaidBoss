@@ -243,6 +243,14 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
             currentHero.GetSpecificHeroScript().AttemptActivationOfManualAbility();
         }
     }
+
+    private void BattleStart()
+    {
+        if (_controlledHeroes.Count == 0)
+        {
+            NewControlledHeroByID(0); 
+        }
+    }
     #endregion
 
     #region InputActions
@@ -400,6 +408,15 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     {
         //Prevents the player from performing any actions after the game ends
         GameStateManager.Instance.GetBattleWonOrLostEvent().AddListener(UnsubscribeToPlayerInput);
+        
+        GameStateManager.Instance.GetStartOfBattleEvent().AddListener(BattleStart);
+    }
+
+    protected override void UnsubscribeToEvents()
+    {
+        GameStateManager.Instance.GetBattleWonOrLostEvent().RemoveListener(UnsubscribeToPlayerInput);
+        
+        GameStateManager.Instance.GetStartOfBattleEvent().RemoveListener(BattleStart);
     }
     
     /// <summary>
@@ -410,6 +427,8 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
         base.OnDestroy();
         UnsubscribeToPlayerInput();
     }
+    
+    
     #endregion
 
     #region Getters

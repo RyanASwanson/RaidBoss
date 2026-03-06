@@ -83,6 +83,20 @@ MonoBehaviour:
             Data3: 451616159
             Data4: -719063323
           Path: event:/SoundEffect/Bosses/GeneralBosses/Stagger/BossStaggered
+      GeneralBossDied:
+        AudioName: GeneralBossDied
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: -1595344959
+            Data2: 1158310912
+            Data3: 683138200
+            Data4: 1212218058
+          Path: event:/SoundEffect/Bosses/GeneralBosses/Health/Death/GeneralBossDeath
     AbilityAudio:
       TargetZoneSpawned:
         AudioName: TargetZoneSpawned
@@ -141,9 +155,9 @@ MonoBehaviour:
       GeneralAbilityAudio:
       - AudioName: MeteorFalling
         DefaultInstanceFadeInTime: 0
-        DefaultInstanceFadeOutTime: 0
+        DefaultInstanceFadeOutTime: 0.5
         DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
-        DefaultPlayType: 0
+        DefaultPlayType: 1
         DefaultAudioChoice: 0
         AudioTracks:
         - Guid:
@@ -283,13 +297,19 @@ MonoBehaviour:
           Data4: -694740449
         Path: event:/SoundEffect/Bosses/Specific/MagmaLord/Ambience/MagmaLordAmbience
     BossDeathAudio:
-      AudioName: 
+      AudioName: MagmaLordDeath
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
       DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
-      AudioTracks: []
+      AudioTracks:
+      - Guid:
+          Data1: 2071025598
+          Data2: 1235060763
+          Data3: 1186182301
+          Data4: -919320792
+        Path: event:/SoundEffect/Bosses/Specific/MagmaLord/Death/MagmaLordDeath
     MiscellaneousBossAudio: []
   - AssociatedBoss: TerraLord
     SelectionSelectedAudio:
@@ -584,13 +604,19 @@ MonoBehaviour:
           Path: event:/SoundEffect/Bosses/Specific/GlacialLord/Abilities/Frostbite/GlacialLordFrostBiteImpact
     - AbilityName: IcicleRain
       AbilityPrep:
-        AudioName: 
+        AudioName: IcicleRainPrep
         DefaultInstanceFadeInTime: 0
-        DefaultInstanceFadeOutTime: 0
+        DefaultInstanceFadeOutTime: 0.5
         DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
-        DefaultPlayType: 0
+        DefaultPlayType: 1
         DefaultAudioChoice: 0
-        AudioTracks: []
+        AudioTracks:
+        - Guid:
+            Data1: 990530025
+            Data2: 1322877961
+            Data3: -869026677
+            Data4: -1002732148
+          Path: event:/SoundEffect/Bosses/Specific/GlacialLord/Abilities/IcicleRain/GlacialLordIcicleRainSpawned
       AbilityStart:
         AudioName: 
         DefaultInstanceFadeInTime: 0
@@ -1004,6 +1030,20 @@ MonoBehaviour:
             Data3: 1067596191
             Data4: 234224541
           Path: event:/SoundEffect/Heroes/GeneralHeroes/Health/Death/HeroDied
+      LastHeroDied:
+        AudioName: LastHeroDied
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: -1805946265
+            Data2: 1306745617
+            Data3: -1298620019
+            Data4: 1234376650
+          Path: event:/SoundEffect/Heroes/GeneralHeroes/Health/Death/LastHeroDied
     InteractionAudio:
       HeroControlled:
         AudioName: HeroControlled
@@ -1780,6 +1820,20 @@ MonoBehaviour:
         DefaultAudioChoice: 0
         AudioTracks: []
     ButtonUserInterfaceAudio:
+      ButtonHoverOverAudio:
+      - AudioName: HoverOver
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: -1560819985
+            Data2: 1312589153
+            Data3: 852991625
+            Data4: -2093851960
+          Path: event:/TBD/ui-click-boxy-03
       ButtonPressedAudio:
       - AudioName: PageButtonPress
         DefaultInstanceFadeInTime: 0

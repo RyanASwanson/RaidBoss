@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using FMOD.Studio;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -9,10 +11,10 @@ public class SBP_FallingMeteor : BossProjectileFramework
     
     [Space]
     [SerializeField] private Animator _meteorAnimator;
+    private bool _hasMeteorBeenStopped = false;
     
     private const string REMOVE_PROJECTILE_ANIM_TRIGGER = "RemoveMeteor";
-    
-    private bool _hasMeteorBeenStopped = false;
+    private EventInstance _fallingMeteorSFXInstance;
     
     private IEnumerator LookAtTarget(GameObject target)
     {
@@ -39,13 +41,17 @@ public class SBP_FallingMeteor : BossProjectileFramework
     {
         _hasMeteorBeenStopped = true;
         _meteorAnimator.SetTrigger(REMOVE_PROJECTILE_ANIM_TRIGGER);
+
+        AudioManager.Instance.StartFadeOutStopInstance(_fallingMeteorSFXInstance,
+            AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
+                BossAbilityAudio[_abilityID].GeneralAbilityAudio[0]);
     }
 
     private void PlayFallingMeteorSFX()
     {
         AudioManager.Instance.PlaySpecificAudio(
             AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
-                BossAbilityAudio[_abilityID].GeneralAbilityAudio[0]);
+                BossAbilityAudio[_abilityID].GeneralAbilityAudio[0], out _fallingMeteorSFXInstance);
     }
 
     #region Base Ability

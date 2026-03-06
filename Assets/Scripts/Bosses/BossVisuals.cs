@@ -224,6 +224,10 @@ public class BossVisuals : BossChildrenFunctionality
 
     private void PlayBossDeathAudio()
     {
+        //GeneralBossDied
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.GeneralBossAudio.HealthStaggerAudio.GeneralBossDied);
+        
         AudioManager.Instance.PlaySpecificAudio(
             AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].BossDeathAudio);
     }

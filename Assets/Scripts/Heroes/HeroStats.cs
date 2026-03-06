@@ -202,9 +202,6 @@ public class HeroStats : HeroChildrenFunctionality
         
         // Tells the heroes manager that this hero died
         HeroesManager.Instance.HeroDied(_myHeroBase);
-        
-        AudioManager.Instance.PlaySpecificAudio(
-            AudioManager.Instance.GeneralHeroAudio.HealthAudio.HeroDied);
     }
 
     public void ForceKillHero()

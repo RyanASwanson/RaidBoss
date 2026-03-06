@@ -59,5 +59,7 @@ public class SceneLoadUserInterfaceAudio
 [System.Serializable]
 public class ButtonUserInterfaceAudio
 {
+    public SpecificAudio[] ButtonHoverOverAudio;
+    
     public SpecificAudio[] ButtonPressedAudio;
 }

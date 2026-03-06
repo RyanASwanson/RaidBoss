@@ -15,8 +15,6 @@ public class SBA_Meteor : SpecificBossAbilityFramework
 
     [SerializeField] private GameObject _directionalTargetZone;
 
-    //[SerializeField] private Vector3 _fallingMeteorAngleVariance;
-
     private Vector3 _storedHeroLocation;
 
     private GameObject _storedFallingMeteor;
@@ -31,25 +29,7 @@ public class SBA_Meteor : SpecificBossAbilityFramework
     /// <returns></returns>
     protected IEnumerator HideTargetZoneUntilNonZero(GameObject targetZone)
     {
-        //targetZone.SetActive(false);
         Vector3 startingLookLocation = _myBossBase.gameObject.transform.position;
-
-        /*List<HeroBase> heroes = HeroesManager.Instance.GetCurrentLivingHeroes();
-        float lowestDistance = float.MaxValue;
-        foreach (HeroBase hero in heroes)
-        {
-            if (hero == _storedTarget)
-            {
-                continue;
-            }
-
-            float heroDistance = Vector3.Distance(_storedHeroLocation, targetZone.transform.position);
-            if (heroDistance < lowestDistance)
-            {
-                lowestDistance = heroDistance;
-                startingLookLocation = hero.transform.position;
-            }
-        }*/
         
         targetZone.transform.LookAt(startingLookLocation);
         targetZone.transform.eulerAngles = new Vector3(0, targetZone.transform.eulerAngles.y, 0);
