@@ -13,6 +13,10 @@ public class SH_Fae : SpecificHeroFramework
     [SerializeField] private List<Vector3> _primaryAttackEulers;
     [SerializeField] private float _projectileSpawnDistance;
     [SerializeField] private GameObject _basicProjectile;
+    
+    private List<GeneralHeroDamageArea> _currentBasicProjectiles = new();
+    
+    private const int BASIC_PROJECTILES_PER_ATTACK = 4;
 
     [Space]
     [SerializeField] private float _manualContactDamage;
@@ -83,17 +87,37 @@ public class SH_Fae : SpecificHeroFramework
 
     protected void CreateBasicAttackProjectiles()
     {
-        foreach(Vector3 attackEuler in _primaryAttackEulers)
+        _currentBasicProjectiles.Clear();
+        
+        for (int i = 0; i < _primaryAttackEulers.Count; i++)
         {
-            GameObject newestProjectile = Instantiate(_basicProjectile, transform.position, Quaternion.Euler(attackEuler));
-            newestProjectile.transform.position = newestProjectile.transform.position + 
-                (newestProjectile.transform.forward * _projectileSpawnDistance);
+            GameObject newestProjectile = Instantiate(_basicProjectile, transform.position, Quaternion.Euler(_primaryAttackEulers[i]));
+            newestProjectile.transform.position += (newestProjectile.transform.forward * _projectileSpawnDistance);
 
             newestProjectile.GetComponent<SHP_FaeBasicProjectile>().SetUpProjectile(_myHeroBase, EHeroAbilityType.Basic);
 
+            GeneralHeroDamageArea damageArea = newestProjectile.GetComponent<GeneralHeroDamageArea>();
+            
             //Performs the set up for the damage area so that it knows it's owner
-            newestProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(_myHeroBase);
+            damageArea.SetUpDamageArea(_myHeroBase);
+
+            _currentBasicProjectiles.Add(damageArea);
         }
+    }
+
+    public void DisableDamageOfBasicProjectilesSet(GeneralHeroDamageArea ignoreProjectile)
+    {
+        foreach (GeneralHeroDamageArea damageArea in _currentBasicProjectiles)
+        {
+            if (damageArea == ignoreProjectile)
+            {
+                continue;
+            }
+            
+            damageArea.IncreaseDamageMultiplierByAmount(-1);
+            damageArea.IncreaseStaggerMultiplierByAmount(-1);
+        }
+        _currentBasicProjectiles.Clear();
     }
 
 
@@ -380,6 +404,8 @@ public class SH_Fae : SpecificHeroFramework
         _heroStats = heroBase.GetHeroStats();
         
         _manualAudioWaitInterval = new WaitForSeconds(_manualAudioInterval);
+
+        _currentBasicProjectiles = new List<GeneralHeroDamageArea>(4);
 
         base.SetUpSpecificHero(heroBase, heroSO);
     }

@@ -102,6 +102,12 @@ public class GeneralHeroDamageArea : GeneralAbilityAreaFramework
     }
 
     #endregion
+    
+    #region Getters
+    public UnityEvent<Collider> GetEnterEvent() => _enterEvent;
+    public UnityEvent<Collider> GetStayEvent() => _stayEvent;
+    public UnityEvent<Collider> GetExitEvent() => _exitEvent;
+    #endregion
 
     #region Setters
 
@@ -126,9 +132,5 @@ public class GeneralHeroDamageArea : GeneralAbilityAreaFramework
 
     #endregion
 
-    #region Getters
-    public UnityEvent<Collider> GetEnterEvent() => _enterEvent;
-    public UnityEvent<Collider> GetStayEvent() => _stayEvent;
-    public UnityEvent<Collider> GetExitEvent() => _exitEvent;
-    #endregion
+    
 }

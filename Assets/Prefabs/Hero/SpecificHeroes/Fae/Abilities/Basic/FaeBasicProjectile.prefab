@@ -123,6 +123,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _vfxList: []
+  _isVFXChilded: 0
+  _vfxTargetLocation: {fileID: 0}
+  _onDestroySelfEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _onDestroyParentEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &8998477801123227976
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,6 +226,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 6
+  _curveProgression: {fileID: 0}
 --- !u!114 &8541676034526641626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,7 +240,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _areaColliders:
-  - {fileID: 0}
+  - {fileID: 2432506977616047737}
   _hasLifetime: 1
   _lifetime: 4
   _hasColliderActivationDelay: 0
@@ -252,6 +261,18 @@ MonoBehaviour:
   _enterEvent:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 2693443327415597550}
+        m_TargetAssemblyTypeName: SHP_FaeBasicProjectile, Assembly-CSharp
+        m_MethodName: ProjectileHit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 8541676034526641626}
         m_TargetAssemblyTypeName: GeneralHeroDamageArea, Assembly-CSharp
         m_MethodName: DestroyProjectile
