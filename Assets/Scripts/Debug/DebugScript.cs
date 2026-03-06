@@ -68,9 +68,16 @@ public class DebugScript : MonoBehaviour
             
         }
         
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.LeftBracket))
         {
-            
+            MainMenuCharacterDisplay mainMenuDisplay = FindObjectOfType<MainMenuCharacterDisplay>();
+            mainMenuDisplay.StopDisplay();
+            mainMenuDisplay.MoveToNextDisplaySection();
+        }
+        if (Input.GetKeyDown(KeyCode.RightBracket))
+        {
+            MainMenuCharacterDisplay mainMenuDisplay = FindObjectOfType<MainMenuCharacterDisplay>();
+            mainMenuDisplay.StopDisplay();
         }
 
         if (Input.GetKeyDown(KeyCode.L))
