@@ -12,8 +12,13 @@ public class PauseUIManager : GameUIChildrenFunctionality
     public static PauseUIManager Instance;
     
     [SerializeField] private GameObject _gamePausedUI;
-    [SerializeField] private GameObject _pauseButton;
+    [SerializeField] private Button _pauseButton;
 
+    private void SetUpPauseButton()
+    {
+        _pauseButton.onClick.AddListener(PauseButtonPressed);
+    }
+    
     /// <summary>
     /// Called when the pause button on the UI is pressed or the key for is pressed.
     /// Pauses the game
@@ -33,12 +38,24 @@ public class PauseUIManager : GameUIChildrenFunctionality
         _gamePausedUI.SetActive(false);
     }
 
+    public void TutorialToggle(bool isTutorialActive)
+    {
+        _pauseButton.interactable = !isTutorialActive;
+    }
+
     private void GameWonOrLost()
     {
-        _pauseButton.SetActive(false);
+        _pauseButton.gameObject.SetActive(false);
     }
 
     #region BaseManager
+
+    public override void ChildFuncSetUp()
+    {
+        base.ChildFuncSetUp();
+        SetUpPauseButton();
+    }
+
     /// <summary>
     /// Establishes the Instance for the Pause UI Manager
     /// </summary>
@@ -55,7 +72,7 @@ public class PauseUIManager : GameUIChildrenFunctionality
     {
         TimeManager.Instance.GetGamePausedEvent().AddListener(GamePausedUI);
         TimeManager.Instance.GetGameUnpausedEvent().AddListener(GameUnpausedUI);
-
+        
         GameStateManager.Instance.GetBattleWonOrLostEvent().AddListener(GameWonOrLost);
     }
 

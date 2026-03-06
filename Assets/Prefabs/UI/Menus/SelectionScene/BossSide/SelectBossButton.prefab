@@ -232,9 +232,14 @@ MonoBehaviour:
   _hasDefaultValue: 0
   _defaultValue: 0
   _doesResetToDefaultProgressOnEnable: 0
+  _doesStartMovingUpOnEnable: 0
   _doesAutomaticallyMoveDownOnHittingMax: 1
+  _doesAutomaticallyMoveUpOnHittingMin: 0
+  _hasIncreaseDelay: 0
+  _increaseDelay: 0
   _hasDecreaseDelay: 0
   _decreaseDelay: 0
+  _doesLerpUnchained: 0
   _curve:
     serializedVersion: 2
     m_Curve:
@@ -288,6 +293,8 @@ GameObject:
   - component: {fileID: 2565375756812779678}
   - component: {fileID: 2565375756812779667}
   - component: {fileID: 7643825443177631905}
+  - component: {fileID: 2742460496047799258}
+  - component: {fileID: 9185542798225302079}
   m_Layer: 5
   m_Name: SelectButton
   m_TagString: Untagged
@@ -415,6 +422,7 @@ MonoBehaviour:
   _levelBossButton: {fileID: 2565375756812779678}
   _lockVisuals: {fileID: 6635544859193726027}
   _buttonSizeCurve: {fileID: 3465085086066125498}
+  _resetEventSystemObject: {fileID: 9185542798225302079}
 --- !u!114 &7643825443177631905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -460,6 +468,32 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &2742460496047799258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2565375756812779677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a405a9b0c73f5b646ab35317e1a398d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _requiresButtonInteractable: 0
+  _buttonHoverEnterAudioID: 00000000
+--- !u!114 &9185542798225302079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2565375756812779677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d4b9f7413944240bdd62e8108ecd0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4746958797863469909
 GameObject:
   m_ObjectHideFlags: 0

@@ -548,7 +548,13 @@ MonoBehaviour:
         DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
         DefaultPlayType: 0
         DefaultAudioChoice: 0
-        AudioTracks: []
+        AudioTracks:
+        - Guid:
+            Data1: -178936330
+            Data2: 1244645528
+            Data3: 829254018
+            Data4: 304165008
+          Path: event:/SoundEffect/Bosses/Specific/GlacialLord/Abilities/Avalanche/GlacialLordAvalancheSpawned
       AbilityStart:
         AudioName: 
         DefaultInstanceFadeInTime: 0
@@ -877,7 +883,7 @@ MonoBehaviour:
             Data4: -318463521
           Path: event:/SoundEffect/Bosses/Specific/ThunderLord/Abilities/Thunderclap/ThunderLordThunderclap
       GeneralAbilityAudio:
-      - AudioName: IcicleRainImpact
+      - AudioName: ThunderclapFailed
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
         DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
@@ -885,11 +891,11 @@ MonoBehaviour:
         DefaultAudioChoice: 0
         AudioTracks:
         - Guid:
-            Data1: -1046699233
-            Data2: 1077493644
-            Data3: -1154776157
-            Data4: -391687094
-          Path: event:/SoundEffect/Bosses/Specific/GlacialLord/Abilities/IcicleRain/GlacialLordIcicleRainImpact
+            Data1: -146961177
+            Data2: 1116950394
+            Data3: -1852463731
+            Data4: 650404567
+          Path: event:/SoundEffect/Bosses/Specific/ThunderLord/Abilities/Thunderclap/ThunderLordThunderclapFailed
     - AbilityName: Overcharge
       AbilityPrep:
         AudioName: 

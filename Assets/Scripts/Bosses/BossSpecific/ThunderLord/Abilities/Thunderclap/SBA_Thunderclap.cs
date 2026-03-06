@@ -15,6 +15,8 @@ public class SBA_Thunderclap : SpecificBossAbilityFramework
     
     private Queue<BossTargetZoneParent> _storedSafeZones = new Queue<BossTargetZoneParent>();
     
+    private const int THUNDERCLAP_FAILED_AUDIO_ID = 0;
+    
     /// <summary>
     /// Checks if at least 1 hero is in the safe zone area
     /// </summary>
@@ -29,9 +31,21 @@ public class SBA_Thunderclap : SpecificBossAbilityFramework
     /// </summary>
     private void AbilityFailed()
     {
-        /*Instantiate(_failedVFX, _specificAreaTarget, Quaternion.identity);
-        PlayFailedAudio();*/
+        /*Instantiate(_failedVFX, _specificAreaTarget, Quaternion.identity);*/
+        PlayFailedAudio();
     }
+    
+    /// <summary>
+    /// Plays the audio of the ability failing
+    /// </summary>
+    private void PlayFailedAudio()
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
+                BossAbilityAudio[_abilityID].GeneralAbilityAudio[THUNDERCLAP_FAILED_AUDIO_ID]);
+    }
+    
+    #region BaseAbility
     
     protected override void StartShowTargetZone()
     {
@@ -93,5 +107,7 @@ public class SBA_Thunderclap : SpecificBossAbilityFramework
 
         base.AbilityStart();
     }
+    
+    #endregion
 
 }

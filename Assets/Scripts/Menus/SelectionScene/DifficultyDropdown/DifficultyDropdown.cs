@@ -36,9 +36,6 @@ public class DifficultyDropdown : MonoBehaviour
 
         for(int i = 0; i< diffIcons.Count; i++)
         {
-            /*GameDifficulty difficulty = (GameDifficulty)i+1;
-
-            var iconOptions = new TMP_Dropdown.OptionData(difficulty.ToString().Replace("_", " "), diffIcons[i]);*/
             var iconOptions = new TMP_Dropdown.OptionData(diffNames[i], diffIcons[i]);
             difficultyIcons.Add(iconOptions);
         }

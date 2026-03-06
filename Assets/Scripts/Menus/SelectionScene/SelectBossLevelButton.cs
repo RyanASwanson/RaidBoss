@@ -27,6 +27,9 @@ public class SelectBossLevelButton : MonoBehaviour, IPointerClickHandler
     [Space] 
     [SerializeField] private CurveProgression _buttonSizeCurve;
     
+    [Space] 
+    [SerializeField] private ResetEventSystemSelectedObject _resetEventSystemObject;
+    
     private bool _isInteractable = false;
 
     // Start is called before the first frame update
@@ -105,7 +108,7 @@ public class SelectBossLevelButton : MonoBehaviour, IPointerClickHandler
             BossLevelDeselect();
         }
         
-        EventSystem.current.SetSelectedGameObject(null);
+        _resetEventSystemObject.ResetSelectedEventSystemObject();
 
         _buttonHasBeenPressed = !_buttonHasBeenPressed;
     }

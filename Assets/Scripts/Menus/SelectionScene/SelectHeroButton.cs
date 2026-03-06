@@ -27,6 +27,9 @@ public class SelectHeroButton : MonoBehaviour, IPointerClickHandler
     [Space] 
     [SerializeField] private CurveProgression _buttonSizeCurve;
 
+    [Space] 
+    [SerializeField] private ResetEventSystemSelectedObject _resetEventSystemObject;
+
     private bool _isInteractable = false;
 
 
@@ -118,7 +121,7 @@ public class SelectHeroButton : MonoBehaviour, IPointerClickHandler
             HeroDeselect();
         }
 
-        EventSystem.current.SetSelectedGameObject(null);
+        _resetEventSystemObject.ResetSelectedEventSystemObject();
 
         _buttonHasBeenPressed = !_buttonHasBeenPressed;
     }
