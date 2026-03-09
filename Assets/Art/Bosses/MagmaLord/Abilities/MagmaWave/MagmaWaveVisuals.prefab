@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6349570222015628964}
   - component: {fileID: 1976229972190593285}
   m_Layer: 0
-  m_Name: Magma Wave Mesh
+  m_Name: MagmaWave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,8 +27,8 @@ Transform:
   m_GameObject: {fileID: 13854264716486255}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2611155390381498825}
   m_RootOrder: 0
@@ -93,7 +93,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2611155390381498825}
   m_Layer: 0
-  m_Name: Magma Wave Projectile
+  m_Name: MagmaWaveVisuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -108,7 +108,7 @@ Transform:
   m_GameObject: {fileID: 3420342434922068851}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5571176683128830005}

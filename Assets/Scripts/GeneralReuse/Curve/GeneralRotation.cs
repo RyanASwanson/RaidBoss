@@ -8,6 +8,8 @@ public class GeneralRotation : MonoBehaviour
 {
     [SerializeField] private bool _doesBeginRotationOnEnable;
     [SerializeField] private bool _doesResetRotationOnRotationEnable;
+
+    [SerializeField] private bool _doesUseLocalEulerAngles = false;
     
     private Coroutine _rotationCoroutine;
     
@@ -88,7 +90,15 @@ public class GeneralRotation : MonoBehaviour
 
     public void AddRotationWithoutParent(Vector3 rotation)
     {
-        transform.eulerAngles += rotation;
+        if (_doesUseLocalEulerAngles)
+        {
+            transform.localEulerAngles += rotation;
+        }
+        else
+        {
+            transform.eulerAngles += rotation;
+        }
+        
     }
 
     private IEnumerator RotationWithParent()
@@ -96,8 +106,6 @@ public class GeneralRotation : MonoBehaviour
         _storedRotation = Vector3.zero;
         while (!gameObject.IsUnityNull())
         {
-            /*_storedRotation += _rotationPerSecond * Time.deltaTime;
-            transform.localEulerAngles = -_rotationIndepedentParent.transform.eulerAngles + _storedRotation;*/
             AddRotationWithParent(_rotationPerSecond * Time.deltaTime);
             yield return null;
         }
