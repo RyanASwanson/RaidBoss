@@ -50,7 +50,13 @@ public class SBA_IcicleRain : SpecificBossAbilityFramework
         _currentTargetZones.Add(_newestTargetZone);
 
         //Makes the target area follow the hero that is being targetted
-        StartCoroutine(FollowHeroTarget(_newestTargetZone.gameObject));
+        //StartCoroutine(FollowHeroTarget(_newestTargetZone.gameObject));
+
+        if (_newestTargetZone.TryGetComponent(out FollowObject followObject))
+        {
+            followObject.StartFollowingObject(_storedTarget.transform.gameObject);
+            followObject.StopFollowingDelayed(4);
+        }
 
         base.StartShowTargetZone();
     }

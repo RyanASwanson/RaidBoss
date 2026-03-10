@@ -17,12 +17,17 @@ public class GlacialLordSelfMinionHit : MonoBehaviour
         //TODO Rework this line by instancing the Glacial Lord
         SB_GlacialLord glacialLord =(SB_GlacialLord)BossBase.Instance.GetSpecificBossScript();
 
+        Vector3 startCheck = Vector3.zero;
+        Vector3 endCheck = Vector3.zero;
+
         foreach(GlacialLord_FrostFiend fiend in glacialLord.GetAllFrostFiends())
         {
-            if (Vector3.Distance(transform.position, fiend.transform.position) < _distance)
+            startCheck.Set(transform.position.x,0,transform.position.z);
+            endCheck.Set(fiend.transform.position.x,0,fiend.transform.position.z);
+            
+            if (Vector3.Distance(startCheck, endCheck) < _distance)
             {
-                fiend.FreezeMinion();
-                return true;
+                return fiend.FreezeMinion();
             }
         }
 
@@ -33,6 +38,8 @@ public class GlacialLordSelfMinionHit : MonoBehaviour
     private void OnTriggerEnter(Collider collider)
     {
         if (!_contactOnCollision)
+        {
             return;
+        }
     }
 }

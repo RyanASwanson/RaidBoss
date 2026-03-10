@@ -95,18 +95,18 @@ public class GlacialLord_FrostFiend : BossMinionBase
     }
 
     #region Freezing
-    public void FreezeMinion()
+    public bool FreezeMinion()
     {
         if (_isMinionFrozen)
         {
             if (!_canBeFrozenDuringFreeze)
             {
-                return;
+                return false;
             }
 
             if (_timeFrozen < _refreezeCooldown)
             {
-                return;
+                return false;
             }
         }
 
@@ -126,6 +126,8 @@ public class GlacialLord_FrostFiend : BossMinionBase
         
         StopFreezeProcess();
         _frozenCoroutine = StartCoroutine(FreezeProcess());
+
+        return true;
     }
     
 

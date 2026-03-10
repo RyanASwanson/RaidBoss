@@ -53,10 +53,10 @@ MonoBehaviour:
   - {fileID: 5904793133596729851}
   _hasLifetime: 0
   _lifetime: 0
-  _hasColliderActivationDelay: 0
-  _colliderActivationDelay: 0
-  _hasColliderLifetime: 0
-  _colliderLifetime: 0
+  _hasColliderActivationDelay: 1
+  _colliderActivationDelay: 0.2
+  _hasColliderLifetime: 1
+  _colliderLifetime: 0.9
   _doesHitCenteredVFXCopyRotation: 0
   _hitCenteredVFXCopyTarget: {fileID: 0}
   _hitCenteredVFX: {fileID: 0}
@@ -185,7 +185,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.7, y: 1, z: 0.9}
-  m_Center: {x: 0, y: 0, z: 0.15}
+  m_Center: {x: 0, y: 0.15, z: 0.15}
 --- !u!1 &7512126283049607265
 GameObject:
   m_ObjectHideFlags: 0
@@ -271,7 +271,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8391644207281905459, guid: 85114f7c00794044094ce7e97ad30754, type: 3}
       propertyPath: m_Name
-      value: ForstbiteVisuals
+      value: FrostbiteVisuals
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 85114f7c00794044094ce7e97ad30754, type: 3}
