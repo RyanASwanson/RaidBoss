@@ -11,7 +11,9 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
     [SerializeField] private float _moveTime;
     [SerializeField] private AnimationCurve _moveCurve;
     [SerializeField] private float _idleLifetime;
+    [SerializeField] private float _idleLifetimeWarning;
     private WaitForSeconds _potionIdleWait;
+    private WaitForSeconds _potionIdleWarningWait;
         
     [Space]
     [SerializeField] private PotionTypes _potionType;
@@ -21,6 +23,8 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
     
     [Space]
     [SerializeField] private GeneralHeroHealArea _healArea;
+
+    [SerializeField] private CurveProgression _lifeTimeWarningCurve;
 
     [Space]
     [SerializeField] private Animator _animator;
@@ -39,6 +43,11 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
         if (_potionIdleWait.IsUnityNull())
         {
             _potionIdleWait = new WaitForSeconds(_idleLifetime);
+        }
+
+        if (_potionIdleWarningWait.IsUnityNull())
+        {
+            _potionIdleWarningWait = new WaitForSeconds(_idleLifetimeWarning);
         }
 
         _healArea.GetEnterEvent().AddListener(PotionGeneralPickUp);
@@ -172,6 +181,17 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
     {
         _animator.SetTrigger(REMOVE_POTION_ANIM_TRIGGER);
     }
+    
+    private IEnumerator PotionRemoveWarningTimer()
+    {
+        yield return _potionIdleWarningWait;
+        PotionRemoveWarning();
+    }
+
+    private void PotionRemoveWarning()
+    {
+        _lifeTimeWarningCurve.StartMovingUpOnCurve();
+    }
 
     private void PlayPotionLandedAudio()
     {
@@ -200,6 +220,7 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
         PotionTypeSetup();
         StartCoroutine(MovePotionToEndLocation(targetLocation));
         StartCoroutine(RemovePotionTimer());
+        StartCoroutine(PotionRemoveWarningTimer());
     }
     #endregion
 }

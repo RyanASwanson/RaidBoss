@@ -224,6 +224,8 @@ GameObject:
   - component: {fileID: 3208233250891310857}
   - component: {fileID: 4711589050601783839}
   - component: {fileID: 7264058780040159826}
+  - component: {fileID: 5636545651226904346}
+  - component: {fileID: 2090180275416296462}
   m_Layer: 0
   m_Name: PotionBase
   m_TagString: Untagged
@@ -286,11 +288,13 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _idleLifetime: 15
+  _idleLifetimeWarning: 10.5
   _potionType: 0
   _buffStrength: 0
   _secondaryBuffStrength: 0
   _buffDuration: 0
   _healArea: {fileID: 3208233250891310857}
+  _lifeTimeWarningCurve: {fileID: 2090180275416296462}
   _animator: {fileID: 7264058780040159826}
 --- !u!114 &3208233250891310857
 MonoBehaviour:
@@ -308,6 +312,8 @@ MonoBehaviour:
   - {fileID: 4721906302640942420}
   _hasLifetime: 0
   _lifetime: 0
+  _hasColliderActivationDelay: 0
+  _colliderActivationDelay: 0
   _hasColliderLifetime: 0
   _colliderLifetime: 0
   _doesHitCenteredVFXCopyRotation: 0
@@ -382,6 +388,97 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5636545651226904346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2449731219547203033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369bcc862835c2b41a6b1d018a12a33c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _propertyType: 2
+  _propertyName: _Color
+  _progressMultiplier: 1
+  _hasOverrideStartingColors: 0
+  _overrideStartingColors: []
+  _endColors:
+  - {r: 0.5849056, g: 0.5849056, b: 0.5849056, a: 1}
+  _isUsingSharedMaterial: 0
+  _meshRenderers:
+  - {fileID: 1619505830575081644}
+  _curveProgression: {fileID: 2090180275416296462}
+--- !u!114 &2090180275416296462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2449731219547203033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 508c048b50abf854791f2f498bb01037, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _curveName: PotionColor
+  _curveIncreaseTime: 0.45
+  _curveDecreaseTime: 0.45
+  _minCurveValue: 0
+  _maxCurveValue: 1
+  _hasDefaultValue: 0
+  _defaultValue: 0
+  _doesResetToDefaultProgressOnEnable: 0
+  _doesStartMovingUpOnEnable: 0
+  _doesStartMovingInCurrentDirectionOnEnable: 0
+  _doesAutomaticallyMoveDownOnHittingMax: 1
+  _doesAutomaticallyMoveUpOnHittingMin: 1
+  _hasIncreaseDelay: 0
+  _increaseDelay: 0
+  _hasDecreaseDelay: 0
+  _decreaseDelay: 0
+  _doesLerpUnchained: 0
+  _curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  OnSetUpComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  _onStartedIncreasing:
+    m_PersistentCalls:
+      m_Calls: []
+  _onStartedDecreasing:
+    m_PersistentCalls:
+      m_Calls: []
+  _onMaxValueReached:
+    m_PersistentCalls:
+      m_Calls: []
+  _onMinValueReached:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &6632786382392944423
 GameObject:
   m_ObjectHideFlags: 0
