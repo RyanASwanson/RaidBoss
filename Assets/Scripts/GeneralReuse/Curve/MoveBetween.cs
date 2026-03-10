@@ -15,6 +15,7 @@ public class MoveBetween : MonoBehaviour
 
     [Space] 
     [SerializeField] private bool _hasDefaultStartPosition;
+    [SerializeField] private bool _doesSetDefaultStartPositionOnStart = false;
     [SerializeField] private Vector3 _defaultStartPosition;
     
     [Space]
@@ -36,6 +37,14 @@ public class MoveBetween : MonoBehaviour
     {
         _moveTargetPosition = _defaultEndPosition;
         SubscribeToEvents();
+    }
+
+    private void Start()
+    {
+        if (_hasDefaultStartPosition && _doesSetDefaultStartPositionOnStart)
+        {
+            _startPosition = _defaultStartPosition;
+        }
     }
 
     public void StartMoveProcess(GameObject target)
@@ -116,7 +125,6 @@ public class MoveBetween : MonoBehaviour
         while (moveTimer < 1)
         {
             moveTimer += Time.deltaTime / _moveTime;
-            //transform.localPosition = Vector3.LerpUnclamped(_startPosition,_moveTargetPosition, _movementCurve.Evaluate(moveTimer));
             UpdateLocalPosition(moveTimer);
             yield return null;
         }

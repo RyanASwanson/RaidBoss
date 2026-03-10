@@ -8,6 +8,8 @@ public class GeneralRotation : MonoBehaviour
 {
     [SerializeField] private bool _doesBeginRotationOnEnable;
     [SerializeField] private bool _doesResetRotationOnRotationEnable;
+    [SerializeField] private bool _doesResetLocalRotationOnRotationEnable = false;
+    [SerializeField] private bool _doesResetRotationToDefaultOnEnable= false;
 
     [SerializeField] private bool _doesUseLocalEulerAngles = false;
     
@@ -61,6 +63,16 @@ public class GeneralRotation : MonoBehaviour
         {
             ResetRotation();
         }
+
+        if (_doesResetLocalRotationOnRotationEnable)
+        {
+            ResetLocalRotation();
+        }
+
+        if (_doesResetRotationToDefaultOnEnable)
+        {
+            ResetToDefaultRotation();
+        }
         
         _rotationCoroutine = StartCoroutine(_rotationIndepedentParent.IsUnityNull() ? RotationProcess() : RotationWithParent());
     }
@@ -77,6 +89,16 @@ public class GeneralRotation : MonoBehaviour
     public void ResetRotation()
     {
         transform.eulerAngles = Vector3.zero;
+    }
+
+    public void ResetLocalRotation()
+    {
+        transform.localEulerAngles = Vector3.zero;
+    }
+
+    public void ResetToDefaultRotation()
+    {
+        transform.localEulerAngles = _startLocalEulerAngles;
     }
 
     private IEnumerator RotationProcess()

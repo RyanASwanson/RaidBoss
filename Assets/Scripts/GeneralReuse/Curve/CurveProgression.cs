@@ -32,7 +32,9 @@ public class CurveProgression : MonoBehaviour
     [Space] 
     [SerializeField] private bool _doesResetToDefaultProgressOnEnable;
 
+    [Space]
     [SerializeField] private bool _doesStartMovingUpOnEnable;
+    [SerializeField] private bool _doesStartMovingInCurrentDirectionOnEnable = false;
     
     [Space] 
     [SerializeField] private bool _doesAutomaticallyMoveDownOnHittingMax;
@@ -101,6 +103,12 @@ public class CurveProgression : MonoBehaviour
         {
             StartMovingUpOnCurve();
         }
+
+        if (_doesStartMovingInCurrentDirectionOnEnable)
+        {
+            StartMovingInPreviousDirectionOnCurve();
+        }
+        
     }
 
     public void ResetCurve()
@@ -108,6 +116,25 @@ public class CurveProgression : MonoBehaviour
         StopMovingOnCurve();
         _movementProgress = _defaultValue;
         UpdateCurveProgress();
+    }
+
+    public void StartMovingInPreviousDirectionOnCurve()
+    {
+        switch (CurveStatus)
+        {
+            case (ECurveStatus.Decreasing):
+            case (ECurveStatus.AtMaxValue):
+            {
+                StartMovingDownOnCurve();
+                break;
+            }
+            case (ECurveStatus.Increasing):
+            case (ECurveStatus.AtMinValue):
+            {
+                StartMovingUpOnCurve();
+                break;
+            }
+        }
     }
 
     public void StartMovingOppositeDirectionOnCurve()
