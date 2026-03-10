@@ -157,4 +157,12 @@ public class FollowObject : MonoBehaviour
     {
         _onFollowStop?.Invoke();
     }
+    
+    #region Setters
+
+    public void SetFollowLocationOffset(Vector3 followOffset)
+    {
+        _followLocationOffset = followOffset;
+    }
+    #endregion
 }

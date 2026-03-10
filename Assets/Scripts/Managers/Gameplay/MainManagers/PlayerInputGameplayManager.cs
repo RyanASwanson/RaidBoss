@@ -154,6 +154,18 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
         {
             return;
         }
+
+        if (!HeroesManager.Instance.GetCurrentLivingHeroes().Contains(newHero))
+        {
+            Debug.Log("Cannot switch to "+ newHero.GetHeroSO().GetHeroName());
+            return;
+        }
+        
+        /*Debug.Log("LivingHeroes");
+        foreach (HeroBase hero in HeroesManager.Instance.GetCurrentLivingHeroes())
+        {
+            Debug.Log(hero.GetHeroSO().GetHeroName());
+        }*/
         
         ClearControlledHeroes();
         

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SBA_StaticCharge : SpecificBossAbilityFramework
@@ -11,14 +12,7 @@ public class SBA_StaticCharge : SpecificBossAbilityFramework
     private BossTargetZoneParent _newestTargetZone;
     
     public const int STATIC_CHARGE_ATTACK_HIT_AUDIO_ID = 0;
-
-    private void StartFollowingBossTarget(GameObject followGameObject)
-    {
-        if (followGameObject.TryGetComponent(out FollowObject followObject))
-        {
-            followObject.StartFollowingObject(_storedTarget.gameObject);
-        }
-    }
+    
     
     #region Base Ability
     
@@ -27,13 +21,32 @@ public class SBA_StaticCharge : SpecificBossAbilityFramework
     /// </summary>
     protected override void StartShowTargetZone()
     {
-        //Spawns the target area
-        _newestTargetZone = Instantiate(_targetZone, Vector3.zero, Quaternion.identity).GetComponent<BossTargetZoneParent>();
+        bool hasHeroTarget = _mySpecificBoss.GetBossAttackTargets().Count > 1;
         
-        StartFollowingBossTarget(_newestTargetZone.gameObject);
+        if (!hasHeroTarget)
+        {
+            _storedTargetLocation = _myBossBase.gameObject.transform.position;
+
+            _storedTarget = null;
+        }
+        
+        //Spawns the target area
+        _newestTargetZone = Instantiate(_targetZone, _storedTargetLocation, Quaternion.identity).GetComponent<BossTargetZoneParent>();
         
         //Adds the target area to the list of target areas
         _currentTargetZones.Add(_newestTargetZone);
+        
+        FollowObject followTargetZone = _newestTargetZone.GetComponent<FollowObject>();
+        if (hasHeroTarget)
+        {
+            //Makes the target area follow the hero that is being targeted
+            followTargetZone.StartFollowingObject(_storedTarget.gameObject);
+        }
+        else
+        {
+            followTargetZone.SetFollowLocationOffset(_specificAreaTarget);
+            followTargetZone.StartFollowingObject(_myBossBase.gameObject);
+        }
 
         base.StartShowTargetZone();
     }
@@ -44,7 +57,7 @@ public class SBA_StaticCharge : SpecificBossAbilityFramework
     protected override void AbilityStart()
     {
         //Spawns the damaging ability
-        GameObject newestStaticCharge = Instantiate(_staticChargeObject, Vector3.zero, Quaternion.identity);
+        GameObject newestStaticCharge = Instantiate(_staticChargeObject, _newestTargetZone.transform.position, Quaternion.identity);
 
         if (newestStaticCharge.TryGetComponent(out SBP_StaticCharge staticCharge))
         {
@@ -52,7 +65,15 @@ public class SBA_StaticCharge : SpecificBossAbilityFramework
             staticCharge.AdditionalSetUp(_storedTarget);
         }
         
-        StartFollowingBossTarget(newestStaticCharge);
+        FollowObject followStaticCharge = newestStaticCharge.GetComponent<FollowObject>();
+        if (!_storedTarget.IsUnityNull())
+        {
+            followStaticCharge.StartFollowingObject(_storedTarget.gameObject);
+        }
+        else
+        {
+            followStaticCharge.transform.position -= _specificAreaTarget;
+        }
         
         base.AbilityStart();
     }

@@ -267,7 +267,12 @@ public abstract class SpecificBossFramework : MonoBehaviour
         {
             return;
         }
-        
+
+        if (heroBase.IsUnityNull())
+        {
+            return;
+        }
+            
         heroBase.GetHeroStats()
             .DealDamageToHero(damage * BossStats.Instance.GetCombinedBossDamageMultiplier());
     }
@@ -581,6 +586,8 @@ public abstract class SpecificBossFramework : MonoBehaviour
         EnvironmentManager.Instance.GetClosestPointToFloor(target.transform.position);
 
     public GameObject GetBossVisualBase() => _bossVisualsBase;
+
+    public List<HeroBase> GetBossAttackTargets() => _bossAttackTargets;
 
     public Animator GetBossSpecificAnimator() => _bossSpecificAnimator;
     #endregion
