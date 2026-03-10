@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class HeroVisuals : HeroChildrenFunctionality
 {
+    [SerializeField] private FollowObject _floorFollowIcons;
     [SerializeField] private CurveProgression _controlIcon;
     [SerializeField] private GameObject _healthStatusIcon;
     [Space]
@@ -34,6 +35,8 @@ public class HeroVisuals : HeroChildrenFunctionality
     [SerializeField] private RectTransform _healingNumbersOrigin;
     [SerializeField] private RectTransform _buffDebuffOrigin;
     [SerializeField] private RectTransform _abilityReChargedPopupIconOrigin;
+
+    [SerializeField] private CurveProgression _heroOverheadCanvasAlphaCurve;
 
     [Space]
     [SerializeField] private Transform _recentHealthOrigin;
@@ -126,6 +129,8 @@ public class HeroVisuals : HeroChildrenFunctionality
 
     private void HeroDied()
     {
+        _floorFollowIcons.StopFollowing(true);
+        _heroOverheadCanvasAlphaCurve.StartMovingDownOnCurve();
         HeroDeathAnimation();
     }
     

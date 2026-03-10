@@ -11,6 +11,7 @@ public class FollowObject : MonoBehaviour
     [Space]
     [SerializeField] private bool _doesHideAfterStopFollowing;
     [SerializeField] private bool _doesDestroyAfterStopFollowing;
+    [SerializeField] private float _destroyFollowDelay = 0;
 
     [Space] 
     [SerializeField] private bool _doesSetRotationOnFollowStart;
@@ -111,7 +112,7 @@ public class FollowObject : MonoBehaviour
                 }
                 else if (_doesDestroyAfterStopFollowing)
                 {
-                    Destroy(gameObject);
+                    Destroy(gameObject,_destroyFollowDelay);
                 }
             }
         }
