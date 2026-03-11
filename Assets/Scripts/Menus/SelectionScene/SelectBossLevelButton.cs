@@ -26,6 +26,7 @@ public class SelectBossLevelButton : MonoBehaviour, IPointerClickHandler
 
     [Space] 
     [SerializeField] private CurveProgression _buttonSizeCurve;
+    [SerializeField] private CurveProgression _buttonVisualsHolderSizeCurve;
     
     [Space] 
     [SerializeField] private ResetEventSystemSelectedObject _resetEventSystemObject;
@@ -120,11 +121,13 @@ public class SelectBossLevelButton : MonoBehaviour, IPointerClickHandler
 
     public void SelectBossButtonHoverBegin()
     {
+        _buttonVisualsHolderSizeCurve.StartMovingUpOnCurve();
         SelectionManager.Instance.BossHoveredOver(_associatedLevel.GetLevelBoss());
     }
 
     public void SelectBossButtonHoverEnd()
     {
+        _buttonVisualsHolderSizeCurve.StartMovingDownOnCurve();
         SelectionManager.Instance.BossNotHoveredOver(_associatedLevel.GetLevelBoss());
     }
 

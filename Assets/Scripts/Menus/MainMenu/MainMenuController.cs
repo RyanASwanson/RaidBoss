@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class MainMenuController : MonoBehaviour
 {
-
     #region Buttons
     public void QuitButtonPressed()
     {

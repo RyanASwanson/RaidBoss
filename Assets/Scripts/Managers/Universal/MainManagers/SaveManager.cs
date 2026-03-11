@@ -249,6 +249,8 @@ public class SaveManager : MainUniversalManagerFramework
         // Resets the best difficulties beaten
         ResetBossHeroDifficultyDictionary();
         
+        SelectionManager.Instance.ResetSelectionData();
+        
         InvokeOnGameplaySaveDataReset();
 
         // Saves the changes into the text file

@@ -26,6 +26,7 @@ public class SelectHeroButton : MonoBehaviour, IPointerClickHandler
 
     [Space] 
     [SerializeField] private CurveProgression _buttonSizeCurve;
+    [SerializeField] private CurveProgression _buttonVisualsHolderSizeCurve;
 
     [Space] 
     [SerializeField] private ResetEventSystemSelectedObject _resetEventSystemObject;
@@ -134,11 +135,13 @@ public class SelectHeroButton : MonoBehaviour, IPointerClickHandler
     
     public void SelectHeroButtonHoverBegin()
     {
+        _buttonVisualsHolderSizeCurve.StartMovingUpOnCurve();
         SelectionManager.Instance.HeroHoveredOver(_associatedHero);
     }
 
     public void SelectHeroButtonHoverEnd()
     {
+        _buttonVisualsHolderSizeCurve.StartMovingDownOnCurve();
         SelectionManager.Instance.HeroNotHoveredOver(_associatedHero);
     }
 

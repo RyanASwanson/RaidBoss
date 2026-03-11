@@ -52,10 +52,14 @@ public class SelectionController : MonoBehaviour
     [Space]
     [SerializeField] private Image _rangeIcon;
     [SerializeField] private List<Sprite> _rangeIconSprites;
+    [SerializeField] private Color[] _rangeTextColors;
+    [SerializeField] private TextWithBackground _rangeText;
 
-    [Space]
+    [Space] 
     [SerializeField] private Image _difficultyIcon;
     [SerializeField] private List<Sprite> _difficultyIconSprites;
+    [SerializeField] private Color[] _difficultyTextColors;
+    [SerializeField] private TextWithBackground _difficultyText;
 
     [Space]
     [SerializeField] private Image _heroBasicIcon;
@@ -85,6 +89,8 @@ public class SelectionController : MonoBehaviour
     {
         Instance = this;
         SubscribeToEvents();
+
+        IsSelectionInformationLocked = false;
         
         SelectionManager.Instance.SetSelectedGameMode(EGameMode.Free);
 
@@ -503,7 +509,10 @@ public class SelectionController : MonoBehaviour
     private void DisplayHeroRangeAndDifficulty(HeroSO heroSO)
     {
         _rangeIcon.sprite = _rangeIconSprites[(int)heroSO.GetHeroRange()];
+        _rangeText.UpdateTextColor(_rangeTextColors[(int)heroSO.GetHeroRange()]);
+        
         _difficultyIcon.sprite = _difficultyIconSprites[(int)heroSO.GetHeroDifficulty()];
+        _difficultyText.UpdateTextColor(_difficultyTextColors[(int)heroSO.GetHeroDifficulty()]);
     }
 
     private void DisplayAbilityIconsForHero(HeroSO heroSO)
