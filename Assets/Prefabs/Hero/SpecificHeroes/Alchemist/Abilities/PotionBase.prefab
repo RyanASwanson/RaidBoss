@@ -224,8 +224,6 @@ GameObject:
   - component: {fileID: 3208233250891310857}
   - component: {fileID: 4711589050601783839}
   - component: {fileID: 7264058780040159826}
-  - component: {fileID: 5636545651226904346}
-  - component: {fileID: 2090180275416296462}
   m_Layer: 0
   m_Name: PotionBase
   m_TagString: Untagged
@@ -294,7 +292,7 @@ MonoBehaviour:
   _secondaryBuffStrength: 0
   _buffDuration: 0
   _healArea: {fileID: 3208233250891310857}
-  _lifeTimeWarningCurve: {fileID: 2090180275416296462}
+  _lifeTimeWarningCurve: {fileID: 2752754430777487032}
   _animator: {fileID: 7264058780040159826}
 --- !u!114 &3208233250891310857
 MonoBehaviour:
@@ -388,13 +386,48 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5636545651226904346
+--- !u!1 &6632786382392944423
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3665663929158502302}
+  - component: {fileID: 1804634039076794115}
+  - component: {fileID: 2752754430777487032}
+  m_Layer: 0
+  m_Name: Visuals
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3665663929158502302
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6632786382392944423}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4227343520195032585}
+  - {fileID: 5644362920866056245}
+  m_Father: {fileID: 7327038695363032743}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1804634039076794115
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2449731219547203033}
+  m_GameObject: {fileID: 6632786382392944423}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 369bcc862835c2b41a6b1d018a12a33c, type: 3}
@@ -410,14 +443,14 @@ MonoBehaviour:
   _isUsingSharedMaterial: 0
   _meshRenderers:
   - {fileID: 1619505830575081644}
-  _curveProgression: {fileID: 2090180275416296462}
---- !u!114 &2090180275416296462
+  _curveProgression: {fileID: 2752754430777487032}
+--- !u!114 &2752754430777487032
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2449731219547203033}
+  m_GameObject: {fileID: 6632786382392944423}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 508c048b50abf854791f2f498bb01037, type: 3}
@@ -479,39 +512,6 @@ MonoBehaviour:
   _onMinValueReached:
     m_PersistentCalls:
       m_Calls: []
---- !u!1 &6632786382392944423
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3665663929158502302}
-  m_Layer: 0
-  m_Name: Visuals
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3665663929158502302
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6632786382392944423}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4227343520195032585}
-  - {fileID: 5644362920866056245}
-  m_Father: {fileID: 7327038695363032743}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6722786103744535718
 GameObject:
   m_ObjectHideFlags: 0

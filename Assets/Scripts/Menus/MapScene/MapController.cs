@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FMOD.Studio;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class MapController : MonoBehaviour
 {
@@ -26,8 +28,11 @@ public class MapController : MonoBehaviour
     private List<SelectableMission> _createdMissions = new List<SelectableMission>();
     
     [Space]
-    [Header("Mission Selection Pop Up")]
-    [SerializeField] private GeneralScrollPopUp generalScrollPopUp;
+    [Header("Mission Selection")]
+    [SerializeField] private GeneralScrollPopUp _generalScrollPopUp;
+
+    [Space] 
+    [SerializeField] private float _missionSelectionAudioVolumeMultiplier;
     
     private SelectableMission _currentlySelectedMission;
     private SelectableMission _previousSelectedMission;
@@ -68,6 +73,11 @@ public class MapController : MonoBehaviour
     
     [Space]
     [SerializeField] private GameObject _cameraHolder;
+
+    [Space] 
+    [SerializeField] private float _cameraEdgeDistance;
+    [SerializeField] private Button _cameraLeftButton;
+    [SerializeField] private Button _cameraRightButton;
 
     private float _cameraTargetLocation;
     private float _cameraTargetDirection;
@@ -187,10 +197,13 @@ public class MapController : MonoBehaviour
 
     private void PlayMissionSelectedAudio(SelectableMission mission)
     {
-        
         AudioManager.Instance.PlaySpecificAudio(
             AudioManager.Instance.AllSpecificBossAudio[
-                mission.GetAssociatedMission().GetAssociatedLevel().GetLevelBoss().GetBossID()].SelectionSelectedAudio);
+                mission.GetAssociatedMission().GetAssociatedLevel().GetLevelBoss().GetBossID()].SelectionSelectedAudio, out EventInstance eventInstance);
+
+        float instanceVolume;
+        eventInstance.getVolume(out instanceVolume);
+        eventInstance.setVolume(instanceVolume * _missionSelectionAudioVolumeMultiplier);
     }
 
     public void PlayMission(SelectableMission mission)
@@ -204,12 +217,12 @@ public class MapController : MonoBehaviour
 
     private void ShowMissionSelectionPopUp()
     {
-        generalScrollPopUp.ShowScroll();
+        _generalScrollPopUp.ShowScroll();
     }
 
     private void HideMissionSelectionPopUp()
     {
-        generalScrollPopUp.HideScroll();
+        _generalScrollPopUp.HideScroll();
     }
     #endregion
     
@@ -358,6 +371,7 @@ public class MapController : MonoBehaviour
     {
         xLocation = ClampLocationWithinLimits(xLocation);
         _cameraHolder.transform.position = new Vector3(xLocation,_cameraHolder.transform.position.y,_cameraHolder.transform.position.z);
+        DetermineCameraDirectionArrowsInteractability();
     }
 
     private void SetCameraLocation(SelectableMission mission)
@@ -433,6 +447,12 @@ public class MapController : MonoBehaviour
     private void MoveCameraWithVelocity()
     {
         IncreaseCameraLocation(_cameraVelocity * Time.deltaTime);
+    }
+
+    private void DetermineCameraDirectionArrowsInteractability()
+    {
+        _cameraLeftButton.interactable = (Mathf.Abs(_cameraHolder.transform.position.x - _minimumCameraLocation) > _cameraEdgeDistance);
+        _cameraRightButton.interactable = (Mathf.Abs(_cameraHolder.transform.position.x - _maximumCameraLocation) > _cameraEdgeDistance);
     }
     
     #endregion

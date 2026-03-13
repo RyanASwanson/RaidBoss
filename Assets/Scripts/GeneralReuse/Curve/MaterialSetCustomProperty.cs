@@ -17,6 +17,7 @@ public class MaterialSetCustomProperty : MonoBehaviour
     [SerializeField] private Color[] _overrideStartingColors;
     [SerializeField] private Color[] _endColors;
     private Color[] _startingColors;
+    private bool _hasPerformedFirstSetUp;
 
     [Space] 
     [SerializeField] private bool _isUsingSharedMaterial;
@@ -33,7 +34,12 @@ public class MaterialSetCustomProperty : MonoBehaviour
         SetMaterial();
         
         SetUpProperty();
+        
+        SetDefaultColors();
+        
         SubscribeToEvents();
+
+        _hasPerformedFirstSetUp = true;
     }
 
     void OnDisable()
@@ -43,6 +49,11 @@ public class MaterialSetCustomProperty : MonoBehaviour
 
     private void SetMaterial()
     {
+        if (_hasPerformedFirstSetUp)
+        {
+            return;
+        }
+        
         if (_isUsingSharedMaterial)
         {
             foreach (MeshRenderer meshRenderer in _meshRenderers)
@@ -128,6 +139,14 @@ public class MaterialSetCustomProperty : MonoBehaviour
 
     private void SetDefaultColors()
     {
+        if (_propertyType != EMaterialSetCustomPropertyType.ColorProperty)
+        {
+            return;
+        }
+        if (_hasPerformedFirstSetUp)
+        {
+            return;
+        }
         if (_hasOverrideStartingColors)
         {
             _startingColors = _overrideStartingColors;
@@ -155,7 +174,6 @@ public class MaterialSetCustomProperty : MonoBehaviour
                     _curveProgression.OnCurveValueChanged.AddListener(UpdateMaterialColorOpacityProperty);
                     return;
                 case EMaterialSetCustomPropertyType.ColorProperty:
-                    SetDefaultColors();
                     _curveProgression.OnCurveValueChanged.AddListener(UpdateMaterialColorProperty);
                     return;
             }

@@ -530,7 +530,7 @@ MonoBehaviour:
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: 0
+  m_characterSpacing: -0.6
   m_wordSpacing: 0
   m_lineSpacing: 15
   m_lineSpacingMax: 0
@@ -1296,6 +1296,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5d4b9f7413944240bdd62e8108ecd0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _doesOnDestroyResetSelectedEventObject: 0
 --- !u!1 &4331711913561141141
 GameObject:
   m_ObjectHideFlags: 0
@@ -1469,6 +1470,7 @@ MonoBehaviour:
   _defaultValue: 0
   _doesResetToDefaultProgressOnEnable: 0
   _doesStartMovingUpOnEnable: 0
+  _doesStartMovingInCurrentDirectionOnEnable: 0
   _doesAutomaticallyMoveDownOnHittingMax: 0
   _doesAutomaticallyMoveUpOnHittingMin: 0
   _hasIncreaseDelay: 0
@@ -1560,6 +1562,7 @@ MonoBehaviour:
   _defaultValue: 0
   _doesResetToDefaultProgressOnEnable: 0
   _doesStartMovingUpOnEnable: 0
+  _doesStartMovingInCurrentDirectionOnEnable: 0
   _doesAutomaticallyMoveDownOnHittingMax: 0
   _doesAutomaticallyMoveUpOnHittingMin: 0
   _hasIncreaseDelay: 0
@@ -1651,6 +1654,7 @@ MonoBehaviour:
   _defaultValue: 0
   _doesResetToDefaultProgressOnEnable: 0
   _doesStartMovingUpOnEnable: 0
+  _doesStartMovingInCurrentDirectionOnEnable: 0
   _doesAutomaticallyMoveDownOnHittingMax: 0
   _doesAutomaticallyMoveUpOnHittingMin: 0
   _hasIncreaseDelay: 0
@@ -2098,6 +2102,7 @@ MonoBehaviour:
   _defaultValue: 0
   _doesResetToDefaultProgressOnEnable: 1
   _doesStartMovingUpOnEnable: 0
+  _doesStartMovingInCurrentDirectionOnEnable: 0
   _doesAutomaticallyMoveDownOnHittingMax: 1
   _doesAutomaticallyMoveUpOnHittingMin: 0
   _hasIncreaseDelay: 0
@@ -2854,6 +2859,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5d4b9f7413944240bdd62e8108ecd0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _doesOnDestroyResetSelectedEventObject: 0
 --- !u!1 &6917778396270177067
 GameObject:
   m_ObjectHideFlags: 0
@@ -2933,6 +2939,7 @@ MonoBehaviour:
   _defaultValue: 1
   _doesResetToDefaultProgressOnEnable: 0
   _doesStartMovingUpOnEnable: 0
+  _doesStartMovingInCurrentDirectionOnEnable: 0
   _doesAutomaticallyMoveDownOnHittingMax: 0
   _doesAutomaticallyMoveUpOnHittingMin: 0
   _hasIncreaseDelay: 0

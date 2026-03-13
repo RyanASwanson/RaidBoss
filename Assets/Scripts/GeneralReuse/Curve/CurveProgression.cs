@@ -19,7 +19,7 @@ public class CurveProgression : MonoBehaviour
     internal ECurveStatus CurveStatus = ECurveStatus.AtMinValue;
     
     [SerializeField] private float _minCurveValue;
-    [SerializeField] private float _maxCurveValue;
+    [SerializeField] private float _maxCurveValue = 1;
     internal float CurveValue = 0;
     
     private Coroutine _curveIncreaseProgressCoroutine;
