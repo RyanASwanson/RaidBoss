@@ -129,9 +129,13 @@ public class SelectHeroButton : MonoBehaviour, IPointerClickHandler
 
     private void SelectHeroButtonRightClicked()
     {
+        InformationLockHeroSelection();
+    }
+
+    public void InformationLockHeroSelection()
+    {
         SelectionManager.Instance.LockUnlockHeroInformation(_associatedHero);
     }
-    
     
     public void SelectHeroButtonHoverBegin()
     {

@@ -108,7 +108,7 @@ MonoBehaviour:
   _staggerChipRectTransforms: []
   _staggerChipScaleCurves: []
   _staggerChipLength: 117
-  _staggerChipOffset: 1
+  _staggerChipOffset: 0.9
   _staggerChipScaleCurve:
     serializedVersion: 2
     m_Curve:
@@ -141,7 +141,7 @@ MonoBehaviour:
       outWeight: 0.9951156
     - serializedVersion: 3
       time: 0.99
-      value: 0
+      value: 0.55
       inSlope: -1.4962437
       outSlope: -1.4962437
       tangentMode: 0
@@ -150,7 +150,7 @@ MonoBehaviour:
       outWeight: 0
     - serializedVersion: 3
       time: 0.991
-      value: 0
+      value: 0.55
       inSlope: -0.0013819652
       outSlope: -0.0013819652
       tangentMode: 0
@@ -159,12 +159,56 @@ MonoBehaviour:
       outWeight: 1
     - serializedVersion: 3
       time: 1
-      value: 0
+      value: 0.55
       inSlope: 0
       outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _staggerChipMinVerticalLocation: 0
+  _staggerChipMaxVerticalLocation: 8
+  _staggerChipVerticalLocationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.013333333
+      outSlope: 0.013333333
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.75
+      value: 0.01
+      inSlope: 0.021954536
+      outSlope: 0.021954536
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.9973079
+      outWeight: 0.9064348
+    - serializedVersion: 3
+      time: 0.75598466
+      value: 0.011246251
+      inSlope: 0.70185894
+      outSlope: 0.70185894
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.05700093
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 4.052015
+      outSlope: 4.052015
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2

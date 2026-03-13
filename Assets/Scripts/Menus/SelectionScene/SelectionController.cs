@@ -32,9 +32,10 @@ public class SelectionController : MonoBehaviour
 
     [Header("Center-General")]
     [SerializeField] private SelectionPlayButton _fightButton;
-
     private bool _maxCharactersSelected = false;
 
+    [SerializeField] private GameObject _characterInformationLockVisuals;
+    
     public static bool IsSelectionInformationLocked = false;
     public static CharacterSO SelectionLockedCharacter;
 
@@ -227,8 +228,7 @@ public class SelectionController : MonoBehaviour
 
     private void InformationLockBoss(BossSO bossSO)
     {
-        IsSelectionInformationLocked = true;
-        SelectionLockedCharacter = bossSO;
+        LockCharacterInformation(bossSO);
         
         DisplayBossInformation(bossSO);
     }
@@ -309,10 +309,20 @@ public class SelectionController : MonoBehaviour
         _fightButton.SetUpPlayButton();
     }
 
+    private void LockCharacterInformation(CharacterSO lockCharacter)
+    {
+        IsSelectionInformationLocked = true;
+        SelectionLockedCharacter = lockCharacter;
+        
+        _characterInformationLockVisuals.SetActive(true);
+    }
+
     private void UnlockCharacterInformation()
     {
         IsSelectionInformationLocked = false;
         SelectionLockedCharacter = null;
+        
+        _characterInformationLockVisuals.SetActive(false);
     }
 
     private void CheckMaxCharactersSelectionStatus()
@@ -483,8 +493,7 @@ public class SelectionController : MonoBehaviour
 
     private void InformationLockHero(HeroSO heroSO)
     {
-        IsSelectionInformationLocked = true;
-        SelectionLockedCharacter = heroSO;
+        LockCharacterInformation(heroSO);
         
         DisplayHeroInformation(heroSO);
     }

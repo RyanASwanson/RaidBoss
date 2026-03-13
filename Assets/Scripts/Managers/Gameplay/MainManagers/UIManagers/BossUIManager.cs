@@ -36,6 +36,10 @@ public class BossUIManager : GameUIChildrenFunctionality
     [SerializeField] private float _staggerChipOffset;
     [SerializeField] private AnimationCurve _staggerChipScaleCurve;
 
+    [SerializeField] private float _staggerChipMinVerticalLocation;
+    [SerializeField] private float _staggerChipMaxVerticalLocation;
+    [SerializeField] private AnimationCurve _staggerChipVerticalLocationCurve;
+
     private Coroutine _startHealthBarDrainCoroutine;
 
     [Header("BossStaggerBar")]
@@ -139,13 +143,10 @@ public class BossUIManager : GameUIChildrenFunctionality
     private void ShowHealthChips()
     {
         Vector2 chipLocation = Vector3.zero;
+        chipLocation.Set(Mathf.Lerp(0,_healthChipLength,_healthBars[0].fillAmount)+_healthChipOffset,0);
         for (int i = 0; i < _healthChipScaleCurves.Length; i++)
         {
-            chipLocation.Set(Mathf.Lerp(0,_healthChipLength,_healthBars[0].fillAmount)+_healthChipOffset,0);
-            if (i == 0)
-            {
-                chipLocation.x *= -1;
-            }
+            chipLocation.x *= -1;
             
             _healthChipRectTransforms[i].anchoredPosition = chipLocation;
             _healthChipRectTransforms[i].GetChild(0).localScale = Vector3.one * _healthChipScaleCurve.Evaluate(_healthBars[0].fillAmount);
@@ -265,13 +266,14 @@ public class BossUIManager : GameUIChildrenFunctionality
     private void ShowStaggerChips()
     {
         Vector2 chipLocation = Vector3.zero;
+        chipLocation.Set(
+            Mathf.Lerp(0,_staggerChipLength,_staggerBars[0].fillAmount)+_staggerChipOffset,
+            Mathf.Lerp(_staggerChipMinVerticalLocation,_staggerChipMaxVerticalLocation,
+                _staggerChipVerticalLocationCurve.Evaluate(_staggerBars[0].fillAmount)));
+        
         for (int i = 0; i < _staggerChipScaleCurves.Length; i++)
         {
-            chipLocation.Set(Mathf.Lerp(0,_staggerChipLength,_staggerBars[0].fillAmount)+_staggerChipOffset,0);
-            if (i == 0)
-            {
-                chipLocation.x *= -1;
-            }
+            chipLocation.x *= -1;
             
             _staggerChipRectTransforms[i].anchoredPosition = chipLocation;
             _staggerChipRectTransforms[i].GetChild(0).localScale = Vector3.one * _staggerChipScaleCurve.Evaluate(_staggerBars[0].fillAmount);
