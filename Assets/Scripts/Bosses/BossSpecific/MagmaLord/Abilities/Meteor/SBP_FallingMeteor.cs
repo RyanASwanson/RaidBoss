@@ -44,14 +44,14 @@ public class SBP_FallingMeteor : BossProjectileFramework
 
         AudioManager.Instance.StartFadeOutStopInstance(_fallingMeteorSFXInstance,
             AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
-                BossAbilityAudio[_abilityID].GeneralAbilityAudio[0]);
+                BossAbilityAudio[_abilityID].GeneralAbilityAudio[SBA_Meteor.METEOR_PROJECTILE_IMPACT_AUDIO_ID]);
     }
 
     private void PlayFallingMeteorSFX()
     {
         AudioManager.Instance.PlaySpecificAudio(
             AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
-                BossAbilityAudio[_abilityID].GeneralAbilityAudio[0], out _fallingMeteorSFXInstance);
+                BossAbilityAudio[_abilityID].GeneralAbilityAudio[SBA_Meteor.METEOR_PROJECTILE_IMPACT_AUDIO_ID], out _fallingMeteorSFXInstance);
     }
 
     #region Base Ability

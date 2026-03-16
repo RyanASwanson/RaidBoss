@@ -69,6 +69,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _vfxList: []
+  _isVFXChilded: 0
+  _vfxTargetLocation: {fileID: 0}
+  _onDestroySelfEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _onDestroyParentEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1285949513328819880
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,6 +140,7 @@ MonoBehaviour:
   _colliderLifetimeEndEvent:
     m_PersistentCalls:
       m_Calls: []
+  _canPreventReHitWithoutInitialDamage: 0
   _preventReHitDuration: 5
   _enterDamage: 3.75
   _enterEvent:
@@ -319,6 +328,7 @@ MonoBehaviour:
   _colliderLifetimeEndEvent:
     m_PersistentCalls:
       m_Calls: []
+  _canPreventReHitWithoutInitialDamage: 0
   _preventReHitDuration: 5
   _enterDamage: 3.75
   _enterEvent:
@@ -491,7 +501,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _entombCompleteDelay: 0.75
-  _entombPersistantTime: 22
+  _entombPersistantTime: 26
   _closingWalls:
   - {fileID: 2753615494377525193}
   - {fileID: 2338302277446499341}

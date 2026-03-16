@@ -27,6 +27,10 @@ public class SB_TerraLord : SpecificBossFramework
     [Space] 
     [SerializeField] private CinemachineCameraShakeData _passiveMaxShake;
     
+    [Space]
+    [SerializeField] private float _unstablePrecipiceAttackStopThreshhold;
+    [SerializeField] private SBA_UnstablePrecipice _unstablePrecipice;
+    
     private WaitForSeconds _passiveTickWait;
     
     private float _passiveHeroWeightMultiplier;
@@ -68,6 +72,14 @@ public class SB_TerraLord : SpecificBossFramework
     
     #region Passive
 
+    private void SetUpPassive()
+    {
+        SetStartingPassiveWeightMultiplier();
+        StartPassiveProcess();
+        
+        _unstablePrecipice.AbilitySetUp(_myBossBase);
+    }
+    
     /// <summary>
     /// At the start of the fight or after a stagger ends the boss passive is activated
     /// </summary>
@@ -177,6 +189,8 @@ public class SB_TerraLord : SpecificBossFramework
         }
         
         _passiveCounterValue += val;
+        _passiveCounterValue = Mathf.Clamp(_passiveCounterValue, -_passiveMaxValue, _passiveMaxValue);
+        
         _passiveCounterProgressTowardsMax = Mathf.Abs(_passiveCounterValue / _passiveMaxValue);
         
         //Debug.Log("End result" + val);
@@ -188,6 +202,8 @@ public class SB_TerraLord : SpecificBossFramework
 
         //Checks if the passive value is too far in either direction
         CheckPassiveMax();
+
+        CheckToStopPassiveAttack();
     }
 
     /// <summary>
@@ -232,9 +248,24 @@ public class SB_TerraLord : SpecificBossFramework
     /// </summary>
     private void PassiveMax()
     {
-        HeroesManager.Instance.ForceKillAllHeroes();
+        if (_unstablePrecipice.IsAbilityAttacking())
+        {
+            return;
+        }
+        
+        //HeroesManager.Instance.ForceKillAllHeroes();
         
         CameraGameManager.Instance.StartCameraShake(_passiveMaxShake);
+
+        _unstablePrecipice.StartPassiveAttackProcess(_passiveCounterValue > 0);
+    }
+    
+    private void CheckToStopPassiveAttack()
+    {
+        if (Mathf.Abs(_passiveCounterValue) < _unstablePrecipiceAttackStopThreshhold)
+        {
+            _unstablePrecipice.StopPassiveAttackProcess();
+        }
     }
     #endregion
 
@@ -348,9 +379,8 @@ public class SB_TerraLord : SpecificBossFramework
         base.StartFight();
         
         _passiveTickWait = new WaitForSeconds(_passiveTickRate);
-        
-        SetStartingPassiveWeightMultiplier();
-        StartPassiveProcess();
+
+        SetUpPassive();
 
         CreateRubbleVFX();
 
@@ -381,6 +411,8 @@ public class SB_TerraLord : SpecificBossFramework
         base.BossDied();
 
         StopPassiveProcess();
+
+        _unstablePrecipice.StopBossAbility();
     }
 
     #endregion

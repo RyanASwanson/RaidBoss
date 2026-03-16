@@ -22,6 +22,9 @@ public class BossTargetZone : BossProjectileFramework
     [Space]
     [SerializeField] private EBossTargetZoneDisappearType _targetZoneDisappearType;
     [SerializeField] private float _targetZoneDisappearSpeedMultiplier;
+
+    [SerializeField] private bool _doesTargetZoneAutomaticallyDisappear;
+    [SerializeField] private float _targetZoneAutomaticDisappearDelay;
     
     [Space]
     [SerializeField] private float _materialChangeDelay;
@@ -54,6 +57,11 @@ public class BossTargetZone : BossProjectileFramework
     {
         PlayAppearAnimation();
         StartCoroutine(DelayInitialMaterialChange());
+
+        if (_doesTargetZoneAutomaticallyDisappear)
+        {
+            StartCoroutine(AutomaticDisappearDelay());
+        }
     }
 
     protected void OnDestroy()
@@ -241,6 +249,12 @@ public class BossTargetZone : BossProjectileFramework
             _targetAnimator.SetInteger(TARGET_ZONE_DISAPPEAR_ANIM_INT, (int)_targetZoneDisappearType);
             _targetAnimator.speed = _targetZoneDisappearSpeedMultiplier;
         }
+    }
+
+    private IEnumerator AutomaticDisappearDelay()
+    {
+        yield return new WaitForSeconds(_targetZoneAutomaticDisappearDelay);
+        RemoveTargetZone();
     }
     #endregion
     

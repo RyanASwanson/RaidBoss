@@ -14,8 +14,8 @@ public class MoveBetween : MonoBehaviour
     [SerializeField] private float _floatDestroyDelay;
 
     [Space] 
-    [SerializeField] private bool _hasDefaultStartPosition;
     [SerializeField] private bool _doesSetDefaultStartPositionOnStart = false;
+    [SerializeField] private bool _hasDefaultStartPosition;
     [SerializeField] private Vector3 _defaultStartPosition;
     
     [Space]

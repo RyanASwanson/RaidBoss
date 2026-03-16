@@ -49,6 +49,14 @@ MonoBehaviour:
   _lifeTime: 0
   _hasDetachTime: 0
   _detachTime: 0
+  _hasCustomEmmisionRateCurve: 0
+  _customEmissionCurveMultiplier: 0
+  _customEmissionRateCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   _particleSystems:
   - {fileID: 7327996084446672931}
 --- !u!1 &4428506607697463274
@@ -100,7 +108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _basicAbilityChargeTime: 0
-  _manualAbilityChargeTime: 15
+  _manualAbilityChargeTime: 17
   _heroSpecificAnimator: {fileID: 1402544750709311176}
   _hasBasicAbilityAnimation: 0
   _hasManualAbilityAnimation: 1

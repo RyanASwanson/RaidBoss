@@ -21,6 +21,7 @@ public class SBA_Meteor : SpecificBossAbilityFramework
     private SBP_FallingMeteor _storedFallingMeteorFunc;
     private GameObject _storedMovingMeteor;
 
+    public const int METEOR_PROJECTILE_IMPACT_AUDIO_ID = 0;
     
     /// <summary>
     /// Waits until the hero that is being targetted is not directly on top of the target zone

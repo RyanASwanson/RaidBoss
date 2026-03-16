@@ -33,6 +33,10 @@ public class SH_Mirage : SpecificHeroFramework
     [SerializeField] private GameObject _manualClone;
     [Space]
     [SerializeField] private GameObject _cloneDirectIcon;
+
+    [Space]
+    [SerializeField] private float _passiveBasicAbilityDamageMultiplier;
+    [SerializeField] private float _passiveBasicAbilityStaggerMultiplier;
     
     private const float _cloneSpawnOffset = -2;
 
@@ -97,13 +101,16 @@ public class SH_Mirage : SpecificHeroFramework
         GameObject newestProjectile = Instantiate(_basicProjectile, 
             _currentBasicTargetZone.transform.position, _currentBasicTargetZone.transform.rotation);
 
+        GeneralHeroDamageArea damageArea = newestProjectile.GetComponent<GeneralHeroDamageArea>();
+        damageArea.SetUpDamageArea(_myHeroBase);
+        
         if (!castByHero)
         {
             newestProjectile.transform.localEulerAngles += CLONE_BASIC_PROJECTILE_EULER_OFFSET;
+            
+            damageArea.SetDamageMultiplier(_passiveBasicAbilityDamageMultiplier);
+            damageArea.SetStaggerMultiplier(_passiveBasicAbilityStaggerMultiplier);
         }
-
-        //Performs the set up for the damage area so that it knows it's owner
-        newestProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(_myHeroBase);
     }
 
     private void CreateBasicAbilityCastVFX(GameObject caster)
