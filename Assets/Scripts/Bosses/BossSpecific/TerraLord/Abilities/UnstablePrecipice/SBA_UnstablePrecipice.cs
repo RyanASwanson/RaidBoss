@@ -126,6 +126,11 @@ public class SBA_UnstablePrecipice : SpecificBossAbilityFramework
     private IEnumerator RemoveTargetZoneAndProjectile(BossTargetZoneParent targetZoneParent, SBP_UnstablePrecipice unstablePrecipiceProjectile)
     {
         yield return _projectileImpactWait;
+
+        if (targetZoneParent.IsUnityNull() || unstablePrecipiceProjectile.IsUnityNull())
+        {
+            yield break;
+        }
         
         unstablePrecipiceProjectile.FloorImpact();
         

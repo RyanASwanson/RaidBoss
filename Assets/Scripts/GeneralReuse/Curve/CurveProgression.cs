@@ -118,6 +118,11 @@ public class CurveProgression : MonoBehaviour
         UpdateCurveProgress();
     }
 
+    public void DestroyCurveObject()
+    {
+        Destroy(gameObject);
+    }
+
     public void StartMovingInPreviousDirectionOnCurve()
     {
         switch (CurveStatus)

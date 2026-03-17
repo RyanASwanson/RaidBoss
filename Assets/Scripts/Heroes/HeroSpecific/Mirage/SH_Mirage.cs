@@ -13,8 +13,9 @@ public class SH_Mirage : SpecificHeroFramework
     [SerializeField] private GameObject _basicProjectile;
 
     [SerializeField] private GameObject _basicTargetZone;
-    private GameObject _currentBasicTargetZone;
+    private CurveProgression _currentBasicTargetZone;
     private const float _targetZoneYOffset = -.5f;
+    private Coroutine _basicTargetZoneMovementCoroutine;
 
     [SerializeField] private GameObject _basicAbilityCastVFX;
     
@@ -49,9 +50,24 @@ public class SH_Mirage : SpecificHeroFramework
     /// </summary>
     private void CreateBasicTargetZone()
     {
-        _currentBasicTargetZone = Instantiate(_basicTargetZone, FindHeroCloneMidpoint(), Quaternion.identity);
+        _currentBasicTargetZone = Instantiate(_basicTargetZone, FindHeroCloneMidpoint(), Quaternion.identity).GetComponent<CurveProgression>();
 
-        StartCoroutine(MoveBasicTargetZone());
+        StartMovingBasicTargetZone();
+    }
+
+    private void StartMovingBasicTargetZone()
+    {
+        StopMovingBasicTargetZone();
+        
+        _basicTargetZoneMovementCoroutine = StartCoroutine(MoveBasicTargetZone());
+    }
+
+    private void StopMovingBasicTargetZone()
+    {
+        if (!_basicTargetZoneMovementCoroutine.IsUnityNull())
+        {
+            StopCoroutine(_basicTargetZoneMovementCoroutine);
+        }
     }
 
     /// <summary>
@@ -208,6 +224,14 @@ public class SH_Mirage : SpecificHeroFramework
     //Passive is handled by the clone
     #endregion
 
+    private void HeroDied()
+    {
+        StopMovingBasicTargetZone();
+        _currentBasicTargetZone.StartMovingDownOnCurve();
+        
+        CloneDeath();
+    }
+
     #region Base Hero
     /// <summary>
     /// Performs the set up for the Mirage
@@ -237,7 +261,7 @@ public class SH_Mirage : SpecificHeroFramework
     protected override void SubscribeToEvents()
     {
         base.SubscribeToEvents();
-        _myHeroBase.GetHeroDiedEvent().AddListener(CloneDeath);
+        _myHeroBase.GetHeroDiedEvent().AddListener(HeroDied);
     }
     #endregion
 

@@ -206,9 +206,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd1d04d370a8bca419d81d8abad819bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _doesBeginScalingOnEnable: 0
-  _doesResetScaleOnScalingEnable: 0
-  _scalingTime: 0
   _hasOverrideStartingScale: 0
   _overrideStartingScale: {x: 0, y: 0, z: 0}
   _endingScale: {x: 1, y: 1, z: 1}
@@ -908,9 +905,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd1d04d370a8bca419d81d8abad819bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _doesBeginScalingOnEnable: 0
-  _doesResetScaleOnScalingEnable: 0
-  _scalingTime: 0
   _hasOverrideStartingScale: 1
   _overrideStartingScale: {x: 1, y: 1, z: 1}
   _endingScale: {x: 0, y: 0, z: 0}
@@ -1026,7 +1020,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.65
+  m_Radius: 0.45
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8288840673254048179
 GameObject:

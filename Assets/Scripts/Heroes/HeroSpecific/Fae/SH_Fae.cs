@@ -62,16 +62,17 @@ public class SH_Fae : SpecificHeroFramework
     [SerializeField] private float _passiveBasicAttackSpeedChangeManual;
 
     private float _currentPassiveBasicAttackSpeed = 1;
+    private float _startingPassiveBasicAttackSpeed;
     private bool _passiveBonusActive = false;
 
     private HeroStats _heroStats;
 
     #region Basic Abilities
 
-    protected override void CooldownAddToBasicAbilityCharge(float addedAmount)
+    /*protected override void CooldownAddToBasicAbilityCharge(float addedAmount)
     {
         base.CooldownAddToBasicAbilityCharge(addedAmount * _currentPassiveBasicAttackSpeed);
-    }
+    }*/
 
     public override void ActivateBasicAbilities()
     {
@@ -357,6 +358,8 @@ public class SH_Fae : SpecificHeroFramework
         {
             return;
         }
+
+        _currentPassiveBasicAttackSpeed = _passiveBasicAttackSpeedChangeWalking;
         _myHeroBase.GetHeroStats().ChangeCurrentBasicAbilityCooldownRate(_passiveBasicAttackSpeedChangeWalking);
         _passiveBonusActive = true;
     }
@@ -367,17 +370,26 @@ public class SH_Fae : SpecificHeroFramework
         {
             return;
         }
+
+        _currentPassiveBasicAttackSpeed = _startingPassiveBasicAttackSpeed;
         _myHeroBase.GetHeroStats().ChangeCurrentBasicAbilityCooldownRate(1/_passiveBasicAttackSpeedChangeWalking);
         _passiveBonusActive = false;
     }
 
     private void IncreaseBasicAttackSpeedOnManualStart()
     {
+        if (Mathf.Approximately(_currentPassiveBasicAttackSpeed, _passiveBasicAttackSpeedChangeWalking))
+        {
+            DecreaseBasicAttackSpeedOnMoveEnd();
+        }
+        
         if (_passiveBonusActive)
         {
             return;
         }
-        _myHeroBase.GetHeroStats().ChangeCurrentBasicAbilityCooldownRate(_passiveBasicAttackSpeedChangeWalking);
+        
+        _currentPassiveBasicAttackSpeed = _passiveBasicAttackSpeedChangeManual;
+        _myHeroBase.GetHeroStats().ChangeCurrentBasicAbilityCooldownRate(_passiveBasicAttackSpeedChangeManual);
         _passiveBonusActive = true;
     }
 
@@ -387,7 +399,8 @@ public class SH_Fae : SpecificHeroFramework
         {
             return;
         }
-        _myHeroBase.GetHeroStats().ChangeCurrentBasicAbilityCooldownRate(1/_passiveBasicAttackSpeedChangeWalking);
+        _currentPassiveBasicAttackSpeed = _startingPassiveBasicAttackSpeed;
+        _myHeroBase.GetHeroStats().ChangeCurrentBasicAbilityCooldownRate(1/_passiveBasicAttackSpeedChangeManual);
         _passiveBonusActive = false;
     }
 
@@ -406,6 +419,8 @@ public class SH_Fae : SpecificHeroFramework
         _manualAudioWaitInterval = new WaitForSeconds(_manualAudioInterval);
 
         _currentBasicProjectiles = new List<GeneralHeroDamageArea>(4);
+
+        _startingPassiveBasicAttackSpeed = _currentPassiveBasicAttackSpeed;
 
         base.SetUpSpecificHero(heroBase, heroSO);
     }

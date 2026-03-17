@@ -86,8 +86,11 @@ public class BossUIManager : GameUIChildrenFunctionality
     {
         SetHealthBarPercentage();
         StartRecentHealthBarDrain();
-        
-        ShowHealthChips();
+
+        if (damage > 0)
+        {
+            ShowHealthChips();
+        }
 
         CreateDamageStaggerNumber(EDamageNumberType.Damage, damage, _damageNumber, _damageNumbersOrigin);
     }
@@ -163,7 +166,10 @@ public class BossUIManager : GameUIChildrenFunctionality
         SetStaggerBarPercentage();
         StartRecentStaggerBarDrain();
 
-        ShowStaggerChips();
+        if (stagger > 0)
+        {
+            ShowStaggerChips();
+        }
 
         CreateDamageStaggerNumber(EDamageNumberType.Stagger, stagger, _staggerNumber, _staggerNumbersOrigin);
     }
