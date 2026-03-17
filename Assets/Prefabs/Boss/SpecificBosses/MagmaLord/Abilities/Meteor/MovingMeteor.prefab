@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5639287205825355308}
   - component: {fileID: 2876240380485525677}
   - component: {fileID: 2046015707512375880}
-  - component: {fileID: 9213354052222947099}
   m_Layer: 0
   m_Name: MovingMeteor
   m_TagString: Untagged
@@ -52,9 +51,11 @@ MonoBehaviour:
   _areaColliders:
   - {fileID: 5230195009579388698}
   _hasLifetime: 1
-  _lifetime: 4
-  _hasColliderLifetime: 0
-  _colliderLifetime: 0
+  _lifetime: 6
+  _hasColliderActivationDelay: 0
+  _colliderActivationDelay: 0
+  _hasColliderLifetime: 1
+  _colliderLifetime: 5.75
   _doesHitCenteredVFXCopyRotation: 0
   _hitCenteredVFXCopyTarget: {fileID: 0}
   _hitCenteredVFX: {fileID: 0}
@@ -64,6 +65,7 @@ MonoBehaviour:
   _colliderLifetimeEndEvent:
     m_PersistentCalls:
       m_Calls: []
+  _canPreventReHitWithoutInitialDamage: 0
   _preventReHitDuration: 0.5
   _enterDamage: 0
   _enterEvent:
@@ -75,6 +77,9 @@ MonoBehaviour:
       m_Calls: []
   _exitDamage: 0
   _exitEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _generalHitEvent:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &2876240380485525677
@@ -133,27 +138,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!95 &9213354052222947099
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9559560874134544}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d63452f21d833ab4a8787b3706942aa6, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &41717239410482861
 GameObject:
   m_ObjectHideFlags: 0
@@ -163,6 +147,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7281370664765568832}
+  - component: {fileID: 7444721400179606205}
+  - component: {fileID: 7058383968098331716}
   m_Layer: 0
   m_Name: Visuals
   m_TagString: Untagged
@@ -186,6 +172,90 @@ Transform:
   m_Father: {fileID: 1680895796166459898}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7444721400179606205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 41717239410482861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd1d04d370a8bca419d81d8abad819bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hasOverrideStartingScale: 1
+  _overrideStartingScale: {x: 1, y: 1, z: 1}
+  _endingScale: {x: 1.2, y: 1.2, z: 1.2}
+  _curveProgression: {fileID: 7058383968098331716}
+--- !u!114 &7058383968098331716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 41717239410482861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 508c048b50abf854791f2f498bb01037, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _curveName: ImpactScale
+  _curveIncreaseTime: 0.125
+  _curveDecreaseTime: 0.125
+  _minCurveValue: 0
+  _maxCurveValue: 1
+  _hasDefaultValue: 0
+  _defaultValue: 0
+  _doesResetToDefaultProgressOnEnable: 0
+  _doesStartMovingUpOnEnable: 1
+  _doesStartMovingInCurrentDirectionOnEnable: 0
+  _doesAutomaticallyMoveDownOnHittingMax: 1
+  _doesAutomaticallyMoveUpOnHittingMin: 0
+  _hasIncreaseDelay: 0
+  _increaseDelay: 0
+  _hasDecreaseDelay: 0
+  _decreaseDelay: 0
+  _doesLerpUnchained: 0
+  _curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  OnSetUpComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  _onStartedIncreasing:
+    m_PersistentCalls:
+      m_Calls: []
+  _onStartedDecreasing:
+    m_PersistentCalls:
+      m_Calls: []
+  _onMaxValueReached:
+    m_PersistentCalls:
+      m_Calls: []
+  _onMinValueReached:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &3178139130520774035
 GameObject:
   m_ObjectHideFlags: 0
@@ -241,7 +311,9 @@ GameObject:
   m_Component:
   - component: {fileID: 713309598064216616}
   - component: {fileID: 7099746108731858136}
+  - component: {fileID: 1411110032456406838}
   - component: {fileID: 2360747494019287903}
+  - component: {fileID: 8847977423414904474}
   m_Layer: 0
   m_Name: Holder
   m_TagString: Untagged
@@ -279,10 +351,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _doesBeginRotationOnEnable: 0
   _doesResetRotationOnRotationEnable: 0
+  _doesResetLocalRotationOnRotationEnable: 0
+  _doesResetRotationToDefaultOnEnable: 0
+  _doesUseLocalEulerAngles: 0
   _rotationPerSecond: {x: 0, y: 0, z: 0}
   _rotationIndepedentParent: {fileID: 0}
-  _targetLocalEulerAngles: {x: 360, y: 0, z: 0}
+  _hasStartRotationOverride: 0
+  _startRotationOverride: {x: 0, y: 0, z: 0}
+  _targetLocalEulerAngles: {x: 500, y: 0, z: 0}
   _curveProgression: {fileID: 2360747494019287903}
+--- !u!114 &1411110032456406838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4392702681341562129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd1d04d370a8bca419d81d8abad819bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hasOverrideStartingScale: 1
+  _overrideStartingScale: {x: 1, y: 1, z: 1}
+  _endingScale: {x: 0, y: 0, z: 0}
+  _curveProgression: {fileID: 8847977423414904474}
 --- !u!114 &2360747494019287903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -296,18 +389,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _curveName: Rotation
-  _curveIncreaseTime: 3.666
+  _curveIncreaseTime: 5.666
   _curveDecreaseTime: 0
   _minCurveValue: 0
   _maxCurveValue: 1
   _hasDefaultValue: 0
   _defaultValue: 0
   _doesResetToDefaultProgressOnEnable: 0
+  _doesStartMovingUpOnEnable: 0
+  _doesStartMovingInCurrentDirectionOnEnable: 0
   _doesAutomaticallyMoveDownOnHittingMax: 0
+  _doesAutomaticallyMoveUpOnHittingMin: 0
   _hasIncreaseDelay: 1
   _increaseDelay: 0.15
   _hasDecreaseDelay: 0
   _decreaseDelay: 0
+  _doesLerpUnchained: 0
   _curve:
     serializedVersion: 2
     m_Curve:
@@ -323,11 +420,88 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0.870827
-      outSlope: 0.870827
+      inSlope: 1.0831211
+      outSlope: 1.0831211
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.10833335
+      inWeight: 0.104519725
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  OnSetUpComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  _onStartedIncreasing:
+    m_PersistentCalls:
+      m_Calls: []
+  _onStartedDecreasing:
+    m_PersistentCalls:
+      m_Calls: []
+  _onMaxValueReached:
+    m_PersistentCalls:
+      m_Calls: []
+  _onMinValueReached:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &8847977423414904474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4392702681341562129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 508c048b50abf854791f2f498bb01037, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _curveName: Scale
+  _curveIncreaseTime: 0.384
+  _curveDecreaseTime: 0.384
+  _minCurveValue: 0
+  _maxCurveValue: 1
+  _hasDefaultValue: 1
+  _defaultValue: 0
+  _doesResetToDefaultProgressOnEnable: 0
+  _doesStartMovingUpOnEnable: 1
+  _doesStartMovingInCurrentDirectionOnEnable: 0
+  _doesAutomaticallyMoveDownOnHittingMax: 0
+  _doesAutomaticallyMoveUpOnHittingMin: 0
+  _hasIncreaseDelay: 1
+  _increaseDelay: 5.55
+  _hasDecreaseDelay: 1
+  _decreaseDelay: 5.55
+  _doesLerpUnchained: 1
+  _curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: -0.5
+      outSlope: -0.5
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.2
+      value: -0.1
+      inSlope: 0.4375
+      outSlope: 0.4375
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1.375
+      outSlope: 1.375
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2

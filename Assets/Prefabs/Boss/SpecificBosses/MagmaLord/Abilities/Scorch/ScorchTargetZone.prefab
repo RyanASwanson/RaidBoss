@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2043078806880709195
 Transform:
   m_ObjectHideFlags: 0
@@ -115,7 +115,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2799529880939906963
 Transform:
   m_ObjectHideFlags: 0
@@ -293,12 +293,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4827130972294422793, guid: 246c2215125a93d49b05e3888d0d50af, type: 3}
       propertyPath: _targetZones.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4827130972294422793, guid: 246c2215125a93d49b05e3888d0d50af, type: 3}
       propertyPath: _targetZones.Array.data[0]
       value: 
       objectReference: {fileID: 2799529880939906961}
+    - target: {fileID: 4827130972294422793, guid: 246c2215125a93d49b05e3888d0d50af, type: 3}
+      propertyPath: _targetZones.Array.data[1]
+      value: 
+      objectReference: {fileID: 2539234194967271570}
     - target: {fileID: 5577047726698959772, guid: 246c2215125a93d49b05e3888d0d50af, type: 3}
       propertyPath: m_Name
       value: AnimVisualsHolder
