@@ -15,7 +15,8 @@ public class SceneLoadManager : MainUniversalManagerFramework
     [Header("SceneTransitions")]
     [SerializeField] private Animator _sceneTransitionAnimator;
 
-    private const string ST_CLOSE_IN_FROM_SIDES_ANIM_TRIGGER = "CloseInFromSides";
+    private const string ST_CLOSE_IN_FROM_SIDES_START_ANIM_TRIGGER = "CloseInFromSidesStart";
+    private const string ST_CLOSE_IN_FROM_SIDES_EXIT_ANIM_TRIGGER = "CloseInFromSidesExit";
 
     private const float _sceneTransitionTime = 1;
     
@@ -78,7 +79,7 @@ public class SceneLoadManager : MainUniversalManagerFramework
         InvokeOnStartOfSceneLoadEvent();
         EventSystem.current.enabled = false;
 
-        _sceneTransitionAnimator.SetTrigger(ST_CLOSE_IN_FROM_SIDES_ANIM_TRIGGER);
+        _sceneTransitionAnimator.SetTrigger(ST_CLOSE_IN_FROM_SIDES_START_ANIM_TRIGGER);
         
         AudioManager.Instance.PlaySpecificAudio(
             AudioManager.Instance.UserInterfaceAudio.SceneLoadUserInterfaceAudio.SceneLoadStart);
@@ -98,8 +99,10 @@ public class SceneLoadManager : MainUniversalManagerFramework
         
         AudioManager.Instance.PlaySpecificAudio(
             AudioManager.Instance.UserInterfaceAudio.SceneLoadUserInterfaceAudio.SceneLoadMiddle);
+
+        yield return null;
         
-        //yield return new WaitForSeconds(.2f);
+        _sceneTransitionAnimator.SetTrigger(ST_CLOSE_IN_FROM_SIDES_EXIT_ANIM_TRIGGER);
         
         yield return _sceneTransitionWait;
         

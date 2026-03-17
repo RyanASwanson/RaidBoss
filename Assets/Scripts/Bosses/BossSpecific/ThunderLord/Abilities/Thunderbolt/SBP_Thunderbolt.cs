@@ -10,6 +10,8 @@ public class SBP_Thunderbolt : BossProjectileFramework
     
     private Coroutine _thunderboltActivationCoroutine;
     
+    [SerializeField] protected CinemachineCameraShakeData _screenShakeData;
+    
     [Space]
     [SerializeField] private GeneralVFXFunctionality _cloudVFXFunctionality;
     [SerializeField] private GeneralVFXFunctionality _sparkImpactVFXFunctionality;
@@ -71,6 +73,7 @@ public class SBP_Thunderbolt : BossProjectileFramework
         
         _scaleCurve.StartMovingUpOnCurve();
 
+        PlayActivationScreenShake();
         PlayProjectileActivationSFX();
     }
 
@@ -81,6 +84,11 @@ public class SBP_Thunderbolt : BossProjectileFramework
         {
             StopCoroutine(_thunderboltActivationCoroutine);
         }
+    }
+    
+    private void PlayActivationScreenShake()
+    {
+        CameraGameManager.Instance.StartCameraShake(_screenShakeData);
     }
     
     private void PlayProjectileActivationSFX()
