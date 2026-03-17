@@ -16,6 +16,9 @@ public class SBP_Entomb : BossProjectileFramework
     [Space]
     [SerializeField] private List<GeneralBossDamageArea> _closingWalls;
 
+    [Space] 
+    [SerializeField] private TerraLordUniversalEnvironmentalWeightObject _environmentalWeight;
+
     [Space]
     [SerializeField] protected CinemachineCameraShakeData _screenShakeData;
     [SerializeField] private GameObject _closedParticleVFX;
@@ -47,6 +50,7 @@ public class SBP_Entomb : BossProjectileFramework
             PlayEntombClosedScreenShake();
             PlayEntombClosedSound();
             CreateNavMeshObstacle();
+            _environmentalWeight.AddObjectToTerraLordList();
             Instantiate(_closedParticleVFX, new Vector3(transform.position.x,0,transform.position.z), transform.rotation);
         }
         else

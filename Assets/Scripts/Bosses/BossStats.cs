@@ -30,6 +30,8 @@ public class BossStats : BossChildrenFunctionality
     private float _baseBossDamageMultiplier = 1;
     private float _bossDamageResistanceMultiplier =1;
 
+    private float _bossLowHealthDamageMultiplier = 1;
+    
     private float _bossEnrageDamageMultiplier = 1;
     private float _storedEnrageMultiplier;
 
@@ -103,7 +105,7 @@ public class BossStats : BossChildrenFunctionality
         {
             //Invokes any necessary functionality for reaching half health
             _myBossBase.InvokeBossHalfHealthEvent();
-            IncreaseBossStatsAtHealthThreshholds();
+            IncreaseBossStatsAtHealthThresholds();
 
             _myBossBase.GetBossDamagedEvent().RemoveListener(CheckBossIsUnderHalf);
             _myBossBase.GetBossDamagedEvent().AddListener(CheckBossIsUnderQuarter);
@@ -119,7 +121,7 @@ public class BossStats : BossChildrenFunctionality
             //Invokes any necessary functionality for reaching quarter health
             _myBossBase.InvokeBossQuarterHealthEvent();
             //Increases boss stats
-            IncreaseBossStatsAtHealthThreshholds();
+            IncreaseBossStatsAtHealthThresholds();
 
             //No longer listens for damage event
             _myBossBase.GetBossDamagedEvent().RemoveListener(CheckBossIsUnderQuarter);
@@ -137,7 +139,7 @@ public class BossStats : BossChildrenFunctionality
             //Invokes any necessary functionality for reaching tenth health
             _myBossBase.InvokeBossTenthHealthEvent();
             //Increases boss stats
-            IncreaseBossStatsAtHealthThreshholds();
+            IncreaseBossStatsAtHealthThresholds();
 
             //No longer listens for damage event
             _myBossBase.GetBossDamagedEvent().RemoveListener(CheckBossIsUnderTenth);
@@ -163,9 +165,9 @@ public class BossStats : BossChildrenFunctionality
         GameStateManager.Instance.SetGameplayState(EGameplayStates.PostBattleWon);
     }
 
-    protected virtual void IncreaseBossStatsAtHealthThreshholds()
+    protected virtual void IncreaseBossStatsAtHealthThresholds()
     {
-        MultiplyBossDamageMultiplier(_bossDamageIncrementMultiplier);
+        MultiplierBossLowHealthDamageMultiplier(_bossDamageIncrementMultiplier);
     }
     #endregion
 
@@ -367,7 +369,8 @@ public class BossStats : BossChildrenFunctionality
 
     public float GetBossEnrageDamageMultiplier() => _bossEnrageDamageMultiplier;
 
-    public float GetCombinedBossDamageMultiplier() => _baseBossDamageMultiplier * _bossEnrageDamageMultiplier * _storedScalingEnrageDamageMultiplier;
+    public float GetCombinedBossDamageMultiplier() => _baseBossDamageMultiplier * _bossLowHealthDamageMultiplier 
+        * _bossEnrageDamageMultiplier * _storedScalingEnrageDamageMultiplier;
     #endregion
 
     #region Setters
@@ -402,6 +405,11 @@ public class BossStats : BossChildrenFunctionality
     public void MultiplyBossDamageMultiplier(float amount)
     {
         _baseBossDamageMultiplier *= amount;
+    }
+
+    public void MultiplierBossLowHealthDamageMultiplier(float amount)
+    {
+        _bossLowHealthDamageMultiplier *= amount;
     }
     
     public float SetBossMaxHealth(float value) => _bossMaxHealth = value;

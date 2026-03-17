@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 /// <summary>
 /// Script that handles the Magma Lord meteor
@@ -11,15 +13,24 @@ public class SBP_FollowingMeteor : BossProjectileFramework
 {
     [SerializeField] private float _projectileSpeed;
     [SerializeField] private float _accelerationTime;
-    private const float SPEED_SCALAR_MAX = 1;
     
     [SerializeField] private AnimationCurve _projectileSpeedCurve;
 
     [Space]
     [SerializeField] private float _randomDirectionThreshold;
+
+    [SerializeField] private float _scaleDownRemovalDelay;
+    [SerializeField] private float _mapEdgeRemovalDelay;
+    
+    [Space]
+    [SerializeField] private GeneralBossDamageArea _damageArea;
     
     [Space] 
     [SerializeField] private CurveProgression _rotationCurveProgression;
+    
+    [SerializeField] private CurveProgression _projectileScaleCurveProgression;
+
+    private bool _isMeteorBeingRemoved = false;
 
     /// <summary>
     /// Makes the projectile look at the target hero and start moving 
@@ -88,6 +99,34 @@ public class SBP_FollowingMeteor : BossProjectileFramework
         transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
     }
 
+    private void StartRemovalDelay()
+    {
+        StartCoroutine(RemovalDelay());
+    }
+
+    private IEnumerator RemovalDelay()
+    {
+        yield return new WaitForSeconds(_scaleDownRemovalDelay);
+        _projectileScaleCurveProgression.StartMovingUpOnCurve();
+        _isMeteorBeingRemoved = true;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!_isMeteorBeingRemoved && other.gameObject.layer == EnvironmentManager.Instance.GetMapBorderLayerID())
+        {
+            _isMeteorBeingRemoved = true;
+            StartCoroutine(MapEdgeRemovalDelay());
+        }
+    }
+
+    private IEnumerator MapEdgeRemovalDelay()
+    {
+        yield return new WaitForSeconds(_mapEdgeRemovalDelay);
+        _projectileScaleCurveProgression.StartMovingUpOnCurve();
+        _damageArea.ToggleProjectileCollider(false);
+    }
+
     #region Base Ability
     /// <summary>
     /// Called when projectile is created
@@ -96,6 +135,7 @@ public class SBP_FollowingMeteor : BossProjectileFramework
     /// <param name="storedTargetLocation"></param>
     public void AdditionalSetUp(Vector3 storedTargetLocation)
     {
+        StartRemovalDelay();
         StartProjectileMovement(storedTargetLocation);
     }
     #endregion

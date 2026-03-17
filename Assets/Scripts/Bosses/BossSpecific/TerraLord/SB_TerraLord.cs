@@ -6,7 +6,8 @@ using UnityEngine.Events;
 
 public class SB_TerraLord : SpecificBossFramework
 {
-    [Space]
+    [Space] 
+    public static SB_TerraLord Instance;
 
     [Header("Unstable Precipice")]
     [SerializeField] private float _passiveTickRate;
@@ -34,6 +35,8 @@ public class SB_TerraLord : SpecificBossFramework
     private WaitForSeconds _passiveTickWait;
     
     private float _passiveHeroWeightMultiplier;
+    
+    private List<TerraLordUniversalEnvironmentalWeightObject> _environmentalWeightObjects = new();
 
     private float _passiveCounterValue = 0;
     private float _passiveCounterProgressTowardsMax = 0;
@@ -42,6 +45,7 @@ public class SB_TerraLord : SpecificBossFramework
     
     private Coroutine _passiveProcessCoroutine;
     
+    private UnityEvent _onStartOfPassiveTick = new UnityEvent();
     //Invokes the passive counter value scaled from -1 to 1
     private UnityEvent<float> _onPassivePercentUpdated = new UnityEvent<float>();
 
@@ -78,6 +82,26 @@ public class SB_TerraLord : SpecificBossFramework
         StartPassiveProcess();
         
         _unstablePrecipice.AbilitySetUp(_myBossBase);
+    }
+
+    public void AddObjectToEnvironmentalWeightObjects(TerraLordUniversalEnvironmentalWeightObject weightObject)
+    {
+        if (_environmentalWeightObjects.Contains(weightObject))
+        {
+            return;
+        }
+        
+        _environmentalWeightObjects.Add(weightObject);
+    }
+
+    public void RemoveObjectFromEnvironmentalWeightObjects(TerraLordUniversalEnvironmentalWeightObject weightObject)
+    {
+        if (!_environmentalWeightObjects.Contains(weightObject))
+        {
+            return;
+        }
+        
+        _environmentalWeightObjects.Remove(weightObject);
     }
     
     /// <summary>
@@ -127,7 +151,7 @@ public class SB_TerraLord : SpecificBossFramework
     /// </summary>
     private void PassiveTick()
     {
-        ChangePassiveCounterValue(CalculatePassiveHeroWeight());
+        ChangePassiveCounterValue(CalculatePassiveHeroWeight() + CalculatePassiveEnvironmentWeight());
     }
 
     /// <summary>
@@ -166,6 +190,20 @@ public class SB_TerraLord : SpecificBossFramework
         }
         
         return weightCounter;
+    }
+
+    private float CalculatePassiveEnvironmentWeight()
+    {
+        float total = 0;
+
+        foreach (TerraLordUniversalEnvironmentalWeightObject weightObject in _environmentalWeightObjects)
+        {
+            total += weightObject.GetCurrentWeight();
+        }
+        
+        //Debug.Log("Adding environmental weight of " + total);
+        
+        return total;
     }
 
     /// <summary>
@@ -385,6 +423,12 @@ public class SB_TerraLord : SpecificBossFramework
         CreateRubbleVFX();
 
     }
+    
+    protected override void CreateSpecificBossInstance()
+    {
+        Instance = this;
+        base.CreateSpecificBossInstance();
+    }
 
     /// <summary>
     /// Stops the passive when the boss is staggered
@@ -439,6 +483,7 @@ public class SB_TerraLord : SpecificBossFramework
         return Mathf.Abs(GetPassiveCounterPercent());
     }
     
+    public UnityEvent GetOnStartOfPassiveTickEvent() => _onStartOfPassiveTick;
     public UnityEvent<float> GetPassivePercentUpdatedEvent() => _onPassivePercentUpdated;
     #endregion
 }

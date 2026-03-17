@@ -16,6 +16,7 @@ public class EnvironmentManager : MainGameplayManagerFramework
     [SerializeField] private Vector3 _floorOffsetHeight;
 
     [SerializeField] private LayerMask _mapBorderLayer;
+    private const int MAP_BORDER_LAYER_ID = 10;
 
     [SerializeField] private List<GameObject> _heroSpawnLocations;
 
@@ -88,6 +89,7 @@ public class EnvironmentManager : MainGameplayManagerFramework
     public float GetMapRadius() => _mapRadius;
     public Vector3 GetFloorOffset() => _floorOffsetHeight;
     public LayerMask GetMapBorderLayer() => _mapBorderLayer;
+    public int GetMapBorderLayerID() => MAP_BORDER_LAYER_ID;
 
     public List<GameObject> GetHeroSpawnLocations() => _heroSpawnLocations;
 

@@ -557,6 +557,10 @@ public class HeroStats : HeroChildrenFunctionality
 
     #region Setters
 
+    public void AdjustHeroHitboxSize(float multiplier)
+    {
+        _myHeroBase.GetHeroDamageCollider().radius *= multiplier;
+    }
     #endregion
 }
 

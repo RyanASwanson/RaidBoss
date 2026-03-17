@@ -9,6 +9,9 @@ using UnityEngine;
 /// </summary>
 public class MirageClone : SpecificHeroFramework
 {
+    [Space]
+    [SerializeField] private float _cloneHitboxScaleMultiplier;
+    
     private Coroutine _basicAttackCooldownProcess;
 
     private SH_Mirage _mirageOwner;
@@ -83,6 +86,11 @@ public class MirageClone : SpecificHeroFramework
         BossBase.Instance.GetSpecificBossScript().AddHeroTarget(_myHeroBase);
     }
 
+    private void AdjustHitboxSize()
+    {
+        _myHeroBase.GetHeroStats().AdjustHeroHitboxSize(_cloneHitboxScaleMultiplier);
+    }
+
     #region Base Hero
     /// <summary>
     /// Performs set up unique to the mirage
@@ -93,6 +101,8 @@ public class MirageClone : SpecificHeroFramework
         _mirageOwner = mirage;
 
         _myHeroBase.SetClickColliderStatus(false);
+
+        AdjustHitboxSize();
         
         _myHeroBase.GetHeroStats().AddDamageTakenOverrideCounter();
         _myHeroBase.GetHeroStats().AddHealingTakenOverrideCounter();

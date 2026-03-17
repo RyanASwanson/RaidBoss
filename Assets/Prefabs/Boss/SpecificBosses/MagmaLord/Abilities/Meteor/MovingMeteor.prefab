@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1680895796166459898}
-  - component: {fileID: 5639287205825355308}
   - component: {fileID: 2876240380485525677}
+  - component: {fileID: 5639287205825355308}
   - component: {fileID: 2046015707512375880}
   m_Layer: 0
   m_Name: MovingMeteor
@@ -36,6 +36,50 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2876240380485525677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9559560874134544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e14d17908acb9054fa833916075e74f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _projectileSpeed: 0.75
+  _accelerationTime: 1
+  _projectileSpeedCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _randomDirectionThreshold: 0.2
+  _scaleDownRemovalDelay: 5.55
+  _mapEdgeRemovalDelay: 0.75
+  _damageArea: {fileID: 5639287205825355308}
+  _rotationCurveProgression: {fileID: 2360747494019287903}
+  _projectileScaleCurveProgression: {fileID: 8847977423414904474}
 --- !u!114 &5639287205825355308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82,46 +126,6 @@ MonoBehaviour:
   _generalHitEvent:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &2876240380485525677
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9559560874134544}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e14d17908acb9054fa833916075e74f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _projectileSpeed: 0.75
-  _accelerationTime: 1
-  _projectileSpeedCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  _randomDirectionThreshold: 0.2
-  _rotationCurveProgression: {fileID: 2360747494019287903}
 --- !u!54 &2046015707512375880
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -299,7 +303,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.8, y: 0.8, z: 0.8}
+  m_Size: {x: 0.7, y: 0.7, z: 0.7}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4392702681341562129
 GameObject:
@@ -464,14 +468,14 @@ MonoBehaviour:
   _hasDefaultValue: 1
   _defaultValue: 0
   _doesResetToDefaultProgressOnEnable: 0
-  _doesStartMovingUpOnEnable: 1
+  _doesStartMovingUpOnEnable: 0
   _doesStartMovingInCurrentDirectionOnEnable: 0
   _doesAutomaticallyMoveDownOnHittingMax: 0
   _doesAutomaticallyMoveUpOnHittingMin: 0
-  _hasIncreaseDelay: 1
-  _increaseDelay: 5.55
-  _hasDecreaseDelay: 1
-  _decreaseDelay: 5.55
+  _hasIncreaseDelay: 0
+  _increaseDelay: 0
+  _hasDecreaseDelay: 0
+  _decreaseDelay: 0
   _doesLerpUnchained: 1
   _curve:
     serializedVersion: 2
