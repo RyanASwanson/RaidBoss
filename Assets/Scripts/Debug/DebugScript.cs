@@ -38,7 +38,7 @@ public class DebugScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.T))
+        if(Input.GetKeyDown(KeyCode.Plus) || Input.GetKeyDown(KeyCode.Equals))
         {
             SaveManager.Instance.UnlockNextMissions();
         }

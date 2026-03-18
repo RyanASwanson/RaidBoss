@@ -91,7 +91,9 @@ public class GeneralBossDamageArea : GeneralAbilityAreaFramework
             //If the hero should be ignored then return
             HeroBase heroBase = collision.GetComponentInParent<HeroBase>();
             if (_heroesToIgnore.Contains(heroBase))
+            {
                 return false;
+            }
 
             hitEvent?.Invoke(collision);
             

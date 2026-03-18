@@ -16,6 +16,9 @@ public class SBP_StaticCharge : BossProjectileFramework
     
     [SerializeField] private float _moveOutFromHeroTime;
     private WaitForSeconds _moveOutWait;
+
+    [SerializeField] private float _moveOutColliderEnableDelay;
+    private WaitForSeconds _moveOutColliderEnableWait;
     
     [Space]
     [SerializeField] private FollowObject _followObject;
@@ -39,6 +42,7 @@ public class SBP_StaticCharge : BossProjectileFramework
         
         _moveInWait = new WaitForSeconds(_moveIntoHeroTime);
         _moveOutWait = new WaitForSeconds(_moveOutFromHeroTime);
+        _moveOutColliderEnableWait = new WaitForSeconds(_moveOutColliderEnableDelay);
         
         _damageArea.ToggleProjectileCollider(false);
 
@@ -104,9 +108,18 @@ public class SBP_StaticCharge : BossProjectileFramework
     {
         yield return _moveOutWait;
         ReachedMoveOutFromHero();
+
+        yield return _moveOutColliderEnableWait;
+        ColliderReenabledOnMovingOut();
     }
 
     private void ReachedMoveOutFromHero()
+    {
+        /*_doesDealDamageOnMovingIn = false;
+        _damageArea.ToggleProjectileCollider(true);*/
+    }
+
+    private void ColliderReenabledOnMovingOut()
     {
         _doesDealDamageOnMovingIn = false;
         _damageArea.ToggleProjectileCollider(true);
