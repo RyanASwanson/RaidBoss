@@ -25,6 +25,10 @@ public class SelectableMission : MonoBehaviour
     [Space]
     [SerializeField] private Transform _missionSpecificStandardParent;
 
+    [SerializeField] private CurveProgression _missionStandardScaleCurve;
+
+    [SerializeField] private GameObject _missionHoverGlow;
+
     [Space] 
     [SerializeField] private GameObject _missionSelectCenter;
     
@@ -41,6 +45,8 @@ public class SelectableMission : MonoBehaviour
         PerformMissionVisualsSetUp();
 
         ChangeStandard();
+        
+        _missionHoverGlow.SetActive(false);
 
         if (_waitTimeBetweenCharacterSpawns.IsUnityNull())
         {
@@ -97,6 +103,28 @@ public class SelectableMission : MonoBehaviour
     private void CreateBanner(GameObject banner)
     {
         Instantiate(banner, _missionSpecificStandardParent);
+    }
+
+    public void MissionHoveredStarted()
+    {
+        if (!_isMissionUnlocked)
+        {
+            return;
+        }
+        
+        _missionStandardScaleCurve.StartMovingUpOnCurve();
+        _missionHoverGlow.SetActive(true);
+    }
+
+    public void MissionHoverEnded()
+    {
+        if (!_isMissionUnlocked)
+        {
+            return;
+        }
+        
+        _missionStandardScaleCurve.StartMovingDownOnCurve();
+        _missionHoverGlow.SetActive(false);
     }
 
     public void InformControllerOfSelection()

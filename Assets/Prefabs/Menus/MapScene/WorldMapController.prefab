@@ -124,9 +124,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd1d04d370a8bca419d81d8abad819bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _doesBeginScalingOnEnable: 0
-  _doesResetScaleOnScalingEnable: 0
-  _scalingTime: 0
   _hasOverrideStartingScale: 0
   _overrideStartingScale: {x: 0, y: 0, z: 0}
   _endingScale: {x: 0.3, y: 0.3, z: 0.3}
@@ -508,8 +505,9 @@ GameObject:
   - component: {fileID: 6839798267324392337}
   - component: {fileID: 2506340785359122140}
   - component: {fileID: 5764722618566967397}
+  - component: {fileID: 260737489025324711}
   m_Layer: 0
-  m_Name: Back
+  m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -595,10 +593,10 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_HighlightedColor: {r: 0.6981132, g: 0.6981132, b: 0.6981132, a: 1}
+    m_PressedColor: {r: 0.49056602, g: 0.49056602, b: 0.49056602, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.25882354, g: 0.25882354, b: 0.25882354, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -629,6 +627,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &260737489025324711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 675808651593678264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a405a9b0c73f5b646ab35317e1a398d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _requiresButtonInteractable: 1
+  _buttonHoverEnterAudioID: 00000000
 --- !u!1 &912185315589394153
 GameObject:
   m_ObjectHideFlags: 0
@@ -2104,9 +2116,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd1d04d370a8bca419d81d8abad819bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _doesBeginScalingOnEnable: 0
-  _doesResetScaleOnScalingEnable: 0
-  _scalingTime: 0
   _hasOverrideStartingScale: 1
   _overrideStartingScale: {x: 1, y: 1, z: 1}
   _endingScale: {x: 1.1, y: 1.1, z: 1.1}
@@ -3075,7 +3084,11 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _cameraDeccelerationDistance: 1
+  _cameraClickAndDragSpeed: 15
+  _cameraClickAndDragDurationPreventMissionSelection: 0.1
+  _cameraClickAndDragDistancePreventMissionSelection: 0.5
   _cameraHolder: {fileID: 5520424001516371674}
+  _camera: {fileID: 1913692461444324881}
   _cameraEdgeDistance: 1
   _cameraLeftButton: {fileID: 1431228326549044302}
   _cameraRightButton: {fileID: 5764722618566967397}
@@ -4284,9 +4297,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd1d04d370a8bca419d81d8abad819bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _doesBeginScalingOnEnable: 0
-  _doesResetScaleOnScalingEnable: 0
-  _scalingTime: 0
   _hasOverrideStartingScale: 0
   _overrideStartingScale: {x: 0, y: 0, z: 0}
   _endingScale: {x: 1.2, y: 1.2, z: 1.2}
@@ -4996,8 +5006,9 @@ GameObject:
   - component: {fileID: 5168836545643085588}
   - component: {fileID: 7267949245167464221}
   - component: {fileID: 1431228326549044302}
+  - component: {fileID: 3652173625096855316}
   m_Layer: 0
-  m_Name: Back
+  m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5083,10 +5094,10 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_HighlightedColor: {r: 0.6981132, g: 0.6981132, b: 0.6981132, a: 1}
+    m_PressedColor: {r: 0.49056602, g: 0.49056602, b: 0.49056602, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.2578616, g: 0.2578616, b: 0.2578616, a: 0.5019608}
+    m_DisabledColor: {r: 0.25882354, g: 0.25882354, b: 0.25882354, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -5117,6 +5128,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &3652173625096855316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7885276245897008959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a405a9b0c73f5b646ab35317e1a398d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _requiresButtonInteractable: 1
+  _buttonHoverEnterAudioID: 00000000
 --- !u!1 &7959501438857150566
 GameObject:
   m_ObjectHideFlags: 0
