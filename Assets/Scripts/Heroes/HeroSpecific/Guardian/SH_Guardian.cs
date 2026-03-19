@@ -88,9 +88,6 @@ public class SH_Guardian : SpecificHeroFramework
         _myHeroBase.GetHeroStats().ChangeCurrentHeroDamageResistance(-_heroManualDamageResistance);
         
         _currentTauntIconAnimator.SetBool(TAUNT_ICON_SHOW_ANIM_BOOL, false);
-        
-        _currentTauntVfx.StopFollowingDelayed(.5f);
-        //_currentTauntVfx.gameObject.SetActive(false);
     }
     #endregion
 

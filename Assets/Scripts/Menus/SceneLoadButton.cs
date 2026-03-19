@@ -27,7 +27,7 @@ public class SceneLoadButton : MonoBehaviour
         }
     }
 
-    private void LoadAssociatedScene()
+    public void LoadAssociatedScene()
     {
         SceneLoadManager.Instance.LoadSceneByEnum(_sceneToLoad);
     }

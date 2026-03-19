@@ -108,6 +108,11 @@ public class SBA_Thunderclap : SpecificBossAbilityFramework
         base.AbilityStart();
     }
     
+    public override void StopBossAbility()
+    {
+        _storedSafeZones.Clear();
+        base.StopBossAbility();
+    }
     #endregion
 
 }

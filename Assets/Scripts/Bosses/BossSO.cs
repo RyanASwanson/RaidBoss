@@ -47,6 +47,8 @@ public class BossSO : CharacterSO
     [SerializeField] private Material _miniFloorMaterial;
     [SerializeField] private Material _miniFloorLockedMaterial;
     [Space]
+    [SerializeField] private Material _missionSelectionGlowMaterial;
+    [Space]
     [SerializeField] private Material _backgroundMaterial;
     [SerializeField] private GameObject _backgroundParticles;
 
@@ -94,9 +96,9 @@ public class BossSO : CharacterSO
     public Material GetFloorMaterial() => _floorMaterial;
     public Material GetMiniFloorMaterial() => _miniFloorMaterial;
     public Material GetMiniFloorLockedMaterial() => _miniFloorLockedMaterial;
+    public Material GetMissionSelectionGlowMaterial() => _missionSelectionGlowMaterial;
     public Material GetBackgroundMaterial() => _backgroundMaterial;
     public GameObject GetBackgroundParticles() => _backgroundParticles;
-    
     public GameObject GetBossStandard() => _bossStandard;
 
     public Color GetBossHighlightedColor() => _bossHighlightedColor;

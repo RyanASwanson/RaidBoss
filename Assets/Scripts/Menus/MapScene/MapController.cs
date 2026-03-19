@@ -548,13 +548,6 @@ public class MapController : MonoBehaviour
     }
     
     #endregion
-   
-    #region General
-    public void BackToMainMenu()
-    {
-        SceneLoadManager.Instance.LoadMainMenuScene();
-    }
-    #endregion
     
     #region InputActions
     private void PlayerLeftClickStarted(InputAction.CallbackContext context)

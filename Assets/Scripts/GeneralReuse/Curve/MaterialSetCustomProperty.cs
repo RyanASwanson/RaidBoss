@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class MaterialSetCustomProperty : MonoBehaviour
 {
+    [SerializeField] private bool _doesPerformSetUpOnEnable = true;
+    
     [SerializeField] private EMaterialSetCustomPropertyType _propertyType;
     [SerializeField] private string _propertyName;
 
@@ -30,6 +32,15 @@ public class MaterialSetCustomProperty : MonoBehaviour
     //_HeightFogDensity
 
     void OnEnable()
+    {
+        if (_doesPerformSetUpOnEnable)
+        {
+            SetUp();
+        }
+        
+    }
+
+    public void SetUp()
     {
         SetMaterial();
         

@@ -96,5 +96,11 @@ public class SBA_LavaBlast : SpecificBossAbilityFramework
 
         base.AbilityStart();
     }
+
+    public override void StopBossAbility()
+    {
+        _storedSafeZones.Clear();
+        base.StopBossAbility();
+    }
     #endregion
 }

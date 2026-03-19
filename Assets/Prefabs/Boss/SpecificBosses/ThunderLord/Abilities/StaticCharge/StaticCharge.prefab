@@ -84,7 +84,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _damageToFollowTargetOnSwap: 4
   _maxSwaps: 3
-  _moveIntoHeroTime: 0.25
+  _moveIntoHeroTime: 0.2
   _moveOutFromHeroTime: 0.4
   _moveOutColliderEnableDelay: 0.15
   _followObject: {fileID: 4631730510946536749}
@@ -201,7 +201,19 @@ MonoBehaviour:
       m_Calls: []
   _onFollowStop:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5836445844173092607}
+        m_TargetAssemblyTypeName: SBP_StaticCharge, Assembly-CSharp
+        m_MethodName: DurationOver
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!54 &1324370534079371592
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10245,7 +10257,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _curveName: Scale
   _curveIncreaseTime: 0.4
-  _curveDecreaseTime: 0.25
+  _curveDecreaseTime: 0.2
   _minCurveValue: 0
   _maxCurveValue: 1
   _hasDefaultValue: 0

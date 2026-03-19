@@ -112,11 +112,16 @@ public class FollowObject : MonoBehaviour
                 }
                 else if (_doesDestroyAfterStopFollowing)
                 {
-                    Destroy(gameObject,_destroyFollowDelay);
+                    DestroyAfterStopFollowing();
                 }
             }
         }
         
+    }
+
+    public void DestroyAfterStopFollowing()
+    {
+        Destroy(gameObject,_destroyFollowDelay);
     }
 
     private IEnumerator FollowingObjectProcess()
@@ -126,6 +131,8 @@ public class FollowObject : MonoBehaviour
             transform.position = _currentFollowTarget.transform.position + _followLocationOffset;
             yield return null;
         }
+
+        StopFollowing(true);
     }
 
     private void TriggerStartFollowingAnimation()
