@@ -51,6 +51,8 @@ public class HeroSO : CharacterSO
     
     [SerializeField] private Color _heroUIColor;
 
+    [SerializeField] private Material _heroBackgroundMaterial;
+
     [Header("Ability Information")]
     [TextArea(1, 2)][SerializeField] private string _basicAbilityName;
     [TextArea(4, 10)] [SerializeField] private string _basicAbilityDescription;
@@ -93,6 +95,7 @@ public class HeroSO : CharacterSO
     public Color GetHeroSelectedColor() => _heroSelectedColor;
     public Color GetHeroOutlineColor() => _heroOutlineColor;
     public Color GetHeroUIColor() => _heroUIColor;
+    public Material GetHeroBackgroundMaterial() => _heroBackgroundMaterial;
 
     public string GetHeroBasicAbilityName() => _basicAbilityName;
     public string GetHeroBasicAbilityDescription() => _basicAbilityDescription;

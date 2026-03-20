@@ -12,6 +12,11 @@ public class SBP_UnstablePrecipice : BossProjectileFramework
         PlayImpactScreenShake();
     }
 
+    public void CheckForEntomb()
+    {
+        
+    }
+
     private void PlayImpactSFX()
     {
         AudioManager.Instance.PlaySpecificAudio(

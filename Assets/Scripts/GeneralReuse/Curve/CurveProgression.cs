@@ -253,6 +253,12 @@ public class CurveProgression : MonoBehaviour
         InvokeOnCurveValueChanged();
     }
 
+    public void ForceSetCurveProgress(float progress)
+    {
+        _movementProgress = progress;
+        UpdateCurveProgress();
+    }
+
     #region MoveDelay
 
     private void StartMoveUpDelay()
@@ -364,6 +370,15 @@ public class CurveProgression : MonoBehaviour
     {
         return CurveStatus == ECurveStatus.Decreasing || CurveStatus == ECurveStatus.AtMinValue;
     }
+
+    #region Setters
+
+    public void SetHasStartingValue(bool hasStartingValue)
+    {
+        _hasDefaultValue = hasStartingValue;
+    }
+
+    #endregion
 }
 
 public enum ECurveStatus

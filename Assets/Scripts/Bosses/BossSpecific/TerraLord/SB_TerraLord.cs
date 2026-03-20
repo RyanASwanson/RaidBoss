@@ -407,6 +407,11 @@ public class SB_TerraLord : SpecificBossFramework
             _fallingRubbleAudioRateCurve.Evaluate(rubbleProgressPercent));
     }
     #endregion
+
+    public void TerraLordDebug()
+    {
+        _passiveHeroWeightMultiplier *= 2;
+    }
     
     #region BaseBoss
     /// <summary>

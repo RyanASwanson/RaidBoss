@@ -89,10 +89,21 @@ public class DebugScript : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Semicolon))
         {
-            if (SelectionManager.Instance.GetSelectedBoss().GetBossID() == 2)
+            switch (SelectionManager.Instance.GetSelectedBoss().GetBossID())
             {
-                SB_GlacialLord glacialLord = (SB_GlacialLord)BossBase.Instance.GetSpecificBossScript();
-                glacialLord.FreezeAllFrostFiends();
+                case 0:
+                    return;
+                case 1:
+                    SB_TerraLord.Instance.TerraLordDebug();
+                    return;
+                case 2:
+                    SB_GlacialLord glacialLord = (SB_GlacialLord)BossBase.Instance.GetSpecificBossScript();
+                    glacialLord.FreezeAllFrostFiends();
+                    return;
+                case 3:
+                    return;
+                default:
+                    return;
             }
         }
 

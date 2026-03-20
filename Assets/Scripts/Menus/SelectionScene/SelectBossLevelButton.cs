@@ -110,7 +110,21 @@ public class SelectBossLevelButton : MonoBehaviour, IPointerClickHandler
         }
         
         _resetEventSystemObject.ResetSelectedEventSystemObject();
+        
+        ToggleButtonPressed();
+    }
 
+    public void BossLevelSwapped()
+    {
+        SelectionManager.Instance.RemoveSelectedBoss();
+        UpdateBossIconColor(_defaultColor);
+        //BossLevelDeselect();
+        _resetEventSystemObject.ResetSelectedEventSystemObject();
+        ToggleButtonPressed();
+    }
+
+    public void ToggleButtonPressed()
+    {
         _buttonHasBeenPressed = !_buttonHasBeenPressed;
     }
     
@@ -138,8 +152,7 @@ public class SelectBossLevelButton : MonoBehaviour, IPointerClickHandler
 
     private void BossLevelSelect()
     {
-        SelectionManager.Instance.SetSelectedBoss(_associatedLevel.GetLevelBoss());
-        SelectionManager.Instance.SetSelectedLevel(_associatedLevel);
+        SelectionManager.Instance.SetSelectedLevelAndBoss(_associatedLevel);
 
         UpdateBossIconColor(_associatedLevel.GetLevelBoss().GetBossSelectedColor());
     }

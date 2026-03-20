@@ -50,6 +50,7 @@ public class SBP_StaticCharge : BossProjectileFramework
     
     public void StaticChargeHit(HeroBase heroTarget)
     {
+        Debug.Log("Hit Hero " +  _currentSwaps);
         _currentSwaps++;
         _previousTarget = _currentTarget;
         _currentTarget = heroTarget;

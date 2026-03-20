@@ -433,7 +433,6 @@ public class SelectionManager : MainUniversalManagerFramework
             InvokeBossSwapEvent(_selectedBoss);
         }
         
-
         _selectedBoss = bossSO;
 
         InvokeBossSelectionEvent(bossSO);

@@ -44,11 +44,12 @@ public class MapController : MonoBehaviour
     
     [Space]
     [Header("Backgrounds")]
-    [SerializeField] private CurveProgression[] _backgroundCurveProgressions;
+    /*[SerializeField] private CurveProgression[] _backgroundCurveProgressions;
     private CurveProgression _currentBackgroundCurveProgression;
     
     [SerializeField] private GeneralVFXFunctionality[] _backgroundParticles;
-    private GeneralVFXFunctionality _currentBackgroundParticles;
+    private GeneralVFXFunctionality _currentBackgroundParticles;*/
+    [SerializeField] private BossBackgroundChanger _bossBackgroundChanger;
 
     [Space]
     [Header("Camera")]
@@ -120,10 +121,6 @@ public class MapController : MonoBehaviour
         SubscribeToEvents();
         
         SelectionManager.Instance.SetSelectedGameMode(EGameMode.Missions);
-
-        HideAllBackgroundParticles();
-        // REMOVE THIS IF YOU ADD FUNCTIONALITY FOR STARTING ON A DIFFERENT MISSION THAN THE FIRST
-        ShowStartingBackgroundParticles();
 
         CreateMissions();
         SelectStartingMission();
@@ -207,6 +204,16 @@ public class MapController : MonoBehaviour
 
         PlayMissionSelectedAudio(mission);
     }
+
+    private void UpdateBackground(MissionSO mission)
+    {
+        if (!_previousSelectedMission.IsUnityNull() && mission.GetAssociatedLevel().GetLevelNumber() ==
+            _previousSelectedMission.GetAssociatedMission().GetAssociatedLevel().GetLevelNumber())
+        {
+            return;
+        }
+        _bossBackgroundChanger.UpdateBackground(mission.GetAssociatedLevel());
+    }
     
     private void DeselectSelectedMission()
     {
@@ -255,7 +262,7 @@ public class MapController : MonoBehaviour
     
     #region Background
 
-    private void UpdateBackground(MissionSO mission)
+    /*private void UpdateBackground(MissionSO mission)
     {
         if (!_previousSelectedMission.IsUnityNull() && mission.GetAssociatedLevel().GetLevelNumber() ==
             _previousSelectedMission.GetAssociatedMission().GetAssociatedLevel().GetLevelNumber())
@@ -317,7 +324,7 @@ public class MapController : MonoBehaviour
     private void ShowStartingBackgroundParticles()
     {
         ShowBackgroundParticles(SaveManager.Instance.GetMissionsInGame()[0]);
-    }
+    }*/
     
     #endregion
     
