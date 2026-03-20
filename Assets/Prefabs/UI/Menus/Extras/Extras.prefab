@@ -4602,6 +4602,7 @@ GameObject:
   - component: {fileID: 3770974280934953561}
   - component: {fileID: 7550512599446242593}
   - component: {fileID: 4209420847332430025}
+  - component: {fileID: 1526110379858605288}
   m_Layer: 0
   m_Name: CreditsButton
   m_TagString: Untagged
@@ -4724,6 +4725,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1526110379858605288}
+        m_TargetAssemblyTypeName: GeneralAchievementUnlocker, Assembly-CSharp
+        m_MethodName: UnlockAchievement
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &3770974280934953561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4796,6 +4809,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _requiresButtonInteractable: 0
   _buttonHoverEnterAudioID: 00000000
+--- !u!114 &1526110379858605288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5101857316754469347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aab49a4adcf8aad45a32fab6965dfc13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _achievementSO: {fileID: 11400000, guid: 8e68394215694264a843cc05fa7f64ee, type: 2}
 --- !u!1 &5176966529650568548
 GameObject:
   m_ObjectHideFlags: 0

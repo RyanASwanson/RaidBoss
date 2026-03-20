@@ -13,6 +13,8 @@ public class SB_ThunderLord : SpecificBossFramework
     [SerializeField] private GameObject _deathVFX;
     
     private GameObject _impendingStormTargetZone;
+
+    private bool _hasImpendingStormHit = false;
     
     #region BaseBoss
     
@@ -35,6 +37,21 @@ public class SB_ThunderLord : SpecificBossFramework
         
         Instantiate(_deathVFX, _bossVisualsBase.transform.position, Quaternion.identity);
     }
+    
+    protected override void CheckToUnlockSpecialistAchievement()
+    {
+        base.CheckToUnlockSpecialistAchievement();
+        
+        if (SelectionManager.Instance.GetSelectedDifficulty() < EGameDifficulty.Mythic)
+        {
+            return;
+        }
+        
+        if (!_hasImpendingStormHit)
+        {
+            UnlockedSpecialistAchievement();
+        }
+    }
     #endregion
 
     public void ChildGameObjectToImpendingStorm(GameObject childObject)
@@ -46,6 +63,9 @@ public class SB_ThunderLord : SpecificBossFramework
     
     #region Getters
     public SBA_ImpendingStorm GetImpendingStorm() => _impendingStorm;
-
     #endregion
+    
+    #region Setters
+    public void SetHasImpendingStormHit(bool hasHit) => _hasImpendingStormHit = hasHit;
+    #endregion 
 }

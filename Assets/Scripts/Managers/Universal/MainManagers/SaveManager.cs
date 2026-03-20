@@ -28,6 +28,9 @@ public class SaveManager : MainUniversalManagerFramework
     private const int HEROES_REQUIRED_FOR_FREE_PLAY = 3;
 
     private UnityEvent _onGameplaySaveDataReset = new UnityEvent();
+    
+    [Space]
+    [SerializeField] private AchievementSO _lordOfTheElementsAchievement;
 
     #region InitialValues
     
@@ -228,6 +231,30 @@ public class SaveManager : MainUniversalManagerFramework
                     [currentTempHero.GetHeroName()] = tempDifficulty;
             }
         }
+
+        CheckForLordOfTheElementsAchievement();
+    }
+
+    private void CheckForLordOfTheElementsAchievement()
+    {
+        if (SelectionManager.Instance.GetSelectedDifficulty() != EGameDifficulty.MythicPlus)
+        {
+            return;
+        }
+        
+        foreach (BossSO boss in _bossesInGame)
+        {
+            foreach (HeroSO heroSO in _heroesInGame)
+            {
+                if (GSD.GetGameplaySaveData().GetBossHeroBestDifficulty()[boss.GetBossName()][
+                        heroSO.GetHeroName()]!= EGameDifficulty.MythicPlus)
+                {
+                    return;
+                }
+            }
+        }
+        
+        AchievementManager.Instance.UnlockAchievement(_lordOfTheElementsAchievement);
     }
 
     private void DifficultyChanged(EGameDifficulty gameDifficulty)
@@ -662,6 +689,10 @@ public class GeneralSaveData
     [Range(0, 1)] public float MasterVolume = .5f;
     [Range(0, 1)] public float MusicVolume = .5f;
     [Range(0, 1)] public float SfxVolume = .5f;
+    
+    public Dictionary<string,int> MiscIntSettings = new();
+    public Dictionary<string,float> MiscFloatSettings = new();
+    public Dictionary<string,string> MiscStringSettings = new();
     
     #region Getters
     public string GetGameVersion() => GameVersion;

@@ -7,13 +7,46 @@ using UnityEngine;
 /// </summary>
 public class SB_MagmaLord : SpecificBossFramework
 {
+    public static SB_MagmaLord Instance;
+    
     [Space] 
     [SerializeField] private GameObject _deathEffect;
 
+    private bool _hasVolcanoBeenUsed = false;
+
+    
+    #region BaseBoss
+    protected override void CreateSpecificBossInstance()
+    {
+        Instance = this;
+    }
+    
     protected override void BossDied()
     {
         base.BossDied();
         Instantiate(_deathEffect, transform);
-        //Instantiate(_deathEffect, transform.position, transform.rotation);
     }
+
+    protected override void CheckToUnlockSpecialistAchievement()
+    {
+        base.CheckToUnlockSpecialistAchievement();
+        
+        if (SelectionManager.Instance.GetSelectedDifficulty() < EGameDifficulty.Mythic)
+        {
+            return;
+        }
+        
+        if (!_hasVolcanoBeenUsed)
+        {
+            UnlockedSpecialistAchievement();
+        }
+    }
+    
+    #endregion
+
+    #region Setters
+
+    public void SetHasVolcanoBeenUsed(bool hasVolcanoBeenUsed) => _hasVolcanoBeenUsed = hasVolcanoBeenUsed;
+
+    #endregion
 }

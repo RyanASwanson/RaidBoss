@@ -165,9 +165,17 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
 
         foreach (BlizzardTargets targets in _activeTargets)
         {
-            if (targets.AreAnyMinionsFrozen()) continue;
+            if (targets.AreAnyMinionsFrozen())
+            {
+                continue;
+            }
 
             Instantiate(_blizzard, targets.GetAttackLocation(), Quaternion.identity);
+
+            foreach (GlacialLord_FrostFiend fiend in targets.GetAssociatedFiends())
+            {
+                fiend.SetHasFrostFiendAttacked(true);
+            }
         }
 
         _activeTargets.Clear();

@@ -147,6 +147,8 @@ public class SBA_Volcano : SpecificBossAbilityFramework
     /// </summary>
     protected override void AbilityStart()
     {
+        SB_MagmaLord.Instance.SetHasVolcanoBeenUsed(true);
+        
         _damageZoneSpawningProcess = StartCoroutine(VolcanoDamageCreationProcess());
 
         base.AbilityStart();

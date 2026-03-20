@@ -73,6 +73,27 @@ public class SB_GlacialLord : SpecificBossFramework
     #endregion
 
     #region BaseBoss
+    
+    protected override void CheckToUnlockSpecialistAchievement()
+    {
+        base.CheckToUnlockSpecialistAchievement();
+        
+        if (SelectionManager.Instance.GetSelectedDifficulty() < EGameDifficulty.Mythic)
+        {
+            return;
+        }
+
+        foreach (GlacialLord_FrostFiend fiend in _allFrostFiends)
+        {
+            if (!fiend.GetHasFrostFiendAttacked())
+            {
+                UnlockedSpecialistAchievement();
+                return;
+            }
+        }
+        
+        
+    }
 
     public override void SubscribeToEvents()
     {

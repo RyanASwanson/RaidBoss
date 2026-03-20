@@ -85,8 +85,13 @@ public class SBP_FollowingMeteor : BossProjectileFramework
                 speedScalar = _projectileSpeedCurve.Evaluate(speedProgress);
             }
             
-            
             transform.position += moveDirection * (_projectileSpeed * speedScalar * Time.deltaTime);
+            
+            float centerDistance = Mathf.Abs(transform.position.x) + Mathf.Abs(transform.position.z);
+            if (!_isMeteorBeingRemoved && centerDistance > EnvironmentManager.Instance.GetMapRadius())
+            {
+                StartMapEdgeRemoval();
+            }
 
             yield return null;
         }
@@ -111,13 +116,10 @@ public class SBP_FollowingMeteor : BossProjectileFramework
         _isMeteorBeingRemoved = true;
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void StartMapEdgeRemoval()
     {
-        if (!_isMeteorBeingRemoved && other.gameObject.layer == EnvironmentManager.Instance.GetMapBorderLayerID())
-        {
-            _isMeteorBeingRemoved = true;
-            StartCoroutine(MapEdgeRemovalDelay());
-        }
+        _isMeteorBeingRemoved = true;
+        StartCoroutine(MapEdgeRemovalDelay());
     }
 
     private IEnumerator MapEdgeRemovalDelay()

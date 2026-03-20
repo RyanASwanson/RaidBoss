@@ -65,6 +65,10 @@ public class BossSO : CharacterSO
     [Header("Ability Information")]
     [SerializeField] private List<BossAbilityInformation> _bossAbilities;
     
+    [Header("Achievements")]
+    [SerializeField] protected AchievementSO[] _associatedAchievements;
+
+    private const int _bossSpecialistAchievementID = 0;
 
     #region Getters
     public string GetBossName() => _name;
@@ -108,6 +112,19 @@ public class BossSO : CharacterSO
     public Sprite GetBossSelectionIcon() => _bossSelectionIcon;
 
     public List<BossAbilityInformation> GetBossAbilityInformation() => _bossAbilities;
+
+    public AchievementSO[] GetAssociatedAchievements() => _associatedAchievements;
+
+    public AchievementSO GetAssociatedSpecialistAchievement()
+    {
+        if (_associatedAchievements.Length < _bossSpecialistAchievementID + 1)
+        {
+            return null;
+        }
+        
+        return _associatedAchievements[_bossSpecialistAchievementID];
+    }
+
     #endregion
 }
 

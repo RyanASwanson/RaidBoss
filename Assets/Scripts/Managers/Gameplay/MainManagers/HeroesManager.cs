@@ -17,6 +17,10 @@ public class HeroesManager : MainGameplayManagerFramework
     
     [Tooltip("The time between each hero being initially spawned")]
     [SerializeField] private float _heroSpawnInterval;
+    
+    [Space]
+    [Header("Achievements")]
+    [SerializeField] private AchievementSO _clutchAchievement;
 
     private List<HeroBase> _currentHeroes = new List<HeroBase>();
     private List<HeroBase> _currentLivingHeroes = new List<HeroBase>();
@@ -138,6 +142,19 @@ public class HeroesManager : MainGameplayManagerFramework
         }
     }
 
+    private void BattleWon()
+    {
+        if (SelectionManager.Instance.GetSelectedDifficulty() < EGameDifficulty.Mythic)
+        {
+            return;
+        }
+
+        if (_currentLivingHeroes.Count <= 1)
+        {
+            AchievementManager.Instance.UnlockAchievement(_clutchAchievement);
+        }
+    }
+
     #region BaseManager
     /// <summary>
     /// Establishes the Instance for the HeroesManager
@@ -152,6 +169,8 @@ public class HeroesManager : MainGameplayManagerFramework
     {
         base.SubscribeToEvents();
         GameStateManager.Instance.GetStartOfCharacterSpawningEvent().AddListener(StartHeroSpawning);
+        
+        GameStateManager.Instance.GetBattleWonEvent().AddListener(BattleWon);
     }
 
     #endregion

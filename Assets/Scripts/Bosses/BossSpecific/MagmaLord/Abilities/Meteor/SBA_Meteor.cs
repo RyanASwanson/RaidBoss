@@ -19,7 +19,7 @@ public class SBA_Meteor : SpecificBossAbilityFramework
 
     private GameObject _storedFallingMeteor;
     private SBP_FallingMeteor _storedFallingMeteorFunc;
-    private GameObject _storedMovingMeteor;
+    private SBP_FollowingMeteor _storedMovingMeteor;
 
     public const int METEOR_PROJECTILE_IMPACT_AUDIO_ID = 0;
     
@@ -113,8 +113,8 @@ public class SBA_Meteor : SpecificBossAbilityFramework
             FallingMeteorContact();
 
             _storedTargetLocation = new Vector3(_storedTargetLocation.x, -.3f, _storedTargetLocation.z);
-            _storedMovingMeteor = Instantiate(_movingMeteor, _storedTargetLocation, Quaternion.identity);
-            _storedMovingMeteor.GetComponent<SBP_FollowingMeteor>().AdditionalSetUp(_storedHeroLocation);
+            _storedMovingMeteor = Instantiate(_movingMeteor, _storedTargetLocation, Quaternion.identity).GetComponent<SBP_FollowingMeteor>();
+            _storedMovingMeteor.AdditionalSetUp(_storedHeroLocation);
         }
         
         base.AbilityStart();
@@ -126,6 +126,11 @@ public class SBA_Meteor : SpecificBossAbilityFramework
         if (!_storedFallingMeteor.IsUnityNull())
         {
             _storedFallingMeteorFunc.StopFallingMeteor();
+        }
+
+        if (!_storedMovingMeteor.IsUnityNull())
+        {
+            _storedMovingMeteor.StartMapEdgeRemoval();
         }
     }
     #endregion

@@ -74,6 +74,9 @@ public class SB_TerraLord : SpecificBossFramework
 
     public const int RUBBLE_FALL_AUDIO_ID = 0;
     
+    private bool _hasPassiveExceededThreshold = false;
+    private const float SPECIALIST_ACHIEVEMENT_THRESHOLD = 0.75f;
+    
     #region Passive
 
     private void SetUpPassive()
@@ -230,6 +233,12 @@ public class SB_TerraLord : SpecificBossFramework
         _passiveCounterValue = Mathf.Clamp(_passiveCounterValue, -_passiveMaxValue, _passiveMaxValue);
         
         _passiveCounterProgressTowardsMax = Mathf.Abs(_passiveCounterValue / _passiveMaxValue);
+
+        if (!_hasPassiveExceededThreshold && 
+            (_passiveCounterProgressTowardsMax > SPECIALIST_ACHIEVEMENT_THRESHOLD || _passiveCounterProgressTowardsMax < -SPECIALIST_ACHIEVEMENT_THRESHOLD))
+        {
+            _hasPassiveExceededThreshold = true;
+        }
         
         //Debug.Log("End result" + val);
 
@@ -462,6 +471,21 @@ public class SB_TerraLord : SpecificBossFramework
         StopPassiveProcess();
 
         _unstablePrecipice.StopBossAbility();
+    }
+    
+    protected override void CheckToUnlockSpecialistAchievement()
+    {
+        base.CheckToUnlockSpecialistAchievement();
+        
+        if (SelectionManager.Instance.GetSelectedDifficulty() < EGameDifficulty.Mythic)
+        {
+            return;
+        }
+        
+        if (!_hasPassiveExceededThreshold)
+        {
+            UnlockedSpecialistAchievement();
+        }
     }
 
     #endregion

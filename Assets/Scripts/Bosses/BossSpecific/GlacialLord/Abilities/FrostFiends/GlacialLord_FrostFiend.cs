@@ -54,6 +54,8 @@ public class GlacialLord_FrostFiend : BossMinionBase
     private const int FROST_FIEND_FREEZE_CRACKED_AUDIO_ID = 1;
     private const int FROST_FIEND_UNFROZEN_AUDIO_ID = 2;
 
+    private bool _hasFrostFiendAttacked = false;
+
     public void AdditionalSetUp(float freezeDuration)
     {
         _freezeDuration = freezeDuration;
@@ -243,5 +245,11 @@ public class GlacialLord_FrostFiend : BossMinionBase
     public bool IsMinionFrozen() => _isMinionFrozen;
     
     public UnityEvent GetOnMinionFrozen() => _onMinionFrozen;
+    
+    public bool GetHasFrostFiendAttacked() => _hasFrostFiendAttacked;
     #endregion
+    
+    #region Setters
+    public void SetHasFrostFiendAttacked(bool hasAttacked) => _hasFrostFiendAttacked = hasAttacked;
+    #endregion 
 }

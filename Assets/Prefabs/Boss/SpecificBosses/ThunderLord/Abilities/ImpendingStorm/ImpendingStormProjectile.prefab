@@ -5082,6 +5082,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _floatDestroyDelay: 0
+  _doesSetDefaultStartPositionOnStart: 0
   _hasDefaultStartPosition: 1
   _defaultStartPosition: {x: -0.15, y: 0, z: 0}
   _defaultEndPosition: {x: 0.15, y: 0, z: 0}
@@ -5109,6 +5110,8 @@ MonoBehaviour:
   _hasDefaultValue: 0
   _defaultValue: 0
   _doesResetToDefaultProgressOnEnable: 0
+  _doesStartMovingUpOnEnable: 0
+  _doesStartMovingInCurrentDirectionOnEnable: 0
   _doesAutomaticallyMoveDownOnHittingMax: 1
   _doesAutomaticallyMoveUpOnHittingMin: 1
   _hasIncreaseDelay: 0
@@ -5300,8 +5303,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _doesBeginRotationOnEnable: 1
   _doesResetRotationOnRotationEnable: 0
+  _doesResetLocalRotationOnRotationEnable: 0
+  _doesResetRotationToDefaultOnEnable: 0
+  _doesUseLocalEulerAngles: 0
   _rotationPerSecond: {x: 0, y: 360, z: 0}
   _rotationIndepedentParent: {fileID: 0}
+  _hasStartRotationOverride: 0
+  _startRotationOverride: {x: 0, y: 0, z: 0}
   _targetLocalEulerAngles: {x: 0, y: 0, z: 0}
   _curveProgression: {fileID: 0}
 --- !u!114 &1127307488675851200
@@ -5316,9 +5324,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd1d04d370a8bca419d81d8abad819bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _doesBeginScalingOnEnable: 0
-  _doesResetScaleOnScalingEnable: 0
-  _scalingTime: 0
   _hasOverrideStartingScale: 1
   _overrideStartingScale: {x: 0, y: 0, z: 0}
   _endingScale: {x: 1, y: 1, z: 1}
@@ -5343,6 +5348,8 @@ MonoBehaviour:
   _hasDefaultValue: 0
   _defaultValue: 0
   _doesResetToDefaultProgressOnEnable: 0
+  _doesStartMovingUpOnEnable: 0
+  _doesStartMovingInCurrentDirectionOnEnable: 0
   _doesAutomaticallyMoveDownOnHittingMax: 0
   _doesAutomaticallyMoveUpOnHittingMin: 0
   _hasIncreaseDelay: 0
@@ -5466,6 +5473,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 3
+  _doesMoveForwardOnEnable: 0
   _curveProgression: {fileID: 7473947792879290712}
 --- !u!114 &7473947792879290712
 MonoBehaviour:
@@ -5487,6 +5495,8 @@ MonoBehaviour:
   _hasDefaultValue: 1
   _defaultValue: 0
   _doesResetToDefaultProgressOnEnable: 0
+  _doesStartMovingUpOnEnable: 0
+  _doesStartMovingInCurrentDirectionOnEnable: 0
   _doesAutomaticallyMoveDownOnHittingMax: 0
   _doesAutomaticallyMoveUpOnHittingMin: 0
   _hasIncreaseDelay: 0
@@ -5580,7 +5590,19 @@ MonoBehaviour:
   _stayDamagePerTick: 3
   _stayEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7473947792879290713}
+        m_TargetAssemblyTypeName: SBP_ImpendingStorm, Assembly-CSharp
+        m_MethodName: ImpendingStormHit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _exitDamage: 0
   _exitEvent:
     m_PersistentCalls:
