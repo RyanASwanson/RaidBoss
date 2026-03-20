@@ -388,6 +388,7 @@ public class SelectionManager : MainUniversalManagerFramework
     public List<HeroSO> GetAllSelectedHeroes() => _selectedHeroes;
     public HeroSO GetHeroAtValue(int val) => _selectedHeroes[val];
     public HeroSO GetHeroAtLastPostion() => GetHeroAtValue(GetSelectedHeroesCount() - 1);
+    public float GetHeroSelectionProgress() => (float)_selectedHeroes.Count / GetHeroLimitFromDifficulty();
     public int GetSelectedHeroesCount() => _selectedHeroes.Count;
     public int GetDefaultMaxHeroesCount() => _maxHeroes;
     public int GetMaxHeroesCountWithCurrentDifficulty() => GetHeroLimitFromDifficulty();

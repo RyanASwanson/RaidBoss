@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -84,6 +85,9 @@ public class SelectionController : MonoBehaviour
     [Header("Hero")]
     [SerializeField] private List<HeroPillar> _heroPillars = new List<HeroPillar>();
 
+    [SerializeField] private AnimationCurve _heroProgressBackgroundCurve;
+    [SerializeField] private GameObject _heroProgressBackground;
+    
     [SerializeField] private List<MeshRenderer> _heroBackgrounds;
     
     [SerializeField] private List<SelectHeroButton> _heroSelectionButtons = new List<SelectHeroButton>();
@@ -796,7 +800,21 @@ public class SelectionController : MonoBehaviour
 
     private void Update()
     {
-        UpdateAllHeroBackgrounds();
+        UpdateHeroProgressBackground();
+        //UpdateAllHeroBackgrounds();
+    }
+
+    private void UpdateHeroProgressBackground()
+    {
+        float heroProgress = Mathf.Lerp(0, 18, _heroProgressBackgroundCurve.Evaluate(SelectionManager.Instance.GetHeroSelectionProgress()));
+        
+        _heroProgressBackground.transform.localScale = new Vector3(heroProgress,
+            _heroProgressBackground.transform.localScale.y, _heroProgressBackground.transform.localScale.z);
+    }
+
+    private IEnumerator UpdateHeroProgressBackgroundProcess()
+    {
+        yield return null;
     }
 
     private void UpdateAllHeroBackgrounds()
@@ -822,8 +840,6 @@ public class SelectionController : MonoBehaviour
         {
             _heroBackgrounds[backgroundID].enabled = false;
         }
-        
-        
     }
 
 

@@ -10,6 +10,12 @@ public class BossPillar : MonoBehaviour
 {
     [SerializeField] private GameObject _bossSpawnPoint;
     [SerializeField] private Animator _bossSpawnAnimator;
+    
+    [Space]
+    [SerializeField] private MeshRenderer[] _bossPlatformRenderers;
+
+    [SerializeField] private CurveProgression _squishScaleCurve;
+    [SerializeField] private CurveProgression _selectionScaleCurve;
 
     private GameObject _currentBossVisual;
 
@@ -52,6 +58,8 @@ public class BossPillar : MonoBehaviour
         
         _currentBossVisual.transform.eulerAngles += new Vector3(0, 315, 0);
         _storedBoss = bossSO;
+
+        UpdateBossPlatform();
         
         if (_bossSelectedOnPillar == bossSO)
         {
@@ -71,6 +79,7 @@ public class BossPillar : MonoBehaviour
         
         PlayBossHoverAnimation();
         _bossSpawnAnimator.ResetTrigger(REMOVE_BOSS_ON_PILLAR_ANIM_TRIGGER);
+        //_squishScaleCurve.StartMovingUpOnCurve();
     }
 
     public void BossSelectedOnPillar()
@@ -79,6 +88,7 @@ public class BossPillar : MonoBehaviour
         
         StartBossSelectedAnimation();
         PlayBossIdleAnimation();
+        //_selectionScaleCurve.StartMovingUpOnCurve();
     }
 
     public void RemoveBossOnPillar()
@@ -93,6 +103,7 @@ public class BossPillar : MonoBehaviour
         _storedBoss = null;
         _bossSelectedOnPillar = null;
         SetPillarBossPreviewAnimation(false);
+        //_selectionScaleCurve.StartMovingDownOnCurve();
     }
 
     public void AnimateOutBossOnPillar()
@@ -120,6 +131,20 @@ public class BossPillar : MonoBehaviour
     public void PlayBossIdleAnimation()
     {
         _bossSpecificAnimator.SetBool(BossVisuals.SPECIFIC_BOSS_IDLE_ANIM_BOOL,true);
+    }
+
+    private void UpdateBossPlatform()
+    {
+        foreach (MeshRenderer meshRenderer in _bossPlatformRenderers)
+        {
+            if (_bossPlatformRenderers.IsUnityNull())
+            {
+                continue;
+            }
+
+            meshRenderer.material = _storedBoss.GetMiniFloorMaterial();
+        }
+        
     }
 
     #region Getters
