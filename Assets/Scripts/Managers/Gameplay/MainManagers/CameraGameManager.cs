@@ -27,6 +27,9 @@ public class CameraGameManager : MainGameplayManagerFramework
 
     [Header("Boss Stagger")]
     [SerializeField] private CinemachineCameraShakeData _bossStaggerShake;
+    
+    [Header("Boss Enrage")]
+    [SerializeField] private CinemachineCameraShakeData _bossEnrageShake;
 
     [Header("Boss Death")]
     [SerializeField] private CinemachineCameraShakeData _bossDeathShake;
@@ -119,6 +122,11 @@ public class CameraGameManager : MainGameplayManagerFramework
     private void CameraShakeOnBossStagger()
     {
         StartCameraShake(_bossStaggerShake);
+    }
+
+    private void CameraShakeOnBossEnrage()
+    {
+        StartCameraShake(_bossEnrageShake);
     }
 
     private void CameraShakeOnBossDeath()
@@ -216,6 +224,8 @@ public class CameraGameManager : MainGameplayManagerFramework
     protected override void SubscribeToEvents()
     {
         BossBase.Instance.GetBossStaggeredEvent().AddListener(CameraShakeOnBossStagger);
+        
+        BossBase.Instance.GetBossEnragedEvent().AddListener(CameraShakeOnBossEnrage);
         
         GameStateManager.Instance.GetBattleWonEvent().AddListener(CameraShakeOnBossDeath);
     }

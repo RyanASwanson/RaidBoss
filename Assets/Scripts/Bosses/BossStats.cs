@@ -44,7 +44,9 @@ public class BossStats : BossChildrenFunctionality
     private Coroutine _enrageCoroutine;
     
     [SerializeField] private float _bossEnrageWarningTime;
+    [SerializeField] private float _bossEnrageImpendingTime;
     private bool _hasEnrageWarningBegun = false;
+    private bool _hasEnrageImpendingBegun = false;
 
     private float _bossEnragedWarningProgress = 0;
 
@@ -273,28 +275,18 @@ public class BossStats : BossChildrenFunctionality
     {
         while(_currentTimeUntilEnrage > 0)
         {
-            _currentTimeUntilEnrage -= Time.deltaTime;
-            _timeUntilEnrageProgress = 1 - (_currentTimeUntilEnrage / _enrageMaxTime);
-            _myBossBase.InvokeBossEnrageProgressUpdatedEvent(_timeUntilEnrageProgress);
-
-            if (!_hasEnrageWarningBegun)
-            {
-                if (_currentTimeUntilEnrage <= _bossEnrageWarningTime)
-                {
-                    _hasEnrageWarningBegun = true;
-                    BeginBossEnrageWarning();
-                }
-            }
-            else
-            {
-                _bossEnragedWarningProgress = 1 - (_currentTimeUntilEnrage / _bossEnrageWarningTime);
-                BossBase.Instance.InvokeBossEnrageCountdownProgressUpdatedEvent(_bossEnragedWarningProgress);
-            }
+            DecreaseTimeUntilEnraged(Time.deltaTime);
             
             yield return null;
         }
 
         EnrageMax();
+    }
+
+    private void BossEnrageImpending()
+    {
+        AudioManager.Instance.PlaySpecificAudio(AudioManager.Instance.GeneralBossAudio.EnrageAudio.BossEnrageImpending);
+        _hasEnrageImpendingBegun = true;
     }
     
     public void BeginBossEnrageWarning()
@@ -307,10 +299,11 @@ public class BossStats : BossChildrenFunctionality
     /// </summary>
     private void EnrageMax()
     {
-        Debug.Log("Boss Enraged");
         _isBossEnraged = true;
         _bossEnrageDamageMultiplier = _storedEnrageMultiplier;
         _myBossBase.InvokeBossEnragedEvent();
+        
+        AudioManager.Instance.PlaySpecificAudio(AudioManager.Instance.GeneralBossAudio.EnrageAudio.BossEnrageStarted);
 
         StartScalingEnrageMultiplier();
     }
@@ -430,6 +423,32 @@ public class BossStats : BossChildrenFunctionality
         _currentStaggerCounter += stagger;
         _myBossBase.InvokeBossStaggerDealt(stagger);
         CheckIfBossIsStaggered();
+    }
+
+    public void DecreaseTimeUntilEnraged(float enrageTime)
+    {
+        _currentTimeUntilEnrage -= enrageTime;
+        _timeUntilEnrageProgress = 1 - (_currentTimeUntilEnrage / _enrageMaxTime);
+        _myBossBase.InvokeBossEnrageProgressUpdatedEvent(_timeUntilEnrageProgress);
+
+        if (!_hasEnrageWarningBegun)
+        {
+            if (_currentTimeUntilEnrage <= _bossEnrageWarningTime)
+            {
+                _hasEnrageWarningBegun = true;
+                BeginBossEnrageWarning();
+            }
+        }
+        else
+        {
+            if (!_hasEnrageImpendingBegun && _currentTimeUntilEnrage <= _bossEnrageImpendingTime)
+            {
+                BossEnrageImpending();
+            }
+                
+            _bossEnragedWarningProgress = 1 - (_currentTimeUntilEnrage / _bossEnrageWarningTime);
+            BossBase.Instance.InvokeBossEnrageCountdownProgressUpdatedEvent(_bossEnragedWarningProgress);
+        }
     }
 
     public void MultiplyBossDamageMultiplier(float amount)

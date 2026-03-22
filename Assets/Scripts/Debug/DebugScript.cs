@@ -42,6 +42,11 @@ public class DebugScript : MonoBehaviour
         {
             SaveManager.Instance.UnlockNextMissions();
         }
+
+        if (Input.GetKeyDown(KeyCode.Minus) || Input.GetKeyDown(KeyCode.Underscore))
+        {
+            BossStats.Instance.DecreaseTimeUntilEnraged(30);
+        }
         
         if(Input.GetKeyDown(KeyCode.Y))
         {

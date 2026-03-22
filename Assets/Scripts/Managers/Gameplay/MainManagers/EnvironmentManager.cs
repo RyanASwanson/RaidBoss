@@ -31,7 +31,12 @@ public class EnvironmentManager : MainGameplayManagerFramework
     [SerializeField] private MeshRenderer _lowerFloor1;
     [SerializeField] private MeshRenderer _lowerFloor2;
     [SerializeField] private MeshRenderer _backWall;
+    
+    [Space]
+    [Header("Boss Particles")]
+    [SerializeField] private float _bossEnragedParticleMultiplier;
     [SerializeField] private GameObject _backgroundParticleBase;
+    private GeneralVFXFunctionality _bossBackgroundParticles;
 
     [Space]
     [SerializeField] private float _battleWonEffectDuration;
@@ -60,7 +65,24 @@ public class EnvironmentManager : MainGameplayManagerFramework
         
         _backWall.material = BossBase.Instance.GetBossSO().GetBackgroundMaterial();
         
-        Instantiate(BossBase.Instance.GetBossSO().GetBackgroundParticles(), _backgroundParticleBase.transform);
+        _bossBackgroundParticles = 
+            Instantiate(BossBase.Instance.GetBossSO().GetBackgroundParticles(), _backgroundParticleBase.transform)
+                .GetComponent<GeneralVFXFunctionality>();
+    }
+
+    private void BossEnraged()
+    {
+        UpdateBossParticleEmissionMultiplier();
+    }
+
+    private void UpdateBossParticleEmissionMultiplier()
+    {
+        float multiplier = 1;
+        if (BossStats.Instance.GetIsBossEnraged())
+        {
+            multiplier *= _bossEnragedParticleMultiplier;
+        }
+        _bossBackgroundParticles.SetEmissionRateMultiplier(multiplier);
     }
 
     #region BaseManager
@@ -82,6 +104,7 @@ public class EnvironmentManager : MainGameplayManagerFramework
     protected override void SubscribeToEvents()
     {
         //GameStateManager.Instance.GetBattleWonEvent().AddListener(BattleWon);
+        BossBase.Instance.GetBossEnragedEvent().AddListener(BossEnraged);
     }
     #endregion
 

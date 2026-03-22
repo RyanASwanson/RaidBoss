@@ -112,6 +112,35 @@ MonoBehaviour:
             Data3: 879488155
             Data4: -342192165
           Path: event:/SoundEffect/Bosses/GeneralBosses/TargetZone/BossTargetZoneSpawned
+    EnrageAudio:
+      BossEnrageImpending:
+        AudioName: EnrageImpending
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: -691556757
+            Data2: 1288240633
+            Data3: -1694152543
+            Data4: -1653650902
+          Path: event:/SoundEffect/Bosses/GeneralBosses/Enrage/EnrageImpending/BossEnrageImpending
+      BossEnrageStarted:
+        AudioName: EnrageStarted
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: 1688683727
+            Data2: 1212789429
+            Data3: 34754475
+            Data4: -1071219059
+          Path: event:/SoundEffect/Bosses/GeneralBosses/Enrage/EnrageStarted/BossEnrageStarted
   AllSpecificBossAudio:
   - AssociatedBoss: MagmaLord
     SelectionSelectedAudio:
