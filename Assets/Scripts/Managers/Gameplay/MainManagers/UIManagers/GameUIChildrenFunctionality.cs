@@ -23,6 +23,11 @@ public abstract class GameUIChildrenFunctionality : MonoBehaviour
         
     }
 
+    protected virtual void OnDestroy()
+    {
+        UnsubscribeFromEvents();
+    }
+
     /// <summary>
     /// Subscribes to any events
     /// </summary>
@@ -31,4 +36,8 @@ public abstract class GameUIChildrenFunctionality : MonoBehaviour
         
     }
 
+    protected virtual void UnsubscribeFromEvents()
+    {
+        
+    }
 }

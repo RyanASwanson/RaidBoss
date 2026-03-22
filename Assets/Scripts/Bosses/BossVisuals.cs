@@ -188,8 +188,6 @@ public class BossVisuals : BossChildrenFunctionality
         BossSpecificStaggerAnimTrigger();
     }
 
-    
-
     private void BossSpecificLevelIntroTrigger()
     {
         StartBossSpecificAnimationTrigger(SPECIFIC_BOSS_LEVEL_INTRO_ANIM_TRIGGER);
@@ -301,7 +299,7 @@ public class BossVisuals : BossChildrenFunctionality
     #endregion
 
     #region Getters
-
+    
     #endregion
 
     #region Setters

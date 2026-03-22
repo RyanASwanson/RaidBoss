@@ -39,7 +39,14 @@ public class BossStats : BossChildrenFunctionality
     private float _storedScalingEnrageDamageMultiplier = 1;
 
     private float _currentTimeUntilEnrage;
+    private float _enrageMaxTime;
+    private float _timeUntilEnrageProgress = 0;
     private Coroutine _enrageCoroutine;
+    
+    [SerializeField] private float _bossEnrageWarningTime;
+    private bool _hasEnrageWarningBegun = false;
+
+    private float _bossEnragedWarningProgress = 0;
 
     #region Set Up
     /// <summary>
@@ -70,7 +77,8 @@ public class BossStats : BossChildrenFunctionality
         //Sets the damage dealt multiplier based on the difficulty
         _baseBossDamageMultiplier = SelectionManager.Instance.GetDamageMultiplierFromDifficulty();
 
-        _currentTimeUntilEnrage = bossSO.GetEnrageTime();
+        _enrageMaxTime = bossSO.GetEnrageTime();
+        _currentTimeUntilEnrage = _enrageMaxTime;
         _storedEnrageMultiplier = bossSO.GetEnrageDamageMultiplier();
 
         // Gets the scaling enrage damage multiplier rate and divides it by 60 to get the rate in seconds
@@ -266,10 +274,32 @@ public class BossStats : BossChildrenFunctionality
         while(_currentTimeUntilEnrage > 0)
         {
             _currentTimeUntilEnrage -= Time.deltaTime;
+            _timeUntilEnrageProgress = 1 - (_currentTimeUntilEnrage / _enrageMaxTime);
+            _myBossBase.InvokeBossEnrageProgressUpdatedEvent(_timeUntilEnrageProgress);
+
+            if (!_hasEnrageWarningBegun)
+            {
+                if (_currentTimeUntilEnrage <= _bossEnrageWarningTime)
+                {
+                    _hasEnrageWarningBegun = true;
+                    BeginBossEnrageWarning();
+                }
+            }
+            else
+            {
+                _bossEnragedWarningProgress = 1 - (_currentTimeUntilEnrage / _bossEnrageWarningTime);
+                BossBase.Instance.InvokeBossEnrageCountdownProgressUpdatedEvent(_bossEnragedWarningProgress);
+            }
+            
             yield return null;
         }
 
         EnrageMax();
+    }
+    
+    public void BeginBossEnrageWarning()
+    {
+        BossBase.Instance.InvokeBossEnrageCountdownBegunEvent();
     }
 
     /// <summary>
