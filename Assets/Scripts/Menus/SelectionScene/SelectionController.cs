@@ -88,8 +88,19 @@ public class SelectionController : MonoBehaviour
     [Header("Hero")]
     [SerializeField] private List<HeroPillar> _heroPillars = new List<HeroPillar>();
 
+    [SerializeField] private float _heroProgressBackgroundMoveTime;
+    [SerializeField] private float _heroProgressBackgroundMaxSize;
+    [SerializeField] private AnimationCurve _heroProgressBackgroundMoveCurve;
+    
     [SerializeField] private AnimationCurve _heroProgressBackgroundCurve;
     [SerializeField] private GameObject _heroProgressBackground;
+
+    private float _heroProgressBackgroundStartPosition;
+    private float _heroProgressBackgroundEndPosition;
+
+    private float _heroProgressBackgroundMoveProgress;
+
+    private Coroutine _heroProgressBackgroundMoveProcessCoroutine;
     
     [SerializeField] private List<MeshRenderer> _heroBackgrounds;
     
@@ -703,6 +714,8 @@ public class SelectionController : MonoBehaviour
         ShowHeroPreviewPillars();
             
         _previousMaxHeroes = SelectionManager.Instance.GetMaxHeroesCountWithCurrentDifficulty();
+        
+        StartUpdateHeroProgressBackgroundProcess();
         CheckMaxCharactersSelectionStatus();
     }
 
@@ -715,9 +728,8 @@ public class SelectionController : MonoBehaviour
             if (SelectionManager.Instance.GetAllSelectedHeroes().Count > i)
             {
                 heroesToRemove.Add(SelectionManager.Instance.GetAllSelectedHeroes()[i]);
-                //_heroPillars[i].ShowPreviewPillar(false);
             }
-            //_heroPillars[i].MovePillar(false);
+
             MoveHeroPillar(i, false);
 
         }
@@ -756,6 +768,7 @@ public class SelectionController : MonoBehaviour
         
         PlayHeroSelectedAudio(heroSO);
 
+        StartUpdateHeroProgressBackgroundProcess();
         CheckMaxCharactersSelected();
     }
 
@@ -780,6 +793,7 @@ public class SelectionController : MonoBehaviour
         _heroPillars[SelectionManager.Instance.GetIndexOfLastHeroRemoved()].DeselectHeroOnPillar();
         RearrangeHeroesOnPillars();
 
+        StartUpdateHeroProgressBackgroundProcess();
         CheckMaxCharactersNoLongerSelected();
     }
 
@@ -839,26 +853,51 @@ public class SelectionController : MonoBehaviour
         _heroPillars[pillarNum].MovePillar(moveUp);
     }
 
-    private void Update()
+    #region HeroBackgrounds
+
+    private void StartUpdateHeroProgressBackgroundProcess()
     {
-        UpdateHeroProgressBackground();
-        //UpdateAllHeroBackgrounds();
+        StopUpdateHeroProgressBackgroundProcess();
+
+        _heroProgressBackgroundStartPosition = _heroProgressBackground.transform.localScale.x;
+        _heroProgressBackgroundEndPosition = Mathf.Lerp(0, _heroProgressBackgroundMaxSize,
+            _heroProgressBackgroundCurve.Evaluate(SelectionManager.Instance.GetHeroSelectionProgress()));
+
+        _heroProgressBackgroundMoveProcessCoroutine = StartCoroutine(UpdateHeroProgressBackgroundProcess());
     }
 
-    private void UpdateHeroProgressBackground()
+    private void StopUpdateHeroProgressBackgroundProcess()
     {
-        float heroProgress = Mathf.Lerp(0, 18, _heroProgressBackgroundCurve.Evaluate(SelectionManager.Instance.GetHeroSelectionProgress()));
-        
-        _heroProgressBackground.transform.localScale = new Vector3(heroProgress,
-            _heroProgressBackground.transform.localScale.y, _heroProgressBackground.transform.localScale.z);
+        if (!_heroProgressBackgroundMoveProcessCoroutine.IsUnityNull())
+        {
+            StopCoroutine(_heroProgressBackgroundMoveProcessCoroutine);
+        }
     }
 
     private IEnumerator UpdateHeroProgressBackgroundProcess()
     {
-        yield return null;
+        float moveTimer = 0;
+        
+        while (moveTimer < 1)
+        {
+            moveTimer += Time.deltaTime / _heroProgressBackgroundMoveTime;
+            _heroProgressBackgroundMoveProgress = moveTimer;
+            UpdateHeroProgressBackground(_heroProgressBackgroundMoveProgress);
+            yield return null;
+        }
     }
 
-    private void UpdateAllHeroBackgrounds()
+    private void UpdateHeroProgressBackground(float moveProgress)
+    {
+        float heroProgress = Mathf.Lerp(_heroProgressBackgroundStartPosition, _heroProgressBackgroundEndPosition, 
+            _heroProgressBackgroundMoveCurve.Evaluate(moveProgress));
+        
+        _heroProgressBackground.transform.localScale = new Vector3(heroProgress,
+            _heroProgressBackground.transform.localScale.y, _heroProgressBackground.transform.localScale.z);
+    }
+    
+    
+    /*private void UpdateAllHeroBackgrounds()
     {
         for (int i = 0; i < SelectionManager.Instance.GetMaxHeroesCountWithCurrentDifficulty(); i++)
         {
@@ -881,7 +920,8 @@ public class SelectionController : MonoBehaviour
         {
             _heroBackgrounds[backgroundID].enabled = false;
         }
-    }
+    }*/
+    #endregion
 
 
     private void UpdateHeroButtonDifficultyBeaten(BossSO bossSO)
@@ -891,6 +931,8 @@ public class SelectionController : MonoBehaviour
             selectHeroButton.SetBestDifficultyBeatenIcon(bossSO);
         }
     }
+    
+    
     #endregion
     
     #region Audio

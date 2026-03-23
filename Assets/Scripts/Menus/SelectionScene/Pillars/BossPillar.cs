@@ -15,10 +15,7 @@ public class BossPillar : MonoBehaviour
     
     [Space]
     [SerializeField] private MeshRenderer[] _bossPlatformRenderers;
-
-    [SerializeField] private CurveProgression _squishScaleCurve;
-    [SerializeField] private CurveProgression _selectionScaleCurve;
-
+    
     private GameObject _currentBossVisual;
 
     private BossSO _bossSelectedOnPillar;
@@ -39,7 +36,7 @@ public class BossPillar : MonoBehaviour
 
     private void Start()
     {
-        SetPillarBossPreviewAnimation(false);
+        SetPillarPreviewAnimations(false);
     }
 
     public void ShowBossOnPillar(BossSO bossSO,bool newBoss)
@@ -61,12 +58,12 @@ public class BossPillar : MonoBehaviour
         
         if (_bossSelectedOnPillar == bossSO)
         {
-            SetPillarBossPreviewAnimation(true);
+            SetPillarPreviewAnimations(true);
             PlayBossIdleAnimation();
         }
         else
         {
-            SetPillarBossPreviewAnimation(!newBoss);
+            SetPillarPreviewAnimations(!newBoss);
         }
 
         if (!newBoss)
@@ -76,9 +73,7 @@ public class BossPillar : MonoBehaviour
         }
         
         PlayBossHoverAnimation();
-        _pillarAnimator.ResetTrigger(REMOVE_BOSS_ON_PILLAR_ANIM_TRIGGER);
         _bossSpawnAnimator.ResetTrigger(REMOVE_BOSS_ON_PILLAR_ANIM_TRIGGER);
-        //_squishScaleCurve.StartMovingUpOnCurve();
     }
 
     public void BossSelectedOnPillar()
@@ -87,13 +82,12 @@ public class BossPillar : MonoBehaviour
         
         StartBossSelectedAnimation();
         PlayBossIdleAnimation();
-        //_selectionScaleCurve.StartMovingUpOnCurve();
     }
 
     public void RemoveBossOnPillar()
     {
         _storedBoss = null;
-        SetPillarBossPreviewAnimation(false);
+        SetPillarPreviewAnimations(false);
         Destroy(_currentBossVisual);
     }
     
@@ -101,27 +95,33 @@ public class BossPillar : MonoBehaviour
     {
         _storedBoss = null;
         _bossSelectedOnPillar = null;
-        SetPillarBossPreviewAnimation(false);
-        //_selectionScaleCurve.StartMovingDownOnCurve();
+        SetPillarPreviewAnimations(false);
+    }
+
+    public void SetPillarPreviewAnimations(bool value)
+    {
+        MovePillar(value);
+        SetPillarBossPreviewAnimation(value);
+    }
+    
+    public void MovePillar(bool moveUp)
+    {
+        _pillarAnimator.SetBool(BOSS_PILLAR_MOVE_ANIM_BOOL, moveUp);
     }
 
     public void AnimateOutBossOnPillar()
     {
-        _pillarAnimator.ResetTrigger(NEW_BOSS_HOVER_ANIM_TRIGGER);
         _bossSpawnAnimator.ResetTrigger(NEW_BOSS_HOVER_ANIM_TRIGGER);
-        _pillarAnimator.SetTrigger(REMOVE_BOSS_ON_PILLAR_ANIM_TRIGGER);
         _bossSpawnAnimator.SetTrigger(REMOVE_BOSS_ON_PILLAR_ANIM_TRIGGER);
     }
 
     public void PlayBossHoverAnimation()
     {
-        _pillarAnimator.SetTrigger(NEW_BOSS_HOVER_ANIM_TRIGGER);
         _bossSpawnAnimator.SetTrigger(NEW_BOSS_HOVER_ANIM_TRIGGER);
     }
     
     public void SetPillarBossPreviewAnimation(bool isBossSelected)
     {
-        _pillarAnimator.SetBool(BOSS_PILLAR_SELECTED_ANIM_BOOL,isBossSelected);
         _bossSpawnAnimator.SetBool(BOSS_PILLAR_SELECTED_ANIM_BOOL,isBossSelected);
     }
     
@@ -149,7 +149,7 @@ public class BossPillar : MonoBehaviour
         }
         
     }
-    
+
     #region Getters
     public GameObject GetBossSpawnPoint() => _bossSpawnPoint;
     public BossSO GetStoredBoss() => _storedBoss;

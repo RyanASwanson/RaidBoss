@@ -34,6 +34,7 @@ public class ExtrasVideoSettingsPage : MonoBehaviour
             return;
         }
         _fullScreenToggle.isOn = Screen.fullScreen;
+        _fullScreenToggleStateSet = _fullScreenToggle.isOn;
         SetToggleIcon();
         _isDefaultToggleStateSet = true;
     }
