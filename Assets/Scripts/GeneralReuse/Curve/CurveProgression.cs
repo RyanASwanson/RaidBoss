@@ -154,6 +154,18 @@ public class CurveProgression : MonoBehaviour
         }
     }
 
+    public void StartMovingInUpwardsBoolDirection(bool direction)
+    {
+        if (direction)
+        {
+            StartMovingUpOnCurve();
+        }
+        else
+        {
+            StartMovingDownOnCurve();
+        }
+    }
+
     public void StartMovingUpOnCurve()
     {
         if (_hasDecreaseDelay)

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -8,6 +9,7 @@ using UnityEngine;
 /// </summary>
 public class BossPillar : MonoBehaviour
 {
+    [SerializeField] private Vector3 _bossSpawnPointOffset;
     [SerializeField] private GameObject _bossSpawnPoint;
     [SerializeField] private Animator _bossSpawnAnimator;
     
@@ -16,6 +18,11 @@ public class BossPillar : MonoBehaviour
 
     [SerializeField] private CurveProgression _squishScaleCurve;
     [SerializeField] private CurveProgression _selectionScaleCurve;
+
+    [SerializeField] private GameObject temp1;
+    [SerializeField] private GameObject temp2;
+    [SerializeField] private GameObject temp3;
+    [SerializeField] private GameObject temp4;
 
     private GameObject _currentBossVisual;
 
@@ -53,6 +60,7 @@ public class BossPillar : MonoBehaviour
         }
 
         _currentBossVisual = Instantiate(bossSO.GetBossPrefab(), _bossSpawnPoint.transform);
+        _currentBossVisual.transform.localPosition += _bossSpawnPointOffset;
         
         _bossSpecificAnimator = _currentBossVisual.GetComponentInChildren<Animator>();
         
@@ -78,6 +86,7 @@ public class BossPillar : MonoBehaviour
         }
         
         PlayBossHoverAnimation();
+        _pillarAnimator.ResetTrigger(REMOVE_BOSS_ON_PILLAR_ANIM_TRIGGER);
         _bossSpawnAnimator.ResetTrigger(REMOVE_BOSS_ON_PILLAR_ANIM_TRIGGER);
         //_squishScaleCurve.StartMovingUpOnCurve();
     }
@@ -108,17 +117,21 @@ public class BossPillar : MonoBehaviour
 
     public void AnimateOutBossOnPillar()
     {
+        _pillarAnimator.ResetTrigger(NEW_BOSS_HOVER_ANIM_TRIGGER);
         _bossSpawnAnimator.ResetTrigger(NEW_BOSS_HOVER_ANIM_TRIGGER);
+        _pillarAnimator.SetTrigger(REMOVE_BOSS_ON_PILLAR_ANIM_TRIGGER);
         _bossSpawnAnimator.SetTrigger(REMOVE_BOSS_ON_PILLAR_ANIM_TRIGGER);
     }
 
     public void PlayBossHoverAnimation()
     {
+        _pillarAnimator.SetTrigger(NEW_BOSS_HOVER_ANIM_TRIGGER);
         _bossSpawnAnimator.SetTrigger(NEW_BOSS_HOVER_ANIM_TRIGGER);
     }
     
     public void SetPillarBossPreviewAnimation(bool isBossSelected)
     {
+        _pillarAnimator.SetBool(BOSS_PILLAR_SELECTED_ANIM_BOOL,isBossSelected);
         _bossSpawnAnimator.SetBool(BOSS_PILLAR_SELECTED_ANIM_BOOL,isBossSelected);
     }
     
@@ -145,6 +158,12 @@ public class BossPillar : MonoBehaviour
             meshRenderer.material = _storedBoss.GetMiniFloorMaterial();
         }
         
+    }
+
+    private void Update()
+    {
+        //temp1.transform.localScale = temp3.transform.localScale;
+        //temp2.transform.localScale = temp4.transform.localScale;
     }
 
     #region Getters

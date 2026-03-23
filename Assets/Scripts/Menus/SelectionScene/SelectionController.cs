@@ -34,6 +34,9 @@ public class SelectionController : MonoBehaviour
     
     private int _currentBossAbilityID = -1;
 
+    [Header("Center-MissionModifiers")] 
+    [SerializeField] private Button _missionModifierTabButton;
+
     [Header("Center-General")]
     [SerializeField] private SelectionPlayButton _fightButton;
     private bool _maxCharactersSelected = false;
@@ -327,6 +330,35 @@ public class SelectionController : MonoBehaviour
     }
 
     #endregion
+    
+    #region Center - Mission Modifiers
+
+    public void MissionModifierTabPressed()
+    {
+        
+    }
+
+    public void ShowMissionModifierTab()
+    {
+        
+    }
+
+    public void HideMissionModifierTab()
+    {
+        
+    }
+
+    public void MissionModifierHoverBegin()
+    {
+
+    }
+
+    public void MissionModifierHoverEnd()
+    {
+        
+        
+    }
+    #endregion
 
     #region Center - General
     private void FightButtonStartingInteractability()
@@ -340,6 +372,11 @@ public class SelectionController : MonoBehaviour
         SelectionLockedCharacter = lockCharacter;
         
         _characterInformationLockVisuals.SetActive(true);
+    }
+
+    private void LockMissionInformation()
+    {
+        IsSelectionInformationLocked = true;
     }
 
     private void UnlockCharacterInformation()
@@ -397,6 +434,11 @@ public class SelectionController : MonoBehaviour
         _fightButton.MaxCharactersSelected(false);
     }
 
+    private void HideFullBossHeroDescriptions()
+    {
+        HideFullHeroDescription();
+        HideFullBossDescription();
+    }
 
     /// <summary>
     /// Causes the game to proceed to the currently selected level
@@ -604,7 +646,6 @@ public class SelectionController : MonoBehaviour
 
     private void HideFullHeroDescription()
     {
-        //StopStatDisplayProcess();
         _heroDescription.SetActive(false);
     }
 
