@@ -19,11 +19,6 @@ public class BossPillar : MonoBehaviour
     [SerializeField] private CurveProgression _squishScaleCurve;
     [SerializeField] private CurveProgression _selectionScaleCurve;
 
-    [SerializeField] private GameObject temp1;
-    [SerializeField] private GameObject temp2;
-    [SerializeField] private GameObject temp3;
-    [SerializeField] private GameObject temp4;
-
     private GameObject _currentBossVisual;
 
     private BossSO _bossSelectedOnPillar;
@@ -45,11 +40,6 @@ public class BossPillar : MonoBehaviour
     private void Start()
     {
         SetPillarBossPreviewAnimation(false);
-    }
-    
-    public void MovePillar(bool moveUp)
-    {
-        _pillarAnimator.SetBool(BOSS_PILLAR_MOVE_ANIM_BOOL, moveUp);
     }
 
     public void ShowBossOnPillar(BossSO bossSO,bool newBoss)
@@ -159,13 +149,7 @@ public class BossPillar : MonoBehaviour
         }
         
     }
-
-    private void Update()
-    {
-        //temp1.transform.localScale = temp3.transform.localScale;
-        //temp2.transform.localScale = temp4.transform.localScale;
-    }
-
+    
     #region Getters
     public GameObject GetBossSpawnPoint() => _bossSpawnPoint;
     public BossSO GetStoredBoss() => _storedBoss;
