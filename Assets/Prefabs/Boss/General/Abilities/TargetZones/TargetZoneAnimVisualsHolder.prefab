@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7906694626514013916}
   - component: {fileID: 4707970055791747651}
+  - component: {fileID: 2428851769410866841}
   m_Layer: 0
   m_Name: Holder
   m_TagString: Untagged
@@ -39,17 +40,30 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5055151800990545817}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMode: 4
-  outlineColor: {r: 1, g: 0, b: 0, a: 0.11372549}
+  outlineColor: {r: 1, g: 1, b: 1, a: 0}
   outlineWidth: 2
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!114 &2428851769410866841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5055151800990545817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08e337f896af38945b5408803690f9a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _targetZoneOutline: {fileID: 4707970055791747651}
 --- !u!1 &5577047726698959772
 GameObject:
   m_ObjectHideFlags: 0
@@ -110,6 +124,7 @@ MonoBehaviour:
   _visualsHolder: {fileID: 5055151800990545817}
   _targetZones: []
   _additionalGameObjectReferences: []
+  _targetZoneOutline: {fileID: 2428851769410866841}
   _onTargetZoneSetToHeroInRange:
     m_PersistentCalls:
       m_Calls: []

@@ -33,6 +33,8 @@ public class BossPillar : MonoBehaviour
     
     private const string BOSS_PILLAR_SELECTED_ANIM_BOOL = "BossSelected";
     
+    [SerializeField] private Canvas _pillarBossDeselectCanvas;
+    
 
     private void Start()
     {
@@ -91,11 +93,28 @@ public class BossPillar : MonoBehaviour
         Destroy(_currentBossVisual);
     }
     
-    public void DeselectBossOnPillar()
+    public void BossOnPillarDeselected()
     {
         _storedBoss = null;
         _bossSelectedOnPillar = null;
         SetPillarPreviewAnimations(false);
+    }
+    
+    public void DeselectBossOnPillar()
+    {
+        if (_storedBoss.IsUnityNull())
+        {
+            return;
+        }
+        
+        SelectionController.Instance.ForceBossButtonPressFromID(_storedBoss.GetBossID());
+
+        AnimateOutBossOnPillar();
+    }
+
+    private void SetUpBossDeselectCanvas()
+    {
+        _pillarBossDeselectCanvas.worldCamera = SelectionController.Instance.GetHeroCamera();
     }
 
     public void SetPillarPreviewAnimations(bool value)

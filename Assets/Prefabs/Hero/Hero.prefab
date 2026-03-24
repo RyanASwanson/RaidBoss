@@ -584,7 +584,7 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 1.5
       inSlope: -0.543396
       outSlope: -0.543396
       tangentMode: 0
@@ -893,6 +893,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _onFollowObjectMissing:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &5780564529582170685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1064,6 +1067,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1333710235092989786}
     m_Modifications:
+    - target: {fileID: 749222632604499083, guid: 712bb8a70af42dd4bba68fd85fc600e8, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2818492746970558723, guid: 712bb8a70af42dd4bba68fd85fc600e8, type: 3}
       propertyPath: _followHero
       value: 

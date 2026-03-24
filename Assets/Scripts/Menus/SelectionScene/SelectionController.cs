@@ -17,6 +17,8 @@ public class SelectionController : MonoBehaviour
 
     [SerializeField] private List<SelectBossLevelButton> _bossLevelSelectionButtons;
 
+    [SerializeField] private Camera _bossCamera;
+
     [Space]
     [Header("Center")]
     [Header("Center-Boss")]
@@ -107,6 +109,8 @@ public class SelectionController : MonoBehaviour
     [SerializeField] private List<SelectHeroButton> _heroSelectionButtons = new List<SelectHeroButton>();
 
     private int _previousMaxHeroes;
+    
+    [SerializeField] private Camera _heroCamera;
 
     // Start is called before the first frame update
     void OnEnable()
@@ -142,7 +146,7 @@ public class SelectionController : MonoBehaviour
 
     private void BossRemovedSelection(BossSO bossSO)
     {
-        _bossPillar.DeselectBossOnPillar();
+        _bossPillar.BossOnPillarDeselected();
 
         CheckMaxCharactersNoLongerSelected();
 
@@ -161,6 +165,16 @@ public class SelectionController : MonoBehaviour
             }
 
         }
+    }
+    
+    public void ForceBossButtonPressFromID(int id)
+    {
+        ForceBossButtonPress(_bossLevelSelectionButtons[id]);
+    }
+    
+    public void ForceBossButtonPress(SelectBossLevelButton selectButton)
+    {
+        selectButton.SelectBossLevelLeftClicked();
     }
     #endregion
 
@@ -790,7 +804,7 @@ public class SelectionController : MonoBehaviour
         //Remove the hero on the pillar that had a hero removed
         //_heroPillars[SelectionManager.Instance.GetIndexOfLastHeroRemoved()].RemoveHeroOnPillar();
         // Deselects the hero on the pillar
-        _heroPillars[SelectionManager.Instance.GetIndexOfLastHeroRemoved()].DeselectHeroOnPillar();
+        _heroPillars[SelectionManager.Instance.GetIndexOfLastHeroRemoved()].HeroOnPillarDeselected();
         RearrangeHeroesOnPillars();
 
         StartUpdateHeroProgressBackgroundProcess();
@@ -803,6 +817,16 @@ public class SelectionController : MonoBehaviour
         SelectHeroButton heroButton = GetHeroButtonFromSO(hero);
 
         heroButton.SelectHeroButtonLeftClicked();
+    }
+    
+    public void ForceHeroButtonPressFromID(int id)
+    {
+        ForceHeroButtonPress(_heroSelectionButtons[id]);
+    }
+    
+    public void ForceHeroButtonPress(SelectHeroButton selectButton)
+    {
+        selectButton.SelectHeroButtonLeftClicked();
     }
 
     private SelectHeroButton GetHeroButtonFromSO(HeroSO hero)
@@ -990,6 +1014,9 @@ public class SelectionController : MonoBehaviour
     
     public BossSO GetBossUIToDisplay() => _bossUIToDisplay;
     public HeroSO GetHeroUIToDisplay() => _heroUIToDisplay;
+    
+    public Camera GetBossCamera() => _bossCamera;
+    public Camera GetHeroCamera() => _heroCamera;
 
     #endregion
 }

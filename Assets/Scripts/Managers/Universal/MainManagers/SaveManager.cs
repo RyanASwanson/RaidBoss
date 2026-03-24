@@ -30,6 +30,9 @@ public class SaveManager : MainUniversalManagerFramework
     private UnityEvent _onGameplaySaveDataReset = new UnityEvent();
     
     [Space]
+    [SerializeField] private float _bossTargetZoneMaxOutlineStrength;
+    
+    [Space]
     [SerializeField] private AchievementSO _lordOfTheElementsAchievement;
 
     #region InitialValues
@@ -63,6 +66,7 @@ public class SaveManager : MainUniversalManagerFramework
         ResetBossHeroDifficultyDictionary();
 
         GSD.GetGeneralSaveData().SetGSDScreenShakeStrength(1);
+        GSD.GetGeneralSaveData().SetGSDBossTargetZoneOutlineStrength(.5f);
         GSD.GetGeneralSaveData().SetGSDHeroClickAndDrag(false);
 
         GSD.GetGeneralSaveData().SetGSDMasterVolume(.5f);
@@ -478,6 +482,10 @@ public class SaveManager : MainUniversalManagerFramework
     public bool IsFreePlayUnlocked() => GSD.GetGameplaySaveData().HeroesUnlocked.Count >= HEROES_REQUIRED_FOR_FREE_PLAY;
 
     public float GetScreenShakeIntensity() => GSD.GetGeneralSaveData().GetGSDScreenShakeStrength();
+    public float GetBossTargetZoneOutlineStrength() => GSD.GetGeneralSaveData().GetGSDBossTargetZoneOutlineStrength();
+    public float GetBossTargetZoneOutlineStrengthScaled() => 
+        GSD.GetGeneralSaveData().GetGSDBossTargetZoneOutlineStrength() * _bossTargetZoneMaxOutlineStrength;
+    public float GetBossTargetZoneMaxOutlineStrength() => _bossTargetZoneMaxOutlineStrength;
 
     public bool GetClickAndDragEnabled() => GSD.GetGeneralSaveData().GetGSDHeroClickAndDragEnabled();
 
@@ -510,6 +518,12 @@ public class SaveManager : MainUniversalManagerFramework
     public void SetScreenShakeStrength(float val)
     {
         GSD.GetGeneralSaveData().SetGSDScreenShakeStrength(val);
+        SaveText();
+    }
+
+    public void SetBossTargetZoneOutlineStrength(float val)
+    {
+        GSD.GetGeneralSaveData().SetGSDBossTargetZoneOutlineStrength(val);
         SaveText();
     }
 
@@ -560,27 +574,6 @@ public class SaveManager : MainUniversalManagerFramework
                 return;
         }
     }
-
-    /// <summary>
-    /// Saves all settings at once
-    /// </summary>
-    /// <param name="screenShake"></param>
-    /// <param name="clickDrag"></param>
-    /// <param name="masterVol"></param>
-    /// <param name="musicVol"></param>
-    /// <param name="sfxVol"></param>
-    public void SaveSettingsOptions(float screenShake, bool clickDrag, float masterVol, float musicVol, float sfxVol)
-    {
-        GSD.GetGeneralSaveData().SetGSDScreenShakeStrength(screenShake);
-        GSD.GetGeneralSaveData().SetGSDHeroClickAndDrag(clickDrag);
-
-        GSD.GetGeneralSaveData().SetGSDMasterVolume(masterVol);
-        GSD.GetGeneralSaveData().SetGSDMusicVolume(musicVol);
-        GSD.GetGeneralSaveData().SetGSDSFXVolume(sfxVol);
-
-        SaveText();
-    }
-    
     
     public UnityEvent GetOnGameplaySaveDataReset()=> _onGameplaySaveDataReset;
     #endregion
@@ -684,6 +677,7 @@ public class GeneralSaveData
     [Space]
     [Header("Settings")]
     public float ScreenShakeStrength = 1;
+    public float BossTargetZoneOutlineStrength = .5f;
     private bool HeroClickAndDragMovementEnabled;
 
     [Range(0, 1)] public float MasterVolume = .5f;
@@ -698,6 +692,7 @@ public class GeneralSaveData
     public string GetGameVersion() => GameVersion;
     
     public float GetGSDScreenShakeStrength() => ScreenShakeStrength;
+    public float GetGSDBossTargetZoneOutlineStrength() => BossTargetZoneOutlineStrength;
     public bool GetGSDHeroClickAndDragEnabled() => HeroClickAndDragMovementEnabled;
 
     public float GetGSDMasterVolume() => MasterVolume;
@@ -716,6 +711,11 @@ public class GeneralSaveData
     public void SetGSDScreenShakeStrength(float screenShake)
     {
         ScreenShakeStrength = screenShake;
+    }
+
+    public void SetGSDBossTargetZoneOutlineStrength(float strength)
+    {
+        BossTargetZoneOutlineStrength = strength;
     }
 
     public void SetGSDHeroClickAndDrag(bool clickDrag)
