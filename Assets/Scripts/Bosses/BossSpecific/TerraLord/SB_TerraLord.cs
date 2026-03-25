@@ -154,6 +154,7 @@ public class SB_TerraLord : SpecificBossFramework
     /// </summary>
     private void PassiveTick()
     {
+        //Debug.Log("Hero weight: " + CalculatePassiveHeroWeight() + " environment weight: " + CalculatePassiveEnvironmentWeight());
         ChangePassiveCounterValue(CalculatePassiveHeroWeight() + CalculatePassiveEnvironmentWeight());
     }
 
@@ -173,24 +174,6 @@ public class SB_TerraLord : SpecificBossFramework
 
         //Scales the speed of the passive with how many heroes are alive
         weightCounter /= HeroesManager.Instance.GetCurrentLivingHeroes().Count;
-        
-        if (weightCounter > 0 && weightCounter < _minimumTickValue)
-        {
-            weightCounter = _minimumTickValue;
-        }
-        else if (weightCounter < 0 && weightCounter > -_minimumTickValue)
-        {
-            weightCounter = -_minimumTickValue;
-        }
-
-        if (weightCounter > _maximumTickValue)
-        {
-            weightCounter = _maximumTickValue;
-        }
-        else if (weightCounter < -_maximumTickValue)
-        {
-            weightCounter = -_maximumTickValue;
-        }
         
         return weightCounter;
     }
@@ -212,24 +195,43 @@ public class SB_TerraLord : SpecificBossFramework
     /// <summary>
     /// Changes the passive value based on the input float and calls and needed functionality
     /// </summary>
-    /// <param name="val"></param>
-    private void ChangePassiveCounterValue(float val)
+    /// <param name="weightCounter"></param>
+    private void ChangePassiveCounterValue(float weightCounter)
     {
-        _isPassiveMovingTowardsMax = (val > 0 != _passiveCounterValue + val > 0);
+        if (weightCounter > 0 && weightCounter < _minimumTickValue)
+        {
+            weightCounter = _minimumTickValue;
+        }
+        else if (weightCounter < 0 && weightCounter > -_minimumTickValue)
+        {
+            weightCounter = -_minimumTickValue;
+        }
+
+        if (weightCounter > _maximumTickValue)
+        {
+            weightCounter = _maximumTickValue;
+        }
+        else if (weightCounter < -_maximumTickValue)
+        {
+            weightCounter = -_maximumTickValue;
+        }
+        //Debug.Log("Weight shrunk to " + weightCounter);
+        
+        _isPassiveMovingTowardsMax = (weightCounter > 0 != _passiveCounterValue + weightCounter > 0);
         if (_isPassiveMovingTowardsMax)
         {
             // We are moving away from max
-            val *= _movingAwayFromMaxMultiplierBasedOnProgress.Evaluate(_passiveCounterProgressTowardsMax);
+            weightCounter *= _movingAwayFromMaxMultiplierBasedOnProgress.Evaluate(_passiveCounterProgressTowardsMax);
         }
         else
         {
             // We are moving towards max
             // Switching sides also counts as moving towards max even though we are initially moving away from max
             //  as we switch sides part way through
-            val *= _movingTowardsMaxMultiplierBasedOnProgress.Evaluate(_passiveCounterProgressTowardsMax);
+            weightCounter *= _movingTowardsMaxMultiplierBasedOnProgress.Evaluate(_passiveCounterProgressTowardsMax);
         }
         
-        _passiveCounterValue += val;
+        _passiveCounterValue += weightCounter;
         _passiveCounterValue = Mathf.Clamp(_passiveCounterValue, -_passiveMaxValue, _passiveMaxValue);
         
         _passiveCounterProgressTowardsMax = Mathf.Abs(_passiveCounterValue / _passiveMaxValue);
@@ -243,7 +245,7 @@ public class SB_TerraLord : SpecificBossFramework
         //Debug.Log("End result" + val);
 
         //Rotates the camera to demonstrate the imbalance of the arena
-        RotateCameraBasedOnPassive(val);
+        RotateCameraBasedOnPassive(weightCounter);
         DetermineActivationOfRubble();
         InvokePassivePercentUpdate();
 

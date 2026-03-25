@@ -39,6 +39,13 @@ public class SelectionController : MonoBehaviour
     [Header("Center-MissionModifiers")] 
     [SerializeField] private Button _missionModifierTabButton;
 
+    [SerializeField] private CurveProgression _activeModifiersCurve;
+
+    [SerializeField] private CurveProgression _selectableModifiersCurve;
+    [SerializeField] private GameObject _missionModifiersBackground;
+    
+    private bool _areModifiersActive = false;
+
     [Header("Center-General")]
     [SerializeField] private SelectionPlayButton _fightButton;
     private bool _maxCharactersSelected = false;
@@ -182,6 +189,7 @@ public class SelectionController : MonoBehaviour
 
     private void CenterStart()
     {
+        MissionModifierStart();
         FightButtonStartingInteractability();
     }
 
@@ -358,30 +366,52 @@ public class SelectionController : MonoBehaviour
     
     #region Center - Mission Modifiers
 
+    private void MissionModifierStart()
+    {
+        _missionModifiersBackground.SetActive(false);
+    }
+
     public void MissionModifierTabPressed()
     {
+        _areModifiersActive = !_areModifiersActive;
+        
+        _missionModifiersBackground.SetActive(_areModifiersActive);
+        
+        if (_areModifiersActive)
+        {
+            _activeModifiersCurve.StartMovingUpOnCurve();
+        }
+        else
+        {
+            _activeModifiersCurve.StartMovingDownOnCurve();
+        }
         
     }
 
     public void ShowMissionModifierTab()
     {
-        
+        _selectableModifiersCurve.StartMovingUpOnCurve();
     }
 
     public void HideMissionModifierTab()
     {
-        
+        _selectableModifiersCurve.StartMovingDownOnCurve();
     }
 
     public void MissionModifierHoverBegin()
     {
-
+        Debug.Log("Hover Begin");
+        ShowMissionModifierTab();
     }
 
     public void MissionModifierHoverEnd()
     {
-        
-        
+        /*if (!_areModifiersActive)
+        {
+            return;
+        }*/
+        Debug.Log("Hover End");
+        HideMissionModifierTab();
     }
     #endregion
 

@@ -59,8 +59,10 @@ public class SelectionManager : MainUniversalManagerFramework
     private int _indexOfLastRemovedHero;
 
     private EGameDifficulty _currentEGameDifficulty = EGameDifficulty.Normal;
+    private int _currentMythicPlusLevel = 0;
     
     private List<MissionModifierSO> _currentMissionModifiers = new List<MissionModifierSO>();
+    private bool _areMissionModifiersActive = false;
 
     private EGameMode _currentGameMode = EGameMode.Missions;
 
@@ -229,6 +231,7 @@ public class SelectionManager : MainUniversalManagerFramework
     public void ResetSelectionData()
     {
         _currentSelectedMission = null;
+        _currentMythicPlusLevel = 0;
         
         _selectedHeroes = new();
         _selectedBoss = null;
@@ -342,7 +345,7 @@ public class SelectionManager : MainUniversalManagerFramework
     public float GetSpeedMultiplierFromDifficulty() => _difficultyAttackSpeedMultiplierDictionary[_currentEGameDifficulty];
     public float GetHealthMultiplierFromDifficulty() => _difficultyHealthMultiplierDictionary[_currentEGameDifficulty];
     public float GetStaggerMultiplierFromDifficulty() => _difficultyHealthMultiplierDictionary[_currentEGameDifficulty];
-
+    
     public int GetHeroLimitFromDifficulty() => _difficultyHeroLimit[_currentEGameDifficulty];
 
     public List<string> GetDifficultyNames() => _difficultyNames;
@@ -350,7 +353,9 @@ public class SelectionManager : MainUniversalManagerFramework
     public Sprite GetDifficultyIconOfCurrentDifficulty() => GetDifficultyIconFromDifficulty(_currentEGameDifficulty);
     public Sprite GetDifficultyIconFromDifficulty(EGameDifficulty difficulty) => GetDifficultyIconFromDifficulty((int)difficulty);
     public Sprite GetDifficultyIconFromDifficulty(int difficulty) => _difficultyIcons[difficulty-1];
+    
     public List<MissionModifierSO> GetMissionModifiers() => _currentMissionModifiers;
+    public bool GetAreMissionModifiersActive() => _currentMissionModifiers.Count > 0;
 
 
     public MissionSO GetSelectedMission() => _currentSelectedMission;
@@ -384,6 +389,7 @@ public class SelectionManager : MainUniversalManagerFramework
     
     public EGameDifficulty GetSelectedDifficulty() => _currentEGameDifficulty;
     public int GetSelectedDifficultyID() => ((int)_currentEGameDifficulty)-1;
+    public int GetMythicPlusLevel() => _currentMythicPlusLevel;
     
     public List<HeroSO> GetAllSelectedHeroes() => _selectedHeroes;
     public HeroSO GetHeroAtValue(int val) => _selectedHeroes[val];

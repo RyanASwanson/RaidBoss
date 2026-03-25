@@ -42,7 +42,7 @@ public class TerraLordUniversalEnvironmentalWeightObject : MonoBehaviour
 
     public void RemoveObjectFromTerraLordList()
     {
-        SB_TerraLord.Instance.AddObjectToEnvironmentalWeightObjects(this);
+        SB_TerraLord.Instance.RemoveObjectFromEnvironmentalWeightObjects(this);
     }
 
     private void CalculateCurrentWeight()
