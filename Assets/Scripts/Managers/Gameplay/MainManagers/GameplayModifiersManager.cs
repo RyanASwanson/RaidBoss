@@ -14,14 +14,14 @@ public class GameplayModifiersManager : MainGameplayManagerFramework
     {
         _missionModifiers = new List<MissionModifierBase>();
 
-        for (int i = 0; SelectionManager.Instance.GetMissionModifiers().Count > i; i++)
+        for (int i = 0; SelectionManager.Instance.GetCurrentMissionModifiers().Count > i; i++)
         {
-            if (SelectionManager.Instance.GetMissionModifiers()[i].GetMissionModifierObject().IsUnityNull())
+            if (SelectionManager.Instance.GetCurrentMissionModifiers()[i].GetMissionModifierObject().IsUnityNull())
             {
                 continue;
             }
             
-            GameObject modifierObject = Instantiate(SelectionManager.Instance.GetMissionModifiers()[i].GetMissionModifierObject(), transform);
+            GameObject modifierObject = Instantiate(SelectionManager.Instance.GetCurrentMissionModifiers()[i].GetMissionModifierObject(), transform);
 
             MissionModifierBase[] missionModifierScripts = modifierObject.GetComponents<MissionModifierBase>();
 

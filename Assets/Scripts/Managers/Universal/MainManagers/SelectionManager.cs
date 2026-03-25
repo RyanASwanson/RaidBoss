@@ -63,6 +63,9 @@ public class SelectionManager : MainUniversalManagerFramework
     
     private List<MissionModifierSO> _currentMissionModifiers = new List<MissionModifierSO>();
     private bool _areMissionModifiersActive = false;
+    private int _indexOfLastRemovedMissionModifer;
+
+    public const int MAX_MISSION_MODIFIERS = 3;
 
     private EGameMode _currentGameMode = EGameMode.Missions;
 
@@ -76,6 +79,9 @@ public class SelectionManager : MainUniversalManagerFramework
 
     private UnityEvent<EGameDifficulty> _difficultySelectionEvent = new UnityEvent<EGameDifficulty>();
     private UnityEvent _informationUnlockedEvent = new UnityEvent();
+
+    public UnityEvent<MissionModifierSO> _missionModifierSelectionEvent;
+    public UnityEvent<MissionModifierSO> _missionModifierDeselectionEvent;
 
     private UnityEvent<HeroSO> _heroSelectionEvent = new UnityEvent<HeroSO>();
     private UnityEvent<HeroSO> _heroDeselectionEvent = new UnityEvent<HeroSO>();
@@ -212,6 +218,8 @@ public class SelectionManager : MainUniversalManagerFramework
         }
         
         _currentMissionModifiers.Add(missionModifierSO);
+
+        InvokeMissionModifierSelectionEvent(missionModifierSO);
     }
 
     public void RemoveMissionModifier(MissionModifierSO missionModifierSO)
@@ -221,7 +229,12 @@ public class SelectionManager : MainUniversalManagerFramework
             return;
         }
         
+        _indexOfLastRemovedMissionModifer = _currentMissionModifiers.IndexOf(missionModifierSO);
+        
         _currentMissionModifiers.Remove(missionModifierSO);
+
+        Debug.Log("Invoke Remove");
+        InvokeMissionModifierDeselectionEvent(missionModifierSO);
     }
     
     /// <summary>
@@ -301,6 +314,16 @@ public class SelectionManager : MainUniversalManagerFramework
         _informationUnlockedEvent?.Invoke();
     }
 
+    public void InvokeMissionModifierSelectionEvent(MissionModifierSO missionModifierSO)
+    {
+        _missionModifierSelectionEvent?.Invoke(missionModifierSO);
+    }
+
+    public void InvokeMissionModifierDeselectionEvent(MissionModifierSO missionModifierSO)
+    {
+        _missionModifierDeselectionEvent?.Invoke(missionModifierSO);
+    }
+
     public void InvokeHeroSelectionEvent(HeroSO heroSO)
     {
         _heroSelectionEvent?.Invoke(heroSO);
@@ -354,7 +377,8 @@ public class SelectionManager : MainUniversalManagerFramework
     public Sprite GetDifficultyIconFromDifficulty(EGameDifficulty difficulty) => GetDifficultyIconFromDifficulty((int)difficulty);
     public Sprite GetDifficultyIconFromDifficulty(int difficulty) => _difficultyIcons[difficulty-1];
     
-    public List<MissionModifierSO> GetMissionModifiers() => _currentMissionModifiers;
+    public List<MissionModifierSO> GetCurrentMissionModifiers() => _currentMissionModifiers;
+    public int GetMissionModifierCount() => _currentMissionModifiers.Count;
     public bool GetAreMissionModifiersActive() => _currentMissionModifiers.Count > 0;
 
 
@@ -388,6 +412,7 @@ public class SelectionManager : MainUniversalManagerFramework
     public LevelSO GetSelectedLevel() => _selectedLevel;
     
     public EGameDifficulty GetSelectedDifficulty() => _currentEGameDifficulty;
+    public int GetIndexOfLastMissionModifierRemoved() => _indexOfLastRemovedMissionModifer;
     public int GetSelectedDifficultyID() => ((int)_currentEGameDifficulty)-1;
     public int GetMythicPlusLevel() => _currentMythicPlusLevel;
     
@@ -416,6 +441,9 @@ public class SelectionManager : MainUniversalManagerFramework
     
     public UnityEvent<EGameDifficulty> GetDifficultySelectionEvent() => _difficultySelectionEvent;
     public UnityEvent GetInformationUnlockedEvent() => _informationUnlockedEvent;
+
+    public UnityEvent<MissionModifierSO> GetMissionModifierSelectionEvent() => _missionModifierSelectionEvent;
+    public UnityEvent<MissionModifierSO> GetMissionModifierDeselectionEvent() => _missionModifierDeselectionEvent;
     
     public UnityEvent<HeroSO> GetHeroSelectionEvent() => _heroSelectionEvent;
     public UnityEvent<HeroSO> GetHeroDeselectionEvent() => _heroDeselectionEvent;
