@@ -42,7 +42,6 @@ public class SelectionController : MonoBehaviour
     [SerializeField] private CurveProgression _activeModifiersCurve;
 
     [SerializeField] private CurveProgression _selectableModifiersCurve;
-    [SerializeField] private GameObject _missionModifiersBackground;
     
     [SerializeField] private List<ActiveMissionModifierSelectionButton> _activeMissionModifierSelectionButtons;
     [SerializeField] private List<MissionModifierSelectionButton> _missionModifierSelectionButtons;
@@ -90,6 +89,7 @@ public class SelectionController : MonoBehaviour
     private BossSO _bossUIToDisplay;
     private HeroSO _lastHeroHoveredOver;
     private HeroSO _heroUIToDisplay;
+    private MissionModifierSO _lastMissionModifierHoveredOver;
 
     [Space] 
     [SerializeField] private ScrollUISelection _heroScrollUI;
@@ -371,14 +371,48 @@ public class SelectionController : MonoBehaviour
 
     private void MissionModifierStart()
     {
-        _missionModifiersBackground.SetActive(false);
+        
+    }
+
+    public void MissionModifierHoveredOver(MissionModifierSO missionModifier)
+    {
+        _lastMissionModifierHoveredOver = missionModifier;
+        
+        if (SelectionManager.Instance.GetCurrentMissionModifiers().Contains(missionModifier))
+        {
+            OldMissionModifierHoveredOver(missionModifier);
+        }
+        else
+        {
+            NewMissionModifierHoveredOver(missionModifier);
+        }
+    }
+
+    public void NewMissionModifierHoveredOver(MissionModifierSO missionModifier)
+    {
+        GeneralMissionModifierHoveredOver(missionModifier);
+        
+        GetLastActiveMissionModifier().SetCurrentHoveredMissionModifierID(missionModifier);
+    }
+
+    public void OldMissionModifierHoveredOver(MissionModifierSO missionModifier)
+    {
+        GeneralMissionModifierHoveredOver(missionModifier);
+    }
+
+    public void GeneralMissionModifierHoveredOver(MissionModifierSO missionModifier)
+    {
+        
+    }
+
+    public void MissionModifierNotHoveredOver(MissionModifierSO missionModifier)
+    {
+        GetLastActiveMissionModifier().ResetCurrentHoveredMissionModifier();
     }
 
     public void MissionModifierTabPressed()
     {
         _areModifiersActive = !_areModifiersActive;
-        
-        _missionModifiersBackground.SetActive(_areModifiersActive);
         
         if (_areModifiersActive)
         {
@@ -401,53 +435,69 @@ public class SelectionController : MonoBehaviour
         _selectableModifiersCurve.StartMovingDownOnCurve();
     }
 
-    public void MissionModifierHoverBegin()
+    public void MissionModifierTabHoverBegin()
     {
         ShowMissionModifierTab();
     }
 
-    public void MissionModifierHoverEnd()
+    public void MissionModifierTabHoverEnd()
     {
         HideMissionModifierTab();
+    }
+
+    private ActiveMissionModifierSelectionButton GetLastActiveMissionModifier()
+    {
+        return _activeMissionModifierSelectionButtons[
+            Mathf.Clamp(SelectionManager.Instance.GetCurrentMissionModifiers().Count,0,SelectionManager.MAX_MISSION_MODIFIERS-1)];
     }
 
     private void MissionModifierSelected(MissionModifierSO missionModifier)
     {
         int modifierNum = SelectionManager.Instance.GetMissionModifierCount() - 1;
-
-        Debug.Log("Calling Update on " + modifierNum + " mission modifier");
-        _activeMissionModifierSelectionButtons[modifierNum].UpdateModifierImage();
-        /*_heroPillars[modifierNum - 1].ShowHeroOnPillar(heroSO,false);
-
-        if (modifierNum < SelectionManager.Instance.GetMaxHeroesCountWithCurrentDifficulty())
-        {
-            MoveHeroPillar(modifierNum, true);
-        }
         
-        PlayHeroSelectedAudio(heroSO);
-
-        StartUpdateHeroProgressBackgroundProcess();
-        CheckMaxCharactersSelected();*/
+        _activeMissionModifierSelectionButtons[modifierNum].UpdateModifierImage(true);
     }
 
     private void MissionModifierDeselected(MissionModifierSO missionModifier)
     {
-
-        Debug.Log("Starting for");
         for (int i = SelectionManager.MAX_MISSION_MODIFIERS-1; i >= SelectionManager.Instance.GetIndexOfLastMissionModifierRemoved(); i--)
         {
-            Debug.Log("For " + i + " count " + _activeMissionModifierSelectionButtons.Count);
-            _activeMissionModifierSelectionButtons[i].UpdateModifierImage();
+            _activeMissionModifierSelectionButtons[i].UpdateModifierImage(false);
         }
-        //_activeMissionModifierSelectionButtons[SelectionManager.Instance.GetIndexOfLastMissionModifierRemoved()].UpdateModifierImage();
-        
-        /*_heroPillars[SelectionManager.Instance.GetIndexOfLastHeroRemoved()].HeroOnPillarDeselected();
-        RearrangeHeroesOnPillars();*/
     }
 
-    public void MissionModifierSelectionButtonPressed(MissionModifierSelectionButton missionModifierSelectionButton)
+    private void MissionModifierSwap(MissionModifierSO missionModifier)
     {
-        
+        ForceMissionModifierButtonPress(GetModifierButtonFromSO(missionModifier));
+    }
+    
+    public void ForceMissionModifierButtonPress(MissionModifierSO missionModifier)
+    {
+        ForceMissionModifierButtonPress(_missionModifierSelectionButtons[missionModifier.GetModifierID()]);
+    }
+
+    public void ForceMissionModifierButtonPress(int modifierID)
+    {
+        ForceMissionModifierButtonPress(_missionModifierSelectionButtons[modifierID]);
+    }
+    
+
+    public void ForceMissionModifierButtonPress(MissionModifierSelectionButton missionModifierSelectionButton)
+    {
+        missionModifierSelectionButton.ButtonPressed();
+    }
+    
+    private MissionModifierSelectionButton GetModifierButtonFromSO(MissionModifierSO missionModifier)
+    {
+        foreach (MissionModifierSelectionButton modifierButton in _missionModifierSelectionButtons)
+        {
+            if (modifierButton.GetMissionModifier() == missionModifier)
+            {
+                return modifierButton;
+            }
+        }
+
+        return null;
     }
     #endregion
 
@@ -880,9 +930,7 @@ public class SelectionController : MonoBehaviour
 
     private void SwapHero(HeroSO hero)
     {
-        SelectHeroButton heroButton = GetHeroButtonFromSO(hero);
-
-        heroButton.SelectHeroButtonLeftClicked();
+        ForceHeroButtonPress(GetHeroButtonFromSO(hero));
     }
     
     public void ForceHeroButtonPressFromID(int id)
@@ -1060,6 +1108,11 @@ public class SelectionController : MonoBehaviour
         
         SelectionManager.Instance.GetMissionModifierSelectionEvent().AddListener(MissionModifierSelected);
         SelectionManager.Instance.GetMissionModifierDeselectionEvent().AddListener(MissionModifierDeselected);
+        
+        SelectionManager.Instance.GetMissionModifierSwapEvent().AddListener(MissionModifierSwap);
+        
+        SelectionManager.Instance.GetMissionModifierHoveredOverEvent().AddListener(MissionModifierHoveredOver);
+        SelectionManager.Instance.GetMissionModifierNotHoveredOverEvent().AddListener(MissionModifierNotHoveredOver);
 
         SelectionManager.Instance.GetHeroSelectionEvent().AddListener(NewHeroAddedSelection);
         SelectionManager.Instance.GetHeroDeselectionEvent().AddListener(HeroRemovedSelection);

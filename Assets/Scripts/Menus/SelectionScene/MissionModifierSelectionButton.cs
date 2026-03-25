@@ -8,11 +8,18 @@ using UnityEngine.UI;
 public class MissionModifierSelectionButton : MonoBehaviour
 {
     [SerializeField] private Image _associatedModifierImage;
+    [SerializeField] private Button _associatedModifierButton;
+    
+    [Space]
+    [SerializeField] private CurveProgression _buttonHoverScaleCurve;
+    [SerializeField] private CurveProgression _selectionCurve;
     
     [Space]
     [SerializeField] private MissionModifierSO _associatedMissionModifier;
     
     private bool _buttonHasBeenPressed = false;
+    
+    private Color _defaultColor;
 
     private void Start()
     {
@@ -26,49 +33,75 @@ public class MissionModifierSelectionButton : MonoBehaviour
             gameObject.SetActive(false);
             return;
         }
-        
+
+        SetDefaultIconColor();
+        //Sets the image to be the modifier icon
         _associatedModifierImage.sprite = _associatedMissionModifier.GetModifierSprite();
 
-        /*SetDefaultIconColor();
-        //Sets the image to be the hero icon
-        _iconVisuals.sprite = _associatedHero.GetHeroIcon();
-
-        if (!_heroButton.IsUnityNull())
+        if (!_associatedModifierButton.IsUnityNull())
         {
             //Get the colorblock for the button
-            ColorBlock colorVar = _heroButton.colors;
-            //Set the highlighted color for the button to be the hero highlighted color
-            colorVar.highlightedColor = _associatedHero.GetHeroHighlightedColor();
-            //Set the pressed color for the button to be the hero highlighted color
-            colorVar.pressedColor = _associatedHero.GetHeroPressedColor();
+            ColorBlock colorVar = _associatedModifierButton.colors;
+            //Set the highlighted color for the button to be the modifier highlighted color
+            colorVar.highlightedColor = _associatedMissionModifier.GetModifierHighlightedColor();
             //Sets the colorblock for the button
-            _heroButton.colors = colorVar;
-        }*/
+            _associatedModifierButton.colors = colorVar;
+        }
+    }
+    
+    private void SetDefaultIconColor()
+    {
+        _defaultColor = _associatedModifierImage.color;
     }
 
     public void ButtonPressed()
     {
         if (!_buttonHasBeenPressed)
         {
-            HeroSelect();
+            ModifierSelect();
         }
         else
         {
-            HeroDeselect();
+            ModifierDeselect();
         }
         
         _buttonHasBeenPressed = !_buttonHasBeenPressed;
     }
+
+    public void SelectMissionModifierHoverBegin()
+    {
+        _buttonHoverScaleCurve.StartMovingUpOnCurve();
+        SelectionManager.Instance.MissionModifierHoveredOver(_associatedMissionModifier);
+    }
     
-    private void HeroSelect()
+    public void SelectMissionModifierHoverEnd()
+    {
+        _buttonHoverScaleCurve.StartMovingDownOnCurve();
+        SelectionManager.Instance.MissionModifierNotHoveredOver(_associatedMissionModifier);
+    }
+    
+    private void UpdateModifierIconColor(Color newColor)
+    {
+        _associatedModifierImage.color = newColor;
+    }
+    
+    private void ModifierSelect()
     {
         SelectionManager.Instance.AddMissionModifier(_associatedMissionModifier);
-        //UpdateHeroIconColor(_associatedHero.GetHeroSelectedColor());
+        UpdateModifierIconColor(_associatedMissionModifier.GetModifierSelectedColor());
+        
+        _selectionCurve.StartMovingUpOnCurve();
     }
 
-    private void HeroDeselect()
+    private void ModifierDeselect()
     {
         SelectionManager.Instance.RemoveMissionModifier(_associatedMissionModifier);
-        //UpdateHeroIconColor(_defaultColor);
+        UpdateModifierIconColor(_defaultColor);
     }
+    
+    #region Getters
+
+    public MissionModifierSO GetMissionModifier() => _associatedMissionModifier;
+
+    #endregion
 }

@@ -82,6 +82,9 @@ public class SelectionManager : MainUniversalManagerFramework
 
     public UnityEvent<MissionModifierSO> _missionModifierSelectionEvent;
     public UnityEvent<MissionModifierSO> _missionModifierDeselectionEvent;
+    public UnityEvent<MissionModifierSO> _missionModifierSwapEvent;
+    public UnityEvent<MissionModifierSO> _missionModifierHoveredOverEvent;
+    public UnityEvent<MissionModifierSO> _missionModifierNotHoveredOverEvent;
 
     private UnityEvent<HeroSO> _heroSelectionEvent = new UnityEvent<HeroSO>();
     private UnityEvent<HeroSO> _heroDeselectionEvent = new UnityEvent<HeroSO>();
@@ -212,6 +215,11 @@ public class SelectionManager : MainUniversalManagerFramework
 
     public void AddMissionModifier(MissionModifierSO missionModifierSO)
     {
+        if (AtMaxModifiersSelected())
+        {
+            InvokeMissionModifierSwapEvent(_currentMissionModifiers[^1]);
+        }
+        
         if (_currentMissionModifiers.Contains(missionModifierSO))
         {
             return;
@@ -232,9 +240,18 @@ public class SelectionManager : MainUniversalManagerFramework
         _indexOfLastRemovedMissionModifer = _currentMissionModifiers.IndexOf(missionModifierSO);
         
         _currentMissionModifiers.Remove(missionModifierSO);
-
-        Debug.Log("Invoke Remove");
+        
         InvokeMissionModifierDeselectionEvent(missionModifierSO);
+    }
+
+    public void MissionModifierHoveredOver(MissionModifierSO missionModifierSO)
+    {
+        InvokeMissionModifierHoveredOverEvent(missionModifierSO);
+    }
+
+    public void MissionModifierNotHoveredOver(MissionModifierSO missionModifierSO)
+    {
+        InvokeMissionModifierNotHoveredOverEvent(missionModifierSO);
     }
     
     /// <summary>
@@ -322,6 +339,21 @@ public class SelectionManager : MainUniversalManagerFramework
     public void InvokeMissionModifierDeselectionEvent(MissionModifierSO missionModifierSO)
     {
         _missionModifierDeselectionEvent?.Invoke(missionModifierSO);
+    }
+
+    public void InvokeMissionModifierSwapEvent(MissionModifierSO missionModifierSO)
+    {
+        _missionModifierSwapEvent?.Invoke(missionModifierSO);
+    }
+    
+    public void InvokeMissionModifierHoveredOverEvent(MissionModifierSO missionModifierSO)
+    {
+        _missionModifierHoveredOverEvent?.Invoke(missionModifierSO);
+    }
+    
+    public void InvokeMissionModifierNotHoveredOverEvent(MissionModifierSO missionModifierSO)
+    {
+        _missionModifierNotHoveredOverEvent?.Invoke(missionModifierSO);
     }
 
     public void InvokeHeroSelectionEvent(HeroSO heroSO)
@@ -412,6 +444,7 @@ public class SelectionManager : MainUniversalManagerFramework
     public LevelSO GetSelectedLevel() => _selectedLevel;
     
     public EGameDifficulty GetSelectedDifficulty() => _currentEGameDifficulty;
+    public bool AtMaxModifiersSelected() => _currentMissionModifiers.Count >= MAX_MISSION_MODIFIERS;
     public int GetIndexOfLastMissionModifierRemoved() => _indexOfLastRemovedMissionModifer;
     public int GetSelectedDifficultyID() => ((int)_currentEGameDifficulty)-1;
     public int GetMythicPlusLevel() => _currentMythicPlusLevel;
@@ -444,6 +477,9 @@ public class SelectionManager : MainUniversalManagerFramework
 
     public UnityEvent<MissionModifierSO> GetMissionModifierSelectionEvent() => _missionModifierSelectionEvent;
     public UnityEvent<MissionModifierSO> GetMissionModifierDeselectionEvent() => _missionModifierDeselectionEvent;
+    public UnityEvent<MissionModifierSO> GetMissionModifierSwapEvent() => _missionModifierSwapEvent;
+    public UnityEvent<MissionModifierSO> GetMissionModifierHoveredOverEvent() => _missionModifierHoveredOverEvent;
+    public UnityEvent<MissionModifierSO> GetMissionModifierNotHoveredOverEvent() => _missionModifierNotHoveredOverEvent;
     
     public UnityEvent<HeroSO> GetHeroSelectionEvent() => _heroSelectionEvent;
     public UnityEvent<HeroSO> GetHeroDeselectionEvent() => _heroDeselectionEvent;
