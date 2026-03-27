@@ -54,6 +54,8 @@ public class SH_Fae : SpecificHeroFramework
 
     private Vector3 _currentManualDirection;
     private float _currentAccelerationMultiplier;
+    
+    public const int MANUAL_BOUNCE_AUDIO_ID = 0;
 
     private Coroutine _manualCoroutine;
 
@@ -260,12 +262,18 @@ public class SH_Fae : SpecificHeroFramework
             AudioManager.Instance.AllSpecificHeroAudio[_myHeroBase.GetHeroSO().GetHeroID()].ManualAbilityUsed);
     }
 
+    private void PlayManualBounceAudio()
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificHeroAudio[_myHeroBase.GetHeroSO().GetHeroID()]
+                .MiscellaneousHeroAudio[MANUAL_BOUNCE_AUDIO_ID]);
+    }
+
     /// <summary>
     /// Creates the swirl effect on the Fae manual ability
     /// </summary>
     private void CreateSwirlVFX()
     {
-        //TODO check for deletion
         Instantiate(_swirlVFX, _vfxWeaponSpawnPoint.transform);
     }
 
@@ -307,6 +315,8 @@ public class SH_Fae : SpecificHeroFramework
         {
             //Reflect the direction that the manual ability is moving
             _currentManualDirection = Vector3.Reflect(_currentManualDirection, rayHit.normal);
+
+            PlayManualBounceAudio();
 
             if (ManualHitBoss(rayHit))
             {

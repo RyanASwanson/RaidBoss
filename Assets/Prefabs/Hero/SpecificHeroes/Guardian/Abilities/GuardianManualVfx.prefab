@@ -10,8 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 557046137051164710}
   - component: {fileID: 4093055139519549277}
-  - component: {fileID: 5091616745704321555}
-  - component: {fileID: 8979778201164325496}
   m_Layer: 0
   m_Name: UniversalHolder
   m_TagString: Untagged
@@ -60,13 +58,93 @@ MonoBehaviour:
   _startRotationOverride: {x: 0, y: 0, z: 0}
   _targetLocalEulerAngles: {x: 0, y: 0, z: 0}
   _curveProgression: {fileID: 0}
---- !u!114 &5091616745704321555
+--- !u!1 &1838906537384741336
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 381328237067187051}
+  - component: {fileID: -1121039355813042596}
+  - component: {fileID: 4599957096718283580}
+  - component: {fileID: 7500293514588644636}
+  m_Layer: 0
+  m_Name: GuardianManualVfx
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &381328237067187051
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1838906537384741336}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 557046137051164710}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-1121039355813042596
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 499993671366944745}
+  m_GameObject: {fileID: 1838906537384741336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 529cb803b04ccd442b304b93bb5d1608, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _doesDetachOnStart: 0
+  _doesDisableOnStart: 0
+  _doesHideAfterStopFollowing: 0
+  _doesDestroyAfterStopFollowing: 0
+  _destroyFollowDelay: 0
+  _doesSetRotationOnFollowStart: 0
+  _followStartEulerAngles: {x: 0, y: 0, z: 0}
+  _followLocationOffset: {x: 0, y: 0, z: 0}
+  _startFollowObject: {fileID: 0}
+  _onFollowStart:
+    m_PersistentCalls:
+      m_Calls: []
+  _onFollowStopDelayStarted:
+    m_PersistentCalls:
+      m_Calls: []
+  _onFollowStop:
+    m_PersistentCalls:
+      m_Calls: []
+  _onFollowObjectMissing:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7500293514588644636}
+        m_TargetAssemblyTypeName: CurveProgression, Assembly-CSharp
+        m_MethodName: StartMovingDownOnCurve
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &4599957096718283580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1838906537384741336}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd1d04d370a8bca419d81d8abad819bd, type: 3}
@@ -75,14 +153,14 @@ MonoBehaviour:
   _hasOverrideStartingScale: 1
   _overrideStartingScale: {x: 0, y: 0, z: 0}
   _endingScale: {x: 1, y: 1, z: 1}
-  _curveProgression: {fileID: 8979778201164325496}
---- !u!114 &8979778201164325496
+  _curveProgression: {fileID: 7500293514588644636}
+--- !u!114 &7500293514588644636
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 499993671366944745}
+  m_GameObject: {fileID: 1838906537384741336}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 508c048b50abf854791f2f498bb01037, type: 3}
@@ -93,10 +171,10 @@ MonoBehaviour:
   _curveDecreaseTime: 0.5
   _minCurveValue: 0
   _maxCurveValue: 1
-  _hasDefaultValue: 0
+  _hasDefaultValue: 1
   _defaultValue: 0
   _doesResetToDefaultProgressOnEnable: 0
-  _doesStartMovingUpOnEnable: 1
+  _doesStartMovingUpOnEnable: 0
   _doesStartMovingInCurrentDirectionOnEnable: 0
   _doesAutomaticallyMoveDownOnHittingMax: 0
   _doesAutomaticallyMoveUpOnHittingMin: 0
@@ -104,7 +182,7 @@ MonoBehaviour:
   _increaseDelay: 0
   _hasDecreaseDelay: 0
   _decreaseDelay: 0
-  _doesLerpUnchained: 0
+  _doesLerpUnchained: 1
   _curve:
     serializedVersion: 2
     m_Curve:
@@ -156,84 +234,6 @@ MonoBehaviour:
       - m_Target: {fileID: -1121039355813042596}
         m_TargetAssemblyTypeName: FollowObject, Assembly-CSharp
         m_MethodName: DestroyAfterStopFollowing
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!1 &1838906537384741336
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 381328237067187051}
-  - component: {fileID: -1121039355813042596}
-  m_Layer: 0
-  m_Name: GuardianManualVfx
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &381328237067187051
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1838906537384741336}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 557046137051164710}
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-1121039355813042596
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1838906537384741336}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 529cb803b04ccd442b304b93bb5d1608, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _doesDetachOnStart: 0
-  _doesDisableOnStart: 1
-  _doesHideAfterStopFollowing: 0
-  _doesDestroyAfterStopFollowing: 0
-  _destroyFollowDelay: 0
-  _doesSetRotationOnFollowStart: 0
-  _followStartEulerAngles: {x: 0, y: 0, z: 0}
-  _followLocationOffset: {x: 0, y: 0, z: 0}
-  _startFollowObject: {fileID: 0}
-  _onFollowStart:
-    m_PersistentCalls:
-      m_Calls: []
-  _onFollowStopDelayStarted:
-    m_PersistentCalls:
-      m_Calls: []
-  _onFollowStop:
-    m_PersistentCalls:
-      m_Calls: []
-  _onFollowObjectMissing:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8979778201164325496}
-        m_TargetAssemblyTypeName: CurveProgression, Assembly-CSharp
-        m_MethodName: StartMovingDownOnCurve
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

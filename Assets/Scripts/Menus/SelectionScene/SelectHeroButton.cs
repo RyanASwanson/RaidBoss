@@ -50,9 +50,7 @@ public class SelectHeroButton : MonoBehaviour, IPointerClickHandler
 
     private void UpdateFreePlayButtonInteractability()
     {
-        bool heroUnlocked = SaveManager.Instance.IsHeroUnlocked(_associatedHero);
-        
-        SetButtonInteractability(heroUnlocked);
+        SetButtonInteractability(SaveManager.Instance.IsHeroUnlocked(_associatedHero));
     }
 
     private void SetButtonHeroIconVisuals()

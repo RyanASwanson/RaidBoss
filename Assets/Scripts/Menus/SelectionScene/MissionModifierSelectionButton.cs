@@ -9,6 +9,8 @@ public class MissionModifierSelectionButton : MonoBehaviour
 {
     [SerializeField] private Image _associatedModifierImage;
     [SerializeField] private Button _associatedModifierButton;
+
+    [SerializeField] private GameObject _lockVisuals;
     
     [Space]
     [SerializeField] private CurveProgression _buttonHoverScaleCurve;
@@ -23,7 +25,18 @@ public class MissionModifierSelectionButton : MonoBehaviour
 
     private void Start()
     {
+        SetButtonLockInteractability();
         SetButtonModifierIconVisuals();
+    }
+
+    private void SetButtonLockInteractability()
+    {
+        if (_associatedMissionModifier.IsUnityNull())
+        {
+            return;
+        }
+        
+        SetButtonInteractability(SaveManager.Instance.IsMissionModifierUnlocked(_associatedMissionModifier));
     }
     
     private void SetButtonModifierIconVisuals()
@@ -103,5 +116,17 @@ public class MissionModifierSelectionButton : MonoBehaviour
 
     public MissionModifierSO GetMissionModifier() => _associatedMissionModifier;
 
+    #endregion
+    
+    #region Setters
+    public void SetButtonInteractability(bool interactable)
+    {
+        if (!_associatedModifierButton.IsUnityNull())
+        {
+            _associatedModifierButton.interactable = interactable;
+        }
+        
+        _lockVisuals.SetActive(!interactable);
+    }
     #endregion
 }

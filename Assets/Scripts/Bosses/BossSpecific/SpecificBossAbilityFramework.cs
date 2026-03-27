@@ -75,6 +75,10 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
         {
             _timeUntilNextAbility /= missionStatModifiers.GetBossAttackSpeedMultiplier();
         }
+        else
+        {
+            _timeUntilNextAbility /= SelectionManager.Instance.GetSpeedMultiplierFromMythicPlusLevel();
+        }
         
         _targetZoneWait = new WaitForSeconds(_targetZoneDuration);
 

@@ -1559,7 +1559,20 @@ MonoBehaviour:
       DefaultPlayType: 0
       DefaultAudioChoice: 0
       AudioTracks: []
-    MiscellaneousHeroAudio: []
+    MiscellaneousHeroAudio:
+    - AudioName: ManualBounce
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+      DefaultPlayType: 0
+      DefaultAudioChoice: 0
+      AudioTracks:
+      - Guid:
+          Data1: -1512812123
+          Data2: 1108335491
+          Data3: -226195529
+          Data4: 25740965
+        Path: event:/SoundEffect/Heroes/SpecificHeroes/Fae/Active/FaeWallBounce
   - AssociatedHero: Astromancer
     SelectionSelectedAudio:
       AudioName: AstromancerSelection
@@ -1950,7 +1963,7 @@ MonoBehaviour:
             Data2: 1133165705
             Data3: 1387047557
             Data4: -2089332132
-          Path: event:/SoundEffect/UI/General/Buttons/BookOpened
+          Path: event:/SoundEffect/UI/General/Buttons/Pressed/BookOpened
       - AudioName: BookClose
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
@@ -1963,7 +1976,7 @@ MonoBehaviour:
             Data2: 1337621057
             Data3: 2032071308
             Data4: 1385686163
-          Path: event:/SoundEffect/UI/General/Buttons/BookClosed
+          Path: event:/SoundEffect/UI/General/Buttons/Pressed/BookClosed
     GeneralUIAudio:
     - AudioName: 
       DefaultInstanceFadeInTime: 0
