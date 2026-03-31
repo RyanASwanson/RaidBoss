@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class ActiveMissionModifierSelectionButton : MonoBehaviour
 {
     [SerializeField] private int _activeMissionModifierID;
+    private MissionModifierSO _currentDisplayMissionModifier;
     private MissionModifierSO _hoveredMissionModifier;
 
     [SerializeField] private Color _hoverColor;
@@ -15,6 +16,8 @@ public class ActiveMissionModifierSelectionButton : MonoBehaviour
     [SerializeField] private Image _associatedModifierImage;
 
     [SerializeField] private CurveProgression _selectedScaleCurve;
+
+    private bool _isButtonHoveredOver = false;
 
     private void Start()
     {
@@ -35,9 +38,16 @@ public class ActiveMissionModifierSelectionButton : MonoBehaviour
             return;
         }
 
+        _currentDisplayMissionModifier =
+            SelectionManager.Instance.GetCurrentMissionModifiers()[_activeMissionModifierID];
+
+        if (_isButtonHoveredOver)
+        {
+            SelectionController.Instance.SwapMissionModifierDescription(_currentDisplayMissionModifier);
+        }
+
         _associatedModifierImage.enabled = true;
-        _associatedModifierImage.sprite =
-            SelectionManager.Instance.GetCurrentMissionModifiers()[_activeMissionModifierID].GetModifierSprite();
+        _associatedModifierImage.sprite = _currentDisplayMissionModifier.GetModifierSprite();
         _associatedModifierImage.color = _defaultColor;
 
         if (isNewModifier)
@@ -55,6 +65,7 @@ public class ActiveMissionModifierSelectionButton : MonoBehaviour
 
     public void RemoveModifierImage()
     {
+        _currentDisplayMissionModifier = null;
         _associatedModifierImage.enabled = false;
     }
 
@@ -64,10 +75,30 @@ public class ActiveMissionModifierSelectionButton : MonoBehaviour
         {
             return;
         }
-        
-        //SelectionController.Instance.ForceMissionModifierButtonPress(_activeMissionModifierID);
+
         SelectionController.Instance.ForceMissionModifierButtonPress(
             SelectionManager.Instance.GetCurrentMissionModifiers()[_activeMissionModifierID].GetModifierID());
+
+        if (SelectionManager.Instance.GetCurrentMissionModifiers().Count == _activeMissionModifierID)
+        {
+            SelectionController.Instance.HideMissionModifierDescription();
+        }
+    }
+
+    public void ButtonHovered()
+    {
+        if (!_associatedModifierImage.enabled)
+        {
+            return;
+        }
+        SelectionController.Instance.ShowMissionModifierDescription(SelectionManager.Instance.GetCurrentMissionModifiers()[_activeMissionModifierID]);
+        _isButtonHoveredOver = true;
+    }
+
+    public void ButtonNotHovered()
+    {
+        SelectionController.Instance.HideMissionModifierDescription();
+        _isButtonHoveredOver = false;
     }
     
     #region Setters

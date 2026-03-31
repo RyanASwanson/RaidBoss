@@ -130,7 +130,7 @@ public class SaveManager : MainUniversalManagerFramework
         {
             if (!GSD.GetGameplaySaveData().GetBossHeroBestDifficulty().ContainsKey(bossSO.GetBossName()))
             {
-                GSD.GetGameplaySaveData().GetBossHeroBestDifficulty().Add(bossSO.GetBossName(), new Dictionary<string, EGameDifficulty>());
+                GSD.GetGameplaySaveData().GetBossHeroBestDifficulty().Add(bossSO.GetBossName(), new Dictionary<string, int>());
             }
 
             foreach (HeroSO heroSO in _heroesInGame)
@@ -138,7 +138,7 @@ public class SaveManager : MainUniversalManagerFramework
                 if (!GSD.GetGameplaySaveData().GetBossHeroBestDifficulty()[bossSO.GetBossName()]
                         .ContainsKey(heroSO.GetHeroName()))
                 {
-                    GSD.GetGameplaySaveData().GetBossHeroBestDifficulty()[bossSO.GetBossName()].Add(heroSO.GetHeroName(), EGameDifficulty.Empty);
+                    GSD.GetGameplaySaveData().GetBossHeroBestDifficulty()[bossSO.GetBossName()].Add(heroSO.GetHeroName(), (int)EGameDifficulty.Empty);
                 }
             }
         }
@@ -171,6 +171,9 @@ public class SaveManager : MainUniversalManagerFramework
             GSD = JsonConvert.DeserializeObject<GameSaveData>(json);
             
             SelectionManager.Instance.SetSelectedDifficulty((EGameDifficulty)GSD.GetGameplaySaveData().GetCurrentDifficultySelected());
+            SelectionManager.Instance.SetSelectedDifficultyAndMythicPlusLevel(
+                (EGameDifficulty)GSD.GetGameplaySaveData().GetCurrentDifficultySelected(),
+                GSD.GetGameplaySaveData().GetCurrentMythicPlusLevelSelected());
 
             UpdateOldSaveData();
         }
@@ -223,14 +226,19 @@ public class SaveManager : MainUniversalManagerFramework
     public void SaveBossDifficultyHeroesDictionary()
     {
         BossSO tempBoss = SelectionManager.Instance.GetSelectedBoss();
-        EGameDifficulty tempDifficulty = SelectionManager.Instance.GetSelectedDifficulty();
+        int tempDifficulty = (int)SelectionManager.Instance.GetSelectedDifficulty();
         List<HeroSO> tempHeroes = SelectionManager.Instance.GetAllSelectedHeroes();
+
+        if (tempDifficulty == (int)EGameDifficulty.MythicPlus)
+        {
+            tempDifficulty += SelectionManager.Instance.GetMythicPlusLevel();
+        }
 
         //Iterate through the heroes that are in play
         foreach (HeroSO currentTempHero in tempHeroes)
         {
             //If the current difficulty is more than the current best beaten difficulty against this boss
-            if ((int)tempDifficulty > (int)GSD.GetGameplaySaveData().GetBossHeroBestDifficulty()[tempBoss.GetBossName()][currentTempHero.GetHeroName()])
+            if (tempDifficulty > (int)GSD.GetGameplaySaveData().GetBossHeroBestDifficulty()[tempBoss.GetBossName()][currentTempHero.GetHeroName()])
             {
                 //Save the current difficulty into the best beaten difficulty
                 GSD.GetGameplaySaveData().GetBossHeroBestDifficulty()[tempBoss.GetBossName()]
@@ -266,7 +274,7 @@ public class SaveManager : MainUniversalManagerFramework
             foreach (HeroSO heroSO in _heroesInGame)
             {
                 if (GSD.GetGameplaySaveData().GetBossHeroBestDifficulty()[boss.GetBossName()][
-                        heroSO.GetHeroName()]!= EGameDifficulty.MythicPlus)
+                        heroSO.GetHeroName()] < (int)EGameDifficulty.MythicPlus)
                 {
                     return;
                 }
@@ -279,6 +287,12 @@ public class SaveManager : MainUniversalManagerFramework
     private void DifficultyChanged(EGameDifficulty gameDifficulty)
     {
         GSD.GetGameplaySaveData().SetCurrentDifficultySelectedFromEnum(gameDifficulty);
+        SaveText();
+    }
+
+    private void MythicPlusLevelChanged(int level)
+    {
+        GSD.GetGameplaySaveData().SetCurrentMythicPlusLevelSelected(level);
         SaveText();
     }
 
@@ -511,6 +525,7 @@ public class SaveManager : MainUniversalManagerFramework
     {
         base.SubscribeToEvents();
         SelectionManager.Instance.GetDifficultySelectionEvent().AddListener(DifficultyChanged);
+        SelectionManager.Instance.GetMythicPlusLevelSelectionEvent().AddListener(MythicPlusLevelChanged);
     }
 
     #endregion
@@ -541,7 +556,24 @@ public class SaveManager : MainUniversalManagerFramework
     
     public EGameDifficulty GetBestDifficultyBeatenOnHeroForBoss(BossSO bossSO, HeroSO heroSO)
     {
+        int difficulty =  GSD.GetGameplaySaveData().GetBossHeroBestDifficulty()[bossSO.GetBossName()][heroSO.GetHeroName()];
+
+        if (difficulty > (int)EGameDifficulty.MythicPlus)
+        {
+            difficulty = (int)EGameDifficulty.MythicPlus;
+        }
+
+        return (EGameDifficulty)difficulty;
+    }
+
+    public int GetBestDifficultyIntBeatenOnHeroForBoss(BossSO bossSO, HeroSO heroSO)
+    {
         return GSD.GetGameplaySaveData().GetBossHeroBestDifficulty()[bossSO.GetBossName()][heroSO.GetHeroName()];
+    }
+
+    public int GetBestMythicPlusLevelBeatenOnHeroForBoss(BossSO bossSO, HeroSO heroSO)
+    {
+        return GSD.GetGameplaySaveData().GetBossHeroBestDifficulty()[bossSO.GetBossName()][heroSO.GetHeroName()] - (int)EGameDifficulty.MythicPlus;
     }
 
     public int GetHighestMythicPlusLevelUnlocked() => GSD.GetGameplaySaveData().GetHighestMythicPlusLevelUnlocked();
@@ -685,9 +717,10 @@ public class GameplaySaveData
     
     //First string is boss name, second string is hero name
     //Represents the best difficulty each hero has beaten each boss at
-    public Dictionary<string, Dictionary<string,EGameDifficulty>> BossHeroBestDifficultyComplete = new();
+    public Dictionary<string, Dictionary<string,int>> BossHeroBestDifficultyComplete = new();
     
     public int CurrentDifficultySelected = 1;
+    public int CurrentMythicPlusLevelSelected = 0;
     public int HighestMythicPlusLevelUnlocked = 0;
     
     public void ResetGameplaySaveData()
@@ -717,9 +750,10 @@ public class GameplaySaveData
     
     public int GetNextMissionID() => NextMissionID;
     
-    public Dictionary<string, Dictionary<string, EGameDifficulty>> GetBossHeroBestDifficulty() => BossHeroBestDifficultyComplete;
+    public Dictionary<string, Dictionary<string, int>> GetBossHeroBestDifficulty() => BossHeroBestDifficultyComplete;
     
     public int GetCurrentDifficultySelected() => CurrentDifficultySelected;
+    public int GetCurrentMythicPlusLevelSelected() => CurrentMythicPlusLevelSelected;
     public int GetHighestMythicPlusLevelUnlocked() => HighestMythicPlusLevelUnlocked;
     #endregion
     
@@ -730,14 +764,19 @@ public class GameplaySaveData
         NextMissionID = missionID;
     }
     
+    public void ResetBossHeroDifficulties()
+    {
+        BossHeroBestDifficultyComplete = new();
+    }
+    
     public void SetCurrentDifficultySelectedFromEnum(EGameDifficulty difficulty)
     {
         CurrentDifficultySelected = (int)difficulty;
     }
 
-    public void ResetBossHeroDifficulties()
+    public void SetCurrentMythicPlusLevelSelected(int mythicPlusLevel)
     {
-        BossHeroBestDifficultyComplete = new();
+        CurrentMythicPlusLevelSelected = mythicPlusLevel;
     }
     
     public void SetHighestMythicPlusLevelUnlocked(int level) => HighestMythicPlusLevelUnlocked = level;

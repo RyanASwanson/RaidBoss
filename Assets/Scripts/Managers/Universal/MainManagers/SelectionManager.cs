@@ -91,6 +91,7 @@ public class SelectionManager : MainUniversalManagerFramework
     private UnityEvent _bossSelectionChanged = new UnityEvent();
 
     private UnityEvent<EGameDifficulty> _difficultySelectionEvent = new UnityEvent<EGameDifficulty>();
+    private UnityEvent<int> _mythicPlusLevelSelectionEvent = new UnityEvent<int>();
     private UnityEvent _informationUnlockedEvent = new UnityEvent();
 
     public UnityEvent<MissionModifierSO> _missionModifierSelectionEvent;
@@ -338,6 +339,11 @@ public class SelectionManager : MainUniversalManagerFramework
         _difficultySelectionEvent?.Invoke(eGameDifficulty);
     }
 
+    public void InvokeMythicPlusLevelSelectionEvent(int level)
+    {
+        _mythicPlusLevelSelectionEvent?.Invoke(level);
+    }
+
     public void InvokeInformationUnlockedEvent()
     {
         _informationUnlockedEvent?.Invoke();
@@ -455,7 +461,6 @@ public class SelectionManager : MainUniversalManagerFramework
         {
             mythicPlusLevel = Mathf.Clamp(mythicPlusLevel, 0, _mythicPlusScalingHealthMaxLevel);
         }
-        Debug.Log("Health multiplier " + mythicPlusLevel + " * " + _mythicPlusScalingHealthMultiplier + " = " + mythicPlusLevel*_mythicPlusScalingHealthMultiplier);
         return 1 + mythicPlusLevel * _mythicPlusScalingHealthMultiplier;
     }
     
@@ -517,13 +522,24 @@ public class SelectionManager : MainUniversalManagerFramework
     public LevelSO GetSelectedLevel() => _selectedLevel;
     
     public EGameDifficulty GetSelectedDifficulty() => _currentEGameDifficulty;
-    public bool AtMaxModifiersSelected() => _currentMissionModifiers.Count >= MAX_MISSION_MODIFIERS;
-    public int GetIndexOfLastMissionModifierRemoved() => _indexOfLastRemovedMissionModifer;
     public int GetSelectedDifficultyID() => ((int)_currentEGameDifficulty)-1;
     public int GetMythicPlusLevel() => _currentMythicPlusLevel;
 
     public bool GetIsAtHighestMythicPlusLevel() =>
         _currentMythicPlusLevel == SaveManager.Instance.GetHighestMythicPlusLevelUnlocked();
+
+    public bool IsPlayingMythicPlusLevelsAboveZero()
+    {
+        if (_currentEGameDifficulty != EGameDifficulty.MythicPlus)
+        {
+            return false;
+        }
+
+        return _currentMythicPlusLevel > 0;
+    }
+    
+    public bool AtMaxModifiersSelected() => _currentMissionModifiers.Count >= MAX_MISSION_MODIFIERS;
+    public int GetIndexOfLastMissionModifierRemoved() => _indexOfLastRemovedMissionModifer;
     
     public List<HeroSO> GetAllSelectedHeroes() => _selectedHeroes;
     public HeroSO GetHeroAtValue(int val) => _selectedHeroes[val];
@@ -549,6 +565,7 @@ public class SelectionManager : MainUniversalManagerFramework
     public UnityEvent GetBossSelectionChangedEvent() => _bossSelectionChanged;
     
     public UnityEvent<EGameDifficulty> GetDifficultySelectionEvent() => _difficultySelectionEvent;
+    public UnityEvent<int> GetMythicPlusLevelSelectionEvent() => _mythicPlusLevelSelectionEvent;
     public UnityEvent GetInformationUnlockedEvent() => _informationUnlockedEvent;
 
     public UnityEvent<MissionModifierSO> GetMissionModifierSelectionEvent() => _missionModifierSelectionEvent;
@@ -595,6 +612,12 @@ public class SelectionManager : MainUniversalManagerFramework
         SetSelectedLevel(levelSO);
         SetSelectedBoss(levelSO.GetLevelBoss());
     }
+
+    public void SetSelectedDifficultyAndMythicPlusLevel(EGameDifficulty eGameDifficulty, int mythicPlusLevel)
+    {
+        SetSelectedDifficulty(eGameDifficulty);
+        SetMythicPlusScalingLevel(mythicPlusLevel);
+    }
     
     public void SetSelectedDifficulty(EGameDifficulty eGameDifficulty)
     {
@@ -610,6 +633,12 @@ public class SelectionManager : MainUniversalManagerFramework
         }
         
         _currentMythicPlusLevel = mythicPlusScalingLevel;
+        InvokeMythicPlusLevelSelectionEvent(mythicPlusScalingLevel);
+    }
+
+    public void IncreaseMythicPlusScalingLevel(int mythicPlusLevelIncrease)
+    {
+        SetMythicPlusScalingLevel(_currentMythicPlusLevel + mythicPlusLevelIncrease);
     }
 
     public void SetSelectedHeroes(HeroSO[] heroes)

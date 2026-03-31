@@ -104,11 +104,11 @@ public class BossStats : BossChildrenFunctionality
 
         if (SelectionManager.Instance.IsPlayingFreeMode())
         {
-            Debug.Log("Multipliers of level " + SelectionManager.Instance.GetMythicPlusLevel() +
+            /*Debug.Log("Multipliers of level " + SelectionManager.Instance.GetMythicPlusLevel() +
                       "    health: " + SelectionManager.Instance.GetHealthMultiplierFromMythicPlusLevel()
                       + "    stagger: " + SelectionManager.Instance.GetStaggerMultiplierFromMythicPlusLevel()
                       + "    damage: " + SelectionManager.Instance.GetDamageMultiplierFromMythicPlusLevel()
-                      + "    speed: " + SelectionManager.Instance.GetSpeedMultiplierFromMythicPlusLevel());
+                      + "    speed: " + SelectionManager.Instance.GetSpeedMultiplierFromMythicPlusLevel());*/
             
             _bossMaxHealth *= SelectionManager.Instance.GetHealthMultiplierFromMythicPlusLevel();
 
@@ -121,7 +121,7 @@ public class BossStats : BossChildrenFunctionality
         _currentHealth = _bossMaxHealth;
         _currentStaggerCounter = 0;
         
-        Debug.Log("Stats:    health: " + _currentHealth + "    stagger: " + _bossDefaultStaggerMax + "    damage: " + _baseBossDamageMultiplier);
+        //Debug.Log("Stats:    health: " + _currentHealth + "    stagger: " + _bossDefaultStaggerMax + "    damage: " + _baseBossDamageMultiplier);
     }
 #endregion
 

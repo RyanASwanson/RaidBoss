@@ -110,7 +110,7 @@ public class TutorialPage
 
     [Space]
     public Vector2 DefaultTextLocation;
-    [TextArea(1, 9)]public string DefaultText;
+    [TextArea(1, 10)]public string DefaultText;
 
     [Space] 
     public Vector2 TutorialPageObjectLocation;

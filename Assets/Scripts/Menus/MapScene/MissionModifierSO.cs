@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "MissionModifierScriptableObject", menuName = "MissionModifierScriptableObject", order = 4)]
 public class MissionModifierSO : ScriptableObject
 {
-    [SerializeField] private string _modifierName;
+    [TextArea(1, 2)][SerializeField] private string _modifierName;
     [SerializeField] private int _modifierID;
     [TextArea(1, 4)][SerializeField] private string _modifierDescription;
 

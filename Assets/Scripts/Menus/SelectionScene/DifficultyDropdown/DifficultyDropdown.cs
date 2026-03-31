@@ -12,8 +12,13 @@ public class DifficultyDropdown : MonoBehaviour
     [Space]
     [SerializeField] private Image _currentDifficultyIcon;
 
+    [Space]
+    [SerializeField] private string _mythicPlusLevelString;
+    [SerializeField] private TMP_Text _headerText;
+
     [Space] 
     [SerializeField] private CurveProgression _scaleCurve;
+    [SerializeField] private CurveProgression _textScaleCurve;
 
     [Space] 
     [SerializeField] private Color[] _dropdownColors;
@@ -23,6 +28,7 @@ public class DifficultyDropdown : MonoBehaviour
     {
         SetStartingDropdownVisuals();
         SetStartingDropdownValue();
+        UpdateDifficultyHeaderText();
     }
 
     private void SetStartingDropdownVisuals()
@@ -51,7 +57,30 @@ public class DifficultyDropdown : MonoBehaviour
     public void UpdateDifficulty()
     {
         SelectionManager.Instance.SetSelectedDifficulty((EGameDifficulty)_dropdown.value+1);
+        
         _scaleCurve.StartMovingUpOnCurve();
+
+        UpdateDifficultyHeaderText();
+    }
+
+    public void UpdateDifficultyHeaderText()
+    {
+        string previousHeaderText = _headerText.text;
+        if (SelectionManager.Instance.IsPlayingMythicPlusLevelsAboveZero())
+        {
+            _headerText.text = _mythicPlusLevelString + SelectionManager.Instance.GetMythicPlusLevel().ToString();
+        }
+        else
+        {
+            _headerText.text = SelectionManager.Instance.GetDifficultyNames()
+                [(int)SelectionManager.Instance.GetSelectedDifficulty() - 1];
+        }
+
+        if (previousHeaderText != _headerText.text)
+        {
+            _textScaleCurve.StartMovingUpOnCurve();
+        }
+        
     }
 
     public Color[] GetDropdownColors() => _dropdownColors;

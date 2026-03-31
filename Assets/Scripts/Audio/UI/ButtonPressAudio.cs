@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,11 +14,19 @@ public class ButtonPressAudio : MonoBehaviour
     void Start()
     {
         _associatedButton = GetComponent<Button>();
+        if (_associatedButton.IsUnityNull())
+        {
+            return;
+        }
         _associatedButton.onClick.AddListener(PlayButtonPressedSound);
     }
 
     void OnDestroy()
     {
+        if (_associatedButton.IsUnityNull())
+        {
+            return;
+        }
         _associatedButton.onClick.RemoveListener(PlayButtonPressedSound);
     }
 

@@ -21,6 +21,7 @@ public class SelectHeroButton : MonoBehaviour, IPointerClickHandler
     private Color _defaultColor;
 
     [SerializeField] private Image _bestDifficultyBeatenIcon;
+    [SerializeField] private TextWithBackground _mythicPlusLevelText;
 
     [SerializeField] private GameObject _lockVisuals;
 
@@ -154,12 +155,23 @@ public class SelectHeroButton : MonoBehaviour, IPointerClickHandler
 
     public void SetBestDifficultyBeatenIcon(BossSO hoveredBoss)
     {
-        EGameDifficulty eGameDifficulty = SaveManager.Instance.
-            GetBestDifficultyBeatenOnHeroForBoss(hoveredBoss, _associatedHero);
-        
-        if ((int)eGameDifficulty > 0)
+        int gameDifficulty = SaveManager.Instance.
+            GetBestDifficultyIntBeatenOnHeroForBoss(hoveredBoss, _associatedHero);
+
+        if (gameDifficulty > (int)EGameDifficulty.MythicPlus)
         {
-            _bestDifficultyBeatenIcon.sprite = SelectionManager.Instance.GetDifficultyIcons()[(int)eGameDifficulty - 1];
+            _mythicPlusLevelText.gameObject.SetActive(true);
+            _mythicPlusLevelText.UpdateText((gameDifficulty - (int) EGameDifficulty.MythicPlus).ToString());
+            gameDifficulty = (int)EGameDifficulty.MythicPlus;
+        }
+        else
+        {
+            _mythicPlusLevelText.gameObject.SetActive(false);
+        }
+        
+        if (gameDifficulty > 0)
+        {
+            _bestDifficultyBeatenIcon.sprite = SelectionManager.Instance.GetDifficultyIcons()[gameDifficulty - 1];
             UpdateBestDifficultyBeatenIconAlpha(1);
         }
         else

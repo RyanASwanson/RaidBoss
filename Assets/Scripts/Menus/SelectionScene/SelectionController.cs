@@ -90,11 +90,13 @@ public class SelectionController : MonoBehaviour
     private HeroSO _lastHeroHoveredOver;
     private HeroSO _heroUIToDisplay;
     private MissionModifierSO _lastMissionModifierHoveredOver;
+    private MissionModifierSO _missionModifierUIToDisplay;
 
     [Space] 
     [SerializeField] private ScrollUISelection _heroScrollUI;
 
     private int _currentHeroAbilityID = -1;
+    private int _currentMissionModifierID = -1;
 
     [Space]
     [Header("Hero")]
@@ -402,27 +404,37 @@ public class SelectionController : MonoBehaviour
 
     public void GeneralMissionModifierHoveredOver(MissionModifierSO missionModifier)
     {
-        
+        ShowMissionModifierDescription(missionModifier);
     }
 
     public void MissionModifierNotHoveredOver(MissionModifierSO missionModifier)
     {
         GetLastActiveMissionModifier().ResetCurrentHoveredMissionModifier();
+        HideMissionModifierDescription();
+    }
+    
+    public void ShowMissionModifierDescription(MissionModifierSO missionModifier)
+    {
+        _missionModifierUIToDisplay = missionModifier;
+        _currentMissionModifierID = missionModifier.GetModifierID();
+        
+        _heroScrollUI.ShowNewScroll(90);
+    }
+    
+    public void SwapMissionModifierDescription(MissionModifierSO missionModifier)
+    {
+        _missionModifierUIToDisplay = missionModifier;
+        _currentMissionModifierID = missionModifier.GetModifierID();
+        
+        _heroScrollUI.HideScroll();
+        _heroScrollUI.ShowNewScroll(90);
     }
 
-    public void MissionModifierTabPressed()
+    public void HideMissionModifierDescription()
     {
-        _areModifiersActive = !_areModifiersActive;
+        _currentMissionModifierID = -1;
         
-        if (_areModifiersActive)
-        {
-            _activeModifiersCurve.StartMovingUpOnCurve();
-        }
-        else
-        {
-            _activeModifiersCurve.StartMovingDownOnCurve();
-        }
-        
+        _heroScrollUI.HideScroll();
     }
 
     public void ShowMissionModifierTab()
@@ -1133,9 +1145,11 @@ public class SelectionController : MonoBehaviour
 
     public int GetCurrentBossAbilityID() => _currentBossAbilityID;
     public int GetCurrentHeroAbilityID() => _currentHeroAbilityID;
+    public int GetCurrentMissionModifierID() => _currentMissionModifierID;
     
     public BossSO GetBossUIToDisplay() => _bossUIToDisplay;
     public HeroSO GetHeroUIToDisplay() => _heroUIToDisplay;
+    public MissionModifierSO GetMissionModifierUIToDisplay() => _missionModifierUIToDisplay;
     
     public Camera GetBossCamera() => _bossCamera;
     public Camera GetHeroCamera() => _heroCamera;
