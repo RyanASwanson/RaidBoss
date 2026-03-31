@@ -341,11 +341,20 @@ public abstract class SpecificBossFramework : MonoBehaviour
         {
             return;
         }
+        
 
         _currentAbility = SelectNextAbility();
-        AddAbilityToEndOfCooldownQueue(_currentAbility);
-
-        _nextAttackProcess = StartCoroutine(UseNextAbilityProcess(_currentAbility));
+        
+        if (_currentAbility.GetCanAbilityBeUsed())
+        {
+            AddAbilityToEndOfCooldownQueue(_currentAbility);
+            _nextAttackProcess = StartCoroutine(UseNextAbilityProcess(_currentAbility));
+        }
+        else
+        {
+            // Skip the current ability
+            StartNextAbility();
+        }
     }
 
     /// <summary>

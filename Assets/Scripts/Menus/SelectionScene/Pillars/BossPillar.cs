@@ -55,8 +55,6 @@ public class BossPillar : MonoBehaviour
         
         _currentBossVisual.transform.eulerAngles += new Vector3(0, 315, 0);
         _storedBoss = bossSO;
-
-        UpdateBossPlatform();
         
         if (_bossSelectedOnPillar == bossSO)
         {
@@ -110,6 +108,11 @@ public class BossPillar : MonoBehaviour
         SelectionController.Instance.ForceBossButtonPressFromID(_storedBoss.GetBossID());
 
         AnimateOutBossOnPillar();
+    }
+
+    public void PillarUpdate()
+    {
+        UpdateBossPlatform();
     }
 
     private void SetUpBossDeselectCanvas()

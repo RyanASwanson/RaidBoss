@@ -298,19 +298,32 @@ MonoBehaviour:
         DefaultAudioChoice: 0
         AudioTracks: []
       GeneralAbilityAudio:
+      - AudioName: VolcanoFutureTargetZoneSpawned
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: -1371343706
+            Data2: 1294850580
+            Data3: -1093043800
+            Data4: -1631948465
+          Path: event:/SoundEffect/Bosses/Specific/MagmaLord/Abilities/Volcano/MagmaLordVolcanoFutureZoneSpawned
       - AudioName: VolcanoImpact
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
         DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
         DefaultPlayType: 1
-        DefaultAudioChoice: 1
+        DefaultAudioChoice: 0
         AudioTracks:
         - Guid:
             Data1: -1865652598
             Data2: 1123647054
             Data3: 437322369
             Data4: -952020448
-          Path: event:/SoundEffect/Bosses/Specific/MagmaLord/Abilities/Volcano/Volcano1
+          Path: event:/SoundEffect/Bosses/Specific/MagmaLord/Abilities/Volcano/MagmaLordVolcanoImpact
     BossAmbience:
       AudioName: MagmaLordAmbience
       DefaultInstanceFadeInTime: 0

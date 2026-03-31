@@ -163,6 +163,9 @@ public class SH_Mirage : SpecificHeroFramework
     public override void ActivateManualAbilities()
     {
         base.ActivateManualAbilities();
+        
+        _myHeroBase.GetPathfinding().SetIsHeroUsingMovementAbility(true);
+        
         Instantiate(_manualAbilityVFX, transform.position, Quaternion.identity);
         Instantiate(_manualAbilityVFX, _cloneBase.transform.position, Quaternion.identity);
         //This doesn't do any override as the animation has a trigger on it which calls CloneSwap
@@ -176,8 +179,13 @@ public class SH_Mirage : SpecificHeroFramework
 
         _myHeroBase.transform.position = storedCloneLocation;
         _myHeroBase.transform.rotation = storedCloneRotation;
-
+        
         _myHeroBase.GetPathfinding().BriefStopCurrentMovement();
+    }
+
+    public void CloneSwapOver()
+    {
+        _myHeroBase.GetPathfinding().SetIsHeroUsingMovementAbility(false);
     }
 
     /*/// <summary>

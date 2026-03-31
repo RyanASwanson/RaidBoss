@@ -31,11 +31,7 @@ public class GeneralVFXFunctionality : MonoBehaviour
     {
         if (_hasCustomEmmisionRateCurve)
         {
-            _startingParticleSystemsEmissionRates = new float[_particleSystems.Count];
-            for (int i = 0; i < _particleSystems.Count; i++)
-            {
-                _startingParticleSystemsEmissionRates[i] = _particleSystems[i].emission.rateOverTimeMultiplier;
-            }
+            SetUpParticleSystemEmissionRates();
         }
         
         if (_hasLifeTime)
@@ -105,6 +101,15 @@ public class GeneralVFXFunctionality : MonoBehaviour
         {
             var psMain = ps.main;
             psMain.loop = shouldLoop;
+        }
+    }
+
+    public void SetUpParticleSystemEmissionRates()
+    {
+        _startingParticleSystemsEmissionRates = new float[_particleSystems.Count];
+        for (int i = 0; i < _particleSystems.Count; i++)
+        {
+            _startingParticleSystemsEmissionRates[i] = _particleSystems[i].emission.rateOverTimeMultiplier;
         }
     }
 

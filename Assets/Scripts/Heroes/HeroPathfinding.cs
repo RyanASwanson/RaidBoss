@@ -18,6 +18,7 @@ public class HeroPathfinding : HeroChildrenFunctionality
     [SerializeField] private NavMeshAgent _meshAgent;
 
     private Coroutine _heroMovementCoroutine = null;
+    private bool _isHeroUsingMovementAbility = false;
 
     /// <summary>
     /// Makes a player walk to a destination
@@ -185,6 +186,17 @@ public class HeroPathfinding : HeroChildrenFunctionality
     #region Getters
     public NavMeshAgent GetNavMeshAgent() => _meshAgent;
 
-    public bool IsHeroMoving() => !_heroMovementCoroutine.IsUnityNull();
+    public bool IsHeroMovingPathfindingOrAbility() => IsHeroMovingWithPathfinding() || IsHeroUsingMovementAbility();
+    public bool IsHeroMovingWithPathfinding() => !_heroMovementCoroutine.IsUnityNull();
+    public bool IsHeroUsingMovementAbility() => _isHeroUsingMovementAbility;
+
+    #endregion
+    
+    #region Setters
+
+    public void SetIsHeroUsingMovementAbility(bool isUsingMovementAbility)
+    {
+        _isHeroUsingMovementAbility = isUsingMovementAbility;
+    }
     #endregion
 }

@@ -8,6 +8,9 @@ using UnityEngine;
 public class SB_MagmaLord : SpecificBossFramework
 {
     public static SB_MagmaLord Instance;
+
+    [Space] 
+    [SerializeField] private SBA_Volcano _volcano;
     
     [Space] 
     [SerializeField] private GameObject _deathEffect;
@@ -19,6 +22,12 @@ public class SB_MagmaLord : SpecificBossFramework
     protected override void CreateSpecificBossInstance()
     {
         Instance = this;
+    }
+
+    protected override void StartFight()
+    {
+        base.StartFight();
+        _volcano.BattleStarted();
     }
     
     protected override void BossDied()

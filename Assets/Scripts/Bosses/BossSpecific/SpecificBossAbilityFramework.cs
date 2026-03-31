@@ -463,6 +463,8 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
 
     #region Getters
 
+    public virtual bool GetCanAbilityBeUsed() => true;
+
     public int GetAbilityID() => _abilityID;
     public EBossAbilityTargetMethod GetTargetMethod() => _targetMethod;
     public bool GetDoesBossFollowTarget() => _doesBossFollowTarget;

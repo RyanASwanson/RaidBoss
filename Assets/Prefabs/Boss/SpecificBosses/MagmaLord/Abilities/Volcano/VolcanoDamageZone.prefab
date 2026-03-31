@@ -4945,7 +4945,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1.15, y: 1, z: 1.15}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5202390388151711832
 GameObject:
@@ -5031,10 +5031,10 @@ MonoBehaviour:
   - {fileID: 2651889579369377654}
   _hasLifetime: 0
   _lifetime: 0
-  _hasColliderActivationDelay: 0
-  _colliderActivationDelay: 0
-  _hasColliderLifetime: 0
-  _colliderLifetime: 0
+  _hasColliderActivationDelay: 1
+  _colliderActivationDelay: 0.15
+  _hasColliderLifetime: 1
+  _colliderLifetime: 1.3
   _doesHitCenteredVFXCopyRotation: 0
   _hitCenteredVFXCopyTarget: {fileID: 0}
   _hitCenteredVFX: {fileID: 0}
@@ -5045,12 +5045,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   _canPreventReHitWithoutInitialDamage: 0
-  _preventReHitDuration: 0.5
+  _preventReHitDuration: 0.6
   _enterDamage: 0
   _enterEvent:
     m_PersistentCalls:
       m_Calls: []
-  _stayDamagePerTick: 2.5
+  _stayDamagePerTick: 3.5
   _stayEvent:
     m_PersistentCalls:
       m_Calls: []

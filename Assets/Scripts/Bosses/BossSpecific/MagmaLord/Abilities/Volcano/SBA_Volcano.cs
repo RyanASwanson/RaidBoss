@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using FMOD.Studio;
 using Unity.VisualScripting;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 /// <summary>
 /// Provides the functionality for the Magma Lord's Volcano ability
@@ -10,10 +12,7 @@ using UnityEngine;
 public class SBA_Volcano : SpecificBossAbilityFramework
 {
     [Space]
-    [SerializeField] private int _projectileCount;
     [SerializeField] private float _projectileDelay;
-    [SerializeField] private float _minimumProjectileDistance;
-    [SerializeField] private float _mapRadiusOffset;
 
     private WaitForSeconds _projectileDelayWaitForSeconds;
 
@@ -23,66 +22,97 @@ public class SBA_Volcano : SpecificBossAbilityFramework
     [Space] 
     [SerializeField] private float _impactAudioPitchIncrease;
 
-    [Space]
-    [SerializeField] private GameObject _targetZone;
-    [SerializeField] private GameObject _volcanoDamageZone;
-
     private List<GameObject> _storedDamageZones = new List<GameObject>();
-    private List<Vector3> _targetLocations;
+    private List<Vector3> _targetLocations = new List<Vector3>();
+
+    private List<Vector3> _currentActiveTargetLocations = new List<Vector3>();
 
     private Coroutine _targetZoneSpawningProcess;
     private Coroutine _damageZoneSpawningProcess;
     
-    private const int VOLCANO_IMPACT_AUDIO_ID = 0;
+    private const int VOLCANO_FUTURE_TARGET_ZONE_SPAWNED_AUDIO_ID = 0;
+    private const int VOLCANO_IMPACT_AUDIO_ID = 1;
 
-    /// <summary>
-    /// Determines where the attacks should occur
-    /// </summary>
-    private void DetermineAttackLocations()
+    [Space]
+    [SerializeField] private int _futureTargetZonesRequiredToActivate;
+    [SerializeField] private int _futureTargetZonesCertainChanceToActivate;
+
+    [Space]
+    [SerializeField] private GameObject _volcanoHeroTrackingObject;
+    private VolcanoHeroMovementTracking[] _volcanoHeroMovementTracking;
+
+    [Space]
+    [SerializeField] private GameObject _volcanoFutureTargetZone;
+    [SerializeField] private GameObject _targetZone;
+    [SerializeField] private GameObject _volcanoDamageZone;
+    
+    private List<BossTargetZoneParent> _currentVolcanoFutureTargetZones = new();
+    private List<BossTargetZoneParent> _currentActiveVolcanoFutureTargetZones = new();
+    
+
+    public void BattleStarted()
     {
-        _targetLocations = new List<Vector3>();
-
-        //Iterate for the amount of projectiles this attack spawns
-        for(int i = 0; i < _projectileCount; i++)
+        CreateVolcanoHeroTrackingOnHeroes();
+        
+        foreach (VolcanoHeroMovementTracking volcanoTracking in _volcanoHeroMovementTracking)
         {
-            //Determines where the attack should take place
-            _targetLocations.Add(GenerateNewAttackLocation(0));
+            if (volcanoTracking.IsUnityNull())
+            {
+                continue;
+            }
+            
+            volcanoTracking.StartTrackingHeroMovement();
         }
     }
 
-    /// <summary>
-    /// Creates a new location for the attack to spawn
-    /// </summary>
-    /// <param name="attempt"> The amount of attempts it has spent trying to spawn it away from other projectiles </param>
-    /// <returns></returns>
-    private Vector3 GenerateNewAttackLocation(int attempt)
+    private void CreateVolcanoHeroTrackingOnHeroes()
     {
-        Vector3 currentTestLocation;
-        float mapRadius = EnvironmentManager.Instance.GetMapRadius() - _mapRadiusOffset;
-        
-        currentTestLocation = new Vector3(Random.Range(-mapRadius, mapRadius), 
-            transform.position.y, Random.Range(-mapRadius, mapRadius));
-
-        currentTestLocation = EnvironmentManager.Instance.GetClosestPointToFloor(currentTestLocation);
-
-        foreach (Vector3 target in _targetLocations)
+        List<HeroBase> heroes = HeroesManager.Instance.GetCurrentHeroes();
+        for (int i = 0; i < heroes.Count; i++)
         {
-            //Checks if the projectile is too close to the current other projectiles
-            //Only checks if the amount of attempts is less that a designated number to prevent going forever
-            if (Vector3.Distance(target, currentTestLocation) < _minimumProjectileDistance && attempt < 5)
-            {
-                return GenerateNewAttackLocation(attempt+1);
-            }
-        }
+            VolcanoHeroMovementTracking volcanoHeroMovementTracking = 
+                Instantiate(_volcanoHeroTrackingObject,heroes[i].transform.position, Quaternion.identity).GetComponent<VolcanoHeroMovementTracking>();
 
-        return currentTestLocation;
+            volcanoHeroMovementTracking.SetUpVolcanoTracking(this, heroes[i]);
+            
+            _volcanoHeroMovementTracking[i] = volcanoHeroMovementTracking;
+        }
+    }
+
+    public void VolcanoTargetHitMax(VolcanoHeroMovementTracking volcanoHeroMovementTracking)
+    {
+        BossTargetZoneParent targetZoneParent = 
+            Instantiate(_volcanoFutureTargetZone, volcanoHeroMovementTracking.transform.position, Quaternion.identity).GetComponent<BossTargetZoneParent>();
+
+        targetZoneParent.transform.position =
+            EnvironmentManager.Instance.GetClosestPointToFloor(targetZoneParent.transform.position);
+        
+        /*targetZoneParent.transform.position = new Vector3(targetZoneParent.transform.position.x,
+            targetZoneParent.transform.position.y - _specificAreaTarget.y, targetZoneParent.transform.position.z);*/
+        
+        _currentVolcanoFutureTargetZones.Add(targetZoneParent);
+        _targetLocations.Add(targetZoneParent.transform.position);
+
+        PlayVolcanoFutureTargetZoneSpawnedAudio();
     }
     
-    private IEnumerator VolcanoTargetZoneCreationProcess()
+        private IEnumerator VolcanoTargetZoneCreationProcess()
     {
-        for (int i = 0; i < _targetLocations.Count; i++)
+        InformHeroTrackingOfAbilityActivation();
+        
+        _currentActiveTargetLocations.Clear();
+        _currentActiveTargetLocations.InsertRange(0, _targetLocations);
+        _currentActiveVolcanoFutureTargetZones.Clear();
+        _currentActiveVolcanoFutureTargetZones.InsertRange(0, _currentVolcanoFutureTargetZones);
+        
+        _targetLocations.Clear();
+        _currentVolcanoFutureTargetZones.Clear();
+        
+        for (int i = 0; i < _currentActiveTargetLocations.Count; i++)
         {
-            _currentTargetZones.Add(Instantiate(_targetZone, _targetLocations[i], Quaternion.identity).GetComponent<BossTargetZoneParent>());
+            _currentActiveVolcanoFutureTargetZones[i].RemoveBossTargetZones();
+            
+            _currentTargetZones.Add(Instantiate(_targetZone, _currentActiveTargetLocations[i], Quaternion.identity).GetComponent<BossTargetZoneParent>());
 
             if (i != 0)
             {
@@ -96,7 +126,7 @@ public class SBA_Volcano : SpecificBossAbilityFramework
     private IEnumerator VolcanoDamageCreationProcess()
     {
         int volcanoSpawned = 0;
-        foreach (Vector3 attackLoc in _targetLocations)
+        foreach (Vector3 attackLoc in _currentActiveTargetLocations)
         {
             GameObject newestDamageZone = Instantiate(_volcanoDamageZone, attackLoc, Quaternion.identity);
 
@@ -112,6 +142,25 @@ public class SBA_Volcano : SpecificBossAbilityFramework
         }
     }
 
+    private void InformHeroTrackingOfAbilityActivation()
+    {
+        foreach (VolcanoHeroMovementTracking volcanoHeroTracking in _volcanoHeroMovementTracking)
+        {
+            if (volcanoHeroTracking.IsUnityNull())
+            {
+                continue;
+            }
+            volcanoHeroTracking.VolcanoAbilityWasUsed();
+        }
+    }
+
+    private void PlayVolcanoFutureTargetZoneSpawnedAudio()
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
+                BossAbilityAudio[_abilityID].GeneralAbilityAudio[VOLCANO_FUTURE_TARGET_ZONE_SPAWNED_AUDIO_ID]);
+    }
+
     private void PlayVolcanoAbilityAudio(int volcanoSpawned)
     {
         AudioManager.Instance.PlaySpecificAudio(
@@ -122,12 +171,16 @@ public class SBA_Volcano : SpecificBossAbilityFramework
         eventInstance.setPitch(pitch + (volcanoSpawned * _impactAudioPitchIncrease));
     }
     
+    
     #region Base Ability
 
     public override void AbilitySetUp(BossBase bossBase)
     {
         base.AbilitySetUp(bossBase);
         _projectileDelayWaitForSeconds = new WaitForSeconds(_projectileDelay);
+
+        _volcanoHeroMovementTracking =
+            new VolcanoHeroMovementTracking[SelectionManager.Instance.GetHeroLimitFromDifficulty()];
     }
 
     /// <summary>
@@ -135,7 +188,7 @@ public class SBA_Volcano : SpecificBossAbilityFramework
     /// </summary>
     protected override void StartShowTargetZone()
     {
-        DetermineAttackLocations();
+        //DetermineAttackLocations();
         
         _targetZoneSpawningProcess = StartCoroutine(VolcanoTargetZoneCreationProcess());
         
@@ -167,6 +220,21 @@ public class SBA_Volcano : SpecificBossAbilityFramework
             StopCoroutine(_damageZoneSpawningProcess);
         }
     }
+
+    public override bool GetCanAbilityBeUsed()
+    {
+        if (_currentVolcanoFutureTargetZones.Count < _futureTargetZonesRequiredToActivate)
+        {
+            return false;
+        }
+
+        float requiredMinChance = (float)_currentVolcanoFutureTargetZones.Count / (float)_futureTargetZonesCertainChanceToActivate;
+        float randomChance = Random.Range(0, 1f);
+        
+        return randomChance <= requiredMinChance;
+    }
+        
+    
 
     #endregion
 }

@@ -133,7 +133,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     /// <returns></returns>
     public virtual bool ConditionsToActivateBasicAbilities()
     {
-        return !_myHeroBase.GetPathfinding().IsHeroMoving();
+        return !_myHeroBase.GetPathfinding().IsHeroMovingWithPathfinding();
     }
 
     protected virtual void TriggerBasicAbilityAnimation()

@@ -237,7 +237,7 @@ MonoBehaviour:
   _specificLookTarget: {x: 0, y: 0, z: -1}
   _targetZoneDuration: 4
   _abilityWindUpTime: 4
-  _timeUntilNextAbility: 7
+  _timeUntilNextAbility: 7.75
   _hasAbilityDuration: 0
   _abilityDuration: 0
   _delayedIndividualTargetZoneRemovalTime: 0
@@ -249,11 +249,12 @@ MonoBehaviour:
   _animationTriggerName: VolcanoAbility
   _abilityPrepAudioDelay: 0
   _abilityStartAudioDelay: 0
-  _projectileCount: 5
   _projectileDelay: 0.2
-  _minimumProjectileDistance: 2
-  _mapRadiusOffset: 3
   _impactAudioPitchIncrease: 0.3
+  _futureTargetZonesRequiredToActivate: 3
+  _futureTargetZonesCertainChanceToActivate: 7
+  _volcanoHeroTrackingObject: {fileID: 3479084661189140251, guid: 4ce92b97e440fe2489396dbc0bd466da, type: 3}
+  _volcanoFutureTargetZone: {fileID: 1678602154797263835, guid: aab61dad3e5d59d469715d8b62c9a806, type: 3}
   _targetZone: {fileID: 1953041730564889602, guid: c854f73f9135c2f439013660c2afab98, type: 3}
   _volcanoDamageZone: {fileID: 7816546349087960188, guid: d0d5519e062e34a41ba90cec54478c08, type: 3}
 --- !u!1 &6950114219375309769
@@ -362,11 +363,13 @@ MonoBehaviour:
   - {fileID: 2262732033750232322}
   - {fileID: 8104344608364409530}
   - {fileID: 8533920720578803924}
+  - {fileID: 4065764590218907969}
   _attackRepititionProtection: 2
-  _abilityLocked: {fileID: 4065764590218907969}
+  _abilityLocked: {fileID: 0}
   _bossVisualsBase: {fileID: 7107661798084011450}
   _bossSpecificUI: {fileID: 0}
   _bossSpecificAnimator: {fileID: 8927430472980390374}
+  _volcano: {fileID: 4065764590218907969}
   _deathEffect: {fileID: 3027351174208574774, guid: 09f4b747b82e4c444b7da6d89f2f8962, type: 3}
 --- !u!1001 &9167238552230700712
 PrefabInstance:

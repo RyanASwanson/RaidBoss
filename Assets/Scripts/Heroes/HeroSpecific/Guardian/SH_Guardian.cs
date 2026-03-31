@@ -16,12 +16,6 @@ public class SH_Guardian : SpecificHeroFramework
     [Range(0,1)][SerializeField] private float _heroManualDamageResistance;
     private WaitForSeconds _heroManualAbilityWait;
 
-    /*[SerializeField] private GameObject _tauntIcon;
-    private GameObject _currentTauntIcon;
-    private Animator _currentTauntIconAnimator;*/
-
-    private const string TAUNT_ICON_SHOW_ANIM_BOOL = "Show";
-
     [SerializeField] private GameObject _tauntVfxObject;
     private CurveProgression _currentTauntVfx;
 
@@ -70,10 +64,11 @@ public class SH_Guardian : SpecificHeroFramework
     {
         //_heroManualDamageResistance
         _myHeroBase.GetHeroStats().ChangeCurrentHeroDamageResistance(_heroManualDamageResistance);
-        
-        _currentTauntVfx.StartMovingUpOnCurve();
-        
-        //_currentTauntIconAnimator.SetBool(TAUNT_ICON_SHOW_ANIM_BOOL, true);
+
+        if (!_currentTauntVfx.IsUnityNull())
+        {
+            _currentTauntVfx.StartMovingUpOnCurve();
+        }
         
         yield return _heroManualAbilityWait;
 
@@ -86,9 +81,10 @@ public class SH_Guardian : SpecificHeroFramework
         
         _myHeroBase.GetHeroStats().ChangeCurrentHeroDamageResistance(-_heroManualDamageResistance);
         
-        //_currentTauntIconAnimator.SetBool(TAUNT_ICON_SHOW_ANIM_BOOL, false);
-        _currentTauntVfx.StartMovingDownOnCurve();
-        Debug.Log("Manual Ended");
+        if (!_currentTauntVfx.IsUnityNull())
+        {
+            _currentTauntVfx.StartMovingDownOnCurve();
+        }
     }
     #endregion
 
