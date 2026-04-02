@@ -141,5 +141,6 @@ public class BossAbilityInformation
 public enum BossAbilityType
 {
     Active,
-    Passive
+    Passive,
+    Hybrid
 };

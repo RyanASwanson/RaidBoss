@@ -142,15 +142,6 @@ public class VolcanoHeroMovementTracking : MonoBehaviour
         _isForcedMovingDown = false;
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            _currentVolcanoHeroMovementAmount = _volcanoMaxTracking;
-            UpdateVolcanoMovementAmount();
-        }
-    }
-
     private void HitVolcanoMax()
     {
         _associatedVolcano.VolcanoTargetHitMax(this);
