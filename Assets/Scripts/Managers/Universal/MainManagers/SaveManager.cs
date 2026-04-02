@@ -543,6 +543,8 @@ public class SaveManager : MainUniversalManagerFramework
     public MissionSO[] GetMissionsInGame() => _missionsInGame;
     
     public int GetNextMissionID() => GSD.GetGameplaySaveData().GetNextMissionID();
+    
+    public List<BossSO> GetBossesInGame() => _bossesInGame;
 
     public bool IsBossUnlocked(BossSO bossSO) => GSD.GetGameplaySaveData().GetBossesUnlocked().Contains(bossSO.GetBossName());
     public bool IsHeroUnlocked(HeroSO heroSO) => GSD.GetGameplaySaveData().GetHeroesUnlocked().Contains(heroSO.GetHeroName());
@@ -553,6 +555,9 @@ public class SaveManager : MainUniversalManagerFramework
     
     public bool IsMissionModifierUnlocked(MissionModifierSO missionModifierSO) => GSD.GetGameplaySaveData()
         .MissionModifiersUnlocked.Contains(missionModifierSO.GetModifierID());
+    
+    
+    public List<HeroSO> GetHeroesInGame() => _heroesInGame;
     
     public EGameDifficulty GetBestDifficultyBeatenOnHeroForBoss(BossSO bossSO, HeroSO heroSO)
     {

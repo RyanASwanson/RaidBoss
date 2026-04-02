@@ -205,7 +205,7 @@ public class MapController : MonoBehaviour
         PlayMissionSelectedAudio(mission);
     }
 
-    private void UpdateBackground(MissionSO mission)
+    public void UpdateBackground(MissionSO mission)
     {
         if (!_previousSelectedMission.IsUnityNull() && mission.GetAssociatedLevel().GetLevelNumber() ==
             _previousSelectedMission.GetAssociatedMission().GetAssociatedLevel().GetLevelNumber())
@@ -213,6 +213,16 @@ public class MapController : MonoBehaviour
             return;
         }
         _bossBackgroundChanger.UpdateBackground(mission.GetAssociatedLevel());
+    }
+
+    public void UpdateBackground(LevelSO level)
+    {
+        if (!_previousSelectedMission.IsUnityNull() && level.GetLevelNumber() ==
+            _previousSelectedMission.GetAssociatedMission().GetAssociatedLevel().GetLevelNumber())
+        {
+            return;
+        }
+        _bossBackgroundChanger.UpdateBackground(level);
     }
     
     private void DeselectSelectedMission()
@@ -258,74 +268,6 @@ public class MapController : MonoBehaviour
     {
         _generalScrollPopUp.HideScroll();
     }
-    #endregion
-    
-    #region Background
-
-    /*private void UpdateBackground(MissionSO mission)
-    {
-        if (!_previousSelectedMission.IsUnityNull() && mission.GetAssociatedLevel().GetLevelNumber() ==
-            _previousSelectedMission.GetAssociatedMission().GetAssociatedLevel().GetLevelNumber())
-        {
-            return;
-        }
-        
-        RemoveCurrentBackground();
-        RemoveCurrentBackgroundParticles();
-        ShowBackground(mission);
-        ShowBackgroundParticles(mission);
-    }
-
-    private void ShowBackground(MissionSO mission)
-    {
-        _currentBackgroundCurveProgression = _backgroundCurveProgressions[mission.GetAssociatedLevel().GetLevelNumber()];
-        
-        if (_currentBackgroundCurveProgression.IsUnityNull())
-        {
-            return;
-        }
-        
-        _currentBackgroundCurveProgression.StartMovingUpOnCurve();
-    }
-
-    private void RemoveCurrentBackground()
-    {
-        if (_currentBackgroundCurveProgression.IsUnityNull())
-        {
-            return;
-        }
-        _currentBackgroundCurveProgression.StartMovingDownOnCurve();
-
-    }
-
-    private void ShowBackgroundParticles(MissionSO mission)
-    {
-        _currentBackgroundParticles = _backgroundParticles[mission.GetAssociatedLevel().GetLevelNumber()];
-        _currentBackgroundParticles.gameObject.SetActive(true);
-    }
-
-    private void RemoveCurrentBackgroundParticles()
-    {
-        if (_currentBackgroundParticles.IsUnityNull())
-        {
-            return;
-        }
-        _currentBackgroundParticles.gameObject.SetActive(false);
-    }
-
-    private void HideAllBackgroundParticles()
-    {
-        foreach (GeneralVFXFunctionality particle in _backgroundParticles)
-        {
-            particle.gameObject.SetActive(false);
-        }
-    }
-
-    private void ShowStartingBackgroundParticles()
-    {
-        ShowBackgroundParticles(SaveManager.Instance.GetMissionsInGame()[0]);
-    }*/
-    
     #endregion
     
     #region CameraMovement
@@ -407,7 +349,7 @@ public class MapController : MonoBehaviour
         MoveCameraToTargetByIncrease(_cameraButtonMoveDistance);
     }
     
-    private void MoveCameraToTargetByIncrease(float xIncrease)
+    public void MoveCameraToTargetByIncrease(float xIncrease)
     {
         MoveCameraToTarget(_cameraHolder.transform.position.x + xIncrease);
     }
@@ -466,7 +408,7 @@ public class MapController : MonoBehaviour
         SetCameraLocation(_cameraHolder.transform.position.x + xIncrease);
     }
 
-    private void SetCameraLocation(float xLocation)
+    public void SetCameraLocation(float xLocation)
     {
         xLocation = ClampLocationWithinLimits(xLocation);
         _cameraHolder.transform.position = new Vector3(xLocation,_cameraHolder.transform.position.y,_cameraHolder.transform.position.z);
@@ -658,7 +600,17 @@ public class MapController : MonoBehaviour
 
     public GameObject GetVictoryStandard() => _victoryStandard;
 
+    public List<SelectableMission> GetAllSelectableMissions() => _createdMissions;
+
     public SelectableMission GetSelectedMission() => _currentlySelectedMission;
 
+    #endregion
+    
+    #region Setters
+
+    public void SetCameraMoveSpeed(float speed)
+    {
+        _cameraMoveSpeed = speed;
+    }
     #endregion
 }
