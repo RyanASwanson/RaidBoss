@@ -465,6 +465,7 @@ public class HeroStats : HeroChildrenFunctionality
 
         _myHeroBase.GetPathfinding().GetNavMeshAgent().speed = _currentMoveSpeed;
     }
+    
 
     public void ChangeCurrentHeroAngularSpeed(float changeValue)
     {
@@ -479,6 +480,7 @@ public class HeroStats : HeroChildrenFunctionality
 
         _myHeroBase.GetPathfinding().GetNavMeshAgent().acceleration = _currentAcceleration;
     }
+    
 
     /// <summary>
     /// Increases or decreases the current aggro value

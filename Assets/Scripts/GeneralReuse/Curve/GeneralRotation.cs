@@ -162,6 +162,11 @@ public class GeneralRotation : MonoBehaviour
 
     #region Setters
 
+    public void SetRotationsPerSecond(Vector3 rotationsPerSecond)
+    {
+        _rotationPerSecond = rotationsPerSecond;
+    }
+    
     public void SetRotationIndependentParent(GameObject parent)
     {
         _rotationIndepedentParent = parent;

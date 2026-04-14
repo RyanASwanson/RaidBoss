@@ -196,6 +196,7 @@ public class HeroesManager : MainGameplayManagerFramework
     public GameObject GetBaseHeroPrefab() => _baseHeroPrefab;
     public List<HeroBase> GetCurrentHeroes() => _currentHeroes;
     public List<HeroBase> GetCurrentLivingHeroes() => _currentLivingHeroes;
+    public HeroBase GetRandomCurrentLivingHero() => _currentLivingHeroes[Random.Range(0, _currentLivingHeroes.Count)];
     public int GetAmountOfLivingHeroes() => _currentLivingHeroes.Count;
     public int GetAmountOfDeadHeroes() => _currentHeroes.Count - _currentLivingHeroes.Count;
 

@@ -88,6 +88,11 @@ public class SBA_Meteor : SpecificBossAbilityFramework
         StartCoroutine(HideTargetZoneUntilNonZero(targetZone.GetBossTargetZones()[0].GetAdditionalGameObjectReferences()[0]));
 
         base.StartShowTargetZone();
+
+        if (TrailerShotsDebugScript.IS_SHOOTING_TRAILER && TrailerShotsDebugScript.IS_PERFORMING_METEOR_ZOOM_IN)
+        {
+            TrailerShotsDebugScript.Instance.MeteorImpactShot();
+        }
     }
 
     /// <summary>

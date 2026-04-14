@@ -63,6 +63,13 @@ public class DifficultyDropdown : MonoBehaviour
         UpdateDifficultyHeaderText();
     }
 
+    public void ForceSetDifficulty(int difficulty)
+    {
+        _dropdown.value = difficulty;
+
+        UpdateDifficulty();
+    }
+
     public void UpdateDifficultyHeaderText()
     {
         string previousHeaderText = _headerText.text;

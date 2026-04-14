@@ -71,13 +71,6 @@ public class EngineSettingsManager : MainUniversalManagerFramework
         Screen.SetResolution(resolution.x, resolution.y, Screen.fullScreen);
     }
     
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.N))
-        {
-            Screen.SetResolution(3840, 2160, Screen.fullScreen);
-        }
-    }
     #endregion
     
     #region BaseManager

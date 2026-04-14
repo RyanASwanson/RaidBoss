@@ -1,9 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
+using Quaternion = UnityEngine.Quaternion;
+using Vector3 = UnityEngine.Vector3;
 
 /// <summary>
 /// Handles player input while in a gameplay scene
@@ -215,6 +219,11 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
         
     }
 
+    public void NewControlledRandomHero()
+    {
+        NewControlledHero(HeroesManager.Instance.GetRandomCurrentLivingHero());
+    }
+
     public void RemoveControlledHero(HeroBase heroToRemove)
     {
         if (_controlledHeroes.Contains(heroToRemove))
@@ -227,7 +236,7 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     /// <summary>
     /// Clears out the list of controlled heroes
     /// </summary>
-    private void ClearControlledHeroes()
+    public void ClearControlledHeroes()
     {
         foreach (HeroBase newHero in _controlledHeroes)
         {
@@ -237,12 +246,41 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
         _controlledHeroes.Clear();
     }
 
-    private void DirectAllHeroesTo(Vector3 newDestination)
+    public void DirectAllHeroesTo(Vector3 newDestination)
     {
         foreach(HeroBase currentHero in _controlledHeroes)
         {
             currentHero.GetPathfinding().DirectNavigationTo(newDestination);
         }
+    }
+
+    /*public IEnumerator HeroMoveIn()
+    {
+        /*while (!GameStateManager.Instance.GetHasFightBegun())
+        {
+            yield return null;
+        }
+        yield return new WaitForSeconds(.1f);#1#
+        
+        FindObjectOfType<TrailerShotsDebugScript>().StartHeroMoveInCoroutine();
+        
+        DirectSpecificHeroTo(0,new Vector3(-1.4f, 0, -.4f));
+        DirectSpecificHeroTo(1,new Vector3(-.7f, 0, -1f));
+        DirectSpecificHeroTo(2,new Vector3(0f, 0, -1f));
+        DirectSpecificHeroTo(3,new Vector3(.7f, 0, -1f));
+        DirectSpecificHeroTo(4,new Vector3(1.4f, 0, -.4f));
+
+        yield return null;
+    }*/
+    
+    public void DirectSpecificHeroTo(int heroID, Vector3 newDestination)
+    {
+        DirectSpecificHeroTo(HeroesManager.Instance.GetCurrentLivingHeroes()[heroID], newDestination);
+    }
+    
+    public void DirectSpecificHeroTo(HeroBase hero, Vector3 newDestination)
+    {
+        hero.GetPathfinding().DirectNavigationTo(newDestination);
     }
 
     /// <summary>
@@ -258,6 +296,11 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
 
     private void BattleStart()
     {
+        if (TrailerShotsDebugScript.IS_SHOOTING_TRAILER && TrailerShotsDebugScript.IS_PREVENTING_HERO_SELECTION_ON_BATTLE_START)
+        {
+            return;
+        }
+        
         if (_controlledHeroes.Count == 0)
         {
             NewControlledHeroByID(0); 

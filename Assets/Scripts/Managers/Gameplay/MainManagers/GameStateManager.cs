@@ -194,6 +194,8 @@ public class GameStateManager : MainGameplayManagerFramework
     #endregion
     
     #region Getters
+
+    public bool GetHasFightBegun() => _currentEGameplayState != EGameplayStates.PreBattle;
     public bool GetIsFightOver() => _currentEGameplayState >= EGameplayStates.PostBattleLost;
 
     public UnityEvent GetStartOfCharacterSpawningEvent() => _startOfCharacterSpawningEvent;

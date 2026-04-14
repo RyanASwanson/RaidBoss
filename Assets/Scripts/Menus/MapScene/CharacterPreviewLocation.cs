@@ -112,14 +112,7 @@ public class CharacterPreviewLocation : MonoBehaviour
         }
         
     }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            PerformCharacterSelectedAnimation();
-        }
-    }
+    
 
     public void RemoveCharacterPreview()
     {

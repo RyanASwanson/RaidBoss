@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MagmaLordMainMenuFloor
-  m_Shader: {fileID: 4800000, guid: 9ae8f489f636c6e41b65a5ed4a974b30, type: 3}
+  m_Name: TESTDAMAGEZONE
+  m_Shader: {fileID: 10751, guid: 0000000000000000f000000000000000, type: 0}
   m_ValidKeywords: []
   m_InvalidKeywords:
   - _DESATURATELIGHTCOLOR_ON
@@ -17,6 +17,7 @@ Material:
   - _RIGHTGRADIENTCHANGEDIRECTION_ON
   - _RIMGRADIENTCHANGEDIRECTION_ON
   - _TOPGRADIENTCHANGEDIRECTION_ON
+  - _USEALPHAVALUE_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -27,7 +28,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _FrontTexture:
-        m_Texture: {fileID: 2800000, guid: 8457428057888c54da4c35b72f44e248, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _GradientTextureWhite:
@@ -35,15 +36,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 62f1cf0f508dd9f4788e8225252e6c77, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _RightTexture:
-        m_Texture: {fileID: 2800000, guid: 8457428057888c54da4c35b72f44e248, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _RimTexture:
-        m_Texture: {fileID: 2800000, guid: 8457428057888c54da4c35b72f44e248, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SimulatedLightRampTexture:
@@ -51,7 +52,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TopTexture:
-        m_Texture: {fileID: 2800000, guid: 8457428057888c54da4c35b72f44e248, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _texcoord:
@@ -67,7 +68,7 @@ Material:
     - _AdditiveSimulatedLight: 0
     - _AdditiveSimulatedLightLevel: 1
     - _Ambient: 0
-    - _Cull: 0
+    - _Cull: 2
     - _Cutoff: 0.5
     - _DesaturateLightColor: 1
     - _DirectionalLight: 0
@@ -75,9 +76,9 @@ Material:
     - _DistanceFogDensity: 1
     - _DistanceFogLength: 0
     - _DistanceFogStartPosition: 10
-    - _DstBlend: 0
+    - _DstBlend: 10
     - _Exposure: 0.79
-    - _FogHeight: 0.44
+    - _FogHeight: 0.48
     - _FrontGradient: 0
     - _FrontGradientCenter: 0.5
     - _FrontGradientChangeDirection: 1
@@ -95,8 +96,8 @@ Material:
     - _GradientRotation: 0
     - _GradientWidth: 0.5
     - _HeightFog: 0
-    - _HeightFogDensity: 0.067
-    - _HeightFogStartPosition: -1.85
+    - _HeightFogDensity: 0.502
+    - _HeightFogStartPosition: 0.97
     - _Intensity: 1.09
     - _Light: 0
     - _Lightmap: 0
@@ -106,7 +107,7 @@ Material:
     - _MultiplyLightmap: 0
     - _OpacityLevel: 1
     - _Posterize: 0
-    - _RenderMode: 0
+    - _RenderMode: 1
     - _RightGradient: 0
     - _RightGradientCenter: 0.5
     - _RightGradientChangeDirection: 1
@@ -131,7 +132,7 @@ Material:
     - _SimulatedLight: 0
     - _SimulatedLightDistance: 10
     - _SimulatedLightLevel: 1
-    - _SrcBlend: 1
+    - _SrcBlend: 5
     - _Steps: 2
     - _TopGradient: 0
     - _TopGradientCenter: 0.5
@@ -143,28 +144,28 @@ Material:
     - _TopOpacityLevel: 1
     - _TopTextureLevel: 1
     - _UseAlpha: 0
-    - _UseAlphaValue: 0
+    - _UseAlphaValue: 1
     - _UseExternalColor: 0
     - _ViewDirection: 0
     - _WorldDistanceFog: 0
-    - _ZWrite: 1
+    - _ZWrite: 0
     m_Colors:
     - _BottomColor: {r: 0.67000455, g: 0.21572234, b: 0.97794116, a: 0}
     - _CenterColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DistanceFogColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
     - _ExternalColor: {r: 1, g: 0, b: 0, a: 1}
-    - _FrontColor: {r: 1, g: 1, b: 1, a: 1}
+    - _FrontColor: {r: 1, g: 0.3024703, b: 0.231132, a: 0.74509805}
     - _FrontTopColor: {r: 0, g: 0, b: 0, a: 1}
     - _GradientTopColor: {r: 0, g: 0, b: 0, a: 1}
-    - _HeightFogColor: {r: 1, g: 0.5433071, b: 0, a: 1}
+    - _HeightFogColor: {r: 1, g: 0, b: 0, a: 1}
     - _LightmapColor: {r: 0, g: 0, b: 0, a: 1}
-    - _RightColor: {r: 0.3773585, g: 0.3773585, b: 0.3773585, a: 1}
+    - _RightColor: {r: 0.7264151, g: 0.22745746, b: 0.17475069, a: 0.74509805}
     - _RightTopColor: {r: 0, g: 0, b: 0, a: 1}
-    - _RimColor: {r: 0.6415094, g: 0.6415094, b: 0.6415094, a: 1}
+    - _RimColor: {r: 1, g: 0.30196074, b: 0.2313725, a: 0.74509805}
     - _RimTopColor: {r: 0, g: 0, b: 0, a: 1}
     - _SimulatedLightPosition: {r: 0, g: 0, b: 0, a: 0}
-    - _TopColor: {r: 0.7372549, g: 0.7372549, b: 0.7372549, a: 1}
+    - _TopColor: {r: 1, g: 0.30196074, b: 0.2313725, a: 0.74509805}
     - _TopTopColor: {r: 0, g: 0, b: 0, a: 1}
     - _WorldDistanceFogPosition: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

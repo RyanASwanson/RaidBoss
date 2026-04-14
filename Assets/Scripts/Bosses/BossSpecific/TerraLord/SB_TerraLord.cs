@@ -258,7 +258,7 @@ public class SB_TerraLord : SpecificBossFramework
     /// <summary>
     /// Stops the passive from ticking
     /// </summary>
-    private void StopPassiveProcess()
+    public void StopPassiveProcess()
     {
         // Check if the passive is in process
         if (_passiveProcessCoroutine.IsUnityNull())

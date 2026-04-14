@@ -158,6 +158,17 @@ public class SceneLoadManager : MainUniversalManagerFramework
     public void GameplaySceneLoaded()
     {
         InvokeOnGameplaySceneLoaded();
+
+        if (TrailerShotsDebugScript.IS_SHOOTING_TRAILER)
+        {
+            //DEBUG
+            TrailerShotsDebugScript trailerShots = FindObjectOfType<TrailerShotsDebugScript>();
+            if (trailerShots)
+            {
+                trailerShots.GameplayLoaded();
+            }
+        }
+        
     }
 
     #region BaseManager

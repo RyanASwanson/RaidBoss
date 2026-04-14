@@ -136,8 +136,13 @@ public class HeroVisuals : HeroChildrenFunctionality
     private void HeroDied()
     {
         _floorFollowIcons.StopFollowing(true);
-        _heroOverheadCanvasAlphaCurve.StartMovingDownOnCurve();
+        HideHeroOverheadCanvas();
         HeroDeathAnimation();
+    }
+
+    public void HideHeroOverheadCanvas()
+    {
+        _heroOverheadCanvasAlphaCurve.StartMovingDownOnCurve();
     }
     
     private void HeroHealthAboveHalf()
@@ -370,6 +375,11 @@ public class HeroVisuals : HeroChildrenFunctionality
         _addedOutline.OutlineWidth = _outlineWidth;
         _addedOutline.OutlineColor = heroSO.GetHeroOutlineColor();
         _addedOutline.OutlineMode = _outlineMode;
+    }
+
+    public void HideOutline()
+    {
+        _addedOutline.enabled = false;
     }
     #endregion
 

@@ -329,6 +329,11 @@ public class BossUIManager : GameUIChildrenFunctionality
     #region Damage Stagger Numbers
     private void CreateDamageStaggerNumber(EDamageNumberType numberType, float damageStagger, GameObject number, RectTransform spawnOrigin)
     {
+        if (TrailerShotsDebugScript.IS_SHOOTING_TRAILER && TrailerShotsDebugScript.IS_HIDING_DAMAGE_NUMBERS)
+        {
+            return;
+        }
+
         if (damageStagger <= 0)
         {
             return;

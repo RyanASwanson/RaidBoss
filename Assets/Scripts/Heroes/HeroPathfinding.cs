@@ -50,7 +50,7 @@ public class HeroPathfinding : HeroChildrenFunctionality
             // Invoke the hero started moving event as the hero isn't moving yet
             _myHeroBase.InvokeHeroStartedMovingEvent();
         }
-
+        
         _heroMovementCoroutine = StartCoroutine(MovingOnNavMesh());
     }
 
@@ -101,16 +101,21 @@ public class HeroPathfinding : HeroChildrenFunctionality
         _meshAgent.autoRepath = true;
 
         yield return new WaitForEndOfFrame();
+        
         while(!gameObject.IsUnityNull() && _meshAgent.hasPath )
         {
             yield return null;
 
-            if (_meshAgent.pathStatus == NavMeshPathStatus.PathInvalid || _meshAgent.pathStatus == NavMeshPathStatus.PathPartial)
+            if (_meshAgent.pathStatus == NavMeshPathStatus.PathInvalid ||
+                _meshAgent.pathStatus == NavMeshPathStatus.PathPartial)
+            {
                 print("cant find path end");
+            }
         }
+        
         _myHeroBase.InvokeHeroStoppedMovingEvent();
         _heroMovementCoroutine = null;
-
+        
         HeroLookAtBoss();
     }
 
@@ -197,6 +202,18 @@ public class HeroPathfinding : HeroChildrenFunctionality
     public void SetIsHeroUsingMovementAbility(bool isUsingMovementAbility)
     {
         _isHeroUsingMovementAbility = isUsingMovementAbility;
+    }
+    
+    public void OverrideHeroMovement(float moveSpeed, float angularSpeed, float acceleration)
+    {
+        _meshAgent.speed = moveSpeed;
+        _meshAgent.angularSpeed = angularSpeed;
+        _meshAgent.acceleration = acceleration;
+    }
+
+    public void AdjustNavMeshSize(float multiplier)
+    {
+        _meshAgent.radius *= multiplier;
     }
     #endregion
 }

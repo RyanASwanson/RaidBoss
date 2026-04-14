@@ -111,6 +111,16 @@ public class EnvironmentManager : MainGameplayManagerFramework
     #region Getters
     public float GetMapRadius() => _mapRadius;
     public Vector3 GetFloorOffset() => _floorOffsetHeight;
+
+    public Vector3 GetRandomLocationOnMap()
+    {
+        Vector3 randomLocation;
+        
+        randomLocation = new Vector3(Random.Range(-_mapRadius, _mapRadius),
+            0, Random.Range(-_mapRadius, _mapRadius));
+        
+        return Quaternion.Euler(0, -45, 0) * randomLocation;
+    }
     public LayerMask GetMapBorderLayer() => _mapBorderLayer;
     public int GetMapBorderLayerID() => MAP_BORDER_LAYER_ID;
 
