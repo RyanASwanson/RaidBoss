@@ -65,6 +65,8 @@ public class TrailerShotsDebugScript : MonoBehaviour
 
     [SerializeField] private string[] _heroAnimations;
 
+    [SerializeField] private HeroSO[] _heroAnimationOrder;
+
     [SerializeField] private CinemachineVirtualCamera _virtualCamera;
 
     [Space] [Header("Title")] [SerializeField]
@@ -624,6 +626,12 @@ public class TrailerShotsDebugScript : MonoBehaviour
         {
             _heroAnimators[i].SetBool("G_HeroIdle", true);
             _heroAnimators[i].SetTrigger(_heroAnimations[i]);
+
+            if (!_heroAnimationOrder[i].IsUnityNull())
+            {
+                AudioManager.Instance.PlaySpecificAudio(
+                    AudioManager.Instance.AllSpecificHeroAudio[_heroAnimationOrder[i].GetHeroID()].SelectionSelectedAudio);
+            }
 
             yield return new WaitForSeconds(.083f);
         }

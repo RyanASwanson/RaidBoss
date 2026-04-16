@@ -52,6 +52,11 @@ public class SBA_Volcano : SpecificBossAbilityFramework
 
     public void BattleStarted()
     {
+        if (!_isAbilityEnabled)
+        {
+            return;
+        }
+        
         CreateVolcanoHeroTrackingOnHeroes();
         
         foreach (VolcanoHeroMovementTracking volcanoTracking in _volcanoHeroMovementTracking)

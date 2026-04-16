@@ -33,6 +33,8 @@ public class SceneLoadManager : MainUniversalManagerFramework
     
     private UnityEvent _onGameplaySceneLoaded = new UnityEvent();
     
+    private ESceneLoadState _sceneLoadState;
+    
     /// <summary>
     /// Loads a scene using the build ID
     /// </summary>
@@ -76,6 +78,8 @@ public class SceneLoadManager : MainUniversalManagerFramework
 
     private IEnumerator SceneLoadProcess(int id)
     {
+        _sceneLoadState = ESceneLoadState.LoadingOutOfScene;
+        
         InvokeOnStartOfSceneLoadEvent();
         EventSystem.current.enabled = false;
 
@@ -86,6 +90,8 @@ public class SceneLoadManager : MainUniversalManagerFramework
 
         //Loads the scene after half of the screen transition has occurred
         yield return _sceneTransitionWait;
+
+        _sceneLoadState = ESceneLoadState.MiddleOfLoading;
         
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(id);
 
@@ -101,6 +107,8 @@ public class SceneLoadManager : MainUniversalManagerFramework
             AudioManager.Instance.UserInterfaceAudio.SceneLoadUserInterfaceAudio.SceneLoadMiddle);
 
         yield return null;
+
+        _sceneLoadState = ESceneLoadState.LoadingInToScene;
         
         _sceneTransitionAnimator.SetTrigger(ST_CLOSE_IN_FROM_SIDES_EXIT_ANIM_TRIGGER);
         
@@ -112,6 +120,8 @@ public class SceneLoadManager : MainUniversalManagerFramework
         InvokeOnEndOfSceneLoadEvent();
         EventSystem.current.enabled = true;
         _sceneTransitionCoroutine = null;
+
+        _sceneLoadState = ESceneLoadState.NotLoading;
     }
 
     /// <summary>
@@ -196,6 +206,12 @@ public class SceneLoadManager : MainUniversalManagerFramework
     #endregion
 
     #region Getters
+
+    public bool IsSceneLoading()
+    {
+        return _sceneLoadState != ESceneLoadState.NotLoading;
+    }
+    
     public UnityEvent GetOnStartOfSceneLoad() => _onStartOfSceneLoad;
     public UnityEvent GetOnEndOfSceneLoad() => _onEndOfSceneLoad;
     public UnityEvent GetOnGameplaySceneLoaded() => _onGameplaySceneLoaded;
@@ -208,3 +224,11 @@ public enum ELoadableScenes
     Map,
     Selection
 };
+
+public enum ESceneLoadState
+{
+    NotLoading,
+    LoadingOutOfScene,
+    MiddleOfLoading,
+    LoadingInToScene,
+}

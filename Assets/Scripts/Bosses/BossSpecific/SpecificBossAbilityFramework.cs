@@ -60,6 +60,8 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     protected BossBase _myBossBase;
     protected SpecificBossFramework _mySpecificBoss;
 
+    protected bool _isAbilityEnabled = false;
+
     /// <summary>
     /// Sets up the ability with the boss base and specific boss framework
     /// </summary>
@@ -473,6 +475,15 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
 
     public float GetTimeUntilNextAbility() => _timeUntilNextAbility;
     public float GetAbilityWindUpTime() => _abilityWindUpTime;
+
+    #endregion
+
+    #region Setters
+
+    public void SetIsAbilityActive(bool active)
+    {
+        _isAbilityEnabled = active;
+    }
 
     #endregion
 }

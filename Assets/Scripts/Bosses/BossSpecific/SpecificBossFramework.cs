@@ -90,7 +90,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
                 _attackRepititionProtection = Mathf.Clamp(_attackRepititionProtection -1, 0, int.MaxValue);
                 continue;
             }
-            AddAbilityToBossReadyAttacks(_startingBossAbilities[i]);
+            AddAbilityInitiallyToBossReadyAttacks(_startingBossAbilities[i]);
         }
     }
 
@@ -275,6 +275,12 @@ public abstract class SpecificBossFramework : MonoBehaviour
             
         heroBase.GetHeroStats()
             .DealDamageToHero(damage * BossStats.Instance.GetCombinedBossDamageMultiplier());
+    }
+
+    protected virtual void AddAbilityInitiallyToBossReadyAttacks(SpecificBossAbilityFramework newAbility)
+    {
+        newAbility.SetIsAbilityActive(true);
+        AddAbilityToBossReadyAttacks(newAbility);
     }
     
     /// <summary>
@@ -562,7 +568,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
             }
         }
         
-        AddAbilityToBossReadyAttacks(_abilityLocked);
+        AddAbilityInitiallyToBossReadyAttacks(_abilityLocked);
     }
 
     /// <summary>
