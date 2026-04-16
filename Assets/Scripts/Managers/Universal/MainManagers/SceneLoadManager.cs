@@ -61,6 +61,9 @@ public class SceneLoadManager : MainUniversalManagerFramework
             case ELoadableScenes.Selection:
                 LoadSelectionScene();
                 break;
+            case ELoadableScenes.ReloadCurrent:
+                ReloadCurrentScene();
+                break;
             default:
                 break;
         }
@@ -222,7 +225,8 @@ public enum ELoadableScenes
 {
     MainMenu,
     Map,
-    Selection
+    Selection,
+    ReloadCurrent
 };
 
 public enum ESceneLoadState

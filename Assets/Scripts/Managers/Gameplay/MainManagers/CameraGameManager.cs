@@ -143,6 +143,11 @@ public class CameraGameManager : MainGameplayManagerFramework
             StopCoroutine(_virtualCamRotationCoroutine);
         }
 
+        if (float.IsNaN(directionMultiplier))
+        {
+            return;
+        }
+
         _virtualCamRotationCoroutine = StartCoroutine(RotateCinemachineCameraProcess(directionMultiplier,processTime));
     }
 

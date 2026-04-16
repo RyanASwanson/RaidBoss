@@ -170,14 +170,18 @@ public class SB_TerraLord : SpecificBossFramework
     {
         float weightCounter = 0;
 
-        //Determines the center of mass based on how far each hero is from the center in the X
-        foreach (HeroBase heroBase in HeroesManager.Instance.GetCurrentLivingHeroes())
+        if (HeroesManager.Instance.GetCurrentLivingHeroes().Count > 0)
         {
-            weightCounter += heroBase.transform.position.x * _passiveHeroWeightMultiplier;
-        }
+            //Determines the center of mass based on how far each hero is from the center in the X
+            foreach (HeroBase heroBase in HeroesManager.Instance.GetCurrentLivingHeroes())
+            {
+                weightCounter += heroBase.transform.position.x * _passiveHeroWeightMultiplier;
+            }
 
-        //Scales the speed of the passive with how many heroes are alive
-        weightCounter /= HeroesManager.Instance.GetCurrentLivingHeroes().Count;
+            //Scales the speed of the passive with how many heroes are alive
+            weightCounter /= HeroesManager.Instance.GetCurrentLivingHeroes().Count;
+        }
+        
         
         return weightCounter;
     }

@@ -36,6 +36,10 @@ public class CurveProgression : MonoBehaviour
     [SerializeField] private bool _doesStartMovingUpOnEnable;
     [SerializeField] private bool _doesStartMovingInCurrentDirectionOnEnable = false;
     
+    [Space]
+    [SerializeField] private bool _hasAutomaticStartMovingDelay;
+    [SerializeField] private float _automaticStartMovingDelay;
+    
     [Space] 
     [SerializeField] private bool _doesAutomaticallyMoveDownOnHittingMax;
     [SerializeField] private bool _doesAutomaticallyMoveUpOnHittingMin;
@@ -99,6 +103,29 @@ public class CurveProgression : MonoBehaviour
             ResetCurve();
         }
 
+        AutomaticMovementOnEnable();
+    }
+
+    private void AutomaticMovementOnEnable()
+    {
+        if (_hasAutomaticStartMovingDelay)
+        {
+            StartCoroutine(DelayAutomaticMovement());
+        }
+        else
+        {
+            BeginAutomaticMovementOnEnable();
+        }
+    }
+
+    private IEnumerator DelayAutomaticMovement()
+    {
+        yield return new WaitForSeconds(_automaticStartMovingDelay);
+        BeginAutomaticMovementOnEnable();
+    }
+
+    private void BeginAutomaticMovementOnEnable()
+    {
         if (_doesStartMovingUpOnEnable)
         {
             StartMovingUpOnCurve();
@@ -108,7 +135,6 @@ public class CurveProgression : MonoBehaviour
         {
             StartMovingInPreviousDirectionOnCurve();
         }
-        
     }
 
     public void ResetCurve()
