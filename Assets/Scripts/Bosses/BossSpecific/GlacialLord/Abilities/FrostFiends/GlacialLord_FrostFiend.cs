@@ -145,8 +145,10 @@ public class GlacialLord_FrostFiend : BossMinionBase
                 _frozenEffectCrackedVFX.Play();
                 PlayMinionFreezeCrackedAudio();
             }
-            _timeFrozen += Time.deltaTime;
+            _timeFrozen +=  SB_GlacialLord.Instance.GetMinionUnfreezeSpeedMultiplier() * Time.deltaTime;
+            
             float scaleProgress = Mathf.Lerp(_frozenMaxScaleOverFreeze, _frozenMinScaleOverFreeze, _timeFrozen / _freezeDuration);
+            
             _frozenEffectBase.transform.localScale = new Vector3(scaleProgress, scaleProgress, scaleProgress);
             yield return null;
         }

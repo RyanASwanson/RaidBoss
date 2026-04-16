@@ -5,10 +5,17 @@ using UnityEngine.Events;
 
 public class SB_GlacialLord : SpecificBossFramework
 {
+    public static SB_GlacialLord Instance;
+    
     [Space]
     [SerializeField] private float _delayBetweenFiendSpawns;
     [Space]
     [SerializeField] private float _minionFreezeDuration;
+
+    [SerializeField] private float _minionEnrageUnfreezeSpeedMultiplier;
+    [SerializeField] private float _minionEnrageUnfreezeSpeedScalingMulitplierIncreasePerMinute;
+    
+    private float _currentMinionUnfreezeSpeedMultiplier = 1;
 
     [Space]
     [SerializeField] private GameObject _frostFiend;
@@ -17,13 +24,14 @@ public class SB_GlacialLord : SpecificBossFramework
 
     private UnityEvent<GlacialLord_FrostFiend> _frostFiendSpawned = new();
 
-    public override void SetUpSpecificBoss(BossBase bossBase)
+    private void CalculateEnrageUnfreezeMultiplier()
     {
-        base.SetUpSpecificBoss(bossBase);
-        StartCoroutine(SpawnStartingFrostFiends());
+        _currentMinionUnfreezeSpeedMultiplier = _minionEnrageUnfreezeSpeedMultiplier;
+        _currentMinionUnfreezeSpeedMultiplier *= 1 +  (_minionEnrageUnfreezeSpeedScalingMulitplierIncreasePerMinute *
+                                                 BossStats.Instance.GetMinutesSpentEnraged());
     }
-
-
+    
+    
     #region Frost Fiends
     private IEnumerator SpawnStartingFrostFiends()
     {
@@ -73,6 +81,16 @@ public class SB_GlacialLord : SpecificBossFramework
     #endregion
 
     #region BaseBoss
+    protected override void CreateSpecificBossInstance()
+    {
+        Instance = this;
+    }
+    
+    public override void SetUpSpecificBoss(BossBase bossBase)
+    {
+        base.SetUpSpecificBoss(bossBase);
+        StartCoroutine(SpawnStartingFrostFiends());
+    }
     
     protected override void CheckToUnlockSpecialistAchievement()
     {
@@ -99,6 +117,7 @@ public class SB_GlacialLord : SpecificBossFramework
     {
         base.SubscribeToEvents();
         GameStateManager.Instance.GetBattleWonEvent().AddListener(FrostFiendDeath);
+        _myBossBase.GetSecondPassedEnrageEvent().AddListener(CalculateEnrageUnfreezeMultiplier);
     }
 
     #endregion
@@ -111,6 +130,9 @@ public class SB_GlacialLord : SpecificBossFramework
     #endregion
 
     #region Getters
+
+    public float GetMinionUnfreezeSpeedMultiplier() => _currentMinionUnfreezeSpeedMultiplier;
+    
     public List<Vector3> GetFrostFiendSpawnLocations() => _frostFiendSpawnLocations;
     public List<GlacialLord_FrostFiend> GetAllFrostFiends() => _allFrostFiends;
 
