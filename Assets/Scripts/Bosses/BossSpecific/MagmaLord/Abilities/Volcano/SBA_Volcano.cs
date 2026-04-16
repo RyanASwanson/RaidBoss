@@ -11,16 +11,20 @@ using Random = UnityEngine.Random;
 /// </summary>
 public class SBA_Volcano : SpecificBossAbilityFramework
 {
-    [Space]
-    [SerializeField] private float _projectileDelay;
+    [Space] 
+    [SerializeField] private float _sharedVolcanoTrackingEnrageMultiplier;
+    [SerializeField] private float _sharedVolcanoTrackingEnrageScalingMultiplierIncreasePerMinute;
+
+    private float _sharedVolcanoTrackingMultiplier = 1;
+
+    [Space] [SerializeField] private float _projectileDelay;
 
     private WaitForSeconds _projectileDelayWaitForSeconds;
 
     private const float _rotationAmount = 90;
     private const float _maxRotations = 3;
-    
-    [Space] 
-    [SerializeField] private float _impactAudioPitchIncrease;
+
+    [Space] [SerializeField] private float _impactAudioPitchIncrease;
 
     private List<GameObject> _storedDamageZones = new List<GameObject>();
     private List<Vector3> _targetLocations = new List<Vector3>();
@@ -29,26 +33,25 @@ public class SBA_Volcano : SpecificBossAbilityFramework
 
     private Coroutine _targetZoneSpawningProcess;
     private Coroutine _damageZoneSpawningProcess;
-    
+
     private const int VOLCANO_FUTURE_TARGET_ZONE_SPAWNED_AUDIO_ID = 0;
     private const int VOLCANO_IMPACT_AUDIO_ID = 1;
 
-    [Space]
+    [Space] 
     [SerializeField] private int _futureTargetZonesRequiredToActivate;
     [SerializeField] private int _futureTargetZonesCertainChanceToActivate;
+    [SerializeField] private int _maxTargetZonesAllowed;
 
-    [Space]
-    [SerializeField] private GameObject _volcanoHeroTrackingObject;
+    [Space] [SerializeField] private GameObject _volcanoHeroTrackingObject;
     private VolcanoHeroMovementTracking[] _volcanoHeroMovementTracking;
 
-    [Space]
-    [SerializeField] private GameObject _volcanoFutureTargetZone;
+    [Space] [SerializeField] private GameObject _volcanoFutureTargetZone;
     [SerializeField] private GameObject _targetZone;
     [SerializeField] private GameObject _volcanoDamageZone;
-    
+
     private List<BossTargetZoneParent> _currentVolcanoFutureTargetZones = new();
     private List<BossTargetZoneParent> _currentActiveVolcanoFutureTargetZones = new();
-    
+
 
     public void BattleStarted()
     {
@@ -56,17 +59,29 @@ public class SBA_Volcano : SpecificBossAbilityFramework
         {
             return;
         }
-        
+
         CreateVolcanoHeroTrackingOnHeroes();
-        
+
         foreach (VolcanoHeroMovementTracking volcanoTracking in _volcanoHeroMovementTracking)
         {
             if (volcanoTracking.IsUnityNull())
             {
                 continue;
             }
-            
+
             volcanoTracking.StartTrackingHeroMovement();
+        }
+    }
+
+    private void CalculateSharedVolcanoTrackingMultiplier()
+    {
+        _sharedVolcanoTrackingMultiplier = 1;
+        if (BossStats.Instance.GetIsBossEnraged())
+        {
+            _sharedVolcanoTrackingMultiplier *= _sharedVolcanoTrackingEnrageMultiplier;
+            
+            _sharedVolcanoTrackingMultiplier *= 1 + (_sharedVolcanoTrackingEnrageScalingMultiplierIncreasePerMinute *
+                                                 BossStats.Instance.GetMinutesSpentEnraged());
         }
     }
 
@@ -75,59 +90,65 @@ public class SBA_Volcano : SpecificBossAbilityFramework
         List<HeroBase> heroes = HeroesManager.Instance.GetCurrentHeroes();
         for (int i = 0; i < heroes.Count; i++)
         {
-            VolcanoHeroMovementTracking volcanoHeroMovementTracking = 
-                Instantiate(_volcanoHeroTrackingObject,heroes[i].transform.position, Quaternion.identity).GetComponent<VolcanoHeroMovementTracking>();
+            VolcanoHeroMovementTracking volcanoHeroMovementTracking =
+                Instantiate(_volcanoHeroTrackingObject, heroes[i].transform.position, Quaternion.identity)
+                    .GetComponent<VolcanoHeroMovementTracking>();
 
             volcanoHeroMovementTracking.SetUpVolcanoTracking(this, heroes[i]);
-            
+
             _volcanoHeroMovementTracking[i] = volcanoHeroMovementTracking;
         }
     }
 
     public void VolcanoTargetHitMax(VolcanoHeroMovementTracking volcanoHeroMovementTracking)
     {
-        BossTargetZoneParent targetZoneParent = 
-            Instantiate(_volcanoFutureTargetZone, volcanoHeroMovementTracking.transform.position, Quaternion.identity).GetComponent<BossTargetZoneParent>();
+        if (_currentVolcanoFutureTargetZones.Count >= _maxTargetZonesAllowed)
+        {
+            return;
+        }
+        
+        BossTargetZoneParent targetZoneParent =
+            Instantiate(_volcanoFutureTargetZone, volcanoHeroMovementTracking.transform.position, Quaternion.identity)
+                .GetComponent<BossTargetZoneParent>();
 
         targetZoneParent.transform.position =
             EnvironmentManager.Instance.GetClosestPointToFloor(targetZoneParent.transform.position);
-        
-        /*targetZoneParent.transform.position = new Vector3(targetZoneParent.transform.position.x,
-            targetZoneParent.transform.position.y - _specificAreaTarget.y, targetZoneParent.transform.position.z);*/
-        
+
+
         _currentVolcanoFutureTargetZones.Add(targetZoneParent);
         _targetLocations.Add(targetZoneParent.transform.position);
 
         PlayVolcanoFutureTargetZoneSpawnedAudio();
     }
-    
-        private IEnumerator VolcanoTargetZoneCreationProcess()
+
+    private IEnumerator VolcanoTargetZoneCreationProcess()
     {
         InformHeroTrackingOfAbilityActivation();
-        
+
         _currentActiveTargetLocations.Clear();
         _currentActiveTargetLocations.InsertRange(0, _targetLocations);
         _currentActiveVolcanoFutureTargetZones.Clear();
         _currentActiveVolcanoFutureTargetZones.InsertRange(0, _currentVolcanoFutureTargetZones);
-        
+
         _targetLocations.Clear();
         _currentVolcanoFutureTargetZones.Clear();
-        
+
         for (int i = 0; i < _currentActiveTargetLocations.Count; i++)
         {
             _currentActiveVolcanoFutureTargetZones[i].RemoveBossTargetZones();
-            
-            _currentTargetZones.Add(Instantiate(_targetZone, _currentActiveTargetLocations[i], Quaternion.identity).GetComponent<BossTargetZoneParent>());
+
+            _currentTargetZones.Add(Instantiate(_targetZone, _currentActiveTargetLocations[i], Quaternion.identity)
+                .GetComponent<BossTargetZoneParent>());
 
             if (i != 0)
             {
                 PlayTargetZoneSpawnedAudio();
             }
-            
+
             yield return _projectileDelayWaitForSeconds;
         }
     }
-    
+
     private IEnumerator VolcanoDamageCreationProcess()
     {
         int volcanoSpawned = 0;
@@ -135,13 +156,13 @@ public class SBA_Volcano : SpecificBossAbilityFramework
         {
             GameObject newestDamageZone = Instantiate(_volcanoDamageZone, attackLoc, Quaternion.identity);
 
-            newestDamageZone.transform.eulerAngles += 
+            newestDamageZone.transform.eulerAngles +=
                 new Vector3(0, _rotationAmount * Mathf.RoundToInt(Random.Range(0, _maxRotations)), 0);
-            
+
             _storedDamageZones.Add(newestDamageZone);
 
             PlayVolcanoAbilityAudio(volcanoSpawned);
-            
+
             yield return _projectileDelayWaitForSeconds;
             volcanoSpawned++;
         }
@@ -155,6 +176,7 @@ public class SBA_Volcano : SpecificBossAbilityFramework
             {
                 continue;
             }
+
             volcanoHeroTracking.VolcanoAbilityWasUsed();
         }
     }
@@ -162,21 +184,21 @@ public class SBA_Volcano : SpecificBossAbilityFramework
     private void PlayVolcanoFutureTargetZoneSpawnedAudio()
     {
         AudioManager.Instance.PlaySpecificAudio(
-            AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
-                BossAbilityAudio[_abilityID].GeneralAbilityAudio[VOLCANO_FUTURE_TARGET_ZONE_SPAWNED_AUDIO_ID]);
+            AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].BossAbilityAudio[_abilityID]
+                .GeneralAbilityAudio[VOLCANO_FUTURE_TARGET_ZONE_SPAWNED_AUDIO_ID]);
     }
 
     private void PlayVolcanoAbilityAudio(int volcanoSpawned)
     {
         AudioManager.Instance.PlaySpecificAudio(
-            AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
-                BossAbilityAudio[_abilityID].GeneralAbilityAudio[VOLCANO_IMPACT_AUDIO_ID], out EventInstance eventInstance);
-        
+            AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].BossAbilityAudio[_abilityID]
+                .GeneralAbilityAudio[VOLCANO_IMPACT_AUDIO_ID], out EventInstance eventInstance);
+
         eventInstance.getPitch(out float pitch);
         eventInstance.setPitch(pitch + (volcanoSpawned * _impactAudioPitchIncrease));
     }
-    
-    
+
+
     #region Base Ability
 
     public override void AbilitySetUp(BossBase bossBase)
@@ -194,9 +216,9 @@ public class SBA_Volcano : SpecificBossAbilityFramework
     protected override void StartShowTargetZone()
     {
         //DetermineAttackLocations();
-        
+
         _targetZoneSpawningProcess = StartCoroutine(VolcanoTargetZoneCreationProcess());
-        
+
         base.StartShowTargetZone();
     }
 
@@ -206,7 +228,7 @@ public class SBA_Volcano : SpecificBossAbilityFramework
     protected override void AbilityStart()
     {
         SB_MagmaLord.Instance.SetHasVolcanoBeenUsed(true);
-        
+
         _damageZoneSpawningProcess = StartCoroutine(VolcanoDamageCreationProcess());
 
         base.AbilityStart();
@@ -233,13 +255,42 @@ public class SBA_Volcano : SpecificBossAbilityFramework
             return false;
         }
 
-        float requiredMinChance = (float)_currentVolcanoFutureTargetZones.Count / (float)_futureTargetZonesCertainChanceToActivate;
-        float randomChance = Random.Range(0, 1f);
+        float requiredMinChance = (float)_currentVolcanoFutureTargetZones.Count /
+                                  (float)_futureTargetZonesCertainChanceToActivate;
         
+        float randomChance = Random.Range(0, 1f);
+
         return randomChance <= requiredMinChance;
     }
+
+
+    public override void SubscribeToEvents()
+    {
+        if (_isSubscribedToEvents)
+        {
+            return;
+        }
         
-    
+        base.SubscribeToEvents();
+        _myBossBase.GetSecondPassedEnrageEvent().AddListener(CalculateSharedVolcanoTrackingMultiplier);
+    }
+
+    public override void UnsubscribeFromEvents()
+    {
+        if (!_isSubscribedToEvents)
+        {
+            return;
+        }
+        
+        base.UnsubscribeFromEvents();
+        _myBossBase.GetSecondPassedEnrageEvent().AddListener(CalculateSharedVolcanoTrackingMultiplier);
+    }
+
+    #endregion
+
+    #region Getters
+
+    public float GetSharedVolcanoTrackingMultiplier() => _sharedVolcanoTrackingMultiplier;
 
     #endregion
 }

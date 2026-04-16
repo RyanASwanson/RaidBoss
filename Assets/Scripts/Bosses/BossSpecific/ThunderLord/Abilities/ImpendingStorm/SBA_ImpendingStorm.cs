@@ -35,7 +35,7 @@ public class SBA_ImpendingStorm : SpecificBossAbilityFramework
 
     public GameObject BattleStart()
     {
-        SubscribeToEvents();
+        //SubscribeToEvents();
         
         _battleStartRotationSpeed = _baseRotationSpeed * _difficultyRotationMultiplier[(int)SelectionManager.Instance.GetSelectedDifficulty()-1];
         _rotationSpeed = _battleStartRotationSpeed;
@@ -201,13 +201,35 @@ public class SBA_ImpendingStorm : SpecificBossAbilityFramework
         _currentImpendingStormTargetZone.RemoveBossTargetZones();
     }
 
-    private void SubscribeToEvents()
+    public override void SubscribeToEvents()
     {
+        if (_isSubscribedToEvents)
+        {
+            return;
+        }
+        
+        base.SubscribeToEvents();
         _myBossBase.GetBossDamagedEvent().AddListener(BossDamaged);
         
         _myBossBase.GetBossStaggeredEvent().AddListener(BossStaggered);
         _myBossBase.GetBossNoLongerStaggeredEvent().AddListener(BossNoLongerStaggered);
         GameStateManager.Instance.GetBattleWonOrLostEvent().AddListener(BattleOver);
+    }
+
+    public override void UnsubscribeFromEvents()
+    {
+        if (!_isSubscribedToEvents)
+        {
+            return;
+        }
+        
+        base.UnsubscribeFromEvents();
+        
+        _myBossBase.GetBossDamagedEvent().RemoveListener(BossDamaged);
+        
+        _myBossBase.GetBossStaggeredEvent().RemoveListener(BossStaggered);
+        _myBossBase.GetBossNoLongerStaggeredEvent().RemoveListener(BossNoLongerStaggered);
+        GameStateManager.Instance.GetBattleWonOrLostEvent().RemoveListener(BattleOver);
     }
     
     #region Getters

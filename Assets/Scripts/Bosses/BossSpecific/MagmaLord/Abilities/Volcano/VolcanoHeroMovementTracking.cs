@@ -78,18 +78,16 @@ public class VolcanoHeroMovementTracking : MonoBehaviour
             
             if (_associatedHeroMovement.IsHeroMovingPathfindingOrAbility())
             {
-                _currentVolcanoHeroMovementAmount -= _volcanoTrackingDecreaseSpeed * Time.deltaTime;
+                DecreaseVolcanoMovementAmount();
                 _hasHeroMovedSinceLastTargetZoneSpawned = true;
             }
             else if (_hasHeroMovedSinceLastTargetZoneSpawned)
             {
-                _currentVolcanoHeroMovementAmount += _volcanoTrackingIncreaseSpeed * Time.deltaTime;
+                IncreaseVolcanoMovementAmount();
 
                 if (_currentVolcanoHeroMovementAmount >= _volcanoMaxTracking)
                 {
                     HitVolcanoMax();
-                    //_currentVolcanoHeroMovementAmount -= _volcanoDecreaseToValue;
-                    StartMovingVolcanoProgressDownToValue(_volcanoDecreaseToSpecificValue,_volcanoDecreaseToValueSpeed);
                 }
             }
 
@@ -97,6 +95,16 @@ public class VolcanoHeroMovementTracking : MonoBehaviour
             
             yield return null;
         }
+    }
+
+    private void IncreaseVolcanoMovementAmount()
+    {
+        _currentVolcanoHeroMovementAmount += _volcanoTrackingIncreaseSpeed * _associatedVolcano.GetSharedVolcanoTrackingMultiplier() * Time.deltaTime;
+    }
+
+    private void DecreaseVolcanoMovementAmount()
+    {
+        _currentVolcanoHeroMovementAmount -= _volcanoTrackingDecreaseSpeed * _associatedVolcano.GetSharedVolcanoTrackingMultiplier() * Time.deltaTime;
     }
 
     private void UpdateVolcanoMovementAmount()
@@ -146,6 +154,7 @@ public class VolcanoHeroMovementTracking : MonoBehaviour
     {
         _associatedVolcano.VolcanoTargetHitMax(this);
         _hasHeroMovedSinceLastTargetZoneSpawned = false;
+        StartMovingVolcanoProgressDownToValue(_volcanoDecreaseToSpecificValue,_volcanoDecreaseToValueSpeed);
     }
 
     public void VolcanoAbilityWasUsed()

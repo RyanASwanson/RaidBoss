@@ -353,6 +353,8 @@ public class BossStats : BossChildrenFunctionality
     private void SecondPassedEnraged()
     {
         CalculateScalingEnrageDamageMultiplier();
+        
+        _myBossBase.InvokeBossEnrageSecondPassedEvent();
     }
 
     private void CalculateScalingEnrageDamageMultiplier()
