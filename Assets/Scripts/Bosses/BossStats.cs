@@ -320,6 +320,7 @@ public class BossStats : BossChildrenFunctionality
         _isBossEnraged = true;
         _bossEnrageDamageMultiplier = _storedEnrageMultiplier;
         _myBossBase.InvokeBossEnragedEvent();
+        _myBossBase.InvokeBossEnrageSecondPassedEvent();
         
         AudioManager.Instance.PlaySpecificAudio(AudioManager.Instance.GeneralBossAudio.EnrageAudio.BossEnrageStarted);
 

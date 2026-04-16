@@ -293,8 +293,8 @@ public class SB_TerraLord : SpecificBossFramework
 
     private void CalculatePassiveEnrageMultiplier()
     {
-        _currentEnrageMultiplier = _enrageStartMultiplier +
-                                   (_enrageScalingMultiplierIncreasePerMinute * BossStats.Instance.GetMinutesSpentEnraged());
+        _currentEnrageMultiplier = _enrageStartMultiplier;
+        _currentEnrageMultiplier *= 1 + (_enrageScalingMultiplierIncreasePerMinute * BossStats.Instance.GetMinutesSpentEnraged());
     }
 
     /// <summary>
