@@ -82,16 +82,22 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
         _setUpTargetsCounter++;
     }
 
-    private void PlayMinionsActiveAbilityPrepWind()
+    private void AttemptPlayMinionsActiveAbilityPrepWind()
     {
-        foreach (BlizzardTargets targets in _activeTargets)
+        List<GlacialLord_FrostFiend> frostFiends = _glacialLord.GetAllFrostFiends();
+
+        foreach (GlacialLord_FrostFiend fiend in frostFiends)
         {
-            if (targets.AreAllMinionsFrozen())
+            if (!fiend.IsMinionFrozen())
             {
+                PlayMinionsActiveAbilityPrepWind();
                 return;
             }
         }
-        
+    }
+
+    private void PlayMinionsActiveAbilityPrepWind()
+    {
         AudioManager.Instance.PlaySpecificAudio(
             AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
                 BossAbilityAudio[_abilityID].GeneralAbilityAudio[BLIZZARD_MINIONS_ACTIVE_ABILITY_PREP_WIND_AUDIO_ID]);
@@ -156,7 +162,7 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
             _activeTargets.Add(targets);
         }
 
-        PlayMinionsActiveAbilityPrepWind();
+        AttemptPlayMinionsActiveAbilityPrepWind();
     }
 
     protected override void AbilityStart()
@@ -186,20 +192,22 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
         DetermineTargets(true);
         SetPreviewZoneLocations();
     }
+    
 
-    protected override void AttemptPlayAbilityPrepAudio()
+    protected override void PlayAbilityPrepAudio()
     {
-        foreach (BlizzardTargets targets in _currentTargets)
+        foreach (BlizzardTargets targets in _activeTargets)
         {
             if (!targets.AreAnyMinionsFrozen())
             {
-                base.AttemptPlayAbilityPrepAudio();
+                base.PlayAbilityPrepAudio();
                 return;
             }
         }
         
         
     }
+
     #endregion
 }
 
