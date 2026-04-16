@@ -138,8 +138,10 @@ public class CameraGameManager : MainGameplayManagerFramework
     #region Camera Rotation
     public void StartRotateCinemachineCamera(float directionMultiplier, float processTime)
     {
-        if (_virtualCamRotationCoroutine != null)
+        if (!_virtualCamRotationCoroutine.IsUnityNull())
+        {
             StopCoroutine(_virtualCamRotationCoroutine);
+        }
 
         _virtualCamRotationCoroutine = StartCoroutine(RotateCinemachineCameraProcess(directionMultiplier,processTime));
     }

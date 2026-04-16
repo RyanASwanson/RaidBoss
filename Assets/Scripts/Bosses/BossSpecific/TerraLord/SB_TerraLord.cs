@@ -20,6 +20,8 @@ public class SB_TerraLord : SpecificBossFramework
 
     [Space] 
     [SerializeField] private float _baseWeightMultiplier;
+    [SerializeField] private float _enrageStartMultiplier;
+    [SerializeField] private float _enrageScalingMultiplierIncreasePerMinute;
     [SerializeField] private List<float> _difficultyWeightMultiplier;
 
     [SerializeField] private AnimationCurve _movingTowardsMaxMultiplierBasedOnProgress;
@@ -35,6 +37,8 @@ public class SB_TerraLord : SpecificBossFramework
     private WaitForSeconds _passiveTickWait;
     
     private float _passiveHeroWeightMultiplier;
+    
+    private float _currentEnrageMultiplier = 1.0f;
     
     private List<TerraLordUniversalEnvironmentalWeightObject> _environmentalWeightObjects = new();
 
@@ -230,6 +234,12 @@ public class SB_TerraLord : SpecificBossFramework
             //  as we switch sides part way through
             weightCounter *= _movingTowardsMaxMultiplierBasedOnProgress.Evaluate(_passiveCounterProgressTowardsMax);
         }
+
+        if (BossStats.Instance.GetIsBossEnraged())
+        {
+            CalculatePassiveEnrageMultiplier();
+            weightCounter *= _currentEnrageMultiplier;
+        }
         
         _passiveCounterValue += weightCounter;
         _passiveCounterValue = Mathf.Clamp(_passiveCounterValue, -_passiveMaxValue, _passiveMaxValue);
@@ -279,6 +289,12 @@ public class SB_TerraLord : SpecificBossFramework
     {
         CameraGameManager.Instance.StartRotateCinemachineCamera
             (passiveDifference * _zRotationMultiplier, _passiveTickRate);
+    }
+
+    private void CalculatePassiveEnrageMultiplier()
+    {
+        _currentEnrageMultiplier = _enrageStartMultiplier +
+                                   (_enrageScalingMultiplierIncreasePerMinute * BossStats.Instance.GetMinutesSpentEnraged());
     }
 
     /// <summary>

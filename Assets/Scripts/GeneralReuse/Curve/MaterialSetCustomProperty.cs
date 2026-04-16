@@ -56,6 +56,8 @@ public class MaterialSetCustomProperty : MonoBehaviour
     void OnDisable()
     {
         UnsubscribeFromEvents();
+
+        ResetToDefaultValues();
     }
 
     private void SetMaterial()
@@ -170,6 +172,29 @@ public class MaterialSetCustomProperty : MonoBehaviour
                 _startingColors[i] = _associatedMaterials[i].GetColor(_property);
             }
         }
+    }
+
+    private void ResetToDefaultValues()
+    {
+        if (!_isUsingSharedMaterial)
+        {
+            return;
+        }
+
+        switch (_propertyType)
+        {
+            case EMaterialSetCustomPropertyType.FloatProperty:
+                UpdateMaterialFloatProperty(0);
+                return;
+            case EMaterialSetCustomPropertyType.ColorOpacityProperty:
+                UpdateMaterialColorOpacityProperty(0);
+                return;
+            case EMaterialSetCustomPropertyType.ColorProperty:
+                UpdateMaterialColorProperty(0);
+                return;
+        }
+
+
     }
     
     private void SubscribeToEvents()

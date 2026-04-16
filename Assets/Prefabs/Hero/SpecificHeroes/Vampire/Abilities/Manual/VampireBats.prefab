@@ -46,11 +46,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 369bcc862835c2b41a6b1d018a12a33c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _doesPerformSetUpOnEnable: 1
   _propertyType: 2
   _propertyName: _Color
   _progressMultiplier: 1
-  _hasOverrideStartingColors: 0
-  _overrideStartingColors: []
+  _hasOverrideStartingColors: 1
+  _overrideStartingColors:
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
   _endColors:
   - {r: 0.5849056, g: 0.5849056, b: 0.5849056, a: 1}
   - {r: 0.5849056, g: 0.5849056, b: 0.5849056, a: 1}
