@@ -19,7 +19,7 @@ public class CurveProgression : MonoBehaviour
     internal ECurveStatus CurveStatus = ECurveStatus.AtMinValue;
     
     [SerializeField] private float _minCurveValue;
-    [SerializeField] private float _maxCurveValue;
+    [SerializeField] private float _maxCurveValue = 1;
     internal float CurveValue = 0;
     
     private Coroutine _curveIncreaseProgressCoroutine;
@@ -31,6 +31,14 @@ public class CurveProgression : MonoBehaviour
 
     [Space] 
     [SerializeField] private bool _doesResetToDefaultProgressOnEnable;
+
+    [Space]
+    [SerializeField] private bool _doesStartMovingUpOnEnable;
+    [SerializeField] private bool _doesStartMovingInCurrentDirectionOnEnable = false;
+    
+    [Space]
+    [SerializeField] private bool _hasAutomaticStartMovingDelay;
+    [SerializeField] private float _automaticStartMovingDelay;
     
     [Space] 
     [SerializeField] private bool _doesAutomaticallyMoveDownOnHittingMax;
@@ -94,6 +102,39 @@ public class CurveProgression : MonoBehaviour
         {
             ResetCurve();
         }
+
+        AutomaticMovementOnEnable();
+    }
+
+    private void AutomaticMovementOnEnable()
+    {
+        if (_hasAutomaticStartMovingDelay)
+        {
+            StartCoroutine(DelayAutomaticMovement());
+        }
+        else
+        {
+            BeginAutomaticMovementOnEnable();
+        }
+    }
+
+    private IEnumerator DelayAutomaticMovement()
+    {
+        yield return new WaitForSeconds(_automaticStartMovingDelay);
+        BeginAutomaticMovementOnEnable();
+    }
+
+    private void BeginAutomaticMovementOnEnable()
+    {
+        if (_doesStartMovingUpOnEnable)
+        {
+            StartMovingUpOnCurve();
+        }
+
+        if (_doesStartMovingInCurrentDirectionOnEnable)
+        {
+            StartMovingInPreviousDirectionOnCurve();
+        }
     }
 
     public void ResetCurve()
@@ -103,9 +144,45 @@ public class CurveProgression : MonoBehaviour
         UpdateCurveProgress();
     }
 
+    public void DestroyCurveObject()
+    {
+        Destroy(gameObject);
+    }
+
+    public void StartMovingInPreviousDirectionOnCurve()
+    {
+        switch (CurveStatus)
+        {
+            case (ECurveStatus.Decreasing):
+            case (ECurveStatus.AtMaxValue):
+            {
+                StartMovingDownOnCurve();
+                break;
+            }
+            case (ECurveStatus.Increasing):
+            case (ECurveStatus.AtMinValue):
+            {
+                StartMovingUpOnCurve();
+                break;
+            }
+        }
+    }
+
     public void StartMovingOppositeDirectionOnCurve()
     {
         if (IsOppositeDirectionUpOnCurve())
+        {
+            StartMovingUpOnCurve();
+        }
+        else
+        {
+            StartMovingDownOnCurve();
+        }
+    }
+
+    public void StartMovingInUpwardsBoolDirection(bool direction)
+    {
+        if (direction)
         {
             StartMovingUpOnCurve();
         }
@@ -212,6 +289,12 @@ public class CurveProgression : MonoBehaviour
         }
         
         InvokeOnCurveValueChanged();
+    }
+
+    public void ForceSetCurveProgress(float progress)
+    {
+        _movementProgress = progress;
+        UpdateCurveProgress();
     }
 
     #region MoveDelay
@@ -325,6 +408,15 @@ public class CurveProgression : MonoBehaviour
     {
         return CurveStatus == ECurveStatus.Decreasing || CurveStatus == ECurveStatus.AtMinValue;
     }
+
+    #region Setters
+
+    public void SetHasStartingValue(bool hasStartingValue)
+    {
+        _hasDefaultValue = hasStartingValue;
+    }
+
+    #endregion
 }
 
 public enum ECurveStatus

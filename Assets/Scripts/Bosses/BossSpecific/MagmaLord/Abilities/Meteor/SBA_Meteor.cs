@@ -15,25 +15,14 @@ public class SBA_Meteor : SpecificBossAbilityFramework
 
     [SerializeField] private GameObject _directionalTargetZone;
 
-    //[SerializeField] private Vector3 _fallingMeteorAngleVariance;
+    private Vector3 _storedHeroLocation;
 
     private GameObject _storedFallingMeteor;
     private SBP_FallingMeteor _storedFallingMeteorFunc;
-    private GameObject _storedMovingMeteor;
+    private SBP_FollowingMeteor _storedMovingMeteor;
 
+    public const int METEOR_PROJECTILE_IMPACT_AUDIO_ID = 0;
     
-    protected IEnumerator FollowingDirectionalTargetZone(GameObject targetZone)
-    {
-        StartCoroutine(HideTargetZoneUntilNonZero(targetZone));
-
-        while(!targetZone.IsUnityNull() && !_storedTarget.IsUnityNull())
-        {
-            targetZone.transform.LookAt(_storedTarget.transform.position);
-            targetZone.transform.eulerAngles = new Vector3(0, targetZone.transform.eulerAngles.y, 0);
-            yield return null;
-        }
-    }
-
     /// <summary>
     /// Waits until the hero that is being targetted is not directly on top of the target zone
     /// </summary>
@@ -41,10 +30,13 @@ public class SBA_Meteor : SpecificBossAbilityFramework
     /// <returns></returns>
     protected IEnumerator HideTargetZoneUntilNonZero(GameObject targetZone)
     {
-        targetZone.SetActive(false);
+        Vector3 startingLookLocation = _myBossBase.gameObject.transform.position;
+        
+        targetZone.transform.LookAt(startingLookLocation);
+        targetZone.transform.eulerAngles = new Vector3(0, targetZone.transform.eulerAngles.y, 0);
 
         //If that direction is close to zero choose a random direction instead
-        while (targetZone.IsUnityNull() &&
+        while (!targetZone.IsUnityNull() && !_storedTarget.IsUnityNull() &&
                (Mathf.Abs(targetZone.transform.position.x - _storedTarget.transform.position.x) < .1f &&
                 Mathf.Abs(targetZone.transform.position.z - _storedTarget.transform.position.z) < .1f))
         {
@@ -53,7 +45,21 @@ public class SBA_Meteor : SpecificBossAbilityFramework
 
         if (!targetZone.IsUnityNull())
         {
-            targetZone.SetActive(true);
+            StartCoroutine(FollowingDirectionalTargetZone(targetZone));
+        }
+    }
+    
+    protected IEnumerator FollowingDirectionalTargetZone(GameObject targetZone)
+    {
+        while(!targetZone.IsUnityNull())
+        {
+            if (!_storedTarget.IsUnityNull())
+            {
+                _storedHeroLocation = _storedTarget.transform.position;
+            }
+            targetZone.transform.LookAt(_storedHeroLocation);
+            targetZone.transform.eulerAngles = new Vector3(0, targetZone.transform.eulerAngles.y, 0);
+            yield return null;
         }
     }
 
@@ -78,9 +84,15 @@ public class SBA_Meteor : SpecificBossAbilityFramework
         BossTargetZoneParent targetZone = Instantiate(_targetZone, _storedTargetLocation, Quaternion.identity).GetComponent<BossTargetZoneParent>();
         _currentTargetZones.Add(targetZone);
         
-        StartCoroutine(FollowingDirectionalTargetZone(targetZone.GetBossTargetZones()[0].GetAdditionalGameObjectReferences()[0]));
+        _storedHeroLocation = _myBossBase.gameObject.transform.position;
+        StartCoroutine(HideTargetZoneUntilNonZero(targetZone.GetBossTargetZones()[0].GetAdditionalGameObjectReferences()[0]));
 
         base.StartShowTargetZone();
+
+        if (TrailerShotsDebugScript.IS_SHOOTING_TRAILER && TrailerShotsDebugScript.IS_PERFORMING_METEOR_ZOOM_IN)
+        {
+            TrailerShotsDebugScript.Instance.MeteorImpactShot();
+        }
     }
 
     /// <summary>
@@ -90,6 +102,7 @@ public class SBA_Meteor : SpecificBossAbilityFramework
     {
         _storedFallingMeteor = Instantiate(_fallingMeteor, _storedTargetLocation, _fallingMeteor.transform.rotation);
         _storedFallingMeteorFunc = _storedFallingMeteor.GetComponent<SBP_FallingMeteor>();
+        _storedFallingMeteorFunc.SetUpProjectile(_myBossBase,_abilityID);
         _storedFallingMeteorFunc.AdditionalSetUp(_storedTarget.gameObject);
 
         base.StartAbilityWindUp();
@@ -105,8 +118,8 @@ public class SBA_Meteor : SpecificBossAbilityFramework
             FallingMeteorContact();
 
             _storedTargetLocation = new Vector3(_storedTargetLocation.x, -.3f, _storedTargetLocation.z);
-            _storedMovingMeteor = Instantiate(_movingMeteor, _storedTargetLocation, Quaternion.identity);
-            _storedMovingMeteor.GetComponent<SBP_FollowingMeteor>().AdditionalSetUp(_storedTarget);
+            _storedMovingMeteor = Instantiate(_movingMeteor, _storedTargetLocation, Quaternion.identity).GetComponent<SBP_FollowingMeteor>();
+            _storedMovingMeteor.AdditionalSetUp(_storedHeroLocation);
         }
         
         base.AbilityStart();
@@ -118,6 +131,11 @@ public class SBA_Meteor : SpecificBossAbilityFramework
         if (!_storedFallingMeteor.IsUnityNull())
         {
             _storedFallingMeteorFunc.StopFallingMeteor();
+        }
+
+        if (!_storedMovingMeteor.IsUnityNull())
+        {
+            _storedMovingMeteor.StartMapEdgeRemoval();
         }
     }
     #endregion

@@ -69,6 +69,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _vfxList: []
+  _isVFXChilded: 0
+  _vfxTargetLocation: {fileID: 0}
+  _onDestroySelfEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _onDestroyParentEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1285949513328819880
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,6 +140,7 @@ MonoBehaviour:
   _colliderLifetimeEndEvent:
     m_PersistentCalls:
       m_Calls: []
+  _canPreventReHitWithoutInitialDamage: 0
   _preventReHitDuration: 5
   _enterDamage: 3.75
   _enterEvent:
@@ -319,6 +328,7 @@ MonoBehaviour:
   _colliderLifetimeEndEvent:
     m_PersistentCalls:
       m_Calls: []
+  _canPreventReHitWithoutInitialDamage: 0
   _preventReHitDuration: 5
   _enterDamage: 3.75
   _enterEvent:
@@ -454,6 +464,7 @@ GameObject:
   - component: {fileID: 6957617552280463619}
   - component: {fileID: 7619148723872018605}
   - component: {fileID: 6957617552280463617}
+  - component: {fileID: 5815103501326853230}
   m_Layer: 0
   m_Name: EntombDamageArea
   m_TagString: Untagged
@@ -491,10 +502,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _entombCompleteDelay: 0.75
-  _entombPersistantTime: 22
+  _entombPersistantTime: 26
   _closingWalls:
   - {fileID: 2753615494377525193}
   - {fileID: 2338302277446499341}
+  _environmentalWeight: {fileID: 5815103501326853230}
   _screenShakeData:
     Intensity: 1.5
     Frequency: 0.005
@@ -519,6 +531,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 62
   m_CollisionDetection: 0
+--- !u!114 &5815103501326853230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6957617552280463618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 661110e545cc79242ae96d8cb1721d66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _doesAddSelfToObjectListOnStart: 0
+  _doesPerformConstantWeightChecks: 0
+  _baseWeightMultiplier: 0.15
+  _minimumCurrentWeight: 0.1
+  _maximumCurrentWeight: 1
 --- !u!1 &9007468118816475796
 GameObject:
   m_ObjectHideFlags: 0

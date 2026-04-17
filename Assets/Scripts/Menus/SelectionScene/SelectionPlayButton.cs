@@ -12,6 +12,7 @@ public class SelectionPlayButton : MonoBehaviour
     [SerializeField] private Image _bossSelectedIcon;
     [SerializeField] private Image[] _heroSelectedIcons;
     [SerializeField] private CurveProgression _curveScaleProgression;
+    [SerializeField] private CurveProgression _hoverScaleProgression;
 
     private Button _button;
 
@@ -51,6 +52,21 @@ public class SelectionPlayButton : MonoBehaviour
     public void ToggleInteractability(bool isInteractable)
     {
         _button.interactable = isInteractable;
+    }
+
+    public void PlayButtonHoveredOver()
+    {
+        if (!_button.interactable)
+        {
+            return;
+        }
+        
+        _hoverScaleProgression.StartMovingUpOnCurve();
+    }
+
+    public void PlayButtonNotHoveredOver()
+    {
+        _hoverScaleProgression.StartMovingDownOnCurve();
     }
 
     public void UpdateBossAndHeroSelectionIcons()

@@ -10,14 +10,18 @@ public class SettingsMenu : MonoBehaviour
 {
     [Header("General")]
     [SerializeField] private Slider _screenShakeSlider;
+    [SerializeField] private Slider _bossTargetZoneOutlineStrength;
 
     private float _tempScreenShakeValue;
+    private float _tempBossTargetZoneOutlineStrength;
     private bool _tempClickDragMovement;
 
 
     private void Start()
     {
         SetValuesOnOpen();
+
+        ListenForSliders();
     }
 
     /// <summary>
@@ -29,6 +33,9 @@ public class SettingsMenu : MonoBehaviour
         _tempScreenShakeValue = SaveManager.Instance.GetScreenShakeIntensity();
         //Sets the slider to be at the saved amount
         _screenShakeSlider.value = _tempScreenShakeValue ;
+        
+        _tempBossTargetZoneOutlineStrength = SaveManager.Instance.GetBossTargetZoneOutlineStrength();
+        _bossTargetZoneOutlineStrength.value = _tempBossTargetZoneOutlineStrength;
 
         _tempClickDragMovement = SaveManager.Instance.GetClickAndDragEnabled();
         
@@ -39,6 +46,19 @@ public class SettingsMenu : MonoBehaviour
         _tempScreenShakeValue = val;
         
         SaveManager.Instance.SetScreenShakeStrength(_tempScreenShakeValue);
+    }
+
+    public void BossTargetZoneOutlineStrengthSliderUpdated(float val)
+    {
+        _tempBossTargetZoneOutlineStrength = val;
+        
+        SaveManager.Instance.SetBossTargetZoneOutlineStrength(val);
+    }
+
+    private void ListenForSliders()
+    {
+        _screenShakeSlider.onValueChanged.AddListener(ScreenShakeSliderUpdated);
+        _bossTargetZoneOutlineStrength.onValueChanged.AddListener(BossTargetZoneOutlineStrengthSliderUpdated);
     }
 
     public void ResetSaveData()

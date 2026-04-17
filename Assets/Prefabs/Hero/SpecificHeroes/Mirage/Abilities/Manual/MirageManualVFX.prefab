@@ -4837,7 +4837,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0fd20b84cb81d2e43adbf2c941d2adb8, type: 2}
+  - {fileID: 2100000, guid: 88879c9231137044f90e827897e2beb1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9734,7 +9734,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0fd20b84cb81d2e43adbf2c941d2adb8, type: 2}
+  - {fileID: 2100000, guid: 88879c9231137044f90e827897e2beb1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9831,10 +9831,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17d57178ea0021a4b8e770bad5c72d0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hasLifeTime: 0
-  _lifeTime: 0
+  _hasLifeTime: 1
+  _lifeTime: 4
   _hasDetachTime: 1
   _detachTime: 0
+  _hasCustomEmmisionRateCurve: 0
+  _customEmissionCurveMultiplier: 0
+  _customEmissionRateCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   _particleSystems:
   - {fileID: 2561953188774516356}
   - {fileID: 30433487535845204}

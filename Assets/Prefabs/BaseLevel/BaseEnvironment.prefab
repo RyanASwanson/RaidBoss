@@ -218,7 +218,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1579396877497945794}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.75, z: -0.5}
+  m_LocalPosition: {x: 0, y: -0.75, z: -3.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5880,7 +5880,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5867471149853857133}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6064,6 +6064,14 @@ MonoBehaviour:
   _lifeTime: 0
   _hasDetachTime: 0
   _detachTime: 0
+  _hasCustomEmmisionRateCurve: 0
+  _customEmissionCurveMultiplier: 0
+  _customEmissionRateCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   _particleSystems: []
 --- !u!1 &6999922484797292467
 GameObject:
@@ -6433,6 +6441,14 @@ MonoBehaviour:
   _lifeTime: 0
   _hasDetachTime: 0
   _detachTime: 0
+  _hasCustomEmmisionRateCurve: 0
+  _customEmissionCurveMultiplier: 0
+  _customEmissionRateCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   _particleSystems: []
 --- !u!1 &9035979204502266685
 GameObject:

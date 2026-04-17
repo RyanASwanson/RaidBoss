@@ -10,18 +10,27 @@ public class SBA_ImpendingStorm : SpecificBossAbilityFramework
     [SerializeField] private float _baseRotationSpeed;
     [SerializeField] private float[] _difficultyRotationMultiplier;
 
+    [Space]
     [SerializeField] private float _maxBossHealthRotationMultiplier;
     [SerializeField] private AnimationCurve _bossHealthRotationMultiplierCurve;
 
+    [Space] 
+    [SerializeField] private float _enrageRotationMultplier;
+    [SerializeField] private float _enrageScalingRotationMultiplierIncreasePerMinute;
+
     private float _battleStartRotationSpeed;
     private float _rotationSpeed;
+    private float _currentBossHealthRotationMultiplier = 1;
+    private float _currentEnrageRotationMultiplier = 1;
 
     private float _attackRotation = 0;
 
     [Space] 
     [SerializeField] private float _attackDelay;
+    [SerializeField] private float _enrageAttackSpeedMultiplier;
     [SerializeField] private float _attackSpawnOffset;
     private float _attackTimer;
+    private float _currentEnrageAttackSpeedMultiplier = 1;
     
     [Space]
     [SerializeField] private GameObject _impendingStormTargetZone;
@@ -35,7 +44,7 @@ public class SBA_ImpendingStorm : SpecificBossAbilityFramework
 
     public GameObject BattleStart()
     {
-        SubscribeToEvents();
+        //SubscribeToEvents();
         
         _battleStartRotationSpeed = _baseRotationSpeed * _difficultyRotationMultiplier[(int)SelectionManager.Instance.GetSelectedDifficulty()-1];
         _rotationSpeed = _battleStartRotationSpeed;
@@ -98,7 +107,7 @@ public class SBA_ImpendingStorm : SpecificBossAbilityFramework
     {
         while (true)
         {
-            RotateImpendingStorm(_rotationSpeed * Time.deltaTime);
+            RotateImpendingStorm(GetCurrentAttackRotation() * Time.deltaTime);
             
             yield return null;
         }
@@ -141,7 +150,7 @@ public class SBA_ImpendingStorm : SpecificBossAbilityFramework
     {
         while (true)
         {
-            _attackTimer += Time.deltaTime;
+            _attackTimer += _currentEnrageAttackSpeedMultiplier * Time.deltaTime;
             if (_attackTimer >= _attackDelay)
             {
                 _attackTimer -= _attackDelay;
@@ -174,15 +183,24 @@ public class SBA_ImpendingStorm : SpecificBossAbilityFramework
 
     private void BossDamaged(float damage)
     {
-        UpdateRotationSpeed();
+        UpdateHealthMultiplierRotationSpeed();
     }
 
-    private void UpdateRotationSpeed()
+    private void UpdateHealthMultiplierRotationSpeed()
     {
-        float bossHealthRotationSpeedMultiplier = _bossHealthRotationMultiplierCurve.Evaluate(1 - BossStats.Instance.GetBossHealthPercentage());
-        bossHealthRotationSpeedMultiplier = Mathf.Lerp(1, _maxBossHealthRotationMultiplier, bossHealthRotationSpeedMultiplier);
-        _rotationSpeed = _baseRotationSpeed * bossHealthRotationSpeedMultiplier;
+        _currentBossHealthRotationMultiplier = _bossHealthRotationMultiplierCurve.Evaluate(1 - BossStats.Instance.GetBossHealthPercentage());
+        _currentBossHealthRotationMultiplier = Mathf.Lerp(1, _maxBossHealthRotationMultiplier, _currentBossHealthRotationMultiplier);
+    }
 
+    private void UpdateEnrageMultiplierRotationSpeed()
+    {
+        _currentEnrageRotationMultiplier = _enrageRotationMultplier;
+        _currentEnrageRotationMultiplier *= 1 + (_enrageScalingRotationMultiplierIncreasePerMinute * BossStats.Instance.GetMinutesSpentEnraged());
+    }
+
+    private void BossEnraged()
+    {
+        _currentEnrageAttackSpeedMultiplier = _enrageAttackSpeedMultiplier;
     }
 
     private void BossStaggered()
@@ -201,18 +219,49 @@ public class SBA_ImpendingStorm : SpecificBossAbilityFramework
         _currentImpendingStormTargetZone.RemoveBossTargetZones();
     }
 
-    private void SubscribeToEvents()
+    public override void SubscribeToEvents()
     {
+        if (_isSubscribedToEvents)
+        {
+            return;
+        }
+        
+        base.SubscribeToEvents();
         _myBossBase.GetBossDamagedEvent().AddListener(BossDamaged);
         
         _myBossBase.GetBossStaggeredEvent().AddListener(BossStaggered);
         _myBossBase.GetBossNoLongerStaggeredEvent().AddListener(BossNoLongerStaggered);
+        
+        _myBossBase.GetBossEnragedEvent().AddListener(BossEnraged);
+        _myBossBase.GetSecondPassedEnrageEvent().AddListener(UpdateEnrageMultiplierRotationSpeed);
+        
         GameStateManager.Instance.GetBattleWonOrLostEvent().AddListener(BattleOver);
+    }
+
+    public override void UnsubscribeFromEvents()
+    {
+        if (!_isSubscribedToEvents)
+        {
+            return;
+        }
+        
+        base.UnsubscribeFromEvents();
+        
+        _myBossBase.GetBossDamagedEvent().RemoveListener(BossDamaged);
+        
+        _myBossBase.GetBossStaggeredEvent().RemoveListener(BossStaggered);
+        _myBossBase.GetBossNoLongerStaggeredEvent().RemoveListener(BossNoLongerStaggered);
+        
+        _myBossBase.GetBossEnragedEvent().RemoveListener(BossEnraged);
+        _myBossBase.GetSecondPassedEnrageEvent().RemoveListener(UpdateEnrageMultiplierRotationSpeed);
+        
+        GameStateManager.Instance.GetBattleWonOrLostEvent().RemoveListener(BattleOver);
     }
     
     #region Getters
 
     public float GetAttackRotation() => _attackRotation;
+    public float GetCurrentAttackRotation() => _baseRotationSpeed * _currentBossHealthRotationMultiplier * _currentEnrageRotationMultiplier;
 
     public float GetOppositeAttackRotation() => _attackRotation + 180;
     

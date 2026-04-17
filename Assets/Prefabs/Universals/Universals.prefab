@@ -218,6 +218,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
   m_SortingOrder: 500
@@ -442,6 +443,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RequiresMaxCharactersSelected: 0
+  ShowAchievementUnlocks: 0
 --- !u!1001 &6064603818921415447
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -453,6 +455,10 @@ PrefabInstance:
       propertyPath: _sceneTransitionAnimator
       value: 
       objectReference: {fileID: 8256518710885590506}
+    - target: {fileID: 5149610026413585992, guid: 6de15419053016b48b9dc7ada31c86f1, type: 3}
+      propertyPath: _debugScript
+      value: 
+      objectReference: {fileID: 3022863549295780730}
     - target: {fileID: 5149610026413585993, guid: 6de15419053016b48b9dc7ada31c86f1, type: 3}
       propertyPath: m_Name
       value: UniversalManagers

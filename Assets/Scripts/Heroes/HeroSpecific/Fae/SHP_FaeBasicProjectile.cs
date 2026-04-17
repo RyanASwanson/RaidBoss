@@ -10,11 +10,24 @@ using UnityEngine;
 public class SHP_FaeBasicProjectile : HeroProjectileFramework
 {
     [SerializeField] private GeneralTranslate _generalTranslate;
+    
+    private static SH_Fae _associatedFae;
+
+    public void ProjectileHit()
+    {
+        _associatedFae.DisableDamageOfBasicProjectilesSet(GetComponent<GeneralHeroDamageArea>());
+    }
 
     #region Base Ability
     public override void SetUpProjectile(HeroBase heroBase, EHeroAbilityType heroAbilityType)
     {
         base.SetUpProjectile(heroBase, heroAbilityType);
+
+        if (_associatedFae.IsUnityNull())
+        {
+            _associatedFae = (SH_Fae)heroBase.GetSpecificHeroScript();
+        }
+        
         _generalTranslate.StartMoving(transform.forward);
     }
     #endregion

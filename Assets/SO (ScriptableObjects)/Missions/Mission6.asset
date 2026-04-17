@@ -22,19 +22,22 @@ MonoBehaviour:
   _associatedHeroes:
   - {fileID: 11400000, guid: fa900cf8282b2814fb9eb1a8cc860cd0, type: 2}
   - {fileID: 11400000, guid: 0128339a05223db40aae2581988a9ea0, type: 2}
+  _missionDisplayHighlights:
+  - HighlightType: 0
+    HightlightID: 0
   _tutorialPages:
-  - TutorialPageTitle: The Terra Lord
-    TutorialPageTitleWidth: 900
+  - TutorialPageTitle: 'Boss: The Terra Lord'
+    TutorialPageTitleWidth: 1210
     DefaultTextLocation: {x: 0, y: 40}
-    DefaultText: 'A new foe has appeared. The Terra
+    DefaultText: 'A new foe has appeared. The <color=#B8FF31>Terra
 
-      Lord harnesses nature
-      itself to
+      Lord</color>
+      harnesses nature itself to
 
       crush you. Like all bosses, it has its
 
-      own unique set
-      of attacks.'
+      own
+      unique set of attacks.'
     TutorialPageObjectLocation: {x: 0, y: 0}
     TutorialPageObject: {fileID: 0}
     TutorialPageCharacterTutorial:
@@ -43,17 +46,18 @@ MonoBehaviour:
       TutorialPageCharacterIcon: {fileID: 21300000, guid: 6adf6c78c6c82a24c97ad89a6d504a43, type: 3}
       TutorialPageCharacterBackground: {fileID: 21300000, guid: b2bea2ea6395a3a4698f324d28df7139, type: 3}
   - TutorialPageTitle: Unstable Precipice
-    TutorialPageTitleWidth: 1075
+    TutorialPageTitleWidth: 1090
     DefaultTextLocation: {x: 0, y: 40}
     DefaultText: 'On top a unique set of attacks you also
 
       need to be wary
-      of the Terra Lord''s passive
+      of the <color=#B8FF31>Terra Lord</color>''s passive
 
-      ability, Unstable Precipice. The arena
-      will
+      ability, Unstable
+      Precipice. The arena will
 
-      begin to tilt in the direction with more heroes.'
+      begin to tilt in the direction the heroes
+      are on.'
     TutorialPageObjectLocation: {x: 0, y: 0}
     TutorialPageObject: {fileID: 0}
     TutorialPageCharacterTutorial:
@@ -61,15 +65,34 @@ MonoBehaviour:
       TutorialCharacterIconScaleMultiplier: 1
       TutorialPageCharacterIcon: {fileID: 21300000, guid: c891d6ee2630d11468a6f57578f964b1, type: 3}
       TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  - TutorialPageTitle: Weight Influence
+    TutorialPageTitleWidth: 1025
+    DefaultTextLocation: {x: 0, y: 60}
+    DefaultText: 'Be wary of pillars left by the
+
+      Terra Lord''s Entomb ability
+      as
+
+      they also contribute to the weight.'
+    TutorialPageObjectLocation: {x: 0, y: -45}
+    TutorialPageObject: {fileID: 4067812921492274697, guid: 6300a2437fa4b1a419f4d9a0145aedf0, type: 3}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: 0}
+      TutorialCharacterIconScaleMultiplier: 0
+      TutorialPageCharacterIcon: {fileID: 0}
+      TutorialPageCharacterBackground: {fileID: 0}
   - TutorialPageTitle: Staying Balanced
-    TutorialPageTitleWidth: 975
+    TutorialPageTitleWidth: 1005
     DefaultTextLocation: {x: 0, y: 40}
-    DefaultText: 'You can keep track of the current balance
+    DefaultText: 'You can keep track of the current balance at
 
-      at the top of
-      the screen. If it reaches the end
+      the top of
+      the screen. If it reaches the end in
 
-      in either direction, you lose.'
+      either direction, debris will rain
+      down inflicting
+
+      damage until the balance is improved.'
     TutorialPageObjectLocation: {x: 0, y: -70}
     TutorialPageObject: {fileID: 8277734731874736608, guid: b0ad0110275716c43850993be7f84d1a, type: 3}
     TutorialPageCharacterTutorial:
@@ -78,8 +101,10 @@ MonoBehaviour:
       TutorialPageCharacterIcon: {fileID: 0}
       TutorialPageCharacterBackground: {fileID: 0}
   _characterUnlock: {fileID: 11400000, guid: be74862a2a733b44c8683efb08f6f861, type: 2}
+  _missionModifierUnlock: {fileID: 0}
   _missionUnlocks:
   - {fileID: 11400000, guid: 1da492c6ee012114b9206705ff83b5dd, type: 2}
+  _achievementUnlocks: []
   _missionModifiers: []
   _missionStatModifiers:
     _bossHealthMultiplier: 0.45

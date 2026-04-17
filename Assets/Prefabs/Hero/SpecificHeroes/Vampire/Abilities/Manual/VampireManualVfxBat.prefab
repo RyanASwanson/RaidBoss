@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 8284131840879145105}
   - component: {fileID: 3454081754552619016}
   - component: {fileID: 1365286567180277085}
+  - component: {fileID: 610005931890759661}
+  - component: {fileID: 9215446474405078564}
   m_Layer: 0
   m_Name: VampireManualVfxBat
   m_TagString: Untagged
@@ -46,10 +48,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd1d04d370a8bca419d81d8abad819bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _doesBeginScalingOnEnable: 1
-  _doesResetScaleOnScalingEnable: 0
-  _scalingTime: 0.8
+  _hasOverrideStartingScale: 0
+  _overrideStartingScale: {x: 0, y: 0, z: 0}
   _endingScale: {x: 0, y: 0, z: 0}
+  _curveProgression: {fileID: 9215446474405078564}
 --- !u!114 &1365286567180277085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,7 +66,98 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _doesBeginRotationOnEnable: 1
   _doesResetRotationOnRotationEnable: 0
+  _doesResetLocalRotationOnRotationEnable: 0
+  _doesResetRotationToDefaultOnEnable: 0
+  _doesUseLocalEulerAngles: 0
   _rotationPerSecond: {x: -35, y: 0, z: 0}
+  _rotationIndepedentParent: {fileID: 0}
+  _hasStartRotationOverride: 0
+  _startRotationOverride: {x: 0, y: 0, z: 0}
+  _targetLocalEulerAngles: {x: 0, y: 0, z: 0}
+  _curveProgression: {fileID: 0}
+--- !u!114 &610005931890759661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1219978722810171359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aae56d6661c15564c9956ea3200ade2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 3
+  _doesMoveForwardOnEnable: 1
+  _curveProgression: {fileID: 0}
+--- !u!114 &9215446474405078564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1219978722810171359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 508c048b50abf854791f2f498bb01037, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _curveName: Scale
+  _curveIncreaseTime: 1
+  _curveDecreaseTime: 0
+  _minCurveValue: 0
+  _maxCurveValue: 1
+  _hasDefaultValue: 0
+  _defaultValue: 0
+  _doesResetToDefaultProgressOnEnable: 0
+  _doesStartMovingUpOnEnable: 1
+  _doesStartMovingInCurrentDirectionOnEnable: 0
+  _doesAutomaticallyMoveDownOnHittingMax: 0
+  _doesAutomaticallyMoveUpOnHittingMin: 0
+  _hasIncreaseDelay: 0
+  _increaseDelay: 0
+  _hasDecreaseDelay: 0
+  _decreaseDelay: 0
+  _doesLerpUnchained: 0
+  _curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  OnSetUpComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  _onStartedIncreasing:
+    m_PersistentCalls:
+      m_Calls: []
+  _onStartedDecreasing:
+    m_PersistentCalls:
+      m_Calls: []
+  _onMaxValueReached:
+    m_PersistentCalls:
+      m_Calls: []
+  _onMinValueReached:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &6056709492239531089
 PrefabInstance:
   m_ObjectHideFlags: 0

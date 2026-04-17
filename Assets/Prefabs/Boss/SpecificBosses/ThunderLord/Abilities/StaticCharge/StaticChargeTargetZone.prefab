@@ -10,12 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1342843396789264060}
   m_Layer: 0
-  m_Name: Circle
+  m_Name: CircleVisuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1342843396789264060
 Transform:
   m_ObjectHideFlags: 0
@@ -282,7 +282,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.75, y: 1, z: 1.4}
+  m_Size: {x: 0.725, y: 1, z: 1.4}
   m_Center: {x: 1.4, y: 0, z: 0}
 --- !u!65 &7322290994894426498
 BoxCollider:
@@ -295,7 +295,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.75, y: 1, z: 1.4}
+  m_Size: {x: 0.725, y: 1, z: 1.4}
   m_Center: {x: -1.4, y: 0, z: 0}
 --- !u!65 &3656567137979825331
 BoxCollider:
@@ -308,7 +308,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.4, y: 1, z: 0.75}
+  m_Size: {x: 1.4, y: 1, z: 0.725}
   m_Center: {x: 0, y: 0, z: 1.4}
 --- !u!65 &3296984484334207388
 BoxCollider:
@@ -321,7 +321,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.4, y: 1, z: 0.75}
+  m_Size: {x: 1.4, y: 1, z: 0.725}
   m_Center: {x: 0, y: 0, z: -1.4}
 --- !u!1 &7303464568555958234
 GameObject:
@@ -344,7 +344,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1712674680312374387
 Transform:
   m_ObjectHideFlags: 0
@@ -525,6 +525,7 @@ MonoBehaviour:
   _doesDisableOnStart: 0
   _doesHideAfterStopFollowing: 0
   _doesDestroyAfterStopFollowing: 0
+  _destroyFollowDelay: 0
   _doesSetRotationOnFollowStart: 0
   _followStartEulerAngles: {x: 0, y: 0, z: 0}
   _followLocationOffset: {x: 0, y: -0.5, z: 0}

@@ -10,9 +10,12 @@ public class DebugScript : MonoBehaviour
 {
     public static DebugScript Instance;
     
-    public bool RequiresMaxCharactersSelected;
+    internal bool IsEditor = false;
     
-    private void Start()
+    public bool RequiresMaxCharactersSelected;
+    public bool ShowAchievementUnlocks;
+    
+    public void PerformDebugScriptSetUp()
     {
         if(Instance.IsUnityNull())
         {
@@ -26,6 +29,7 @@ public class DebugScript : MonoBehaviour
         }
         
 #if !UNITY_EDITOR && !DEVELOPMENT_BUILD
+        IsEditor = true;
         RequiresMaxCharactersSelected = true;
 #endif
     }
@@ -34,9 +38,21 @@ public class DebugScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Plus) || Input.GetKeyDown(KeyCode.Equals))
+        {
+            SaveManager.Instance.UnlockNextMissions();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Minus) || Input.GetKeyDown(KeyCode.Underscore))
+        {
+            BossStats.Instance.DecreaseTimeUntilEnraged(30);
+        }
+        
         if(Input.GetKeyDown(KeyCode.Y))
         {
             SaveManager.Instance.UnlockAllCharacters();
+
+            SaveManager.Instance.UnlockAllMissionModifiers();
         }
 
         if (Input.GetKeyDown(KeyCode.U))
@@ -59,9 +75,16 @@ public class DebugScript : MonoBehaviour
             
         }
         
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.LeftBracket))
         {
-            
+            MainMenuCharacterDisplay mainMenuDisplay = FindObjectOfType<MainMenuCharacterDisplay>();
+            mainMenuDisplay.StopDisplay();
+            mainMenuDisplay.MoveToNextDisplaySection();
+        }
+        if (Input.GetKeyDown(KeyCode.RightBracket))
+        {
+            MainMenuCharacterDisplay mainMenuDisplay = FindObjectOfType<MainMenuCharacterDisplay>();
+            mainMenuDisplay.StopDisplay();
         }
 
         if (Input.GetKeyDown(KeyCode.L))
@@ -73,16 +96,32 @@ public class DebugScript : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Semicolon))
         {
-            if (SelectionManager.Instance.GetSelectedBoss().GetBossID() == 2)
+            switch (SelectionManager.Instance.GetSelectedBoss().GetBossID())
             {
-                SB_GlacialLord glacialLord = (SB_GlacialLord)BossBase.Instance.GetSpecificBossScript();
-                glacialLord.FreezeAllFrostFiends();
+                case 0:
+                    return;
+                case 1:
+                    SB_TerraLord.Instance.TerraLordDebug();
+                    return;
+                case 2:
+                    SB_GlacialLord glacialLord = (SB_GlacialLord)BossBase.Instance.GetSpecificBossScript();
+                    glacialLord.FreezeAllFrostFiends();
+                    return;
+                case 3:
+                    return;
+                default:
+                    return;
             }
         }
 
         if (Input.GetKeyDown(KeyCode.Quote))
         {
             BossBase.Instance.GetSpecificBossScript().SkipCurrentAttack();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Slash))
+        {
+            SaveManager.Instance.UnlockNextMythicPlusLevel();
         }
     }
 #endif

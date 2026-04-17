@@ -16,14 +16,8 @@ public class SH_Guardian : SpecificHeroFramework
     [Range(0,1)][SerializeField] private float _heroManualDamageResistance;
     private WaitForSeconds _heroManualAbilityWait;
 
-    [SerializeField] private GameObject _tauntIcon;
-    private GameObject _currentTauntIcon;
-    private Animator _currentTauntIconAnimator;
-
-    private const string TAUNT_ICON_SHOW_ANIM_BOOL = "Show";
-
     [SerializeField] private GameObject _tauntVfxObject;
-    private FollowObject _currentTauntVfx;
+    private CurveProgression _currentTauntVfx;
 
     [Space]
     [SerializeField] private float _heroPassiveAbilityDuration;
@@ -31,6 +25,13 @@ public class SH_Guardian : SpecificHeroFramework
     private WaitForSeconds _heroPassiveWait;
 
     [SerializeField] private List<ParticleSystem> _passiveEyeVFX;
+
+    [Space] 
+    [SerializeField] private SwapTextures _swapTexture;
+
+    private const int SWAP_TEXTURE_DEFAULT_ID = 0;
+    private const int SWAP_TEXTURE_PASSIVE_ID = 1;
+    
     private Coroutine _passiveCoroutine;
 
     #region Basic Abilities
@@ -53,7 +54,7 @@ public class SH_Guardian : SpecificHeroFramework
     #region Manual Abilities
     public override void ActivateManualAbilities()
     {
-        BossBase.Instance.GetSpecificBossScript().StartHeroOverrideAggro(_myHeroBase, _heroManualAbilityDuration);
+        BossBase.Instance.GetSpecificBossScript().AddHeroOverrideAggro(_myHeroBase);
         StartCoroutine(ManualDuration());
 
         base.ActivateManualAbilities();
@@ -63,20 +64,27 @@ public class SH_Guardian : SpecificHeroFramework
     {
         //_heroManualDamageResistance
         _myHeroBase.GetHeroStats().ChangeCurrentHeroDamageResistance(_heroManualDamageResistance);
-        
-        _currentTauntIconAnimator.SetBool(TAUNT_ICON_SHOW_ANIM_BOOL, true);
-        
-        _currentTauntVfx.gameObject.SetActive(true);
-        _currentTauntVfx.StartFollowingObject(gameObject);
+
+        if (!_currentTauntVfx.IsUnityNull())
+        {
+            _currentTauntVfx.StartMovingUpOnCurve();
+        }
         
         yield return _heroManualAbilityWait;
+
+        ManualEnded();
+    }
+
+    private void ManualEnded()
+    {
+        BossBase.Instance.GetSpecificBossScript().RemoveHeroOverrideAggro(_myHeroBase);
         
         _myHeroBase.GetHeroStats().ChangeCurrentHeroDamageResistance(-_heroManualDamageResistance);
         
-        _currentTauntIconAnimator.SetBool(TAUNT_ICON_SHOW_ANIM_BOOL, false);
-        
-        _currentTauntVfx.StopFollowingDelayed(.5f);
-        //_currentTauntVfx.gameObject.SetActive(false);
+        if (!_currentTauntVfx.IsUnityNull())
+        {
+            _currentTauntVfx.StartMovingDownOnCurve();
+        }
     }
     #endregion
 
@@ -100,9 +108,11 @@ public class SH_Guardian : SpecificHeroFramework
 
     private IEnumerator PassiveAbilityProcess()
     {
+        _swapTexture.SwapTexture(SWAP_TEXTURE_PASSIVE_ID);
         _myHeroBase.GetHeroStats().ChangeCurrentHeroDamageResistance(_heroPassiveDamageResistance);
         ActivatePassiveVFX();
         yield return _heroPassiveWait;
+        _swapTexture.SwapTexture(SWAP_TEXTURE_DEFAULT_ID);
         _myHeroBase.GetHeroStats().ChangeCurrentHeroDamageResistance(-_heroPassiveDamageResistance);
 
         _passiveCoroutine = null;
@@ -118,6 +128,7 @@ public class SH_Guardian : SpecificHeroFramework
             particleSystem.Play();
         }
     }
+    
     #endregion
 
     #region Base Hero
@@ -140,10 +151,17 @@ public class SH_Guardian : SpecificHeroFramework
     protected override void BattleStarted()
     {
         base.BattleStarted();
-        _currentTauntIcon = _myHeroBase.GetHeroUIManager().CreateObjectOnGeneralOrigin(_tauntIcon);
-        _currentTauntIconAnimator = _currentTauntIcon.GetComponent<Animator>();
+        /*_currentTauntIcon = _myHeroBase.GetHeroUIManager().CreateObjectOnGeneralOrigin(_tauntIcon);
+        _currentTauntIconAnimator = _currentTauntIcon.GetComponent<Animator>();*/
         
-        _currentTauntVfx = Instantiate(_tauntVfxObject, Vector3.zero, Quaternion.identity).GetComponent<FollowObject>();
+        _currentTauntVfx = Instantiate(_tauntVfxObject, Vector3.zero, Quaternion.identity).GetComponent<CurveProgression>();
+        _currentTauntVfx.gameObject.GetComponent<FollowObject>().StartFollowingObject(gameObject);
+    }
+
+    protected override void HeroDied()
+    {
+        base.HeroDied();
+        ManualEnded();
     }
 
     /// <summary>

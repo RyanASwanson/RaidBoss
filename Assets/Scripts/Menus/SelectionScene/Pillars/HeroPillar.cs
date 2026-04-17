@@ -32,9 +32,12 @@ public class HeroPillar : MonoBehaviour
     private Animator _heroSpecificAnimator;
     
     private const string HERO_PILLAR_SELECTED_ANIM_BOOL = "HeroSelected";
+    
+    [SerializeField] private Canvas _pillarHeroDeselectCanvas;
 
     private void Start()
     {
+        SetUpHeroDeselectCanvas();
         SetHeroPreviewAnimation(false);
     }
 
@@ -108,11 +111,31 @@ public class HeroPillar : MonoBehaviour
         Destroy(_currentHeroVisual);
     }
 
-    public void DeselectHeroOnPillar()
+    public void HeroOnPillarDeselected()
     {
         _storedHero = null;
         _heroSelectedOnPillar = null;
         SetHeroPreviewAnimation(false);
+    }
+
+    public void DeselectHeroOnPillar()
+    {
+        if (_storedHero.IsUnityNull())
+        {
+            return;
+        }
+        
+        SelectionController.Instance.ForceHeroButtonPressFromID(_storedHero.GetHeroID());
+
+        if (_storedHero.IsUnityNull())
+        {
+            AnimateOutHeroOnPillar();
+        }
+    }
+
+    private void SetUpHeroDeselectCanvas()
+    {
+        _pillarHeroDeselectCanvas.worldCamera = SelectionController.Instance.GetHeroCamera();
     }
 
     public void AnimateOutHeroOnPillar()

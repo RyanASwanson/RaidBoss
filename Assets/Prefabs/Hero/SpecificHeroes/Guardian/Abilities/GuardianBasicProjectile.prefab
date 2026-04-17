@@ -5069,6 +5069,15 @@ MonoBehaviour:
   _lifeTime: 3
   _hasDetachTime: 1
   _detachTime: 0.55
+  _hasCustomEmmisionRateCurve: 0
+  _customEmissionCurveMultiplier: 0
+  _customEmissionRateCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _particleSystems: []
 --- !u!1 &5001107893657729949
 GameObject:
   m_ObjectHideFlags: 0
@@ -5120,12 +5129,21 @@ MonoBehaviour:
   - {fileID: 3286035468245020383}
   _hasLifetime: 1
   _lifetime: 0.6
+  _hasColliderActivationDelay: 0
+  _colliderActivationDelay: 0
+  _hasColliderLifetime: 0
+  _colliderLifetime: 0
+  _doesHitCenteredVFXCopyRotation: 0
+  _hitCenteredVFXCopyTarget: {fileID: 0}
   _hitCenteredVFX: {fileID: 0}
-  _lifeTimeEndEvent:
+  _lifetimeEndEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _colliderLifetimeEndEvent:
     m_PersistentCalls:
       m_Calls: []
   _enterDamage: 2
-  _enterStagger: 8
+  _enterStagger: 12
   _enterEvent:
     m_PersistentCalls:
       m_Calls:

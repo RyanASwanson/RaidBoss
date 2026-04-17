@@ -13,24 +13,6 @@ public class SBA_EncirclingVines : SpecificBossAbilityFramework
     [SerializeField] private GameObject _encirclingVines;
 
     private BossTargetZoneParent _newestTargetZone;
-    
-    /// <summary>
-    /// Makes the target zone and attack follow the hero it is targeting
-    /// </summary>
-    /// <param name="followingObject"> The object to follow </param>
-    /// <returns></returns>
-    protected IEnumerator FollowHeroTarget(GameObject followingObject)
-    {
-        while(!followingObject.IsUnityNull() && !_storedTarget.IsUnityNull())
-        {
-            //Set the position of the object to be at the location of the current target
-            //The Y remains consistent
-            followingObject.transform.position =  
-                new Vector3(_storedTarget.transform.position.x, _specificAreaTarget.y, _storedTarget.transform.position.z);
-
-            yield return null;
-        }
-    }
 
     #region Base Ability
     /// <summary>
@@ -38,13 +20,31 @@ public class SBA_EncirclingVines : SpecificBossAbilityFramework
     /// </summary>
     protected override void StartShowTargetZone()
     {
+        bool hasHeroTarget = _mySpecificBoss.GetBossAttackTargets().Count > 1;
+        
+        if (!hasHeroTarget)
+        {
+            _storedTargetLocation = _myBossBase.gameObject.transform.position;
+
+            _storedTarget = null;
+        }
+        
         //Spawns the target area
         _newestTargetZone = Instantiate(_targetZone, _storedTargetLocation, Quaternion.identity).GetComponent<BossTargetZoneParent>();
         //Adds the target area to the list of target areas
         _currentTargetZones.Add(_newestTargetZone);
 
-        //Makes the target area follow the hero that is being targeted
-        StartCoroutine(FollowHeroTarget(_newestTargetZone.gameObject));
+        FollowObject followTargetZone = _newestTargetZone.GetComponent<FollowObject>();
+        if (hasHeroTarget)
+        {
+            //Makes the target area follow the hero that is being targeted
+            followTargetZone.StartFollowingObject(_storedTarget.gameObject);
+        }
+        else
+        {
+            followTargetZone.SetFollowLocationOffset(_specificAreaTarget);
+            followTargetZone.StartFollowingObject(_myBossBase.gameObject);
+        }
 
         base.StartShowTargetZone();
     }
@@ -57,8 +57,12 @@ public class SBA_EncirclingVines : SpecificBossAbilityFramework
         //Spawns the damaging ability
         GameObject newestVines = Instantiate(_encirclingVines, _newestTargetZone.transform.position, Quaternion.identity);
         
-        //Makes the ability follow the hero that is being targeted
-        StartCoroutine(FollowHeroTarget(newestVines));
+        FollowObject followVines = newestVines.GetComponent<FollowObject>();
+        if (!_storedTarget.IsUnityNull())
+        {
+            followVines.StartFollowingObject(_storedTarget.gameObject);
+        }
+        
         base.AbilityStart();
     }
     #endregion

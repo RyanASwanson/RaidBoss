@@ -37,6 +37,8 @@ public class MissionTutorialVisuals : MonoBehaviour
 
     private int _totalPages = 0;
 
+    private bool _isTutorialOpen = false;
+
     private Vector2 _specificPageRectVector =Vector2.zero;
     private float _specificPageButtonStartX;
 
@@ -78,8 +80,15 @@ public class MissionTutorialVisuals : MonoBehaviour
 
         _scrollMissionTutorialContent.CreatePages();
         
-        
         _scrollPopUp.ShowScroll();
+        
+        _isTutorialOpen = true;
+        TogglePauseButton();
+    }
+
+    private void TogglePauseButton()
+    {
+        PauseUIManager.Instance.TutorialToggle(_isTutorialOpen);
     }
 
     private void ToggleTutorialOpen(bool isOpen)
@@ -224,6 +233,9 @@ public class MissionTutorialVisuals : MonoBehaviour
         _playButtonScaleCurve.StartMovingDownOnCurve();
 
         UnsubscribeToPlayerInput();
+        
+        _isTutorialOpen = false;
+        TogglePauseButton();
         
         GameStateManager.Instance.StartProgressToStart();
     }

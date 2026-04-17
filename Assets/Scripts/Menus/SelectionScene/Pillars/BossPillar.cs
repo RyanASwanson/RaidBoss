@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -8,9 +9,13 @@ using UnityEngine;
 /// </summary>
 public class BossPillar : MonoBehaviour
 {
+    [SerializeField] private Vector3 _bossSpawnPointOffset;
     [SerializeField] private GameObject _bossSpawnPoint;
     [SerializeField] private Animator _bossSpawnAnimator;
-
+    
+    [Space]
+    [SerializeField] private MeshRenderer[] _bossPlatformRenderers;
+    
     private GameObject _currentBossVisual;
 
     private BossSO _bossSelectedOnPillar;
@@ -28,15 +33,12 @@ public class BossPillar : MonoBehaviour
     
     private const string BOSS_PILLAR_SELECTED_ANIM_BOOL = "BossSelected";
     
+    [SerializeField] private Canvas _pillarBossDeselectCanvas;
+    
 
     private void Start()
     {
-        SetPillarBossPreviewAnimation(false);
-    }
-    
-    public void MovePillar(bool moveUp)
-    {
-        _pillarAnimator.SetBool(BOSS_PILLAR_MOVE_ANIM_BOOL, moveUp);
+        SetPillarPreviewAnimations(false);
     }
 
     public void ShowBossOnPillar(BossSO bossSO,bool newBoss)
@@ -47,6 +49,7 @@ public class BossPillar : MonoBehaviour
         }
 
         _currentBossVisual = Instantiate(bossSO.GetBossPrefab(), _bossSpawnPoint.transform);
+        _currentBossVisual.transform.localPosition += _bossSpawnPointOffset;
         
         _bossSpecificAnimator = _currentBossVisual.GetComponentInChildren<Animator>();
         
@@ -55,12 +58,12 @@ public class BossPillar : MonoBehaviour
         
         if (_bossSelectedOnPillar == bossSO)
         {
-            SetPillarBossPreviewAnimation(true);
+            SetPillarPreviewAnimations(true);
             PlayBossIdleAnimation();
         }
         else
         {
-            SetPillarBossPreviewAnimation(!newBoss);
+            SetPillarPreviewAnimations(!newBoss);
         }
 
         if (!newBoss)
@@ -84,15 +87,48 @@ public class BossPillar : MonoBehaviour
     public void RemoveBossOnPillar()
     {
         _storedBoss = null;
-        SetPillarBossPreviewAnimation(false);
+        SetPillarPreviewAnimations(false);
         Destroy(_currentBossVisual);
+    }
+    
+    public void BossOnPillarDeselected()
+    {
+        _storedBoss = null;
+        _bossSelectedOnPillar = null;
+        SetPillarPreviewAnimations(false);
     }
     
     public void DeselectBossOnPillar()
     {
-        _storedBoss = null;
-        _bossSelectedOnPillar = null;
-        SetPillarBossPreviewAnimation(false);
+        if (_storedBoss.IsUnityNull())
+        {
+            return;
+        }
+        
+        SelectionController.Instance.ForceBossButtonPressFromID(_storedBoss.GetBossID());
+
+        AnimateOutBossOnPillar();
+    }
+
+    public void PillarUpdate()
+    {
+        UpdateBossPlatform();
+    }
+
+    private void SetUpBossDeselectCanvas()
+    {
+        _pillarBossDeselectCanvas.worldCamera = SelectionController.Instance.GetHeroCamera();
+    }
+
+    public void SetPillarPreviewAnimations(bool value)
+    {
+        MovePillar(value);
+        SetPillarBossPreviewAnimation(value);
+    }
+    
+    public void MovePillar(bool moveUp)
+    {
+        _pillarAnimator.SetBool(BOSS_PILLAR_MOVE_ANIM_BOOL, moveUp);
     }
 
     public void AnimateOutBossOnPillar()
@@ -120,6 +156,20 @@ public class BossPillar : MonoBehaviour
     public void PlayBossIdleAnimation()
     {
         _bossSpecificAnimator.SetBool(BossVisuals.SPECIFIC_BOSS_IDLE_ANIM_BOOL,true);
+    }
+
+    private void UpdateBossPlatform()
+    {
+        foreach (MeshRenderer meshRenderer in _bossPlatformRenderers)
+        {
+            if (_bossPlatformRenderers.IsUnityNull())
+            {
+                continue;
+            }
+
+            meshRenderer.material = _storedBoss.GetMiniFloorMaterial();
+        }
+        
     }
 
     #region Getters

@@ -17,7 +17,12 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     [Space]
 
     [SerializeField] protected float _manualAbilityChargeTime;
+
+    /*[SerializeField] protected bool _doesManualAbilityHaveDuration;
+    [SerializeField] protected float _manualAbilityDuration;*/
     protected float _manualAbilityCurrentCharge = 0;
+    
+    protected bool _isManualAbilityActive = false;
 
     [Space]
     [Header("Animations")]
@@ -128,7 +133,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     /// <returns></returns>
     public virtual bool ConditionsToActivateBasicAbilities()
     {
-        return !_myHeroBase.GetPathfinding().IsHeroMoving();
+        return !_myHeroBase.GetPathfinding().IsHeroMovingWithPathfinding();
     }
 
     protected virtual void TriggerBasicAbilityAnimation()
@@ -245,6 +250,8 @@ public abstract class SpecificHeroFramework : MonoBehaviour
 
     public virtual void ActivateManualAbilities()
     {
+        _isManualAbilityActive = true;
+        
         _manualAbilityCurrentCharge = 0;
 
         _manualAbilityCooldownCoroutine = null;
@@ -256,6 +263,11 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         StartCooldownManualAbility();
 
         _myHeroBase.InvokeHeroManualAbilityUsedEvent();
+    }
+
+    public virtual void EndManualAbility()
+    {
+        _isManualAbilityActive = false;
     }
     #endregion
 

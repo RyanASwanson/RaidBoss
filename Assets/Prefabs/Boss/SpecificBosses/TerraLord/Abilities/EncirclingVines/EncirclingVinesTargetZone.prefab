@@ -149,6 +149,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1433578388064543569}
   - component: {fileID: -3126569099446140452}
+  - component: {fileID: 3116877292814421530}
   m_Layer: 0
   m_Name: EncirclingVinesTargetZone
   m_TagString: Untagged
@@ -185,6 +186,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bossTargetZone: []
+--- !u!114 &3116877292814421530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1433578388064543568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 529cb803b04ccd442b304b93bb5d1608, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _doesDetachOnStart: 0
+  _doesDisableOnStart: 0
+  _doesHideAfterStopFollowing: 0
+  _doesDestroyAfterStopFollowing: 0
+  _doesSetRotationOnFollowStart: 0
+  _followStartEulerAngles: {x: 0, y: 0, z: 0}
+  _followLocationOffset: {x: 0, y: -0.5, z: 0}
+  _startFollowObject: {fileID: 0}
+  _onFollowStart:
+    m_PersistentCalls:
+      m_Calls: []
+  _onFollowStopDelayStarted:
+    m_PersistentCalls:
+      m_Calls: []
+  _onFollowStop:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &8198313977416099936
 PrefabInstance:
   m_ObjectHideFlags: 0

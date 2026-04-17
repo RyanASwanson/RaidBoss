@@ -6,11 +6,13 @@ using UnityEngine.Events;
 
 public class SB_TerraLord : SpecificBossFramework
 {
-    [Space]
+    [Space] 
+    public static SB_TerraLord Instance;
 
     [Header("Unstable Precipice")]
     [SerializeField] private float _passiveTickRate;
     [SerializeField] private float _minimumTickValue;
+    [SerializeField] private float _maximumTickValue;
 
     [SerializeField] private float _passiveMaxValue;
 
@@ -18,6 +20,8 @@ public class SB_TerraLord : SpecificBossFramework
 
     [Space] 
     [SerializeField] private float _baseWeightMultiplier;
+    [SerializeField] private float _enrageStartMultiplier;
+    [SerializeField] private float _enrageScalingMultiplierIncreasePerMinute;
     [SerializeField] private List<float> _difficultyWeightMultiplier;
 
     [SerializeField] private AnimationCurve _movingTowardsMaxMultiplierBasedOnProgress;
@@ -25,10 +29,18 @@ public class SB_TerraLord : SpecificBossFramework
 
     [Space] 
     [SerializeField] private CinemachineCameraShakeData _passiveMaxShake;
-
+    
+    [Space]
+    [SerializeField] private float _unstablePrecipiceAttackStopThreshhold;
+    [SerializeField] private SBA_UnstablePrecipice _unstablePrecipice;
+    
     private WaitForSeconds _passiveTickWait;
     
     private float _passiveHeroWeightMultiplier;
+    
+    private float _currentEnrageMultiplier = 1.0f;
+    
+    private List<TerraLordUniversalEnvironmentalWeightObject> _environmentalWeightObjects = new();
 
     private float _passiveCounterValue = 0;
     private float _passiveCounterProgressTowardsMax = 0;
@@ -36,12 +48,69 @@ public class SB_TerraLord : SpecificBossFramework
     private bool _isPassiveMovingTowardsMax = false;
     
     private Coroutine _passiveProcessCoroutine;
-
+    
+    private UnityEvent _onStartOfPassiveTick = new UnityEvent();
     //Invokes the passive counter value scaled from -1 to 1
     private UnityEvent<float> _onPassivePercentUpdated = new UnityEvent<float>();
 
+    [Space] 
+    [SerializeField] private float _fallingRubbleAppearThreshold;
+    [SerializeField] private Vector3 _fallingRubblePositionOffset;
+    [SerializeField] private GameObject _fallingRubbleVFX;
+
+    private GeneralVFXFunctionality _leftFallingRubble;
+    private GeneralVFXFunctionality _rightFallingRubble;
+    private GeneralVFXFunctionality _activeFallingRubble;
+
+    private float rubbleProgressPercent;
+    private bool _isRubbleFalling = false;
+
+    [Space] 
+    [SerializeField] private float _minimumFallingRubbleAudioRate;
+    [SerializeField] private float _maximumFallingRubbleAudioRate;
+    [SerializeField] private AnimationCurve _fallingRubbleAudioRateCurve;
+
+    [SerializeField] private float _rubbleAudioStopDelay;
+
+    private float _currentFallingRubbleAudioRate;
+    private float _timeSinceLastRubbleAudioPlayed;
+    private Coroutine _fallingRubbleAudioCoroutine;
+
+    public const int RUBBLE_FALL_AUDIO_ID = 0;
+    
+    private bool _hasPassiveExceededThreshold = false;
+    private const float SPECIALIST_ACHIEVEMENT_THRESHOLD = 0.75f;
+    
     #region Passive
 
+    private void SetUpPassive()
+    {
+        SetStartingPassiveWeightMultiplier();
+        StartPassiveProcess();
+        
+        _unstablePrecipice.AbilitySetUp(_myBossBase);
+    }
+
+    public void AddObjectToEnvironmentalWeightObjects(TerraLordUniversalEnvironmentalWeightObject weightObject)
+    {
+        if (_environmentalWeightObjects.Contains(weightObject))
+        {
+            return;
+        }
+        
+        _environmentalWeightObjects.Add(weightObject);
+    }
+
+    public void RemoveObjectFromEnvironmentalWeightObjects(TerraLordUniversalEnvironmentalWeightObject weightObject)
+    {
+        if (!_environmentalWeightObjects.Contains(weightObject))
+        {
+            return;
+        }
+        
+        _environmentalWeightObjects.Remove(weightObject);
+    }
+    
     /// <summary>
     /// At the start of the fight or after a stagger ends the boss passive is activated
     /// </summary>
@@ -89,7 +158,8 @@ public class SB_TerraLord : SpecificBossFramework
     /// </summary>
     private void PassiveTick()
     {
-        ChangePassiveCounterValue(CalculatePassiveHeroWeight());
+        //Debug.Log("Hero weight: " + CalculatePassiveHeroWeight() + " environment weight: " + CalculatePassiveEnvironmentWeight());
+        ChangePassiveCounterValue(CalculatePassiveHeroWeight() + CalculatePassiveEnvironmentWeight());
     }
 
     /// <summary>
@@ -100,15 +170,42 @@ public class SB_TerraLord : SpecificBossFramework
     {
         float weightCounter = 0;
 
-        //Determines the center of mass based on how far each hero is from the center in the X
-        foreach (HeroBase heroBase in HeroesManager.Instance.GetCurrentLivingHeroes())
+        if (HeroesManager.Instance.GetCurrentLivingHeroes().Count > 0)
         {
-            weightCounter += heroBase.transform.position.x * _passiveHeroWeightMultiplier;
-        }
+            //Determines the center of mass based on how far each hero is from the center in the X
+            foreach (HeroBase heroBase in HeroesManager.Instance.GetCurrentLivingHeroes())
+            {
+                weightCounter += heroBase.transform.position.x * _passiveHeroWeightMultiplier;
+            }
 
-        //Scales the speed of the passive with how many heroes are alive
-        weightCounter /= HeroesManager.Instance.GetCurrentLivingHeroes().Count;
+            //Scales the speed of the passive with how many heroes are alive
+            weightCounter /= HeroesManager.Instance.GetCurrentLivingHeroes().Count;
+        }
         
+        
+        return weightCounter;
+    }
+
+    private float CalculatePassiveEnvironmentWeight()
+    {
+        float total = 0;
+
+        foreach (TerraLordUniversalEnvironmentalWeightObject weightObject in _environmentalWeightObjects)
+        {
+            total += weightObject.GetCurrentWeight();
+        }
+        
+        //Debug.Log("Adding environmental weight of " + total);
+        
+        return total;
+    }
+
+    /// <summary>
+    /// Changes the passive value based on the input float and calls and needed functionality
+    /// </summary>
+    /// <param name="weightCounter"></param>
+    private void ChangePassiveCounterValue(float weightCounter)
+    {
         if (weightCounter > 0 && weightCounter < _minimumTickValue)
         {
             weightCounter = _minimumTickValue;
@@ -117,56 +214,65 @@ public class SB_TerraLord : SpecificBossFramework
         {
             weightCounter = -_minimumTickValue;
         }
-        
-        return weightCounter;
-    }
 
-    /// <summary>
-    /// Changes the passive value based on the input float and calls and needed functionality
-    /// </summary>
-    /// <param name="val"></param>
-    private void ChangePassiveCounterValue(float val)
-    {
-        _isPassiveMovingTowardsMax = (val > 0 != _passiveCounterValue + val > 0);
+        if (weightCounter > _maximumTickValue)
+        {
+            weightCounter = _maximumTickValue;
+        }
+        else if (weightCounter < -_maximumTickValue)
+        {
+            weightCounter = -_maximumTickValue;
+        }
+        //Debug.Log("Weight shrunk to " + weightCounter);
+        
+        _isPassiveMovingTowardsMax = (weightCounter > 0 != _passiveCounterValue + weightCounter > 0);
         if (_isPassiveMovingTowardsMax)
         {
             // We are moving away from max
-            val *= _movingAwayFromMaxMultiplierBasedOnProgress.Evaluate(_passiveCounterProgressTowardsMax);
+            weightCounter *= _movingAwayFromMaxMultiplierBasedOnProgress.Evaluate(_passiveCounterProgressTowardsMax);
         }
         else
         {
             // We are moving towards max
             // Switching sides also counts as moving towards max even though we are initially moving away from max
             //  as we switch sides part way through
-            val *= _movingTowardsMaxMultiplierBasedOnProgress.Evaluate(_passiveCounterProgressTowardsMax);
+            weightCounter *= _movingTowardsMaxMultiplierBasedOnProgress.Evaluate(_passiveCounterProgressTowardsMax);
+        }
+
+        if (BossStats.Instance.GetIsBossEnraged())
+        {
+            CalculatePassiveEnrageMultiplier();
+            weightCounter *= _currentEnrageMultiplier;
         }
         
-        _passiveCounterValue += val;
+        _passiveCounterValue += weightCounter;
+        _passiveCounterValue = Mathf.Clamp(_passiveCounterValue, -_passiveMaxValue, _passiveMaxValue);
+        
         _passiveCounterProgressTowardsMax = Mathf.Abs(_passiveCounterValue / _passiveMaxValue);
+
+        if (!_hasPassiveExceededThreshold && 
+            (_passiveCounterProgressTowardsMax > SPECIALIST_ACHIEVEMENT_THRESHOLD || _passiveCounterProgressTowardsMax < -SPECIALIST_ACHIEVEMENT_THRESHOLD))
+        {
+            _hasPassiveExceededThreshold = true;
+        }
         
         //Debug.Log("End result" + val);
 
         //Rotates the camera to demonstrate the imbalance of the arena
-        RotateCameraBasedOnPassive(val);
+        RotateCameraBasedOnPassive(weightCounter);
+        DetermineActivationOfRubble();
         InvokePassivePercentUpdate();
 
         //Checks if the passive value is too far in either direction
         CheckPassiveMax();
-    }
 
-    /// <summary>
-    /// Gets a value from -1 to 1 of how far the balance is in either direction
-    /// </summary>
-    /// <returns></returns>
-    private float GetPassiveCounterPercent()
-    {
-        return Mathf.Clamp(_passiveCounterValue / _passiveMaxValue, -_passiveMaxValue, _passiveMaxValue);
+        CheckToStopPassiveAttack();
     }
 
     /// <summary>
     /// Stops the passive from ticking
     /// </summary>
-    private void StopPassiveProcess()
+    public void StopPassiveProcess()
     {
         // Check if the passive is in process
         if (_passiveProcessCoroutine.IsUnityNull())
@@ -189,6 +295,12 @@ public class SB_TerraLord : SpecificBossFramework
             (passiveDifference * _zRotationMultiplier, _passiveTickRate);
     }
 
+    private void CalculatePassiveEnrageMultiplier()
+    {
+        _currentEnrageMultiplier = _enrageStartMultiplier;
+        _currentEnrageMultiplier *= 1 + (_enrageScalingMultiplierIncreasePerMinute * BossStats.Instance.GetMinutesSpentEnraged());
+    }
+
     /// <summary>
     /// Checks if the passive counter value is too far in either direction
     /// </summary>
@@ -205,12 +317,133 @@ public class SB_TerraLord : SpecificBossFramework
     /// </summary>
     private void PassiveMax()
     {
-        HeroesManager.Instance.ForceKillAllHeroes();
+        if (_unstablePrecipice.IsAbilityAttacking())
+        {
+            return;
+        }
+        
+        //HeroesManager.Instance.ForceKillAllHeroes();
         
         CameraGameManager.Instance.StartCameraShake(_passiveMaxShake);
+
+        _unstablePrecipice.StartPassiveAttackProcess(_passiveCounterValue > 0);
+    }
+    
+    private void CheckToStopPassiveAttack()
+    {
+        if (Mathf.Abs(_passiveCounterValue) < _unstablePrecipiceAttackStopThreshhold)
+        {
+            _unstablePrecipice.StopPassiveAttackProcess();
+        }
     }
     #endregion
 
+    #region Rubble
+
+    private void CreateRubbleVFX()
+    {
+        _leftFallingRubble = Instantiate(_fallingRubbleVFX, 
+            CameraGameManager.Instance.GetVirtualCamera().gameObject.transform).GetComponent<GeneralVFXFunctionality>();
+        
+        _leftFallingRubble.transform.localPosition -= _fallingRubblePositionOffset;
+        
+        _rightFallingRubble = Instantiate(_fallingRubbleVFX, 
+            CameraGameManager.Instance.GetVirtualCamera().gameObject.transform).GetComponent<GeneralVFXFunctionality>();
+        
+        _rightFallingRubble.transform.localPosition += _fallingRubblePositionOffset;
+    }
+
+    private void DetermineActivationOfRubble()
+    {
+        if (_passiveCounterValue >= _fallingRubbleAppearThreshold || _passiveCounterValue <= -_fallingRubbleAppearThreshold)
+        {
+            _isRubbleFalling = true;
+            
+            _activeFallingRubble = _passiveCounterValue > 0 ? _rightFallingRubble : _leftFallingRubble;
+            _activeFallingRubble.PlayAllParticleSystems();
+            _activeFallingRubble.SetLoopOfParticleSystems(true);
+            
+            StartPlayRubbleAudioProcess();
+        }
+
+        if (!_activeFallingRubble.IsUnityNull())
+        {
+            if (Mathf.Abs(_passiveCounterValue) < _fallingRubbleAppearThreshold)
+            {
+                _activeFallingRubble.SetLoopOfParticleSystems(false);
+
+                _isRubbleFalling = false;
+            }
+            else
+            {
+                rubbleProgressPercent = (Mathf.Abs(_passiveCounterValue)- _fallingRubbleAppearThreshold) / (
+                    _passiveMaxValue - _fallingRubbleAppearThreshold);
+                
+                _activeFallingRubble.SetEmissionRateMultiplierWithCurve(rubbleProgressPercent);
+
+                DetermineFallingRubbleAudioRate();
+            }
+        }
+    }
+
+    private void StartPlayRubbleAudioProcess()
+    {
+        StopPlayRubbleAudioProcess();
+
+        DetermineFallingRubbleAudioRate();
+        rubbleProgressPercent = 0;
+        
+        _fallingRubbleAudioCoroutine = StartCoroutine(PlayRubbleAudioProcess());
+    }
+
+    private void StopPlayRubbleAudioProcess()
+    {
+        if (!_fallingRubbleAudioCoroutine.IsUnityNull())
+        {
+            StopCoroutine(_fallingRubbleAudioCoroutine);
+        }
+    }
+
+    private IEnumerator PlayRubbleAudioProcess()
+    {
+        float rubbleContinueTimer = 0;
+        while (_isRubbleFalling || rubbleContinueTimer <= _rubbleAudioStopDelay)
+        {
+            if (!_isRubbleFalling)
+            {
+                rubbleContinueTimer += Time.deltaTime;
+            }
+            
+            _timeSinceLastRubbleAudioPlayed += Time.deltaTime;
+
+            if (_timeSinceLastRubbleAudioPlayed >= _currentFallingRubbleAudioRate)
+            {
+                _timeSinceLastRubbleAudioPlayed = 0;
+                PlayRubbleAudio();
+            }
+
+            yield return null;
+        }
+    }
+    
+    private void PlayRubbleAudio()
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].MiscellaneousBossAudio[RUBBLE_FALL_AUDIO_ID]);
+    }
+
+    private void DetermineFallingRubbleAudioRate()
+    {
+        _currentFallingRubbleAudioRate = Mathf.Lerp(_minimumFallingRubbleAudioRate, _maximumFallingRubbleAudioRate, 
+            _fallingRubbleAudioRateCurve.Evaluate(rubbleProgressPercent));
+    }
+    #endregion
+
+    public void TerraLordDebug()
+    {
+        _passiveHeroWeightMultiplier *= 2;
+    }
+    
     #region BaseBoss
     /// <summary>
     /// Called when the fight begins.
@@ -220,9 +453,17 @@ public class SB_TerraLord : SpecificBossFramework
         base.StartFight();
         
         _passiveTickWait = new WaitForSeconds(_passiveTickRate);
-        
-        SetStartingPassiveWeightMultiplier();
-        StartPassiveProcess();
+
+        SetUpPassive();
+
+        CreateRubbleVFX();
+
+    }
+    
+    protected override void CreateSpecificBossInstance()
+    {
+        Instance = this;
+        base.CreateSpecificBossInstance();
     }
 
     /// <summary>
@@ -250,6 +491,23 @@ public class SB_TerraLord : SpecificBossFramework
         base.BossDied();
 
         StopPassiveProcess();
+
+        _unstablePrecipice.StopBossAbility();
+    }
+    
+    protected override void CheckToUnlockSpecialistAchievement()
+    {
+        base.CheckToUnlockSpecialistAchievement();
+        
+        if (SelectionManager.Instance.GetSelectedDifficulty() < EGameDifficulty.Mythic)
+        {
+            return;
+        }
+        
+        if (!_hasPassiveExceededThreshold)
+        {
+            UnlockedSpecialistAchievement();
+        }
     }
 
     #endregion
@@ -262,6 +520,21 @@ public class SB_TerraLord : SpecificBossFramework
     #endregion
 
     #region Getters
+    /// <summary>
+    /// Gets a value from -1 to 1 of how far the balance is in either direction
+    /// </summary>
+    /// <returns></returns>
+    private float GetPassiveCounterPercent()
+    {
+        return Mathf.Clamp(_passiveCounterValue / _passiveMaxValue, -_passiveMaxValue, _passiveMaxValue);
+    }
+
+    private float GetPassiveCounterPercentageAbsolute()
+    {
+        return Mathf.Abs(GetPassiveCounterPercent());
+    }
+    
+    public UnityEvent GetOnStartOfPassiveTickEvent() => _onStartOfPassiveTick;
     public UnityEvent<float> GetPassivePercentUpdatedEvent() => _onPassivePercentUpdated;
     #endregion
 }

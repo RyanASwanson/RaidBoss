@@ -20,7 +20,14 @@ public class AbilityDescriptionFunctionality : ScrollUIContents
         }
         else
         {
-            ChangeHeroAbilityDescription();
+            if (SelectionController.Instance.GetCurrentMissionModifierID() != -1)
+            {
+                ChangeMissionModifierDescription();
+            }
+            else
+            {
+                ChangeHeroAbilityDescription();
+            }
         }
         return CountLines();
     }
@@ -44,6 +51,13 @@ public class AbilityDescriptionFunctionality : ScrollUIContents
         _abilityTypeText.UpdateText(type.ToString());
         
         _abilityDescriptionText.UpdateText(SelectionController.Instance.GetHeroUIToDisplay().GetAbilityDescriptionFromID(abilityID));
+    }
+
+    public void ChangeMissionModifierDescription()
+    {
+        _abilityNameText.UpdateText(SelectionController.Instance.GetMissionModifierUIToDisplay().GetModifierName());
+        _abilityTypeText.UpdateText("Modifier");
+        _abilityDescriptionText.UpdateText(SelectionController.Instance.GetMissionModifierUIToDisplay().GetModifierDescription());
     }
 
     private int CountLines()

@@ -8,6 +8,10 @@ public class GeneralRotation : MonoBehaviour
 {
     [SerializeField] private bool _doesBeginRotationOnEnable;
     [SerializeField] private bool _doesResetRotationOnRotationEnable;
+    [SerializeField] private bool _doesResetLocalRotationOnRotationEnable = false;
+    [SerializeField] private bool _doesResetRotationToDefaultOnEnable= false;
+
+    [SerializeField] private bool _doesUseLocalEulerAngles = false;
     
     private Coroutine _rotationCoroutine;
     
@@ -59,6 +63,16 @@ public class GeneralRotation : MonoBehaviour
         {
             ResetRotation();
         }
+
+        if (_doesResetLocalRotationOnRotationEnable)
+        {
+            ResetLocalRotation();
+        }
+
+        if (_doesResetRotationToDefaultOnEnable)
+        {
+            ResetToDefaultRotation();
+        }
         
         _rotationCoroutine = StartCoroutine(_rotationIndepedentParent.IsUnityNull() ? RotationProcess() : RotationWithParent());
     }
@@ -77,6 +91,16 @@ public class GeneralRotation : MonoBehaviour
         transform.eulerAngles = Vector3.zero;
     }
 
+    public void ResetLocalRotation()
+    {
+        transform.localEulerAngles = Vector3.zero;
+    }
+
+    public void ResetToDefaultRotation()
+    {
+        transform.localEulerAngles = _startLocalEulerAngles;
+    }
+
     private IEnumerator RotationProcess()
     {
         while (!gameObject.IsUnityNull())
@@ -88,7 +112,15 @@ public class GeneralRotation : MonoBehaviour
 
     public void AddRotationWithoutParent(Vector3 rotation)
     {
-        transform.eulerAngles += rotation;
+        if (_doesUseLocalEulerAngles)
+        {
+            transform.localEulerAngles += rotation;
+        }
+        else
+        {
+            transform.eulerAngles += rotation;
+        }
+        
     }
 
     private IEnumerator RotationWithParent()
@@ -96,8 +128,6 @@ public class GeneralRotation : MonoBehaviour
         _storedRotation = Vector3.zero;
         while (!gameObject.IsUnityNull())
         {
-            /*_storedRotation += _rotationPerSecond * Time.deltaTime;
-            transform.localEulerAngles = -_rotationIndepedentParent.transform.eulerAngles + _storedRotation;*/
             AddRotationWithParent(_rotationPerSecond * Time.deltaTime);
             yield return null;
         }
@@ -132,6 +162,11 @@ public class GeneralRotation : MonoBehaviour
 
     #region Setters
 
+    public void SetRotationsPerSecond(Vector3 rotationsPerSecond)
+    {
+        _rotationPerSecond = rotationsPerSecond;
+    }
+    
     public void SetRotationIndependentParent(GameObject parent)
     {
         _rotationIndepedentParent = parent;

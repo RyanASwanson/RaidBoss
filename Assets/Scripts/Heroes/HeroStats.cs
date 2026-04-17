@@ -202,9 +202,6 @@ public class HeroStats : HeroChildrenFunctionality
         
         // Tells the heroes manager that this hero died
         HeroesManager.Instance.HeroDied(_myHeroBase);
-        
-        AudioManager.Instance.PlaySpecificAudio(
-            AudioManager.Instance.GeneralHeroAudio.HealthAudio.HeroDied);
     }
 
     public void ForceKillHero()
@@ -468,6 +465,7 @@ public class HeroStats : HeroChildrenFunctionality
 
         _myHeroBase.GetPathfinding().GetNavMeshAgent().speed = _currentMoveSpeed;
     }
+    
 
     public void ChangeCurrentHeroAngularSpeed(float changeValue)
     {
@@ -482,6 +480,7 @@ public class HeroStats : HeroChildrenFunctionality
 
         _myHeroBase.GetPathfinding().GetNavMeshAgent().acceleration = _currentAcceleration;
     }
+    
 
     /// <summary>
     /// Increases or decreases the current aggro value
@@ -560,6 +559,10 @@ public class HeroStats : HeroChildrenFunctionality
 
     #region Setters
 
+    public void AdjustHeroHitboxSize(float multiplier)
+    {
+        _myHeroBase.GetHeroDamageCollider().radius *= multiplier;
+    }
     #endregion
 }
 

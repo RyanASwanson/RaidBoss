@@ -1,9 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
+using Quaternion = UnityEngine.Quaternion;
+using Vector3 = UnityEngine.Vector3;
 
 /// <summary>
 /// Handles player input while in a gameplay scene
@@ -17,9 +21,13 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     private WaitForSeconds _scrollCooldownWait;
     private Coroutine _scrollCooldownCoroutine;
 
-    [Space]
+    [Space] 
+    [SerializeField] private bool _doesSelectClickFindSelectedHero;
     [SerializeField] private float _heroControlRange;
     private bool _clickAndDragEnabled;
+
+    [Space] 
+    [SerializeField] private bool _canSelectAlreadySelectedHero;
 
     private bool _canControlHero = true;
     private bool _isTutorialPreventingControl = false;
@@ -67,21 +75,24 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
         return false;
     }
     
-    private HeroBase FindClosestHero(Vector3 startLocation)
+    private HeroBase FindClosestHero(Vector3 startLocation, bool canFindSelectedHero)
     {
+        startLocation.Set(startLocation.x,0,startLocation.z);
         List<HeroBase> livingHeroes = HeroesManager.Instance.GetCurrentLivingHeroes();
             
         HeroBase closestHero = null;
         float closestDistance = float.MaxValue;
+        Vector3 heroLocation = startLocation;
             
         foreach (HeroBase hero in livingHeroes)
         {
-            if (_controlledHeroes.Contains(hero))
+            if (!canFindSelectedHero && _controlledHeroes.Contains(hero))
             {
                 continue;
             }
+            heroLocation.Set(hero.transform.position.x,0,hero.transform.position.z);
             
-            float heroDistance = Vector3.Distance(startLocation, hero.transform.position);
+            float heroDistance = Vector3.Distance(startLocation, heroLocation);
             if (heroDistance > _heroControlRange)
             {
                 continue;
@@ -142,6 +153,23 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
         {
             return;
         }
+
+        if (!_canSelectAlreadySelectedHero && _controlledHeroes.Contains(newHero))
+        {
+            return;
+        }
+
+        if (!HeroesManager.Instance.GetCurrentLivingHeroes().Contains(newHero))
+        {
+            Debug.Log("Cannot switch to "+ newHero.GetHeroSO().GetHeroName());
+            return;
+        }
+        
+        /*Debug.Log("LivingHeroes");
+        foreach (HeroBase hero in HeroesManager.Instance.GetCurrentLivingHeroes())
+        {
+            Debug.Log(hero.GetHeroSO().GetHeroName());
+        }*/
         
         ClearControlledHeroes();
         
@@ -191,6 +219,11 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
         
     }
 
+    public void NewControlledRandomHero()
+    {
+        NewControlledHero(HeroesManager.Instance.GetRandomCurrentLivingHero());
+    }
+
     public void RemoveControlledHero(HeroBase heroToRemove)
     {
         if (_controlledHeroes.Contains(heroToRemove))
@@ -203,7 +236,7 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     /// <summary>
     /// Clears out the list of controlled heroes
     /// </summary>
-    private void ClearControlledHeroes()
+    public void ClearControlledHeroes()
     {
         foreach (HeroBase newHero in _controlledHeroes)
         {
@@ -213,12 +246,41 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
         _controlledHeroes.Clear();
     }
 
-    private void DirectAllHeroesTo(Vector3 newDestination)
+    public void DirectAllHeroesTo(Vector3 newDestination)
     {
         foreach(HeroBase currentHero in _controlledHeroes)
         {
             currentHero.GetPathfinding().DirectNavigationTo(newDestination);
         }
+    }
+
+    /*public IEnumerator HeroMoveIn()
+    {
+        /*while (!GameStateManager.Instance.GetHasFightBegun())
+        {
+            yield return null;
+        }
+        yield return new WaitForSeconds(.1f);#1#
+        
+        FindObjectOfType<TrailerShotsDebugScript>().StartHeroMoveInCoroutine();
+        
+        DirectSpecificHeroTo(0,new Vector3(-1.4f, 0, -.4f));
+        DirectSpecificHeroTo(1,new Vector3(-.7f, 0, -1f));
+        DirectSpecificHeroTo(2,new Vector3(0f, 0, -1f));
+        DirectSpecificHeroTo(3,new Vector3(.7f, 0, -1f));
+        DirectSpecificHeroTo(4,new Vector3(1.4f, 0, -.4f));
+
+        yield return null;
+    }*/
+    
+    public void DirectSpecificHeroTo(int heroID, Vector3 newDestination)
+    {
+        DirectSpecificHeroTo(HeroesManager.Instance.GetCurrentLivingHeroes()[heroID], newDestination);
+    }
+    
+    public void DirectSpecificHeroTo(HeroBase hero, Vector3 newDestination)
+    {
+        hero.GetPathfinding().DirectNavigationTo(newDestination);
     }
 
     /// <summary>
@@ -231,6 +293,19 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
             currentHero.GetSpecificHeroScript().AttemptActivationOfManualAbility();
         }
     }
+
+    private void BattleStart()
+    {
+        if (TrailerShotsDebugScript.IS_SHOOTING_TRAILER && TrailerShotsDebugScript.IS_PREVENTING_HERO_SELECTION_ON_BATTLE_START)
+        {
+            return;
+        }
+        
+        if (_controlledHeroes.Count == 0)
+        {
+            NewControlledHeroByID(0); 
+        }
+    }
     #endregion
 
     #region InputActions
@@ -238,7 +313,7 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     {
         if (ClickOnPoint(_selectClickLayerMask, out RaycastHit clicked))
         {
-            NewControlledHero(FindClosestHero(clicked.point));
+            NewControlledHero(FindClosestHero(clicked.point,_doesSelectClickFindSelectedHero));
         }
     }
     
@@ -388,6 +463,15 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     {
         //Prevents the player from performing any actions after the game ends
         GameStateManager.Instance.GetBattleWonOrLostEvent().AddListener(UnsubscribeToPlayerInput);
+        
+        GameStateManager.Instance.GetStartOfBattleEvent().AddListener(BattleStart);
+    }
+
+    protected override void UnsubscribeToEvents()
+    {
+        GameStateManager.Instance.GetBattleWonOrLostEvent().RemoveListener(UnsubscribeToPlayerInput);
+        
+        GameStateManager.Instance.GetStartOfBattleEvent().RemoveListener(BattleStart);
     }
     
     /// <summary>
@@ -398,6 +482,8 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
         base.OnDestroy();
         UnsubscribeToPlayerInput();
     }
+    
+    
     #endregion
 
     #region Getters

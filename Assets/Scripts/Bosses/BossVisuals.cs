@@ -188,8 +188,6 @@ public class BossVisuals : BossChildrenFunctionality
         BossSpecificStaggerAnimTrigger();
     }
 
-    
-
     private void BossSpecificLevelIntroTrigger()
     {
         StartBossSpecificAnimationTrigger(SPECIFIC_BOSS_LEVEL_INTRO_ANIM_TRIGGER);
@@ -224,6 +222,10 @@ public class BossVisuals : BossChildrenFunctionality
 
     private void PlayBossDeathAudio()
     {
+        //GeneralBossDied
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.GeneralBossAudio.HealthStaggerAudio.GeneralBossDied);
+        
         AudioManager.Instance.PlaySpecificAudio(
             AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].BossDeathAudio);
     }
@@ -297,7 +299,7 @@ public class BossVisuals : BossChildrenFunctionality
     #endregion
 
     #region Getters
-
+    
     #endregion
 
     #region Setters

@@ -21,10 +21,8 @@ public class HeroUIManager : GameUIChildrenFunctionality
     [Header("Background")]
     [SerializeField] private GameObject _backgroundHolder;
     [SerializeField] private Image _backgroundImage;
-
-    [SerializeField] private Animator _backgroundUIAnimator;
-
-    private const string BACKGROUND_UI_ANIM_BOOL = "ShowUIControl";
+    
+    [SerializeField] private CurveProgression _backgroundUICurveProgression;
 
     [Header("Left Side")]
     [SerializeField] private Image _associatedHeroIcon;
@@ -194,7 +192,14 @@ public class HeroUIManager : GameUIChildrenFunctionality
 
     private void ShowControlUIBackground(bool show)
     {
-        _backgroundUIAnimator.SetBool(BACKGROUND_UI_ANIM_BOOL, show);
+        if (show)
+        {
+            _backgroundUICurveProgression.StartMovingUpOnCurve();
+        }
+        else
+        {
+            _backgroundUICurveProgression.StartMovingDownOnCurve();
+        }
     }
 
     #endregion

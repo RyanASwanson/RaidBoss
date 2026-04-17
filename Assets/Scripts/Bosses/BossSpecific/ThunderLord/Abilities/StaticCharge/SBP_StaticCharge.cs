@@ -8,7 +8,6 @@ public class SBP_StaticCharge : BossProjectileFramework
     [SerializeField] private int _maxSwaps;
     private int _currentSwaps = 0;
     private bool _isDurationOver = false;
-    private bool _doesDealDamageOnMovingIn = false;
 
     [Space] 
     [SerializeField] private float _moveIntoHeroTime;
@@ -16,6 +15,9 @@ public class SBP_StaticCharge : BossProjectileFramework
     
     [SerializeField] private float _moveOutFromHeroTime;
     private WaitForSeconds _moveOutWait;
+
+    [SerializeField] private float _moveOutColliderEnableDelay;
+    private WaitForSeconds _moveOutColliderEnableWait;
     
     [Space]
     [SerializeField] private FollowObject _followObject;
@@ -39,6 +41,7 @@ public class SBP_StaticCharge : BossProjectileFramework
         
         _moveInWait = new WaitForSeconds(_moveIntoHeroTime);
         _moveOutWait = new WaitForSeconds(_moveOutFromHeroTime);
+        _moveOutColliderEnableWait = new WaitForSeconds(_moveOutColliderEnableDelay);
         
         _damageArea.ToggleProjectileCollider(false);
 
@@ -47,10 +50,10 @@ public class SBP_StaticCharge : BossProjectileFramework
     
     public void StaticChargeHit(HeroBase heroTarget)
     {
+        Debug.Log("Hit Hero " +  _currentSwaps);
         _currentSwaps++;
         _previousTarget = _currentTarget;
         _currentTarget = heroTarget;
-        _doesDealDamageOnMovingIn = true;
 
         PlayAttackHitAudio();
 
@@ -79,10 +82,7 @@ public class SBP_StaticCharge : BossProjectileFramework
 
     private void ReachedMoveInHero()
     {
-        if (_doesDealDamageOnMovingIn)
-        {
-            _mySpecificBoss.DamageHero(_previousTarget, _damageToFollowTargetOnSwap);
-        }
+        _mySpecificBoss.DamageHero(_previousTarget, _damageToFollowTargetOnSwap);
 
         if (_currentSwaps < _maxSwaps && !_isDurationOver)
         {
@@ -104,11 +104,18 @@ public class SBP_StaticCharge : BossProjectileFramework
     {
         yield return _moveOutWait;
         ReachedMoveOutFromHero();
+
+        yield return _moveOutColliderEnableWait;
+        ColliderReenabledOnMovingOut();
     }
 
     private void ReachedMoveOutFromHero()
     {
-        _doesDealDamageOnMovingIn = false;
+
+    }
+
+    private void ColliderReenabledOnMovingOut()
+    {
         _damageArea.ToggleProjectileCollider(true);
     }
 
@@ -120,7 +127,6 @@ public class SBP_StaticCharge : BossProjectileFramework
 
     public void DurationOver()
     {
-        //StartMoveIntoHero();
         _removalCurve.StartMovingUpOnCurve();
         _isDurationOver = true;
     }

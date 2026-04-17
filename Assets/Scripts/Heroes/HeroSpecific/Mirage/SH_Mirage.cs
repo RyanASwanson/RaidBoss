@@ -13,8 +13,9 @@ public class SH_Mirage : SpecificHeroFramework
     [SerializeField] private GameObject _basicProjectile;
 
     [SerializeField] private GameObject _basicTargetZone;
-    private GameObject _currentBasicTargetZone;
+    private CurveProgression _currentBasicTargetZone;
     private const float _targetZoneYOffset = -.5f;
+    private Coroutine _basicTargetZoneMovementCoroutine;
 
     [SerializeField] private GameObject _basicAbilityCastVFX;
     
@@ -33,6 +34,10 @@ public class SH_Mirage : SpecificHeroFramework
     [SerializeField] private GameObject _manualClone;
     [Space]
     [SerializeField] private GameObject _cloneDirectIcon;
+
+    [Space]
+    [SerializeField] private float _passiveBasicAbilityDamageMultiplier;
+    [SerializeField] private float _passiveBasicAbilityStaggerMultiplier;
     
     private const float _cloneSpawnOffset = -2;
 
@@ -45,9 +50,24 @@ public class SH_Mirage : SpecificHeroFramework
     /// </summary>
     private void CreateBasicTargetZone()
     {
-        _currentBasicTargetZone = Instantiate(_basicTargetZone, FindHeroCloneMidpoint(), Quaternion.identity);
+        _currentBasicTargetZone = Instantiate(_basicTargetZone, FindHeroCloneMidpoint(), Quaternion.identity).GetComponent<CurveProgression>();
 
-        StartCoroutine(MoveBasicTargetZone());
+        StartMovingBasicTargetZone();
+    }
+
+    private void StartMovingBasicTargetZone()
+    {
+        StopMovingBasicTargetZone();
+        
+        _basicTargetZoneMovementCoroutine = StartCoroutine(MoveBasicTargetZone());
+    }
+
+    private void StopMovingBasicTargetZone()
+    {
+        if (!_basicTargetZoneMovementCoroutine.IsUnityNull())
+        {
+            StopCoroutine(_basicTargetZoneMovementCoroutine);
+        }
     }
 
     /// <summary>
@@ -97,13 +117,16 @@ public class SH_Mirage : SpecificHeroFramework
         GameObject newestProjectile = Instantiate(_basicProjectile, 
             _currentBasicTargetZone.transform.position, _currentBasicTargetZone.transform.rotation);
 
+        GeneralHeroDamageArea damageArea = newestProjectile.GetComponent<GeneralHeroDamageArea>();
+        damageArea.SetUpDamageArea(_myHeroBase);
+        
         if (!castByHero)
         {
             newestProjectile.transform.localEulerAngles += CLONE_BASIC_PROJECTILE_EULER_OFFSET;
+            
+            damageArea.SetDamageMultiplier(_passiveBasicAbilityDamageMultiplier);
+            damageArea.SetStaggerMultiplier(_passiveBasicAbilityStaggerMultiplier);
         }
-
-        //Performs the set up for the damage area so that it knows it's owner
-        newestProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(_myHeroBase);
     }
 
     private void CreateBasicAbilityCastVFX(GameObject caster)
@@ -140,6 +163,9 @@ public class SH_Mirage : SpecificHeroFramework
     public override void ActivateManualAbilities()
     {
         base.ActivateManualAbilities();
+        
+        _myHeroBase.GetPathfinding().SetIsHeroUsingMovementAbility(true);
+        
         Instantiate(_manualAbilityVFX, transform.position, Quaternion.identity);
         Instantiate(_manualAbilityVFX, _cloneBase.transform.position, Quaternion.identity);
         //This doesn't do any override as the animation has a trigger on it which calls CloneSwap
@@ -153,8 +179,13 @@ public class SH_Mirage : SpecificHeroFramework
 
         _myHeroBase.transform.position = storedCloneLocation;
         _myHeroBase.transform.rotation = storedCloneRotation;
-
+        
         _myHeroBase.GetPathfinding().BriefStopCurrentMovement();
+    }
+
+    public void CloneSwapOver()
+    {
+        _myHeroBase.GetPathfinding().SetIsHeroUsingMovementAbility(false);
     }
 
     /*/// <summary>
@@ -201,6 +232,14 @@ public class SH_Mirage : SpecificHeroFramework
     //Passive is handled by the clone
     #endregion
 
+    private void HeroDied()
+    {
+        StopMovingBasicTargetZone();
+        _currentBasicTargetZone.StartMovingDownOnCurve();
+        
+        CloneDeath();
+    }
+
     #region Base Hero
     /// <summary>
     /// Performs the set up for the Mirage
@@ -230,7 +269,7 @@ public class SH_Mirage : SpecificHeroFramework
     protected override void SubscribeToEvents()
     {
         base.SubscribeToEvents();
-        _myHeroBase.GetHeroDiedEvent().AddListener(CloneDeath);
+        _myHeroBase.GetHeroDiedEvent().AddListener(HeroDied);
     }
     #endregion
 

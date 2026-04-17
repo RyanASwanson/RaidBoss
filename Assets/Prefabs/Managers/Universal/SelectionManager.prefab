@@ -49,21 +49,29 @@ MonoBehaviour:
   _normalHealthMultiplier: 1
   _normalStaggerMultiplier: 1
   _normalHeroLimit: 3
-  _heroicDamageMultiplier: 1.3
+  _heroicDamageMultiplier: 1.35
   _heroicSpeedMultiplier: 1.15
-  _heroicHealthMultiplier: 1.4
+  _heroicHealthMultiplier: 1.55
   _heroicStaggerMultiplier: 1.1
   _heroicHeroLimit: 4
-  _mythicDamageMultiplier: 1.7
+  _mythicDamageMultiplier: 1.8
   _mythicSpeedMultiplier: 1.3
-  _mythicHealthMultiplier: 1.9
-  _mythicStaggerMultiplier: 1.2
+  _mythicHealthMultiplier: 2.25
+  _mythicStaggerMultiplier: 1.225
   _mythicHeroLimit: 5
-  _mythicPlusDamageMultiplier: 2.4
-  _mythicPlusSpeedMultiplier: 1.3
-  _mythicPlusHealthMultiplier: 3
-  _mythicPlusStaggerMultiplier: 1.3
+  _mythicPlusDamageMultiplier: 2.85
+  _mythicPlusSpeedMultiplier: 1.45
+  _mythicPlusHealthMultiplier: 3.5
+  _mythicPlusStaggerMultiplier: 1.35
   _mythicPlusHeroLimit: 5
+  _mythicPlusScalingDamageMultiplier: 0.07
+  _mythicPlusScalingSpeedMultiplier: 0
+  _mythicPlusScalingHealthMultiplier: 0.15
+  _mythicPlusScalingStaggerMultiplier: 0.03
+  _mythicPlusScalingDamageMaxLevel: 10
+  _mythicPlusScalingSpeedMaxLevel: -1
+  _mythicPlusScalingHealthMaxLevel: -1
+  _mythicPlusScalingStaggerMaxLevel: 10
   _difficultyNames:
   - Normal
   - Heroic
@@ -74,3 +82,18 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9c3180150c34c9742bdfd92d8294712d, type: 3}
   - {fileID: 21300000, guid: 64cb822beb4ca4342a56928e180ac4da, type: 3}
   - {fileID: 21300000, guid: 7d3ee4008449a474a8cfed84359c1e59, type: 3}
+  _missionModifierSelectionEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _missionModifierDeselectionEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _missionModifierSwapEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _missionModifierHoveredOverEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _missionModifierNotHoveredOverEvent:
+    m_PersistentCalls:
+      m_Calls: []

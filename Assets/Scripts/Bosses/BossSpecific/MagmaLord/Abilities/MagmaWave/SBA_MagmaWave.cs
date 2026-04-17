@@ -14,7 +14,6 @@ public class SBA_MagmaWave : SpecificBossAbilityFramework
     private GameObject _storedMagmaWave;
     private Vector3 _edgeOfMap;
 
-
     #region Base Ability
     protected override void AbilityPrep()
     {
@@ -32,11 +31,9 @@ public class SBA_MagmaWave : SpecificBossAbilityFramework
     /// </summary>
     protected override void StartShowTargetZone()
     {
-        //Find the point in between the boss and edge of map
-        Vector3 midpoint = (transform.position + _edgeOfMap) / 2;
-        midpoint = EnvironmentManager.Instance.GetClosestPointToFloor(midpoint);
-
-        GameObject newTargetZone = Instantiate(_targetZone, midpoint, Quaternion.identity);
+        Vector3 spawnLocation = EnvironmentManager.Instance.GetClosestPointToFloor(_edgeOfMap);
+        
+        GameObject newTargetZone = Instantiate(_targetZone, spawnLocation, Quaternion.identity);
 
         //Set the scale of the target zone to be the length of the distance from boss to edge of map
         newTargetZone.transform.localScale = new(newTargetZone.transform.localScale.x,
@@ -50,12 +47,6 @@ public class SBA_MagmaWave : SpecificBossAbilityFramework
         _currentTargetZones.Add(newTargetZone.GetComponent<BossTargetZoneParent>());
 
         base.StartShowTargetZone();
-    }
-
-
-    protected override void StartAbilityWindUp()
-    {
-        base.StartAbilityWindUp();
     }
 
     /// <summary>

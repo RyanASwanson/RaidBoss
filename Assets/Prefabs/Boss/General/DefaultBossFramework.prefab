@@ -53,12 +53,14 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _floatDestroyDelay: 0
+  _doesSetDefaultStartPositionOnStart: 0
   _hasDefaultStartPosition: 1
   _defaultStartPosition: {x: 0, y: 20, z: 0}
+  _defaultEndPosition: {x: 0, y: 0, z: 0}
+  _curveProgression: {fileID: 2017893347953519880}
   _onEndOfMovement:
     m_PersistentCalls:
       m_Calls: []
-  _curveProgression: {fileID: 2017893347953519880}
 --- !u!114 &2017893347953519880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79,9 +81,15 @@ MonoBehaviour:
   _hasDefaultValue: 0
   _defaultValue: 0
   _doesResetToDefaultProgressOnEnable: 0
+  _doesStartMovingUpOnEnable: 0
+  _doesStartMovingInCurrentDirectionOnEnable: 0
   _doesAutomaticallyMoveDownOnHittingMax: 0
+  _doesAutomaticallyMoveUpOnHittingMin: 0
+  _hasIncreaseDelay: 0
+  _increaseDelay: 0
   _hasDecreaseDelay: 0
   _decreaseDelay: 0
+  _doesLerpUnchained: 0
   _curve:
     serializedVersion: 2
     m_Curve:
@@ -347,6 +355,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -541,6 +550,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04c6130770b947c48be5af00e9498a43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bossEnrageWarningTime: 30
+  _bossEnrageImpendingTime: 6.5
 --- !u!95 &1596000535645237167
 Animator:
   serializedVersion: 5

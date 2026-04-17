@@ -21,6 +21,17 @@ public class BossUIManager : GameUIChildrenFunctionality
     [SerializeField] private float _timeForRecentHealthDrainStart;
     [SerializeField] private float _recentHealthDrainPercentPerSecond;
 
+    [Space]
+    [SerializeField] private RectTransform[] _healthChipRectTransforms;
+    [SerializeField] private CurveProgression[] _healthChipScaleCurves;
+
+    [SerializeField] private float _healthChipLength;
+    [SerializeField] private float _healthChipOffset;
+    [SerializeField] private AnimationCurve _healthChipScaleCurve;
+    
+    [SerializeField] private RectTransform[] _staggerChipRectTransforms;
+    [SerializeField] private CurveProgression[] _staggerChipScaleCurves;
+    
     private Coroutine _startHealthBarDrainCoroutine;
 
     [Header("BossStaggerBar")]
@@ -29,8 +40,22 @@ public class BossUIManager : GameUIChildrenFunctionality
 
     [SerializeField] private float _timeForRecentStaggerDrainStart;
     [SerializeField] private float _recentStaggerDrainPercentPerSecond;
+    
+    [SerializeField] private float _staggerChipLength;
+    [SerializeField] private float _staggerChipOffset;
+    [SerializeField] private AnimationCurve _staggerChipScaleCurve;
+
+    [SerializeField] private float _staggerChipMinVerticalLocation;
+    [SerializeField] private float _staggerChipMaxVerticalLocation;
+    [SerializeField] private AnimationCurve _staggerChipVerticalLocationCurve;
 
     private Coroutine _startStaggerBarDrainCoroutine;
+
+    [Space] 
+    [Header("BossEnrageBar")]
+    [SerializeField] private CurveProgression _enrageBackgroundTransparencyCurve;
+    [SerializeField] private List<Image> _bossEnrageBars;
+    [SerializeField] private List<GeneralImageColor> _bossEnrageColors;
 
     [Space]
     [Header("BossSpecificUI")]
@@ -67,6 +92,11 @@ public class BossUIManager : GameUIChildrenFunctionality
     {
         SetHealthBarPercentage();
         StartRecentHealthBarDrain();
+
+        if (damage > 0)
+        {
+            ShowHealthChips();
+        }
 
         CreateDamageStaggerNumber(EDamageNumberType.Damage, damage, _damageNumber, _damageNumbersOrigin);
     }
@@ -119,6 +149,20 @@ public class BossUIManager : GameUIChildrenFunctionality
         }
     }
 
+    private void ShowHealthChips()
+    {
+        Vector2 chipLocation = Vector3.zero;
+        chipLocation.Set(Mathf.Lerp(0,_healthChipLength,_healthBars[0].fillAmount)+_healthChipOffset,0);
+        for (int i = 0; i < _healthChipScaleCurves.Length; i++)
+        {
+            chipLocation.x *= -1;
+            
+            _healthChipRectTransforms[i].anchoredPosition = chipLocation;
+            _healthChipRectTransforms[i].GetChild(0).localScale = Vector3.one * _healthChipScaleCurve.Evaluate(_healthBars[0].fillAmount);
+            _healthChipScaleCurves[i].StartMovingUpOnCurve();
+        }
+    }
+
     #endregion
 
     #region Stagger Bar
@@ -127,6 +171,11 @@ public class BossUIManager : GameUIChildrenFunctionality
     {
         SetStaggerBarPercentage();
         StartRecentStaggerBarDrain();
+
+        if (stagger > 0)
+        {
+            ShowStaggerChips();
+        }
 
         CreateDamageStaggerNumber(EDamageNumberType.Stagger, stagger, _staggerNumber, _staggerNumbersOrigin);
     }
@@ -225,6 +274,47 @@ public class BossUIManager : GameUIChildrenFunctionality
     {
         SetRecentStaggerBarPercentage(1-staggerPercent);
     }
+    
+    private void ShowStaggerChips()
+    {
+        Vector2 chipLocation = Vector3.zero;
+        chipLocation.Set(
+            Mathf.Lerp(0,_staggerChipLength,_staggerBars[0].fillAmount)+_staggerChipOffset,
+            Mathf.Lerp(_staggerChipMinVerticalLocation,_staggerChipMaxVerticalLocation,
+                _staggerChipVerticalLocationCurve.Evaluate(_staggerBars[0].fillAmount)));
+        
+        for (int i = 0; i < _staggerChipScaleCurves.Length; i++)
+        {
+            chipLocation.x *= -1;
+            
+            _staggerChipRectTransforms[i].anchoredPosition = chipLocation;
+            _staggerChipRectTransforms[i].GetChild(0).localScale = Vector3.one * _staggerChipScaleCurve.Evaluate(_staggerBars[0].fillAmount);
+            _staggerChipScaleCurves[i].StartMovingUpOnCurve();
+        }
+    }
+    #endregion
+
+    #region EnrageBar
+
+    private void EnrageWarningBegun()
+    {
+        _enrageBackgroundTransparencyCurve.StartMovingUpOnCurve();
+    }
+    
+    private void EnrageWarningProgressUpdated(float progress)
+    {
+        SetEnrageBarPercentage(progress);
+    }
+
+    private void SetEnrageBarPercentage(float percent)
+    {
+        for (int i = 0; i < _bossEnrageBars.Count; i++)
+        {
+            _bossEnrageBars[i].fillAmount = percent;
+            _bossEnrageColors[i].UpdateProgress(percent);
+        }
+    }
+
     #endregion
 
     #region Boss Specific UI
@@ -239,6 +329,11 @@ public class BossUIManager : GameUIChildrenFunctionality
     #region Damage Stagger Numbers
     private void CreateDamageStaggerNumber(EDamageNumberType numberType, float damageStagger, GameObject number, RectTransform spawnOrigin)
     {
+        if (TrailerShotsDebugScript.IS_SHOOTING_TRAILER && TrailerShotsDebugScript.IS_HIDING_DAMAGE_NUMBERS)
+        {
+            return;
+        }
+
         if (damageStagger <= 0)
         {
             return;
@@ -334,7 +429,7 @@ public class BossUIManager : GameUIChildrenFunctionality
         base.SetUpInstance();
         Instance = this;
     }
-    
+
     /// <summary>
     /// Subscribes to any events
     /// </summary>
@@ -345,6 +440,21 @@ public class BossUIManager : GameUIChildrenFunctionality
         BossBase.Instance.GetBossStaggeredEvent().AddListener(BossFullyStaggered);
         BossBase.Instance.GetBossStaggerProcessEvent().AddListener(SetRecentStaggerBarToStaggerDurationPercentage);
         BossBase.Instance.GetBossNoLongerStaggeredEvent().AddListener(ResetAllStaggerBars);
+        
+        BossBase.Instance.GetBossEnrageCountdownBegunEvent().AddListener(EnrageWarningBegun);
+        BossBase.Instance.GetBossEnrageCountdownProgressUpdatedEvent().AddListener(EnrageWarningProgressUpdated);
+    }
+
+    protected override void UnsubscribeFromEvents()
+    {
+        BossBase.Instance.GetBossDamagedEvent().RemoveListener(BossTookDamage);
+        BossBase.Instance.GetBossStaggerDealtEvent().RemoveListener(BossTookStagger);
+        BossBase.Instance.GetBossStaggeredEvent().RemoveListener(BossFullyStaggered);
+        BossBase.Instance.GetBossStaggerProcessEvent().RemoveListener(SetRecentStaggerBarToStaggerDurationPercentage);
+        BossBase.Instance.GetBossNoLongerStaggeredEvent().RemoveListener(ResetAllStaggerBars);
+        
+        BossBase.Instance.GetBossEnrageCountdownBegunEvent().RemoveListener(EnrageWarningBegun);
+        BossBase.Instance.GetBossEnrageCountdownProgressUpdatedEvent().RemoveListener(EnrageWarningProgressUpdated);
     }
     #endregion
 }

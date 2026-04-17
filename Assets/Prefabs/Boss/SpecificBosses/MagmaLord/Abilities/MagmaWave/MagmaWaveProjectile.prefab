@@ -183,6 +183,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _vfxList: []
+  _isVFXChilded: 0
+  _vfxTargetLocation: {fileID: 0}
   _onDestroySelfEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -5022,7 +5024,7 @@ GameObject:
   - component: {fileID: 421897415692787545}
   - component: {fileID: 1463241840950164260}
   m_Layer: 0
-  m_Name: ScorchParticles
+  m_Name: FollowParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19593,6 +19595,14 @@ MonoBehaviour:
   _lifeTime: 0
   _hasDetachTime: 0
   _detachTime: 0
+  _hasCustomEmmisionRateCurve: 0
+  _customEmissionCurveMultiplier: 0
+  _customEmissionRateCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   _particleSystems:
   - {fileID: 8643543174282751112}
   - {fileID: 2587494217139562295}
@@ -19608,7 +19618,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1137327966056182001}
   m_Layer: 0
-  m_Name: LowerHolder
+  m_Name: MagmaWaveVisuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19628,6 +19638,7 @@ Transform:
   m_Children:
   - {fileID: 5553433482631087937}
   - {fileID: 1724427227555294874}
+  - {fileID: 865527848710832607}
   m_Father: {fileID: 8470271910140880554}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -19663,6 +19674,88 @@ Transform:
   m_Father: {fileID: 1694177004724123762}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &2899850868198678550
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1137327966056182001}
+    m_Modifications:
+    - target: {fileID: 2611155390381498825, guid: f6a121fcb7fc9dc4ca661dadaaba67ff, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2611155390381498825, guid: f6a121fcb7fc9dc4ca661dadaaba67ff, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2611155390381498825, guid: f6a121fcb7fc9dc4ca661dadaaba67ff, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2611155390381498825, guid: f6a121fcb7fc9dc4ca661dadaaba67ff, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2611155390381498825, guid: f6a121fcb7fc9dc4ca661dadaaba67ff, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2611155390381498825, guid: f6a121fcb7fc9dc4ca661dadaaba67ff, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.325
+      objectReference: {fileID: 0}
+    - target: {fileID: 2611155390381498825, guid: f6a121fcb7fc9dc4ca661dadaaba67ff, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2611155390381498825, guid: f6a121fcb7fc9dc4ca661dadaaba67ff, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2611155390381498825, guid: f6a121fcb7fc9dc4ca661dadaaba67ff, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2611155390381498825, guid: f6a121fcb7fc9dc4ca661dadaaba67ff, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2611155390381498825, guid: f6a121fcb7fc9dc4ca661dadaaba67ff, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2611155390381498825, guid: f6a121fcb7fc9dc4ca661dadaaba67ff, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2611155390381498825, guid: f6a121fcb7fc9dc4ca661dadaaba67ff, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2611155390381498825, guid: f6a121fcb7fc9dc4ca661dadaaba67ff, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2611155390381498825, guid: f6a121fcb7fc9dc4ca661dadaaba67ff, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3420342434922068851, guid: f6a121fcb7fc9dc4ca661dadaaba67ff, type: 3}
+      propertyPath: m_Name
+      value: TESTMagma Wave Projectile (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3420342434922068851, guid: f6a121fcb7fc9dc4ca661dadaaba67ff, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f6a121fcb7fc9dc4ca661dadaaba67ff, type: 3}
+--- !u!4 &865527848710832607 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2611155390381498825, guid: f6a121fcb7fc9dc4ca661dadaaba67ff, type: 3}
+  m_PrefabInstance: {fileID: 2899850868198678550}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7578834324963042952
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19676,11 +19769,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2611155390381498825, guid: f6a121fcb7fc9dc4ca661dadaaba67ff, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.10000002
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2611155390381498825, guid: f6a121fcb7fc9dc4ca661dadaaba67ff, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.10000002
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2611155390381498825, guid: f6a121fcb7fc9dc4ca661dadaaba67ff, type: 3}
       propertyPath: m_LocalPosition.x
@@ -19722,9 +19815,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2611155390381498825, guid: f6a121fcb7fc9dc4ca661dadaaba67ff, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3420342434922068851, guid: f6a121fcb7fc9dc4ca661dadaaba67ff, type: 3}
       propertyPath: m_Name
       value: Magma Wave Projectile
+      objectReference: {fileID: 0}
+    - target: {fileID: 3420342434922068851, guid: f6a121fcb7fc9dc4ca661dadaaba67ff, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f6a121fcb7fc9dc4ca661dadaaba67ff, type: 3}

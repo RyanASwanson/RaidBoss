@@ -18,8 +18,8 @@ MonoBehaviour:
     Lord'
   _bossID: 3
   _bossMusicID: 2
-  _maxHP: 250
-  _baseStaggerMax: 75
+  _maxHP: 300
+  _baseStaggerMax: 85
   _staggerDuration: 15
   _rotationSpeed: 3
   _damageIncrementMultiplier: 1.05
@@ -33,6 +33,7 @@ MonoBehaviour:
   _floorMaterial: {fileID: 2100000, guid: c9983282f3a72214eb51c72723297d70, type: 2}
   _miniFloorMaterial: {fileID: 2100000, guid: 404ca711399ebdd4b9dfdcc60c659bd8, type: 2}
   _miniFloorLockedMaterial: {fileID: 2100000, guid: 8979b437f98dc8b4f8e4d99523d40dda, type: 2}
+  _missionSelectionGlowMaterial: {fileID: 2100000, guid: 7805c0e425681b94781d6696c8dba70f, type: 2}
   _backgroundMaterial: {fileID: 2100000, guid: 1c6347adc2742f34e87cd3ae8a394462, type: 2}
   _backgroundParticles: {fileID: 2076903321650355745, guid: cea3c8d1ab2b8b74083e18f163888eb8, type: 3}
   _bossStandard: {fileID: 3374751911743867285, guid: 5d9aa30d92bcdb944801a38da28dc22b, type: 3}
@@ -48,7 +49,7 @@ MonoBehaviour:
       Lord strikes the
 
       location of
-      a hero
+      a Hero
 
       multiple times'
     _abilityImage: {fileID: 21300000, guid: 01b682509d32bf84882de00cff8e0b61, type: 3}
@@ -65,7 +66,7 @@ MonoBehaviour:
 
       and damages them if
 
-      it hits a seperate hero
+      it hits a seperate Hero
 
       then
       switches targets'
@@ -110,3 +111,5 @@ MonoBehaviour:
 
       a rotating pattern'
     _abilityImage: {fileID: 21300000, guid: 14c93fe0f30d36f48a2ea7e744d2589f, type: 3}
+  _associatedAchievements:
+  - {fileID: 11400000, guid: 730a8cc90c764bc4ca935240673e33f5, type: 2}

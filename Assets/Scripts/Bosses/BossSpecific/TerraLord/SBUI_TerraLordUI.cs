@@ -91,6 +91,11 @@ public class SBUI_TerraLordUI : SpecificBossUIFramework
         }
         else
         {
+            if (barPos < 0 || barPos > _passiveBars.Count-1)
+            {
+                return;
+            }
+            
             _passiveBars[barPos].ResetTrigger(PASSIVE_BAR_SHOW_ANIM_TRIGGER);
             _passiveBars[barPos].SetTrigger(PASSIVE_BAR_HIDE_ANIM_TRIGGER);
         }

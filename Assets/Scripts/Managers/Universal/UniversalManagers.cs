@@ -8,16 +8,15 @@ using UnityEngine;
 /// </summary>
 public class UniversalManagers : CoreManagersFramework
 {
-    private SceneLoadManager _sceneLoadManager;
-    private SelectionManager _selectionManager;
-    private TimeManager _timeManager;
-    private SaveManager _saveManager;
-
+    public static UniversalManagers Instance;
+    
+    [SerializeField] private DebugScript _debugScript;
     /// <summary>
     /// Contains all managers to set up. Order of managers is order of setup.
     /// </summary>
     private MainUniversalManagerFramework[] _allMainManagers;
-    public static UniversalManagers Instance;
+
+    
 
     /*private ObjectPoolingParent _objectPoolingParent;
     private FmodSfxEvents _fModSfxEvents;*/
@@ -55,6 +54,7 @@ public class UniversalManagers : CoreManagersFramework
     /// </summary>
     protected override void SetupMainManagers()
     {
+        _debugScript.PerformDebugScriptSetUp();
         //SetupObjectPoolingParent();
         //SetUpFModSfxEvents();
 

@@ -5,12 +5,17 @@ using UnityEngine;
 public class SwapTextures : MonoBehaviour
 {
     [SerializeField] private TextureSwap[] _swapGroup;
+
+    public void SwapTexture(int textureID)
+    {
+        _swapGroup[textureID].SwapToMaterial();
+    }
     
     public void SwapAllTextures()
     {
-        foreach(TextureSwap textureSwap in _swapGroup)
+        for (int i = 0; i < _swapGroup.Length; i++)
         {
-            textureSwap.SwapToMaterial();
+            SwapTexture(i);
         }
     }
 

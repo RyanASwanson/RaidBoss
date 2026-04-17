@@ -26,6 +26,10 @@ public class SelectBossLevelButton : MonoBehaviour, IPointerClickHandler
 
     [Space] 
     [SerializeField] private CurveProgression _buttonSizeCurve;
+    [SerializeField] private CurveProgression _buttonVisualsHolderSizeCurve;
+    
+    [Space] 
+    [SerializeField] private ResetEventSystemSelectedObject _resetEventSystemObject;
     
     private bool _isInteractable = false;
 
@@ -105,8 +109,22 @@ public class SelectBossLevelButton : MonoBehaviour, IPointerClickHandler
             BossLevelDeselect();
         }
         
-        EventSystem.current.SetSelectedGameObject(null);
+        _resetEventSystemObject.ResetSelectedEventSystemObject();
+        
+        ToggleButtonPressed();
+    }
 
+    public void BossLevelSwapped()
+    {
+        SelectionManager.Instance.RemoveSelectedBoss();
+        UpdateBossIconColor(_defaultColor);
+        //BossLevelDeselect();
+        _resetEventSystemObject.ResetSelectedEventSystemObject();
+        ToggleButtonPressed();
+    }
+
+    public void ToggleButtonPressed()
+    {
         _buttonHasBeenPressed = !_buttonHasBeenPressed;
     }
     
@@ -117,11 +135,13 @@ public class SelectBossLevelButton : MonoBehaviour, IPointerClickHandler
 
     public void SelectBossButtonHoverBegin()
     {
+        _buttonVisualsHolderSizeCurve.StartMovingUpOnCurve();
         SelectionManager.Instance.BossHoveredOver(_associatedLevel.GetLevelBoss());
     }
 
     public void SelectBossButtonHoverEnd()
     {
+        _buttonVisualsHolderSizeCurve.StartMovingDownOnCurve();
         SelectionManager.Instance.BossNotHoveredOver(_associatedLevel.GetLevelBoss());
     }
 
@@ -132,8 +152,7 @@ public class SelectBossLevelButton : MonoBehaviour, IPointerClickHandler
 
     private void BossLevelSelect()
     {
-        SelectionManager.Instance.SetSelectedBoss(_associatedLevel.GetLevelBoss());
-        SelectionManager.Instance.SetSelectedLevel(_associatedLevel);
+        SelectionManager.Instance.SetSelectedLevelAndBoss(_associatedLevel);
 
         UpdateBossIconColor(_associatedLevel.GetLevelBoss().GetBossSelectedColor());
     }

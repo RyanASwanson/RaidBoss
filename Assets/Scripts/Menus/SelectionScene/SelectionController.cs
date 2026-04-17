@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,8 +12,12 @@ public class SelectionController : MonoBehaviour
     
     [Header("Boss")]
     [SerializeField] private BossPillar _bossPillar;
+    
+    [SerializeField] private BossBackgroundChanger _bossBackgroundChanger;
 
     [SerializeField] private List<SelectBossLevelButton> _bossLevelSelectionButtons;
+
+    [SerializeField] private Camera _bossCamera;
 
     [Space]
     [Header("Center")]
@@ -30,11 +36,24 @@ public class SelectionController : MonoBehaviour
     
     private int _currentBossAbilityID = -1;
 
+    [Header("Center-MissionModifiers")] 
+    [SerializeField] private Button _missionModifierTabButton;
+
+    [SerializeField] private CurveProgression _activeModifiersCurve;
+
+    [SerializeField] private CurveProgression _selectableModifiersCurve;
+    
+    [SerializeField] private List<ActiveMissionModifierSelectionButton> _activeMissionModifierSelectionButtons;
+    [SerializeField] private List<MissionModifierSelectionButton> _missionModifierSelectionButtons;
+    
+    private bool _areModifiersActive = false;
+
     [Header("Center-General")]
     [SerializeField] private SelectionPlayButton _fightButton;
-
     private bool _maxCharactersSelected = false;
 
+    [SerializeField] private GameObject _characterInformationLockVisuals;
+    
     public static bool IsSelectionInformationLocked = false;
     public static CharacterSO SelectionLockedCharacter;
 
@@ -52,10 +71,14 @@ public class SelectionController : MonoBehaviour
     [Space]
     [SerializeField] private Image _rangeIcon;
     [SerializeField] private List<Sprite> _rangeIconSprites;
+    [SerializeField] private Color[] _rangeTextColors;
+    [SerializeField] private TextWithBackground _rangeText;
 
-    [Space]
+    [Space] 
     [SerializeField] private Image _difficultyIcon;
     [SerializeField] private List<Sprite> _difficultyIconSprites;
+    [SerializeField] private Color[] _difficultyTextColors;
+    [SerializeField] private TextWithBackground _difficultyText;
 
     [Space]
     [SerializeField] private Image _heroBasicIcon;
@@ -66,25 +89,48 @@ public class SelectionController : MonoBehaviour
     private BossSO _bossUIToDisplay;
     private HeroSO _lastHeroHoveredOver;
     private HeroSO _heroUIToDisplay;
+    private MissionModifierSO _lastMissionModifierHoveredOver;
+    private MissionModifierSO _missionModifierUIToDisplay;
 
     [Space] 
     [SerializeField] private ScrollUISelection _heroScrollUI;
 
     private int _currentHeroAbilityID = -1;
+    private int _currentMissionModifierID = -1;
 
     [Space]
     [Header("Hero")]
     [SerializeField] private List<HeroPillar> _heroPillars = new List<HeroPillar>();
 
+    [SerializeField] private float _heroProgressBackgroundMoveTime;
+    [SerializeField] private float _heroProgressBackgroundMaxSize;
+    [SerializeField] private AnimationCurve _heroProgressBackgroundMoveCurve;
+    
+    [SerializeField] private AnimationCurve _heroProgressBackgroundCurve;
+    [SerializeField] private GameObject _heroProgressBackground;
+
+    private float _heroProgressBackgroundStartPosition;
+    private float _heroProgressBackgroundEndPosition;
+
+    private float _heroProgressBackgroundMoveProgress;
+
+    private Coroutine _heroProgressBackgroundMoveProcessCoroutine;
+    
+    [SerializeField] private List<MeshRenderer> _heroBackgrounds;
+    
     [SerializeField] private List<SelectHeroButton> _heroSelectionButtons = new List<SelectHeroButton>();
 
     private int _previousMaxHeroes;
+    
+    [SerializeField] private Camera _heroCamera;
 
     // Start is called before the first frame update
     void OnEnable()
     {
         Instance = this;
         SubscribeToEvents();
+
+        IsSelectionInformationLocked = false;
         
         SelectionManager.Instance.SetSelectedGameMode(EGameMode.Free);
 
@@ -106,14 +152,17 @@ public class SelectionController : MonoBehaviour
         PlayBossSelectedAudio(bossSO);
 
         CheckMaxCharactersSelected();
-
+        
+        ShowBossBackground();
     }
 
     private void BossRemovedSelection(BossSO bossSO)
     {
-        _bossPillar.DeselectBossOnPillar();
+        _bossPillar.BossOnPillarDeselected();
 
         CheckMaxCharactersNoLongerSelected();
+
+        HideBossBackground();
     }
 
     private void SwapBoss(BossSO previousBoss)
@@ -121,10 +170,23 @@ public class SelectionController : MonoBehaviour
         //Removes the previous boss
         foreach (SelectBossLevelButton bossButton in _bossLevelSelectionButtons)
         {
-            if(bossButton.GetAssociatedBoss() == previousBoss)
-                bossButton.SelectBossLevelLeftClicked();
+            if (bossButton.GetAssociatedBoss() == previousBoss)
+            {
+                //bossButton.SelectBossLevelLeftClicked();
+                bossButton.BossLevelSwapped();
+            }
 
         }
+    }
+    
+    public void ForceBossButtonPressFromID(int id)
+    {
+        ForceBossButtonPress(_bossLevelSelectionButtons[id]);
+    }
+    
+    public void ForceBossButtonPress(SelectBossLevelButton selectButton)
+    {
+        selectButton.SelectBossLevelLeftClicked();
     }
     #endregion
 
@@ -132,6 +194,7 @@ public class SelectionController : MonoBehaviour
 
     private void CenterStart()
     {
+        MissionModifierStart();
         FightButtonStartingInteractability();
     }
 
@@ -221,8 +284,7 @@ public class SelectionController : MonoBehaviour
 
     private void InformationLockBoss(BossSO bossSO)
     {
-        IsSelectionInformationLocked = true;
-        SelectionLockedCharacter = bossSO;
+        LockCharacterInformation(bossSO);
         
         DisplayBossInformation(bossSO);
     }
@@ -295,6 +357,160 @@ public class SelectionController : MonoBehaviour
         _bossDescription.SetActive(false);
     }
 
+    private void ShowBossBackground()
+    {
+        _bossBackgroundChanger.UpdateBackground(SelectionManager.Instance.GetSelectedLevel());
+    }
+
+    private void HideBossBackground()
+    {
+        _bossBackgroundChanger.HideCurrentBackground();
+    }
+
+    #endregion
+    
+    #region Center - Mission Modifiers
+
+    private void MissionModifierStart()
+    {
+        
+    }
+
+    public void MissionModifierHoveredOver(MissionModifierSO missionModifier)
+    {
+        _lastMissionModifierHoveredOver = missionModifier;
+        
+        if (SelectionManager.Instance.GetCurrentMissionModifiers().Contains(missionModifier))
+        {
+            OldMissionModifierHoveredOver(missionModifier);
+        }
+        else
+        {
+            NewMissionModifierHoveredOver(missionModifier);
+        }
+    }
+
+    public void NewMissionModifierHoveredOver(MissionModifierSO missionModifier)
+    {
+        GeneralMissionModifierHoveredOver(missionModifier);
+        
+        GetLastActiveMissionModifier().SetCurrentHoveredMissionModifierID(missionModifier);
+    }
+
+    public void OldMissionModifierHoveredOver(MissionModifierSO missionModifier)
+    {
+        GeneralMissionModifierHoveredOver(missionModifier);
+    }
+
+    public void GeneralMissionModifierHoveredOver(MissionModifierSO missionModifier)
+    {
+        ShowMissionModifierDescription(missionModifier);
+    }
+
+    public void MissionModifierNotHoveredOver(MissionModifierSO missionModifier)
+    {
+        GetLastActiveMissionModifier().ResetCurrentHoveredMissionModifier();
+        HideMissionModifierDescription();
+    }
+    
+    public void ShowMissionModifierDescription(MissionModifierSO missionModifier)
+    {
+        _missionModifierUIToDisplay = missionModifier;
+        _currentMissionModifierID = missionModifier.GetModifierID();
+        
+        _heroScrollUI.ShowNewScroll(90);
+    }
+    
+    public void SwapMissionModifierDescription(MissionModifierSO missionModifier)
+    {
+        _missionModifierUIToDisplay = missionModifier;
+        _currentMissionModifierID = missionModifier.GetModifierID();
+        
+        _heroScrollUI.HideScroll();
+        _heroScrollUI.ShowNewScroll(90);
+    }
+
+    public void HideMissionModifierDescription()
+    {
+        _currentMissionModifierID = -1;
+        
+        _heroScrollUI.HideScroll();
+    }
+
+    public void ShowMissionModifierTab()
+    {
+        _selectableModifiersCurve.StartMovingUpOnCurve();
+    }
+
+    public void HideMissionModifierTab()
+    {
+        _selectableModifiersCurve.StartMovingDownOnCurve();
+    }
+
+    public void MissionModifierTabHoverBegin()
+    {
+        ShowMissionModifierTab();
+    }
+
+    public void MissionModifierTabHoverEnd()
+    {
+        HideMissionModifierTab();
+    }
+
+    private ActiveMissionModifierSelectionButton GetLastActiveMissionModifier()
+    {
+        return _activeMissionModifierSelectionButtons[
+            Mathf.Clamp(SelectionManager.Instance.GetCurrentMissionModifiers().Count,0,SelectionManager.MAX_MISSION_MODIFIERS-1)];
+    }
+
+    private void MissionModifierSelected(MissionModifierSO missionModifier)
+    {
+        int modifierNum = SelectionManager.Instance.GetMissionModifierCount() - 1;
+        
+        _activeMissionModifierSelectionButtons[modifierNum].UpdateModifierImage(true);
+    }
+
+    private void MissionModifierDeselected(MissionModifierSO missionModifier)
+    {
+        for (int i = SelectionManager.MAX_MISSION_MODIFIERS-1; i >= SelectionManager.Instance.GetIndexOfLastMissionModifierRemoved(); i--)
+        {
+            _activeMissionModifierSelectionButtons[i].UpdateModifierImage(false);
+        }
+    }
+
+    private void MissionModifierSwap(MissionModifierSO missionModifier)
+    {
+        ForceMissionModifierButtonPress(GetModifierButtonFromSO(missionModifier));
+    }
+    
+    public void ForceMissionModifierButtonPress(MissionModifierSO missionModifier)
+    {
+        ForceMissionModifierButtonPress(_missionModifierSelectionButtons[missionModifier.GetModifierID()]);
+    }
+
+    public void ForceMissionModifierButtonPress(int modifierID)
+    {
+        ForceMissionModifierButtonPress(_missionModifierSelectionButtons[modifierID]);
+    }
+    
+
+    public void ForceMissionModifierButtonPress(MissionModifierSelectionButton missionModifierSelectionButton)
+    {
+        missionModifierSelectionButton.ButtonPressed();
+    }
+    
+    private MissionModifierSelectionButton GetModifierButtonFromSO(MissionModifierSO missionModifier)
+    {
+        foreach (MissionModifierSelectionButton modifierButton in _missionModifierSelectionButtons)
+        {
+            if (modifierButton.GetMissionModifier() == missionModifier)
+            {
+                return modifierButton;
+            }
+        }
+
+        return null;
+    }
     #endregion
 
     #region Center - General
@@ -303,10 +519,31 @@ public class SelectionController : MonoBehaviour
         _fightButton.SetUpPlayButton();
     }
 
+    private void LockCharacterInformation(CharacterSO lockCharacter)
+    {
+        IsSelectionInformationLocked = true;
+        SelectionLockedCharacter = lockCharacter;
+        
+        _characterInformationLockVisuals.SetActive(true);
+    }
+
+    private void LockMissionInformation()
+    {
+        IsSelectionInformationLocked = true;
+    }
+
     private void UnlockCharacterInformation()
     {
         IsSelectionInformationLocked = false;
         SelectionLockedCharacter = null;
+        
+        _characterInformationLockVisuals.SetActive(false);
+    }
+
+    private void CheckMaxCharactersSelectionStatus()
+    {
+        CheckMaxCharactersNoLongerSelected();
+        CheckMaxCharactersSelected();
     }
 
     /// <summary>
@@ -315,13 +552,12 @@ public class SelectionController : MonoBehaviour
     private void CheckMaxCharactersSelected()
     {
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
-        if (!DebugScript.Instance.RequiresMaxCharactersSelected)
+        if (!DebugScript.Instance.IsUnityNull() && !DebugScript.Instance.RequiresMaxCharactersSelected)
         {
             MaxCharactersSelected();
             return;
         }
 #endif
-        
         if (SelectionManager.Instance.AtMaxBossSelected() && SelectionManager.Instance.AtMaxHeroesSelected())
         {
             MaxCharactersSelected();
@@ -351,6 +587,11 @@ public class SelectionController : MonoBehaviour
         _fightButton.MaxCharactersSelected(false);
     }
 
+    private void HideFullBossHeroDescriptions()
+    {
+        HideFullHeroDescription();
+        HideFullBossDescription();
+    }
 
     /// <summary>
     /// Causes the game to proceed to the currently selected level
@@ -376,9 +617,6 @@ public class SelectionController : MonoBehaviour
         {
             NewHeroHoveredOver(heroSO);
         }
-        
-        //NewHeroHoveredOver(heroSO);
-        
     }
 
     private void NewHeroHoveredOver(HeroSO heroSO)
@@ -475,8 +713,7 @@ public class SelectionController : MonoBehaviour
 
     private void InformationLockHero(HeroSO heroSO)
     {
-        IsSelectionInformationLocked = true;
-        SelectionLockedCharacter = heroSO;
+        LockCharacterInformation(heroSO);
         
         DisplayHeroInformation(heroSO);
     }
@@ -501,7 +738,10 @@ public class SelectionController : MonoBehaviour
     private void DisplayHeroRangeAndDifficulty(HeroSO heroSO)
     {
         _rangeIcon.sprite = _rangeIconSprites[(int)heroSO.GetHeroRange()];
+        _rangeText.UpdateTextColor(_rangeTextColors[(int)heroSO.GetHeroRange()]);
+        
         _difficultyIcon.sprite = _difficultyIconSprites[(int)heroSO.GetHeroDifficulty()];
+        _difficultyText.UpdateTextColor(_difficultyTextColors[(int)heroSO.GetHeroDifficulty()]);
     }
 
     private void DisplayAbilityIconsForHero(HeroSO heroSO)
@@ -559,7 +799,6 @@ public class SelectionController : MonoBehaviour
 
     private void HideFullHeroDescription()
     {
-        //StopStatDisplayProcess();
         _heroDescription.SetActive(false);
     }
 
@@ -614,10 +853,12 @@ public class SelectionController : MonoBehaviour
         {
             HeroLimitIncreased();
         }
-        
         ShowHeroPreviewPillars();
             
         _previousMaxHeroes = SelectionManager.Instance.GetMaxHeroesCountWithCurrentDifficulty();
+        
+        StartUpdateHeroProgressBackgroundProcess();
+        CheckMaxCharactersSelectionStatus();
     }
 
     private void HeroLimitReduced()
@@ -629,9 +870,8 @@ public class SelectionController : MonoBehaviour
             if (SelectionManager.Instance.GetAllSelectedHeroes().Count > i)
             {
                 heroesToRemove.Add(SelectionManager.Instance.GetAllSelectedHeroes()[i]);
-                //_heroPillars[i].ShowPreviewPillar(false);
             }
-            //_heroPillars[i].MovePillar(false);
+
             MoveHeroPillar(i, false);
 
         }
@@ -670,6 +910,7 @@ public class SelectionController : MonoBehaviour
         
         PlayHeroSelectedAudio(heroSO);
 
+        StartUpdateHeroProgressBackgroundProcess();
         CheckMaxCharactersSelected();
     }
 
@@ -691,18 +932,27 @@ public class SelectionController : MonoBehaviour
         //Remove the hero on the pillar that had a hero removed
         //_heroPillars[SelectionManager.Instance.GetIndexOfLastHeroRemoved()].RemoveHeroOnPillar();
         // Deselects the hero on the pillar
-        _heroPillars[SelectionManager.Instance.GetIndexOfLastHeroRemoved()].DeselectHeroOnPillar();
+        _heroPillars[SelectionManager.Instance.GetIndexOfLastHeroRemoved()].HeroOnPillarDeselected();
         RearrangeHeroesOnPillars();
 
+        StartUpdateHeroProgressBackgroundProcess();
         CheckMaxCharactersNoLongerSelected();
     }
 
 
     private void SwapHero(HeroSO hero)
     {
-        SelectHeroButton heroButton = GetHeroButtonFromSO(hero);
-
-        heroButton.SelectHeroButtonLeftClicked();
+        ForceHeroButtonPress(GetHeroButtonFromSO(hero));
+    }
+    
+    public void ForceHeroButtonPressFromID(int id)
+    {
+        ForceHeroButtonPress(_heroSelectionButtons[id]);
+    }
+    
+    public void ForceHeroButtonPress(SelectHeroButton selectButton)
+    {
+        selectButton.SelectHeroButtonLeftClicked();
     }
 
     private SelectHeroButton GetHeroButtonFromSO(HeroSO hero)
@@ -753,6 +1003,76 @@ public class SelectionController : MonoBehaviour
         _heroPillars[pillarNum].MovePillar(moveUp);
     }
 
+    #region HeroBackgrounds
+
+    private void StartUpdateHeroProgressBackgroundProcess()
+    {
+        StopUpdateHeroProgressBackgroundProcess();
+
+        _heroProgressBackgroundStartPosition = _heroProgressBackground.transform.localScale.x;
+        _heroProgressBackgroundEndPosition = Mathf.Lerp(0, _heroProgressBackgroundMaxSize,
+            _heroProgressBackgroundCurve.Evaluate(SelectionManager.Instance.GetHeroSelectionProgress()));
+
+        _heroProgressBackgroundMoveProcessCoroutine = StartCoroutine(UpdateHeroProgressBackgroundProcess());
+    }
+
+    private void StopUpdateHeroProgressBackgroundProcess()
+    {
+        if (!_heroProgressBackgroundMoveProcessCoroutine.IsUnityNull())
+        {
+            StopCoroutine(_heroProgressBackgroundMoveProcessCoroutine);
+        }
+    }
+
+    private IEnumerator UpdateHeroProgressBackgroundProcess()
+    {
+        float moveTimer = 0;
+        
+        while (moveTimer < 1)
+        {
+            moveTimer += Time.deltaTime / _heroProgressBackgroundMoveTime;
+            _heroProgressBackgroundMoveProgress = moveTimer;
+            UpdateHeroProgressBackground(_heroProgressBackgroundMoveProgress);
+            yield return null;
+        }
+    }
+
+    private void UpdateHeroProgressBackground(float moveProgress)
+    {
+        float heroProgress = Mathf.Lerp(_heroProgressBackgroundStartPosition, _heroProgressBackgroundEndPosition, 
+            _heroProgressBackgroundMoveCurve.Evaluate(moveProgress));
+        
+        _heroProgressBackground.transform.localScale = new Vector3(heroProgress,
+            _heroProgressBackground.transform.localScale.y, _heroProgressBackground.transform.localScale.z);
+    }
+    
+    
+    /*private void UpdateAllHeroBackgrounds()
+    {
+        for (int i = 0; i < SelectionManager.Instance.GetMaxHeroesCountWithCurrentDifficulty(); i++)
+        {
+            UpdateHeroBackground(i);
+        }
+    }
+
+    private void UpdateHeroBackground(int backgroundID)
+    {
+        if (SelectionManager.Instance.GetAllSelectedHeroes().Count > backgroundID)
+        {
+            _heroBackgrounds[backgroundID].enabled = true;
+            _heroBackgrounds[backgroundID].material.color = SelectionManager.Instance.GetAllSelectedHeroes()[backgroundID]
+                .GetHeroHighlightedColor();
+
+            _heroBackgrounds[backgroundID].material = SelectionManager.Instance.GetAllSelectedHeroes()[backgroundID]
+                .GetHeroBackgroundMaterial();
+        }
+        else
+        {
+            _heroBackgrounds[backgroundID].enabled = false;
+        }
+    }*/
+    #endregion
+
 
     private void UpdateHeroButtonDifficultyBeaten(BossSO bossSO)
     {
@@ -761,6 +1081,8 @@ public class SelectionController : MonoBehaviour
             selectHeroButton.SetBestDifficultyBeatenIcon(bossSO);
         }
     }
+    
+    
     #endregion
     
     #region Audio
@@ -795,6 +1117,14 @@ public class SelectionController : MonoBehaviour
         SelectionManager.Instance.GetBossNotHoveredOverEvent().AddListener(BossNotHoveredOver);
         
         SelectionManager.Instance.GetBossInformationLockedEvent().AddListener(InformationLockBoss);
+        
+        SelectionManager.Instance.GetMissionModifierSelectionEvent().AddListener(MissionModifierSelected);
+        SelectionManager.Instance.GetMissionModifierDeselectionEvent().AddListener(MissionModifierDeselected);
+        
+        SelectionManager.Instance.GetMissionModifierSwapEvent().AddListener(MissionModifierSwap);
+        
+        SelectionManager.Instance.GetMissionModifierHoveredOverEvent().AddListener(MissionModifierHoveredOver);
+        SelectionManager.Instance.GetMissionModifierNotHoveredOverEvent().AddListener(MissionModifierNotHoveredOver);
 
         SelectionManager.Instance.GetHeroSelectionEvent().AddListener(NewHeroAddedSelection);
         SelectionManager.Instance.GetHeroDeselectionEvent().AddListener(HeroRemovedSelection);
@@ -815,9 +1145,14 @@ public class SelectionController : MonoBehaviour
 
     public int GetCurrentBossAbilityID() => _currentBossAbilityID;
     public int GetCurrentHeroAbilityID() => _currentHeroAbilityID;
+    public int GetCurrentMissionModifierID() => _currentMissionModifierID;
     
     public BossSO GetBossUIToDisplay() => _bossUIToDisplay;
     public HeroSO GetHeroUIToDisplay() => _heroUIToDisplay;
+    public MissionModifierSO GetMissionModifierUIToDisplay() => _missionModifierUIToDisplay;
+    
+    public Camera GetBossCamera() => _bossCamera;
+    public Camera GetHeroCamera() => _heroCamera;
 
     #endregion
 }

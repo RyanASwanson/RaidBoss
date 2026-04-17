@@ -15,6 +15,9 @@ public class MissionSO : ScriptableObject
     [SerializeField] private EGameDifficulty _associatedDifficulty;
     [SerializeField] private LevelSO _associatedLevel;
     [SerializeField] private HeroSO[] _associatedHeroes;
+    
+    [Space]
+    [SerializeField] private MissionDisplayHighlight[] _missionDisplayHighlights;
 
     [Space] 
     [Header("Tutorials")]
@@ -23,6 +26,9 @@ public class MissionSO : ScriptableObject
     [Space] 
     [Header("Unlocks")] 
     [SerializeField] private CharacterSO _characterUnlock;
+
+    [Space] 
+    [SerializeField] private MissionModifierSO _missionModifierUnlock;
 
     [Space] 
     [SerializeField] private MissionSO[] _missionUnlocks;
@@ -45,10 +51,13 @@ public class MissionSO : ScriptableObject
     public EGameDifficulty GetAssociatedDifficulty() =>_associatedDifficulty;
     public LevelSO GetAssociatedLevel() =>_associatedLevel;
     public HeroSO[] GetAssociatedHeroes() =>_associatedHeroes;
+    
+    public MissionDisplayHighlight[] GetMissionDisplayHighlights() => _missionDisplayHighlights;
 
     public TutorialPage[] GetTutorialPages() => _tutorialPages;
     
     public CharacterSO GetCharacterUnlock() =>_characterUnlock;
+    public MissionModifierSO GetMissionModifierUnlock() =>_missionModifierUnlock;
     public MissionSO[] GetMissionUnlocks() =>_missionUnlocks;
     public AchievementSO[] GetAchievementUnlocks() =>_achievementUnlocks;
     
@@ -101,7 +110,7 @@ public class TutorialPage
 
     [Space]
     public Vector2 DefaultTextLocation;
-    [TextArea(1, 6)]public string DefaultText;
+    [TextArea(1, 10)]public string DefaultText;
 
     [Space] 
     public Vector2 TutorialPageObjectLocation;
@@ -125,3 +134,18 @@ public class TutorialPageCharacterTutorial
     
     #endregion
 }
+
+[System.Serializable]
+public class MissionDisplayHighlight
+{
+    public EMissionDisplayHighlightType HighlightType;
+    public int HightlightID;
+}
+
+public enum EMissionDisplayHighlightType
+{
+    Boss,
+    Difficulty,
+    Hero,
+    MissionModifier
+};

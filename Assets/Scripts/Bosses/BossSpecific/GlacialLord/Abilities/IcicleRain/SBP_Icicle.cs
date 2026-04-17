@@ -6,19 +6,34 @@ public class SBP_Icicle : BossProjectileFramework
 {
     [SerializeField] private float _groundCheckDistance;
 
+    [Space] [SerializeField] private GeneralVFXFunctionality _fallingIcicleVfx;
+
+    [Space]
     [SerializeField] private GeneralBossDamageArea _damageArea;
     
     [SerializeField] private GlacialLordSelfMinionHit _minionHit;
 
-    public void IcicleContactCheck()
+    public void MinionContactCheck()
+    {
+        if (_minionHit.MinionContactFromDistance())
+        {
+            DestroyIcicle();
+        }
+    }
+
+    public void GroundContactCheck()
     {
         float distance = Mathf.Abs(transform.position.x) + Mathf.Abs(transform.position.z);
-
-        if (_minionHit.MinionContactFromDistance() 
-            || distance < EnvironmentManager.Instance.GetMapRadius())
+        if (distance < EnvironmentManager.Instance.GetMapRadius())
         {
-            _damageArea.DestroyProjectile();
+            DestroyIcicle();
         }
+    }
 
+    private void DestroyIcicle()
+    {
+        _fallingIcicleVfx.SetLoopOfParticleSystems(false);
+        _fallingIcicleVfx.DetachVisualEffect();
+        _damageArea.DestroyProjectile();
     }
 }

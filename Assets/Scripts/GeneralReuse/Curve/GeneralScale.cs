@@ -8,15 +8,6 @@ using Vector3 = UnityEngine.Vector3;
 
 public class GeneralScale : MonoBehaviour
 {
-    [SerializeField] private bool _doesBeginScalingOnEnable;
-    [SerializeField] private bool _doesResetScaleOnScalingEnable;
-    
-    private Coroutine _scalingCoroutine;
-    
-    [Space]
-    [SerializeField] private float _scalingTime;
-
-    [Space] 
     [SerializeField] private bool _hasOverrideStartingScale;
     [SerializeField] private Vector3 _overrideStartingScale;
     [SerializeField] private Vector3 _endingScale;
@@ -30,66 +21,18 @@ public class GeneralScale : MonoBehaviour
 
     void OnEnable()
     {
-        SubscribeToEvents();
-
         if (_hasOverrideStartingScale)
         {
             transform.localScale = _overrideStartingScale;
         }
         _startingScale = transform.localScale;
         
-        if (_doesBeginScalingOnEnable)
-        {
-            BeginScaling();
-        }
-    }
-
-    public void SetUp()
-    {
-        // Delayed functionality that waits for curve set up
+        SubscribeToEvents();
     }
 
     private void OnDisable()
     {
         UnsubscribeFromEvents();
-    }
-
-    public void BeginScaling()
-    {
-        StopScaling();
-
-        if (_doesResetScaleOnScalingEnable)
-        {
-            ResetScale();
-        }
-        
-        _scalingCoroutine = StartCoroutine(ScalingProcess());
-    }
-
-    public void StopScaling()
-    {
-        if (!_scalingCoroutine.IsUnityNull())
-        {
-            StopCoroutine(_scalingCoroutine);
-            _scalingCoroutine = null;
-        }
-    }
-
-    public void ResetScale()
-    {
-        transform.localScale = _startingScale;
-    }
-
-    private IEnumerator ScalingProcess()
-    {
-        float scaleProgress = 0;
-        while (!gameObject.IsUnityNull() && scaleProgress < 1)
-        {
-            scaleProgress += Time.deltaTime * _scalingTime;
-            
-            transform.localScale = Vector3.LerpUnclamped(_startingScale, _endingScale, scaleProgress);
-            yield return null;
-        }
     }
 
     public void UpdateLocalScale(float scaleProgress)
@@ -101,7 +44,6 @@ public class GeneralScale : MonoBehaviour
     {
         if (_curveProgression)
         {
-            _curveProgression.OnSetUpComplete.AddListener(SetUp);
             _curveProgression.OnCurveValueChanged.AddListener(UpdateLocalScale);
         }
     }
@@ -110,7 +52,6 @@ public class GeneralScale : MonoBehaviour
     {
         if (_curveProgression)
         {
-            _curveProgression.OnSetUpComplete.RemoveListener(SetUp);
             _curveProgression.OnCurveValueChanged.RemoveListener(UpdateLocalScale);
         }
     }

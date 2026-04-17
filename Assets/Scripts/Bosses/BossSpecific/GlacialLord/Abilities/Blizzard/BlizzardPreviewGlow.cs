@@ -7,8 +7,6 @@ using UnityEngine;
 public class BlizzardPreviewGlow : MonoBehaviour
 {
     [SerializeField] private CurveProgression _scaleCurveProgression;
-    
-    [SerializeField] private MeshRenderer _meshRenderer;
 
     private Vector3 _targetLocation;
     

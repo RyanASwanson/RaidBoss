@@ -6,7 +6,13 @@ public class SBP_ImpendingStorm : BossProjectileFramework
 {
     [SerializeField] private GeneralTranslate _generalTranslate;
     [SerializeField] private CurveProgression _accelerationCurve;
+
+    public void ImpendingStormHit()
+    {
+        SB_ThunderLord.Instance.SetHasImpendingStormHit(true);
+    }
     
+    #region BaseProjectile
     public override void SetUpProjectile(BossBase bossBase, int newAbilityID)
     {
         base.SetUpProjectile(bossBase,newAbilityID);
@@ -14,4 +20,6 @@ public class SBP_ImpendingStorm : BossProjectileFramework
         _accelerationCurve.StartMovingUpOnCurve();
         _generalTranslate.StartMoving(transform.forward);
     }
+    
+    #endregion
 }

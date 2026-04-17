@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Steamworks;
 
 public class AchievementManager : MainUniversalManagerFramework
 {
@@ -20,8 +21,23 @@ public class AchievementManager : MainUniversalManagerFramework
 
     public void UnlockAchievement(AchievementSO achievement)
     {
-        Debug.Log("Achievement Unlocked" + achievement.name);
+        if (DebugScript.Instance.ShowAchievementUnlocks)
+        {
+            Debug.Log("Achievement Unlocked" + achievement.name);
+        }
+
         InvokeOnAchievementUnlocked(achievement);
+        
+        SteamAchievementUnlock(achievement);
+    }
+
+    private void SteamAchievementUnlock(AchievementSO achievement)
+    {
+        if (SteamManager.Initialized)
+        {
+            SteamUserStats.SetAchievement(achievement.AchievementUnlockName);
+            SteamUserStats.StoreStats();
+        }
     }
     
     #region BaseManager
@@ -30,6 +46,7 @@ public class AchievementManager : MainUniversalManagerFramework
         base.SetUpInstance();
         Instance = this;
     }
+
     #endregion
     
     #region Events

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MainMenuCharacterDisplay : MonoBehaviour
@@ -18,6 +19,8 @@ public class MainMenuCharacterDisplay : MonoBehaviour
     private int _currentDisplay;
     private int _lastDisplay;
 
+    private Coroutine _currentDisplayCoroutine;
+
 
     private void Start()
     {
@@ -34,7 +37,7 @@ public class MainMenuCharacterDisplay : MonoBehaviour
 
     private void StartDisplayRotation()
     {
-        StartCoroutine(CharacterDisplayRotation());
+        _currentDisplayCoroutine = StartCoroutine(CharacterDisplayRotation());
     }
 
     private IEnumerator CharacterDisplayRotation()
@@ -56,7 +59,7 @@ public class MainMenuCharacterDisplay : MonoBehaviour
     
     private void StartChangeCurrentDisplayFadeOut()
     {
-        StartCoroutine(CharacterDisplayFadeOut());
+        _currentDisplayCoroutine = StartCoroutine(CharacterDisplayFadeOut());
     }
     
     private IEnumerator CharacterDisplayFadeOut()
@@ -74,7 +77,7 @@ public class MainMenuCharacterDisplay : MonoBehaviour
 
     private void StartChangeCurrentDisplayFadeIn()
     {
-        StartCoroutine(CharacterDisplayFadeIn());
+        _currentDisplayCoroutine = StartCoroutine(CharacterDisplayFadeIn());
     }
 
     private IEnumerator CharacterDisplayFadeIn()
@@ -89,5 +92,13 @@ public class MainMenuCharacterDisplay : MonoBehaviour
     {
         _displaySections[_lastDisplay].SetActive(false);
         _displaySections[_currentDisplay].SetActive(true);
+    }
+
+    public void StopDisplay()
+    {
+        if (!_currentDisplayCoroutine.IsUnityNull())
+        {
+            StopCoroutine(_currentDisplayCoroutine);
+        }
     }
 }

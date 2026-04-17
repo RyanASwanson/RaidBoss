@@ -84,8 +84,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _damageToFollowTargetOnSwap: 4
   _maxSwaps: 3
-  _moveIntoHeroTime: 0.25
-  _moveOutFromHeroTime: 0.35
+  _moveIntoHeroTime: 0.2
+  _moveOutFromHeroTime: 0.4
+  _moveOutColliderEnableDelay: 0.15
   _followObject: {fileID: 4631730510946536749}
   _damageArea: {fileID: 4631730510946536748}
   _scaleCurve: {fileID: 523664221911168550}
@@ -104,8 +105,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _doesBeginRotationOnEnable: 1
   _doesResetRotationOnRotationEnable: 0
+  _doesResetLocalRotationOnRotationEnable: 0
+  _doesResetRotationToDefaultOnEnable: 0
+  _doesUseLocalEulerAngles: 0
   _rotationPerSecond: {x: 0, y: 80, z: 0}
   _rotationIndepedentParent: {fileID: 0}
+  _hasStartRotationOverride: 0
+  _startRotationOverride: {x: 0, y: 0, z: 0}
   _targetLocalEulerAngles: {x: 0, y: 0, z: 0}
   _curveProgression: {fileID: 0}
 --- !u!114 &4631730510946536748
@@ -182,6 +188,7 @@ MonoBehaviour:
   _doesDisableOnStart: 0
   _doesHideAfterStopFollowing: 0
   _doesDestroyAfterStopFollowing: 0
+  _destroyFollowDelay: 0
   _doesSetRotationOnFollowStart: 0
   _followStartEulerAngles: {x: 0, y: 0, z: 0}
   _followLocationOffset: {x: 0, y: 0, z: 0}
@@ -195,6 +202,21 @@ MonoBehaviour:
   _onFollowStop:
     m_PersistentCalls:
       m_Calls: []
+  _onFollowObjectMissing:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5836445844173092607}
+        m_TargetAssemblyTypeName: SBP_StaticCharge, Assembly-CSharp
+        m_MethodName: DurationOver
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!54 &1324370534079371592
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5123,9 +5145,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd1d04d370a8bca419d81d8abad819bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _doesBeginScalingOnEnable: 0
-  _doesResetScaleOnScalingEnable: 0
-  _scalingTime: 0
   _hasOverrideStartingScale: 0
   _overrideStartingScale: {x: 0, y: 0, z: 0}
   _endingScale: {x: 0, y: 0, z: 0}
@@ -5150,6 +5169,8 @@ MonoBehaviour:
   _hasDefaultValue: 0
   _defaultValue: 0
   _doesResetToDefaultProgressOnEnable: 0
+  _doesStartMovingUpOnEnable: 0
+  _doesStartMovingInCurrentDirectionOnEnable: 0
   _doesAutomaticallyMoveDownOnHittingMax: 0
   _doesAutomaticallyMoveUpOnHittingMin: 0
   _hasIncreaseDelay: 0
@@ -10091,9 +10112,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd1d04d370a8bca419d81d8abad819bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _doesBeginScalingOnEnable: 0
-  _doesResetScaleOnScalingEnable: 0
-  _scalingTime: 0
   _hasOverrideStartingScale: 1
   _overrideStartingScale: {x: 0.9, y: 0.9, z: 0.9}
   _endingScale: {x: 1.1, y: 1.1, z: 1.1}
@@ -10118,6 +10136,8 @@ MonoBehaviour:
   _hasDefaultValue: 0
   _defaultValue: 0
   _doesResetToDefaultProgressOnEnable: 0
+  _doesStartMovingUpOnEnable: 0
+  _doesStartMovingInCurrentDirectionOnEnable: 0
   _doesAutomaticallyMoveDownOnHittingMax: 1
   _doesAutomaticallyMoveUpOnHittingMin: 1
   _hasIncreaseDelay: 0
@@ -10222,9 +10242,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd1d04d370a8bca419d81d8abad819bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _doesBeginScalingOnEnable: 0
-  _doesResetScaleOnScalingEnable: 0
-  _scalingTime: 0
   _hasOverrideStartingScale: 1
   _overrideStartingScale: {x: 0, y: 0, z: 0}
   _endingScale: {x: 1, y: 1, z: 1}
@@ -10242,13 +10259,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _curveName: Scale
-  _curveIncreaseTime: 0.35
-  _curveDecreaseTime: 0.25
+  _curveIncreaseTime: 0.4
+  _curveDecreaseTime: 0.2
   _minCurveValue: 0
   _maxCurveValue: 1
   _hasDefaultValue: 0
   _defaultValue: 0
   _doesResetToDefaultProgressOnEnable: 0
+  _doesStartMovingUpOnEnable: 0
+  _doesStartMovingInCurrentDirectionOnEnable: 0
   _doesAutomaticallyMoveDownOnHittingMax: 0
   _doesAutomaticallyMoveUpOnHittingMin: 0
   _hasIncreaseDelay: 0
@@ -10439,6 +10458,14 @@ MonoBehaviour:
   _lifeTime: 0
   _hasDetachTime: 0
   _detachTime: 0
+  _hasCustomEmmisionRateCurve: 0
+  _customEmissionCurveMultiplier: 0
+  _customEmissionRateCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   _particleSystems:
   - {fileID: 3442958695222569364}
   - {fileID: 3288138309914405875}
@@ -10454,9 +10481,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd1d04d370a8bca419d81d8abad819bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _doesBeginScalingOnEnable: 0
-  _doesResetScaleOnScalingEnable: 0
-  _scalingTime: 0
   _hasOverrideStartingScale: 1
   _overrideStartingScale: {x: 0.25, y: 0.25, z: 0.25}
   _endingScale: {x: 1, y: 1, z: 1}
@@ -10481,6 +10505,8 @@ MonoBehaviour:
   _hasDefaultValue: 0
   _defaultValue: 0
   _doesResetToDefaultProgressOnEnable: 0
+  _doesStartMovingUpOnEnable: 0
+  _doesStartMovingInCurrentDirectionOnEnable: 0
   _doesAutomaticallyMoveDownOnHittingMax: 0
   _doesAutomaticallyMoveUpOnHittingMin: 0
   _hasIncreaseDelay: 0

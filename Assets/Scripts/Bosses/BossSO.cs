@@ -47,6 +47,8 @@ public class BossSO : CharacterSO
     [SerializeField] private Material _miniFloorMaterial;
     [SerializeField] private Material _miniFloorLockedMaterial;
     [Space]
+    [SerializeField] private Material _missionSelectionGlowMaterial;
+    [Space]
     [SerializeField] private Material _backgroundMaterial;
     [SerializeField] private GameObject _backgroundParticles;
 
@@ -63,6 +65,10 @@ public class BossSO : CharacterSO
     [Header("Ability Information")]
     [SerializeField] private List<BossAbilityInformation> _bossAbilities;
     
+    [Header("Achievements")]
+    [SerializeField] protected AchievementSO[] _associatedAchievements;
+
+    private const int _bossSpecialistAchievementID = 0;
 
     #region Getters
     public string GetBossName() => _name;
@@ -94,9 +100,9 @@ public class BossSO : CharacterSO
     public Material GetFloorMaterial() => _floorMaterial;
     public Material GetMiniFloorMaterial() => _miniFloorMaterial;
     public Material GetMiniFloorLockedMaterial() => _miniFloorLockedMaterial;
+    public Material GetMissionSelectionGlowMaterial() => _missionSelectionGlowMaterial;
     public Material GetBackgroundMaterial() => _backgroundMaterial;
     public GameObject GetBackgroundParticles() => _backgroundParticles;
-    
     public GameObject GetBossStandard() => _bossStandard;
 
     public Color GetBossHighlightedColor() => _bossHighlightedColor;
@@ -106,6 +112,19 @@ public class BossSO : CharacterSO
     public Sprite GetBossSelectionIcon() => _bossSelectionIcon;
 
     public List<BossAbilityInformation> GetBossAbilityInformation() => _bossAbilities;
+
+    public AchievementSO[] GetAssociatedAchievements() => _associatedAchievements;
+
+    public AchievementSO GetAssociatedSpecialistAchievement()
+    {
+        if (_associatedAchievements.Length < _bossSpecialistAchievementID + 1)
+        {
+            return null;
+        }
+        
+        return _associatedAchievements[_bossSpecialistAchievementID];
+    }
+
     #endregion
 }
 
@@ -122,5 +141,6 @@ public class BossAbilityInformation
 public enum BossAbilityType
 {
     Active,
-    Passive
+    Passive,
+    Hybrid
 };

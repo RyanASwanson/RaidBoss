@@ -16,6 +16,7 @@ public class EnvironmentManager : MainGameplayManagerFramework
     [SerializeField] private Vector3 _floorOffsetHeight;
 
     [SerializeField] private LayerMask _mapBorderLayer;
+    private const int MAP_BORDER_LAYER_ID = 10;
 
     [SerializeField] private List<GameObject> _heroSpawnLocations;
 
@@ -30,7 +31,12 @@ public class EnvironmentManager : MainGameplayManagerFramework
     [SerializeField] private MeshRenderer _lowerFloor1;
     [SerializeField] private MeshRenderer _lowerFloor2;
     [SerializeField] private MeshRenderer _backWall;
+    
+    [Space]
+    [Header("Boss Particles")]
+    [SerializeField] private float _bossEnragedParticleMultiplier;
     [SerializeField] private GameObject _backgroundParticleBase;
+    private GeneralVFXFunctionality _bossBackgroundParticles;
 
     [Space]
     [SerializeField] private float _battleWonEffectDuration;
@@ -59,7 +65,24 @@ public class EnvironmentManager : MainGameplayManagerFramework
         
         _backWall.material = BossBase.Instance.GetBossSO().GetBackgroundMaterial();
         
-        Instantiate(BossBase.Instance.GetBossSO().GetBackgroundParticles(), _backgroundParticleBase.transform);
+        _bossBackgroundParticles = 
+            Instantiate(BossBase.Instance.GetBossSO().GetBackgroundParticles(), _backgroundParticleBase.transform)
+                .GetComponent<GeneralVFXFunctionality>();
+    }
+
+    private void BossEnraged()
+    {
+        UpdateBossParticleEmissionMultiplier();
+    }
+
+    private void UpdateBossParticleEmissionMultiplier()
+    {
+        float multiplier = 1;
+        if (BossStats.Instance.GetIsBossEnraged())
+        {
+            multiplier *= _bossEnragedParticleMultiplier;
+        }
+        _bossBackgroundParticles.SetEmissionRateMultiplier(multiplier);
     }
 
     #region BaseManager
@@ -81,13 +104,25 @@ public class EnvironmentManager : MainGameplayManagerFramework
     protected override void SubscribeToEvents()
     {
         //GameStateManager.Instance.GetBattleWonEvent().AddListener(BattleWon);
+        BossBase.Instance.GetBossEnragedEvent().AddListener(BossEnraged);
     }
     #endregion
 
     #region Getters
     public float GetMapRadius() => _mapRadius;
     public Vector3 GetFloorOffset() => _floorOffsetHeight;
+
+    public Vector3 GetRandomLocationOnMap()
+    {
+        Vector3 randomLocation;
+        
+        randomLocation = new Vector3(Random.Range(-_mapRadius, _mapRadius),
+            0, Random.Range(-_mapRadius, _mapRadius));
+        
+        return Quaternion.Euler(0, -45, 0) * randomLocation;
+    }
     public LayerMask GetMapBorderLayer() => _mapBorderLayer;
+    public int GetMapBorderLayerID() => MAP_BORDER_LAYER_ID;
 
     public List<GameObject> GetHeroSpawnLocations() => _heroSpawnLocations;
 

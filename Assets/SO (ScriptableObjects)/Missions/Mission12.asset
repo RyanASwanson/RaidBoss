@@ -24,16 +24,20 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0128339a05223db40aae2581988a9ea0, type: 2}
   - {fileID: 11400000, guid: e3a0dad03ec099242b69fcc0759e259a, type: 2}
   - {fileID: 11400000, guid: 5cd74adfdadc94247a4cc60ba024fe89, type: 2}
+  _missionDisplayHighlights:
+  - HighlightType: 0
+    HightlightID: 0
   _tutorialPages:
-  - TutorialPageTitle: The Glacial Lord
-    TutorialPageTitleWidth: 950
+  - TutorialPageTitle: 'Boss: The Glacial Lord'
+    TutorialPageTitleWidth: 1265
     DefaultTextLocation: {x: 0, y: 40}
-    DefaultText: 'A new foe has appeared. The Glacial
+    DefaultText: 'A new foe has appeared. The <color=#0079FF>Glacial
 
-      Lord utilized its Frost
-      Fiend minions and
+      Lord</color>
+      utilized its <color=#0054FF>Frost Fiend</color> minions and
 
-      ice attacks to shatter your heroes.'
+      ice attacks
+      to shatter your heroes.'
     TutorialPageObjectLocation: {x: 0, y: 0}
     TutorialPageObject: {fileID: 0}
     TutorialPageCharacterTutorial:
@@ -44,12 +48,13 @@ MonoBehaviour:
   - TutorialPageTitle: Frost Fiends
     TutorialPageTitleWidth: 800
     DefaultTextLocation: {x: 0, y: 35}
-    DefaultText: 'The Glacial Lord has Frost Fiends around
+    DefaultText: 'The <color=#0079FF>Glacial Lord</color> has <color=#0054FF>Frost
+      Fiends</color> around
 
-      the arena that
-      perform some of the attacks
+      the arena that perform some of the attacks
 
-      for the Glacial Lord.'
+      for
+      the <color=#0079FF>Glacial Lord</color>.'
     TutorialPageObjectLocation: {x: 0, y: 0}
     TutorialPageObject: {fileID: 0}
     TutorialPageCharacterTutorial:
@@ -58,17 +63,18 @@ MonoBehaviour:
       TutorialPageCharacterIcon: {fileID: 21300000, guid: e52a946485e5bd14e89a47eaa57b38dc, type: 3}
       TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
   - TutorialPageTitle: Frost Fiends Weakness
-    TutorialPageTitleWidth: 1300
+    TutorialPageTitleWidth: 1310
     DefaultTextLocation: {x: 0, y: 50}
-    DefaultText: 'Attacks performed by the Glacial Lord
+    DefaultText: 'Attacks performed by the <color=#0079FF>Glacial Lord</color>
 
-      can freeze Frost Fiends,
-      entirely preventing
+      can
+      freeze <color=#0054FF>Frost Fiends</color>, entirely preventing
 
-      them from being able to attack. Line up
+      them
+      from being able to attack. Line up
 
-      the
-      Glacial Lords attacks with Frost Fiends.'
+      the <color=#0079FF>Glacial Lord</color>''s
+      attacks with <color=#0054FF>Frost Fiends</color>.'
     TutorialPageObjectLocation: {x: 0, y: -55}
     TutorialPageObject: {fileID: 4219184930868017209, guid: a9ba70893c03f9244976c55d023b89f6, type: 3}
     TutorialPageCharacterTutorial:
@@ -79,10 +85,10 @@ MonoBehaviour:
   - TutorialPageTitle: Freezing Frost Fiends
     TutorialPageTitleWidth: 1300
     DefaultTextLocation: {x: 0, y: 70}
-    DefaultText: 'If an attack would freeze a Frost Fiend,
+    DefaultText: 'If an attack would freeze a <color=#0054FF>Frost Fiend</color>,
 
-      the ability target
-      zone will glow yellow.'
+      the
+      ability target zone will glow yellow.'
     TutorialPageObjectLocation: {x: 0, y: -37}
     TutorialPageObject: {fileID: 2782490294402393858, guid: 9045ed8e6e3537847b71ad49af3493ba, type: 3}
     TutorialPageCharacterTutorial:
@@ -91,8 +97,10 @@ MonoBehaviour:
       TutorialPageCharacterIcon: {fileID: 0}
       TutorialPageCharacterBackground: {fileID: 0}
   _characterUnlock: {fileID: 11400000, guid: 02b364a59624d41448ad2e844c2a0ebb, type: 2}
+  _missionModifierUnlock: {fileID: 0}
   _missionUnlocks:
   - {fileID: 11400000, guid: a9fcd5e0dc5d17f4a81a58a9c2ba1c86, type: 2}
+  _achievementUnlocks: []
   _missionModifiers: []
   _missionStatModifiers:
     _bossHealthMultiplier: 0.9

@@ -10,10 +10,12 @@ public class SelectMissionModifierButton : MonoBehaviour
 
     [Space]
     [SerializeField] private Image _iconVisuals;
+    private RectTransform _rectTransform;
     
     // Start is called before the first frame update
     void Start()
     {
+        _rectTransform = GetComponent<RectTransform>();
         SetButtonModifierIconVisuals();
     }
 
@@ -36,5 +38,10 @@ public class SelectMissionModifierButton : MonoBehaviour
         SetButtonModifierIconVisuals();
     }
 
+    public void SetAnchoredPosition(Vector2 anchoredPosition)
+    {
+        anchoredPosition.Set(anchoredPosition.x, _rectTransform.anchoredPosition.y);
+        _rectTransform.anchoredPosition = anchoredPosition;
+    }
     #endregion
 }

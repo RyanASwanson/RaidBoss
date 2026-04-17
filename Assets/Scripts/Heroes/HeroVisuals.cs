@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class HeroVisuals : HeroChildrenFunctionality
 {
+    [SerializeField] private FollowObject _floorFollowIcons;
     [SerializeField] private CurveProgression _controlIcon;
     [SerializeField] private GameObject _healthStatusIcon;
     [Space]
@@ -35,6 +36,8 @@ public class HeroVisuals : HeroChildrenFunctionality
     [SerializeField] private RectTransform _buffDebuffOrigin;
     [SerializeField] private RectTransform _abilityReChargedPopupIconOrigin;
 
+    [SerializeField] private CurveProgression _heroOverheadCanvasAlphaCurve;
+
     [Space]
     [SerializeField] private Transform _recentHealthOrigin;
     [SerializeField] private Image _recentHealthPopUp;
@@ -43,6 +46,7 @@ public class HeroVisuals : HeroChildrenFunctionality
     [SerializeField] private Animator _recentHealthPopupAnimator;
 
     private const string SHOW_RECENT_HEALTH_POP_UP_ANIM_TRIGGER = "PopUpRecentHealth";
+    private const string RECENT_HEALTH_POP_UP_HEALTH_STATUS_ANIM_TRIGGER = "PopUpHealthStatus";
 
     private const string GROUND_HEALTH_STATUS_ANIM_INT = "HealthStatus";
 
@@ -114,6 +118,11 @@ public class HeroVisuals : HeroChildrenFunctionality
         _recentHealthOrigin.transform.localScale = new Vector3(newScale, newScale, newScale);
     }
 
+    private void SetHealthPopUpCriticalStatus(int status)
+    {
+        _recentHealthPopupAnimator.SetInteger(RECENT_HEALTH_POP_UP_HEALTH_STATUS_ANIM_TRIGGER,status);
+    }
+
     private Color DetermineHealthPopUpColor(float percent)
     {
         return _recentHealthPopUpGradient.Evaluate(percent);
@@ -126,22 +135,32 @@ public class HeroVisuals : HeroChildrenFunctionality
 
     private void HeroDied()
     {
+        _floorFollowIcons.StopFollowing(true);
+        HideHeroOverheadCanvas();
         HeroDeathAnimation();
+    }
+
+    public void HideHeroOverheadCanvas()
+    {
+        _heroOverheadCanvasAlphaCurve.StartMovingDownOnCurve();
     }
     
     private void HeroHealthAboveHalf()
     {
-        _healthStatusIcon.GetComponent<Animator>().SetInteger(GROUND_HEALTH_STATUS_ANIM_INT, 0);
+        //_healthStatusIcon.GetComponent<Animator>().SetInteger(GROUND_HEALTH_STATUS_ANIM_INT, 0);
+        SetHealthPopUpCriticalStatus(0);
     }
 
     private void HeroInjured()
     {
-        _healthStatusIcon.GetComponent<Animator>().SetInteger(GROUND_HEALTH_STATUS_ANIM_INT, 1);
+        //_healthStatusIcon.GetComponent<Animator>().SetInteger(GROUND_HEALTH_STATUS_ANIM_INT, 1);
+        SetHealthPopUpCriticalStatus(1);
     }
 
     private void HeroCritical()
     {
-        _healthStatusIcon.GetComponent<Animator>().SetInteger(GROUND_HEALTH_STATUS_ANIM_INT, 2);
+        //_healthStatusIcon.GetComponent<Animator>().SetInteger(GROUND_HEALTH_STATUS_ANIM_INT, 2);
+        SetHealthPopUpCriticalStatus(2);
     }
 
     #endregion
@@ -356,6 +375,11 @@ public class HeroVisuals : HeroChildrenFunctionality
         _addedOutline.OutlineWidth = _outlineWidth;
         _addedOutline.OutlineColor = heroSO.GetHeroOutlineColor();
         _addedOutline.OutlineMode = _outlineMode;
+    }
+
+    public void HideOutline()
+    {
+        _addedOutline.enabled = false;
     }
     #endregion
 

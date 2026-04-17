@@ -18,6 +18,8 @@ public class GeneralHeroHealthAudio
     public SpecificAudio HeroTookHealing;
 
     public SpecificAudio HeroDied;
+
+    public SpecificAudio LastHeroDied;
 }
 
 [System.Serializable]

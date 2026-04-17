@@ -13,6 +13,10 @@ public class SH_Fae : SpecificHeroFramework
     [SerializeField] private List<Vector3> _primaryAttackEulers;
     [SerializeField] private float _projectileSpawnDistance;
     [SerializeField] private GameObject _basicProjectile;
+    
+    private List<GeneralHeroDamageArea> _currentBasicProjectiles = new();
+    
+    private const int BASIC_PROJECTILES_PER_ATTACK = 4;
 
     [Space]
     [SerializeField] private float _manualContactDamage;
@@ -50,6 +54,8 @@ public class SH_Fae : SpecificHeroFramework
 
     private Vector3 _currentManualDirection;
     private float _currentAccelerationMultiplier;
+    
+    public const int MANUAL_BOUNCE_AUDIO_ID = 0;
 
     private Coroutine _manualCoroutine;
 
@@ -58,16 +64,17 @@ public class SH_Fae : SpecificHeroFramework
     [SerializeField] private float _passiveBasicAttackSpeedChangeManual;
 
     private float _currentPassiveBasicAttackSpeed = 1;
+    private float _startingPassiveBasicAttackSpeed;
     private bool _passiveBonusActive = false;
 
     private HeroStats _heroStats;
 
     #region Basic Abilities
 
-    protected override void CooldownAddToBasicAbilityCharge(float addedAmount)
+    /*protected override void CooldownAddToBasicAbilityCharge(float addedAmount)
     {
         base.CooldownAddToBasicAbilityCharge(addedAmount * _currentPassiveBasicAttackSpeed);
-    }
+    }*/
 
     public override void ActivateBasicAbilities()
     {
@@ -83,17 +90,37 @@ public class SH_Fae : SpecificHeroFramework
 
     protected void CreateBasicAttackProjectiles()
     {
-        foreach(Vector3 attackEuler in _primaryAttackEulers)
+        _currentBasicProjectiles.Clear();
+        
+        for (int i = 0; i < _primaryAttackEulers.Count; i++)
         {
-            GameObject newestProjectile = Instantiate(_basicProjectile, transform.position, Quaternion.Euler(attackEuler));
-            newestProjectile.transform.position = newestProjectile.transform.position + 
-                (newestProjectile.transform.forward * _projectileSpawnDistance);
+            GameObject newestProjectile = Instantiate(_basicProjectile, transform.position, Quaternion.Euler(_primaryAttackEulers[i]));
+            newestProjectile.transform.position += (newestProjectile.transform.forward * _projectileSpawnDistance);
 
             newestProjectile.GetComponent<SHP_FaeBasicProjectile>().SetUpProjectile(_myHeroBase, EHeroAbilityType.Basic);
 
+            GeneralHeroDamageArea damageArea = newestProjectile.GetComponent<GeneralHeroDamageArea>();
+            
             //Performs the set up for the damage area so that it knows it's owner
-            newestProjectile.GetComponent<GeneralHeroDamageArea>().SetUpDamageArea(_myHeroBase);
+            damageArea.SetUpDamageArea(_myHeroBase);
+
+            _currentBasicProjectiles.Add(damageArea);
         }
+    }
+
+    public void DisableDamageOfBasicProjectilesSet(GeneralHeroDamageArea ignoreProjectile)
+    {
+        foreach (GeneralHeroDamageArea damageArea in _currentBasicProjectiles)
+        {
+            if (damageArea == ignoreProjectile)
+            {
+                continue;
+            }
+            
+            damageArea.IncreaseDamageMultiplierByAmount(-1);
+            damageArea.IncreaseStaggerMultiplierByAmount(-1);
+        }
+        _currentBasicProjectiles.Clear();
     }
 
 
@@ -110,6 +137,8 @@ public class SH_Fae : SpecificHeroFramework
         _currentManualDirection = attackLocation - transform.position;
         //Makes sure there is no y value then normalizes
         _currentManualDirection = new Vector3(_currentManualDirection.x, 0, _currentManualDirection.z).normalized;*/
+        
+        _myHeroBase.GetPathfinding().SetIsHeroUsingMovementAbility(true);
 
         _currentManualDirection = BossManager.Instance.GetDirectionToBoss(transform.position);
 
@@ -147,7 +176,7 @@ public class SH_Fae : SpecificHeroFramework
             //Moves the character in the manual direction
             //Speed determined by movement speed of the character and the multiplier for the manual
             _myHeroBase.gameObject.transform.position += _currentManualDirection * 
-                _heroStats.GetCurrentSpeed() *_manualSpeedMultiplier * _currentAccelerationMultiplier* Time.deltaTime;
+                                                         (_heroStats.GetCurrentSpeed() * _manualSpeedMultiplier * _currentAccelerationMultiplier * Time.deltaTime);
 
             manualProgress += Time.deltaTime;
             yield return null;
@@ -158,6 +187,8 @@ public class SH_Fae : SpecificHeroFramework
 
     private void ManualProcessEnded()
     {
+        _myHeroBase.GetPathfinding().SetIsHeroUsingMovementAbility(false);
+        
         //Re-enables the pathfinding functionality
         _myHeroBase.GetPathfinding().EnableAbilityToMove();
         //Makes sure that the hero doesn't try to continue any previous pathfinding
@@ -235,12 +266,18 @@ public class SH_Fae : SpecificHeroFramework
             AudioManager.Instance.AllSpecificHeroAudio[_myHeroBase.GetHeroSO().GetHeroID()].ManualAbilityUsed);
     }
 
+    private void PlayManualBounceAudio()
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificHeroAudio[_myHeroBase.GetHeroSO().GetHeroID()]
+                .MiscellaneousHeroAudio[MANUAL_BOUNCE_AUDIO_ID]);
+    }
+
     /// <summary>
     /// Creates the swirl effect on the Fae manual ability
     /// </summary>
     private void CreateSwirlVFX()
     {
-        //TODO check for deletion
         Instantiate(_swirlVFX, _vfxWeaponSpawnPoint.transform);
     }
 
@@ -282,6 +319,8 @@ public class SH_Fae : SpecificHeroFramework
         {
             //Reflect the direction that the manual ability is moving
             _currentManualDirection = Vector3.Reflect(_currentManualDirection, rayHit.normal);
+
+            PlayManualBounceAudio();
 
             if (ManualHitBoss(rayHit))
             {
@@ -333,6 +372,8 @@ public class SH_Fae : SpecificHeroFramework
         {
             return;
         }
+
+        _currentPassiveBasicAttackSpeed = _passiveBasicAttackSpeedChangeWalking;
         _myHeroBase.GetHeroStats().ChangeCurrentBasicAbilityCooldownRate(_passiveBasicAttackSpeedChangeWalking);
         _passiveBonusActive = true;
     }
@@ -343,17 +384,26 @@ public class SH_Fae : SpecificHeroFramework
         {
             return;
         }
+
+        _currentPassiveBasicAttackSpeed = _startingPassiveBasicAttackSpeed;
         _myHeroBase.GetHeroStats().ChangeCurrentBasicAbilityCooldownRate(1/_passiveBasicAttackSpeedChangeWalking);
         _passiveBonusActive = false;
     }
 
     private void IncreaseBasicAttackSpeedOnManualStart()
     {
+        if (Mathf.Approximately(_currentPassiveBasicAttackSpeed, _passiveBasicAttackSpeedChangeWalking))
+        {
+            DecreaseBasicAttackSpeedOnMoveEnd();
+        }
+        
         if (_passiveBonusActive)
         {
             return;
         }
-        _myHeroBase.GetHeroStats().ChangeCurrentBasicAbilityCooldownRate(_passiveBasicAttackSpeedChangeWalking);
+        
+        _currentPassiveBasicAttackSpeed = _passiveBasicAttackSpeedChangeManual;
+        _myHeroBase.GetHeroStats().ChangeCurrentBasicAbilityCooldownRate(_passiveBasicAttackSpeedChangeManual);
         _passiveBonusActive = true;
     }
 
@@ -363,7 +413,8 @@ public class SH_Fae : SpecificHeroFramework
         {
             return;
         }
-        _myHeroBase.GetHeroStats().ChangeCurrentBasicAbilityCooldownRate(1/_passiveBasicAttackSpeedChangeWalking);
+        _currentPassiveBasicAttackSpeed = _startingPassiveBasicAttackSpeed;
+        _myHeroBase.GetHeroStats().ChangeCurrentBasicAbilityCooldownRate(1/_passiveBasicAttackSpeedChangeManual);
         _passiveBonusActive = false;
     }
 
@@ -380,6 +431,10 @@ public class SH_Fae : SpecificHeroFramework
         _heroStats = heroBase.GetHeroStats();
         
         _manualAudioWaitInterval = new WaitForSeconds(_manualAudioInterval);
+
+        _currentBasicProjectiles = new List<GeneralHeroDamageArea>(4);
+
+        _startingPassiveBasicAttackSpeed = _currentPassiveBasicAttackSpeed;
 
         base.SetUpSpecificHero(heroBase, heroSO);
     }

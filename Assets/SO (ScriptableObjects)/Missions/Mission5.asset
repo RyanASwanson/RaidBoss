@@ -22,19 +22,22 @@ MonoBehaviour:
   _associatedHeroes:
   - {fileID: 11400000, guid: fa900cf8282b2814fb9eb1a8cc860cd0, type: 2}
   - {fileID: 11400000, guid: 0128339a05223db40aae2581988a9ea0, type: 2}
+  _missionDisplayHighlights:
+  - HighlightType: 2
+    HightlightID: 1
   _tutorialPages:
-  - TutorialPageTitle: The Samurai
-    TutorialPageTitleWidth: 800
+  - TutorialPageTitle: 'Hero: The Samurai'
+    TutorialPageTitleWidth: 1100
     DefaultTextLocation: {x: 0, y: 40}
-    DefaultText: 'The Samurai is a patient and
+    DefaultText: 'The <color=#FF0000>Samurai</color> is a patient and
 
-      powerful damage dealer. He
-      waits
+      powerful
+      damage dealer. He waits
 
       for the perfect opportunity to strike
 
-      to inflict significant
-      damage.'
+      to
+      inflict significant damage.'
     TutorialPageObjectLocation: {x: 0, y: 0}
     TutorialPageObject: {fileID: 0}
     TutorialPageCharacterTutorial:
@@ -45,15 +48,15 @@ MonoBehaviour:
   - TutorialPageTitle: Iaijutsu
     TutorialPageTitleWidth: 525
     DefaultTextLocation: {x: 0, y: 45}
-    DefaultText: 'The Samurai''s basic ability is Iaijutsu.
+    DefaultText: 'The <color=#FF0000>Samurai</color>''s basic ability is
 
-      The Samurai performs
-      a quick slash
+      <color=#DE0000>Iaijutsu</color>.
+      The <color=#FF0000>Samurai</color> performs a
 
-      dealing damage and low stagger
+      quick slash dealing damage
 
-      horizontally to
-      the Samurai.'
+      and
+      low stagger horizontally.'
     TutorialPageObjectLocation: {x: 0, y: 0}
     TutorialPageObject: {fileID: 0}
     TutorialPageCharacterTutorial:
@@ -64,18 +67,18 @@ MonoBehaviour:
   - TutorialPageTitle: Yanagi-uke
     TutorialPageTitleWidth: 760
     DefaultTextLocation: {x: 0, y: 40}
-    DefaultText: 'The Samurai''s active ability is Yanagi-uke.
+    DefaultText: 'The <color=#FF0000>Samurai</color>''s active ability is <color=#DE0000>Yanagi-uke</color>.
 
-      The Samurai
-      readies himself for an oncoming
+      The
+      <color=#FF0000>Samurai</color> readies himself for an oncoming
 
-      attack, and if hit by the boss within
-      a short period
+      attack,
+      and if hit by the boss within a short period
 
-      he ignores the damage and deals large
+      he ignores the damage and
+      deals large
 
-      damage and
-      good stagger to the boss.'
+      damage and good stagger to the boss.'
     TutorialPageObjectLocation: {x: 0, y: 0}
     TutorialPageObject: {fileID: 0}
     TutorialPageCharacterTutorial:
@@ -84,14 +87,15 @@ MonoBehaviour:
       TutorialPageCharacterIcon: {fileID: 21300000, guid: c4ffd0422e3f38b4ea00552a56f91dfa, type: 3}
       TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
   - TutorialPageTitle: Bushido
-    TutorialPageTitleWidth: 550
+    TutorialPageTitleWidth: 575
     DefaultTextLocation: {x: 0, y: 40}
-    DefaultText: 'The Samurai''s passive ability is Bushido.
+    DefaultText: 'The <color=#FF0000>Samurai</color>''s passive ability is <color=#DE0000>Bushido</color>.
 
-      When the Samurai
-      deals damage he
+      When
+      the <color=#FF0000>Samurai</color> deals damage he
 
-      reduces the cooldown of Yanagi-uke.'
+      reduces the cooldown
+      of <color=#DE0000>Yanagi-uke</color>.'
     TutorialPageObjectLocation: {x: 0, y: 0}
     TutorialPageObject: {fileID: 0}
     TutorialPageCharacterTutorial:
@@ -116,19 +120,20 @@ MonoBehaviour:
       TutorialPageCharacterIcon: {fileID: 0}
       TutorialPageCharacterBackground: {fileID: 0}
   _characterUnlock: {fileID: 11400000, guid: 0128339a05223db40aae2581988a9ea0, type: 2}
+  _missionModifierUnlock: {fileID: 0}
   _missionUnlocks:
   - {fileID: 11400000, guid: 5a9388c2a2f1b0e4a85421c9ae9d644d, type: 2}
   _achievementUnlocks:
   - {fileID: 11400000, guid: 6306b74bf97411641b5ddd99b26875ae, type: 2}
   _missionModifiers: []
   _missionStatModifiers:
-    _bossHealthMultiplier: 0.4
+    _bossHealthMultiplier: 0.375
     _bossStaggerMultiplier: 1
     _bossAttackSpeedMultiplier: 1
     _bossDamageResistanceChangeOnStaggerMultiplier: 1
     _bossEnrageTimeMultiplier: 1
     _bossEnrageDamageMultiplier: 1
-    _bossAbilitiesUsable: 0101010101
+    _bossAbilitiesUsable: 0101010100
     _heroHealthMultiplier: 1
     _heroDamageMultiplier: 1
     _heroStaggerMultiplier: 1

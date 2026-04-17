@@ -85,8 +85,12 @@ MonoBehaviour:
   - {fileID: 231436586398079246}
   _hasLifetime: 1
   _lifetime: 0.6
+  _hasColliderActivationDelay: 0
+  _colliderActivationDelay: 0
   _hasColliderLifetime: 0
   _colliderLifetime: 0
+  _doesHitCenteredVFXCopyRotation: 0
+  _hitCenteredVFXCopyTarget: {fileID: 0}
   _hitCenteredVFX: {fileID: 8189111281493405317, guid: 12d1bd6ba0e5a2548972c2fe3d87082c, type: 3}
   _lifetimeEndEvent:
     m_PersistentCalls:
@@ -106,8 +110,8 @@ MonoBehaviour:
   _colliderLifetimeEndEvent:
     m_PersistentCalls:
       m_Calls: []
-  _enterDamage: 1
-  _enterStagger: 4
+  _enterDamage: 0.85
+  _enterStagger: 4.25
   _enterEvent:
     m_PersistentCalls:
       m_Calls:

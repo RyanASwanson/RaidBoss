@@ -33,37 +33,6 @@ Transform:
   m_Father: {fileID: 2470178960459390765}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2135785944259612458
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1650576601406870928}
-  m_Layer: 0
-  m_Name: MirageBasicAbility
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1650576601406870928
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2135785944259612458}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8870862849044782012}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2470178960459390764
 GameObject:
   m_ObjectHideFlags: 0
@@ -240,7 +209,6 @@ Transform:
   m_Children:
   - {fileID: 8870862848190930108}
   - {fileID: 8870862848555234776}
-  - {fileID: 1650576601406870928}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -259,7 +227,7 @@ MonoBehaviour:
   _areaColliders:
   - {fileID: 9120810543019325691}
   _hasLifetime: 1
-  _lifetime: 1.5
+  _lifetime: 2.5
   _hasColliderActivationDelay: 0
   _colliderActivationDelay: 0
   _hasColliderLifetime: 0
@@ -273,7 +241,7 @@ MonoBehaviour:
   _colliderLifetimeEndEvent:
     m_PersistentCalls:
       m_Calls: []
-  _enterDamage: 6.5
+  _enterDamage: 7.5
   _enterStagger: 1.5
   _enterEvent:
     m_PersistentCalls:

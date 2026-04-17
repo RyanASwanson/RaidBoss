@@ -48,6 +48,11 @@ public class TimeManager : MainUniversalManagerFramework
     
     public void PressGamePauseButton()
     {
+        if (SceneLoadManager.Instance.IsSceneLoading())
+        {
+            return;
+        }
+        
         ToggleTimeStop(true);
     }
 

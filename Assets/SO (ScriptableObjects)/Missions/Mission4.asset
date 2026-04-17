@@ -21,6 +21,7 @@ MonoBehaviour:
   _associatedLevel: {fileID: 11400000, guid: 763a87e823e4c5d4d8c9e44aa8aa4a02, type: 2}
   _associatedHeroes:
   - {fileID: 11400000, guid: fa900cf8282b2814fb9eb1a8cc860cd0, type: 2}
+  _missionDisplayHighlights: []
   _tutorialPages:
   - TutorialPageTitle: Stagger
     TutorialPageTitleWidth: 525
@@ -62,34 +63,39 @@ MonoBehaviour:
       TutorialPageCharacterBackground: {fileID: 0}
   - TutorialPageTitle: Enrage
     TutorialPageTitleWidth: 475
-    DefaultTextLocation: {x: 0, y: 0}
-    DefaultText: 'Don''t take too long during a
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'Taking too long too cause the boss to
 
-      fight as the boss will eventually
-      get
+      become enraged, dealing
+      increased damage
 
-      enraged and will deal increased
+      and empowering their abilities. A blue bar
 
-      damage with its attacks.'
-    TutorialPageObjectLocation: {x: 0, y: 0}
-    TutorialPageObject: {fileID: 0}
+      will
+      appear at the top of the screen when
+
+      the boss is close to getting enraged.'
+    TutorialPageObjectLocation: {x: 0, y: -70}
+    TutorialPageObject: {fileID: 8595946271849662049, guid: 2892c5f69431f154d96f9b94be1c9a88, type: 3}
     TutorialPageCharacterTutorial:
       TutorialCharacterIconLocation: {x: 0, y: 0}
       TutorialCharacterIconScaleMultiplier: 1
       TutorialPageCharacterIcon: {fileID: 0}
       TutorialPageCharacterBackground: {fileID: 0}
   _characterUnlock: {fileID: 0}
+  _missionModifierUnlock: {fileID: 0}
   _missionUnlocks:
   - {fileID: 11400000, guid: fcfd0a27990972e44bfdc6fac01bea39, type: 2}
+  _achievementUnlocks: []
   _missionModifiers: []
   _missionStatModifiers:
-    _bossHealthMultiplier: 0.125
-    _bossStaggerMultiplier: 0.75
+    _bossHealthMultiplier: 0.095
+    _bossStaggerMultiplier: 0.65
     _bossAttackSpeedMultiplier: 0.9
-    _bossDamageResistanceChangeOnStaggerMultiplier: 1.5
+    _bossDamageResistanceChangeOnStaggerMultiplier: 1.65
     _bossEnrageTimeMultiplier: 1
     _bossEnrageDamageMultiplier: 1
-    _bossAbilitiesUsable: 0101010101
+    _bossAbilitiesUsable: 0101010100
     _heroHealthMultiplier: 1
     _heroDamageMultiplier: 1
     _heroStaggerMultiplier: 1

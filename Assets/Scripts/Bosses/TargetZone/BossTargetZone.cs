@@ -22,6 +22,9 @@ public class BossTargetZone : BossProjectileFramework
     [Space]
     [SerializeField] private EBossTargetZoneDisappearType _targetZoneDisappearType;
     [SerializeField] private float _targetZoneDisappearSpeedMultiplier;
+
+    [SerializeField] private bool _doesTargetZoneAutomaticallyDisappear;
+    [SerializeField] private float _targetZoneAutomaticDisappearDelay;
     
     [Space]
     [SerializeField] private float _materialChangeDelay;
@@ -35,6 +38,8 @@ public class BossTargetZone : BossProjectileFramework
     
     [SerializeField] private GameObject[] _additionalGameObjectReferences;
 
+    [SerializeField] private BossTargetZoneOutline _targetZoneOutline;
+
     [Space] 
     [SerializeField] private UnityEvent _onTargetZoneSetToHeroInRange;
     [SerializeField] private UnityEvent _onTargetZoneSetToNoHeroInRange;
@@ -47,19 +52,37 @@ public class BossTargetZone : BossProjectileFramework
     private const float TARGET_ZONE_APPEAR_DISAPPEAR_TIME = .1f;
     
     protected List<HeroBase> _heroesInRange = new List<HeroBase>();
+
+    private const string TARGET_ZONE_TOP_COLOR_PROPERTY_NAME = "_TopColor";
+    private static int _targetZoneTopColorProperty = -1;
     
     protected BossTargetZoneParent _bossTargetZoneParent;
 
     protected void Start()
     {
+        if (_targetZoneTopColorProperty == -1)
+        {
+            SetTopColorProperty();
+        }
+        
         PlayAppearAnimation();
         StartCoroutine(DelayInitialMaterialChange());
+
+        if (_doesTargetZoneAutomaticallyDisappear)
+        {
+            StartCoroutine(AutomaticDisappearDelay());
+        }
     }
 
     protected void OnDestroy()
     {
         _onTargetZoneSetToHeroInRange.RemoveAllListeners();
         _onTargetZoneSetToNoHeroInRange.RemoveAllListeners();
+    }
+
+    protected void SetTopColorProperty()
+    {
+        _targetZoneTopColorProperty = Shader.PropertyToID(TARGET_ZONE_TOP_COLOR_PROPERTY_NAME);
     }
 
     protected void PlayAppearAnimation()
@@ -219,9 +242,21 @@ public class BossTargetZone : BossProjectileFramework
             }
             renderer.material = newMaterial;
         }
+        SetOutlineColorToMaterialColor(newMaterial);
     }
     
-  
+    #region Outline
+
+    private void SetOutlineColorToMaterialColor(Material material)
+    {
+        if (_targetZoneOutline.IsUnityNull())
+        {
+            Debug.Log("Cannot find target zone outline color");
+        }
+        
+        _targetZoneOutline.SetTargetZoneOutlineColor(material.GetColor(_targetZoneTopColorProperty),false);
+    }
+    #endregion
     
     #region Removal
 
@@ -241,6 +276,12 @@ public class BossTargetZone : BossProjectileFramework
             _targetAnimator.SetInteger(TARGET_ZONE_DISAPPEAR_ANIM_INT, (int)_targetZoneDisappearType);
             _targetAnimator.speed = _targetZoneDisappearSpeedMultiplier;
         }
+    }
+
+    private IEnumerator AutomaticDisappearDelay()
+    {
+        yield return new WaitForSeconds(_targetZoneAutomaticDisappearDelay);
+        RemoveTargetZone();
     }
     #endregion
     

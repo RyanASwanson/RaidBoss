@@ -24,18 +24,22 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2b5cc09a0a41a0c40a6b8c0fa2ebb464, type: 2}
   - {fileID: 11400000, guid: e3a0dad03ec099242b69fcc0759e259a, type: 2}
   - {fileID: 11400000, guid: 5cd74adfdadc94247a4cc60ba024fe89, type: 2}
+  _missionDisplayHighlights:
+  - HighlightType: 2
+    HightlightID: 0
   _tutorialPages:
-  - TutorialPageTitle: The Vampire
-    TutorialPageTitleWidth: 825
+  - TutorialPageTitle: 'Hero: The Vampire'
+    TutorialPageTitleWidth: 1125
     DefaultTextLocation: {x: 0, y: 43}
-    DefaultText: 'The Vampire is a bloodthirsty
+    DefaultText: 'The <color=#FF2A2A>Vampire</color> is a bloodthirsty
 
-      and unkillable tank. She inflicts
+      and
+      unkillable tank. She inflicts
 
-      heavy
-      stagger, all while healing
+      heavy stagger, all while healing
 
-      from any damage dealt.'
+      from
+      any damage dealt.'
     TutorialPageObjectLocation: {x: 0, y: 0}
     TutorialPageObject: {fileID: 0}
     TutorialPageCharacterTutorial:
@@ -46,18 +50,19 @@ MonoBehaviour:
   - TutorialPageTitle: Blood Lance
     TutorialPageTitleWidth: 775
     DefaultTextLocation: {x: 0, y: 40}
-    DefaultText: 'The Vampire''s basic ability is Blood Lance.
+    DefaultText: 'The <color=#FF2A2A>Vampire</color>''s basic ability is <color=#CC0000>Blood
+      Lance</color>.
 
-      The Vampire
-      fires a projectile that splits
+      The <color=#FF2A2A>Vampire</color> fires a projectile
+      that splits
 
-      into 3 projectiles after a short distance
-      dealing
+      into 3 projectiles after a short distance dealing
 
-      heavy stagger. Line up the distance just right
+      heavy
+      stagger. Line up the distance just right
 
-      to get
-      the most use out of it.'
+      to get the most use out of
+      it.'
     TutorialPageObjectLocation: {x: 0, y: 0}
     TutorialPageObject: {fileID: 0}
     TutorialPageCharacterTutorial:
@@ -68,15 +73,15 @@ MonoBehaviour:
   - TutorialPageTitle: Bat Swarm
     TutorialPageTitleWidth: 725
     DefaultTextLocation: {x: 0, y: 40}
-    DefaultText: 'The Vampire''s basic ability is Bat Swarm.
+    DefaultText: 'The <color=#FF2A2A>Vampire</color>''s basic ability is <color=#CC0000>Bat
+      Swarm</color>.
 
-      The Vampire disperses
-      into a swarm of bats
+      The <color=#FF2A2A>Vampire</color> disperses into a swarm
+      of bats
 
       becoming immune to damage and gaining
 
-      increased
-      healing.'
+      increased healing.'
     TutorialPageObjectLocation: {x: 0, y: 0}
     TutorialPageObject: {fileID: 0}
     TutorialPageCharacterTutorial:
@@ -85,14 +90,15 @@ MonoBehaviour:
       TutorialPageCharacterIcon: {fileID: 21300000, guid: 3f0341e4515938443b042eb518d670d0, type: 3}
       TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
   - TutorialPageTitle: Lifesteal
-    TutorialPageTitleWidth: 640
+    TutorialPageTitleWidth: 600
     DefaultTextLocation: {x: 0, y: 40}
-    DefaultText: 'The Vampire''s basic ability is Lifesteal.
+    DefaultText: 'The <color=#FF2A2A>Vampire</color>''s basic ability is <color=#CC0000>Lifesteal</color>.
 
-      The Vampire heals
-      proportional
+      The
+      <color=#FF2A2A>Vampire</color> heals proportional
 
-      to the damage she deals.'
+      to the damage she
+      deals.'
     TutorialPageObjectLocation: {x: 0, y: 0}
     TutorialPageObject: {fileID: 0}
     TutorialPageCharacterTutorial:
@@ -101,8 +107,10 @@ MonoBehaviour:
       TutorialPageCharacterIcon: {fileID: 21300000, guid: 2705d83ecbf743347b995d114c502128, type: 3}
       TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
   _characterUnlock: {fileID: 11400000, guid: 77065cfc021c68f45b33aa0acd24fa46, type: 2}
+  _missionModifierUnlock: {fileID: 0}
   _missionUnlocks:
   - {fileID: 11400000, guid: 661092f62fe15ea43acd481bcd130baf, type: 2}
+  _achievementUnlocks: []
   _missionModifiers: []
   _missionStatModifiers:
     _bossHealthMultiplier: 1

@@ -18,8 +18,8 @@ MonoBehaviour:
     Lord'
   _bossID: 2
   _bossMusicID: 2
-  _maxHP: 250
-  _baseStaggerMax: 75
+  _maxHP: 300
+  _baseStaggerMax: 85
   _staggerDuration: 14
   _rotationSpeed: 3
   _damageIncrementMultiplier: 1.05
@@ -33,6 +33,7 @@ MonoBehaviour:
   _floorMaterial: {fileID: 2100000, guid: ff9be8495c10ae5459f8b13c09883284, type: 2}
   _miniFloorMaterial: {fileID: 2100000, guid: fd83ce7dacee5654c85b2efbc24df22a, type: 2}
   _miniFloorLockedMaterial: {fileID: 2100000, guid: 563fc88c5ef66e04283bf32ffd71deb5, type: 2}
+  _missionSelectionGlowMaterial: {fileID: 2100000, guid: 204a0d10139a22a479cb86250d16f419, type: 2}
   _backgroundMaterial: {fileID: 2100000, guid: d41b6927499266c40b69effda9b35595, type: 2}
   _backgroundParticles: {fileID: 5876734845234006166, guid: ff800e669fbfc8844a0059f1ac4e860d, type: 3}
   _bossStandard: {fileID: 847833056232107879, guid: b4a6c4f2a998afc4ab34f44b38edb96b, type: 3}
@@ -71,7 +72,7 @@ MonoBehaviour:
     _abilityType: 0
     _abilityDescription: 'Icicles fall from the
 
-      skynear a hero but
+      sky near a Hero but
 
       can
       hit Frost Fiends
@@ -100,5 +101,7 @@ MonoBehaviour:
 
       hitting them with
 
-      boss attacks'
+      Boss attacks'
     _abilityImage: {fileID: 21300000, guid: e52a946485e5bd14e89a47eaa57b38dc, type: 3}
+  _associatedAchievements:
+  - {fileID: 11400000, guid: 38f18b7a6de893c4ba8defc81bfbffa2, type: 2}

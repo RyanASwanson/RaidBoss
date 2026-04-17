@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ececbe150ee4444ba98f7697970832b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _basicAbilityChargeTime: 6
+  _basicAbilityChargeTime: 4
   _manualAbilityChargeTime: 20
   _heroSpecificAnimator: {fileID: 5042494388720665591}
   _hasBasicAbilityAnimation: 1
@@ -59,10 +59,12 @@ MonoBehaviour:
   _heroSpecificUI: {fileID: 0}
   _basicProjectile: {fileID: 2326089874878324366, guid: 4e91b3f7a55d11741a98a29c36478819, type: 3}
   _manualAbilityDuration: 10
+  _manualAbilityDurationWarning: 7
   _manualBufferDuration: 1
-  _manualAbilityHealingIncrease: 1
+  _manualAbilityHealingIncrease: 0.75
   _batSpiralRotation: {fileID: 7455698943174933673}
   _manualObjectEmitter: {fileID: 2238349170861177619}
+  _manualLifeTimeWarningCurve: {fileID: 4016477926954331254}
   _passiveAbilityLifestealMultiplier: 1
   _passiveHealingDelay: 0.3
   _passiveHealProjectile: {fileID: 8696333495294499000, guid: 34dec912b6483dc40affae84d4970187, type: 3}
@@ -173,6 +175,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2ec46697c071f2b4ea17e09660bedb65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4016477926954331254 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7181074974782590299, guid: f14d8af99e72011479ee3f2a9beb653c, type: 3}
+  m_PrefabInstance: {fileID: 6058793680759841069}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 508c048b50abf854791f2f498bb01037, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &7455698943174933673 stripped

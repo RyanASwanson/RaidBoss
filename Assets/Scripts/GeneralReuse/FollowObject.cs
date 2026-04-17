@@ -11,6 +11,7 @@ public class FollowObject : MonoBehaviour
     [Space]
     [SerializeField] private bool _doesHideAfterStopFollowing;
     [SerializeField] private bool _doesDestroyAfterStopFollowing;
+    [SerializeField] private float _destroyFollowDelay = 0;
 
     [Space] 
     [SerializeField] private bool _doesSetRotationOnFollowStart;
@@ -26,6 +27,7 @@ public class FollowObject : MonoBehaviour
     [SerializeField] private UnityEvent _onFollowStart;
     [SerializeField] private UnityEvent _onFollowStopDelayStarted;
     [SerializeField] private UnityEvent _onFollowStop;
+    [SerializeField] private UnityEvent _onFollowObjectMissing;
     
     private GameObject _currentFollowTarget;
     
@@ -111,11 +113,16 @@ public class FollowObject : MonoBehaviour
                 }
                 else if (_doesDestroyAfterStopFollowing)
                 {
-                    Destroy(gameObject);
+                    DestroyAfterStopFollowing();
                 }
             }
         }
         
+    }
+
+    public void DestroyAfterStopFollowing()
+    {
+        Destroy(gameObject,_destroyFollowDelay);
     }
 
     private IEnumerator FollowingObjectProcess()
@@ -125,6 +132,9 @@ public class FollowObject : MonoBehaviour
             transform.position = _currentFollowTarget.transform.position + _followLocationOffset;
             yield return null;
         }
+
+        StopFollowing(true);
+        InvokeOnFollowObjectMissing();
     }
 
     private void TriggerStartFollowingAnimation()
@@ -157,4 +167,17 @@ public class FollowObject : MonoBehaviour
     {
         _onFollowStop?.Invoke();
     }
+
+    private void InvokeOnFollowObjectMissing()
+    {
+        _onFollowObjectMissing?.Invoke();
+    }
+    
+    #region Setters
+
+    public void SetFollowLocationOffset(Vector3 followOffset)
+    {
+        _followLocationOffset = followOffset;
+    }
+    #endregion
 }

@@ -17,6 +17,10 @@ public class HeroesManager : MainGameplayManagerFramework
     
     [Tooltip("The time between each hero being initially spawned")]
     [SerializeField] private float _heroSpawnInterval;
+    
+    [Space]
+    [Header("Achievements")]
+    [SerializeField] private AchievementSO _clutchAchievement;
 
     private List<HeroBase> _currentHeroes = new List<HeroBase>();
     private List<HeroBase> _currentLivingHeroes = new List<HeroBase>();
@@ -90,10 +94,16 @@ public class HeroesManager : MainGameplayManagerFramework
     {
         //Removes the hero from the list of living heroes
         _currentLivingHeroes.Remove(deadHero);
+        
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.GeneralHeroAudio.HealthAudio.HeroDied);
+        
         //Checks if the game should be declared a loss
         if (CheckIfAllHeroesDead())
         {
             TimeManager.Instance.BattleLostTimeSlow();
+            AudioManager.Instance.PlaySpecificAudio(
+                AudioManager.Instance.GeneralHeroAudio.HealthAudio.LastHeroDied);
         }
         else
         {
@@ -132,6 +142,19 @@ public class HeroesManager : MainGameplayManagerFramework
         }
     }
 
+    private void BattleWon()
+    {
+        if (SelectionManager.Instance.GetSelectedDifficulty() < EGameDifficulty.Mythic)
+        {
+            return;
+        }
+
+        if (_currentLivingHeroes.Count <= 1)
+        {
+            AchievementManager.Instance.UnlockAchievement(_clutchAchievement);
+        }
+    }
+
     #region BaseManager
     /// <summary>
     /// Establishes the Instance for the HeroesManager
@@ -146,6 +169,8 @@ public class HeroesManager : MainGameplayManagerFramework
     {
         base.SubscribeToEvents();
         GameStateManager.Instance.GetStartOfCharacterSpawningEvent().AddListener(StartHeroSpawning);
+        
+        GameStateManager.Instance.GetBattleWonEvent().AddListener(BattleWon);
     }
 
     #endregion
@@ -171,6 +196,7 @@ public class HeroesManager : MainGameplayManagerFramework
     public GameObject GetBaseHeroPrefab() => _baseHeroPrefab;
     public List<HeroBase> GetCurrentHeroes() => _currentHeroes;
     public List<HeroBase> GetCurrentLivingHeroes() => _currentLivingHeroes;
+    public HeroBase GetRandomCurrentLivingHero() => _currentLivingHeroes[Random.Range(0, _currentLivingHeroes.Count)];
     public int GetAmountOfLivingHeroes() => _currentLivingHeroes.Count;
     public int GetAmountOfDeadHeroes() => _currentHeroes.Count - _currentLivingHeroes.Count;
 

@@ -23,14 +23,17 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0128339a05223db40aae2581988a9ea0, type: 2}
   - {fileID: 11400000, guid: 2b5cc09a0a41a0c40a6b8c0fa2ebb464, type: 2}
   - {fileID: 11400000, guid: e3a0dad03ec099242b69fcc0759e259a, type: 2}
+  _missionDisplayHighlights:
+  - HighlightType: 2
+    HightlightID: 2
   _tutorialPages:
-  - TutorialPageTitle: The Shaman
-    TutorialPageTitleWidth: 775
+  - TutorialPageTitle: 'Hero: The Shaman'
+    TutorialPageTitleWidth: 1075
     DefaultTextLocation: {x: 0, y: 45}
-    DefaultText: 'The Shaman is a well rounded and
+    DefaultText: 'The <color=#4273FF>Shaman</color> is a well rounded and
 
-      strategic damage dealer.
-      He deals damage
+      strategic
+      damage dealer. He deals damage
 
       over wide areas while waiting for his
 
@@ -46,12 +49,13 @@ MonoBehaviour:
   - TutorialPageTitle: Tornado
     TutorialPageTitleWidth: 560
     DefaultTextLocation: {x: 0, y: 40}
-    DefaultText: 'The Shaman''s basic ability is
+    DefaultText: 'The <color=#4273FF>Shaman</color>''s basic ability is
 
-      Tornado. The Shaman creates
-      a
+      <color=#0042FF>Tornado</color>.
+      The <color=#4273FF>Shaman</color> creates a
 
-      tornado which deals damage and
+      tornado which deals damage
+      and
 
       low stagger vertically.'
     TutorialPageObjectLocation: {x: 0, y: 0}
@@ -64,15 +68,18 @@ MonoBehaviour:
   - TutorialPageTitle: Ball Lightning
     TutorialPageTitleWidth: 880
     DefaultTextLocation: {x: 0, y: 40}
-    DefaultText: 'The Shaman''s active ability is Ball Lightning.
+    DefaultText: 'The <color=#4273FF>Shaman</color>''s active ability is
 
-      The Shaman
-      fires a ball of lightning that bounces
+      <color=#0042FF>Ball
+      Lightning</color>. The <color=#4273FF>Shaman</color> fires a ball
 
-      between all heroes. Line it up
-      to hit the boss
+      of
+      lightning that bounces between
 
-      multiple times.'
+      all heroes. Line it up to hit
+
+      the
+      boss multiple times.'
     TutorialPageObjectLocation: {x: 0, y: 0}
     TutorialPageObject: {fileID: 0}
     TutorialPageCharacterTutorial:
@@ -83,15 +90,19 @@ MonoBehaviour:
   - TutorialPageTitle: Spirit Totem
     TutorialPageTitleWidth: 740
     DefaultTextLocation: {x: 0, y: 40}
-    DefaultText: 'The Shaman''s passive ability is Spirit Totem.
+    DefaultText: 'The <color=#4273FF>Shaman</color>''s passive ability is
 
-      The Shaman
-      creates a totem at his location after
+      <color=#0042FF>Spirit
+      Totem</color>. The <color=#4273FF>Shaman</color> creates a totem
 
-      using Ball Lightning. The next
-      use of Ball Lightning
+      at
+      his location after using <color=#0042FF>Ball Lightning</color>. The
 
-      will bounce off of the totem as well as all heroes.'
+      next
+      use of <color=#0042FF>Ball Lightning</color> will bounce off
+
+      of the
+      totem as well as all heroes.'
     TutorialPageObjectLocation: {x: 0, y: 0}
     TutorialPageObject: {fileID: 0}
     TutorialPageCharacterTutorial:
@@ -100,8 +111,10 @@ MonoBehaviour:
       TutorialPageCharacterIcon: {fileID: 21300000, guid: 8a84224464139aa4790c50fec3f988e0, type: 3}
       TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
   _characterUnlock: {fileID: 11400000, guid: e3a0dad03ec099242b69fcc0759e259a, type: 2}
+  _missionModifierUnlock: {fileID: 0}
   _missionUnlocks:
   - {fileID: 11400000, guid: 891da014c2e98db41900484d53a617bc, type: 2}
+  _achievementUnlocks: []
   _missionModifiers: []
   _missionStatModifiers:
     _bossHealthMultiplier: 0.8
@@ -110,7 +123,7 @@ MonoBehaviour:
     _bossDamageResistanceChangeOnStaggerMultiplier: 1
     _bossEnrageTimeMultiplier: 1
     _bossEnrageDamageMultiplier: 1
-    _bossAbilitiesUsable: 0101010001
+    _bossAbilitiesUsable: 0101010100
     _heroHealthMultiplier: 1
     _heroDamageMultiplier: 1
     _heroStaggerMultiplier: 1

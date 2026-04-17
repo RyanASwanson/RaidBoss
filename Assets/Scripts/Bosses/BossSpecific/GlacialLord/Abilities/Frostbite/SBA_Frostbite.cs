@@ -41,13 +41,6 @@ public class SBA_Frostbite : SpecificBossAbilityFramework
                 newTargetZone.SetTargetZoneDeactivatedStatesOfAllTargetZones(true);
                 continue;
             }
-            
-            /*Debug.Log("Attempt get component");
-            if (newTargetZone.gameObject.TryGetComponent(
-                out GlacialLordDisableTargetZoneOnFreeze glacialLordDisableTargetZoneOnFreeze))
-            {
-                glacialLordDisableTargetZoneOnFreeze.AddFiendToAssociatedFiends(frostFiend);
-            }*/
 
             _attackingFiends.Add(frostFiend);
 
@@ -77,6 +70,8 @@ public class SBA_Frostbite : SpecificBossAbilityFramework
 
             newFrostbite.transform.LookAt(_glacialLord.transform);
             newFrostbite.transform.eulerAngles = new Vector3(0, newFrostbite.transform.eulerAngles.y, 0);
+            
+            frostFiend.SetHasFrostFiendAttacked(true);
         }
 
         base.AbilityStart();

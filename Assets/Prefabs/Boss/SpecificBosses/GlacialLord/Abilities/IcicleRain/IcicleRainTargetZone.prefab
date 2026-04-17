@@ -1,5 +1,64 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2846479470040106073
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 785070555649181842}
+  - component: {fileID: 7780987664591327780}
+  m_Layer: 0
+  m_Name: Particles
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &785070555649181842
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2846479470040106073}
+  m_LocalRotation: {x: 0, y: 0.38268343, z: 0, w: 0.92387956}
+  m_LocalPosition: {x: 0, y: 10.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5656277926412569903}
+  m_Father: {fileID: 78679852315692155}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 45, z: 0}
+--- !u!114 &7780987664591327780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2846479470040106073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17d57178ea0021a4b8e770bad5c72d0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hasLifeTime: 1
+  _lifeTime: 5
+  _hasDetachTime: 0
+  _detachTime: 0
+  _hasCustomEmmisionRateCurve: 0
+  _customEmissionCurveMultiplier: 0
+  _customEmissionRateCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _particleSystems:
+  - {fileID: 0}
 --- !u!1 &7689631090584172797
 GameObject:
   m_ObjectHideFlags: 0
@@ -9,6 +68,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7689631090584172796}
+  - component: {fileID: 641767319213074316}
   - component: {fileID: -1994735667306127891}
   m_Layer: 0
   m_Name: IcicleRainTargetZone
@@ -33,6 +93,35 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &641767319213074316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7689631090584172797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 529cb803b04ccd442b304b93bb5d1608, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _doesDetachOnStart: 0
+  _doesDisableOnStart: 0
+  _doesHideAfterStopFollowing: 0
+  _doesDestroyAfterStopFollowing: 0
+  _doesSetRotationOnFollowStart: 0
+  _followStartEulerAngles: {x: 0, y: 0, z: 0}
+  _followLocationOffset: {x: 0, y: 0, z: 0}
+  _startFollowObject: {fileID: 0}
+  _onFollowStart:
+    m_PersistentCalls:
+      m_Calls: []
+  _onFollowStopDelayStarted:
+    m_PersistentCalls:
+      m_Calls: []
+  _onFollowStop:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &-1994735667306127891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70,7 +159,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8324970091842045906}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -78,6 +167,7 @@ Transform:
   - {fileID: 936156920039945700}
   - {fileID: 9158604651326343696}
   - {fileID: 2374136076107786084}
+  - {fileID: 785070555649181842}
   m_Father: {fileID: 7689631090584172796}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -729,6 +819,68 @@ Transform:
 Transform:
   m_CorrespondingSourceObject: {fileID: 1526877939614622646, guid: e75204733c1e99544ae06c62d51823d3, type: 3}
   m_PrefabInstance: {fileID: 5901706100827308144}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6696439387483306902
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 785070555649181842}
+    m_Modifications:
+    - target: {fileID: 1338038488659146425, guid: 869d199fc1eccfc478eb150b2ee78c2b, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1338038488659146425, guid: 869d199fc1eccfc478eb150b2ee78c2b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1338038488659146425, guid: 869d199fc1eccfc478eb150b2ee78c2b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1338038488659146425, guid: 869d199fc1eccfc478eb150b2ee78c2b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1338038488659146425, guid: 869d199fc1eccfc478eb150b2ee78c2b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1338038488659146425, guid: 869d199fc1eccfc478eb150b2ee78c2b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1338038488659146425, guid: 869d199fc1eccfc478eb150b2ee78c2b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1338038488659146425, guid: 869d199fc1eccfc478eb150b2ee78c2b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1338038488659146425, guid: 869d199fc1eccfc478eb150b2ee78c2b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1338038488659146425, guid: 869d199fc1eccfc478eb150b2ee78c2b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1338038488659146425, guid: 869d199fc1eccfc478eb150b2ee78c2b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6343886479376336440, guid: 869d199fc1eccfc478eb150b2ee78c2b, type: 3}
+      propertyPath: m_Name
+      value: IcicleRainFallingRainDropVfx
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 869d199fc1eccfc478eb150b2ee78c2b, type: 3}
+--- !u!4 &5656277926412569903 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1338038488659146425, guid: 869d199fc1eccfc478eb150b2ee78c2b, type: 3}
+  m_PrefabInstance: {fileID: 6696439387483306902}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9072597669041951472
 PrefabInstance:

@@ -86,12 +86,32 @@ MonoBehaviour:
   _targetZoneAppearSpeedMultiplier: 0.75
   _targetZoneDisappearType: 1
   _targetZoneDisappearSpeedMultiplier: 0.75
+  _doesTargetZoneAutomaticallyDisappear: 0
+  _targetZoneAutomaticDisappearDelay: 0
   _materialChangeDelay: 0
   _visualsHolder: {fileID: 3290477784128701704}
   _targetZones: []
   _additionalGameObjectReferences: []
+  _targetZoneOutline: {fileID: 5348202726438845448}
+  _onTargetZoneSetToHeroInRange:
+    m_PersistentCalls:
+      m_Calls: []
+  _onTargetZoneSetToNoHeroInRange:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &3290477784128701704 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5055151800990545817, guid: 246c2215125a93d49b05e3888d0d50af, type: 3}
   m_PrefabInstance: {fileID: 7750028500038972049}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5348202726438845448 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2428851769410866841, guid: 246c2215125a93d49b05e3888d0d50af, type: 3}
+  m_PrefabInstance: {fileID: 7750028500038972049}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3290477784128701704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08e337f896af38945b5408803690f9a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

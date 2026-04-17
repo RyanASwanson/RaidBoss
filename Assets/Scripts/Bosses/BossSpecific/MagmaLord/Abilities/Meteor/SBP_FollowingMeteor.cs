@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 /// <summary>
 /// Script that handles the Magma Lord meteor
@@ -10,26 +13,35 @@ public class SBP_FollowingMeteor : BossProjectileFramework
 {
     [SerializeField] private float _projectileSpeed;
     [SerializeField] private float _accelerationTime;
-    private const float SPEED_SCALAR_MAX = 1;
     
     [SerializeField] private AnimationCurve _projectileSpeedCurve;
 
     [Space]
     [SerializeField] private float _randomDirectionThreshold;
+
+    [SerializeField] private float _scaleDownRemovalDelay;
+    [SerializeField] private float _mapEdgeRemovalDelay;
+    
+    [Space]
+    [SerializeField] private GeneralBossDamageArea _damageArea;
     
     [Space] 
     [SerializeField] private CurveProgression _rotationCurveProgression;
+    
+    [SerializeField] private CurveProgression _projectileScaleCurveProgression;
+
+    private bool _isMeteorBeingRemoved = false;
 
     /// <summary>
     /// Makes the projectile look at the target hero and start moving 
     /// </summary>
     /// <param name="heroBase"></param>
-    private void StartProjectileMovement(HeroBase heroBase)
+    private void StartProjectileMovement(Vector3 storedTargetLocation)
     {
-        ProjectileLookAt(heroBase.transform.position);
+        ProjectileLookAt(storedTargetLocation);
         
         _rotationCurveProgression.StartMovingUpOnCurve();
-        StartCoroutine(MoveProjectile(DetermineMovementDirection(heroBase.transform.position)));
+        StartCoroutine(MoveProjectile(DetermineMovementDirection(storedTargetLocation)));
     }
 
     /// <summary>
@@ -50,7 +62,6 @@ public class SBP_FollowingMeteor : BossProjectileFramework
 
             ProjectileLookAt(transform.position + direction);
         }
-            
 
         //Return the direction with 0 in the y
         return new Vector3(direction.x, 0, direction.z).normalized;
@@ -74,8 +85,13 @@ public class SBP_FollowingMeteor : BossProjectileFramework
                 speedScalar = _projectileSpeedCurve.Evaluate(speedProgress);
             }
             
-            
             transform.position += moveDirection * (_projectileSpeed * speedScalar * Time.deltaTime);
+            
+            float centerDistance = Mathf.Abs(transform.position.x) + Mathf.Abs(transform.position.z);
+            if (!_isMeteorBeingRemoved && centerDistance > EnvironmentManager.Instance.GetMapRadius())
+            {
+                StartMapEdgeRemoval();
+            }
 
             yield return null;
         }
@@ -88,15 +104,41 @@ public class SBP_FollowingMeteor : BossProjectileFramework
         transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
     }
 
+    private void StartRemovalDelay()
+    {
+        StartCoroutine(RemovalDelay());
+    }
+
+    private IEnumerator RemovalDelay()
+    {
+        yield return new WaitForSeconds(_scaleDownRemovalDelay);
+        _projectileScaleCurveProgression.StartMovingUpOnCurve();
+        _isMeteorBeingRemoved = true;
+    }
+
+    public void StartMapEdgeRemoval()
+    {
+        _isMeteorBeingRemoved = true;
+        StartCoroutine(MapEdgeRemovalDelay());
+    }
+
+    private IEnumerator MapEdgeRemovalDelay()
+    {
+        yield return new WaitForSeconds(_mapEdgeRemovalDelay);
+        _projectileScaleCurveProgression.StartMovingUpOnCurve();
+        _damageArea.ToggleProjectileCollider(false);
+    }
+
     #region Base Ability
     /// <summary>
     /// Called when projectile is created
     /// Provides the projectile with any additional information it may need
     /// </summary>
-    /// <param name="heroBase"></param>
-    public void AdditionalSetUp(HeroBase heroBase)
+    /// <param name="storedTargetLocation"></param>
+    public void AdditionalSetUp(Vector3 storedTargetLocation)
     {
-        StartProjectileMovement(heroBase);
+        StartRemovalDelay();
+        StartProjectileMovement(storedTargetLocation);
     }
     #endregion
 }

@@ -49,6 +49,15 @@ MonoBehaviour:
   _lifeTime: 3
   _hasDetachTime: 0
   _detachTime: 0
+  _hasCustomEmmisionRateCurve: 0
+  _customEmissionCurveMultiplier: 0
+  _customEmissionRateCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _particleSystems: []
 --- !u!1 &2490542572374470995
 GameObject:
   m_ObjectHideFlags: 0
@@ -4868,7 +4877,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d2b6bb6adc5a5724f9778e311d473941, type: 2}
+  - {fileID: 2100000, guid: 88879c9231137044f90e827897e2beb1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -27,6 +27,9 @@ public class CameraGameManager : MainGameplayManagerFramework
 
     [Header("Boss Stagger")]
     [SerializeField] private CinemachineCameraShakeData _bossStaggerShake;
+    
+    [Header("Boss Enrage")]
+    [SerializeField] private CinemachineCameraShakeData _bossEnrageShake;
 
     [Header("Boss Death")]
     [SerializeField] private CinemachineCameraShakeData _bossDeathShake;
@@ -121,6 +124,11 @@ public class CameraGameManager : MainGameplayManagerFramework
         StartCameraShake(_bossStaggerShake);
     }
 
+    private void CameraShakeOnBossEnrage()
+    {
+        StartCameraShake(_bossEnrageShake);
+    }
+
     private void CameraShakeOnBossDeath()
     {
         StartCameraShake(_bossDeathShake);
@@ -130,8 +138,15 @@ public class CameraGameManager : MainGameplayManagerFramework
     #region Camera Rotation
     public void StartRotateCinemachineCamera(float directionMultiplier, float processTime)
     {
-        if (_virtualCamRotationCoroutine != null)
+        if (!_virtualCamRotationCoroutine.IsUnityNull())
+        {
             StopCoroutine(_virtualCamRotationCoroutine);
+        }
+
+        if (float.IsNaN(directionMultiplier))
+        {
+            return;
+        }
 
         _virtualCamRotationCoroutine = StartCoroutine(RotateCinemachineCameraProcess(directionMultiplier,processTime));
     }
@@ -217,12 +232,15 @@ public class CameraGameManager : MainGameplayManagerFramework
     {
         BossBase.Instance.GetBossStaggeredEvent().AddListener(CameraShakeOnBossStagger);
         
+        BossBase.Instance.GetBossEnragedEvent().AddListener(CameraShakeOnBossEnrage);
+        
         GameStateManager.Instance.GetBattleWonEvent().AddListener(CameraShakeOnBossDeath);
     }
     #endregion
 
     #region Getters
     public Camera GetGameplayCamera() => _gameplayCamera;
+    public CinemachineVirtualCamera GetVirtualCamera() => _virtualCamera;
     #endregion
 }
 

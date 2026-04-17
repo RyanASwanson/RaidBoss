@@ -90,7 +90,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
                 _attackRepititionProtection = Mathf.Clamp(_attackRepititionProtection -1, 0, int.MaxValue);
                 continue;
             }
-            AddAbilityToBossReadyAttacks(_startingBossAbilities[i]);
+            AddAbilityInitiallyToBossReadyAttacks(_startingBossAbilities[i]);
         }
     }
 
@@ -215,6 +215,26 @@ public abstract class SpecificBossFramework : MonoBehaviour
         return null;
     }
 
+    public virtual void AddHeroOverrideAggro(HeroBase heroBase)
+    {
+        if (_aggroOverrides.Contains(heroBase))
+        {
+            return;
+        }
+        
+        _aggroOverrides.Add(heroBase);
+    }
+
+    public virtual void RemoveHeroOverrideAggro(HeroBase heroBase)
+    {
+        if (!_aggroOverrides.Contains(heroBase))
+        {
+            return;
+        }
+        
+        _aggroOverrides.Remove(heroBase);
+    }
+
     /// <summary>
     /// Starts the process of having a hero be the sole target for boss abilities
     /// </summary>
@@ -247,9 +267,20 @@ public abstract class SpecificBossFramework : MonoBehaviour
         {
             return;
         }
-        
+
+        if (heroBase.IsUnityNull())
+        {
+            return;
+        }
+            
         heroBase.GetHeroStats()
             .DealDamageToHero(damage * BossStats.Instance.GetCombinedBossDamageMultiplier());
+    }
+
+    protected virtual void AddAbilityInitiallyToBossReadyAttacks(SpecificBossAbilityFramework newAbility)
+    {
+        newAbility.SetIsAbilityActive(true);
+        AddAbilityToBossReadyAttacks(newAbility);
     }
     
     /// <summary>
@@ -316,11 +347,20 @@ public abstract class SpecificBossFramework : MonoBehaviour
         {
             return;
         }
+        
 
         _currentAbility = SelectNextAbility();
-        AddAbilityToEndOfCooldownQueue(_currentAbility);
-
-        _nextAttackProcess = StartCoroutine(UseNextAbilityProcess(_currentAbility));
+        
+        if (_currentAbility.GetCanAbilityBeUsed())
+        {
+            AddAbilityToEndOfCooldownQueue(_currentAbility);
+            _nextAttackProcess = StartCoroutine(UseNextAbilityProcess(_currentAbility));
+        }
+        else
+        {
+            // Skip the current ability
+            StartNextAbility();
+        }
     }
 
     /// <summary>
@@ -490,6 +530,23 @@ public abstract class SpecificBossFramework : MonoBehaviour
         {
             _currentAbility.StopBossAbility();
         }
+        
+        CheckToUnlockSpecialistAchievement();
+    }
+
+    protected virtual void CheckToUnlockSpecialistAchievement()
+    {
+        
+    }
+
+    protected virtual void UnlockedSpecialistAchievement()
+    {
+        if (_myBossBase.GetBossSO().GetAssociatedSpecialistAchievement().IsUnityNull())
+        {
+            return;
+        }
+        
+        AchievementManager.Instance.UnlockAchievement(_myBossBase.GetBossSO().GetAssociatedSpecialistAchievement());
     }
 
     /// <summary>
@@ -511,7 +568,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
             }
         }
         
-        AddAbilityToBossReadyAttacks(_abilityLocked);
+        AddAbilityInitiallyToBossReadyAttacks(_abilityLocked);
     }
 
     /// <summary>
@@ -561,6 +618,8 @@ public abstract class SpecificBossFramework : MonoBehaviour
         EnvironmentManager.Instance.GetClosestPointToFloor(target.transform.position);
 
     public GameObject GetBossVisualBase() => _bossVisualsBase;
+
+    public List<HeroBase> GetBossAttackTargets() => _bossAttackTargets;
 
     public Animator GetBossSpecificAnimator() => _bossSpecificAnimator;
     #endregion

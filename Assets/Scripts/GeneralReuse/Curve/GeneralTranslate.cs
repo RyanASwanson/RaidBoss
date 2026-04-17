@@ -8,6 +8,9 @@ public class GeneralTranslate : MonoBehaviour
 {
     [SerializeField] private float _speed;
 
+    [Space] 
+    [SerializeField] private bool _doesMoveForwardOnEnable = false;
+    
     [Space]
     [SerializeField] private CurveProgression _curveProgression;
     private float _acceleration = 1;
@@ -17,11 +20,23 @@ public class GeneralTranslate : MonoBehaviour
     void OnEnable()
     {
         SubscribeToEvents();
+
+        if (_doesMoveForwardOnEnable)
+        {
+            StartMovingForwards();
+        }
     }
     
     private void OnDisable()
     {
         UnsubscribeFromEvents();
+    }
+
+    public void StartMovingForwards()
+    {
+        StopMoving();
+        
+        _moveCoroutine = StartCoroutine(MoveObjectForward());
     }
 
     public void StartMoving(Vector3 direction)
@@ -36,6 +51,15 @@ public class GeneralTranslate : MonoBehaviour
         if (!_moveCoroutine.IsUnityNull())
         {
             StopCoroutine(_moveCoroutine);
+        }
+    }
+
+    private IEnumerator MoveObjectForward()
+    {
+        while (!gameObject.IsUnityNull())
+        {
+            transform.position += transform.forward * (_speed * _acceleration * Time.deltaTime);
+            yield return null;
         }
     }
 

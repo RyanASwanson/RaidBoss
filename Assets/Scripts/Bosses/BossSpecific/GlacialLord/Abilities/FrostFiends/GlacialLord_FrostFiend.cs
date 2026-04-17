@@ -54,6 +54,8 @@ public class GlacialLord_FrostFiend : BossMinionBase
     private const int FROST_FIEND_FREEZE_CRACKED_AUDIO_ID = 1;
     private const int FROST_FIEND_UNFROZEN_AUDIO_ID = 2;
 
+    private bool _hasFrostFiendAttacked = false;
+
     public void AdditionalSetUp(float freezeDuration)
     {
         _freezeDuration = freezeDuration;
@@ -95,18 +97,18 @@ public class GlacialLord_FrostFiend : BossMinionBase
     }
 
     #region Freezing
-    public void FreezeMinion()
+    public bool FreezeMinion()
     {
         if (_isMinionFrozen)
         {
             if (!_canBeFrozenDuringFreeze)
             {
-                return;
+                return false;
             }
 
             if (_timeFrozen < _refreezeCooldown)
             {
-                return;
+                return false;
             }
         }
 
@@ -126,6 +128,8 @@ public class GlacialLord_FrostFiend : BossMinionBase
         
         StopFreezeProcess();
         _frozenCoroutine = StartCoroutine(FreezeProcess());
+
+        return true;
     }
     
 
@@ -141,8 +145,10 @@ public class GlacialLord_FrostFiend : BossMinionBase
                 _frozenEffectCrackedVFX.Play();
                 PlayMinionFreezeCrackedAudio();
             }
-            _timeFrozen += Time.deltaTime;
+            _timeFrozen +=  SB_GlacialLord.Instance.GetMinionUnfreezeSpeedMultiplier() * Time.deltaTime;
+            
             float scaleProgress = Mathf.Lerp(_frozenMaxScaleOverFreeze, _frozenMinScaleOverFreeze, _timeFrozen / _freezeDuration);
+            
             _frozenEffectBase.transform.localScale = new Vector3(scaleProgress, scaleProgress, scaleProgress);
             yield return null;
         }
@@ -241,5 +247,11 @@ public class GlacialLord_FrostFiend : BossMinionBase
     public bool IsMinionFrozen() => _isMinionFrozen;
     
     public UnityEvent GetOnMinionFrozen() => _onMinionFrozen;
+    
+    public bool GetHasFrostFiendAttacked() => _hasFrostFiendAttacked;
     #endregion
+    
+    #region Setters
+    public void SetHasFrostFiendAttacked(bool hasAttacked) => _hasFrostFiendAttacked = hasAttacked;
+    #endregion 
 }

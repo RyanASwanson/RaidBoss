@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,13 +12,18 @@ public class SH_Samurai : SpecificHeroFramework
     [SerializeField] private GameObject _basicProjectile;
 
     [Space]
-    [SerializeField] float _manualAbilityDuration;
-    [SerializeField] float _manualAbilityParryDamage;
-    [SerializeField] float _manualAbilityParryStagger;
-    [SerializeField] float _parryBonusIFrames;
+    [SerializeField] private float _manualAbilityDuration;
+    [SerializeField] private float _manualAbilityParryDamage;
+    [SerializeField] private float _manualAbilityParryStagger;
+    [SerializeField] private float _manualAbilityHitboxScaleMultiplier;
+    [SerializeField] private float _parryBonusIFrames;
 
-    [Space]
-    [SerializeField] float _passiveRechargeManualAmount;
+    [Space] 
+    [SerializeField] private GameObject _parryEffect;
+
+    [SerializeField] private CurveProgression _samuraiParryColorVisualsCurve;
+    
+    [SerializeField] private float _passiveRechargeManualAmount;
 
     private Coroutine _parryCoroutine;
 
@@ -68,28 +74,36 @@ public class SH_Samurai : SpecificHeroFramework
 
         yield return new WaitForSeconds(_manualAbilityDuration);
 
-        EndParry();
+        ParryDurationOver();
         _parryCoroutine = null;
     }
 
     private void StartParry()
     {
         _myHeroBase.GetHeroStats().AddDamageTakenOverrideCounter();
+        _myHeroBase.GetHeroStats().AdjustHeroHitboxSize(_manualAbilityHitboxScaleMultiplier);
         _myHeroBase.GetHeroDamagedOverrideEvent().AddListener(ParryAttack);
+        _samuraiParryColorVisualsCurve.StartMovingUpOnCurve();
     }
 
-    private void EndParry()
+    private void ParryDurationOver()
     {
-        _myHeroBase.GetHeroStats().RemoveDamageTakenOverrideCounter();
-        _myHeroBase.GetHeroDamagedOverrideEvent().RemoveListener(ParryAttack);
+        GeneralParryEnd();
     }
 
     private void StopParryEarly()
     {
         StopCoroutine(_parryCoroutine);
         _parryCoroutine = null;
+        GeneralParryEnd();
+    }
+
+    private void GeneralParryEnd()
+    {
         _myHeroBase.GetHeroStats().RemoveDamageTakenOverrideCounter();
+        _myHeroBase.GetHeroStats().AdjustHeroHitboxSize(1/_manualAbilityHitboxScaleMultiplier);
         _myHeroBase.GetHeroDamagedOverrideEvent().RemoveListener(ParryAttack);
+        _samuraiParryColorVisualsCurve.StartMovingDownOnCurve();
     }
 
     public void ParryAttack(float damagePrevented)
@@ -102,6 +116,7 @@ public class SH_Samurai : SpecificHeroFramework
 
         SuccessfulParryAnimation();
         PlayParryAudio();
+        Instantiate(_parryEffect, BossBase.Instance.gameObject.transform.position, Quaternion.identity);
 
         StartSuccessfulParryIFrames();
     }

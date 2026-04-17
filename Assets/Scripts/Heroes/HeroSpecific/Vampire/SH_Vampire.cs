@@ -14,14 +14,20 @@ public class SH_Vampire : SpecificHeroFramework
 
     [Space]
     [SerializeField] private float _manualAbilityDuration;
+    [SerializeField] private float _manualAbilityDurationWarning;
     [SerializeField] private float _manualBufferDuration;
     [SerializeField] private float _manualAbilityHealingIncrease;
+    private WaitForSeconds _manualBufferWait;
+    private WaitForSeconds _manualAbilityWait;
+    private WaitForSeconds _manualAbilityDurationWarningWait;
 
     [Space] 
     [SerializeField] private GeneralRotation _batSpiralRotation;
     [SerializeField] private CustomObjectEmitter _manualObjectEmitter;
-    private WaitForSeconds _manualBufferWait;
-    private WaitForSeconds _manualAbilityWait;
+
+
+    [Space] 
+    [SerializeField] private CurveProgression _manualLifeTimeWarningCurve;
 
     [Space]
     [SerializeField] private float _passiveAbilityLifestealMultiplier;
@@ -71,6 +77,7 @@ public class SH_Vampire : SpecificHeroFramework
         base.ActivateManualAbilities();
 
         StartCoroutine(ManualAbilityProcess());
+        StartCoroutine(ManualAbilityDurationWarningTimer());
     }
 
     protected IEnumerator ManualAbilityProcess()
@@ -88,6 +95,17 @@ public class SH_Vampire : SpecificHeroFramework
 
         heroStats.RemoveDamageTakenOverrideCounter();
         heroStats.ChangeCurrentHeroHealingReceivedMultiplier(-_manualAbilityHealingIncrease);
+    }
+
+    private IEnumerator ManualAbilityDurationWarningTimer()
+    {
+        yield return _manualAbilityDurationWarningWait;
+        ManualAbilityDurationWarning();
+    }
+
+    private void ManualAbilityDurationWarning()
+    {
+        _manualLifeTimeWarningCurve.StartMovingUpOnCurve();
     }
 
     #endregion
@@ -164,6 +182,7 @@ public class SH_Vampire : SpecificHeroFramework
             
         _manualBufferWait = new WaitForSeconds(_manualBufferDuration);
         _manualAbilityWait = new WaitForSeconds(_manualAbilityDuration-_manualBufferDuration);
+        _manualAbilityDurationWarningWait = new WaitForSeconds(_manualAbilityDurationWarning);
         _passiveAbilityWait = new WaitForSeconds(_passiveHealingDelay);
     }
     

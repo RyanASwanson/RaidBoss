@@ -25,6 +25,15 @@ public class SelectableMission : MonoBehaviour
     [Space]
     [SerializeField] private Transform _missionSpecificStandardParent;
 
+    [SerializeField] private CurveProgression _missionStandardScaleCurve;
+    private GameObject _currentMissionStandard;
+
+
+    [SerializeField] private MaterialSetCustomProperty _missionGlowMaterialProperty;
+    [SerializeField] private CurveProgression _missionHoverGlowCurve;
+    
+    [SerializeField] private MeshRenderer[] _missionGlowRenderers;
+
     [Space] 
     [SerializeField] private GameObject _missionSelectCenter;
     
@@ -53,6 +62,8 @@ public class SelectableMission : MonoBehaviour
         if (_isMissionUnlocked)
         {
             SetMaterialOfPlatforms(_associatedMission.GetAssociatedLevel().GetLevelBoss().GetMiniFloorMaterial());
+            SetMaterialOfGlow(_associatedMission.GetAssociatedLevel().GetLevelBoss().GetMissionSelectionGlowMaterial());
+            _missionGlowMaterialProperty.SetUp();
         }
         else
         {
@@ -65,6 +76,14 @@ public class SelectableMission : MonoBehaviour
         foreach (MeshRenderer renderer in _missionPlatformRenderers)
         {
             renderer.material = newMaterial;
+        }
+    }
+
+    private void SetMaterialOfGlow(Material newMaterial)
+    {
+        foreach (MeshRenderer glowRenderer in _missionGlowRenderers)
+        {
+            glowRenderer.material = newMaterial;
         }
     }
 
@@ -82,6 +101,15 @@ public class SelectableMission : MonoBehaviour
         _missionSelectCenter.gameObject.SetActive(interactable);
     }
 
+    public void ForceUnlockMission()
+    {
+        SetMissionLockStatus(true);
+        
+        SetMaterialOfPlatforms(_associatedMission.GetAssociatedLevel().GetLevelBoss().GetMiniFloorMaterial());
+        SetMaterialOfGlow(_associatedMission.GetAssociatedLevel().GetLevelBoss().GetMissionSelectionGlowMaterial());
+        _missionGlowMaterialProperty.SetUp();
+    }
+
     private void ChangeStandard()
     {
         if (SaveManager.Instance.IsMissionCompleted(_associatedMission))
@@ -90,13 +118,45 @@ public class SelectableMission : MonoBehaviour
         }
         else
         {
-            CreateBanner(_associatedMission.GetAssociatedLevel().GetLevelBoss().GetBossStandard());
+            CreateBossBanner();
         }
+    }
+
+    public void CreateBossBanner()
+    {
+        CreateBanner(_associatedMission.GetAssociatedLevel().GetLevelBoss().GetBossStandard());
     }
 
     private void CreateBanner(GameObject banner)
     {
-        Instantiate(banner, _missionSpecificStandardParent);
+        if (!_currentMissionStandard.IsUnityNull())
+        {
+            Destroy(_currentMissionStandard);
+        }
+        
+        _currentMissionStandard = Instantiate(banner, _missionSpecificStandardParent);
+    }
+
+    public void MissionHoveredStarted()
+    {
+        if (!_isMissionUnlocked)
+        {
+            return;
+        }
+        
+        _missionStandardScaleCurve.StartMovingUpOnCurve();
+        _missionHoverGlowCurve.StartMovingUpOnCurve();
+    }
+
+    public void MissionHoverEnded()
+    {
+        if (!_isMissionUnlocked)
+        {
+            return;
+        }
+        
+        _missionStandardScaleCurve.StartMovingDownOnCurve();
+        _missionHoverGlowCurve.StartMovingDownOnCurve();
     }
 
     public void InformControllerOfSelection()
@@ -130,6 +190,23 @@ public class SelectableMission : MonoBehaviour
     {
         StopShowAllPreviews();
         _characterSpawnCoroutine = StartCoroutine(ShowAllPreviewsProcess());
+    }
+
+    /// <summary>
+    /// Used for debug purposes only
+    /// </summary>
+    public void ForceShowAllPreviews()
+    {
+        SelectionManager.Instance.SetSelectedLevelAndBoss(_associatedMission.GetAssociatedLevel());
+        SelectionManager.Instance.SetSelectedHeroes(_associatedMission.GetAssociatedHeroes());
+        
+        _bossPreviewHolder.PreviewCharacterAndPerformAnimations(_associatedMission.GetAssociatedLevel().GetLevelBoss(),true,true);
+        
+        HeroSO[] heroes = _associatedMission.GetAssociatedHeroes();
+        for (int i = 0; i < heroes.Length; i++)
+        {
+            _heroPreviewHolders[i].PreviewCharacterAndPerformAnimations(heroes[i],true,true);
+        }
     }
 
     private void StopShowAllPreviews()

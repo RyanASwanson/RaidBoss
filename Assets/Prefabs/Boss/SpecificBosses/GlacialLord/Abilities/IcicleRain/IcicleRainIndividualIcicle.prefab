@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1576982304561034477}
-  - component: {fileID: 6075090313147983682}
   - component: {fileID: 2523175900126946985}
   - component: {fileID: 4970211216856081247}
+  - component: {fileID: 6075090313147983682}
   - component: {fileID: 1576982304561034478}
   - component: {fileID: 6343422998374181058}
   - component: {fileID: 4589272036982829902}
@@ -39,43 +39,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6075090313147983682
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1576982304561034476}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43a32c0522af3ff4db1e2d43d0e55468, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _areaColliders: []
-  _hasLifetime: 0
-  _lifetime: 0
-  _hasColliderLifetime: 0
-  _colliderLifetime: 0
-  _hitCenteredVFX: {fileID: 8649062953180881343, guid: b0f3b566d6a0cb5478959566c3190b33, type: 3}
-  _lifetimeEndEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  _colliderLifetimeEndEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  _preventReHitDuration: 0
-  _enterDamage: 2.5
-  _enterEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  _stayDamagePerTick: 0
-  _stayEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  _exitDamage: 0
-  _exitEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &2523175900126946985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,9 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _groundCheckDistance: 3
-  _groundLayer:
-    serializedVersion: 2
-    m_Bits: 512
+  _fallingIcicleVfx: {fileID: 1188765319584156968}
   _damageArea: {fileID: 6075090313147983682}
   _minionHit: {fileID: 4970211216856081247}
 --- !u!114 &4970211216856081247
@@ -107,7 +68,53 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _contactOnCollision: 0
-  _distance: 1.5
+  _distance: 1
+--- !u!114 &6075090313147983682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1576982304561034476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43a32c0522af3ff4db1e2d43d0e55468, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _areaColliders:
+  - {fileID: 1576982304580706282}
+  _hasLifetime: 0
+  _lifetime: 0
+  _hasColliderActivationDelay: 1
+  _colliderActivationDelay: 0.66
+  _hasColliderLifetime: 1
+  _colliderLifetime: 0.83
+  _doesHitCenteredVFXCopyRotation: 0
+  _hitCenteredVFXCopyTarget: {fileID: 0}
+  _hitCenteredVFX: {fileID: 8649062953180881343, guid: b0f3b566d6a0cb5478959566c3190b33, type: 3}
+  _lifetimeEndEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _colliderLifetimeEndEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _canPreventReHitWithoutInitialDamage: 0
+  _preventReHitDuration: 0
+  _enterDamage: 2.5
+  _enterEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _stayDamagePerTick: 0
+  _stayEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _exitDamage: 0
+  _exitEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _generalHitEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1576982304561034478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,6 +128,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _vfxList: []
+  _isVFXChilded: 0
+  _vfxTargetLocation: {fileID: 0}
+  _onDestroySelfEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _onDestroyParentEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!95 &6343422998374181058
 Animator:
   serializedVersion: 5
@@ -203,6 +218,74 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.2, y: 1, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1001 &2496036687525668884
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 4648267954119458370}
+    m_Modifications:
+    - target: {fileID: 2595279941814960359, guid: 6bfa6da3fbd1e3045b74c4061513992c, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2595279941814960359, guid: 6bfa6da3fbd1e3045b74c4061513992c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2595279941814960359, guid: 6bfa6da3fbd1e3045b74c4061513992c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2595279941814960359, guid: 6bfa6da3fbd1e3045b74c4061513992c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2595279941814960359, guid: 6bfa6da3fbd1e3045b74c4061513992c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2595279941814960359, guid: 6bfa6da3fbd1e3045b74c4061513992c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2595279941814960359, guid: 6bfa6da3fbd1e3045b74c4061513992c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2595279941814960359, guid: 6bfa6da3fbd1e3045b74c4061513992c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2595279941814960359, guid: 6bfa6da3fbd1e3045b74c4061513992c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2595279941814960359, guid: 6bfa6da3fbd1e3045b74c4061513992c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2595279941814960359, guid: 6bfa6da3fbd1e3045b74c4061513992c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6729787155728546395, guid: 6bfa6da3fbd1e3045b74c4061513992c, type: 3}
+      propertyPath: m_Name
+      value: FallingIcicleParticles
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6bfa6da3fbd1e3045b74c4061513992c, type: 3}
+--- !u!114 &1188765319584156968 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3665054773911053628, guid: 6bfa6da3fbd1e3045b74c4061513992c, type: 3}
+  m_PrefabInstance: {fileID: 2496036687525668884}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17d57178ea0021a4b8e770bad5c72d0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6619282194080660883
 PrefabInstance:
   m_ObjectHideFlags: 0

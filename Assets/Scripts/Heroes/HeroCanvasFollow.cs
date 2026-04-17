@@ -19,6 +19,11 @@ public class HeroCanvasFollow : MonoBehaviour
         transform.SetParent(null, false);
         transform.eulerAngles = new Vector3(CANVAS_X_ROTATION, 0, 0);
         StartCoroutine(FollowAssociatedHero());
+
+        if (TrailerShotsDebugScript.IS_SHOOTING_TRAILER && TrailerShotsDebugScript.IS_HIDING_HERO_FOLLOW_CANVAS)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     /// <summary>

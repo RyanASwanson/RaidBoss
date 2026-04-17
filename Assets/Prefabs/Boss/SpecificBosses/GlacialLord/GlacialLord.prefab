@@ -178,6 +178,8 @@ MonoBehaviour:
   _bossSpecificAnimator: {fileID: 6853814535601210447}
   _delayBetweenFiendSpawns: 0.2
   _minionFreezeDuration: 32
+  _minionEnrageUnfreezeSpeedMultiplier: 1.15
+  _minionEnrageUnfreezeSpeedScalingMulitplierIncreasePerMinute: 0.25
   _frostFiend: {fileID: 4319846792845351859, guid: 8be3f146f99a44a40b078f1c62c6a543, type: 3}
   _frostFiendSpawnLocations:
   - {x: 4, y: 0, z: 4}
@@ -356,13 +358,14 @@ MonoBehaviour:
   _timeUntilNextAbility: 7
   _hasAbilityDuration: 0
   _abilityDuration: 0
+  _delayedIndividualTargetZoneRemovalTime: 0
   _hasScreenShake: 0
   _screenShakeData:
     Intensity: 0
     Frequency: 0
     Duration: 0
   _animationTriggerName: AvalancheUsed
-  _abilityPrepAudioDelay: 0
+  _abilityPrepAudioDelay: 3.2
   _abilityStartAudioDelay: 0
   _spawnDistance: 0.75
   _targetZone: {fileID: 3605259648855355395, guid: 5ea109a33bb35e745b5a02f408b4bd62, type: 3}
@@ -389,6 +392,7 @@ MonoBehaviour:
   _timeUntilNextAbility: 7
   _hasAbilityDuration: 0
   _abilityDuration: 0
+  _delayedIndividualTargetZoneRemovalTime: 0
   _hasScreenShake: 1
   _screenShakeData:
     Intensity: 1.5
@@ -416,18 +420,19 @@ MonoBehaviour:
   _doesBossFollowTarget: 0
   _specificAreaTarget: {x: 0, y: -0.75, z: 0}
   _specificLookTarget: {x: 0, y: 0, z: 0}
-  _targetZoneDuration: 4
+  _targetZoneDuration: 4.75
   _abilityWindUpTime: 4
-  _timeUntilNextAbility: 7
+  _timeUntilNextAbility: 7.25
   _hasAbilityDuration: 0
   _abilityDuration: 0
+  _delayedIndividualTargetZoneRemovalTime: 0
   _hasScreenShake: 0
   _screenShakeData:
     Intensity: 0
     Frequency: 0
     Duration: 0
   _animationTriggerName: IcicleRainUsed
-  _abilityPrepAudioDelay: 0
+  _abilityPrepAudioDelay: 0.4
   _abilityStartAudioDelay: 0
   _targetZone: {fileID: 7689631090584172797, guid: e96247fc7a6c48444bf412931ec24820, type: 3}
   _icicleRain: {fileID: 6168952705891034285, guid: ae7d4aea0c8fb354a83741959dca9aac, type: 3}
@@ -451,9 +456,10 @@ MonoBehaviour:
   _specificLookTarget: {x: 0, y: 0, z: -1}
   _targetZoneDuration: 4
   _abilityWindUpTime: 4
-  _timeUntilNextAbility: 7
+  _timeUntilNextAbility: 7.25
   _hasAbilityDuration: 1
   _abilityDuration: 2.5
+  _delayedIndividualTargetZoneRemovalTime: 0
   _hasScreenShake: 1
   _screenShakeData:
     Intensity: 0.5
