@@ -9,4 +9,5 @@ public class AchievementSO : ScriptableObject
     public string AchievementUnlockName;
     public int AchievmentID;
     [TextArea(1, 2)] public string AchievementDescription;
+    public Sprite AchievmentIcon;
 }
