@@ -156,7 +156,7 @@ MonoBehaviour:
   _enterEvent:
     m_PersistentCalls:
       m_Calls: []
-  _stayDamagePerTick: 1.5
+  _stayDamagePerTick: 2
   _stayEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -183,6 +183,7 @@ MonoBehaviour:
   _doesDisableOnStart: 0
   _doesHideAfterStopFollowing: 0
   _doesDestroyAfterStopFollowing: 0
+  _destroyFollowDelay: 0
   _doesSetRotationOnFollowStart: 0
   _followStartEulerAngles: {x: 0, y: 0, z: 0}
   _followLocationOffset: {x: 0, y: -0.5, z: 0}
@@ -194,6 +195,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   _onFollowStop:
+    m_PersistentCalls:
+      m_Calls: []
+  _onFollowObjectMissing:
     m_PersistentCalls:
       m_Calls: []
 --- !u!54 &5958291190454923689
