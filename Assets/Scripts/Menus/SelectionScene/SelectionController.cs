@@ -108,6 +108,8 @@ public class SelectionController : MonoBehaviour
     
     [SerializeField] private AnimationCurve _heroProgressBackgroundCurve;
     [SerializeField] private GameObject _heroProgressBackground;
+    
+    [SerializeField] private GeneralVFXFunctionality _heroProgressBackgroundParticles;
 
     private float _heroProgressBackgroundStartPosition;
     private float _heroProgressBackgroundEndPosition;
@@ -1010,8 +1012,12 @@ public class SelectionController : MonoBehaviour
         StopUpdateHeroProgressBackgroundProcess();
 
         _heroProgressBackgroundStartPosition = _heroProgressBackground.transform.localScale.x;
-        _heroProgressBackgroundEndPosition = Mathf.Lerp(0, _heroProgressBackgroundMaxSize,
+        
+        _heroProgressBackgroundEndPosition = Mathf.Lerp(0.1f, _heroProgressBackgroundMaxSize,
             _heroProgressBackgroundCurve.Evaluate(SelectionManager.Instance.GetHeroSelectionProgress()));
+        
+        _heroProgressBackgroundParticles.PlayAllParticleSystems();
+        _heroProgressBackgroundParticles.SetEmissionRateMultiplier(_heroProgressBackgroundEndPosition);
 
         _heroProgressBackgroundMoveProcessCoroutine = StartCoroutine(UpdateHeroProgressBackgroundProcess());
     }
