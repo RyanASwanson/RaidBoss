@@ -189,6 +189,8 @@ public class BossStats : BossChildrenFunctionality
     private void BossDeath()
     {
         _isBossDead = true;
+
+        StopEnrageTimer();
         
         GameStateManager.Instance.SetGameplayState(EGameplayStates.PostBattleWon);
     }
