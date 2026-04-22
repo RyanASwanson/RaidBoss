@@ -50,7 +50,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -285,8 +285,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.15
-      minScalar: 0.1
+      scalar: 0.1
+      minScalar: 0.05
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -4770,7 +4770,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 130d181b3f3526a4486fa8463b996483, type: 2}
+  - {fileID: 2100000, guid: 88879c9231137044f90e827897e2beb1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5331,12 +5331,12 @@ GameObject:
   - component: {fileID: 1647371573389423175}
   - component: {fileID: 289072156942038794}
   m_Layer: 0
-  m_Name: AltParticles
+  m_Name: BackParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5819247097962552382
 Transform:
   m_ObjectHideFlags: 0
@@ -5369,7 +5369,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -5604,8 +5604,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.15
-      minScalar: 0.1
+      scalar: 0.08
+      minScalar: 0.03
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -6186,7 +6186,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 6
+      scalar: 8
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -10089,7 +10089,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 130d181b3f3526a4486fa8463b996483, type: 2}
+  - {fileID: 2100000, guid: 88879c9231137044f90e827897e2beb1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10192,6 +10192,7 @@ MonoBehaviour:
   _heroSpawnPointHolder: {fileID: 1481727707228595402}
   _heroSpawnPoint: {fileID: 5149730385861964458}
   _previewBase: {fileID: 328545294844137018}
+  _selectedHeroParticles: {fileID: 3634218860201938335}
   _heroSpawnAnimator: {fileID: 4122030274242253144}
   _pillarAnimator: {fileID: 5173866963182090916}
   _pillarHeroDeselectCanvas: {fileID: 6662056216457909570}
@@ -10891,6 +10892,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2119959803905165638}
+  - component: {fileID: 3634218860201938335}
   m_Layer: 0
   m_Name: HeroSelectionParticles
   m_TagString: Untagged
@@ -10915,6 +10917,33 @@ Transform:
   m_Father: {fileID: 1935768445043727194}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3634218860201938335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7878458653148354385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17d57178ea0021a4b8e770bad5c72d0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hasLifeTime: 0
+  _lifeTime: 0
+  _hasDetachTime: 0
+  _detachTime: 0
+  _hasCustomEmmisionRateCurve: 0
+  _customEmissionCurveMultiplier: 0
+  _customEmissionRateCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _particleSystems:
+  - {fileID: 2922494425790570360}
+  - {fileID: 1647371573389423175}
 --- !u!1 &8194481042512894217
 GameObject:
   m_ObjectHideFlags: 0

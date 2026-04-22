@@ -13,6 +13,11 @@ public class HeroPillar : MonoBehaviour
     [SerializeField] private GameObject _heroSpawnPointHolder;
     [SerializeField] private GameObject _heroSpawnPoint;
     [SerializeField] private GameObject _previewBase;
+
+    [Space] 
+    [SerializeField] private GeneralVFXFunctionality _selectedHeroParticles;
+    
+    [Space]
     [SerializeField] private Animator _heroSpawnAnimator;
 
     private GameObject _currentHeroVisual;
@@ -77,6 +82,8 @@ public class HeroPillar : MonoBehaviour
         {
             SetHeroPreviewAnimation(true);
             PlayHeroIdleAnimation();
+            
+            PlayParticlesOfHeroOnPillar();
         }
         else
         {
@@ -99,6 +106,8 @@ public class HeroPillar : MonoBehaviour
         
         StartHeroSelectedAnimation();
         PlayHeroIdleAnimation();
+        
+        PlayParticlesOfHeroOnPillar();
     }
 
     /// <summary>
@@ -109,6 +118,7 @@ public class HeroPillar : MonoBehaviour
         _storedHero = null;
         SetHeroPreviewAnimation(false);
         Destroy(_currentHeroVisual);
+        StopParticlesOfHeroOnPillar();
     }
 
     public void HeroOnPillarDeselected()
@@ -116,6 +126,7 @@ public class HeroPillar : MonoBehaviour
         _storedHero = null;
         _heroSelectedOnPillar = null;
         SetHeroPreviewAnimation(false);
+        StopParticlesOfHeroOnPillar();
     }
 
     public void DeselectHeroOnPillar()
@@ -131,6 +142,17 @@ public class HeroPillar : MonoBehaviour
         {
             AnimateOutHeroOnPillar();
         }
+    }
+
+    private void PlayParticlesOfHeroOnPillar()
+    {
+        _selectedHeroParticles.SetStartColor(_storedHero.GetHeroSelectionParticleColors()[0], _storedHero.GetHeroSelectionParticleColors()[1]);
+        _selectedHeroParticles.PlayAllParticleSystems();
+    }
+
+    private void StopParticlesOfHeroOnPillar()
+    {
+        _selectedHeroParticles.StopAllParticleSystems();
     }
 
     private void SetUpHeroDeselectCanvas()
