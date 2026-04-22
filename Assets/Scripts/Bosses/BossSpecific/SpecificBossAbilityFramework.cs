@@ -22,6 +22,7 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     [SerializeField] protected float _targetZoneDuration;
     [SerializeField] protected float _abilityWindUpTime;
     [SerializeField] protected float _timeUntilNextAbility;
+    [SerializeField] protected float _minimumTimeUntilNextAbility;
     protected WaitForSeconds _targetZoneWait;
 
     [Space] 
@@ -83,6 +84,8 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
         {
             _timeUntilNextAbility /= SelectionManager.Instance.GetSpeedMultiplierFromMythicPlusLevel();
         }
+
+        _timeUntilNextAbility = Mathf.Clamp(_timeUntilNextAbility, _minimumTimeUntilNextAbility, float.MaxValue);
         
         _targetZoneWait = new WaitForSeconds(_targetZoneDuration);
 

@@ -16,7 +16,7 @@ public class GlacialLord_FrostFiend : BossMinionBase
     [SerializeField] private GameObject _frozenEffectBase;
 
     [Space] 
-    [SerializeField] private float _timeFreezeCrackedAtEnd;
+    [Range(0,1)][SerializeField] private float _freezeProgressRequiredForIceCrack;
     [SerializeField] private GameObject _frozenEffect;
     [SerializeField] private GameObject _frozenEffectCracked;
     [SerializeField] private ParticleSystem _frozenEffectCrackedVFX;
@@ -38,7 +38,6 @@ public class GlacialLord_FrostFiend : BossMinionBase
     
     private bool _isMinionFrozen;
     private static float _freezeDuration;
-    private static float _timeBeforeFreezeCrack;
     
     private float _timeFrozen = 0;
     private bool _isFreezeCracked = false;
@@ -56,10 +55,9 @@ public class GlacialLord_FrostFiend : BossMinionBase
 
     private bool _hasFrostFiendAttacked = false;
 
-    public void AdditionalSetUp(float freezeDuration)
+    public void SetUpMinionFreezeDuration(float freezeDuration)
     {
         _freezeDuration = freezeDuration;
-        _timeBeforeFreezeCrack = freezeDuration - _timeFreezeCrackedAtEnd;
     }
 
     public void BlizzardAttack()
@@ -138,13 +136,14 @@ public class GlacialLord_FrostFiend : BossMinionBase
         _timeFrozen = 0;
         while (_timeFrozen < _freezeDuration)
         {
-            if (!_isFreezeCracked && _timeFrozen > _timeBeforeFreezeCrack)
+            if (!_isFreezeCracked && (_timeFrozen/_freezeDuration > _freezeProgressRequiredForIceCrack))
             {
                 _isFreezeCracked = true;
                 CrackFreezeEffect(_isFreezeCracked);
                 _frozenEffectCrackedVFX.Play();
                 PlayMinionFreezeCrackedAudio();
             }
+            
             _timeFrozen +=  SB_GlacialLord.Instance.GetMinionUnfreezeSpeedMultiplier() * Time.deltaTime;
             
             float scaleProgress = Mathf.Lerp(_frozenMaxScaleOverFreeze, _frozenMinScaleOverFreeze, _timeFrozen / _freezeDuration);

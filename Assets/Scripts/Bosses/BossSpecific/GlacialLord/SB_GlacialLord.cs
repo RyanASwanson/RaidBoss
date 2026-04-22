@@ -12,6 +12,8 @@ public class SB_GlacialLord : SpecificBossFramework
     [Space]
     [SerializeField] private float _minionFreezeDuration;
 
+    [SerializeField] private float[] _frostFiendDifficultyFreezeDurationMultiplier;
+
     [SerializeField] private float _minionEnrageUnfreezeSpeedMultiplier;
     [SerializeField] private float _minionEnrageUnfreezeSpeedScalingMulitplierIncreasePerMinute;
     
@@ -56,7 +58,7 @@ public class SB_GlacialLord : SpecificBossFramework
         newFiend.transform.eulerAngles = new Vector3(0, newFiend.transform.eulerAngles.y, 0);
 
         newFiend.SetUpMinion(_myBossBase, this);
-        newFiend.AdditionalSetUp(_minionFreezeDuration);
+        newFiend.SetUpMinionFreezeDuration(_minionFreezeDuration);
 
         _allFrostFiends.Add(newFiend);
 
@@ -89,6 +91,9 @@ public class SB_GlacialLord : SpecificBossFramework
     public override void SetUpSpecificBoss(BossBase bossBase)
     {
         base.SetUpSpecificBoss(bossBase);
+        
+        _minionFreezeDuration *=
+            _frostFiendDifficultyFreezeDurationMultiplier[SelectionManager.Instance.GetSelectedDifficultyID()];
         StartCoroutine(SpawnStartingFrostFiends());
     }
     
@@ -130,12 +135,24 @@ public class SB_GlacialLord : SpecificBossFramework
     #endregion
 
     #region Getters
-
+    public float GetMinionFreezeDuration() => _minionFreezeDuration;
+    
     public float GetMinionUnfreezeSpeedMultiplier() => _currentMinionUnfreezeSpeedMultiplier;
     
     public List<Vector3> GetFrostFiendSpawnLocations() => _frostFiendSpawnLocations;
     public List<GlacialLord_FrostFiend> GetAllFrostFiends() => _allFrostFiends;
 
     public UnityEvent<GlacialLord_FrostFiend> GetFrostFiendSpawnedEvent() => _frostFiendSpawned;
+    #endregion
+    
+    #region Setters
+
+    public void SetMinionFreezeDuration(float freezeDuration)
+    {
+        foreach (GlacialLord_FrostFiend frostFiend in _allFrostFiends)
+        {
+            frostFiend.SetUpMinionFreezeDuration(freezeDuration);
+        }
+    }
     #endregion
 }

@@ -178,6 +178,11 @@ MonoBehaviour:
   _bossSpecificAnimator: {fileID: 6853814535601210447}
   _delayBetweenFiendSpawns: 0.2
   _minionFreezeDuration: 32
+  _frostFiendDifficultyFreezeDurationMultiplier:
+  - 1
+  - 0.95
+  - 0.9
+  - 0.85
   _minionEnrageUnfreezeSpeedMultiplier: 1.15
   _minionEnrageUnfreezeSpeedScalingMulitplierIncreasePerMinute: 0.25
   _frostFiend: {fileID: 4319846792845351859, guid: 8be3f146f99a44a40b078f1c62c6a543, type: 3}
@@ -353,9 +358,10 @@ MonoBehaviour:
   _doesBossFollowTarget: 1
   _specificAreaTarget: {x: 0, y: -0.75, z: 0}
   _specificLookTarget: {x: 0, y: 0, z: 0}
-  _targetZoneDuration: 3.75
-  _abilityWindUpTime: 3.75
+  _targetZoneDuration: 3.5
+  _abilityWindUpTime: 3.5
   _timeUntilNextAbility: 7
+  _minimumTimeUntilNextAbility: 4.6
   _hasAbilityDuration: 0
   _abilityDuration: 0
   _delayedIndividualTargetZoneRemovalTime: 0
@@ -365,7 +371,7 @@ MonoBehaviour:
     Frequency: 0
     Duration: 0
   _animationTriggerName: AvalancheUsed
-  _abilityPrepAudioDelay: 3.2
+  _abilityPrepAudioDelay: 2.95
   _abilityStartAudioDelay: 0
   _spawnDistance: 0.75
   _targetZone: {fileID: 3605259648855355395, guid: 5ea109a33bb35e745b5a02f408b4bd62, type: 3}
@@ -387,9 +393,10 @@ MonoBehaviour:
   _doesBossFollowTarget: 0
   _specificAreaTarget: {x: 0, y: -0.75, z: 0}
   _specificLookTarget: {x: 0, y: 0, z: -1}
-  _targetZoneDuration: 4
-  _abilityWindUpTime: 4
-  _timeUntilNextAbility: 7
+  _targetZoneDuration: 3.75
+  _abilityWindUpTime: 3.75
+  _timeUntilNextAbility: 7.35
+  _minimumTimeUntilNextAbility: 4.6
   _hasAbilityDuration: 0
   _abilityDuration: 0
   _delayedIndividualTargetZoneRemovalTime: 0
@@ -420,9 +427,10 @@ MonoBehaviour:
   _doesBossFollowTarget: 0
   _specificAreaTarget: {x: 0, y: -0.75, z: 0}
   _specificLookTarget: {x: 0, y: 0, z: 0}
-  _targetZoneDuration: 4.75
-  _abilityWindUpTime: 4
-  _timeUntilNextAbility: 7.25
+  _targetZoneDuration: 4.5
+  _abilityWindUpTime: 3.75
+  _timeUntilNextAbility: 7.35
+  _minimumTimeUntilNextAbility: 5.1
   _hasAbilityDuration: 0
   _abilityDuration: 0
   _delayedIndividualTargetZoneRemovalTime: 0
@@ -456,7 +464,8 @@ MonoBehaviour:
   _specificLookTarget: {x: 0, y: 0, z: -1}
   _targetZoneDuration: 4
   _abilityWindUpTime: 4
-  _timeUntilNextAbility: 7.25
+  _timeUntilNextAbility: 7.35
+  _minimumTimeUntilNextAbility: 5.2
   _hasAbilityDuration: 1
   _abilityDuration: 2.5
   _delayedIndividualTargetZoneRemovalTime: 0
