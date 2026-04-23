@@ -39,6 +39,15 @@ public class SH_Chronomancer : SpecificHeroFramework
     
     [Space]
     [SerializeField] private float _passiveAbilityBasicCooldownReduction;
+    [SerializeField] private float _passiveAbilityManualCooldownReduction;
+
+    [Space]
+    [SerializeField] private float _passiveAbilityBasicCooldownSpeedIncrease;
+    [SerializeField] private float _passiveAbilityManualCooldownSpeedIncrease;
+    [SerializeField] private float _passiveAbilityCooldownSpeedDuration;
+    private WaitForSeconds _passiveAbilityBasicCooldownSpeedWait;
+
+    [SerializeField] private GameObject _passiveTargetHeroVisualEffect;
 
     /* Code is here to test the storing of data for the manual ability
     private void Update()
@@ -340,7 +349,24 @@ public class SH_Chronomancer : SpecificHeroFramework
     /// <param name="heroBase"></param>
     public void PassiveReduceBasicCooldownOfHero(HeroBase heroBase)
     {
+        GameObject passiveEffect = Instantiate(_passiveTargetHeroVisualEffect,heroBase.transform.position,Quaternion.identity);
+        passiveEffect.GetComponent<FollowObject>().StartFollowingObject(heroBase.gameObject);
+        
         heroBase.GetSpecificHeroScript().AddToBasicAbilityChargeTime(_passiveAbilityBasicCooldownReduction);
+        heroBase.GetSpecificHeroScript().AddToManualAbilityChargeTime(_passiveAbilityManualCooldownReduction);
+
+        StartCoroutine(PassiveAttackSpeedIncreaseBuff(heroBase));
+    }
+
+    private IEnumerator PassiveAttackSpeedIncreaseBuff(HeroBase heroBase)
+    {
+        heroBase.GetHeroStats().ChangeCurrentBasicAbilityCooldownRate(_passiveAbilityBasicCooldownSpeedIncrease);
+        heroBase.GetHeroStats().ChangeCurrentManualAbilityCooldownRate(_passiveAbilityManualCooldownSpeedIncrease);
+
+        yield return _passiveAbilityBasicCooldownSpeedWait;
+        
+        heroBase.GetHeroStats().ChangeCurrentBasicAbilityCooldownRate(1/_passiveAbilityBasicCooldownSpeedIncrease);
+        heroBase.GetHeroStats().ChangeCurrentManualAbilityCooldownRate(1/_passiveAbilityManualCooldownSpeedIncrease);
     }
     #endregion
     
@@ -363,6 +389,7 @@ public class SH_Chronomancer : SpecificHeroFramework
         base.BattleStarted();
 
         _rewindWait = new WaitForSeconds(_rewindTimeAmount);
+        _passiveAbilityBasicCooldownSpeedWait = new WaitForSeconds(_passiveAbilityCooldownSpeedDuration);
         
         //Adds the current health of all heroes to the list of queues
         AddStartingHealthValues();
@@ -371,6 +398,8 @@ public class SH_Chronomancer : SpecificHeroFramework
 
         //Listens for all damage taken by heroes
         SubscribeToHeroesDamagedEvents();
+
+        SetUpPassiveAbility();
     }
 
     public override void HeroSpecificUICreated(GameObject heroSpecificUI)
