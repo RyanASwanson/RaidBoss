@@ -25,7 +25,6 @@ public class SH_Chronomancer : SpecificHeroFramework
     [SerializeField] private float _rewindTimeAmount;
 
     [SerializeField] private float _manualTimeVariationAmount;
-    [SerializeField] private float _manualTimeVariationDuration;
     
     [SerializeField] private GameObject _manualProjectile;
     private WaitForSeconds _rewindWait;
@@ -146,7 +145,7 @@ public class SH_Chronomancer : SpecificHeroFramework
     {
         base.ActivateManualAbilities();
         
-        TimeManager.Instance.AddNewTimeVariationForDuration(_manualTimeVariationAmount,_manualTimeVariationDuration);
+        TimeManager.Instance.AddNewTimeVariationForDuration(_manualTimeVariationAmount,_manualAbilityFixedDuration);
         
         Instantiate(_manualProjectile, Vector3.zero, Quaternion.identity);
         
@@ -333,6 +332,7 @@ public class SH_Chronomancer : SpecificHeroFramework
         }
         InvokeOnStoredHealingUpdated(total);
     }
+
     #endregion
 
     #region Passive Abilities

@@ -82,7 +82,11 @@ public class SH_Reaper : SpecificHeroFramework
     {
         base.ActivatePassiveAbilities();
         
+        _myHeroBase.GetHeroStats().AddDamageTakenOverrideCounter();
+        _myHeroBase.GetHeroStats().AddHealingTakenOverrideCounter();
+        
         _passiveActivationVFXFunctionality.PlayAllParticleSystems();
+        
         StartCoroutine(PassiveProcess());
     }
 
@@ -93,9 +97,12 @@ public class SH_Reaper : SpecificHeroFramework
     /// <returns></returns>
     private IEnumerator PassiveProcess()
     {
-        _myHeroBase.GetHeroStats().AddDamageTakenOverrideCounter();
-        _myHeroBase.GetHeroStats().AddHealingTakenOverrideCounter();
         yield return new WaitForSeconds(_deathPersistDuration);
+        EndPassiveAbility();
+    }
+
+    private void EndPassiveAbility()
+    {
         _myHeroBase.GetHeroStats().RemoveDeathOverrideCounter();
         _myHeroBase.GetHeroStats().KillHero();
     }

@@ -50,6 +50,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _basicAbilityChargeTime: 5.75
   _manualAbilityChargeTime: 28
+  _doesManualAbilityHaveDuration: 1
+  _doesManualAbilityChargeWhileActive: 1
+  _isManualAbilityDurationFixed: 0
+  _manualAbilityFixedDuration: 0
   _heroSpecificAnimator: {fileID: 1969857870274726929}
   _hasBasicAbilityAnimation: 1
   _hasManualAbilityAnimation: 1
@@ -60,8 +64,8 @@ MonoBehaviour:
   _heroSpecificUI: {fileID: 0}
   _basicProjectile: {fileID: 5625124809019392836, guid: de7156d0f762a6e4d9414d853c7e7058, type: 3}
   _manualAbilityDuration: 2
-  _manualAbilityParryDamage: 40
-  _manualAbilityParryStagger: 15
+  _manualAbilityParryDamage: 42
+  _manualAbilityParryStagger: 14
   _manualAbilityHitboxScaleMultiplier: 1.25
   _parryBonusIFrames: 3
   _parryEffect: {fileID: 7161449249740579407, guid: 14989cb0a1dedfc4a8293e0b73d36e6e, type: 3}

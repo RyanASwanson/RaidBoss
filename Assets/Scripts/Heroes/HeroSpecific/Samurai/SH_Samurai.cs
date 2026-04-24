@@ -88,22 +88,24 @@ public class SH_Samurai : SpecificHeroFramework
 
     private void ParryDurationOver()
     {
-        GeneralParryEnd();
+        EndManualAbility();
     }
 
     private void StopParryEarly()
     {
         StopCoroutine(_parryCoroutine);
         _parryCoroutine = null;
-        GeneralParryEnd();
+        EndManualAbility();
     }
 
-    private void GeneralParryEnd()
+    public override void EndManualAbility()
     {
         _myHeroBase.GetHeroStats().RemoveDamageTakenOverrideCounter();
         _myHeroBase.GetHeroStats().AdjustHeroHitboxSize(1/_manualAbilityHitboxScaleMultiplier);
         _myHeroBase.GetHeroDamagedOverrideEvent().RemoveListener(ParryAttack);
         _samuraiParryColorVisualsCurve.StartMovingDownOnCurve();
+        
+        base.EndManualAbility();
     }
 
     public void ParryAttack(float damagePrevented)

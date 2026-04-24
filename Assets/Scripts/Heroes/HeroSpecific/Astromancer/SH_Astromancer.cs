@@ -25,8 +25,6 @@ public class SH_Astromancer : SpecificHeroFramework
 
     private Coroutine _manualProcess;
 
-    private bool _manualActive = false;
-
     [Space]
     [SerializeField] private float _passiveRechargeManualAmount;
 
@@ -69,14 +67,7 @@ public class SH_Astromancer : SpecificHeroFramework
     #region Manual Abilities
     public override void ActivateManualAbilities()
     {
-        _manualActive = true;
-
-        //Does everything in the base of this function except for starting the cooldown
-        _manualAbilityCurrentCharge = 0;
-
-        _manualAbilityCooldownCoroutine = null;
-
-        TriggerManualAbilityAnimation();
+        base.ActivateManualAbilities();
 
         _myHeroBase.GetHeroStats().ChangeCurrentHeroAngularSpeed(_increasedManualRotationalSpeed);
 
@@ -189,8 +180,8 @@ public class SH_Astromancer : SpecificHeroFramework
 
     protected void EndManualAbility()
     {
-        _manualActive = false;
-
+        base.EndManualAbility();
+        
         _myHeroBase.GetHeroStartedMovingEvent().RemoveListener(EndManualAbility);
         
         StopManualProcess();
@@ -205,10 +196,7 @@ public class SH_Astromancer : SpecificHeroFramework
     #region Passive Abilities
     public override void ActivatePassiveAbilities()
     {
-        if (!_manualActive)
-        {
-            AddToManualAbilityChargeTime(_passiveRechargeManualAmount);
-        }
+        AddToManualAbilityChargeTime(_passiveRechargeManualAmount);
     }
 
     #endregion

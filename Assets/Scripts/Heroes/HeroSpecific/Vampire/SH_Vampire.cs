@@ -75,6 +75,9 @@ public class SH_Vampire : SpecificHeroFramework
     public override void ActivateManualAbilities()
     {
         base.ActivateManualAbilities();
+        
+        _myHeroBase.GetHeroStats().AddDamageTakenOverrideCounter();
+        _myHeroBase.GetHeroStats().ChangeCurrentHeroHealingReceivedMultiplier(_manualAbilityHealingIncrease);
 
         StartCoroutine(ManualAbilityProcess());
         StartCoroutine(ManualAbilityDurationWarningTimer());
@@ -82,19 +85,13 @@ public class SH_Vampire : SpecificHeroFramework
 
     protected IEnumerator ManualAbilityProcess()
     {
-        HeroStats heroStats = _myHeroBase.GetHeroStats();
-
-        heroStats.AddDamageTakenOverrideCounter();
-        heroStats.ChangeCurrentHeroHealingReceivedMultiplier(_manualAbilityHealingIncrease);
-        
         yield return _manualBufferWait;
         
         _manualObjectEmitter.StartEmittingObject();
 
         yield return _manualAbilityWait;
 
-        heroStats.RemoveDamageTakenOverrideCounter();
-        heroStats.ChangeCurrentHeroHealingReceivedMultiplier(-_manualAbilityHealingIncrease);
+        EndManualAbility();
     }
 
     private IEnumerator ManualAbilityDurationWarningTimer()
@@ -106,6 +103,14 @@ public class SH_Vampire : SpecificHeroFramework
     private void ManualAbilityDurationWarning()
     {
         _manualLifeTimeWarningCurve.StartMovingUpOnCurve();
+    }
+
+    public override void EndManualAbility()
+    {
+        _myHeroBase.GetHeroStats().RemoveDamageTakenOverrideCounter();
+        _myHeroBase.GetHeroStats().ChangeCurrentHeroHealingReceivedMultiplier(-_manualAbilityHealingIncrease);
+        
+        base.EndManualAbility();
     }
 
     #endregion

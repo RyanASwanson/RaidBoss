@@ -50,7 +50,6 @@ public class SH_Fae : SpecificHeroFramework
 
     [Space]
     [SerializeField] private LayerMask _bounceLayers;
-    private bool _manualActive = false;
 
     private Vector3 _currentManualDirection;
     private float _currentAccelerationMultiplier;
@@ -131,12 +130,6 @@ public class SH_Fae : SpecificHeroFramework
     public override void ActivateManualAbilities()
     {
         base.ActivateManualAbilities();
-
-        // Old way to target boss
-        /*//Determines the direction between the hero and the location they used the manual at
-        _currentManualDirection = attackLocation - transform.position;
-        //Makes sure there is no y value then normalizes
-        _currentManualDirection = new Vector3(_currentManualDirection.x, 0, _currentManualDirection.z).normalized;*/
         
         _myHeroBase.GetPathfinding().SetIsHeroUsingMovementAbility(true);
 
@@ -159,8 +152,6 @@ public class SH_Fae : SpecificHeroFramework
     /// <returns></returns>
     private IEnumerator ManualProcess()
     {
-        _manualActive = true;
-
         //Starts by stopping the pathfinding so that they aren't being moved by multiple sources
         _myHeroBase.GetPathfinding().StopAbilityToMove();
 
@@ -175,17 +166,16 @@ public class SH_Fae : SpecificHeroFramework
 
             //Moves the character in the manual direction
             //Speed determined by movement speed of the character and the multiplier for the manual
-            _myHeroBase.gameObject.transform.position += _currentManualDirection * 
-                                                         (_heroStats.GetCurrentSpeed() * _manualSpeedMultiplier * _currentAccelerationMultiplier * Time.deltaTime);
+            _myHeroBase.gameObject.transform.position += _currentManualDirection * (GetCurrentManualAbilityMovementSpeed() * Time.deltaTime);
 
             manualProgress += Time.deltaTime;
             yield return null;
         }
 
-        ManualProcessEnded();
+        EndManualAbility();
     }
 
-    private void ManualProcessEnded()
+    public override void EndManualAbility()
     {
         _myHeroBase.GetPathfinding().SetIsHeroUsingMovementAbility(false);
         
@@ -197,11 +187,11 @@ public class SH_Fae : SpecificHeroFramework
 
         DecreaseBasicAttackSpeedOnManualEnd();
 
-        _manualActive = false;
-
         StopManualAudioProcess();
         
         _manualCoroutine = null;
+        
+        base.EndManualAbility();
     }
 
     /// <summary>
@@ -242,7 +232,7 @@ public class SH_Fae : SpecificHeroFramework
 
     private IEnumerator ManualAudioProcess()
     {
-        while (_manualActive)
+        while (_isManualAbilityActive)
         {
             yield return _manualAudioWaitInterval;
             StopManualAudio();
@@ -285,7 +275,7 @@ public class SH_Fae : SpecificHeroFramework
     {
         yield return new WaitForSeconds(_vfxWeaponDelay);
 
-        while (_manualActive)
+        while (_isManualAbilityActive)
         {
             //TODO Switch to Unity VFX system instead of spawning game objects
             GameObject newestWeaponVFX = Instantiate(_vfxWeapon, _vfxWeaponSpawnPoint.transform);
@@ -449,5 +439,12 @@ public class SH_Fae : SpecificHeroFramework
         _myHeroBase.GetHeroStartedMovingEvent().AddListener(IncreaseBasicAttackSpeedOnMoveStart);
         _myHeroBase.GetHeroStoppedMovingEvent().AddListener(DecreaseBasicAttackSpeedOnMoveEnd);
     }
+    #endregion
+    
+    #region Getters
+
+    public float GetCurrentManualAbilityMovementSpeed() =>
+        _heroStats.GetCurrentSpeed() * _manualSpeedMultiplier * _currentAccelerationMultiplier;
+
     #endregion
 }

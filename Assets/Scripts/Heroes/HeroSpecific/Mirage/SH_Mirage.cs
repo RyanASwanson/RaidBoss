@@ -185,7 +185,14 @@ public class SH_Mirage : SpecificHeroFramework
 
     public void CloneSwapOver()
     {
+        EndManualAbility();
+    }
+
+    public override void EndManualAbility()
+    {
         _myHeroBase.GetPathfinding().SetIsHeroUsingMovementAbility(false);
+        
+        base.EndManualAbility();
     }
 
     /*/// <summary>
