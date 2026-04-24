@@ -133,6 +133,11 @@ public class HeroVisuals : HeroChildrenFunctionality
         return 1 + _scaleCurve.Evaluate(percent);
     }
 
+    public void HeroVisualsRemovedPostDeath()
+    {
+        _myHeroBase.DestroyHero();
+    }
+    
     private void HeroDied()
     {
         _floorFollowIcons.StopFollowing(true);

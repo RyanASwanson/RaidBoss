@@ -16,7 +16,6 @@ public class SB_MagmaLord : SpecificBossFramework
     [SerializeField] private GameObject _deathEffect;
 
     private bool _hasVolcanoBeenUsed = false;
-
     
     #region BaseBoss
     protected override void CreateSpecificBossInstance()

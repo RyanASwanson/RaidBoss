@@ -113,6 +113,11 @@ public class HeroBase : MonoBehaviour
     {
         _associatedHeroUIManager = GameUIManager.Instance.SetAssociatedHeroUIManager(this);
     }
+
+    public void DestroyHero()
+    {
+        Destroy(gameObject);
+    }
     
     #region Events
     private void InvokeSetHeroSO(HeroSO heroSO)

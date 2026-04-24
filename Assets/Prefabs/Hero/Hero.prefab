@@ -139,6 +139,8 @@ MonoBehaviour:
   _doesResetToDefaultProgressOnEnable: 0
   _doesStartMovingUpOnEnable: 0
   _doesStartMovingInCurrentDirectionOnEnable: 0
+  _hasAutomaticStartMovingDelay: 0
+  _automaticStartMovingDelay: 0
   _doesAutomaticallyMoveDownOnHittingMax: 0
   _doesAutomaticallyMoveUpOnHittingMin: 0
   _hasIncreaseDelay: 0
@@ -461,7 +463,7 @@ Transform:
   m_Children:
   - {fileID: 4950124567889277149}
   m_Father: {fileID: 1333710235092989786}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4263328483924012274
 GameObject:
@@ -799,7 +801,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1333710235092989786}
+  m_Father: {fileID: 3352996144472192365}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &4263328484998917752
@@ -934,6 +936,8 @@ MonoBehaviour:
   _doesResetToDefaultProgressOnEnable: 0
   _doesStartMovingUpOnEnable: 0
   _doesStartMovingInCurrentDirectionOnEnable: 0
+  _hasAutomaticStartMovingDelay: 0
+  _automaticStartMovingDelay: 0
   _doesAutomaticallyMoveDownOnHittingMax: 0
   _doesAutomaticallyMoveUpOnHittingMin: 0
   _hasIncreaseDelay: 0
@@ -980,6 +984,39 @@ MonoBehaviour:
   _onMinValueReached:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &7243525433534267806
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3352996144472192365}
+  m_Layer: 0
+  m_Name: HeroHitboxes
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3352996144472192365
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7243525433534267806}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4263328484998917753}
+  - {fileID: 7483617843689719173}
+  m_Father: {fileID: 1333710235092989786}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7948650279649228045
 GameObject:
   m_ObjectHideFlags: 0
@@ -1009,7 +1046,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1333710235092989786}
+  m_Father: {fileID: 3352996144472192365}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &8288659533933419998
@@ -1053,8 +1090,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4263328484998917753}
-  - {fileID: 7483617843689719173}
+  - {fileID: 3352996144472192365}
   - {fileID: 586791428979892784}
   - {fileID: 7976408396630340822}
   m_Father: {fileID: 4263328483924012269}
@@ -1089,7 +1125,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6342792039921305978, guid: 712bb8a70af42dd4bba68fd85fc600e8, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6342792039921305978, guid: 712bb8a70af42dd4bba68fd85fc600e8, type: 3}
       propertyPath: m_AnchorMax.x

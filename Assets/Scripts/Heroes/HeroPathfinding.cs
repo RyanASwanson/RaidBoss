@@ -20,6 +20,14 @@ public class HeroPathfinding : HeroChildrenFunctionality
     private Coroutine _heroMovementCoroutine = null;
     private bool _isHeroUsingMovementAbility = false;
 
+    
+    private void HeroDied()
+    {
+        StopAbilityToMove();
+        _meshAgent.enabled = false;
+    }
+    
+    #region Movement
     /// <summary>
     /// Makes a player walk to a destination
     /// </summary>
@@ -69,8 +77,6 @@ public class HeroPathfinding : HeroChildrenFunctionality
         {
             _meshAgent.isStopped = false;
         }
-
-        
     }
 
     public void StopAbilityToMove()
@@ -118,6 +124,7 @@ public class HeroPathfinding : HeroChildrenFunctionality
         
         HeroLookAtBoss();
     }
+    #endregion
 
     #region Hero Rotation
     /// <summary>
@@ -184,7 +191,7 @@ public class HeroPathfinding : HeroChildrenFunctionality
     public override void SubscribeToEvents()
     {
         base.SubscribeToEvents();
-        _myHeroBase.GetHeroDiedEvent().AddListener(StopAbilityToMove);
+        _myHeroBase.GetHeroDiedEvent().AddListener(HeroDied);
     }
     #endregion
 
