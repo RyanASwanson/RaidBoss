@@ -543,7 +543,7 @@ public class SelectionManager : MainUniversalManagerFramework
     
     public List<HeroSO> GetAllSelectedHeroes() => _selectedHeroes;
     public HeroSO GetHeroAtValue(int val) => _selectedHeroes[val];
-    public HeroSO GetHeroAtLastPostion() => GetHeroAtValue(GetSelectedHeroesCount() - 1);
+    public HeroSO GetHeroAtLastPosition() => GetHeroAtValue(GetSelectedHeroesCount() - 1);
     public float GetHeroSelectionProgress() => (float)_selectedHeroes.Count / GetHeroLimitFromDifficulty();
     public int GetSelectedHeroesCount() => _selectedHeroes.Count;
     public int GetDefaultMaxHeroesCount() => _maxHeroes;
@@ -554,6 +554,42 @@ public class SelectionManager : MainUniversalManagerFramework
     public EGameMode GetSelectedGameMode() => _currentGameMode;
     public bool IsPlayingMissionsMode() => _currentGameMode == EGameMode.Missions;
     public bool IsPlayingFreeMode() => _currentGameMode == EGameMode.Free;
+
+    public bool DoesCurrentCombatHaveUnlock()
+    {
+        if (IsPlayingMissionsMode())
+        {
+            if (GameStateManager.Instance.GetIsCurrentMissionAlreadyComplete())
+            {
+                return false;
+            }
+            
+            CharacterSO characterSO = _currentSelectedMission.GetCharacterUnlock();
+            if (!characterSO.IsUnityNull())
+            {
+                return true;
+            }
+
+            if (_currentSelectedMission.GetIsDifficultyUnlockNotEmpty())
+            {
+                return true;
+            }
+
+            if (!_currentSelectedMission.GetMissionModifierUnlock().IsUnityNull())
+            {
+                return true;
+            }
+        }
+        else if (IsPlayingFreeMode())
+        {
+            if (GameStateManager.Instance.GetIsCurrentBattleAtHighestMythicPlusLevel())
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
     
 
     public UnityEvent<BossSO> GetBossSelectionEvent() => _bossSelectionEvent;

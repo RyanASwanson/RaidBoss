@@ -385,6 +385,18 @@ public class SaveManager : MainUniversalManagerFramework
     }
     #endregion
     
+    #region Difficulty Unlocks
+
+    public void UnlockDifficulty(EGameDifficulty gameDifficulty)
+    {
+        if (gameDifficulty < GSD.GetGameplaySaveData().GetHighestGameDifficultyUnlocked())
+        {
+            return;
+        }
+        GSD.GetGameplaySaveData().SetHighestDifficultyUnlocked(gameDifficulty);
+    }
+    #endregion
+    
     #region Mission Modifier Unlocks
 
     public void UnlockMissionModifier(MissionModifierSO missionModifier)
@@ -438,6 +450,8 @@ public class SaveManager : MainUniversalManagerFramework
         AddMissionAsComplete(mission);
 
         UnlockCharacterFromMission(mission);
+
+        UnlockDifficultyFromMission(mission);
         
         UnlockMissionModifierFromMission(mission);
 
@@ -456,6 +470,11 @@ public class SaveManager : MainUniversalManagerFramework
     public void UnlockCharacterFromMission(MissionSO mission)
     {
         UnlockCharacter(mission.GetCharacterUnlock());
+    }
+
+    public void UnlockDifficultyFromMission(MissionSO mission)
+    {
+        UnlockDifficulty(mission.GetDifficultyUnlock());
     }
 
     public void UnlockMissionModifierFromMission(MissionSO mission)
@@ -552,6 +571,16 @@ public class SaveManager : MainUniversalManagerFramework
     
     public bool IsMissionUnlocked(MissionSO missionSO) => GSD.GetGameplaySaveData().GetMissionsUnlocked().Contains(missionSO.GetMissionID());
     public bool IsMissionCompleted(MissionSO missionSO) => GSD.GetGameplaySaveData().GetMissionsComplete().Contains(missionSO.GetMissionID());
+
+    public bool IsCurrentMissionComplete()
+    {
+        if (SelectionManager.Instance.GetSelectedMissionOut(out MissionSO mission))
+        {
+            return GSD.GetGameplaySaveData().GetMissionsComplete().Contains(mission.GetMissionID());
+        }
+
+        return false;
+    }
     
     public bool IsMissionModifierUnlocked(MissionModifierSO missionModifierSO) => GSD.GetGameplaySaveData()
         .MissionModifiersUnlocked.Contains(missionModifierSO.GetModifierID());
@@ -726,6 +755,8 @@ public class GameplaySaveData
     
     public int CurrentDifficultySelected = 1;
     public int CurrentMythicPlusLevelSelected = 0;
+
+    public int HighestDifficultyUnlocked = 1;
     public int HighestMythicPlusLevelUnlocked = 0;
     
     public void ResetGameplaySaveData()
@@ -741,6 +772,7 @@ public class GameplaySaveData
         
         BossHeroBestDifficultyComplete = new();
 
+        HighestDifficultyUnlocked = 1;
         HighestMythicPlusLevelUnlocked = 0;
     }
     
@@ -759,6 +791,9 @@ public class GameplaySaveData
     
     public int GetCurrentDifficultySelected() => CurrentDifficultySelected;
     public int GetCurrentMythicPlusLevelSelected() => CurrentMythicPlusLevelSelected;
+    
+    public int GetHighestDifficultyIDUnlocked() => HighestDifficultyUnlocked;
+    public EGameDifficulty GetHighestGameDifficultyUnlocked() => (EGameDifficulty)HighestDifficultyUnlocked;
     public int GetHighestMythicPlusLevelUnlocked() => HighestMythicPlusLevelUnlocked;
     #endregion
     
@@ -784,6 +819,11 @@ public class GameplaySaveData
         CurrentMythicPlusLevelSelected = mythicPlusLevel;
     }
     
+    public void SetHighestDifficultyUnlocked(int difficulty) => HighestDifficultyUnlocked = difficulty;
+    public void SetHighestDifficultyUnlocked(EGameDifficulty difficulty)
+    {
+        HighestDifficultyUnlocked = (int)difficulty;
+    } 
     public void SetHighestMythicPlusLevelUnlocked(int level) => HighestMythicPlusLevelUnlocked = level;
     #endregion
 }

@@ -662,7 +662,7 @@ public class SelectionController : MonoBehaviour
         int heroPillarNum = SelectionManager.Instance.GetSelectedHeroesCount();
         
         if (SelectionManager.Instance.AtMaxHeroesSelected() &&
-            SelectionManager.Instance.GetHeroAtLastPostion() != heroSO)
+            SelectionManager.Instance.GetHeroAtLastPosition() != heroSO)
         {
             heroPillarNum--;
         }
@@ -672,9 +672,9 @@ public class SelectionController : MonoBehaviour
         _lastHeroHoveredOver = null;
 
         if (SelectionManager.Instance.AtMaxHeroesSelected() &&
-            SelectionManager.Instance.GetHeroAtLastPostion() != heroSO)
+            SelectionManager.Instance.GetHeroAtLastPosition() != heroSO)
         {
-            NewHeroHoveredOver(SelectionManager.Instance.GetHeroAtLastPostion());
+            NewHeroHoveredOver(SelectionManager.Instance.GetHeroAtLastPosition());
         }
     }
 

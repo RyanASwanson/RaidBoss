@@ -7,13 +7,16 @@ using UnityEngine;
 
 public class SBP_FallingMeteor : BossProjectileFramework
 {
+    [SerializeField] private GeneralVFXFunctionality _fallingParticles;
     [SerializeField] private GameObject _contactParticles;
+
+    [Space] 
+    [SerializeField] private CurveProgression _removalCurve;
     
     [Space]
     [SerializeField] private Animator _meteorAnimator;
     private bool _hasMeteorBeenStopped = false;
     
-    private const string REMOVE_PROJECTILE_ANIM_TRIGGER = "RemoveMeteor";
     private EventInstance _fallingMeteorSFXInstance;
     
     private IEnumerator LookAtTarget(GameObject target)
@@ -40,11 +43,17 @@ public class SBP_FallingMeteor : BossProjectileFramework
     public void StopFallingMeteor()
     {
         _hasMeteorBeenStopped = true;
-        _meteorAnimator.SetTrigger(REMOVE_PROJECTILE_ANIM_TRIGGER);
+        _removalCurve.StartMovingUpOnCurve();
 
         AudioManager.Instance.StartFadeOutStopInstance(_fallingMeteorSFXInstance,
             AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
                 BossAbilityAudio[_abilityID].GeneralAbilityAudio[SBA_Meteor.METEOR_PROJECTILE_IMPACT_AUDIO_ID]);
+    }
+
+    public void MeteorStopped()
+    {
+        _fallingParticles.StopAllParticleSystems();
+        _fallingParticles.DetachVisualEffect();
     }
 
     private void PlayFallingMeteorSFX()

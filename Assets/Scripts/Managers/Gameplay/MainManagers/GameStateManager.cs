@@ -25,6 +25,9 @@ public class GameStateManager : MainGameplayManagerFramework
 
     private EGameplayStates _currentEGameplayState = EGameplayStates.PreBattle;
 
+    private bool _isCurrentBattleAtHighestMythicPlusLevel = false;
+    private bool _isCurrentMissionAlreadyComplete = false;
+
     private UnityEvent _startOfCharacterSpawningEvent = new UnityEvent();
     
     private UnityEvent _startOfBattleEvent = new UnityEvent();
@@ -140,6 +143,10 @@ public class GameStateManager : MainGameplayManagerFramework
     public override void SetUpMainManager()
     {
         base.SetUpMainManager();
+
+        _isCurrentBattleAtHighestMythicPlusLevel = SelectionManager.Instance.GetIsAtHighestMythicPlusLevel();
+        _isCurrentMissionAlreadyComplete = SaveManager.Instance.IsCurrentMissionComplete();
+        
         InvokeStartOfCharacterSpawningEvent();
 
         if (SelectionManager.Instance.GetSelectedMissionOut(out MissionSO mission) &&
@@ -197,6 +204,9 @@ public class GameStateManager : MainGameplayManagerFramework
 
     public bool GetHasFightBegun() => _currentEGameplayState != EGameplayStates.PreBattle;
     public bool GetIsFightOver() => _currentEGameplayState >= EGameplayStates.PostBattleLost;
+
+    public bool GetIsCurrentBattleAtHighestMythicPlusLevel() => _isCurrentBattleAtHighestMythicPlusLevel;
+    public bool GetIsCurrentMissionAlreadyComplete() => _isCurrentMissionAlreadyComplete;
 
     public UnityEvent GetStartOfCharacterSpawningEvent() => _startOfCharacterSpawningEvent;
     public UnityEvent GetStartOfBattleEvent() => _startOfBattleEvent;

@@ -92,9 +92,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd1d04d370a8bca419d81d8abad819bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _doesBeginScalingOnEnable: 0
-  _doesResetScaleOnScalingEnable: 0
-  _scalingTime: 0
   _hasOverrideStartingScale: 0
   _overrideStartingScale: {x: 0, y: 0, z: 0}
   _endingScale: {x: 0.3, y: 0.3, z: 0.3}
@@ -119,11 +116,17 @@ MonoBehaviour:
   _hasDefaultValue: 0
   _defaultValue: 0
   _doesResetToDefaultProgressOnEnable: 0
+  _doesStartMovingUpOnEnable: 0
+  _doesStartMovingInCurrentDirectionOnEnable: 0
+  _hasAutomaticStartMovingDelay: 0
+  _automaticStartMovingDelay: 0
   _doesAutomaticallyMoveDownOnHittingMax: 0
+  _doesAutomaticallyMoveUpOnHittingMin: 0
   _hasIncreaseDelay: 0
   _increaseDelay: 0
   _hasDecreaseDelay: 0
   _decreaseDelay: 0
+  _doesLerpUnchained: 0
   _curve:
     serializedVersion: 2
     m_Curve:
@@ -267,7 +270,7 @@ RectTransform:
   m_GameObject: {fileID: 3031367400422766816}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.01, y: 1.01, z: 1.01}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6379554669259339660}
@@ -583,8 +586,11 @@ MonoBehaviour:
   _iconVisuals: {fileID: 1378179438668237810}
   _heroButton: {fileID: 0}
   _bestDifficultyBeatenIcon: {fileID: 0}
+  _mythicPlusLevelText: {fileID: 0}
   _lockVisuals: {fileID: 6092991948489014376}
   _buttonSizeCurve: {fileID: 0}
+  _buttonVisualsHolderSizeCurve: {fileID: 0}
+  _resetEventSystemObject: {fileID: 0}
 --- !u!1 &6092991948489014376
 GameObject:
   m_ObjectHideFlags: 0
@@ -610,7 +616,7 @@ RectTransform:
   m_GameObject: {fileID: 6092991948489014376}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.01, y: 1.01, z: 1.01}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4208718192749067337}

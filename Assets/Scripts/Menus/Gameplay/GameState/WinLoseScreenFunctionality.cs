@@ -7,6 +7,8 @@ using UnityEngine;
 /// </summary>
 public class WinLoseScreenFunctionality : MonoBehaviour
 {
+    [SerializeField] private GeneralScrollPopUp _unlockScroll;
+    
     public void RetryLevel()
     {
         SceneLoadManager.Instance.ReloadCurrentScene();
@@ -20,5 +22,18 @@ public class WinLoseScreenFunctionality : MonoBehaviour
     public void BackToMainMenu()
     {
         SceneLoadManager.Instance.LoadMainMenuScene();
+    }
+
+    public void BattleWon()
+    {
+        if (SelectionManager.Instance.DoesCurrentCombatHaveUnlock())
+        {
+            _unlockScroll.ShowScroll();
+        }
+    }
+
+    public void BattleLost()
+    {
+        
     }
 }
