@@ -28,6 +28,8 @@ public class SH_Fae : SpecificHeroFramework
     [SerializeField] private float _manualWallDistanceRange;
     [SerializeField] private float _manualDamageCooldown;
     [Range(0,1)][SerializeField] private float _manualBossHoming;
+    [Range(0,1)][SerializeField] private float _manualHeroHitBossHomingLost;
+    [Range(0,1)][SerializeField] private float _manualMinimumBossHoming;
     [SerializeField] private float _manualMinimumDotProduct;
     [SerializeField] private Vector3 _manualWallExtents;
     private bool _manualCanDamage = true;
@@ -53,6 +55,7 @@ public class SH_Fae : SpecificHeroFramework
 
     private Vector3 _currentManualDirection;
     private float _currentAccelerationMultiplier;
+    private float _currentManualBossHoming;
     
     public const int MANUAL_BOUNCE_AUDIO_ID = 0;
 
@@ -69,11 +72,7 @@ public class SH_Fae : SpecificHeroFramework
     private HeroStats _heroStats;
 
     #region Basic Abilities
-
-    /*protected override void CooldownAddToBasicAbilityCharge(float addedAmount)
-    {
-        base.CooldownAddToBasicAbilityCharge(addedAmount * _currentPassiveBasicAttackSpeed);
-    }*/
+    
 
     public override void ActivateBasicAbilities()
     {
@@ -130,7 +129,8 @@ public class SH_Fae : SpecificHeroFramework
     public override void ActivateManualAbilities()
     {
         base.ActivateManualAbilities();
-        
+
+        _currentManualBossHoming = _manualBossHoming;
         _myHeroBase.GetPathfinding().SetIsHeroUsingMovementAbility(true);
 
         _currentManualDirection = BossManager.Instance.GetDirectionToBoss(transform.position);
@@ -322,6 +322,11 @@ public class SH_Fae : SpecificHeroFramework
                 }
                 return;
             }
+            else if (ManualHitHero(rayHit))
+            {
+                _currentManualBossHoming -= _manualHeroHitBossHomingLost;
+                _currentManualBossHoming = Mathf.Clamp(_currentManualBossHoming, _manualMinimumBossHoming, _manualBossHoming);
+            }
             
             Vector3 directionToBoss = ManualDirectionToBoss();
             float bossDirectionDotProduct = Vector3.Dot(_currentManualDirection, directionToBoss);
@@ -352,6 +357,11 @@ public class SH_Fae : SpecificHeroFramework
     private bool ManualHitBoss(RaycastHit rayHit)
     {
         return TagStringData.DoesColliderBelongToBoss(rayHit.collider);
+    }
+
+    private bool ManualHitHero(RaycastHit rayHit)
+    {
+        return TagStringData.DoesColliderBelongToHero(rayHit.collider);
     }
     #endregion
 

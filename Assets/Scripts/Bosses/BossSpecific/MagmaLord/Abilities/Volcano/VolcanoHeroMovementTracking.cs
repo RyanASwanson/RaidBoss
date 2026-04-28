@@ -11,6 +11,9 @@ public class VolcanoHeroMovementTracking : MonoBehaviour
     [SerializeField] private float _volcanoMaxTracking;
     [SerializeField] private float _volcanoDecreaseToSpecificValue;
     [SerializeField] private float _volcanoDecreaseToValueSpeed;
+    
+    [Space]
+    [SerializeField] private float _destroyTime;
 
     [Space] 
     [SerializeField] private AnimationCurve _volcanoWarningEffectIntensityCurve;
@@ -52,6 +55,12 @@ public class VolcanoHeroMovementTracking : MonoBehaviour
         UnsubscribeFromEvents();
     }
 
+    public void DestroyTrackingObject()
+    {
+        StopTrackingHeroMovement();
+        Destroy(gameObject,_destroyTime);
+    }
+
     public void StartTrackingHeroMovement()
     {
         StopTrackingHeroMovement();
@@ -64,6 +73,7 @@ public class VolcanoHeroMovementTracking : MonoBehaviour
         if (!_volcanoHeroTrackingCoroutine.IsUnityNull())
         {
             StopCoroutine(_volcanoHeroTrackingCoroutine);
+            StartMovingVolcanoProgressDownToValue(0, _volcanoDecreaseToValueSpeed);
         }
     }
 
@@ -164,11 +174,11 @@ public class VolcanoHeroMovementTracking : MonoBehaviour
 
     private void SubscribeToEvents()
     {
-        GameStateManager.Instance.GetBattleWonOrLostEvent().AddListener(StopTrackingHeroMovement);
+        GameStateManager.Instance.GetBattleWonOrLostEvent().AddListener(DestroyTrackingObject);
     }
 
     private void UnsubscribeFromEvents()
     {
-        GameStateManager.Instance.GetBattleWonOrLostEvent().RemoveListener(StopTrackingHeroMovement);
+        GameStateManager.Instance.GetBattleWonOrLostEvent().RemoveListener(DestroyTrackingObject);
     }
 }

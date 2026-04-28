@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Text.RegularExpressions;
 
 public class TextWithBackground : MonoBehaviour
 {
@@ -32,6 +33,7 @@ public class TextWithBackground : MonoBehaviour
     {
         CurrentString = newString;
         _text.text = newString;
+        newString = Regex.Replace(newString, "<color=.*?>|</color>", string.Empty);
         _backgroundText.text = newString;
     }
 

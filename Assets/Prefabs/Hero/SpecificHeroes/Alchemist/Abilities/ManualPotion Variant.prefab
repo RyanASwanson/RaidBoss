@@ -8,6 +8,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -3453419747926540237, guid: d0bbc584927d2094a801f0a9471107c0, type: 3}
+      propertyPath: _potionMesh
+      value: 
+      objectReference: {fileID: 813754613919359215}
+    - target: {fileID: -3453419747926540237, guid: d0bbc584927d2094a801f0a9471107c0, type: 3}
       propertyPath: _idleLifetime
       value: 25
       objectReference: {fileID: 0}
@@ -15,6 +19,10 @@ PrefabInstance:
       propertyPath: _idleLifetimeWarning
       value: 20.5
       objectReference: {fileID: 0}
+    - target: {fileID: -3453419747926540237, guid: d0bbc584927d2094a801f0a9471107c0, type: 3}
+      propertyPath: _potionBuffFollowVisualEffect
+      value: 
+      objectReference: {fileID: 7067636981997732251, guid: e839fadc0cd08e74eae402c73516391c, type: 3}
     - target: {fileID: 1451076732082519761, guid: d0bbc584927d2094a801f0a9471107c0, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -85,3 +93,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0bbc584927d2094a801f0a9471107c0, type: 3}
+--- !u!23 &813754613919359215 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1619505830575081644, guid: d0bbc584927d2094a801f0a9471107c0, type: 3}
+  m_PrefabInstance: {fileID: 2103931418641279043}
+  m_PrefabAsset: {fileID: 0}

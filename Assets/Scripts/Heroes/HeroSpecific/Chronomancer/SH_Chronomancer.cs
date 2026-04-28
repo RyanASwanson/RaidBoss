@@ -349,8 +349,10 @@ public class SH_Chronomancer : SpecificHeroFramework
     /// <param name="heroBase"></param>
     public void PassiveReduceBasicCooldownOfHero(HeroBase heroBase)
     {
-        GameObject passiveEffect = Instantiate(_passiveTargetHeroVisualEffect,heroBase.transform.position,Quaternion.identity);
-        passiveEffect.GetComponent<FollowObject>().StartFollowingObject(heroBase.gameObject);
+        FollowObject passiveEffect = 
+            Instantiate(_passiveTargetHeroVisualEffect,heroBase.transform.position,Quaternion.identity).GetComponent<FollowObject>();
+        
+        passiveEffect.StartFollowingObject(heroBase.gameObject);
         
         heroBase.GetSpecificHeroScript().AddToBasicAbilityChargeTime(_passiveAbilityBasicCooldownReduction);
         heroBase.GetSpecificHeroScript().AddToManualAbilityChargeTime(_passiveAbilityManualCooldownReduction);

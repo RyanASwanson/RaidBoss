@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 /// <summary>
@@ -367,9 +368,14 @@ public class HeroStats : HeroChildrenFunctionality
     /// <param name="secondaryValue"></param> How much a secondary stat (if it exists) is changed by
     /// <param name="duration"></param> How long the stat is changed for 
     public void ApplyStatChangeForDuration(HeroGeneralAdjustableStats stat, 
-        float changeValue, float secondaryValue, float duration)
+        float changeValue, float duration, bool doesCreateBuffIcons)
     {
-        StartCoroutine(StatChangeDurationProcess(stat, changeValue, secondaryValue, duration));
+        StartCoroutine(StatChangeDurationProcess(stat, changeValue, duration,doesCreateBuffIcons));
+    }
+
+    public void ApplyStatChangesForDuration(HeroAdjustableStatGroup statGroup)
+    {
+        StartCoroutine(StatChangeDurationProcess(statGroup));
     }
 
     /// <summary>
@@ -381,15 +387,30 @@ public class HeroStats : HeroChildrenFunctionality
     /// <param name="duration"></param>
     /// <returns></returns>
     private IEnumerator StatChangeDurationProcess(HeroGeneralAdjustableStats stat,
-        float changeValue, float secondaryValue, float duration)
+        float changeValue, float duration, bool doesCreateBuffIcons)
     {
-        ChangeSpecificStat(stat, changeValue,secondaryValue,true);
+        ChangeSpecificStat(stat, changeValue,true);
         yield return new WaitForSeconds(duration);
-        ChangeSpecificStat(stat, -changeValue, -secondaryValue,true);
+        ChangeSpecificStat(stat, -changeValue,true);
+    }
+
+    private IEnumerator StatChangeDurationProcess(HeroAdjustableStatGroup statGroup)
+    {
+        ApplyStatChangesToStatGroup(statGroup,1);
+        yield return new WaitForSeconds(statGroup.BuffDuration);
+        ApplyStatChangesToStatGroup(statGroup,-1);
+    }
+
+    private void ApplyStatChangesToStatGroup(HeroAdjustableStatGroup statGroup, float statMultiplier)
+    {
+        for (int i = 0; i < statGroup.Stats.Length; i++)
+        {
+            ChangeSpecificStat(statGroup.Stats[i], statGroup.BuffStrength[i] * statMultiplier, statGroup.DoesCreateBuffIcon[i]);
+        }
     }
 
 
-    private void ChangeSpecificStat(HeroGeneralAdjustableStats stat, float changeValue, float secondaryValue, bool createBuffIcons)
+    private void ChangeSpecificStat(HeroGeneralAdjustableStats stat, float changeValue, bool doesCreateBuffIcons)
     {
         Sprite buffDebuffIconSprite = null;
 
@@ -415,9 +436,10 @@ public class HeroStats : HeroChildrenFunctionality
                 break;
             case (HeroGeneralAdjustableStats.SpeedMultiplier):
                 ChangeCurrentHeroSpeed(changeValue);
-                ChangeCurrentHeroAcceleration(secondaryValue);
-
                 buffDebuffIconSprite = _speedBuffIcon;
+                break;
+            case (HeroGeneralAdjustableStats.AccelerationMultiplier):
+                ChangeCurrentHeroAcceleration(changeValue);
                 break;
             case (HeroGeneralAdjustableStats.AggroMultiplier):
                 ChangeCurrentHeroAggro(changeValue);
@@ -425,11 +447,25 @@ public class HeroStats : HeroChildrenFunctionality
             case (HeroGeneralAdjustableStats.DamageResistanceMultiplier):
                 ChangeCurrentHeroDamageResistance(changeValue);
                 break;
+            case(HeroGeneralAdjustableStats.BasicAbilityCooldownRateMultiplier):
+                if (changeValue < 0)
+                {
+                    changeValue = 1 / Mathf.Abs(changeValue);
+                }
+                ChangeCurrentBasicAbilityCooldownRate(changeValue);
+                break;
+            case (HeroGeneralAdjustableStats.ManualAbilityCooldownRateMultiplier):
+                if (changeValue < 0)
+                {
+                    changeValue = 1 / Mathf.Abs(changeValue);
+                }
+                ChangeCurrentManualAbilityCooldownRate(changeValue);
+                break;
         }
 
         // If the stat has an icon associated with it and creating icons is allowed
         // Tell the associated HeroUI manager to create a buff/debuff icon
-        if (!buffDebuffIconSprite.IsUnityNull() && createBuffIcons)
+        if (!buffDebuffIconSprite.IsUnityNull() && doesCreateBuffIcons)
         {
             _myHeroBase.GetHeroUIManager().CreateBuffDebuffIcon(buffDebuffIconSprite, changeValue > 0);
         }
@@ -566,6 +602,14 @@ public class HeroStats : HeroChildrenFunctionality
     #endregion
 }
 
+[System.Serializable]
+public class HeroAdjustableStatGroup
+{
+    public HeroGeneralAdjustableStats[] Stats;
+    public float[] BuffStrength;
+    public bool[] DoesCreateBuffIcon;
+    public float BuffDuration;
+}
 
 /// <summary>
 /// The stats which can be adjusted by buffs/debuffs
@@ -579,5 +623,7 @@ public enum HeroGeneralAdjustableStats
     SpeedMultiplier,
     AccelerationMultiplier,
     AggroMultiplier,
-    DamageResistanceMultiplier
+    DamageResistanceMultiplier,
+    BasicAbilityCooldownRateMultiplier,
+    ManualAbilityCooldownRateMultiplier
 };
