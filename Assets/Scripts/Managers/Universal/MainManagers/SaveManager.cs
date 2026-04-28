@@ -458,6 +458,8 @@ public class SaveManager : MainUniversalManagerFramework
         UnlockMissionsFromMission(mission);
 
         UnlockAchievementsFromMission(mission);
+
+        UnlockGeneralUnlockFromMission(mission);
         
         SaveText();
     }
@@ -501,6 +503,14 @@ public class SaveManager : MainUniversalManagerFramework
         for (int i = 0; i < achievementUnlocks.Length; i++)
         {
             AchievementManager.Instance.UnlockAchievement(achievementUnlocks[i]);
+        }
+    }
+
+    public void UnlockGeneralUnlockFromMission(MissionSO mission)
+    {
+        if (!mission.GetHasGeneralMissionUnlock())
+        {
+            return;
         }
     }
     #endregion

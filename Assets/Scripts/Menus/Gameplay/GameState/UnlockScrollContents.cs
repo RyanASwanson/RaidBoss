@@ -23,6 +23,9 @@ public class UnlockScrollContents : ScrollUIContents
     [Space]
     [SerializeField] private GameObject _missionModifierUnlockSection;
     [SerializeField] private Image _missionModifierIconImage;
+    
+    [Space]
+    [SerializeField] private GameObject _freePlayUnlockedSection;
 
 
     public override int UpdateContentsAndCountLines()
@@ -64,6 +67,16 @@ public class UnlockScrollContents : ScrollUIContents
         {
             ShowMissionModifierUnlockUI(mission.GetMissionModifierUnlock());
         }
+        
+        if (mission.GetHasGeneralMissionUnlock())
+        {
+            switch (mission.GetGeneralMissionUnlocks())
+            {
+                case EGeneralMissionUnlocks.FreePlay:
+                    ShowFreePlayUnlockUI();
+                    break;
+            }
+        }
     }
 
     private void ShowFreePlayModeUnlocks()
@@ -101,5 +114,10 @@ public class UnlockScrollContents : ScrollUIContents
     {
         _missionModifierUnlockSection.SetActive(true);
         _missionModifierIconImage.sprite = missionModifierSO.GetModifierSprite();
+    }
+
+    private void ShowFreePlayUnlockUI()
+    {
+        _freePlayUnlockedSection.SetActive(true);
     }
 }

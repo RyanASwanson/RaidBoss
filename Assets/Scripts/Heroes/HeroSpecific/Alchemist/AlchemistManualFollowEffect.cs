@@ -11,7 +11,6 @@ public class AlchemistManualFollowEffect : MonoBehaviour
     [Space]
     [SerializeField] private MeshRenderer _potionRenderer;
     [SerializeField] private FollowObject _followObject;
-    [SerializeField] private GeneralVFXFunctionality _generalVFXFunctionality;
     [SerializeField] private CurveProgression _scaleCurve;
     [SerializeField] private MaterialSetCustomProperty _materialSetCustomProperty;
     [SerializeField] private CurveProgression _lifeTimeWarningCurve;

@@ -22,9 +22,13 @@ public class HeroBuffDebuffFunctionality : MonoBehaviour
         _downArrow.enabled = !isBuff;
 
         if (isBuff)
+        {
             _animator.SetTrigger(BUFF_ANIM_TRIGGER);
+        }
         else
+        {
             _animator.SetTrigger(DEBUFF_ANIM_TRIGGER);
+        }
 
     }
 }

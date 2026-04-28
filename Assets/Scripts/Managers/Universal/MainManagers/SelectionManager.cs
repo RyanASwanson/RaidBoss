@@ -579,6 +579,11 @@ public class SelectionManager : MainUniversalManagerFramework
             {
                 return true;
             }
+
+            if (_currentSelectedMission.GetHasGeneralMissionUnlock())
+            {
+                return true;
+            }
         }
         else if (IsPlayingFreeMode())
         {

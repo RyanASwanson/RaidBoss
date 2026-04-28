@@ -38,6 +38,9 @@ public class MissionSO : ScriptableObject
 
     [Space]
     [SerializeField] private AchievementSO[] _achievementUnlocks;
+    
+    [Space]
+    [SerializeField] private EGeneralMissionUnlocks _generalMissionUnlocks;
 
     [Space] 
     [Header("Modifiers")]
@@ -65,6 +68,8 @@ public class MissionSO : ScriptableObject
     public MissionModifierSO GetMissionModifierUnlock() =>_missionModifierUnlock;
     public MissionSO[] GetMissionUnlocks() =>_missionUnlocks;
     public AchievementSO[] GetAchievementUnlocks() =>_achievementUnlocks;
+    public EGeneralMissionUnlocks GetGeneralMissionUnlocks() =>_generalMissionUnlocks;
+    public bool GetHasGeneralMissionUnlock() => _generalMissionUnlocks != EGeneralMissionUnlocks.None;
     
     public MissionModifierSO[] GetMissionModifiers() =>_missionModifiers;
     public MissionStatModifiers GetMissionStatModifiers() =>_missionStatModifiers;
@@ -154,3 +159,9 @@ public enum EMissionDisplayHighlightType
     Hero,
     MissionModifier
 };
+
+public enum EGeneralMissionUnlocks
+{
+    None,
+    FreePlay
+}

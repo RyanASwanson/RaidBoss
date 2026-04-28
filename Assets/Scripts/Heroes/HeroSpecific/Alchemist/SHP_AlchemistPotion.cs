@@ -18,8 +18,11 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
     [Space]
     [SerializeField] private PotionTypes _potionType;
     [SerializeField] private HeroAdjustableStatGroup _statChanges;
+    [SerializeField] private Color[] _potionPickUpColors;
 
     [Space] 
+    [SerializeField] private float _potionPickUpEffectScale;
+    [SerializeField] private GameObject _potionPickUpVisualEffect;
     [SerializeField] private GameObject _potionBuffFollowVisualEffect;
     
     [Space]
@@ -97,6 +100,13 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
     {
         ActivateAlchemistPassive(collider);
         PlayPotionPickUpAudio();
+        CreatePotionPickUpEffect();
+        RemovePickedUpPotion();
+    }
+
+    private void RemovePickedUpPotion()
+    {
+        
     }
     
     /// <summary>
@@ -113,7 +123,7 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
         HeroBase heroBase = hero.GetComponentInParent<HeroBase>();
         
         PlayPotionBuffActivatedAudio();
-
+        
         CreatePotionFollowEffect(heroBase);
         
         heroBase.GetHeroStats().ApplyStatChangesForDuration(_statChanges);
@@ -145,6 +155,16 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
         _lifeTimeWarningCurve.StartMovingUpOnCurve();
     }
 
+    private void CreatePotionPickUpEffect()
+    {
+        GeneralVFXFunctionality vfxFunctionality =
+            Instantiate(_potionPickUpVisualEffect, transform.position, Quaternion.identity)
+                .GetComponent<GeneralVFXFunctionality>();
+
+        vfxFunctionality.gameObject.transform.localScale *= _potionPickUpEffectScale;
+        vfxFunctionality.SetStartColor(_potionPickUpColors[0], _potionPickUpColors[1]);
+        vfxFunctionality.PlayAllParticleSystems();
+    }
     private void CreatePotionFollowEffect(HeroBase heroBase)
     {
         AlchemistManualFollowEffect alchemistManualFollowEffect = 

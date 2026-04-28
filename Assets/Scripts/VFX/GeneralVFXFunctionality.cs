@@ -113,14 +113,21 @@ public class GeneralVFXFunctionality : MonoBehaviour
         }
     }
 
+    public void SetStartColor(Color firstStartColor)
+    {
+        foreach(ParticleSystem ps in _particleSystems)
+        {
+            ParticleSystem.MainModule main = ps.main;
+            main.startColor = new ParticleSystem.MinMaxGradient(firstStartColor);
+        }
+    }
+    
     public void SetStartColor(Color firstStartColor, Color secondStartColor)
     {
         foreach(ParticleSystem ps in _particleSystems)
         {
             ParticleSystem.MainModule main = ps.main;
             main.startColor = new ParticleSystem.MinMaxGradient(firstStartColor, secondStartColor);
-            //ParticleSystem.ShapeModule shapeModule = ps.shape;
-            //shapeModule.scale = emissionShapeScale;
         }
     }
     
