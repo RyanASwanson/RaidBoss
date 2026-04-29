@@ -421,7 +421,7 @@ public class SelectionManager : MainUniversalManagerFramework
 
     public float GetDamageMultiplierFromMythicPlusLevel()
     {
-        if (_currentMythicPlusLevel == 0)
+        if (_currentEGameDifficulty != EGameDifficulty.MythicPlus || _currentMythicPlusLevel == 0)
         {
             return 1;
         }
@@ -436,7 +436,7 @@ public class SelectionManager : MainUniversalManagerFramework
 
     public float GetSpeedMultiplierFromMythicPlusLevel()
     {
-        if (_currentMythicPlusLevel == 0)
+        if (_currentEGameDifficulty != EGameDifficulty.MythicPlus || _currentMythicPlusLevel == 0)
         {
             return 1;
         }
@@ -451,7 +451,7 @@ public class SelectionManager : MainUniversalManagerFramework
     
     public float GetHealthMultiplierFromMythicPlusLevel()
     {
-        if (_currentMythicPlusLevel == 0)
+        if (_currentEGameDifficulty != EGameDifficulty.MythicPlus ||_currentMythicPlusLevel == 0)
         {
             return 1;
         }
@@ -466,7 +466,7 @@ public class SelectionManager : MainUniversalManagerFramework
     
     public float GetStaggerMultiplierFromMythicPlusLevel()
     {
-        if (_currentMythicPlusLevel == 0)
+        if (_currentEGameDifficulty != EGameDifficulty.MythicPlus || _currentMythicPlusLevel == 0)
         {
             return 1;
         }
@@ -526,7 +526,8 @@ public class SelectionManager : MainUniversalManagerFramework
     public int GetMythicPlusLevel() => _currentMythicPlusLevel;
 
     public bool GetIsAtHighestMythicPlusLevel() =>
-        _currentMythicPlusLevel == SaveManager.Instance.GetHighestMythicPlusLevelUnlocked();
+        _currentMythicPlusLevel == SaveManager.Instance.GetHighestMythicPlusLevelUnlocked() &&
+        _currentEGameDifficulty == EGameDifficulty.MythicPlus;
 
     public bool IsPlayingMythicPlusLevelsAboveZero()
     {

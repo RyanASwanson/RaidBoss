@@ -6,8 +6,13 @@ public class SHP_AstromancerBasicProjectile : HeroProjectileFramework
 {
     [SerializeField] private float _projectileSpeed;
     [SerializeField] private float _damageScalingPerSecond;
-    [Space]
 
+    [Space] 
+    [Range(0,1)][SerializeField] private float _percentDistanceToReflectHero;
+    [SerializeField] private float _reflectEffectSpawnHeight;
+    [SerializeField] private GameObject _reflectEffect;
+    
+    [Space]
     [SerializeField] private GeneralHeroDamageArea _generalDamageArea;
     [SerializeField] private GeneralHeroHealArea _generalHealArea;
 
@@ -19,14 +24,11 @@ public class SHP_AstromancerBasicProjectile : HeroProjectileFramework
 
     private float _damageScalingAmount = 0;
 
-    
-
-
     private IEnumerator MoveProjectile()
     {
         while (true)
         {
-            transform.position += _storedDirection * _projectileSpeed * Time.deltaTime;
+            transform.position += _storedDirection * (_projectileSpeed * Time.deltaTime);
             yield return null;
         }
     }
@@ -84,6 +86,7 @@ public class SHP_AstromancerBasicProjectile : HeroProjectileFramework
 
         FlipDirection();
         PlayReflectAudio();
+        CreateReflectEffect(collider.gameObject);
         TriggerHeroPassive();
     }
 
@@ -98,6 +101,14 @@ public class SHP_AstromancerBasicProjectile : HeroProjectileFramework
     public void TriggerHeroPassive()
     {
         _astromancerScript.ActivatePassiveAbilities();
+    }
+
+    private void CreateReflectEffect(GameObject reflectHero)
+    {
+        GameObject reflectEffect = Instantiate(_reflectEffect, Vector3.Lerp(transform.position, reflectHero.transform.position,_percentDistanceToReflectHero), Quaternion.identity);
+        reflectEffect.transform.LookAt(gameObject.transform);
+        reflectEffect.transform.localEulerAngles = new Vector3(0, reflectEffect.transform.localEulerAngles.y, 0);
+        //reflectEffect.transform.position = new Vector3(reflectEffect.transform.position.x,_reflectEffectSpawnHeight,reflectEffect.transform.position.z);
     }
     
     private void PlayReflectAudio()

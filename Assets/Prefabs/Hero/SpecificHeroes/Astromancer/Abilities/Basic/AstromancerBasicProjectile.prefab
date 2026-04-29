@@ -190,7 +190,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.25
+  m_Radius: 0.325
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7688413976857446936
 GameObject:
@@ -201,9 +201,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7688413976857446934}
+  - component: {fileID: 637497239959439782}
   - component: {fileID: 5478770782346241450}
   - component: {fileID: 5312791802309699570}
-  - component: {fileID: 637497239959439782}
   - component: {fileID: 637497239959439783}
   - component: {fileID: 4519777008352393012}
   m_Layer: 0
@@ -230,6 +230,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &637497239959439782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7688413976857446936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e577f1972f333a49a2447da58f71c42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _projectileSpeed: 2.5
+  _damageScalingPerSecond: 0.25
+  _percentDistanceToReflectHero: 0.3
+  _reflectEffectSpawnHeight: -0.75
+  _reflectEffect: {fileID: 795790408510367199, guid: 02d0fbdb2fb7ce947a9e0ac151b51ed6, type: 3}
+  _generalDamageArea: {fileID: 5478770782346241450}
+  _generalHealArea: {fileID: 5312791802309699570}
 --- !u!114 &5478770782346241450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -317,22 +336,6 @@ MonoBehaviour:
   _exitEvent:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &637497239959439782
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7688413976857446936}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e577f1972f333a49a2447da58f71c42, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _projectileSpeed: 2.5
-  _damageScalingPerSecond: 0.25
-  _generalDamageArea: {fileID: 5478770782346241450}
-  _generalHealArea: {fileID: 5312791802309699570}
 --- !u!54 &637497239959439783
 Rigidbody:
   m_ObjectHideFlags: 0
