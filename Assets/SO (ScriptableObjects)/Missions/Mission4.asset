@@ -82,20 +82,34 @@ MonoBehaviour:
       TutorialCharacterIconScaleMultiplier: 1
       TutorialPageCharacterIcon: {fileID: 0}
       TutorialPageCharacterBackground: {fileID: 0}
+  - TutorialPageTitle: Enraged Attacks
+    TutorialPageTitleWidth: 975
+    DefaultTextLocation: {x: 0, y: 75}
+    DefaultText: 'While enraged some boss
+
+      abilities gain new effects.'
+    TutorialPageObjectLocation: {x: 0, y: -32}
+    TutorialPageObject: {fileID: 554136623965309169, guid: b25feb162b11d804e86084c48b9456f6, type: 3}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: 0}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 0}
+      TutorialPageCharacterBackground: {fileID: 0}
   _characterUnlock: {fileID: 0}
   _difficultyUnlock: 0
   _missionModifierUnlock: {fileID: 0}
   _missionUnlocks:
   - {fileID: 11400000, guid: fcfd0a27990972e44bfdc6fac01bea39, type: 2}
   _achievementUnlocks: []
+  _generalMissionUnlocks: 0
   _missionModifiers: []
   _missionStatModifiers:
     _bossHealthMultiplier: 0.095
     _bossStaggerMultiplier: 0.65
     _bossAttackSpeedMultiplier: 0.9
     _bossDamageResistanceChangeOnStaggerMultiplier: 1.65
-    _bossEnrageTimeMultiplier: 1
-    _bossEnrageDamageMultiplier: 1
+    _bossEnrageTimeMultiplier: 0.4
+    _bossEnrageDamageMultiplier: 0.75
     _bossAbilitiesUsable: 0101010100
     _heroHealthMultiplier: 1
     _heroDamageMultiplier: 1

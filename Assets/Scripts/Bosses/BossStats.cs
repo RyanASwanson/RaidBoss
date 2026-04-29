@@ -121,8 +121,9 @@ public class BossStats : BossChildrenFunctionality
         //Sets the starting health and stagger values
         _currentHealth = _bossMaxHealth;
         _currentStaggerCounter = 0;
-        
-        //Debug.Log("Stats:    health: " + _currentHealth + "    stagger: " + _bossDefaultStaggerMax + "    damage: " + _baseBossDamageMultiplier);
+
+        _storedEnrageMultiplier += 1;
+        _enrageMaxTime = _currentTimeUntilEnrage;
     }
 #endregion
 
