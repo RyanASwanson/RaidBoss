@@ -174,4 +174,8 @@ public abstract class GeneralAbilityAreaFramework : MonoBehaviour
     public UnityEvent GetLifetimeEndEvent() => _lifetimeEndEvent;
     public UnityEvent GetColliderLifetimeEvent() => _colliderLifetimeEndEvent;
     #endregion
+    
+    #region Setters
+    public void SetProjectileColliderLifeTime(float lifetime) => _colliderLifetime = lifetime;
+    #endregion
 }

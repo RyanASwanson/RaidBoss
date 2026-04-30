@@ -11,6 +11,7 @@ public abstract class BossProjectileFramework : MonoBehaviour
     protected SpecificBossFramework _mySpecificBoss;
 
     protected int _abilityID;
+    protected bool _wasBossEnragedOnAbilityActivation = false;
 
     /// <summary>
     /// Tells the boss projectile it's owner
@@ -22,5 +23,12 @@ public abstract class BossProjectileFramework : MonoBehaviour
         _myBossBase = bossBase;
         _mySpecificBoss = bossBase.GetSpecificBossScript();
         _abilityID = newAbilityID;
+    }
+    
+    public virtual void SetUpProjectile(BossBase bossBase, int newAbilityID, bool wasEnragedOnAbilityActivation)
+    {
+        _wasBossEnragedOnAbilityActivation = wasEnragedOnAbilityActivation;
+        SetUpProjectile(bossBase, newAbilityID);
+        
     }
 }

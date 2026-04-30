@@ -10,6 +10,7 @@ public class SBA_Entomb : SpecificBossAbilityFramework
     [SerializeField] private float _rotationAmount;
 
     private Quaternion _storedTargetRotation;
+    private Quaternion _enrageTargetRotation;
 
     [SerializeField] private GameObject _targetZone;
     [SerializeField] private GameObject _entomb;
@@ -40,6 +41,8 @@ public class SBA_Entomb : SpecificBossAbilityFramework
         
         //Set the rotation of the attack
         _storedTargetRotation = Quaternion.Euler(new Vector3(0, randomYRotation, 0));
+        
+        _enrageTargetRotation = Quaternion.Euler(0, randomYRotation+90, 0);
     }
 
     #region Base Ability
@@ -48,14 +51,29 @@ public class SBA_Entomb : SpecificBossAbilityFramework
         CalculateAttackRotation();
 
         _currentTargetZones.Add(Instantiate(_targetZone, _storedTargetLocation, _storedTargetRotation).GetComponent<BossTargetZoneParent>());
-
+        
+        /*if (_wasBossEnragedOnAbilityActivation)
+        {
+            _currentTargetZones.Add(Instantiate(_targetZone, _storedTargetLocation, _enrageTargetRotation).GetComponent<BossTargetZoneParent>());
+        }*/
+        
         base.StartShowTargetZone();
     }
 
     protected override void AbilityStart()
     {
-        GameObject storedEntomb = Instantiate(_entomb, _storedTargetLocation, _storedTargetRotation);
-        storedEntomb.GetComponent<SBP_Entomb>().SetUpProjectile(_myBossBase, _abilityID);
+        SBP_Entomb storedEntomb = Instantiate(_entomb, _storedTargetLocation, _storedTargetRotation).GetComponent<SBP_Entomb>();
+        storedEntomb.SetUpProjectile(_myBossBase, _abilityID, _wasBossEnragedOnAbilityActivation);
+
+        /*if (_wasBossEnragedOnAbilityActivation)
+        {
+            SBP_Entomb enrageEntomb = Instantiate(_entomb, _storedTargetLocation, _enrageTargetRotation).GetComponent<SBP_Entomb>();
+            enrageEntomb.SetUpProjectile(_myBossBase, _abilityID, _wasBossEnragedOnAbilityActivation);
+            
+            storedEntomb.AdditionalSetUp(enrageEntomb);
+            enrageEntomb.AdditionalSetUp(storedEntomb);
+        }*/
+        
 
         base.AbilityStart();
     }

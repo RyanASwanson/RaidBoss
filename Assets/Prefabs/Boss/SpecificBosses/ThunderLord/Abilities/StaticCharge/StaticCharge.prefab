@@ -84,6 +84,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _damageToFollowTargetOnSwap: 4
   _maxSwaps: 3
+  _enrageMaxSwapIncrease: 1
+  _projectileDuration: 16
+  _enrageDurationIncrease: 8
   _moveIntoHeroTime: 0.2
   _moveOutFromHeroTime: 0.4
   _moveOutColliderEnableDelay: 0.15
@@ -132,8 +135,8 @@ MonoBehaviour:
   _lifetime: 0
   _hasColliderActivationDelay: 0
   _colliderActivationDelay: 0
-  _hasColliderLifetime: 1
-  _colliderLifetime: 17
+  _hasColliderLifetime: 0
+  _colliderLifetime: 0
   _doesHitCenteredVFXCopyRotation: 0
   _hitCenteredVFXCopyTarget: {fileID: 0}
   _hitCenteredVFX: {fileID: 0}

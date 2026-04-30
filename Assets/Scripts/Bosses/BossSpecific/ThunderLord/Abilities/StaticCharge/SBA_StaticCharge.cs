@@ -61,7 +61,7 @@ public class SBA_StaticCharge : SpecificBossAbilityFramework
 
         if (newestStaticCharge.TryGetComponent(out SBP_StaticCharge staticCharge))
         {
-            staticCharge.SetUpProjectile(_myBossBase, _abilityID);
+            staticCharge.SetUpProjectile(_myBossBase, _abilityID,_wasBossEnragedOnAbilityActivation);
             staticCharge.AdditionalSetUp(_storedTarget);
         }
         

@@ -178,15 +178,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 369bcc862835c2b41a6b1d018a12a33c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _doesPerformSetUpOnEnable: 1
   _propertyType: 0
   _propertyName: _HeightFogDensity
   _progressMultiplier: 1
   _hasOverrideStartingColors: 0
   _overrideStartingColors: []
   _endColors: []
-  _isUsingSharedMaterial: 1
+  _isUsingSharedMaterial: 0
   _meshRenderers:
   - {fileID: 6856550235061818274}
+  - {fileID: 5562771413387023173}
+  - {fileID: 4805182816352579629}
+  - {fileID: 374413504022623956}
   _curveProgression: {fileID: 1839482245816804616}
 --- !u!114 &1839482245816804616
 MonoBehaviour:
@@ -210,6 +214,8 @@ MonoBehaviour:
   _doesResetToDefaultProgressOnEnable: 0
   _doesStartMovingUpOnEnable: 0
   _doesStartMovingInCurrentDirectionOnEnable: 0
+  _hasAutomaticStartMovingDelay: 0
+  _automaticStartMovingDelay: 0
   _doesAutomaticallyMoveDownOnHittingMax: 0
   _doesAutomaticallyMoveUpOnHittingMin: 0
   _hasIncreaseDelay: 0

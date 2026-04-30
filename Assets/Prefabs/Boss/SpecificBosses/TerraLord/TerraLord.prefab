@@ -105,7 +105,7 @@ MonoBehaviour:
   _bossSpecificAnimator: {fileID: 1530244410539311288}
   _passiveTickRate: 0.25
   _minimumTickValue: 0.5
-  _maximumTickValue: 1
+  _maximumTickValue: 1.25
   _passiveMaxValue: 50
   _zRotationMultiplier: 0.15
   _baseWeightMultiplier: 0.325
@@ -271,11 +271,12 @@ MonoBehaviour:
   _projectileCount: 10
   _timeBeforeProjectiles: 0.55
   _timeBetweenProjectiles: 0.15
+  _enrageProjectileCountIncrease: 5
+  _enrageTimeBetweenProjectilesDecrease: 0.03
   _upwardsProjectileSpawnVariance: {x: 0.2, y: 0.1, z: 0.2}
   _targetWidth: 2.45
   _targetDistance: 3.5
   _spawnYEulerVariance: 15
-  _fallingTime: 1
   _targetZone: {fileID: 2799529881703815393, guid: 213c795acd17d1d4e9fe7c0439d07369, type: 3}
   _individualTargetZone: {fileID: 8015972492881287774, guid: b0e664d949d450548bb502f465b98309, type: 3}
   _crystalBarrage: {fileID: 556531669479417168, guid: 91dfd24925c211c4cab12e37a81439f0, type: 3}

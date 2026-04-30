@@ -518,6 +518,20 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
         _isAbilityEnabled = active;
     }
 
+    public void SetDelayedIndividualDelayedTargetZoneRemovalTime(float removalTime)
+    {
+        if (Mathf.Approximately(removalTime, _delayedIndividualTargetZoneRemovalTime))
+        {
+            return;
+        }
+        
+        _delayedIndividualTargetZoneRemovalTime = removalTime;
+        if (_delayedIndividualTargetZoneRemovalTime > 0)
+        {
+            _delayedIndividualTargetZoneRemovalWait = new WaitForSeconds(_delayedIndividualTargetZoneRemovalTime);
+        }
+    }
+
     #endregion
 }
 

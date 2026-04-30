@@ -18,6 +18,15 @@ public class SBA_Frostbite : SpecificBossAbilityFramework
         base.AbilitySetUp(bossBase);
         _glacialLord = (SB_GlacialLord)_mySpecificBoss;
     }
+    
+    protected override void AbilityPrep()
+    {
+        foreach (GlacialLord_FrostFiend fiend in _glacialLord.GetAllFrostFiends())
+        {
+            fiend.ResetTargetZones();
+        }
+        base.AbilityPrep();
+    }
 
     protected override void StartShowTargetZone()
     {

@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3341172063103250554}
+  - component: {fileID: 3839572780885266826}
   - component: {fileID: 1850914482936462673}
   - component: {fileID: 6616294305985939557}
   - component: {fileID: 7396540344829379579}
-  - component: {fileID: 1284044499166382754}
   m_Layer: 0
   m_Name: CrystalBarrageDamageProjectile
   m_TagString: Untagged
@@ -32,11 +32,25 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6259880640580752669}
-  - {fileID: 8152710948566446085}
+  - {fileID: 1628303616107630845}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3839572780885266826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 556531669479417168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eb8fdd133889684ea2fc254fada42c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _crystalPersistantTime: 3
+  _enrageCrystalPersistantTimeIncrease: 2
+  _damageArea: {fileID: 1850914482936462673}
 --- !u!114 &1850914482936462673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55,8 +69,8 @@ MonoBehaviour:
   _lifetime: 0
   _hasColliderActivationDelay: 1
   _colliderActivationDelay: 1
-  _hasColliderLifetime: 1
-  _colliderLifetime: 4
+  _hasColliderLifetime: 0
+  _colliderLifetime: 0
   _doesHitCenteredVFXCopyRotation: 0
   _hitCenteredVFXCopyTarget: {fileID: 0}
   _hitCenteredVFX: {fileID: 3280628075048092540, guid: c60008d467f90c340b6787cd2c1f7732, type: 3}
@@ -65,7 +79,19 @@ MonoBehaviour:
       m_Calls: []
   _colliderLifetimeEndEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8730617714144880915}
+        m_TargetAssemblyTypeName: CurveProgression, Assembly-CSharp
+        m_MethodName: StartMovingDownOnCurve
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _canPreventReHitWithoutInitialDamage: 0
   _preventReHitDuration: 1
   _enterDamage: 2.75
@@ -132,27 +158,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1284044499166382754
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 556531669479417168}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15b178d837850bd44a6ea78907376d8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _vfxList: []
-  _isVFXChilded: 0
-  _vfxTargetLocation: {fileID: 0}
-  _onDestroySelfEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  _onDestroyParentEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &6781571011950134922
 GameObject:
   m_ObjectHideFlags: 0
@@ -182,9 +187,142 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7812889759054587448}
-  m_Father: {fileID: 3341172063103250554}
+  m_Father: {fileID: 1628303616107630845}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7593907516310938257
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1628303616107630845}
+  - component: {fileID: 6722602443080473846}
+  - component: {fileID: 8730617714144880915}
+  m_Layer: 0
+  m_Name: Holder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1628303616107630845
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7593907516310938257}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6259880640580752669}
+  - {fileID: 8152710948566446085}
+  m_Father: {fileID: 3341172063103250554}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6722602443080473846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7593907516310938257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd1d04d370a8bca419d81d8abad819bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hasOverrideStartingScale: 1
+  _overrideStartingScale: {x: 0, y: 0, z: 0}
+  _endingScale: {x: 1, y: 1, z: 1}
+  _curveProgression: {fileID: 8730617714144880915}
+--- !u!114 &8730617714144880915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7593907516310938257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 508c048b50abf854791f2f498bb01037, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _curveName: Scale
+  _curveIncreaseTime: 0
+  _curveDecreaseTime: 0.35
+  _minCurveValue: 0
+  _maxCurveValue: 1
+  _hasDefaultValue: 1
+  _defaultValue: 1
+  _doesResetToDefaultProgressOnEnable: 0
+  _doesStartMovingUpOnEnable: 0
+  _doesStartMovingInCurrentDirectionOnEnable: 0
+  _hasAutomaticStartMovingDelay: 0
+  _automaticStartMovingDelay: 0
+  _doesAutomaticallyMoveDownOnHittingMax: 0
+  _doesAutomaticallyMoveUpOnHittingMin: 0
+  _hasIncreaseDelay: 0
+  _increaseDelay: 0
+  _hasDecreaseDelay: 1
+  _decreaseDelay: 0
+  _doesLerpUnchained: 0
+  _curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  OnSetUpComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  _onStartedIncreasing:
+    m_PersistentCalls:
+      m_Calls: []
+  _onStartedDecreasing:
+    m_PersistentCalls:
+      m_Calls: []
+  _onMaxValueReached:
+    m_PersistentCalls:
+      m_Calls: []
+  _onMinValueReached:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1850914482936462673}
+        m_TargetAssemblyTypeName: GeneralAbilityAreaFramework, Assembly-CSharp
+        m_MethodName: ForceDestroyProjectileWithoutVFX
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7854695549549159227
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,13 +391,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8540818761947020375}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1689115949853842798}
-  m_Father: {fileID: 3341172063103250554}
+  m_Father: {fileID: 1628303616107630845}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &4286427514848122868
