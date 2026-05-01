@@ -173,4 +173,8 @@ public class GeneralRotation : MonoBehaviour
     }
 
     #endregion
+    
+    #region Setters
+    public void MultiplyTargetLocalEulerAngles(float targetAnglesMultiplier) => _targetLocalEulerAngles *= targetAnglesMultiplier;
+    #endregion
 }
