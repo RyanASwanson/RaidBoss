@@ -504,7 +504,7 @@ MonoBehaviour:
         DefaultAudioChoice: 0
         AudioTracks: []
       AbilityStart:
-        AudioName: 
+        AudioName: EncirclingVinesStart
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
         DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
@@ -516,8 +516,21 @@ MonoBehaviour:
             Data2: 1214034197
             Data3: -1658051968
             Data4: 395443640
-          Path: event:/SoundEffect/Bosses/Specific/TerraLord/Abilities/EncirclingVines/TerraLordEncirclingVines
-      GeneralAbilityAudio: []
+          Path: event:/SoundEffect/Bosses/Specific/TerraLord/Abilities/EncirclingVines/TerraLordEncirclingVinesStart
+      GeneralAbilityAudio:
+      - AudioName: EncirclingVinesEnd
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: 1418799511
+            Data2: 1107040082
+            Data3: 1332046984
+            Data4: -94266334
+          Path: event:/SoundEffect/Bosses/Specific/TerraLord/Abilities/EncirclingVines/TerraLordEncirclingVinesEnd
     - AbilityName: UnstablePrecipice
       AbilityPrep:
         AudioName: 

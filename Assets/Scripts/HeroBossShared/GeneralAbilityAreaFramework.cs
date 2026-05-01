@@ -176,6 +176,7 @@ public abstract class GeneralAbilityAreaFramework : MonoBehaviour
     #endregion
     
     #region Setters
+    public void SetProjectileColliderActivationDelay(float delay) => _colliderActivationDelay = delay;
     public void SetProjectileColliderLifeTime(float lifetime) => _colliderLifetime = lifetime;
     #endregion
 }

@@ -148,6 +148,9 @@ public class SBP_FollowingMeteor : BossProjectileFramework
         {
             _scaleDownRemovalDelay *= _enrageScaleDownDelayMultiplier;
         }
+        
+        _damageArea.SetProjectileColliderLifeTime(_scaleDownRemovalDelay);
+        _damageArea.StartColliderLifetime();
             
         StartRemovalDelay();
         StartProjectileMovement(storedTargetLocation);

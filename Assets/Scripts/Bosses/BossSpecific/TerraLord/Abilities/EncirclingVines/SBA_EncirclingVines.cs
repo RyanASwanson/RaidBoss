@@ -13,6 +13,8 @@ public class SBA_EncirclingVines : SpecificBossAbilityFramework
     [SerializeField] private GameObject _encirclingVines;
 
     private BossTargetZoneParent _newestTargetZone;
+    
+    public const int ENCIRCLING_VINES_END_AUDIO_ID = 0;
 
     #region Base Ability
     /// <summary>
@@ -55,12 +57,18 @@ public class SBA_EncirclingVines : SpecificBossAbilityFramework
     protected override void AbilityStart()
     {
         //Spawns the damaging ability
-        GameObject newestVines = Instantiate(_encirclingVines, _newestTargetZone.transform.position, Quaternion.identity);
+        SBP_EncirclingVines newestVines = 
+            Instantiate(_encirclingVines, _newestTargetZone.transform.position, Quaternion.identity).GetComponent<SBP_EncirclingVines>();
         
-        FollowObject followVines = newestVines.GetComponent<FollowObject>();
+        newestVines.SetUpProjectile(_myBossBase,_abilityID,_wasBossEnragedOnAbilityActivation);
+        
         if (!_storedTarget.IsUnityNull())
         {
-            followVines.StartFollowingObject(_storedTarget.gameObject);
+            newestVines.AdditionalSetUp(_storedTarget.gameObject);
+        }
+        else
+        {
+            newestVines.AdditionalSetUp();
         }
         
         base.AbilityStart();
