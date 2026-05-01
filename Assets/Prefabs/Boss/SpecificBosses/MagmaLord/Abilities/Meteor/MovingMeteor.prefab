@@ -50,6 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _projectileSpeed: 0.75
   _accelerationTime: 1
+  _moveDelay: 0.15
   _projectileSpeedCurve:
     serializedVersion: 2
     m_Curve:
@@ -76,9 +77,11 @@ MonoBehaviour:
     m_RotationOrder: 4
   _randomDirectionThreshold: 0.2
   _scaleDownRemovalDelay: 5.55
-  _mapEdgeRemovalDelay: 0.75
+  _enrageScaleDownDelayMultiplier: 1.5
+  _mapEdgeRemovalDelay: 0.6
   _damageArea: {fileID: 5639287205825355308}
-  _rotationCurveProgression: {fileID: 2360747494019287903}
+  _generalRotation: {fileID: 7099746108731858136}
+  _rotationAccelerationCurve: {fileID: 9117393406220187225}
   _projectileScaleCurveProgression: {fileID: 8847977423414904474}
 --- !u!114 &5639287205825355308
 MonoBehaviour:
@@ -94,8 +97,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _areaColliders:
   - {fileID: 5230195009579388698}
-  _hasLifetime: 1
-  _lifetime: 6
+  _hasLifetime: 0
+  _lifetime: 0
   _hasColliderActivationDelay: 0
   _colliderActivationDelay: 0
   _hasColliderLifetime: 1
@@ -319,6 +322,7 @@ GameObject:
   - component: {fileID: 7099746108731858136}
   - component: {fileID: 1411110032456406838}
   - component: {fileID: 2360747494019287903}
+  - component: {fileID: 9117393406220187225}
   - component: {fileID: 8847977423414904474}
   m_Layer: 0
   m_Name: Holder
@@ -361,11 +365,15 @@ MonoBehaviour:
   _doesResetRotationToDefaultOnEnable: 0
   _doesUseLocalEulerAngles: 0
   _rotationPerSecond: {x: 0, y: 0, z: 0}
+  _rotationAccelerationCurve: {fileID: 9117393406220187225}
+  _doesUseRotateFunction: 1
+  _rotateFunctionRotationsPerSecond: 100
+  _rotateFunctionAxis: {x: 1, y: 0, z: 0}
   _rotationIndepedentParent: {fileID: 0}
   _hasStartRotationOverride: 0
   _startRotationOverride: {x: 0, y: 0, z: 0}
-  _targetLocalEulerAngles: {x: 500, y: 0, z: 0}
-  _curveProgression: {fileID: 2360747494019287903}
+  _targetLocalEulerAngles: {x: 0, y: 0, z: 0}
+  _curveProgression: {fileID: 0}
 --- !u!114 &1411110032456406838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -389,7 +397,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4392702681341562129}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 508c048b50abf854791f2f498bb01037, type: 3}
   m_Name: 
@@ -433,6 +441,76 @@ MonoBehaviour:
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.104519725
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  OnSetUpComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  _onStartedIncreasing:
+    m_PersistentCalls:
+      m_Calls: []
+  _onStartedDecreasing:
+    m_PersistentCalls:
+      m_Calls: []
+  _onMaxValueReached:
+    m_PersistentCalls:
+      m_Calls: []
+  _onMinValueReached:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &9117393406220187225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4392702681341562129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 508c048b50abf854791f2f498bb01037, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _curveName: RotationAcceleration
+  _curveIncreaseTime: 1
+  _curveDecreaseTime: 0
+  _minCurveValue: 0
+  _maxCurveValue: 1
+  _hasDefaultValue: 1
+  _defaultValue: 0
+  _doesResetToDefaultProgressOnEnable: 0
+  _doesStartMovingUpOnEnable: 0
+  _doesStartMovingInCurrentDirectionOnEnable: 0
+  _hasAutomaticStartMovingDelay: 0
+  _automaticStartMovingDelay: 0
+  _doesAutomaticallyMoveDownOnHittingMax: 0
+  _doesAutomaticallyMoveUpOnHittingMin: 0
+  _hasIncreaseDelay: 1
+  _increaseDelay: 0.15
+  _hasDecreaseDelay: 0
+  _decreaseDelay: 0
+  _doesLerpUnchained: 0
+  _curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -527,7 +605,19 @@ MonoBehaviour:
       m_Calls: []
   _onMaxValueReached:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5639287205825355308}
+        m_TargetAssemblyTypeName: GeneralAbilityAreaFramework, Assembly-CSharp
+        m_MethodName: ForceDestroyProjectileWithoutVFX
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _onMinValueReached:
     m_PersistentCalls:
       m_Calls: []
@@ -592,15 +682,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 418279344142999514, guid: 1d4149f64ed8ec841a43b746060d2330, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 418279344142999514, guid: 1d4149f64ed8ec841a43b746060d2330, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 418279344142999514, guid: 1d4149f64ed8ec841a43b746060d2330, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 418279344142999514, guid: 1d4149f64ed8ec841a43b746060d2330, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

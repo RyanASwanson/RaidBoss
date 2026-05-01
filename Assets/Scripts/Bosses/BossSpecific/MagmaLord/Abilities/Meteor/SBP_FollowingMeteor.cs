@@ -13,6 +13,7 @@ public class SBP_FollowingMeteor : BossProjectileFramework
 {
     [SerializeField] private float _projectileSpeed;
     [SerializeField] private float _accelerationTime;
+    [SerializeField] private float _moveDelay;
     
     [SerializeField] private AnimationCurve _projectileSpeedCurve;
 
@@ -20,13 +21,16 @@ public class SBP_FollowingMeteor : BossProjectileFramework
     [SerializeField] private float _randomDirectionThreshold;
 
     [SerializeField] private float _scaleDownRemovalDelay;
+    [SerializeField] private float _enrageScaleDownDelayMultiplier;
     [SerializeField] private float _mapEdgeRemovalDelay;
     
     [Space]
     [SerializeField] private GeneralBossDamageArea _damageArea;
-    
+
     [Space] 
-    [SerializeField] private CurveProgression _rotationCurveProgression;
+    [SerializeField] private GeneralRotation _generalRotation;
+
+    [SerializeField] private CurveProgression _rotationAccelerationCurve;
     
     [SerializeField] private CurveProgression _projectileScaleCurveProgression;
 
@@ -40,7 +44,8 @@ public class SBP_FollowingMeteor : BossProjectileFramework
     {
         ProjectileLookAt(storedTargetLocation);
         
-        _rotationCurveProgression.StartMovingUpOnCurve();
+        _generalRotation.BeginRotation();
+        _rotationAccelerationCurve.StartMovingUpOnCurve();
         StartCoroutine(MoveProjectile(DetermineMovementDirection(storedTargetLocation)));
     }
 
@@ -71,6 +76,8 @@ public class SBP_FollowingMeteor : BossProjectileFramework
     {
         float speedScalar = 0;
         float speedProgress = 0;
+        
+        yield return new WaitForSeconds(_moveDelay);
 
         while(true)
         {
@@ -137,6 +144,11 @@ public class SBP_FollowingMeteor : BossProjectileFramework
     /// <param name="storedTargetLocation"></param>
     public void AdditionalSetUp(Vector3 storedTargetLocation)
     {
+        if (_wasBossEnragedOnAbilityActivation)
+        {
+            _scaleDownRemovalDelay *= _enrageScaleDownDelayMultiplier;
+        }
+            
         StartRemovalDelay();
         StartProjectileMovement(storedTargetLocation);
     }

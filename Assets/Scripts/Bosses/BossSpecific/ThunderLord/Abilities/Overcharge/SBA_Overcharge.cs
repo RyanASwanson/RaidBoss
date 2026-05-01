@@ -24,6 +24,6 @@ public class SBA_Overcharge : SpecificBossAbilityFramework
     protected override void AbilityStart()
     {
         base.AbilityStart();
-        SB_ThunderLord.Instance.GetImpendingStorm().ActivateOvercharge();
+        SB_ThunderLord.Instance.GetImpendingStorm().ActivateOvercharge(_wasBossEnragedOnAbilityActivation);
     }
 }

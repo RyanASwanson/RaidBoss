@@ -10,6 +10,15 @@ public class SBA_ImpendingStorm : SpecificBossAbilityFramework
     [SerializeField] private float _baseRotationSpeed;
     [SerializeField] private float[] _difficultyRotationMultiplier;
 
+    [Space] 
+    [SerializeField] private float _overchargeRotationSpeedMultiplier;
+    [SerializeField] private float _overchargeRotationDecayTime;
+    
+    [SerializeField] private float _enrageOverchargeEnrageSpeedMultiplierFlatIncrease;
+    [SerializeField] private float _enrageOverchargeRotationDecayTime;
+
+    [SerializeField] private AnimationCurve _overchargeDecayCurve;
+
     [Space]
     [SerializeField] private float _maxBossHealthRotationMultiplier;
     [SerializeField] private AnimationCurve _bossHealthRotationMultiplierCurve;
@@ -17,9 +26,10 @@ public class SBA_ImpendingStorm : SpecificBossAbilityFramework
     [Space] 
     [SerializeField] private float _enrageRotationMultplier;
     [SerializeField] private float _enrageScalingRotationMultiplierIncreasePerMinute;
-
+    
+    
     private float _battleStartRotationSpeed;
-    private float _rotationSpeed;
+    private float _currentOverchargeRotationMultiplier = 1;
     private float _currentBossHealthRotationMultiplier = 1;
     private float _currentEnrageRotationMultiplier = 1;
 
@@ -39,15 +49,13 @@ public class SBA_ImpendingStorm : SpecificBossAbilityFramework
     
     private Coroutine _rotationCoroutine;
     private Coroutine _attackCoroutine;
+    private Coroutine _overchargeSpeedDecayCoroutine;
     
     public const int IMPENDING_STORM_ATTACK_AUDIO_ID = 0;
 
     public GameObject BattleStart()
     {
-        //SubscribeToEvents();
-        
         _battleStartRotationSpeed = _baseRotationSpeed * _difficultyRotationMultiplier[(int)SelectionManager.Instance.GetSelectedDifficulty()-1];
-        _rotationSpeed = _battleStartRotationSpeed;
 
         CreateImpendingStormTargetZone();
         
@@ -56,9 +64,10 @@ public class SBA_ImpendingStorm : SpecificBossAbilityFramework
         return _currentImpendingStormTargetZone.gameObject;
     }
 
-    public void ActivateOvercharge()
+    public void ActivateOvercharge(bool wasAbilityActivatedWhileEnraged)
     {
         RotateImpendingStorm(180);
+        StartOverchargeRotationMultiplierDecay(wasAbilityActivatedWhileEnraged);
     }
 
     private void CreateImpendingStormTargetZone()
@@ -66,8 +75,6 @@ public class SBA_ImpendingStorm : SpecificBossAbilityFramework
         _currentImpendingStormTargetZone = 
             Instantiate(_impendingStormTargetZone, transform.position, Quaternion.identity)
                 .GetComponent<BossTargetZoneParent>();
-        
-        //_currentImpendingStormTargetZone.transform.SetParent(BossBase.Instance.GetSpecificBossScript().transform);
         
         _currentImpendingStormTargetZone.transform.position = new Vector3(_currentImpendingStormTargetZone.transform.position.x,
             _specificAreaTarget.y, _currentImpendingStormTargetZone.transform.position.z);
@@ -121,6 +128,51 @@ public class SBA_ImpendingStorm : SpecificBossAbilityFramework
             _attackRotation -= 360;
         }
         UpdateTargetZone();
+    }
+
+    private void StartOverchargeRotationMultiplierDecay(bool wasAbilityActivatedWhileEnraged)
+    {
+        StopOverchargeRotationMultiplierDecay();
+        
+        if (wasAbilityActivatedWhileEnraged)
+        {
+            _currentOverchargeRotationMultiplier = _overchargeRotationSpeedMultiplier + _enrageOverchargeEnrageSpeedMultiplierFlatIncrease;
+            StartCoroutine(OverchargeRotationMultiplierDecayProcess(_enrageOverchargeRotationDecayTime));
+        }
+        else
+        {
+            _currentOverchargeRotationMultiplier = _overchargeRotationSpeedMultiplier;
+            StartCoroutine(OverchargeRotationMultiplierDecayProcess(_overchargeRotationDecayTime));
+        }
+    }
+
+    private void StopOverchargeRotationMultiplierDecay()
+    {
+        if (!_overchargeSpeedDecayCoroutine.IsUnityNull())
+        {
+            _currentOverchargeRotationMultiplier = _overchargeRotationSpeedMultiplier;
+            StopCoroutine(_overchargeSpeedDecayCoroutine);
+        }
+    }
+
+    private IEnumerator OverchargeRotationMultiplierDecayProcess(float decaySpeed)
+    {
+        if (_currentOverchargeRotationMultiplier <= 1)
+        {
+            yield break;
+        }
+        
+        float startRotationMultiplier = _currentOverchargeRotationMultiplier;
+        float overchargeDecayProgress = 0;
+        
+        while (overchargeDecayProgress < 1)
+        {
+            overchargeDecayProgress += Time.deltaTime / decaySpeed;
+            _currentOverchargeRotationMultiplier = Mathf.Lerp(1, startRotationMultiplier,_overchargeDecayCurve.Evaluate(overchargeDecayProgress));
+            yield return null;
+        }
+        
+        _currentOverchargeRotationMultiplier = 1;
     }
     
     private void UpdateTargetZone()
@@ -261,7 +313,9 @@ public class SBA_ImpendingStorm : SpecificBossAbilityFramework
     #region Getters
 
     public float GetAttackRotation() => _attackRotation;
-    public float GetCurrentAttackRotation() => _baseRotationSpeed * _currentBossHealthRotationMultiplier * _currentEnrageRotationMultiplier;
+    public float GetCurrentAttackRotation() => _battleStartRotationSpeed * _currentOverchargeRotationMultiplier 
+                                                                         * _currentBossHealthRotationMultiplier 
+                                                                         * _currentEnrageRotationMultiplier;
 
     public float GetOppositeAttackRotation() => _attackRotation + 180;
     
