@@ -76,8 +76,8 @@ public class SH_Alchemist : SpecificHeroFramework
         //Spawns the passive projectile at the input vector
         GameObject newestPassiveProjectile = Instantiate(_passiveProjectile, spawnLocation, Quaternion.identity);
 
-        SHP_AlchemistPassiveProjectile passiveProj = newestPassiveProjectile.
-            GetComponent<SHP_AlchemistPassiveProjectile>();
+        HeroMoveTowardsBossProjectile passiveProj = newestPassiveProjectile.
+            GetComponent<HeroMoveTowardsBossProjectile>();
 
         //Sets up the projectile
         passiveProj.SetUpProjectile(_myHeroBase, EHeroAbilityType.Passive);

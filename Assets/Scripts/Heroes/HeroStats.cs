@@ -28,10 +28,15 @@ public class HeroStats : HeroChildrenFunctionality
     private float _heroDefaultDamageResistance;
     private float _currentDamageResistance;
 
-    private float _currentDamageMultiplier = 1;
-    private float _currentStaggerMultiplier = 1;
-    private float _currentHealingDealtMultiplier = 1;
-    private float _currentHealingReceivedMultiplier = 1;
+    private float _currentDamageAdditiveMultiplier = 1;
+    private float _currentDamageMultiplicativeMultiplier = 1;
+    private float _currentStaggerAdditiveMultiplier = 1;
+    private float _currentStaggerMultiplicativeMultiplier = 1;
+    
+    private float _currentHealingDealtAdditiveMultiplier = 1;
+    private float _currentHealingDealtMultiplicativeMultiplier = 1;
+    private float _currentHealingReceivedAdditiveMultiplier = 1;
+    private float _currentHealingReceivedMultiplicativeMultiplier = 1;
 
     private int _damageTakenOverridesCounter = 0;
     private int _healingTakenOverridesCounter = 0;
@@ -81,9 +86,9 @@ public class HeroStats : HeroChildrenFunctionality
         {
             _heroMaxHealth *= missionStatModifiers.GetHeroHealthMultiplier();
             
-            _currentDamageMultiplier *= missionStatModifiers.GetHeroDamageMultiplier();
-            _currentStaggerMultiplier *= missionStatModifiers.GetHeroStaggerMultiplier();
-            _currentHealingReceivedMultiplier *= missionStatModifiers.GetHeroHealingReceivedMultiplier();
+            _currentDamageMultiplicativeMultiplier *= missionStatModifiers.GetHeroDamageMultiplier();
+            _currentStaggerMultiplicativeMultiplier *= missionStatModifiers.GetHeroStaggerMultiplier();
+            _currentHealingReceivedMultiplicativeMultiplier *= missionStatModifiers.GetHeroHealingReceivedMultiplier();
         }
         
         GameplayModifiersManager.Instance.AdjustHeroStatsFromModifiers(this);
@@ -119,10 +124,11 @@ public class HeroStats : HeroChildrenFunctionality
 
         SetPreviousHealthValue();
         
-        _currentHealth -= damage / _currentDamageResistance;
-        _myHeroBase.InvokeHeroDamagedEvent(damage / _currentDamageResistance);
+        damage /= _currentDamageResistance;
+        _currentHealth -= damage;
+        _myHeroBase.InvokeHeroDamagedEvent(damage);
         
-        HeroesManager.Instance.InvokeOnHeroDamagedEvent(_myHeroBase);
+        HeroesManager.Instance.InvokeOnHeroDamagedEvent(_myHeroBase,damage);
         
         AudioManager.Instance.PlaySpecificAudio(
             AudioManager.Instance.GeneralHeroAudio.HealthAudio.HeroTookDamage);
@@ -143,13 +149,16 @@ public class HeroStats : HeroChildrenFunctionality
             return;
         }
 
-        if (healing == 0 || IsHeroMaxHealth()) return;
+        if (healing == 0 || IsHeroMaxHealth())
+        {
+            return;
+        }
 
         //Set the previous health to what it was prior to being healed
         SetPreviousHealthValue();
 
         //Scale healing with healing received
-        healing *= _currentHealingReceivedMultiplier;
+        healing *= GetCurrentHealingReceivedMultiplier();
 
         //Store the health prior to being healed
         float healthDifference = _currentHealth;
@@ -164,7 +173,7 @@ public class HeroStats : HeroChildrenFunctionality
         healthDifference = _currentHealth - healthDifference;
         _myHeroBase.InvokeHeroHealedEvent(healthDifference);
         
-        HeroesManager.Instance.InvokeOnHeroHealedEvent(_myHeroBase);
+        HeroesManager.Instance.InvokeOnHeroHealedEvent(_myHeroBase,healing);
         
         AudioManager.Instance.PlaySpecificAudio(
             AudioManager.Instance.GeneralHeroAudio.HealthAudio.HeroTookHealing);
@@ -389,9 +398,9 @@ public class HeroStats : HeroChildrenFunctionality
     private IEnumerator StatChangeDurationProcess(HeroGeneralAdjustableStats stat,
         float changeValue, float duration, bool doesCreateBuffIcons)
     {
-        ChangeSpecificStat(stat, changeValue,true);
+        ChangeSpecificStat(stat, changeValue,doesCreateBuffIcons);
         yield return new WaitForSeconds(duration);
-        ChangeSpecificStat(stat, -changeValue,true);
+        ChangeSpecificStat(stat, -changeValue,doesCreateBuffIcons);
     }
 
     private IEnumerator StatChangeDurationProcess(HeroAdjustableStatGroup statGroup)
@@ -417,20 +426,20 @@ public class HeroStats : HeroChildrenFunctionality
         switch(stat)
         {
             case (HeroGeneralAdjustableStats.DamageMultiplier):
-                ChangeCurrentHeroDamageMultiplier(changeValue);
+                ChangeCurrentHeroDamageAdditiveMultiplier(changeValue);
 
                 buffDebuffIconSprite = _damageBuffIcon;
                 break;
             case (HeroGeneralAdjustableStats.StaggerMultiplier):
-                ChangeCurrentHeroStaggerMultiplier(changeValue);
+                ChangeCurrentHeroStaggerAdditiveMultiplier(changeValue);
 
                 buffDebuffIconSprite = _staggerBuffIcon;
                 break;
             case (HeroGeneralAdjustableStats.HealingDealtMultiplier):
-                ChangeCurrentHeroHealingDealtMultiplier(changeValue);
+                ChangeCurrentHeroHealingDealtAdditiveMultiplier(changeValue);
                 return;
             case (HeroGeneralAdjustableStats.HealingRecievedMultiplier):
-                ChangeCurrentHeroHealingReceivedMultiplier(changeValue);
+                ChangeCurrentHeroHealingReceivedAdditiveMultiplier(changeValue);
 
                 buffDebuffIconSprite = _healingBuffIcon;
                 break;
@@ -471,24 +480,44 @@ public class HeroStats : HeroChildrenFunctionality
         }
     }
 
-    public void ChangeCurrentHeroDamageMultiplier(float changeValue)
+    public void ChangeCurrentHeroDamageAdditiveMultiplier(float changeValue)
     {
-        _currentDamageMultiplier += changeValue;
+        _currentDamageAdditiveMultiplier += changeValue;
     }
 
-    public void ChangeCurrentHeroStaggerMultiplier(float changeValue)
+    public void ChangeCurrentHeroDamageMultiplicativeMultiplier(float changeValue)
     {
-        _currentStaggerMultiplier += changeValue;
+        _currentDamageMultiplicativeMultiplier *= changeValue;
     }
 
-    public void ChangeCurrentHeroHealingDealtMultiplier(float changeValue)
+    public void ChangeCurrentHeroStaggerAdditiveMultiplier(float changeValue)
     {
-        _currentHealingDealtMultiplier += changeValue;
+        _currentStaggerAdditiveMultiplier += changeValue;
     }
 
-    public void ChangeCurrentHeroHealingReceivedMultiplier(float changeValue)
+    public void ChangeCurrentHeroStaggerMultiplicativeMultiplier(float changeValue)
     {
-        _currentHealingReceivedMultiplier += changeValue;
+        _currentStaggerMultiplicativeMultiplier *= changeValue;
+    }
+
+    public void ChangeCurrentHeroHealingDealtAdditiveMultiplier(float changeValue)
+    {
+        _currentHealingDealtAdditiveMultiplier += changeValue;
+    }
+
+    public void ChangeCurrentHeroHealingDealtMultiplicativeMultiplier(float changeValue)
+    {
+        _currentHealingDealtMultiplicativeMultiplier *= changeValue;
+    }
+
+    public void ChangeCurrentHeroHealingReceivedAdditiveMultiplier(float changeValue)
+    {
+        _currentHealingReceivedAdditiveMultiplier += changeValue;
+    }
+
+    public void ChangeCurrentHeroHealingReceivedMultiplicativeMultiplier(float changeValue)
+    {
+        _currentHealingReceivedMultiplicativeMultiplier *= changeValue;
     }
 
     /// <summary>
@@ -583,10 +612,15 @@ public class HeroStats : HeroChildrenFunctionality
     public float GetCurrentAggro() => _currentAggro;
     public float GetCurrentDamageResistance() => _currentDamageResistance;
 
-    public float GetCurrentDamageMultiplier() => _currentDamageMultiplier;
-    public float GetCurrentStaggerMultiplier() => _currentStaggerMultiplier;
-    public float GetCurrentHealingDealtMultiplier() => _currentHealingDealtMultiplier;
-    public float GetCurrentHealingReceivedMultiplier() => _currentHealingReceivedMultiplier;
+    public float GetCurrentDamageAdditiveMultiplier() => _currentDamageAdditiveMultiplier;
+    public float GetCurrentStaggerAdditiveMultiplier() => _currentStaggerAdditiveMultiplier;
+    public float GetCurrentHealingDealtAdditiveMultiplier() => _currentHealingDealtAdditiveMultiplier;
+    public float GetCurrentHealingReceivedAdditiveMultiplier() => _currentHealingReceivedAdditiveMultiplier;
+
+    public float GetCurrentDamageMultiplier() => _currentDamageAdditiveMultiplier * _currentDamageMultiplicativeMultiplier;
+    public float GetCurrentStaggerMultiplier() => _currentStaggerAdditiveMultiplier * _currentStaggerMultiplicativeMultiplier;
+    public float GetCurrentHealingDealtMultiplier() => _currentHealingDealtAdditiveMultiplier * _currentHealingDealtMultiplicativeMultiplier;
+    public float GetCurrentHealingReceivedMultiplier() => _currentHealingReceivedAdditiveMultiplier * _currentHealingReceivedMultiplicativeMultiplier;
 
     public float GetBasicAbilityCooldownRateMultiplier() => _basicAbilityCooldownRateMultiplier;
     public float GetManualAbilityCooldownRateMultiplier() => _manualAbilityCooldownRateMultiplier;

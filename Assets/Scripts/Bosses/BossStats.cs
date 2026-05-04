@@ -451,11 +451,21 @@ public class BossStats : BossChildrenFunctionality
             return;
         }
         
+        if (damage <= 0)
+        {
+            return;
+        }
+        
         damage /= _bossDamageResistanceMultiplier;
         _currentHealth -= damage;
         _myBossBase.InvokeBossDamagedEvent(damage);
         
         AudioManager.Instance.PlaySpecificAudio(AudioManager.Instance.GeneralBossAudio.HealthStaggerAudio.BossTookDamage);
+    }
+
+    public void DealDamageToBossFromNonHeroSource(float damage)
+    {
+        DealDamageToBoss(damage);
     }
 
     public void DealStaggerToBoss(float stagger)
@@ -466,9 +476,19 @@ public class BossStats : BossChildrenFunctionality
             return;
         }
 
+        if (stagger <= 0)
+        {
+            return;
+        }
+
         _currentStaggerCounter += stagger;
         _myBossBase.InvokeBossStaggerDealt(stagger);
         CheckIfBossIsStaggered();
+    }
+    
+    public void DealStaggerToBossFromNonHeroSource(float damage)
+    {
+        DealStaggerToBoss(damage);
     }
 
     public void DecreaseTimeUntilEnraged(float enrageTime)

@@ -10,21 +10,6 @@ public abstract class MissionModifierBase : MonoBehaviour
         SubscribeToEvents();
     }
 
-    protected virtual void SubscribeToEvents()
-    {
-        
-    }
-
-    protected virtual void OnDestroy()
-    {
-        UnsubscribeFromEvents();
-    }
-
-    protected virtual void UnsubscribeFromEvents()
-    {
-        
-    }
-    
     #region StatModifiers
 
     public virtual void AdjustBossStatsModifier(BossStats bossStats)
@@ -38,4 +23,21 @@ public abstract class MissionModifierBase : MonoBehaviour
     }
     
     #endregion
+
+    protected virtual void OnDestroy()
+    {
+        UnsubscribeFromEvents();
+    }
+
+    protected virtual void SubscribeToEvents()
+    {
+        
+    }
+    
+    protected virtual void UnsubscribeFromEvents()
+    {
+        
+    }
+    
+    
 }

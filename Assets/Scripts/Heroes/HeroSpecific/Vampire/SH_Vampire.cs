@@ -77,7 +77,7 @@ public class SH_Vampire : SpecificHeroFramework
         base.ActivateManualAbilities();
         
         _myHeroBase.GetHeroStats().AddDamageTakenOverrideCounter();
-        _myHeroBase.GetHeroStats().ChangeCurrentHeroHealingReceivedMultiplier(_manualAbilityHealingIncrease);
+        _myHeroBase.GetHeroStats().ChangeCurrentHeroHealingReceivedAdditiveMultiplier(_manualAbilityHealingIncrease);
 
         StartCoroutine(ManualAbilityProcess());
         StartCoroutine(ManualAbilityDurationWarningTimer());
@@ -108,7 +108,7 @@ public class SH_Vampire : SpecificHeroFramework
     public override void EndManualAbility()
     {
         _myHeroBase.GetHeroStats().RemoveDamageTakenOverrideCounter();
-        _myHeroBase.GetHeroStats().ChangeCurrentHeroHealingReceivedMultiplier(-_manualAbilityHealingIncrease);
+        _myHeroBase.GetHeroStats().ChangeCurrentHeroHealingReceivedAdditiveMultiplier(-_manualAbilityHealingIncrease);
         
         base.EndManualAbility();
     }
@@ -139,7 +139,6 @@ public class SH_Vampire : SpecificHeroFramework
     private IEnumerator PassiveProcess()
     {
         yield return _passiveAbilityWait;
-        //ActivatePassiveAbilities();
         CreatePassiveProjectile();
 
         _passiveProcess = null;

@@ -25,8 +25,8 @@ public class HeroesManager : MainGameplayManagerFramework
     private List<HeroBase> _currentHeroes = new List<HeroBase>();
     private List<HeroBase> _currentLivingHeroes = new List<HeroBase>();
     
-    private UnityEvent<HeroBase> _onHeroDamagedEvent = new UnityEvent<HeroBase>();
-    private UnityEvent<HeroBase> _onHeroHealedEvent = new UnityEvent<HeroBase>();
+    private UnityEvent<HeroBase, float> _onHeroDamagedEvent = new UnityEvent<HeroBase, float>();
+    private UnityEvent<HeroBase,float> _onHeroHealedEvent = new UnityEvent<HeroBase,float>();
     
     private UnityEvent<HeroBase> _onHeroDiedEvent = new UnityEvent<HeroBase>();
 
@@ -176,14 +176,14 @@ public class HeroesManager : MainGameplayManagerFramework
     #endregion
     
     #region Events
-    public void InvokeOnHeroDamagedEvent(HeroBase heroBase)
+    public void InvokeOnHeroDamagedEvent(HeroBase heroBase, float damageAmount)
     {
-        _onHeroDamagedEvent?.Invoke(heroBase);
+        _onHeroDamagedEvent?.Invoke(heroBase,damageAmount);
     }
     
-    public void InvokeOnHeroHealedEvent(HeroBase heroBase)
+    public void InvokeOnHeroHealedEvent(HeroBase heroBase, float healAmount)
     {
-        _onHeroHealedEvent?.Invoke(heroBase);
+        _onHeroHealedEvent?.Invoke(heroBase,healAmount);
     }
     
     public void InvokeOnHeroDiedEvent(HeroBase heroBase)
@@ -200,8 +200,8 @@ public class HeroesManager : MainGameplayManagerFramework
     public int GetAmountOfLivingHeroes() => _currentLivingHeroes.Count;
     public int GetAmountOfDeadHeroes() => _currentHeroes.Count - _currentLivingHeroes.Count;
 
-    public UnityEvent<HeroBase> GetOnHeroDamagedEvent() => _onHeroDamagedEvent;
-    public UnityEvent<HeroBase> GetOnHeroHealedEvent() => _onHeroHealedEvent;
+    public UnityEvent<HeroBase,float> GetOnHeroDamagedEvent() => _onHeroDamagedEvent;
+    public UnityEvent<HeroBase,float> GetOnHeroHealedEvent() => _onHeroHealedEvent;
     public UnityEvent<HeroBase> GetOnHeroDiedEvent() => _onHeroDiedEvent;
 
     #endregion

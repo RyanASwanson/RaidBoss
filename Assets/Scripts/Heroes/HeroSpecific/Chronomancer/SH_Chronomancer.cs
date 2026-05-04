@@ -233,6 +233,16 @@ public class SH_Chronomancer : SpecificHeroFramework
         AddHeroHealthValue(heroBase.GetHeroID());
     }
 
+    private void AddHeroHealthValueDamage(HeroBase heroBase, float damageValue)
+    {
+        AddHeroHealthValue(heroBase);
+    }
+
+    private void AddHeroHealthValueHealing(HeroBase heroBase, float healingValue)
+    {
+        AddHeroHealthValue(heroBase);
+    }
+
     private void RemoveSpecificHeroValues(HeroBase heroBase)
     {
         _heroPastHealthValues[heroBase.GetHeroID()].Clear();
@@ -375,14 +385,14 @@ public class SH_Chronomancer : SpecificHeroFramework
     
     public void SubscribeToHeroesDamagedEvents()
     {
-        HeroesManager.Instance.GetOnHeroDamagedEvent().AddListener(AddHeroHealthValue);
-        HeroesManager.Instance.GetOnHeroHealedEvent().AddListener(AddHeroHealthValue);
+        HeroesManager.Instance.GetOnHeroDamagedEvent().AddListener(AddHeroHealthValueDamage);
+        HeroesManager.Instance.GetOnHeroHealedEvent().AddListener(AddHeroHealthValueHealing);
     }
 
     private void UnsubscribeToHeroesDamagedEvents()
     {
-        HeroesManager.Instance.GetOnHeroDamagedEvent().RemoveListener(AddHeroHealthValue);
-        HeroesManager.Instance.GetOnHeroHealedEvent().RemoveListener(AddHeroHealthValue);
+        HeroesManager.Instance.GetOnHeroDamagedEvent().RemoveListener(AddHeroHealthValueDamage);
+        HeroesManager.Instance.GetOnHeroHealedEvent().RemoveListener(AddHeroHealthValueHealing);
     }
 
     #region Base Hero
