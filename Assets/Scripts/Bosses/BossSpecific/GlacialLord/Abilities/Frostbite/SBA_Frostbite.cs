@@ -18,15 +18,6 @@ public class SBA_Frostbite : SpecificBossAbilityFramework
         base.AbilitySetUp(bossBase);
         _glacialLord = (SB_GlacialLord)_mySpecificBoss;
     }
-    
-    protected override void AbilityPrep()
-    {
-        foreach (GlacialLord_FrostFiend fiend in _glacialLord.GetAllFrostFiends())
-        {
-            fiend.ResetTargetZones();
-        }
-        base.AbilityPrep();
-    }
 
     protected override void StartShowTargetZone()
     {
@@ -42,8 +33,6 @@ public class SBA_Frostbite : SpecificBossAbilityFramework
             newTargetZone.transform.eulerAngles = new Vector3(0, newTargetZone.transform.eulerAngles.y, 0);
             
             _currentTargetZones.Add(newTargetZone);
-            
-            frostFiend.SetCurrentTargetZone(newTargetZone);
 
             if (frostFiend.IsMinionFrozen())
             {
@@ -54,6 +43,8 @@ public class SBA_Frostbite : SpecificBossAbilityFramework
             _attackingFiends.Add(frostFiend);
 
             frostFiend.FrostbiteAttack();
+            
+            frostFiend.AddTargetZone(newTargetZone);
         }    
     }
 

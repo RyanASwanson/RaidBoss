@@ -7,45 +7,37 @@ using UnityEngine.Serialization;
 public class SBP_IcicleRain : BossProjectileFramework
 {
     [SerializeField] private float _iciclesSeperationTime;
-    [SerializeField] private int _iciclesPerSet;
-
-    [SerializeField] private List<GameObject> _icicles;
+    private WaitForSeconds _icicleSeperationWait;
+    
+    [SerializeField] private int _amountOfIcicleSets;
+    [SerializeField] private int _enrageIcicleSetIncrease;
+    
+    [SerializeField] private SBP_IcicleSet[] _icicleSets;
     
     [Space] 
     [SerializeField] private float _impactAudioDelay;
+    private WaitForSeconds _impactAudioWait;
     [Space] 
     [SerializeField] private float _impactAudioPitchIncrease;
 
     private IEnumerator SpikeSpawningProcess()
     {
-        int setCounter = 1;
-        int icicleSetsCompleted = 0;
-        for (int i = 0; i <= _icicles.Count - 1; i++)
+        for (int i = 0; i <= _amountOfIcicleSets - 1; i++)
         {
-            SpawnIcicle(_icicles[i]);
-
-            setCounter++;
-
-            if(setCounter > _iciclesPerSet)
+            _icicleSets[i].SetUpProjectile(_myBossBase,_abilityID);
+            if (_wasBossEnragedOnAbilityActivation)
             {
-                setCounter = 1;
-                icicleSetsCompleted++;
-                StartCoroutine(PlayIcicleImpactSfx(icicleSetsCompleted-1));
-                yield return new WaitForSeconds(_iciclesSeperationTime);
+                _icicleSets[i+_enrageIcicleSetIncrease].SetUpProjectile(_myBossBase,_abilityID);
             }
             
+            StartCoroutine(PlayIcicleImpactSfx(i));
+            yield return _icicleSeperationWait;
         }
-    }
-
-    private void SpawnIcicle(GameObject icicle)
-    {
-        icicle.GetComponent<SBP_Icicle>().SetUpProjectile(_myBossBase, _abilityID);
-        icicle.SetActive(true);
     }
 
     private IEnumerator PlayIcicleImpactSfx(int icicleSet)
     {
-        yield return new WaitForSeconds(_impactAudioDelay);
+        yield return _impactAudioWait;
         
         AudioManager.Instance.PlaySpecificAudio(
             AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
@@ -59,6 +51,8 @@ public class SBP_IcicleRain : BossProjectileFramework
     public override void SetUpProjectile(BossBase bossBase, int newAbilityID)
     {
         base.SetUpProjectile(bossBase, newAbilityID);
+        _icicleSeperationWait = new WaitForSeconds(_iciclesSeperationTime);
+        _impactAudioWait = new WaitForSeconds(_impactAudioDelay);
         StartCoroutine(SpikeSpawningProcess());
     }
     #endregion

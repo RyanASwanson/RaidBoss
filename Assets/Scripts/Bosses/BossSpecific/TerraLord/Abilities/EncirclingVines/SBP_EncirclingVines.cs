@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using FMOD.Studio;
 using UnityEngine;
 
 public class SBP_EncirclingVines : BossProjectileFramework
@@ -22,6 +23,8 @@ public class SBP_EncirclingVines : BossProjectileFramework
 
     [Space] 
     [SerializeField] private CurveProgression _scaleCurve;
+
+    private EventInstance _encirclingVinesLoopInstance;
 
     public void AdditionalSetUp(GameObject followTarget)
     {
@@ -51,18 +54,35 @@ public class SBP_EncirclingVines : BossProjectileFramework
 
         StartScaleChangeRotationProcess();
 
+        PlayEncirclingVinesLoopSFX();
         StartCoroutine(DelayEncirclingVinesEndSFX());
     }
     
     public void EncirclingVinesDownScaleBegun()
     {
-        PlayEncirclingVinesEndSFX();
+        StopEncirclingVinesLoopSFX();
         StartScaleChangeRotationProcess();
     }
+    
+    private void PlayEncirclingVinesLoopSFX()
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
+                BossAbilityAudio[_abilityID].GeneralAbilityAudio[SBA_EncirclingVines.ENCIRCLING_VINES_LOOP_AUDIO_ID], out _encirclingVinesLoopInstance);
+    }
 
+    private void StopEncirclingVinesLoopSFX()
+    {
+        //AudioManager.Instance.StopSpecificAudioInstance(_encirclingVinesLoopInstance, true);
+        AudioManager.Instance.StartFadeOutStopInstance(_encirclingVinesLoopInstance,
+            AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
+            BossAbilityAudio[_abilityID].GeneralAbilityAudio[SBA_EncirclingVines.ENCIRCLING_VINES_LOOP_AUDIO_ID]);
+    }
+    
     private IEnumerator DelayEncirclingVinesEndSFX()
     {
         yield return new WaitForSeconds((_scaleDuration + _scaleDownRemovalDelay) - _endSFXEarlyPlayTime);
+        PlayEncirclingVinesEndSFX();
     }
     
     private void PlayEncirclingVinesEndSFX()
@@ -71,7 +91,7 @@ public class SBP_EncirclingVines : BossProjectileFramework
             AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
                 BossAbilityAudio[_abilityID].GeneralAbilityAudio[SBA_EncirclingVines.ENCIRCLING_VINES_END_AUDIO_ID]);
     }
-
+    
     private void StartScaleChangeRotationProcess()
     {
         StartCoroutine(ScaleChangeRotationProcess());

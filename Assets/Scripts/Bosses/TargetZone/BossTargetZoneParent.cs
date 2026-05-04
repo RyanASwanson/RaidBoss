@@ -28,6 +28,11 @@ public class BossTargetZoneParent : MonoBehaviour
         float longestDestroy = 0;
         foreach (BossTargetZone bossTargetZone in _bossTargetZone)
         {
+            if (bossTargetZone.IsUnityNull())
+            {
+                continue;
+            }
+            
             if (bossTargetZone.GetDisappearTime() > longestDestroy)
             {
                 longestDestroy = bossTargetZone.GetDisappearTime();

@@ -14,7 +14,8 @@ public class SBA_EncirclingVines : SpecificBossAbilityFramework
 
     private BossTargetZoneParent _newestTargetZone;
     
-    public const int ENCIRCLING_VINES_END_AUDIO_ID = 0;
+    public const int ENCIRCLING_VINES_LOOP_AUDIO_ID = 0;
+    public const int ENCIRCLING_VINES_END_AUDIO_ID = 1;
 
     #region Base Ability
     /// <summary>

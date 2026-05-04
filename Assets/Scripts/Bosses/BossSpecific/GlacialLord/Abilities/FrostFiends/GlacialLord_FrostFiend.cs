@@ -46,8 +46,7 @@ public class GlacialLord_FrostFiend : BossMinionBase
     private Coroutine _frozenCoroutine;
     
     private UnityEvent _onMinionFrozen = new UnityEvent();
-
-    private BossTargetZoneParent _currentTargetZone;
+    
     private List<BossTargetZoneParent> _currentTargetZones = new List<BossTargetZoneParent>();
 
     private const int FROST_FIEND_ABILITY_ID = 4;
@@ -128,11 +127,6 @@ public class GlacialLord_FrostFiend : BossMinionBase
     public void FrostFiendDeath()
     {
         DeathAnim();
-    }
-
-    public void SetCurrentTargetZone(BossTargetZoneParent target)
-    {
-        _currentTargetZone = target;
     }
 
     public void AddTargetZone(BossTargetZoneParent target)
