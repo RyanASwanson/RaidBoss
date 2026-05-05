@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FMOD.Studio;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -38,6 +39,8 @@ public class SelectionController : MonoBehaviour
 
     [Header("Center-MissionModifiers")] 
     [SerializeField] private Button _missionModifierTabButton;
+
+    [SerializeField] private float _missionModifierSFXPitchIncrease;
 
     [SerializeField] private CurveProgression _activeModifiersCurve;
 
@@ -470,6 +473,8 @@ public class SelectionController : MonoBehaviour
         int modifierNum = SelectionManager.Instance.GetMissionModifierCount() - 1;
         
         _activeMissionModifierSelectionButtons[modifierNum].UpdateModifierImage(true);
+
+        PlayMissionModifierSelectedAudio(missionModifier);
     }
 
     private void MissionModifierDeselected(MissionModifierSO missionModifier)
@@ -478,6 +483,7 @@ public class SelectionController : MonoBehaviour
         {
             _activeMissionModifierSelectionButtons[i].UpdateModifierImage(false);
         }
+        PlayMissionModifierDeselectedAudio(missionModifier);
     }
 
     private void MissionModifierSwap(MissionModifierSO missionModifier)
@@ -1109,6 +1115,26 @@ public class SelectionController : MonoBehaviour
         
         AudioManager.Instance.PlaySpecificAudio(
             AudioManager.Instance.AllSpecificHeroAudio[selectedHero.GetHeroID()].SelectionSelectedAudio);
+    }
+
+    private void PlayMissionModifierSelectedAudio(MissionModifierSO selectedMissionModifier)
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.UserInterfaceAudio.SelectionSceneUserInterfaceAudio.GeneralMissionModifierSelected,
+            out EventInstance eventInstance);
+        
+        eventInstance.getPitch(out float pitch);
+        eventInstance.setPitch(pitch + (SelectionManager.Instance.GetCurrentMissionModifiers().Count*_missionModifierSFXPitchIncrease));
+    }
+
+    private void PlayMissionModifierDeselectedAudio(MissionModifierSO selectedMissionModifier)
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.UserInterfaceAudio.SelectionSceneUserInterfaceAudio.GeneralMissionModifierDeselected,
+            out EventInstance eventInstance);
+        
+        eventInstance.getPitch(out float pitch);
+        eventInstance.setPitch(pitch + (SelectionManager.Instance.GetCurrentMissionModifiers().Count*_missionModifierSFXPitchIncrease));
     }
     #endregion
 

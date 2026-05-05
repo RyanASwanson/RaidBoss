@@ -26,8 +26,10 @@ public class HeroVisuals : HeroChildrenFunctionality
 
     [Space] 
     [SerializeField] private Animator _heroNotControllerNumberAnimator;
-    [SerializeField] private Text _heroNotControllerNumberTextBackground;
-    [SerializeField] private TMP_Text _heroNotControllerNumberText;
+    [SerializeField] private TextWithBackground _heroNotControlledNumberText;
+
+    [Space] 
+    [SerializeField] private TextWithBackground _heroManualAbilityInputText;
 
     [Space]
     [SerializeField] private RectTransform _heroGeneralOrigin;
@@ -443,8 +445,8 @@ public class HeroVisuals : HeroChildrenFunctionality
     public Image GetHeroControlledIcon() => _heroControlledIcon;
 
     public Animator GetHeroNotControlledNumberAnimator() => _heroNotControllerNumberAnimator;
-    public Text GetHeroNotControlledNumberTextBackground() => _heroNotControllerNumberTextBackground;
-    public TMP_Text GetHeroNotControlledNumberText() => _heroNotControllerNumberText;
+    public TextWithBackground GetHeroNotControlledNumberText() => _heroNotControlledNumberText;
+    public TextWithBackground GetHeroManualAbilityInputText() => _heroManualAbilityInputText;
 
     public RectTransform GetGeneralOrigin() => _heroGeneralOrigin;
     public RectTransform GetDamageNumbersOrigin() => _damageNumbersOrigin;

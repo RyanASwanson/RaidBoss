@@ -121,14 +121,18 @@ public class HeroUIManager : GameUIChildrenFunctionality
         _heroControlledIcon.color = _associatedHeroBase.GetHeroSO().GetHeroUIColor();
         
         _heroNotControlledNumberAnimator = heroVisuals.GetHeroNotControlledNumberAnimator();
-        heroVisuals.GetHeroNotControlledNumberTextBackground().text = _associatedHeroBase.GetHeroIDStartOne().ToString();
-        heroVisuals.GetHeroNotControlledNumberText().text = _associatedHeroBase.GetHeroIDStartOne().ToString();
+        
+        heroVisuals.GetHeroNotControlledNumberText().UpdateText(_associatedHeroBase.GetHeroIDStartOne().ToString());
+        
         if (_doesUseHeroColorForNotControlledNumber)
         {
-            heroVisuals.GetHeroNotControlledNumberText().color = _associatedHeroBase.GetHeroSO().GetHeroUIColor();
+            heroVisuals.GetHeroNotControlledNumberText().UpdateTextColor(_associatedHeroBase.GetHeroSO().GetHeroUIColor());
         }
 
         ShowHeroNotControlledNumber(true);
+        
+        heroVisuals.GetHeroManualAbilityInputText().UpdateText(
+            ControlsManager.Instance.GetDefaultUseSpecificHeroAbilityInputs()[_associatedHeroBase.GetHeroID()]);
 
         _generalOrigin = heroVisuals.GetGeneralOrigin();
         _damageNumbersOrigin = heroVisuals.GetDamageNumbersOrigin();

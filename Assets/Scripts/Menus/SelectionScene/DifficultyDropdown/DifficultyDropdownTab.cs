@@ -7,8 +7,10 @@ using UnityEngine.UI;
 public class DifficultyDropdownTab : MonoBehaviour
 {
     [SerializeField] private Image _insideImage;
+    [SerializeField] private Image _lockCover;
     [SerializeField] private TMP_Text _insideText;
     [Space]
+    [SerializeField] private Toggle _difficultyToggle;
     [SerializeField] private DifficultyDropdown _difficultyDropdown;
     
     // Start is called before the first frame update
@@ -26,10 +28,21 @@ public class DifficultyDropdownTab : MonoBehaviour
             if (difficultyNames[i] == _insideText.text)
             {
                 _insideImage.color = _difficultyDropdown.GetDropdownColors()[i];
+                DetermineLockState((EGameDifficulty)i+1);
                 return;
             }
             
         }
-        
+    }
+
+    private void DetermineLockState(EGameDifficulty difficulty)
+    {
+        SetDifficultyLock(difficulty > SaveManager.Instance.GetHighestDifficultyUnlocked());
+    }
+
+    private void SetDifficultyLock(bool isLocked)
+    {
+        _difficultyToggle.interactable = !isLocked;
+        _lockCover.enabled = isLocked;
     }
 }

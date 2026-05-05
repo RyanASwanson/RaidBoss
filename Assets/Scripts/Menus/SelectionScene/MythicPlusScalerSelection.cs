@@ -31,6 +31,10 @@ public class MythicPlusScalerSelection : MonoBehaviour
     
     [Space]
     [SerializeField] private ButtonPressAudio _buttonPressAudio;
+
+    [Space] 
+    [SerializeField] private Image _lockCover;
+    private bool _isLocked;
     
     [Space]
     [SerializeField] private DifficultyDropdown _difficultyDropdown;
@@ -38,6 +42,7 @@ public class MythicPlusScalerSelection : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        DetermineLockState();
         SetMythicPlusLevel(SelectionManager.Instance.GetMythicPlusLevel(),true);
     }
 
@@ -128,6 +133,11 @@ public class MythicPlusScalerSelection : MonoBehaviour
 
     private void SetMythicPlusLevel(int level, bool isCalledByStart)
     {
+        if (_isLocked)
+        {
+            return;
+        }
+        
         if (level > SelectionManager.Instance.GetMythicPlusLevel())
         {
             _textIncreaseScaleCurve.StartMovingUpOnCurve();
@@ -158,5 +168,17 @@ public class MythicPlusScalerSelection : MonoBehaviour
     private void PlayButtonPressedSound()
     {
         _buttonPressAudio.PlayButtonPressedSound();
+    }
+    
+    private void DetermineLockState()
+    {
+        SetDifficultyLock(SaveManager.Instance.GetHighestDifficultyUnlocked() < EGameDifficulty.MythicPlus);
+    }
+    
+    private void SetDifficultyLock(bool isLocked)
+    {
+        _isLocked = isLocked;
+        
+        _lockCover.enabled = isLocked;
     }
 }

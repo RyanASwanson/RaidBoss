@@ -7,6 +7,7 @@ using UnityEngine.Serialization;
 
 public class SBA_IcicleRain : SpecificBossAbilityFramework
 {
+    [SerializeField] private Vector3 _enrageUpwardsEffectVisualsPositionOffset;
     [SerializeField] private Vector3 _enrageUpwardsEffectVisualsRotation;
     
     [Space]
@@ -26,6 +27,7 @@ public class SBA_IcicleRain : SpecificBossAbilityFramework
         if (_wasBossEnragedOnAbilityActivation)
         {
             GameObject upwardsVisual = Instantiate(_icicleRainUpwardsVisual, transform.position, Quaternion.identity);
+            upwardsVisual.transform.position += _enrageUpwardsEffectVisualsPositionOffset;
             upwardsVisual.transform.localEulerAngles += _enrageUpwardsEffectVisualsRotation;
         }
         base.AbilityPrep();

@@ -49,7 +49,6 @@ public class MissionTutorialVisuals : MonoBehaviour
     
     public void SetUpMissionTutorials()
     {
-        SubscribeToEvents();
         CreateMissionTutorials();
         CreateSpecificPageButtons();
         SetArrowTransforms();
@@ -60,7 +59,6 @@ public class MissionTutorialVisuals : MonoBehaviour
 
     private void OnDestroy()
     {
-        UnsubscribeFromEvents();
         UnsubscribeToPlayerInput();
     }
     
@@ -95,6 +93,7 @@ public class MissionTutorialVisuals : MonoBehaviour
     {
         PlayerInputGameplayManager.Instance.UpdateIsTutorialOpen(isOpen);
     }
+    
     
     #region ChangePage
     public void SetTargetPageNumber(int pageNumber)
@@ -151,6 +150,7 @@ public class MissionTutorialVisuals : MonoBehaviour
     {
         _previousPageID = _currentPageID;
     }
+    #endregion
     
     #region SpecificPageButton
 
@@ -221,8 +221,6 @@ public class MissionTutorialVisuals : MonoBehaviour
         _playButton.ToggleInteractability(false);
     }
     #endregion
-    
-    #endregion
 
     // Function called by button
     public void CloseTutorial()
@@ -238,16 +236,6 @@ public class MissionTutorialVisuals : MonoBehaviour
         TogglePauseButton();
         
         GameStateManager.Instance.StartProgressToStart();
-    }
-    
-    private void SubscribeToEvents()
-    {
-        
-    }
-
-    private void UnsubscribeFromEvents()
-    {
-        
     }
 
     private void SubscribeToPlayerInput()

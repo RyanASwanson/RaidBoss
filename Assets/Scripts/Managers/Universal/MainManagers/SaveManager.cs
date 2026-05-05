@@ -622,6 +622,9 @@ public class SaveManager : MainUniversalManagerFramework
 
     public int GetHighestMythicPlusLevelUnlocked() => GSD.GetGameplaySaveData().GetHighestMythicPlusLevelUnlocked();
 
+    public EGameDifficulty GetHighestDifficultyUnlocked() =>
+        GSD.GetGameplaySaveData().GetHighestGameDifficultyUnlocked();
+    
     public bool IsFreePlayUnlocked() => GSD.GetGameplaySaveData().HeroesUnlocked.Count >= HEROES_REQUIRED_FOR_FREE_PLAY;
 
     public float GetScreenShakeIntensity() => GSD.GetGeneralSaveData().GetGSDScreenShakeStrength();

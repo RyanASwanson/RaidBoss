@@ -349,9 +349,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd1d04d370a8bca419d81d8abad819bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _doesBeginScalingOnEnable: 0
-  _doesResetScaleOnScalingEnable: 0
-  _scalingTime: 0
   _hasOverrideStartingScale: 1
   _overrideStartingScale: {x: 0.3, y: 0.3, z: 0.3}
   _endingScale: {x: 0.35, y: 0.35, z: 0.35}
@@ -392,7 +389,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 305, y: 100}
+  m_SizeDelta: {x: 305.5, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3756539801774167930
 CanvasRenderer:
@@ -619,9 +616,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd1d04d370a8bca419d81d8abad819bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _doesBeginScalingOnEnable: 0
-  _doesResetScaleOnScalingEnable: 0
-  _scalingTime: 0
   _hasOverrideStartingScale: 1
   _overrideStartingScale: {x: 0, y: 0, z: 0}
   _endingScale: {x: 1, y: 1, z: 1}
@@ -648,6 +642,8 @@ MonoBehaviour:
   _doesResetToDefaultProgressOnEnable: 0
   _doesStartMovingUpOnEnable: 0
   _doesStartMovingInCurrentDirectionOnEnable: 0
+  _hasAutomaticStartMovingDelay: 0
+  _automaticStartMovingDelay: 0
   _doesAutomaticallyMoveDownOnHittingMax: 0
   _doesAutomaticallyMoveUpOnHittingMin: 0
   _hasIncreaseDelay: 0
@@ -841,7 +837,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0.75, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &4604321130058996232

@@ -50,7 +50,6 @@ public class HeroStats : HeroChildrenFunctionality
     [SerializeField] private Sprite _speedBuffIcon;
     [SerializeField] private Sprite _healingBuffIcon;
 
-
     /// <summary>
     /// Assigns the values of the stats after the heroSO is assigned
     /// </summary>

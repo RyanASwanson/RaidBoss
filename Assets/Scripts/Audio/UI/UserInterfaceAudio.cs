@@ -33,7 +33,11 @@ public class SelectionSceneUserInterfaceAudio
     public SpecificAudio[] DifficultySelected;
     
     public SpecificAudio HeroSelected;
-
+    
+    public SpecificAudio GeneralMissionModifierSelected;
+    
+    public SpecificAudio GeneralMissionModifierDeselected;
+    
     [Space] 
     public SpecificAudio ScrollOpenStart;
 }
