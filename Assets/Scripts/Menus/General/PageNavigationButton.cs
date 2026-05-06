@@ -28,6 +28,18 @@ public class PageNavigationButton : MonoBehaviour
         _associatedButton.onClick.AddListener(ButtonPressed);
     }
 
+    public void SetPressedColor(Color defaultColor)
+    {
+        ColorBlock colorBlock = _associatedButton.colors;
+        colorBlock.disabledColor = defaultColor;    
+        _associatedButton.colors = colorBlock;
+    }
+
+    public void SetColorBlock(ColorBlock colorBlock)
+    {
+        _associatedButton.colors = colorBlock;
+    }
+
     public void SetTutorialPageTransform(Vector2 position)
     {
         _associatedRectTransform.anchoredPosition = position;
@@ -50,6 +62,7 @@ public class PageNavigationButton : MonoBehaviour
     
     
     #region Getter
+    public Button GetAssociatedButton() => _associatedButton;
     public float GetButtonTransformAnchorX() => _associatedRectTransform.anchoredPosition.x;
     #endregion
 }

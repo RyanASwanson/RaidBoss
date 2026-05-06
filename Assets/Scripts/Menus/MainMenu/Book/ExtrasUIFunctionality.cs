@@ -8,6 +8,10 @@ public class ExtrasUIFunctionality : MonoBehaviour
 {
     public static ExtrasUIFunctionality Instance;
     
+    [SerializeField] private Sprite _optionToggleOff;
+    [SerializeField] private Sprite _optionToggleOn;
+    
+    [Space]
     [SerializeField] private CurveProgression _scaleCurve;
     [SerializeField] private CurveProgression _squishCurve;
     
@@ -103,5 +107,10 @@ public class ExtrasUIFunctionality : MonoBehaviour
     #region Setters
     public void SetPageAsCurrentPage(ExtrasPage newPage) { _currentPage = newPage; }
     public void SetControlsDropdownAsCurrent(ExtrasControlsDropdown newDropdown) { _currentControlsDropdown = newDropdown; }
+
+    public Sprite GetOptionsToggleOff() => _optionToggleOff;
+    public Sprite GetOptionsToggleOn() => _optionToggleOn;
+    public Sprite GetOptionsToggleBool(bool isToggleOn) => isToggleOn ? _optionToggleOn : _optionToggleOff;
+
     #endregion
 }

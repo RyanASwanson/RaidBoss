@@ -121,18 +121,32 @@ public class HeroUIManager : GameUIChildrenFunctionality
         _heroControlledIcon.color = _associatedHeroBase.GetHeroSO().GetHeroUIColor();
         
         _heroNotControlledNumberAnimator = heroVisuals.GetHeroNotControlledNumberAnimator();
-        
-        heroVisuals.GetHeroNotControlledNumberText().UpdateText(_associatedHeroBase.GetHeroIDStartOne().ToString());
-        
-        if (_doesUseHeroColorForNotControlledNumber)
-        {
-            heroVisuals.GetHeroNotControlledNumberText().UpdateTextColor(_associatedHeroBase.GetHeroSO().GetHeroUIColor());
-        }
 
-        ShowHeroNotControlledNumber(true);
+        if (SaveManager.Instance.GetDoesShowHeroControlInputUI())
+        {
+            heroVisuals.GetHeroNotControlledNumberText().UpdateText(_associatedHeroBase.GetHeroIDStartOne().ToString());
         
-        heroVisuals.GetHeroManualAbilityInputText().UpdateText(
-            ControlsManager.Instance.GetDefaultUseSpecificHeroAbilityInputs()[_associatedHeroBase.GetHeroID()]);
+            if (_doesUseHeroColorForNotControlledNumber)
+            {
+                heroVisuals.GetHeroNotControlledNumberText().UpdateTextColor(_associatedHeroBase.GetHeroSO().GetHeroUIColor());
+            }
+        }
+        else
+        {
+            heroVisuals.GetHeroNotControlledNumberText().gameObject.SetActive(false);
+        }
+        
+        ShowHeroNotControlledNumber(true);
+
+        if (SaveManager.Instance.GetDoesShowHeroManualInputUI())
+        {
+            heroVisuals.GetHeroManualAbilityInputText().UpdateText(
+                ControlsManager.Instance.GetDefaultUseSpecificHeroAbilityInputs()[_associatedHeroBase.GetHeroID()]);
+        }
+        else
+        {
+            heroVisuals.GetHeroManualAbilityInputText().gameObject.SetActive(false);
+        }
 
         _generalOrigin = heroVisuals.GetGeneralOrigin();
         _damageNumbersOrigin = heroVisuals.GetDamageNumbersOrigin();
