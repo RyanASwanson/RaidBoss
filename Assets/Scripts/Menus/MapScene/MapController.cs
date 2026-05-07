@@ -44,11 +44,6 @@ public class MapController : MonoBehaviour
     
     [Space]
     [Header("Backgrounds")]
-    /*[SerializeField] private CurveProgression[] _backgroundCurveProgressions;
-    private CurveProgression _currentBackgroundCurveProgression;
-    
-    [SerializeField] private GeneralVFXFunctionality[] _backgroundParticles;
-    private GeneralVFXFunctionality _currentBackgroundParticles;*/
     [SerializeField] private BossBackgroundChanger _bossBackgroundChanger;
 
     [Space]
@@ -75,10 +70,13 @@ public class MapController : MonoBehaviour
 
     [Space] 
     [SerializeField] private float _cameraClickAndDragSpeed;
-
     [Space] 
+    [SerializeField] private bool _canUIBlockClickAndDrag;
     [SerializeField] private float _cameraClickAndDragDurationPreventMissionSelection;
+    [SerializeField] private float _cameraClickAndDragDurationMinimumDistancePreventMissionSelection;
+    
     [SerializeField] private float _cameraClickAndDragDistancePreventMissionSelection;
+    private bool _isUIBlockingClickAndDrag;
 
     private float _clickAndDragMouseHorizontalStartPosition;
     private float _clickAndDragMouseLastHorizontalPosition;
@@ -173,16 +171,23 @@ public class MapController : MonoBehaviour
     #endregion
     
     #region MissionSelection
-    
+
     public void SelectMission(SelectableMission mission)
     {
         if (mission == _currentlySelectedMission)
         {
             return;
         }
-
+        
+        float moveDistance = Mathf.Abs(_clickAndDragMouseTotalHorizontalMovement);
+        
         if (_cameraClickAndDragDuration >= _cameraClickAndDragDurationPreventMissionSelection && 
-            Mathf.Abs(_clickAndDragMouseTotalHorizontalMovement) >= _cameraClickAndDragDistancePreventMissionSelection)
+            moveDistance >= _cameraClickAndDragDurationMinimumDistancePreventMissionSelection)
+        {
+            return;
+        }
+        
+        if (moveDistance >= _cameraClickAndDragDistancePreventMissionSelection)
         {
             return;
         }
@@ -225,7 +230,7 @@ public class MapController : MonoBehaviour
         _bossBackgroundChanger.UpdateBackground(level);
     }
     
-    private void DeselectSelectedMission()
+    public void DeselectSelectedMission()
     {
         if (_currentlySelectedMission.IsUnityNull())
         {
@@ -287,6 +292,12 @@ public class MapController : MonoBehaviour
     private void ClickAndDragCameraStarted()
     {
         ClickAndDragCameraEnded();
+
+        if (_isUIBlockingClickAndDrag)
+        {
+            return;
+        }
+        
 
         _cameraClickAndDragDuration = 0;
         _clickAndDragMouseTotalHorizontalMovement = 0;
@@ -611,6 +622,15 @@ public class MapController : MonoBehaviour
     public void SetCameraMoveSpeed(float speed)
     {
         _cameraMoveSpeed = speed;
+    }
+
+    public void SetIsUIBlockingClickAndDrag(bool isUIBlocking)
+    {
+        if (!_canUIBlockClickAndDrag)
+        {
+            return;
+        }
+        _isUIBlockingClickAndDrag = isUIBlocking;
     }
     #endregion
 }

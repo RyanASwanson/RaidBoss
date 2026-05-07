@@ -102,6 +102,7 @@ public class ExtrasGameplaySettingsPage : MonoBehaviour
         _heroManualInputUIToggle.onValueChanged.AddListener(ToggleHeroManualInputUI);
         
         _screenShakeSlider.onValueChanged.AddListener(ScreenShakeSliderUpdated);
+        
         _bossTargetZoneOutlineStrength.onValueChanged.AddListener(BossTargetZoneOutlineStrengthSliderUpdated);
     }
 
@@ -111,6 +112,7 @@ public class ExtrasGameplaySettingsPage : MonoBehaviour
         _heroManualInputUIToggle.onValueChanged.RemoveListener(ToggleHeroManualInputUI);
         
         _screenShakeSlider.onValueChanged.RemoveListener(ScreenShakeSliderUpdated);
+        
         _bossTargetZoneOutlineStrength.onValueChanged.RemoveListener(BossTargetZoneOutlineStrengthSliderUpdated);
     }
 

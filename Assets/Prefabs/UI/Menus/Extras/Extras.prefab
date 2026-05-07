@@ -1425,12 +1425,12 @@ RectTransform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4388302616583481797}
-  m_Father: {fileID: 6525609970599595764}
-  m_RootOrder: 0
+  m_Father: {fileID: 3860073086107412047}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -65}
+  m_AnchoredPosition: {x: 0, y: -50}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1837605225305012622
@@ -6915,7 +6915,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3860073086107412047}
   m_Layer: 0
-  m_Name: CameraSettingPage
+  m_Name: VisualsSettingPage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6934,6 +6934,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9185915064503054896}
+  - {fileID: 4013941932660247289}
   m_Father: {fileID: 9185915064844347149}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9735,7 +9736,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6525609970599595764}
   m_Layer: 0
-  m_Name: OutlineSettingPage
+  m_Name: OutlineSettingPage - NotInUse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9752,8 +9753,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4013941932660247289}
+  m_Children: []
   m_Father: {fileID: 9185915064844347149}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10456,7 +10456,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 60}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &9185915064626984701
@@ -14904,6 +14904,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1770274902092536296, guid: 66d94b30e912d1742a6972f1a753d810, type: 3}
+      propertyPath: _pages.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1770274902092536296, guid: 66d94b30e912d1742a6972f1a753d810, type: 3}
       propertyPath: _pages.Array.data[0]
       value: 
       objectReference: {fileID: 5753945493222403277}
@@ -14917,7 +14921,7 @@ PrefabInstance:
       objectReference: {fileID: 8482059716692516355}
     - target: {fileID: 1770274902092536296, guid: 66d94b30e912d1742a6972f1a753d810, type: 3}
       propertyPath: _defaultAmountOfPages
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1770274902092536296, guid: 66d94b30e912d1742a6972f1a753d810, type: 3}
       propertyPath: _doesTogglePageEnables
