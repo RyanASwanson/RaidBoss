@@ -139,7 +139,6 @@ public class ScrollUISelection : MonoBehaviour
             _scrollUIContents.UpdateContentsAndCountLines();
             
             _targetScrollSize = (_scrollOpenSizeLineMultiplier * _scrollUIContents.LineLength) + _flatScrollOpenSize;
-            //Debug.Log("Target" + _targetScrollSize);
         }
         
         

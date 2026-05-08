@@ -138,13 +138,21 @@ public class SelectHeroButton : MonoBehaviour, IPointerClickHandler
     
     public void SelectHeroButtonHoverBegin()
     {
-        _buttonVisualsHolderSizeCurve.StartMovingUpOnCurve();
+        if (!_buttonVisualsHolderSizeCurve.IsUnityNull())
+        {
+            _buttonVisualsHolderSizeCurve.StartMovingUpOnCurve();
+        }
+
         SelectionManager.Instance.HeroHoveredOver(_associatedHero);
     }
 
     public void SelectHeroButtonHoverEnd()
     {
-        _buttonVisualsHolderSizeCurve.StartMovingDownOnCurve();
+        if (!_buttonVisualsHolderSizeCurve.IsUnityNull())
+        {
+            _buttonVisualsHolderSizeCurve.StartMovingDownOnCurve();
+        }
+        
         SelectionManager.Instance.HeroNotHoveredOver(_associatedHero);
     }
 

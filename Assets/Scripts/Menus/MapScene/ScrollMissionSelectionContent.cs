@@ -1,5 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +13,7 @@ public class ScrollMissionSelectionContent : ScrollUIContents
     private Vector3 _titleScale;
 
     [Space] 
-    [SerializeField] private Image _bossIcon;
+    [SerializeField] private SelectBossLevelButton _bossIcon;
     [SerializeField] private Image _difficultyIcon;
 
     [Space] 
@@ -35,12 +38,52 @@ public class ScrollMissionSelectionContent : ScrollUIContents
     [SerializeField] private Vector2 _heroHighlightOffset;
     [SerializeField] private RectTransform[] _missionModifiersHighlightHolders;
     [SerializeField] private Vector2 _missionModifierHighlightOffset;
+
+    [Space] 
+    [Header("Extended Sections")]
+    [SerializeField] private CurveProgression _extendedBossSection;
+    [SerializeField] private TextWithBackground _extendedBossNameText;
+    
+    [SerializeField] private CharacterAbilityDetails[] _bossAbilityDetails;
+
+    [Space] 
+    [SerializeField] private CurveProgression _extendedHeroSection;
+    [SerializeField] private TextWithBackground _extendedHeroNameText;
+    
+    [SerializeField] private CharacterAbilityDetails[] _heroAbilityDetails;
+
+    [Space] 
+    [SerializeField] private CurveProgression _extendedDifficultySection;
+    [SerializeField] private TextWithBackground _extendedDifficultyNameText;
+    
+    [Space]
+    [SerializeField] private CurveProgression _extendedMissionModifiersSection;
+    [SerializeField] private TextWithBackground _extendedMissionModifierNameText;
+
+    private CurveProgression _currentDisplayingExtendedSection;
+    private CurveProgression _currentHoveredOverExtendedSection;
+
+    private BossSO _currentHoveredOverBoss;
+    private HeroSO _currentHoveredOverHero;
+    private EGameDifficulty _currentHoveredOverDifficulty;
+    private MissionModifierSO _currentHoveredOverMissionModifier;
     
     [Space]
     [SerializeField] private SelectionPlayButton _playButton;
     
     private MissionSO _selectedMission;
-    
+
+    private void OnEnable()
+    {
+        HideAllExtendedSections();
+        SubscribeToEvents();
+    }
+
+    private void OnDisable()
+    {
+        UnsubscribeFromEvents();
+    }
+
     public override int UpdateContentsAndCountLines()
     {
         _selectedMission = MapController.Instance.GetSelectedMission().GetAssociatedMission();
@@ -49,7 +92,8 @@ public class ScrollMissionSelectionContent : ScrollUIContents
         _titleScale.Set(_selectedMission.GetMissionTitleScale(),_selectedMission.GetMissionTitleScale(),_selectedMission.GetMissionTitleScale());
         _titleText.transform.localScale = _titleScale;
 
-        _bossIcon.sprite = _selectedMission.GetAssociatedLevel().GetLevelBoss().GetBossIcon();
+        //_bossIcon.sprite = _selectedMission.GetAssociatedLevel().GetLevelBoss().GetBossIcon();
+        _bossIcon.SetAssociatedLevel(_selectedMission.GetAssociatedLevel());
 
         _difficultyIcon.sprite = SelectionManager.Instance.GetDifficultyIconOfCurrentDifficulty();
 
@@ -159,5 +203,180 @@ public class ScrollMissionSelectionContent : ScrollUIContents
         {
             _highlightIcons[highLightID].gameObject.SetActive(false);
         }
+    }
+    
+    #region Extended Sections
+
+    #region Update Contents
+    public void UpdateExtendedSectionContents()
+    {
+        if (!_currentDisplayingExtendedSection.IsUnityNull())
+        {
+            _currentDisplayingExtendedSection.StartMovingDownOnCurve();
+        }
+
+        if (!_currentHoveredOverExtendedSection.IsUnityNull())
+        {
+            _currentHoveredOverExtendedSection.StartMovingUpOnCurve();
+        }
+
+        if (!_currentHoveredOverBoss.IsUnityNull())
+        {
+            UpdateExtendedBossSectionContents();
+        }
+
+        if (!_currentHoveredOverHero.IsUnityNull())
+        {
+            UpdateExtendedHeroSectionContents();
+        }
+
+        if (_currentHoveredOverDifficulty != EGameDifficulty.Empty)
+        {
+            UpdateExtendedDifficultySectionContents();
+        }
+
+        if (!_currentHoveredOverMissionModifier.IsUnityNull())
+        {
+            UpdateExtendedMissionModifierSectionContents();
+        }
+
+        _currentDisplayingExtendedSection = _currentHoveredOverExtendedSection;
+    }
+
+    private void UpdateExtendedBossSectionContents()
+    {
+        _extendedBossNameText.UpdateText(_currentHoveredOverBoss.GetBossName());
+        _extendedBossNameText.UpdateTextColor(_currentHoveredOverBoss.GetBossHighlightedColor());
+        
+        for (int i = 0; i < _bossAbilityDetails.Length; i++)
+        {
+            _bossAbilityDetails[i].UpdateBossAbilityDetails(_currentHoveredOverBoss,i);
+        }
+    }
+    
+    private void UpdateExtendedHeroSectionContents()
+    {
+        _extendedHeroNameText.UpdateText(_currentHoveredOverHero.GetHeroName());
+        _extendedHeroNameText.UpdateTextColor(_currentHoveredOverHero.GetHeroHighlightedColor());
+
+        for (int i = 0; i < _heroAbilityDetails.Length; i++)
+        {
+            _heroAbilityDetails[i].UpdateHeroAbilityDetails(_currentHoveredOverHero,i);
+        }
+    }
+    
+    private void UpdateExtendedDifficultySectionContents()
+    {
+        //_extendedDifficultyNameText.UpdateText(_currentHoveredOverDifficulty.ToString());
+    }
+    
+    private void UpdateExtendedMissionModifierSectionContents()
+    {
+        _extendedMissionModifierNameText.UpdateText(_currentHoveredOverMissionModifier.GetModifierName());
+    }
+
+    private void HideAllExtendedSections()
+    {
+        return;
+        _extendedBossSection.gameObject.SetActive(false);
+        _extendedHeroSection.gameObject.SetActive(false);
+        _extendedDifficultySection.gameObject.SetActive(false);
+        _extendedMissionModifiersSection.gameObject.SetActive(false);
+    }
+    #endregion
+
+    #region Hovered Over
+    public void GeneralSectionHoveredOver()
+    {
+        UpdateExtendedSectionContents();
+    }
+
+    public void BossSectionHoveredOver(BossSO bossSO)
+    {
+        _currentHoveredOverBoss = bossSO;
+        _currentHoveredOverExtendedSection = _extendedBossSection;
+        GeneralSectionHoveredOver();
+    }
+
+    public void HeroSectionHoveredOver(HeroSO heroSO)
+    {
+        _currentHoveredOverHero = heroSO;
+        _currentHoveredOverExtendedSection = _extendedHeroSection;
+        GeneralSectionHoveredOver();
+    }
+
+    public void DifficultySectionHoveredOver(EGameDifficulty gameDifficulty)
+    {
+        _currentHoveredOverDifficulty = gameDifficulty;
+        GeneralSectionHoveredOver();
+    }
+
+    public void MissionModifierSectionHoveredOver(MissionModifierSO missionModifierSO)
+    {
+        _currentHoveredOverMissionModifier = missionModifierSO;
+        GeneralSectionHoveredOver();
+    }
+    
+    #endregion 
+
+    #region Not Hovered Over
+    public void GeneralSectionNotHoveredOver()
+    {
+
+    }
+
+    public void BossSectionNotHoveredOver(BossSO bossSO)
+    {
+        _currentHoveredOverBoss = null;
+        GeneralSectionNotHoveredOver();
+    }
+
+    public void HeroSectionNotHoveredOver(HeroSO heroSO)
+    {
+        _currentHoveredOverHero = null;
+        GeneralSectionNotHoveredOver();
+    }
+
+    public void DifficultySectionNotHoveredOver(EGameDifficulty gameDifficulty)
+    {
+        _currentHoveredOverDifficulty = EGameDifficulty.Empty;
+        GeneralSectionNotHoveredOver();
+    }
+
+    public void MissionModifierSectionNotHoveredOver(MissionModifierSO missionModifierSO)
+    {
+        _currentHoveredOverMissionModifier = null;
+        GeneralSectionNotHoveredOver();
+    }
+    #endregion
+    
+    #endregion
+
+    private void SubscribeToEvents()
+    {
+        SelectionManager.Instance.GetBossHoveredOverEvent().AddListener(BossSectionHoveredOver);
+        SelectionManager.Instance.GetHeroHoveredOverEvent().AddListener(HeroSectionHoveredOver);
+
+        SelectionManager.Instance.GetMissionModifierHoveredOverEvent().AddListener(MissionModifierSectionHoveredOver);
+        
+        SelectionManager.Instance.GetBossNotHoveredOverEvent().AddListener(BossSectionNotHoveredOver);
+        SelectionManager.Instance.GetHeroNotHoveredOverEvent().AddListener(HeroSectionNotHoveredOver);
+        
+        SelectionManager.Instance.GetMissionModifierNotHoveredOverEvent().AddListener(MissionModifierSectionNotHoveredOver);
+        
+        
+    }
+
+    private void UnsubscribeFromEvents()
+    {
+        SelectionManager.Instance.GetBossHoveredOverEvent().RemoveListener(BossSectionHoveredOver);
+        SelectionManager.Instance.GetHeroHoveredOverEvent().RemoveListener(HeroSectionHoveredOver);
+        
+        SelectionManager.Instance.GetMissionModifierHoveredOverEvent().RemoveListener(MissionModifierSectionHoveredOver);
+        
+        SelectionManager.Instance.GetBossNotHoveredOverEvent().RemoveListener(BossSectionNotHoveredOver);
+        SelectionManager.Instance.GetHeroNotHoveredOverEvent().RemoveListener(HeroSectionNotHoveredOver);
+        
+        SelectionManager.Instance.GetMissionModifierNotHoveredOverEvent().RemoveListener(MissionModifierSectionNotHoveredOver);
     }
 }

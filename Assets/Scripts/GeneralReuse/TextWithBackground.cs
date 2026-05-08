@@ -10,6 +10,10 @@ public class TextWithBackground : MonoBehaviour
 {
     [SerializeField] private bool _hasDefaultText;
     [TextArea(1, 10)][SerializeField] private string _defaultText;
+
+    [Space] 
+    [SerializeField] private bool _doesRemoveColorFromBackgroundText = true;
+    [SerializeField] private bool _doesRemoveLineBreaks = false;
     
     [Space]
     [SerializeField] private TMP_Text _text;
@@ -31,9 +35,19 @@ public class TextWithBackground : MonoBehaviour
 
     public void UpdateText(string newString)
     {
+        if (_doesRemoveLineBreaks)
+        {
+            newString = newString.Replace("\n", " ");
+        }
+        
         CurrentString = newString;
         _text.text = newString;
-        newString = Regex.Replace(newString, "<color=.*?>|</color>", string.Empty);
+        
+        if (_doesRemoveColorFromBackgroundText)
+        {
+            newString = Regex.Replace(newString, "<color=.*?>|</color>", string.Empty);
+        }
+        
         _backgroundText.text = newString;
     }
 

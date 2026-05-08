@@ -43,8 +43,13 @@ public class MoveBetween : MonoBehaviour
     {
         if (_hasDefaultStartPosition && _doesSetDefaultStartPositionOnStart)
         {
-            _startPosition = _defaultStartPosition;
+            SetDefaultStartPosition();
         }
+    }
+
+    public void SetDefaultStartPosition()
+    {
+        _startPosition = _defaultStartPosition;
     }
 
     public void StartMoveProcess(GameObject target)

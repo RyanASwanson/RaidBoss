@@ -58,10 +58,13 @@ public class HeroSO : CharacterSO
     [Header("Ability Information")]
     [TextArea(1, 2)][SerializeField] private string _basicAbilityName;
     [TextArea(4, 10)] [SerializeField] private string _basicAbilityDescription;
+    [TextArea(4, 10)] [SerializeField] private string _basicAbilityWideDescription;
     [TextArea(1, 2)][SerializeField] private string _manualAbilityName;
     [TextArea(4, 10)] [SerializeField] private string _manualAbilityDescription;
+    [TextArea(4, 10)] [SerializeField] private string _manualAbilityWideDescription;
     [TextArea(1, 2)][SerializeField] private string _passiveAbilityName;
     [TextArea(4, 10)] [SerializeField] private string _passiveAbilityDescription;
+    [TextArea(4, 10)] [SerializeField] private string _passiveAbilityWideDescription;
 
     #region Getters
     public string GetHeroName() => _name;
@@ -102,11 +105,29 @@ public class HeroSO : CharacterSO
 
     public string GetHeroBasicAbilityName() => _basicAbilityName;
     public string GetHeroBasicAbilityDescription() => _basicAbilityDescription;
+    public string GetHeroBasicAbilityWideDescription() => _basicAbilityWideDescription;
     public string GetHeroManualAbilityName() => _manualAbilityName;
     public string GetHeroManualAbilityDescription() => _manualAbilityDescription;
+    public string GetHeroManualAbilityWideDescription() => _manualAbilityWideDescription;
     public string GetHeroPassiveAbilityName() => _passiveAbilityName;
     public string GetHeroPassiveAbilityDescription() => _passiveAbilityDescription;
+    public string GetHeroPassiveAbilityWideDescription() => _passiveAbilityWideDescription;
 
+    public Sprite GetAbilityIconFromID(int id)
+    {
+        switch (id)
+        {
+            case(0):
+                return GetHeroBasicAbilityIcon();
+            case(1):
+                return GetHeroManualAbilityIcon();
+            case(2):
+                return GetHeroPassiveAbilityIcon();
+        }
+
+        return null;
+    }
+    
     public string GetAbilityNameFromID(int id)
     {
         switch (id)
@@ -132,6 +153,21 @@ public class HeroSO : CharacterSO
                 return GetHeroManualAbilityDescription();
             case(2):
                 return GetHeroPassiveAbilityDescription();
+        }
+
+        return string.Empty;
+    }
+    
+    public string GetAbilityWideDescriptionFromID(int id)
+    {
+        switch (id)
+        {
+            case(0):
+                return GetHeroBasicAbilityWideDescription();
+            case(1):
+                return GetHeroManualAbilityWideDescription();
+            case(2):
+                return GetHeroPassiveAbilityWideDescription();
         }
 
         return string.Empty;

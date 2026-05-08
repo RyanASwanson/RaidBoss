@@ -59,14 +59,18 @@ public class SelectBossLevelButton : MonoBehaviour, IPointerClickHandler
         _defaultColor = _iconVisuals.color;
         _iconVisuals.sprite = _associatedLevel.GetLevelBoss().GetBossIcon();
 
-        //Get the colorblock for the button
-        ColorBlock colorVar = _levelBossButton.colors;
-        //Set the highlighted color for the button to be the boss highlighted color
-        colorVar.highlightedColor = _associatedLevel.GetLevelBoss().GetBossHighlightedColor();
-        //Set the pressed color for the button to be the boss highlighted color
-        colorVar.pressedColor = _associatedLevel.GetLevelBoss().GetBossPressedColor();
-        //Sets the colorblock for the button
-        _levelBossButton.colors = colorVar;
+        if (!_levelBossButton.IsUnityNull())
+        {
+            //Get the colorblock for the button
+            ColorBlock colorVar = _levelBossButton.colors;
+            //Set the highlighted color for the button to be the boss highlighted color
+            colorVar.highlightedColor = _associatedLevel.GetLevelBoss().GetBossHighlightedColor();
+            //Set the pressed color for the button to be the boss highlighted color
+            colorVar.pressedColor = _associatedLevel.GetLevelBoss().GetBossPressedColor();
+            //Sets the colorblock for the button
+            _levelBossButton.colors = colorVar;
+        }
+        
     }
     
     private void SetDefaultIconColor()
@@ -135,13 +139,21 @@ public class SelectBossLevelButton : MonoBehaviour, IPointerClickHandler
 
     public void SelectBossButtonHoverBegin()
     {
-        _buttonVisualsHolderSizeCurve.StartMovingUpOnCurve();
+        if (!_buttonVisualsHolderSizeCurve.IsUnityNull())
+        {
+            _buttonVisualsHolderSizeCurve.StartMovingUpOnCurve();
+        }
+
         SelectionManager.Instance.BossHoveredOver(_associatedLevel.GetLevelBoss());
     }
 
     public void SelectBossButtonHoverEnd()
     {
-        _buttonVisualsHolderSizeCurve.StartMovingDownOnCurve();
+        if (!_buttonVisualsHolderSizeCurve.IsUnityNull())
+        {
+            _buttonVisualsHolderSizeCurve.StartMovingDownOnCurve();
+        }
+
         SelectionManager.Instance.BossNotHoveredOver(_associatedLevel.GetLevelBoss());
     }
 
@@ -180,6 +192,12 @@ public class SelectBossLevelButton : MonoBehaviour, IPointerClickHandler
         }
         
         _lockVisuals.SetActive(!interactable);
+    }
+
+    public void SetAssociatedLevel(LevelSO level)
+    {
+        _associatedLevel = level;
+        SetButtonBossIconVisuals();
     }
     #endregion
 }
