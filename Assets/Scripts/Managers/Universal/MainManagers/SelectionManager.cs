@@ -53,6 +53,7 @@ public class SelectionManager : MainUniversalManagerFramework
     [Space]
     [SerializeField] private List<string> _difficultyNames;
     [SerializeField] private List<Sprite> _difficultyIcons;
+    [SerializeField] private Color[] _difficultyColors;
 
     private Dictionary<EGameDifficulty, float> _difficultyDamageMultiplierDictionary = new();
     private Dictionary<EGameDifficulty, float> _difficultyAttackSpeedMultiplierDictionary = new();
@@ -92,6 +93,8 @@ public class SelectionManager : MainUniversalManagerFramework
 
     private UnityEvent<EGameDifficulty> _difficultySelectionEvent = new UnityEvent<EGameDifficulty>();
     private UnityEvent<int> _mythicPlusLevelSelectionEvent = new UnityEvent<int>();
+    private UnityEvent<EGameDifficulty> _difficultyHoveredOverEvent = new UnityEvent<EGameDifficulty>();
+    private UnityEvent<EGameDifficulty> _difficultyNotHoveredOverEvent = new UnityEvent<EGameDifficulty>();
     private UnityEvent _informationUnlockedEvent = new UnityEvent();
 
     public UnityEvent<MissionModifierSO> _missionModifierSelectionEvent;
@@ -344,6 +347,16 @@ public class SelectionManager : MainUniversalManagerFramework
         _mythicPlusLevelSelectionEvent?.Invoke(level);
     }
 
+    public void InvokeDifficultyHoveredOverEvent(EGameDifficulty eGameDifficulty)
+    {
+        _difficultyHoveredOverEvent?.Invoke(eGameDifficulty);
+    }
+    
+    public void InvokeDifficultyNotHoveredOverEvent(EGameDifficulty eGameDifficulty)
+    {
+        _difficultyNotHoveredOverEvent?.Invoke(eGameDifficulty);
+    }
+    
     public void InvokeInformationUnlockedEvent()
     {
         _informationUnlockedEvent?.Invoke();
@@ -481,11 +494,13 @@ public class SelectionManager : MainUniversalManagerFramework
     
     public int GetHeroLimitFromDifficulty() => _difficultyHeroLimit[_currentEGameDifficulty];
 
+    public string GetDifficultyNameFromDifficulty(EGameDifficulty difficulty) => _difficultyNames[(int)difficulty-1];
     public List<string> GetDifficultyNames() => _difficultyNames;
     public List<Sprite> GetDifficultyIcons() => _difficultyIcons;
     public Sprite GetDifficultyIconOfCurrentDifficulty() => GetDifficultyIconFromDifficulty(_currentEGameDifficulty);
     public Sprite GetDifficultyIconFromDifficulty(EGameDifficulty difficulty) => GetDifficultyIconFromDifficulty((int)difficulty);
     public Sprite GetDifficultyIconFromDifficulty(int difficulty) => _difficultyIcons[difficulty-1];
+    public Color GetDifficultyColorFromDifficulty(EGameDifficulty difficulty) => _difficultyColors[(int)difficulty-1];
     
     public List<MissionModifierSO> GetCurrentMissionModifiers() => _currentMissionModifiers;
     public int GetMissionModifierCount() => _currentMissionModifiers.Count;
@@ -608,6 +623,8 @@ public class SelectionManager : MainUniversalManagerFramework
     
     public UnityEvent<EGameDifficulty> GetDifficultySelectionEvent() => _difficultySelectionEvent;
     public UnityEvent<int> GetMythicPlusLevelSelectionEvent() => _mythicPlusLevelSelectionEvent;
+    public UnityEvent<EGameDifficulty> GetDifficultyHoveredOverEvent() => _difficultyHoveredOverEvent;
+    public UnityEvent<EGameDifficulty> GetDifficultyNotHoveredOverEvent() => _difficultyNotHoveredOverEvent;
     public UnityEvent GetInformationUnlockedEvent() => _informationUnlockedEvent;
 
     public UnityEvent<MissionModifierSO> GetMissionModifierSelectionEvent() => _missionModifierSelectionEvent;

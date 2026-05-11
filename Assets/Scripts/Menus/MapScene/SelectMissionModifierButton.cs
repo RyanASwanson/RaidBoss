@@ -28,7 +28,16 @@ public class SelectMissionModifierButton : MonoBehaviour
         
         _iconVisuals.sprite = _associatedModifier.GetModifierSprite();
     }
-    
+
+    public void MissionModifierHoveredOver()
+    {
+        SelectionManager.Instance.InvokeMissionModifierHoveredOverEvent(_associatedModifier);
+    }
+
+    public void MissionModifierNotHoveredOver()
+    {
+        SelectionManager.Instance.InvokeMissionModifierNotHoveredOverEvent(_associatedModifier);
+    }
     
     #region Setters
     public void SetAssociatedModifier(MissionModifierSO modifier)

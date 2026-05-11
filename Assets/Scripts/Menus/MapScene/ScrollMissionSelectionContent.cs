@@ -14,7 +14,7 @@ public class ScrollMissionSelectionContent : ScrollUIContents
 
     [Space] 
     [SerializeField] private SelectBossLevelButton _bossIcon;
-    [SerializeField] private Image _difficultyIcon;
+    [SerializeField] private DifficultyButton _difficultyIcon;
 
     [Space] 
     [SerializeField] private SelectHeroButton[] _heroIcons;
@@ -55,10 +55,16 @@ public class ScrollMissionSelectionContent : ScrollUIContents
     [Space] 
     [SerializeField] private CurveProgression _extendedDifficultySection;
     [SerializeField] private TextWithBackground _extendedDifficultyNameText;
+    [SerializeField] private TextWithBackground _difficultyBossMaxHealthText;
+    [SerializeField] private TextWithBackground _difficultyBossMaxStaggerText;
+    [SerializeField] private TextWithBackground _difficultyBossDamageText;
+    [SerializeField] private TextWithBackground _difficultyBossSpeedText;
     
     [Space]
     [SerializeField] private CurveProgression _extendedMissionModifiersSection;
     [SerializeField] private TextWithBackground _extendedMissionModifierNameText;
+    
+    [SerializeField] private CharacterAbilityDetails _missionModifierDetails;
 
     private CurveProgression _currentDisplayingExtendedSection;
     private CurveProgression _currentHoveredOverExtendedSection;
@@ -91,11 +97,10 @@ public class ScrollMissionSelectionContent : ScrollUIContents
         _titleText.UpdateText(_selectedMission.GetMissionName());
         _titleScale.Set(_selectedMission.GetMissionTitleScale(),_selectedMission.GetMissionTitleScale(),_selectedMission.GetMissionTitleScale());
         _titleText.transform.localScale = _titleScale;
-
-        //_bossIcon.sprite = _selectedMission.GetAssociatedLevel().GetLevelBoss().GetBossIcon();
+        
         _bossIcon.SetAssociatedLevel(_selectedMission.GetAssociatedLevel());
-
-        _difficultyIcon.sprite = SelectionManager.Instance.GetDifficultyIconOfCurrentDifficulty();
+        
+        _difficultyIcon.UpdateDifficulty(SelectionManager.Instance.GetSelectedDifficulty());
 
         List<HeroSO> selectedHeroes = SelectionManager.Instance.GetAllSelectedHeroes();
 
@@ -212,13 +217,15 @@ public class ScrollMissionSelectionContent : ScrollUIContents
     {
         if (!_currentDisplayingExtendedSection.IsUnityNull())
         {
-            _currentDisplayingExtendedSection.StartMovingDownOnCurve();
+            return;
         }
-
-        if (!_currentHoveredOverExtendedSection.IsUnityNull())
+        
+        if (_currentHoveredOverExtendedSection.IsUnityNull())
         {
-            _currentHoveredOverExtendedSection.StartMovingUpOnCurve();
+            return;
         }
+        
+        _currentHoveredOverExtendedSection.StartMovingUpOnCurve();
 
         if (!_currentHoveredOverBoss.IsUnityNull())
         {
@@ -267,21 +274,21 @@ public class ScrollMissionSelectionContent : ScrollUIContents
     
     private void UpdateExtendedDifficultySectionContents()
     {
-        //_extendedDifficultyNameText.UpdateText(_currentHoveredOverDifficulty.ToString());
+        _extendedDifficultyNameText.UpdateText(SelectionManager.Instance.GetDifficultyNameFromDifficulty(_currentHoveredOverDifficulty));
+        _extendedDifficultyNameText.UpdateTextColor(SelectionManager.Instance.GetDifficultyColorFromDifficulty(_currentHoveredOverDifficulty));
     }
     
     private void UpdateExtendedMissionModifierSectionContents()
     {
         _extendedMissionModifierNameText.UpdateText(_currentHoveredOverMissionModifier.GetModifierName());
+        _extendedMissionModifierNameText.UpdateTextColor(_currentHoveredOverMissionModifier.GetModifierHighlightedColor());
+        
+        _missionModifierDetails.UpdateMissionModifierDetails(_currentHoveredOverMissionModifier);
     }
 
     private void HideAllExtendedSections()
     {
         return;
-        _extendedBossSection.gameObject.SetActive(false);
-        _extendedHeroSection.gameObject.SetActive(false);
-        _extendedDifficultySection.gameObject.SetActive(false);
-        _extendedMissionModifiersSection.gameObject.SetActive(false);
     }
     #endregion
 
@@ -308,12 +315,14 @@ public class ScrollMissionSelectionContent : ScrollUIContents
     public void DifficultySectionHoveredOver(EGameDifficulty gameDifficulty)
     {
         _currentHoveredOverDifficulty = gameDifficulty;
+        _currentHoveredOverExtendedSection = _extendedDifficultySection;
         GeneralSectionHoveredOver();
     }
 
     public void MissionModifierSectionHoveredOver(MissionModifierSO missionModifierSO)
     {
         _currentHoveredOverMissionModifier = missionModifierSO;
+        _currentHoveredOverExtendedSection = _extendedMissionModifiersSection;
         GeneralSectionHoveredOver();
     }
     
@@ -322,7 +331,18 @@ public class ScrollMissionSelectionContent : ScrollUIContents
     #region Not Hovered Over
     public void GeneralSectionNotHoveredOver()
     {
+        _currentHoveredOverExtendedSection = null;
+        
+        if (!_currentDisplayingExtendedSection.IsUnityNull())
+        {
+            _currentDisplayingExtendedSection.StartMovingDownOnCurve();
+        }
+    }
 
+    public void SectionFullyHidden()
+    {
+        _currentDisplayingExtendedSection = null;
+        UpdateExtendedSectionContents();
     }
 
     public void BossSectionNotHoveredOver(BossSO bossSO)
@@ -356,12 +376,12 @@ public class ScrollMissionSelectionContent : ScrollUIContents
     {
         SelectionManager.Instance.GetBossHoveredOverEvent().AddListener(BossSectionHoveredOver);
         SelectionManager.Instance.GetHeroHoveredOverEvent().AddListener(HeroSectionHoveredOver);
-
+        SelectionManager.Instance.GetDifficultyHoveredOverEvent().AddListener(DifficultySectionHoveredOver);
         SelectionManager.Instance.GetMissionModifierHoveredOverEvent().AddListener(MissionModifierSectionHoveredOver);
         
         SelectionManager.Instance.GetBossNotHoveredOverEvent().AddListener(BossSectionNotHoveredOver);
         SelectionManager.Instance.GetHeroNotHoveredOverEvent().AddListener(HeroSectionNotHoveredOver);
-        
+        SelectionManager.Instance.GetDifficultyNotHoveredOverEvent().AddListener(DifficultySectionNotHoveredOver);
         SelectionManager.Instance.GetMissionModifierNotHoveredOverEvent().AddListener(MissionModifierSectionNotHoveredOver);
         
         
@@ -371,12 +391,12 @@ public class ScrollMissionSelectionContent : ScrollUIContents
     {
         SelectionManager.Instance.GetBossHoveredOverEvent().RemoveListener(BossSectionHoveredOver);
         SelectionManager.Instance.GetHeroHoveredOverEvent().RemoveListener(HeroSectionHoveredOver);
-        
+        SelectionManager.Instance.GetDifficultyHoveredOverEvent().RemoveListener(DifficultySectionHoveredOver);
         SelectionManager.Instance.GetMissionModifierHoveredOverEvent().RemoveListener(MissionModifierSectionHoveredOver);
         
         SelectionManager.Instance.GetBossNotHoveredOverEvent().RemoveListener(BossSectionNotHoveredOver);
         SelectionManager.Instance.GetHeroNotHoveredOverEvent().RemoveListener(HeroSectionNotHoveredOver);
-        
+        SelectionManager.Instance.GetDifficultyNotHoveredOverEvent().RemoveListener(DifficultySectionNotHoveredOver);
         SelectionManager.Instance.GetMissionModifierNotHoveredOverEvent().RemoveListener(MissionModifierSectionNotHoveredOver);
     }
 }

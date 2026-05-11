@@ -29,4 +29,13 @@ public class CharacterAbilityDetails : MonoBehaviour
             
         _characterAbilityDescriptionText.UpdateText(heroSO.GetAbilityWideDescriptionFromID(abilityID));
     }
+
+    public void UpdateMissionModifierDetails(MissionModifierSO missionModifierSO)
+    {
+        _characterAbilityIcon.sprite = missionModifierSO.GetModifierSprite();
+        
+        //_characterAbilityNameText.UpdateText(missionModifierSO.GetModifierName());
+        
+        _characterAbilityDescriptionText.UpdateText(missionModifierSO.GetModifierDescription());
+    }
 }

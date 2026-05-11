@@ -29,16 +29,21 @@ MonoBehaviour:
   - HighlightType: 1
     HightlightID: 0
   _tutorialPages:
-  - TutorialPageTitle: 
-    TutorialPageTitleWidth: 0
-    DefaultTextLocation: {x: 0, y: 0}
-    DefaultText: 
+  - TutorialPageTitle: Mythic+
+    TutorialPageTitleWidth: 550
+    DefaultTextLocation: {x: 0, y: 30}
+    DefaultText: 'The difficulty has increased
+
+      to Mythic+. Get ready for a
+
+      real
+      challenge.'
     TutorialPageObjectLocation: {x: 0, y: 0}
     TutorialPageObject: {fileID: 0}
     TutorialPageCharacterTutorial:
-      TutorialCharacterIconLocation: {x: 0, y: 0}
-      TutorialCharacterIconScaleMultiplier: 0
-      TutorialPageCharacterIcon: {fileID: 0}
+      TutorialCharacterIconLocation: {x: 0, y: -60}
+      TutorialCharacterIconScaleMultiplier: 1.25
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 7d3ee4008449a474a8cfed84359c1e59, type: 3}
       TutorialPageCharacterBackground: {fileID: 0}
   _characterUnlock: {fileID: 0}
   _difficultyUnlock: 4
@@ -46,6 +51,7 @@ MonoBehaviour:
   _missionUnlocks:
   - {fileID: 11400000, guid: a6a9806becdb7ae47b41d154c6ece02f, type: 2}
   _achievementUnlocks: []
+  _generalMissionUnlocks: 0
   _missionModifiers: []
   _missionStatModifiers:
     _bossHealthMultiplier: 1
