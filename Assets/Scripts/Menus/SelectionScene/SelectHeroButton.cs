@@ -143,6 +143,11 @@ public class SelectHeroButton : MonoBehaviour, IPointerClickHandler
             _buttonVisualsHolderSizeCurve.StartMovingUpOnCurve();
         }
 
+        if (_associatedHero.IsUnityNull())
+        {
+            return;
+        }
+
         SelectionManager.Instance.HeroHoveredOver(_associatedHero);
     }
 
@@ -151,6 +156,11 @@ public class SelectHeroButton : MonoBehaviour, IPointerClickHandler
         if (!_buttonVisualsHolderSizeCurve.IsUnityNull())
         {
             _buttonVisualsHolderSizeCurve.StartMovingDownOnCurve();
+        }
+        
+        if (_associatedHero.IsUnityNull())
+        {
+            return;
         }
         
         SelectionManager.Instance.HeroNotHoveredOver(_associatedHero);
@@ -213,6 +223,12 @@ public class SelectHeroButton : MonoBehaviour, IPointerClickHandler
         UpdateHeroIconColor(_defaultColor);
     }
 
+    public void ClearAssociatedHero()
+    {
+        ClearButtonHeroIconVisuals();
+        _associatedHero = null;
+    }
+
     #region Getters
     public HeroSO GetAssociatedHero() => _associatedHero;
     #endregion
@@ -235,7 +251,6 @@ public class SelectHeroButton : MonoBehaviour, IPointerClickHandler
 
         SetButtonHeroIconVisuals();
     }
-    
     
     #endregion
 }

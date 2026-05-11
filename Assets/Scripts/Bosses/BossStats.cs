@@ -69,6 +69,7 @@ public class BossStats : BossChildrenFunctionality
         
         _bossDefaultStaggerMax = bossSO.GetBaseStaggerMax() *
             SelectionManager.Instance.GetStaggerMultiplierFromDifficulty();
+        Debug.Log(_bossDefaultStaggerMax + " "+ bossSO.GetBaseStaggerMax() + " " +  SelectionManager.Instance.GetStaggerMultiplierFromDifficulty());
 
         //Sets the stagger duration from the SO
         _bossStaggerDuration = bossSO.GetStaggerDuration();
@@ -92,6 +93,7 @@ public class BossStats : BossChildrenFunctionality
             _bossMaxHealth *= missionStatModifiers.GetBossHealthMultiplier();
 
             _bossDefaultStaggerMax *= missionStatModifiers.GetBossStaggerMultiplier();
+            Debug.Log(_bossDefaultStaggerMax);
             
             _bossDamageResistanceChangeOnStagger *=
                 missionStatModifiers.GetBossDamageResistanceChangeOnStaggerMultiplier();
@@ -105,17 +107,12 @@ public class BossStats : BossChildrenFunctionality
 
         if (SelectionManager.Instance.IsPlayingFreeMode())
         {
-            /*Debug.Log("Multipliers of level " + SelectionManager.Instance.GetMythicPlusLevel() +
-                      "    health: " + SelectionManager.Instance.GetHealthMultiplierFromMythicPlusLevel()
-                      + "    stagger: " + SelectionManager.Instance.GetStaggerMultiplierFromMythicPlusLevel()
-                      + "    damage: " + SelectionManager.Instance.GetDamageMultiplierFromMythicPlusLevel()
-                      + "    speed: " + SelectionManager.Instance.GetSpeedMultiplierFromMythicPlusLevel());*/
-            
             _bossMaxHealth *= SelectionManager.Instance.GetHealthMultiplierFromMythicPlusLevel();
 
             _bossDefaultStaggerMax *= SelectionManager.Instance.GetStaggerMultiplierFromMythicPlusLevel();
             
             _baseBossDamageMultiplier *= SelectionManager.Instance.GetDamageMultiplierFromMythicPlusLevel();
+            Debug.Log(_bossDefaultStaggerMax);
         }
         
         //Sets the starting health and stagger values

@@ -428,9 +428,13 @@ public class SelectionManager : MainUniversalManagerFramework
     public bool AtMaxBossSelected() => !_selectedBoss.IsUnityNull();
 
     public float GetDamageMultiplierFromDifficulty() => _difficultyDamageMultiplierDictionary[_currentEGameDifficulty];
+    public float GetDamageMultiplierFromDifficulty(EGameDifficulty difficulty) => _difficultyDamageMultiplierDictionary[difficulty];
     public float GetSpeedMultiplierFromDifficulty() => _difficultyAttackSpeedMultiplierDictionary[_currentEGameDifficulty];
+    public float GetSpeedMultiplierFromDifficulty(EGameDifficulty difficulty) => _difficultyAttackSpeedMultiplierDictionary[difficulty];
     public float GetHealthMultiplierFromDifficulty() => _difficultyHealthMultiplierDictionary[_currentEGameDifficulty];
-    public float GetStaggerMultiplierFromDifficulty() => _difficultyHealthMultiplierDictionary[_currentEGameDifficulty];
+    public float GetHealthMultiplierFromDifficulty(EGameDifficulty difficulty) => _difficultyHealthMultiplierDictionary[difficulty];
+    public float GetStaggerMultiplierFromDifficulty() => _difficultyStaggerMultiplierDictionary[_currentEGameDifficulty];
+    public float GetStaggerMultiplierFromDifficulty(EGameDifficulty difficulty) => _difficultyStaggerMultiplierDictionary[difficulty];
 
     public float GetDamageMultiplierFromMythicPlusLevel()
     {
@@ -493,6 +497,7 @@ public class SelectionManager : MainUniversalManagerFramework
     }
     
     public int GetHeroLimitFromDifficulty() => _difficultyHeroLimit[_currentEGameDifficulty];
+    public int GetHeroLimitFromDifficulty(EGameDifficulty difficulty) => _difficultyHeroLimit[difficulty];
 
     public string GetDifficultyNameFromDifficulty(EGameDifficulty difficulty) => _difficultyNames[(int)difficulty-1];
     public List<string> GetDifficultyNames() => _difficultyNames;

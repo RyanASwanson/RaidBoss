@@ -59,6 +59,7 @@ public class ScrollMissionSelectionContent : ScrollUIContents
     [SerializeField] private TextWithBackground _difficultyBossMaxStaggerText;
     [SerializeField] private TextWithBackground _difficultyBossDamageText;
     [SerializeField] private TextWithBackground _difficultyBossSpeedText;
+    [SerializeField] private TextWithBackground _difficultyMaxHeroesText;
     
     [Space]
     [SerializeField] private CurveProgression _extendedMissionModifiersSection;
@@ -113,7 +114,7 @@ public class ScrollMissionSelectionContent : ScrollUIContents
 
         for (; heroIteration < _heroIcons.Length; heroIteration++)
         {
-            _heroIcons[heroIteration].ClearButtonHeroIconVisuals();
+            _heroIcons[heroIteration].ClearAssociatedHero();
             _heroIcons[heroIteration].SetButtonInteractability(false);
         }
 
@@ -224,9 +225,15 @@ public class ScrollMissionSelectionContent : ScrollUIContents
         {
             return;
         }
-        
-        _currentHoveredOverExtendedSection.StartMovingUpOnCurve();
 
+        if (!MapController.Instance.IsUnityNull())
+        {
+            if (MapController.Instance.GetIsClickAndDraggingCamera())
+            {
+                return;
+            }
+        }
+        
         if (!_currentHoveredOverBoss.IsUnityNull())
         {
             UpdateExtendedBossSectionContents();
@@ -247,6 +254,8 @@ public class ScrollMissionSelectionContent : ScrollUIContents
             UpdateExtendedMissionModifierSectionContents();
         }
 
+        _currentHoveredOverExtendedSection.StartMovingUpOnCurve();
+        
         _currentDisplayingExtendedSection = _currentHoveredOverExtendedSection;
     }
 
@@ -276,6 +285,12 @@ public class ScrollMissionSelectionContent : ScrollUIContents
     {
         _extendedDifficultyNameText.UpdateText(SelectionManager.Instance.GetDifficultyNameFromDifficulty(_currentHoveredOverDifficulty));
         _extendedDifficultyNameText.UpdateTextColor(SelectionManager.Instance.GetDifficultyColorFromDifficulty(_currentHoveredOverDifficulty));
+        
+        _difficultyBossMaxHealthText.UpdateText(SelectionManager.Instance.GetHealthMultiplierFromDifficulty(_currentHoveredOverDifficulty).ToString() + "X");
+        _difficultyBossMaxStaggerText.UpdateText(SelectionManager.Instance.GetStaggerMultiplierFromDifficulty(_currentHoveredOverDifficulty).ToString() + "X");
+        _difficultyBossDamageText.UpdateText(SelectionManager.Instance.GetDamageMultiplierFromDifficulty(_currentHoveredOverDifficulty).ToString() + "X");
+        _difficultyBossSpeedText.UpdateText(SelectionManager.Instance.GetSpeedMultiplierFromDifficulty(_currentHoveredOverDifficulty).ToString() + "X");
+        _difficultyMaxHeroesText.UpdateText(SelectionManager.Instance.GetHeroLimitFromDifficulty(_currentHoveredOverDifficulty).ToString());
     }
     
     private void UpdateExtendedMissionModifierSectionContents()
