@@ -23,6 +23,7 @@ public class SH_Fae : SpecificHeroFramework
     [SerializeField] private float _manualContactStagger;
     [Space]
     [SerializeField] private float _manualDuration;
+    [Range(0,1)][SerializeField] private float _heroManualDamageResistance;
     [SerializeField] private float _accelerateTime;
     [SerializeField] private float _manualSpeedMultiplier;
     [SerializeField] private float _manualWallDistanceRange;
@@ -129,7 +130,9 @@ public class SH_Fae : SpecificHeroFramework
     public override void ActivateManualAbilities()
     {
         base.ActivateManualAbilities();
-
+        
+        _myHeroBase.GetHeroStats().ChangeCurrentHeroDamageResistance(_heroManualDamageResistance);
+        
         _currentManualBossHoming = _manualBossHoming;
         _myHeroBase.GetPathfinding().SetIsHeroUsingMovementAbility(true);
 
@@ -177,6 +180,8 @@ public class SH_Fae : SpecificHeroFramework
 
     public override void EndManualAbility()
     {
+        _myHeroBase.GetHeroStats().ChangeCurrentHeroDamageResistance(-_heroManualDamageResistance);
+        
         _myHeroBase.GetPathfinding().SetIsHeroUsingMovementAbility(false);
         
         //Re-enables the pathfinding functionality

@@ -29,14 +29,14 @@ MonoBehaviour:
     HightlightID: 0
   _tutorialPages:
   - TutorialPageTitle: Difficulties
-    TutorialPageTitleWidth: 750
+    TutorialPageTitleWidth: 745
     DefaultTextLocation: {x: 0, y: 50}
     DefaultText: 'Different missions have different difficulty
 
       levels. The
       difficulty of a mission can be
 
-      seen next to the boss on the mission
+      seen next to the Boss on the mission
       scroll
 
       in the mission selection.'
@@ -48,12 +48,12 @@ MonoBehaviour:
       TutorialPageCharacterIcon: {fileID: 0}
       TutorialPageCharacterBackground: {fileID: 0}
   - TutorialPageTitle: Difficulties Levels
-    TutorialPageTitleWidth: 1065
+    TutorialPageTitleWidth: 1085
     DefaultTextLocation: {x: 0, y: 45}
     DefaultText: 'There are 4 main difficulty levels, which are
 
-      Normal, Heroic,
-      Mythic, and Mythic+.'
+      <color=#8DD9A4>Normal</color>,
+      <color=#FFD11C>Heroic</color>, <color=#FC5E50>Mythic</color>, and <color=#BB0D00>Mythic+</color>.'
     TutorialPageObjectLocation: {x: 0, y: -40}
     TutorialPageObject: {fileID: 6938674043408630033, guid: 14763028804c0004597e6979452edb68, type: 3}
     TutorialPageCharacterTutorial:
@@ -64,17 +64,18 @@ MonoBehaviour:
   - TutorialPageTitle: Heroic
     TutorialPageTitleWidth: 450
     DefaultTextLocation: {x: 0, y: 0}
-    DefaultText: 'Previous missions were all on Normal. This
+    DefaultText: 'Previous missions were all on <color=#8DD9A4>Normal</color>. This
 
-      mission is increased
-      to Heroic. On higher
+      mission
+      is increased to <color=#FFD11C>Heroic</color>. On higher
 
-      difficulties, the boss deals more damage,
+      difficulties,
+      the Boss deals more damage,
 
-      has
-      more health, is harder to stagger,
+      has more health, is harder to stagger,
 
-      and attacks slightly faster.'
+      and
+      attacks slightly faster.'
     TutorialPageObjectLocation: {x: 0, y: 0}
     TutorialPageObject: {fileID: 0}
     TutorialPageCharacterTutorial:
@@ -88,12 +89,13 @@ MonoBehaviour:
     DefaultText: 'Additionally as the difficulty increases the
 
       max number
-      of heroes also increases. The max
+      of Heroes also increases. The max
 
-      number of heroes on Normal is 3, on
-      Heroic
+      number of Heroes on <color=#8DD9A4>Normal</color>
+      is 3, on <color=#FFD11C>Heroic</color>
 
-      it is 4, and on Mythic and Mythic+ it is 5.'
+      it is 4, and on <color=#FC5E50>Mythic</color>
+      and <color=#BB0D00>Mythic+</color> it is 5.'
     TutorialPageObjectLocation: {x: 0, y: 0}
     TutorialPageObject: {fileID: 0}
     TutorialPageCharacterTutorial:
@@ -107,6 +109,7 @@ MonoBehaviour:
   _missionUnlocks:
   - {fileID: 11400000, guid: 7e552c2bfdf3bdf40ac1df49cbd1dc9c, type: 2}
   _achievementUnlocks: []
+  _generalMissionUnlocks: 0
   _missionModifiers: []
   _missionStatModifiers:
     _bossHealthMultiplier: 0.8

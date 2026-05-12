@@ -73,12 +73,12 @@ MonoBehaviour:
       <color=#FF0000>Samurai</color> readies himself for an oncoming
 
       attack,
-      and if hit by the boss within a short period
+      and if hit by the Boss within a short period
 
       he ignores the damage and
       deals large
 
-      damage and good stagger to the boss.'
+      damage and good stagger to the Boss.'
     TutorialPageObjectLocation: {x: 0, y: 0}
     TutorialPageObject: {fileID: 0}
     TutorialPageCharacterTutorial:
@@ -104,14 +104,14 @@ MonoBehaviour:
       TutorialPageCharacterIcon: {fileID: 21300000, guid: c8ba492d6fd4a5640b7f5420e45ee4e7, type: 3}
       TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
   - TutorialPageTitle: Swapping Heroes
-    TutorialPageTitleWidth: 1000
+    TutorialPageTitleWidth: 1015
     DefaultTextLocation: {x: 0, y: 0}
     DefaultText: 'Remember that you have to select
 
-      a hero before they can
+      a Hero before they can
       be moved.
 
-      Get used to swapping heroes regularly.'
+      Get used to swapping Heroes regularly.'
     TutorialPageObjectLocation: {x: 0, y: 0}
     TutorialPageObject: {fileID: 0}
     TutorialPageCharacterTutorial:
@@ -120,11 +120,13 @@ MonoBehaviour:
       TutorialPageCharacterIcon: {fileID: 0}
       TutorialPageCharacterBackground: {fileID: 0}
   _characterUnlock: {fileID: 11400000, guid: 0128339a05223db40aae2581988a9ea0, type: 2}
+  _difficultyUnlock: 0
   _missionModifierUnlock: {fileID: 0}
   _missionUnlocks:
   - {fileID: 11400000, guid: 5a9388c2a2f1b0e4a85421c9ae9d644d, type: 2}
   _achievementUnlocks:
   - {fileID: 11400000, guid: 6306b74bf97411641b5ddd99b26875ae, type: 2}
+  _generalMissionUnlocks: 0
   _missionModifiers: []
   _missionStatModifiers:
     _bossHealthMultiplier: 0.375

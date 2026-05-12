@@ -28,11 +28,14 @@ MonoBehaviour:
   _missionDisplayHighlights: []
   _tutorialPages: []
   _characterUnlock: {fileID: 0}
+  _difficultyUnlock: 0
   _missionModifierUnlock: {fileID: 0}
   _missionUnlocks:
   - {fileID: 11400000, guid: b0eb17d6e074eef49b516845474e1b5e, type: 2}
   _achievementUnlocks: []
-  _missionModifiers: []
+  _generalMissionUnlocks: 0
+  _missionModifiers:
+  - {fileID: 11400000, guid: 552c5c9b813bd4f429e0c22b5df61aa5, type: 2}
   _missionStatModifiers:
     _bossHealthMultiplier: 1
     _bossStaggerMultiplier: 1

@@ -92,7 +92,6 @@ public class BossStats : BossChildrenFunctionality
             _bossMaxHealth *= missionStatModifiers.GetBossHealthMultiplier();
 
             _bossDefaultStaggerMax *= missionStatModifiers.GetBossStaggerMultiplier();
-            Debug.Log(_bossDefaultStaggerMax);
             
             _bossDamageResistanceChangeOnStagger *=
                 missionStatModifiers.GetBossDamageResistanceChangeOnStaggerMultiplier();
@@ -111,7 +110,6 @@ public class BossStats : BossChildrenFunctionality
             _bossDefaultStaggerMax *= SelectionManager.Instance.GetStaggerMultiplierFromMythicPlusLevel();
             
             _baseBossDamageMultiplier *= SelectionManager.Instance.GetDamageMultiplierFromMythicPlusLevel();
-            Debug.Log(_bossDefaultStaggerMax);
         }
         
         //Sets the starting health and stagger values
