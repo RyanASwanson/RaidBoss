@@ -103,6 +103,7 @@ public class MissionStatModifiers
     public float GetBossEnrageTimeMultiplier() => _bossEnrageTimeMultiplier;
     public float GetBossEnrageDamageMultiplier() => _bossEnrageDamageMultiplier;
     public bool[] GetBossAbilitiesUsable() =>_bossAbilitiesUsable;
+    public bool GetIsBossAbilityUsable(int abilityID) =>_bossAbilitiesUsable[abilityID];
     
     public float GetHeroHealthMultiplier() =>_heroHealthMultiplier;
     public float GetHeroDamageMultiplier() =>_heroDamageMultiplier;

@@ -267,6 +267,7 @@ public class ScrollMissionSelectionContent : ScrollUIContents
         for (int i = 0; i < _bossAbilityDetails.Length; i++)
         {
             _bossAbilityDetails[i].UpdateBossAbilityDetails(_currentHoveredOverBoss,i);
+            _bossAbilityDetails[i].LockBossAbilityDetailsFromMission(_selectedMission,i);
         }
     }
     

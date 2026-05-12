@@ -10,7 +10,10 @@ public class CharacterAbilityDetails : MonoBehaviour
     [SerializeField] private TextWithBackground _characterAbilityTypeText;
     [SerializeField] private TextWithBackground _characterAbilityDescriptionText;
 
-    public void UpdateBossAbilityDetails(BossSO bossSO,int abilityID)
+    [Space] 
+    [SerializeField] private GameObject _lockVisuals;
+
+    public void UpdateBossAbilityDetails(BossSO bossSO, int abilityID)
     {
         _characterAbilityIcon.sprite = bossSO.GetAbilityIconFromID(abilityID);
             
@@ -21,6 +24,14 @@ public class CharacterAbilityDetails : MonoBehaviour
         _characterAbilityTypeText.UpdateTextColor(SelectionManager.Instance.GetBossAbilityColorFromEnum(bossSO.GetAbilityTypeFromID(abilityID)));
         
         _characterAbilityDescriptionText.UpdateText(bossSO.GetAbilityWideDescriptionFromID(abilityID));
+    }
+
+    public bool LockBossAbilityDetailsFromMission(MissionSO missionSO, int abilityID)
+    {
+        bool isLocked = !missionSO.GetMissionStatModifiers().GetIsBossAbilityUsable(abilityID);
+        _lockVisuals.gameObject.SetActive(isLocked);
+        //_characterAbilityIcon.gameObject.SetActive(!isLocked);
+        return isLocked;
     }
 
     public void UpdateHeroAbilityDetails(HeroSO heroSO, int abilityID)
@@ -39,7 +50,7 @@ public class CharacterAbilityDetails : MonoBehaviour
     {
         _characterAbilityIcon.sprite = missionModifierSO.GetModifierSprite();
         
-        //_characterAbilityNameText.UpdateText(missionModifierSO.GetModifierName());
+        _characterAbilityTypeText.UpdateTextColor(SelectionManager.Instance.GetMissionModifierColor());
         
         _characterAbilityDescriptionText.UpdateText(missionModifierSO.GetModifierDescription());
     }

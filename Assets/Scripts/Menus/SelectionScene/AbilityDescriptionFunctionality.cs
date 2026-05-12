@@ -63,7 +63,12 @@ public class AbilityDescriptionFunctionality : ScrollUIContents
     public void ChangeMissionModifierDescription()
     {
         _abilityNameText.UpdateText(SelectionController.Instance.GetMissionModifierUIToDisplay().GetModifierName());
+        _abilityNameText.UpdateTextColor(SelectionController.Instance.GetMissionModifierUIToDisplay().GetModifierHighlightedColor());
+        
         _abilityTypeText.UpdateText("Modifier");
+        _abilityTypeText.UpdateTextColor(SelectionManager.Instance.GetMissionModifierColor());
+        
+        
         _abilityDescriptionText.UpdateText(SelectionController.Instance.GetMissionModifierUIToDisplay().GetModifierDescription());
     }
 

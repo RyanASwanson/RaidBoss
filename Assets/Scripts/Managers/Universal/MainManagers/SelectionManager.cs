@@ -60,6 +60,8 @@ public class SelectionManager : MainUniversalManagerFramework
     [SerializeField] private Color _manualAbilityColor;
     [SerializeField] private Color _passiveAbilityColor;
     [SerializeField] private Color _hybridAbilityColor;
+
+    [SerializeField] private Color _missionModifierColor;
     
     private Dictionary<EGameDifficulty, float> _difficultyDamageMultiplierDictionary = new();
     private Dictionary<EGameDifficulty, float> _difficultyAttackSpeedMultiplierDictionary = new();
@@ -547,6 +549,8 @@ public class SelectionManager : MainUniversalManagerFramework
                 return Color.white;
         }
     }
+
+    public Color GetMissionModifierColor() => _missionModifierColor;
     
     public List<MissionModifierSO> GetCurrentMissionModifiers() => _currentMissionModifiers;
     public int GetMissionModifierCount() => _currentMissionModifiers.Count;
