@@ -69,7 +69,6 @@ public class BossStats : BossChildrenFunctionality
         
         _bossDefaultStaggerMax = bossSO.GetBaseStaggerMax() *
             SelectionManager.Instance.GetStaggerMultiplierFromDifficulty();
-        Debug.Log(_bossDefaultStaggerMax + " "+ bossSO.GetBaseStaggerMax() + " " +  SelectionManager.Instance.GetStaggerMultiplierFromDifficulty());
 
         //Sets the stagger duration from the SO
         _bossStaggerDuration = bossSO.GetStaggerDuration();

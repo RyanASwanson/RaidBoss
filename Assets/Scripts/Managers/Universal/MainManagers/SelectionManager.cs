@@ -54,7 +54,13 @@ public class SelectionManager : MainUniversalManagerFramework
     [SerializeField] private List<string> _difficultyNames;
     [SerializeField] private List<Sprite> _difficultyIcons;
     [SerializeField] private Color[] _difficultyColors;
-
+    
+    [Space]
+    [SerializeField] private Color _basicAbilityColor;
+    [SerializeField] private Color _manualAbilityColor;
+    [SerializeField] private Color _passiveAbilityColor;
+    [SerializeField] private Color _hybridAbilityColor;
+    
     private Dictionary<EGameDifficulty, float> _difficultyDamageMultiplierDictionary = new();
     private Dictionary<EGameDifficulty, float> _difficultyAttackSpeedMultiplierDictionary = new();
     private Dictionary<EGameDifficulty, float> _difficultyHealthMultiplierDictionary = new();
@@ -97,11 +103,11 @@ public class SelectionManager : MainUniversalManagerFramework
     private UnityEvent<EGameDifficulty> _difficultyNotHoveredOverEvent = new UnityEvent<EGameDifficulty>();
     private UnityEvent _informationUnlockedEvent = new UnityEvent();
 
-    public UnityEvent<MissionModifierSO> _missionModifierSelectionEvent;
-    public UnityEvent<MissionModifierSO> _missionModifierDeselectionEvent;
-    public UnityEvent<MissionModifierSO> _missionModifierSwapEvent;
-    public UnityEvent<MissionModifierSO> _missionModifierHoveredOverEvent;
-    public UnityEvent<MissionModifierSO> _missionModifierNotHoveredOverEvent;
+    private UnityEvent<MissionModifierSO> _missionModifierSelectionEvent = new();
+    private UnityEvent<MissionModifierSO> _missionModifierDeselectionEvent = new();
+    private UnityEvent<MissionModifierSO> _missionModifierSwapEvent = new();
+    private UnityEvent<MissionModifierSO> _missionModifierHoveredOverEvent = new();
+    private UnityEvent<MissionModifierSO> _missionModifierNotHoveredOverEvent = new();
 
     private UnityEvent<HeroSO> _heroSelectionEvent = new UnityEvent<HeroSO>();
     private UnityEvent<HeroSO> _heroDeselectionEvent = new UnityEvent<HeroSO>();
@@ -506,6 +512,41 @@ public class SelectionManager : MainUniversalManagerFramework
     public Sprite GetDifficultyIconFromDifficulty(EGameDifficulty difficulty) => GetDifficultyIconFromDifficulty((int)difficulty);
     public Sprite GetDifficultyIconFromDifficulty(int difficulty) => _difficultyIcons[difficulty-1];
     public Color GetDifficultyColorFromDifficulty(EGameDifficulty difficulty) => _difficultyColors[(int)difficulty-1];
+    
+    public Color GetBasicAbilityColor() => _basicAbilityColor;
+    public Color GetManualAbilityColor() => _manualAbilityColor;
+    public Color GetPassiveAbilityColor() => _passiveAbilityColor;
+    public Color GetHybridAbilityColor() => _hybridAbilityColor;
+
+    public Color GetBossAbilityColorFromEnum(EBossAbilityType bossAbilityType)
+    {
+        switch (bossAbilityType)
+        {
+            case(EBossAbilityType.Active):
+                return _manualAbilityColor;
+            case(EBossAbilityType.Passive):
+                return _passiveAbilityColor;
+            case(EBossAbilityType.Hybrid):
+                return _hybridAbilityColor;
+            default:
+                return Color.white;
+        }
+    }
+    
+    public Color GetHeroAbilityColorFromEnum(EHeroAbilityType heroAbilityType)
+    {
+        switch (heroAbilityType)
+        {
+            case(EHeroAbilityType.Basic):
+                return _basicAbilityColor;
+            case(EHeroAbilityType.Manual):
+                return _manualAbilityColor;
+            case(EHeroAbilityType.Passive):
+                return _passiveAbilityColor;
+            default:
+                return Color.white;
+        }
+    }
     
     public List<MissionModifierSO> GetCurrentMissionModifiers() => _currentMissionModifiers;
     public int GetMissionModifierCount() => _currentMissionModifiers.Count;

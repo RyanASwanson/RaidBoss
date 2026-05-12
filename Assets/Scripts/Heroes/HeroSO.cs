@@ -50,6 +50,7 @@ public class HeroSO : CharacterSO
     [SerializeField] private Color _heroOutlineColor;
     
     [SerializeField] private Color _heroUIColor;
+    [SerializeField] private Color _heroAbilityTextUIColor;
 
     [SerializeField] private Color[] _heroSelectionParticleColors;
 
@@ -100,6 +101,7 @@ public class HeroSO : CharacterSO
     public Color GetHeroSelectedColor() => _heroSelectedColor;
     public Color GetHeroOutlineColor() => _heroOutlineColor;
     public Color GetHeroUIColor() => _heroUIColor;
+    public Color GetHeroAbilityTextUIColor() => _heroAbilityTextUIColor;
     public Color[] GetHeroSelectionParticleColors() => _heroSelectionParticleColors;
     public Material GetHeroBackgroundMaterial() => _heroBackgroundMaterial;
 

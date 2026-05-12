@@ -59,6 +59,9 @@ public class BossSO : CharacterSO
     [SerializeField] private Color _bossHighlightedColor;
     [SerializeField] private Color _bossPressedColor;
     [SerializeField] private Color _bossSelectedColor;
+    
+    [SerializeField] private Color _bossUIColor;
+    [SerializeField] private Color _bossAbilityTextUIColor;
 
     [SerializeField] private Sprite _bossSelectionIcon;
 
@@ -108,6 +111,8 @@ public class BossSO : CharacterSO
     public Color GetBossHighlightedColor() => _bossHighlightedColor;
     public Color GetBossPressedColor() => _bossPressedColor;
     public Color GetBossSelectedColor() => _bossSelectedColor;
+    public Color GetBossUIColor() => _bossUIColor;
+    public Color GetBossAbilityTextUIColor() => _bossAbilityTextUIColor;
     
     public Sprite GetBossSelectionIcon() => _bossSelectionIcon;
 

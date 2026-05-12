@@ -37,7 +37,12 @@ public class AbilityDescriptionFunctionality : ScrollUIContents
         int abilityID = SelectionController.Instance.GetCurrentBossAbilityID();
         
         _abilityNameText.UpdateText(SelectionController.Instance.GetBossUIToDisplay().GetBossAbilityInformation()[abilityID]._abilityName);
+        _abilityNameText.UpdateTextColor(SelectionController.Instance.GetBossUIToDisplay().GetBossAbilityTextUIColor());
+        
         _abilityTypeText.UpdateText(SelectionController.Instance.GetBossUIToDisplay().GetBossAbilityInformation()[abilityID]._abilityType.ToString());
+        _abilityTypeText.UpdateTextColor(SelectionManager.Instance.GetBossAbilityColorFromEnum(
+            SelectionController.Instance.GetBossUIToDisplay().GetBossAbilityInformation()[abilityID]._abilityType));
+        
         _abilityDescriptionText.UpdateText(SelectionController.Instance.GetBossUIToDisplay().GetBossAbilityInformation()[abilityID]._abilityDescription);
     }
     
@@ -46,9 +51,11 @@ public class AbilityDescriptionFunctionality : ScrollUIContents
         int abilityID = SelectionController.Instance.GetCurrentHeroAbilityID();
         
         _abilityNameText.UpdateText(SelectionController.Instance.GetHeroUIToDisplay().GetAbilityNameFromID(abilityID));
+        _abilityNameText.UpdateTextColor(SelectionController.Instance.GetHeroUIToDisplay().GetHeroAbilityTextUIColor());
         
         EHeroAbilityType type = (EHeroAbilityType)abilityID;
         _abilityTypeText.UpdateText(type.ToString());
+        _abilityTypeText.UpdateTextColor(SelectionManager.Instance.GetHeroAbilityColorFromEnum(type));
         
         _abilityDescriptionText.UpdateText(SelectionController.Instance.GetHeroUIToDisplay().GetAbilityDescriptionFromID(abilityID));
     }

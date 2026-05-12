@@ -27,14 +27,14 @@ MonoBehaviour:
   _missionDisplayHighlights: []
   _tutorialPages:
   - TutorialPageTitle: Volcano
-    TutorialPageTitleWidth: 550
+    TutorialPageTitleWidth: 540
     DefaultTextLocation: {x: 0, y: 45}
     DefaultText: 'The <color=#F57C34>Magma Lord</color> burns
 
       hotter than
       ever before. A new
 
-      ability has arisen. <color=#FF490C>Volcano</color>
+      ability has arisen. <color=#FF420D>Volcano</color>
 
       is
       a hybrid between a passive
@@ -75,7 +75,7 @@ MonoBehaviour:
       When
       the <color=#F57C34>Magma Lord</color> uses
 
-      <color=#FF490C>Volcano</color>
+      <color=#FF420D>Volcano</color>
       it will attack at all
 
       spawned target zones.'
@@ -87,10 +87,12 @@ MonoBehaviour:
       TutorialPageCharacterIcon: {fileID: 0}
       TutorialPageCharacterBackground: {fileID: 0}
   _characterUnlock: {fileID: 0}
+  _difficultyUnlock: 0
   _missionModifierUnlock: {fileID: 0}
   _missionUnlocks:
   - {fileID: 11400000, guid: 91b3c11f531373b4e995051887c9ba79, type: 2}
   _achievementUnlocks: []
+  _generalMissionUnlocks: 0
   _missionModifiers: []
   _missionStatModifiers:
     _bossHealthMultiplier: 1

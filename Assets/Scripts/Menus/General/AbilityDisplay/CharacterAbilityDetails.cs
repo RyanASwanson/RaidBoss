@@ -15,8 +15,10 @@ public class CharacterAbilityDetails : MonoBehaviour
         _characterAbilityIcon.sprite = bossSO.GetAbilityIconFromID(abilityID);
             
         _characterAbilityNameText.UpdateText(bossSO.GetAbilityNameFromID(abilityID));
+        _characterAbilityNameText.UpdateTextColor(bossSO.GetBossAbilityTextUIColor());
         
         _characterAbilityTypeText.UpdateText(bossSO.GetAbilityTypeFromID(abilityID).ToString());
+        _characterAbilityTypeText.UpdateTextColor(SelectionManager.Instance.GetBossAbilityColorFromEnum(bossSO.GetAbilityTypeFromID(abilityID)));
         
         _characterAbilityDescriptionText.UpdateText(bossSO.GetAbilityWideDescriptionFromID(abilityID));
     }
@@ -26,6 +28,9 @@ public class CharacterAbilityDetails : MonoBehaviour
         _characterAbilityIcon.sprite = heroSO.GetAbilityIconFromID(abilityID);
             
         _characterAbilityNameText.UpdateText(heroSO.GetAbilityNameFromID(abilityID));
+        _characterAbilityNameText.UpdateTextColor(heroSO.GetHeroAbilityTextUIColor());
+        
+        _characterAbilityTypeText.UpdateTextColor(SelectionManager.Instance.GetHeroAbilityColorFromEnum((EHeroAbilityType)abilityID));
             
         _characterAbilityDescriptionText.UpdateText(heroSO.GetAbilityWideDescriptionFromID(abilityID));
     }
