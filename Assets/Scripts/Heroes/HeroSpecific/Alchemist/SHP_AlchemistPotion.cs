@@ -55,14 +55,16 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
             _potionIdleWarningWait = new WaitForSeconds(_idleLifetimeWarning);
         }
 
-        _healArea.GetEnterEvent().AddListener(PotionGeneralPickUp);
+        //_healArea.GetEnterEvent().AddListener(PotionGeneralPickUp);
+        _healArea.GetStayEvent().AddListener(PotionGeneralPickUp);
 
         if (_potionType == PotionTypes.HealingPotion)
         {
             return;
         }
         
-        _healArea.GetEnterEvent().AddListener(ApplyBuffToHero);
+        //_healArea.GetEnterEvent().AddListener(ApplyBuffToHero);
+        _healArea.GetStayEvent().AddListener(ApplyBuffToHero);
     }
 
     /// <summary>

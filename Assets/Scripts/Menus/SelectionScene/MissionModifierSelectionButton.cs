@@ -22,11 +22,18 @@ public class MissionModifierSelectionButton : MonoBehaviour
     private bool _buttonHasBeenPressed = false;
     
     private Color _defaultColor;
+    
 
-    private void Start()
+    public void SetUpMissionModifierSelectionButton()
     {
         SetButtonLockInteractability();
         SetButtonModifierIconVisuals();
+    }
+
+    public void SetStartingMissionModifierStatusToPressed()
+    {
+        _buttonHasBeenPressed = true;
+        UpdateModifierSelectedIconColor();
     }
 
     private void SetButtonLockInteractability()
@@ -97,11 +104,21 @@ public class MissionModifierSelectionButton : MonoBehaviour
     {
         _associatedModifierImage.color = newColor;
     }
+
+    private void UpdateModifierSelectedIconColor()
+    {
+        UpdateModifierIconColor(_associatedMissionModifier.GetModifierSelectedColor());
+    }
+
+    private void UpdateModifierDefaultIconColor()
+    {
+        UpdateModifierIconColor(_defaultColor);
+    }
     
     private void ModifierSelect()
     {
         SelectionManager.Instance.AddMissionModifier(_associatedMissionModifier);
-        UpdateModifierIconColor(_associatedMissionModifier.GetModifierSelectedColor());
+        UpdateModifierSelectedIconColor();
         
         _selectionCurve.StartMovingUpOnCurve();
     }
@@ -109,7 +126,7 @@ public class MissionModifierSelectionButton : MonoBehaviour
     private void ModifierDeselect()
     {
         SelectionManager.Instance.RemoveMissionModifier(_associatedMissionModifier);
-        UpdateModifierIconColor(_defaultColor);
+        UpdateModifierDefaultIconColor();
     }
     
     #region Getters

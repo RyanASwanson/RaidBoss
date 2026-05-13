@@ -146,20 +146,21 @@ public class SceneLoadManager : MainUniversalManagerFramework
 
     public void LoadMainMenuScene()
     {
+        SelectionManager.Instance.ResetSelectionData(true);
         LoadSceneByID(MAIN_MENU_SCENE_ID);
     }
 
     public void LoadMapScene()
     {
         SelectionManager.Instance.SetSelectedGameMode(EGameMode.Missions);
-        SelectionManager.Instance.ResetSelectionData();
+        SelectionManager.Instance.ResetSelectionData(true);
         LoadSceneByID(MAP_SCENE_SCENE_ID);
     }
 
     public void LoadSelectionScene()
     {
         SelectionManager.Instance.SetSelectedGameMode(EGameMode.Free);
-        SelectionManager.Instance.ResetSelectionData();
+        SelectionManager.Instance.ResetSelectionData(false);
         LoadSceneByID(SELECTION_SCENE_ID);
     }
 

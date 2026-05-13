@@ -314,7 +314,7 @@ public class SaveManager : MainUniversalManagerFramework
         // Resets the best difficulties beaten
         ResetBossHeroDifficultyDictionary();
         
-        SelectionManager.Instance.ResetSelectionData();
+        SelectionManager.Instance.ResetSelectionData(true);
         
         InvokeOnGameplaySaveDataReset();
 

@@ -378,7 +378,27 @@ public class SelectionController : MonoBehaviour
 
     private void MissionModifierStart()
     {
+        PressStartingSelectedMissionModifiers();
+    }
+
+    private void PressStartingSelectedMissionModifiers()
+    {
+        foreach (MissionModifierSelectionButton modifierSelectionButton in _missionModifierSelectionButtons)
+        {
+            modifierSelectionButton.SetUpMissionModifierSelectionButton();
+        }
         
+        int i;
+        for (i = 0; i < SelectionManager.Instance.GetCurrentMissionModifiers().Count; i++)
+        {
+            _missionModifierSelectionButtons[SelectionManager.Instance.GetCurrentMissionModifiers()[i].GetModifierID()].SetStartingMissionModifierStatusToPressed();
+            _activeMissionModifierSelectionButtons[i].SetStartingMissionModifierStatus(true);
+        }
+
+        for (; i < _activeMissionModifierSelectionButtons.Count; i++)
+        {
+            _activeMissionModifierSelectionButtons[i].SetStartingMissionModifierStatus(false);
+        }
     }
 
     public void MissionModifierHoveredOver(MissionModifierSO missionModifier)

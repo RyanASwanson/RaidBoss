@@ -336,9 +336,14 @@ MonoBehaviour:
   _enterHealing: 0
   _enterEvent:
     m_PersistentCalls:
+      m_Calls: []
+  _stayHealingPerTick: 0
+  _stayHealingTickRate: 0
+  _stayEvent:
+    m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3208233250891310857}
-        m_TargetAssemblyTypeName: GeneralHeroHealArea, Assembly-CSharp
+        m_TargetAssemblyTypeName: GeneralAbilityAreaFramework, Assembly-CSharp
         m_MethodName: DestroyProjectile
         m_Mode: 1
         m_Arguments:
@@ -349,11 +354,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  _stayHealingPerTick: 0
-  _stayHealingTickRate: 0
-  _stayEvent:
-    m_PersistentCalls:
-      m_Calls: []
   _exitHealing: 0
   _exitEvent:
     m_PersistentCalls:
