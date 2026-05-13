@@ -155,7 +155,7 @@ public class MythicPlusScalerSelection : MonoBehaviour
 
         if (!isCalledByStart)
         {
-            _difficultyDropdown.UpdateDifficultyHeaderText();
+            _difficultyDropdown.UpdateDifficultyHeaderText(true);
             PlayButtonPressedSound();
         }
     }

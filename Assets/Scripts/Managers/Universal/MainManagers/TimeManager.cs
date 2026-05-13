@@ -197,6 +197,7 @@ public class TimeManager : MainUniversalManagerFramework
         if (doesPause)
         {
             InvokeGamePausedEvent();
+            PlayTimePausedAudio();
         }
     }
 
@@ -212,6 +213,7 @@ public class TimeManager : MainUniversalManagerFramework
         if (isPaused)
         {
             InvokeGameUnpausedEvent();
+            PlayTimeUnpausedAudio();
         }
     }
 
@@ -232,6 +234,16 @@ public class TimeManager : MainUniversalManagerFramework
     private void SceneLoadEnd()
     {
         _canUpdateTimeVariation = true;
+    }
+
+    private void PlayTimePausedAudio()
+    {
+        AudioManager.Instance.PlaySpecificAudio(AudioManager.Instance.UserInterfaceAudio.GameplayUserInterfaceAudio.BattlePaused);
+    }
+
+    private void PlayTimeUnpausedAudio()
+    {
+        AudioManager.Instance.PlaySpecificAudio(AudioManager.Instance.UserInterfaceAudio.GameplayUserInterfaceAudio.BattleUnpaused);
     }
     
     #region BaseManager

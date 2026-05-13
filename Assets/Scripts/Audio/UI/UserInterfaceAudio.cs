@@ -48,6 +48,10 @@ public class GameplayUserInterfaceAudio
     public SpecificAudio BattleWon;
     
     public SpecificAudio BattleLost;
+
+    public SpecificAudio BattlePaused;
+    
+    public SpecificAudio BattleUnpaused;
 }
 
 [System.Serializable]

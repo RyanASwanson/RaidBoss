@@ -1872,7 +1872,59 @@ MonoBehaviour:
         DefaultPlayType: 0
         DefaultAudioChoice: 0
         AudioTracks: []
-      DifficultySelected: []
+      DifficultySelected:
+      - AudioName: NormalDifficultySelected
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: -1172640744
+            Data2: 1160928431
+            Data3: -1953977713
+            Data4: -1088602632
+          Path: event:/SoundEffect/UI/SelectionScene/Difficuty/NormalDifficultySelected
+      - AudioName: HeroicDifficultySelected
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: -2097343468
+            Data2: 1196234501
+            Data3: 1475559815
+            Data4: -1183769960
+          Path: event:/SoundEffect/UI/SelectionScene/Difficuty/HeroicDifficultySelected
+      - AudioName: MythicDifficultySelected
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: -317066685
+            Data2: 1213001908
+            Data3: -1844424819
+            Data4: 406132085
+          Path: event:/SoundEffect/UI/SelectionScene/Difficuty/MythicDifficultySelected
+      - AudioName: MythicPlusDifficultySelected
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: -655535766
+            Data2: 1291760286
+            Data3: 235746221
+            Data4: -2067338896
+          Path: event:/SoundEffect/UI/SelectionScene/Difficuty/MythicPlusDifficultySelected
       HeroSelected:
         AudioName: HeroSelected
         DefaultInstanceFadeInTime: 0
@@ -1958,6 +2010,34 @@ MonoBehaviour:
             Data3: -1048900433
             Data4: 318894683
           Path: event:/SoundEffect/UI/Gameplay/BattleEnd/BattleLost
+      BattlePaused:
+        AudioName: BattlePaused
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: -1796053432
+            Data2: 1214856306
+            Data3: -1720105832
+            Data4: -1610251696
+          Path: event:/SoundEffect/UI/Gameplay/PauseBattle/PauseBattle
+      BattleUnpaused:
+        AudioName: BattleUnpaused
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: -1645691165
+            Data2: 1145339504
+            Data3: 1788576689
+            Data4: -553815015
+          Path: event:/SoundEffect/UI/Gameplay/PauseBattle/UnpauseBattle
     SceneLoadUserInterfaceAudio:
       SceneLoadStart:
         AudioName: SceneLoadStart

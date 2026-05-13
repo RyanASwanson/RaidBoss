@@ -621,6 +621,12 @@ public class SelectionController : MonoBehaviour
         HideFullBossDescription();
     }
 
+    private void DifficultySelected(EGameDifficulty difficulty)
+    {
+        PlayDifficultySelectedAudio(difficulty);
+        HeroLimitChanged(difficulty);
+    }
+    
     /// <summary>
     /// Causes the game to proceed to the currently selected level
     /// Called by play button press
@@ -1137,6 +1143,12 @@ public class SelectionController : MonoBehaviour
             AudioManager.Instance.AllSpecificHeroAudio[selectedHero.GetHeroID()].SelectionSelectedAudio);
     }
 
+    private void PlayDifficultySelectedAudio(EGameDifficulty difficulty)
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.UserInterfaceAudio.SelectionSceneUserInterfaceAudio.DifficultySelected[(int)difficulty-1]);
+    }
+
     private void PlayMissionModifierSelectedAudio(MissionModifierSO selectedMissionModifier)
     {
         AudioManager.Instance.PlaySpecificAudio(
@@ -1188,7 +1200,7 @@ public class SelectionController : MonoBehaviour
         
         SelectionManager.Instance.GetHeroInformationLockedEvent().AddListener(InformationLockHero);
 
-        SelectionManager.Instance.GetDifficultySelectionEvent().AddListener(HeroLimitChanged);
+        SelectionManager.Instance.GetDifficultySelectionEvent().AddListener(DifficultySelected);
         
         SelectionManager.Instance.GetInformationUnlockedEvent().AddListener(UnlockCharacterInformation);
     }

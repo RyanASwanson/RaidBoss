@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,7 +29,14 @@ public class DifficultyDropdown : MonoBehaviour
     {
         SetStartingDropdownVisuals();
         SetStartingDropdownValue();
-        UpdateDifficultyHeaderText();
+        UpdateDifficultyHeaderText(false);
+        
+        SubscribeToEvents();
+    }
+
+    private void OnDestroy()
+    {
+        UnsubscribeFromEvents();
     }
 
     private void SetStartingDropdownVisuals()
@@ -54,23 +62,23 @@ public class DifficultyDropdown : MonoBehaviour
         _dropdown.RefreshShownValue();
     }
 
-    public void UpdateDifficulty()
+    public void UpdateDifficulty(int difficulty)
     {
         SelectionManager.Instance.SetSelectedDifficulty((EGameDifficulty)_dropdown.value+1);
         
         _scaleCurve.StartMovingUpOnCurve();
 
-        UpdateDifficultyHeaderText();
+        UpdateDifficultyHeaderText(true);
     }
 
     public void ForceSetDifficulty(int difficulty)
     {
         _dropdown.value = difficulty;
 
-        UpdateDifficulty();
+        UpdateDifficulty(difficulty);
     }
 
-    public void UpdateDifficultyHeaderText()
+    public void UpdateDifficultyHeaderText(bool canMoveOnTextScale)
     {
         string previousHeaderText = _headerText.text;
         if (SelectionManager.Instance.IsPlayingMythicPlusLevelsAboveZero())
@@ -83,12 +91,27 @@ public class DifficultyDropdown : MonoBehaviour
                 [(int)SelectionManager.Instance.GetSelectedDifficulty() - 1];
         }
 
-        if (previousHeaderText != _headerText.text)
+        if (canMoveOnTextScale && previousHeaderText != _headerText.text)
         {
             _textScaleCurve.StartMovingUpOnCurve();
         }
         
     }
 
+    private void SubscribeToEvents()
+    {
+        _dropdown.onValueChanged.AddListener(UpdateDifficulty);
+    }
+
+    private void UnsubscribeFromEvents()
+    {
+        _dropdown.onValueChanged.RemoveListener(UpdateDifficulty);
+    }
+
+    #region Getters
+
     public Color[] GetDropdownColors() => _dropdownColors;
+
+    #endregion
+    
 }
