@@ -10192,6 +10192,7 @@ MonoBehaviour:
   _heroSpawnPointHolder: {fileID: 1481727707228595402}
   _heroSpawnPoint: {fileID: 5149730385861964458}
   _previewBase: {fileID: 328545294844137018}
+  _pillarGlowCurve: {fileID: 4049142670596818008}
   _selectedHeroParticles: {fileID: 3634218860201938335}
   _heroSpawnAnimator: {fileID: 4122030274242253144}
   _pillarAnimator: {fileID: 5173866963182090916}
@@ -10817,7 +10818,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1597435295009584474
 Transform:
   m_ObjectHideFlags: 0
@@ -11057,6 +11058,8 @@ GameObject:
   - component: {fileID: 741750787792788363}
   - component: {fileID: 4496712564248670763}
   - component: {fileID: 8815810642252766417}
+  - component: {fileID: 7089926429384009405}
+  - component: {fileID: 4049142670596818008}
   m_Layer: 0
   m_Name: TopGlow
   m_TagString: Untagged
@@ -11129,3 +11132,96 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &7089926429384009405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8561996109001676345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369bcc862835c2b41a6b1d018a12a33c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _doesPerformSetUpOnEnable: 1
+  _propertyType: 0
+  _propertyName: _HeightFogDensity
+  _progressMultiplier: 0.438
+  _hasOverrideStartingColors: 0
+  _overrideStartingColors: []
+  _endColors: []
+  _isUsingSharedMaterial: 0
+  _meshRenderers:
+  - {fileID: 8815810642252766417}
+  _curveProgression: {fileID: 4049142670596818008}
+--- !u!114 &4049142670596818008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8561996109001676345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 508c048b50abf854791f2f498bb01037, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _curveName: Glow
+  _curveIncreaseTime: 0.25
+  _curveDecreaseTime: 0.25
+  _minCurveValue: 0
+  _maxCurveValue: 1
+  _hasDefaultValue: 1
+  _defaultValue: 0
+  _doesResetToDefaultProgressOnEnable: 0
+  _doesStartMovingUpOnEnable: 0
+  _doesStartMovingInCurrentDirectionOnEnable: 0
+  _hasAutomaticStartMovingDelay: 0
+  _automaticStartMovingDelay: 0
+  _doesAutomaticallyMoveDownOnHittingMax: 0
+  _doesAutomaticallyMoveUpOnHittingMin: 0
+  _hasIncreaseDelay: 0
+  _increaseDelay: 0
+  _hasDecreaseDelay: 0
+  _decreaseDelay: 0
+  _doesLerpUnchained: 0
+  _curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  OnSetUpComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  _onStartedIncreasing:
+    m_PersistentCalls:
+      m_Calls: []
+  _onStartedDecreasing:
+    m_PersistentCalls:
+      m_Calls: []
+  _onMaxValueReached:
+    m_PersistentCalls:
+      m_Calls: []
+  _onMinValueReached:
+    m_PersistentCalls:
+      m_Calls: []

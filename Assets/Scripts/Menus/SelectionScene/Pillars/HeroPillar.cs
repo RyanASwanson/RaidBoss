@@ -15,6 +15,7 @@ public class HeroPillar : MonoBehaviour
     [SerializeField] private GameObject _previewBase;
 
     [Space] 
+    [SerializeField] private CurveProgression _pillarGlowCurve;
     [SerializeField] private GeneralVFXFunctionality _selectedHeroParticles;
     
     [Space]
@@ -84,6 +85,8 @@ public class HeroPillar : MonoBehaviour
             PlayHeroIdleAnimation();
             
             PlayParticlesOfHeroOnPillar();
+            
+            _pillarGlowCurve.StartMovingUpOnCurve();
         }
         else
         {
@@ -95,7 +98,7 @@ public class HeroPillar : MonoBehaviour
             HeroSelectedOnPillar();
             return;
         }
-
+        
         PlayHeroHoverAnimation();
         _heroSpawnAnimator.ResetTrigger(REMOVE_HERO_ON_PILLAR_ANIM_TRIGGER);
     }
@@ -108,6 +111,8 @@ public class HeroPillar : MonoBehaviour
         PlayHeroIdleAnimation();
         
         PlayParticlesOfHeroOnPillar();
+        
+        _pillarGlowCurve.StartMovingUpOnCurve();
     }
 
     /// <summary>
@@ -119,6 +124,7 @@ public class HeroPillar : MonoBehaviour
         SetHeroPreviewAnimation(false);
         Destroy(_currentHeroVisual);
         StopParticlesOfHeroOnPillar();
+        _pillarGlowCurve.StartMovingDownOnCurve();
     }
 
     public void HeroOnPillarDeselected()
@@ -127,6 +133,7 @@ public class HeroPillar : MonoBehaviour
         _heroSelectedOnPillar = null;
         SetHeroPreviewAnimation(false);
         StopParticlesOfHeroOnPillar();
+        _pillarGlowCurve.StartMovingDownOnCurve();
     }
 
     public void DeselectHeroOnPillar()

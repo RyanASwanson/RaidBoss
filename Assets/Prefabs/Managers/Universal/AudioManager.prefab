@@ -1872,6 +1872,20 @@ MonoBehaviour:
         DefaultPlayType: 0
         DefaultAudioChoice: 0
         AudioTracks: []
+      BossDeselected:
+        AudioName: BossDeselected
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: 2065552415
+            Data2: 1114937375
+            Data3: -470688876
+            Data4: -408433515
+          Path: event:/SoundEffect/UI/SelectionScene/Boss/BossSelectionDeselected
       DifficultySelected:
       - AudioName: NormalDifficultySelected
         DefaultInstanceFadeInTime: 0
@@ -1939,6 +1953,20 @@ MonoBehaviour:
             Data3: -1523784797
             Data4: 595321354
           Path: event:/SoundEffect/UI/SelectionScene/Hero/HeroSelectionSelected
+      HeroDeselected:
+        AudioName: HeroDeselected
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: 844630021
+            Data2: 1282685409
+            Data3: -1069586247
+            Data4: 594440597
+          Path: event:/SoundEffect/UI/SelectionScene/Hero/HeroSelectionDeselected
       GeneralMissionModifierSelected:
         AudioName: GeneralMissionModifierSelected
         DefaultInstanceFadeInTime: 0

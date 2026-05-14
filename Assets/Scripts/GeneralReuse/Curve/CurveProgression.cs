@@ -414,6 +414,7 @@ public class CurveProgression : MonoBehaviour
     }
 
     #region Getters
+    public string GetCurveName() => _curveName;
 
     public float GetCurveIncreaseTime() => _curveIncreaseTime;
 
@@ -428,6 +429,11 @@ public class CurveProgression : MonoBehaviour
 
     #region Setters
 
+    public void SetCurveName(string curveName)
+    {
+        _curveName = curveName;
+    }
+    
     public void SetHasStartingValue(bool hasStartingValue)
     {
         _hasDefaultValue = hasStartingValue;

@@ -165,6 +165,8 @@ public class SelectionController : MonoBehaviour
     {
         _bossPillar.BossOnPillarDeselected();
 
+        PlayBossDeselectedAudio(bossSO);
+
         CheckMaxCharactersNoLongerSelected();
 
         HideBossBackground();
@@ -963,6 +965,8 @@ public class SelectionController : MonoBehaviour
             MoveHeroPillar(heroPillarNum, false);
         }
 
+        PlayHeroDeselectedAudio(heroSO);
+        
         //Remove the hero on the pillar that had a hero removed
         //_heroPillars[SelectionManager.Instance.GetIndexOfLastHeroRemoved()].RemoveHeroOnPillar();
         // Deselects the hero on the pillar
@@ -1133,6 +1137,12 @@ public class SelectionController : MonoBehaviour
         AudioManager.Instance.PlaySpecificAudio(
             AudioManager.Instance.AllSpecificBossAudio[selectedBoss.GetBossID()].SelectionSelectedAudio);
     }
+
+    private void PlayBossDeselectedAudio(BossSO selectedBoss)
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.UserInterfaceAudio.SelectionSceneUserInterfaceAudio.BossDeselected);
+    }
     
     private void PlayHeroSelectedAudio(HeroSO selectedHero)
     {
@@ -1141,6 +1151,12 @@ public class SelectionController : MonoBehaviour
         
         AudioManager.Instance.PlaySpecificAudio(
             AudioManager.Instance.AllSpecificHeroAudio[selectedHero.GetHeroID()].SelectionSelectedAudio);
+    }
+
+    private void PlayHeroDeselectedAudio(HeroSO selectedHero)
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.UserInterfaceAudio.SelectionSceneUserInterfaceAudio.HeroDeselected);
     }
 
     private void PlayDifficultySelectedAudio(EGameDifficulty difficulty)

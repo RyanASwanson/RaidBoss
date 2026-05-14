@@ -30,9 +30,13 @@ public class SelectionSceneUserInterfaceAudio
 {
     public SpecificAudio BossSelected;
     
+    public SpecificAudio BossDeselected;
+    
     public SpecificAudio[] DifficultySelected;
     
     public SpecificAudio HeroSelected;
+    
+    public SpecificAudio HeroDeselected;
     
     public SpecificAudio GeneralMissionModifierSelected;
     
