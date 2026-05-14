@@ -256,17 +256,11 @@ public class BossStats : BossChildrenFunctionality
             // Stop as we don't need to start the enrage timer if the boss is already enraged
             return;
         }
+
+        StopEnrageTimer();
         
-        // Checks if the enrage timer is already active
-        if (_enrageCoroutine.IsUnityNull())
-        {
-            // Start the timer as the timer isn't active yet
-            _enrageCoroutine = StartCoroutine(BossEnrageCounter());
-        }
-        else
-        {
-            Debug.LogWarning("Cannot start Enrage timer while it is already active");
-        }
+        // Start the timer as the timer isn't active yet
+        _enrageCoroutine = StartCoroutine(BossEnrageCounter());
     }
 
     /// <summary>
@@ -279,6 +273,7 @@ public class BossStats : BossChildrenFunctionality
         {
             // Stop the enrage timer
             StopCoroutine(_enrageCoroutine);
+            _enrageCoroutine = null;
         }
     }
 
@@ -297,6 +292,7 @@ public class BossStats : BossChildrenFunctionality
 
         EnrageMax();
     }
+    
 
     private void BossEnrageImpending()
     {
@@ -306,7 +302,13 @@ public class BossStats : BossChildrenFunctionality
     
     public void BeginBossEnrageWarning()
     {
+        BossEnrageWarningStartSFX();
         BossBase.Instance.InvokeBossEnrageCountdownBegunEvent();
+    }
+
+    private void BossEnrageWarningStartSFX()
+    {
+        AudioManager.Instance.PlaySpecificAudio(AudioManager.Instance.GeneralBossAudio.EnrageAudio.BossEnrageWarningStart);
     }
 
     /// <summary>

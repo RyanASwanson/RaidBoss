@@ -113,6 +113,20 @@ MonoBehaviour:
             Data4: -342192165
           Path: event:/SoundEffect/Bosses/GeneralBosses/TargetZone/BossTargetZoneSpawned
     EnrageAudio:
+      BossEnrageWarningStart:
+        AudioName: 
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: -95937007
+            Data2: 1280832239
+            Data3: -25478743
+            Data4: -1529462443
+          Path: event:/SoundEffect/Bosses/GeneralBosses/Enrage/EnrageWarning/BossEnrageWarningStart
       BossEnrageImpending:
         AudioName: EnrageImpending
         DefaultInstanceFadeInTime: 0
@@ -1338,13 +1352,19 @@ MonoBehaviour:
           Data4: 2032235891
         Path: event:/SoundEffect/Heroes/SpecificHeroes/Reaper/Active/ReaperDeathFollowsStart
     PassiveAbilityUsed:
-      AudioName: 
+      AudioName: RebornStart
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
       DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       DefaultPlayType: 0
       DefaultAudioChoice: 0
-      AudioTracks: []
+      AudioTracks:
+      - Guid:
+          Data1: -250478935
+          Data2: 1314858951
+          Data3: -339642945
+          Data4: 93567346
+        Path: event:/SoundEffect/Heroes/SpecificHeroes/Reaper/Passive/ReaperRebornStart
     MiscellaneousHeroAudio:
     - AudioName: ReaperDeathFollowsDuration
       DefaultInstanceFadeInTime: 0

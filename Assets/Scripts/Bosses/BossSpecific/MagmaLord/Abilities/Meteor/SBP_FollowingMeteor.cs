@@ -26,6 +26,7 @@ public class SBP_FollowingMeteor : BossProjectileFramework
     
     [Space]
     [SerializeField] private GeneralBossDamageArea _damageArea;
+    [SerializeField] private GeneralVFXFunctionality _generalVFXFunctionality;
 
     [Space] 
     [SerializeField] private GeneralRotation _generalRotation;
@@ -43,6 +44,7 @@ public class SBP_FollowingMeteor : BossProjectileFramework
     private void StartProjectileMovement(Vector3 storedTargetLocation)
     {
         ProjectileLookAt(storedTargetLocation);
+        _generalVFXFunctionality.SetEmissionRateMultiplier(0);
         
         _generalRotation.BeginRotation();
         _rotationAccelerationCurve.StartMovingUpOnCurve();
@@ -99,6 +101,8 @@ public class SBP_FollowingMeteor : BossProjectileFramework
             {
                 StartMapEdgeRemoval();
             }
+            
+            _generalVFXFunctionality.SetEmissionRateMultiplierWithCurve(speedProgress);
 
             yield return null;
         }
