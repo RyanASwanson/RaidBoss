@@ -206,14 +206,18 @@ public class SelectionManager : MainUniversalManagerFramework
 
     public void LockUnlockBossInformation(BossSO bossSO)
     {
-        if (bossSO == SelectionController.SelectionLockedCharacter)
-        {
-            InvokeInformationUnlockedEvent();
-        }
-        else
+        bool isCharacterAlreadyLocked = bossSO == SelectionController.SelectionLockedCharacter;
+        UnlockBossInformation();
+        
+        if (!isCharacterAlreadyLocked)
         {
             InvokeBossInformationLockedEvent(bossSO);
         }
+    }
+
+    public void UnlockBossInformation()
+    {
+        InvokeInformationUnlockedEvent();
     }
     
     public void HeroHoveredOver(HeroSO heroSO)
@@ -228,14 +232,23 @@ public class SelectionManager : MainUniversalManagerFramework
 
     public void LockUnlockHeroInformation(HeroSO heroSO)
     {
-        if (heroSO == SelectionController.SelectionLockedCharacter)
+        bool isCharacterAlreadyLocked = heroSO == SelectionController.SelectionLockedCharacter;
+        if (SelectionController.SelectionLockedCharacter.IsUnityNull())
         {
-            InvokeInformationUnlockedEvent();
+            isCharacterAlreadyLocked = false;
         }
-        else
+
+        UnlockHeroInformation();
+
+        if (!isCharacterAlreadyLocked)
         {
             InvokeHeroInformationLockedEvent(heroSO);
         }
+    }
+
+    public void UnlockHeroInformation()
+    {
+        InvokeInformationUnlockedEvent();
     }
 
     public void AddMissionModifier(MissionModifierSO missionModifierSO)

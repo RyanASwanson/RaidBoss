@@ -147,7 +147,15 @@ public class SelectionController : MonoBehaviour
     #region Boss Side
     private void BossSideStart()
     {
-
+        SetUpBossButtons();
+    }
+    
+    private void SetUpBossButtons()
+    {
+        for (int i = 0; i < _bossLevelSelectionButtons.Count; i++)
+        {
+            _bossLevelSelectionButtons[i].SetAssociatedLevel(SaveManager.Instance.GetLevelsInGame()[i]);
+        }
     }
 
     private void NewBossAddedSelection(BossSO bossSO)
@@ -555,6 +563,7 @@ public class SelectionController : MonoBehaviour
         SelectionLockedCharacter = lockCharacter;
         
         _characterInformationLockVisuals.SetActive(true);
+        PlaySelectionInformationLockAudio();
     }
 
     private void LockMissionInformation()
@@ -564,10 +573,16 @@ public class SelectionController : MonoBehaviour
 
     private void UnlockCharacterInformation()
     {
+        if (SelectionLockedCharacter.IsUnityNull())
+        {
+            return;
+        }
+        
         IsSelectionInformationLocked = false;
         SelectionLockedCharacter = null;
         
         _characterInformationLockVisuals.SetActive(false);
+        PlaySelectionInformationUnlockAudio();
     }
 
     private void CheckMaxCharactersSelectionStatus()
@@ -848,6 +863,15 @@ public class SelectionController : MonoBehaviour
         _previousMaxHeroes = SelectionManager.Instance.GetMaxHeroesCountWithCurrentDifficulty();
         MoveHeroPillar(0, true);
         ShowHeroPreviewPillars();
+        SetUpHeroButtons();
+    }
+
+    private void SetUpHeroButtons()
+    {
+        for (int i = 0; i < _heroSelectionButtons.Count; i++)
+        {
+            _heroSelectionButtons[i].SetAssociatedHero(SaveManager.Instance.GetHeroesInGame()[i]);
+        }
     }
 
     private void ShowHeroPreviewPillars()
@@ -1115,7 +1139,6 @@ public class SelectionController : MonoBehaviour
     }*/
     #endregion
 
-
     private void UpdateHeroButtonDifficultyBeaten(BossSO bossSO)
     {
         foreach(SelectHeroButton selectHeroButton in _heroSelectionButtons)
@@ -1157,6 +1180,18 @@ public class SelectionController : MonoBehaviour
     {
         AudioManager.Instance.PlaySpecificAudio(
             AudioManager.Instance.UserInterfaceAudio.SelectionSceneUserInterfaceAudio.HeroDeselected);
+    }
+
+    private void PlaySelectionInformationLockAudio()
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.UserInterfaceAudio.SelectionSceneUserInterfaceAudio.SelectionInformationLocked);
+    }
+
+    private void PlaySelectionInformationUnlockAudio()
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.UserInterfaceAudio.SelectionSceneUserInterfaceAudio.SelectionInformationUnlocked);
     }
 
     private void PlayDifficultySelectedAudio(EGameDifficulty difficulty)
@@ -1210,6 +1245,7 @@ public class SelectionController : MonoBehaviour
         SelectionManager.Instance.GetHeroDeselectionEvent().AddListener(HeroRemovedSelection);
 
         SelectionManager.Instance.GetHeroSwapEvent().AddListener(SwapHero);
+        
 
         SelectionManager.Instance.GetHeroHoveredOverEvent().AddListener(HeroHoveredOver);
         SelectionManager.Instance.GetHeroNotHoveredOverEvent().AddListener(HeroNotHoveredOver);

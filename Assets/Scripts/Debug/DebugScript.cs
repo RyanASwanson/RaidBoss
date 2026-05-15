@@ -34,6 +34,11 @@ public class DebugScript : MonoBehaviour
 #endif
     }
 
+    public void ManagerSetUpComplete()
+    {
+        SubscribeToEvents();
+    }
+
 #if UNITY_EDITOR
     // Update is called once per frame
     void Update()
@@ -123,6 +128,51 @@ public class DebugScript : MonoBehaviour
         {
             SaveManager.Instance.UnlockNextMythicPlusLevel();
         }
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            DisplayTrackingHeroStats();
+        }
+    }
+
+    private void BattleStart()
+    {
+        
+    }
+    
+    public void AddToHeroDamageTracking(int heroID, float damage)
+    {
+        
+    }
+
+    private IEnumerator DisplayTrackingHeroStats()
+    {
+        while (true)
+        {
+            //for()
+            yield return null;
+        }
+    }
+
+    private void SubscribeToEvents()
+    {
+        SceneLoadManager.Instance.GetOnGameplaySceneLoaded().AddListener(GameplaySceneLoaded);
+        SceneLoadManager.Instance.GetOnStartOfSceneLoad().AddListener(UnsubscribeFromGameplayEvents);
+    }
+
+    private void GameplaySceneLoaded()
+    {
+        SubscribeToGameplayEvents();
+    }
+
+    private void SubscribeToGameplayEvents()
+    {
+        GameStateManager.Instance.GetStartOfBattleEvent().AddListener(BattleStart);
+    }
+
+    private void UnsubscribeFromGameplayEvents()
+    {
+        GameStateManager.Instance.GetStartOfBattleEvent().RemoveListener(BattleStart);
     }
 #endif
 }

@@ -1906,6 +1906,62 @@ MonoBehaviour:
             Data3: -470688876
             Data4: -408433515
           Path: event:/SoundEffect/UI/SelectionScene/Boss/BossSelectionDeselected
+      HeroSelected:
+        AudioName: HeroSelected
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: -1335280094
+            Data2: 1256519981
+            Data3: -1523784797
+            Data4: 595321354
+          Path: event:/SoundEffect/UI/SelectionScene/Hero/HeroSelectionSelected
+      HeroDeselected:
+        AudioName: HeroDeselected
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: 844630021
+            Data2: 1282685409
+            Data3: -1069586247
+            Data4: 594440597
+          Path: event:/SoundEffect/UI/SelectionScene/Hero/HeroSelectionDeselected
+      SelectionInformationLocked:
+        AudioName: InformationLocked
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: -1548299785
+            Data2: 1260425817
+            Data3: -1339978821
+            Data4: -2035946777
+          Path: event:/SoundEffect/UI/SelectionScene/InformationLock/SelectionInformationLocked
+      SelectionInformationUnlocked:
+        AudioName: InformationUnlocked
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: 1987677783
+            Data2: 1117979182
+            Data3: 140093608
+            Data4: 779045234
+          Path: event:/SoundEffect/UI/SelectionScene/InformationLock/SelectionInformationUnlocked
       DifficultySelected:
       - AudioName: NormalDifficultySelected
         DefaultInstanceFadeInTime: 0
@@ -1959,34 +2015,6 @@ MonoBehaviour:
             Data3: 235746221
             Data4: -2067338896
           Path: event:/SoundEffect/UI/SelectionScene/Difficuty/MythicPlusDifficultySelected
-      HeroSelected:
-        AudioName: HeroSelected
-        DefaultInstanceFadeInTime: 0
-        DefaultInstanceFadeOutTime: 0
-        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
-        DefaultPlayType: 0
-        DefaultAudioChoice: 0
-        AudioTracks:
-        - Guid:
-            Data1: -1335280094
-            Data2: 1256519981
-            Data3: -1523784797
-            Data4: 595321354
-          Path: event:/SoundEffect/UI/SelectionScene/Hero/HeroSelectionSelected
-      HeroDeselected:
-        AudioName: HeroDeselected
-        DefaultInstanceFadeInTime: 0
-        DefaultInstanceFadeOutTime: 0
-        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
-        DefaultPlayType: 0
-        DefaultAudioChoice: 0
-        AudioTracks:
-        - Guid:
-            Data1: 844630021
-            Data2: 1282685409
-            Data3: -1069586247
-            Data4: 594440597
-          Path: event:/SoundEffect/UI/SelectionScene/Hero/HeroSelectionDeselected
       GeneralMissionModifierSelected:
         AudioName: GeneralMissionModifierSelected
         DefaultInstanceFadeInTime: 0

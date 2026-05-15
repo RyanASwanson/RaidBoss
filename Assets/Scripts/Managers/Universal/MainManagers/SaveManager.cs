@@ -14,6 +14,7 @@ public class SaveManager : MainUniversalManagerFramework
     public GameSaveData GSD {get; set;}
     private string _path;
 
+    [SerializeField] private LevelSO[] _levelsInGame;
     [SerializeField] private List<BossSO> _bossesInGame = new();
     [SerializeField] private List<HeroSO> _heroesInGame = new();
     [SerializeField] private MissionSO[] _missionsInGame;
@@ -578,6 +579,7 @@ public class SaveManager : MainUniversalManagerFramework
     
     public int GetNextMissionID() => GSD.GetGameplaySaveData().GetNextMissionID();
     
+    public LevelSO[] GetLevelsInGame() => _levelsInGame;
     public List<BossSO> GetBossesInGame() => _bossesInGame;
 
     public bool IsBossUnlocked(BossSO bossSO) => GSD.GetGameplaySaveData().GetBossesUnlocked().Contains(bossSO.GetBossName());
