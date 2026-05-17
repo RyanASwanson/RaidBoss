@@ -439,17 +439,17 @@ public class BossStats : BossChildrenFunctionality
     #endregion
 
     #region Setters
-    public void DealDamageToBoss(float damage)
+    public float DealDamageToBoss(float damage)
     {
         // Stop if the boss is already dead
         if (_isBossDead)
         {
-            return;
+            return 0;
         }
         
         if (damage <= 0)
         {
-            return;
+            return 0;
         }
         
         damage /= _bossDamageResistanceMultiplier;
@@ -457,6 +457,8 @@ public class BossStats : BossChildrenFunctionality
         _myBossBase.InvokeBossDamagedEvent(damage);
         
         AudioManager.Instance.PlaySpecificAudio(AudioManager.Instance.GeneralBossAudio.HealthStaggerAudio.BossTookDamage);
+
+        return damage;
     }
 
     public void DealDamageToBossFromNonHeroSource(float damage)
@@ -464,22 +466,24 @@ public class BossStats : BossChildrenFunctionality
         DealDamageToBoss(damage);
     }
 
-    public void DealStaggerToBoss(float stagger)
+    public float DealStaggerToBoss(float stagger)
     {
         // Stop if the boss is already dead or staggered
         if (_isBossDead || _isBossStaggered)
         {
-            return;
+            return 0;
         }
 
         if (stagger <= 0)
         {
-            return;
+            return 0;
         }
 
         _currentStaggerCounter += stagger;
         _myBossBase.InvokeBossStaggerDealt(stagger);
         CheckIfBossIsStaggered();
+        
+        return stagger;
     }
     
     public void DealStaggerToBossFromNonHeroSource(float damage)

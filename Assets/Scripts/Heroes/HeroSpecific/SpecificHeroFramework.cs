@@ -370,10 +370,13 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     public virtual void DamageBoss(float damage)
     {
         damage *= _myHeroBase.GetHeroStats().GetCurrentDamageMultiplier();
-
-        BossStats.Instance.DealDamageToBoss(damage);
-
+        
+        // Returns damage adjusted for boss damage resistance
+        damage = BossStats.Instance.DealDamageToBoss(damage);
+        
         _myHeroBase.InvokeHeroDealtDamageEvent(damage);
+        
+        _myHeroBase.GetHeroStats().AddToTotalHeroDamageDealt(damage);
     }
 
     /// <summary>
@@ -384,9 +387,12 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     {
         stagger *= _myHeroBase.GetHeroStats().GetCurrentStaggerMultiplier();
 
-        BossStats.Instance.DealStaggerToBoss(stagger);
+        // Returns stagger adjusted for boss stagger resistance if implemented
+        stagger = BossStats.Instance.DealStaggerToBoss(stagger);
 
         _myHeroBase.InvokeHeroDealtStaggerEvent(stagger);
+        
+        _myHeroBase.GetHeroStats().AddToTotalHeroStaggerDealt(stagger);
     }
 
     /// <summary>
@@ -397,7 +403,11 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     public virtual void HealTargetHero(float healing, HeroBase target)
     {
         healing *= _myHeroBase.GetHeroStats().GetCurrentHealingDealtMultiplier();
-        target.GetHeroStats().HealHero(healing);
+        
+        // Returns healing adjusted for healing resistance
+        healing = target.GetHeroStats().HealHero(healing);
+        
+        _myHeroBase.GetHeroStats().AddToTotalHeroHealingDealt(healing);
     }
 
     #endregion

@@ -49,6 +49,10 @@ public class HeroStats : HeroChildrenFunctionality
     [SerializeField] private Sprite _staggerBuffIcon;
     [SerializeField] private Sprite _speedBuffIcon;
     [SerializeField] private Sprite _healingBuffIcon;
+    
+    private float _totalDamageDealt = 0;
+    private float _totalStaggerDealt = 0;
+    private float _totalHealingDealt = 0;
 
     /// <summary>
     /// Assigns the values of the stats after the heroSO is assigned
@@ -139,18 +143,18 @@ public class HeroStats : HeroChildrenFunctionality
     /// Called to heal a hero
     /// </summary>
     /// <param name="healing"> The amount of healing </param>
-    public void HealHero(float healing)
+    public float HealHero(float healing)
     {
         //Checks for a healing override before healing
         if(ShouldOverrideHealing())
         {
             _myHeroBase.InvokeHeroHealedOverrideEvent(healing);
-            return;
+            return 0;
         }
 
         if (healing == 0 || IsHeroMaxHealth())
         {
-            return;
+            return 0;
         }
 
         //Set the previous health to what it was prior to being healed
@@ -176,6 +180,8 @@ public class HeroStats : HeroChildrenFunctionality
         
         AudioManager.Instance.PlaySpecificAudio(
             AudioManager.Instance.GeneralHeroAudio.HealthAudio.HeroTookHealing);
+
+        return healing;
     }
 
     /// <summary>
@@ -624,6 +630,10 @@ public class HeroStats : HeroChildrenFunctionality
     public float GetBasicAbilityCooldownRateMultiplier() => _basicAbilityCooldownRateMultiplier;
     public float GetManualAbilityCooldownRateMultiplier() => _manualAbilityCooldownRateMultiplier;
 
+
+    public float GetTotalHeroDamageDealt() => _totalDamageDealt;
+    public float GetTotalHeroStaggerDealt() => _totalStaggerDealt;
+    public float GetTotalHeroHealingDealt() => _totalHealingDealt;
     #endregion
 
     #region Setters
@@ -631,6 +641,21 @@ public class HeroStats : HeroChildrenFunctionality
     public void AdjustHeroHitboxSize(float multiplier)
     {
         _myHeroBase.GetHeroDamageCollider().radius *= multiplier;
+    }
+
+    public void AddToTotalHeroDamageDealt(float damage)
+    {
+        _totalDamageDealt += damage;
+    }
+    
+    public void AddToTotalHeroStaggerDealt(float stagger)
+    {
+        _totalStaggerDealt += stagger;
+    }
+    
+    public void AddToTotalHeroHealingDealt(float healing)
+    {
+        _totalHealingDealt += healing;
     }
     #endregion
 }
