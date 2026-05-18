@@ -72,6 +72,11 @@ public class MythicPlusScalerSelection : MonoBehaviour
 
     public void StartDirectionButtonHeldProcess(int direction,Button associatedButton)
     {
+        if (!associatedButton.interactable)
+        {
+            return;
+        }
+        
         StopDirectionButtonHeldProcess();
 
         _directionalButtonHeldCoroutine = StartCoroutine(DirectionalButtonHeldProcess(direction,associatedButton));
@@ -126,9 +131,6 @@ public class MythicPlusScalerSelection : MonoBehaviour
         
         _rightButton.interactable = SelectionManager.Instance.GetMythicPlusLevel() !=
                                     SaveManager.Instance.GetHighestMythicPlusLevelUnlocked();
-
-        /*_lowestLevelButton.interactable = _leftButton.interactable;
-        _highestLevelButton.interactable = _rightButton.interactable;*/
     }
 
     private void SetMythicPlusLevel(int level, bool isCalledByStart)
