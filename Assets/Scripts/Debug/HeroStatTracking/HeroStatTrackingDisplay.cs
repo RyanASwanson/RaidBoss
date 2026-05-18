@@ -10,6 +10,8 @@ public class HeroStatTrackingDisplay : MonoBehaviour
 {
     #if UNITY_EDITOR || DEVELOPMENT_BUILD
 
+    [SerializeField] private TextWithBackground _battleTimer;
+
     [SerializeField] private HeroStatTrackingCategory _damageCategory;
     [SerializeField] private HeroStatTrackingCategory _staggerCategory;
     [SerializeField] private HeroStatTrackingCategory _healingCategory;
@@ -29,9 +31,16 @@ public class HeroStatTrackingDisplay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        UpdateBattleTimer();
+        
         UpdateHeroDamageStats();
         UpdateHeroStaggerStats();
         UpdateHeroHealingStats();
+    }
+
+    private void UpdateBattleTimer()
+    {
+        _battleTimer.UpdateText(GameStateManager.Instance.GetBattleDuration().ToString("F1"));
     }
 
     private void UpdateHeroDamageStats()

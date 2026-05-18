@@ -24,6 +24,7 @@ public class GameStateManager : MainGameplayManagerFramework
     [SerializeField] private float _battleEndMusicVolumeChangeTime;
 
     private EGameplayStates _currentEGameplayState = EGameplayStates.PreBattle;
+    private float _battleDuration = 0;
 
     private bool _isCurrentBattleAtHighestMythicPlusLevel = false;
     private bool _isCurrentMissionAlreadyComplete = false;
@@ -56,6 +57,16 @@ public class GameStateManager : MainGameplayManagerFramework
     private void StartBattle()
     {
         SetGameplayState(EGameplayStates.Battle);
+        StartCoroutine(BattleDuration());
+    }
+
+    private IEnumerator BattleDuration()
+    {
+        while (_currentEGameplayState == EGameplayStates.Battle)
+        {
+            _battleDuration += Time.deltaTime;
+            yield return null;
+        }
     }
 
     /// <summary>
@@ -204,6 +215,8 @@ public class GameStateManager : MainGameplayManagerFramework
 
     public bool GetHasFightBegun() => _currentEGameplayState != EGameplayStates.PreBattle;
     public bool GetIsFightOver() => _currentEGameplayState >= EGameplayStates.PostBattleLost;
+    
+    public float GetBattleDuration() => _battleDuration;
 
     public bool GetIsCurrentBattleAtHighestMythicPlusLevel() => _isCurrentBattleAtHighestMythicPlusLevel;
     public bool GetIsCurrentMissionAlreadyComplete() => _isCurrentMissionAlreadyComplete;

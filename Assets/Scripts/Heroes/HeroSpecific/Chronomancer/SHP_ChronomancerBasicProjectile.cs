@@ -100,7 +100,7 @@ public class SHP_ChronomancerBasicProjectile : HeroProjectileFramework
             _chronomancerHero.PassiveReduceBasicCooldownOfHero(heroTarget);
         }
     }
-
+    
 
     #region Base Ability
     public void AdditionalSetup(Vector3 direction, float cooldownReduction, SH_Chronomancer chrono)
