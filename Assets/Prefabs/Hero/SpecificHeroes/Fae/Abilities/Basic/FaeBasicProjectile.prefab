@@ -346,6 +346,7 @@ MonoBehaviour:
   _doesProjectileBounceOffWalls: 1
   _wallBounceEffect: {fileID: 2321428861232703458, guid: 76bf9aaf4a141a44c876bd050236f0f9, type: 3}
   _generalTranslate: {fileID: 3085304972099005422}
+  _generalDamageArea: {fileID: 8541676034526641626}
   _scaleCurve: {fileID: 1648499040863163942}
   _swapTextures: {fileID: 1417538793890320466}
 --- !u!114 &3085304972099005422
@@ -397,18 +398,6 @@ MonoBehaviour:
   _enterEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2693443327415597550}
-        m_TargetAssemblyTypeName: SHP_FaeBasicProjectile, Assembly-CSharp
-        m_MethodName: ProjectileHit
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 8541676034526641626}
         m_TargetAssemblyTypeName: GeneralHeroDamageArea, Assembly-CSharp
         m_MethodName: DestroyProjectile

@@ -16,16 +16,12 @@ public class SHP_FaeBasicProjectile : HeroProjectileFramework
     
     [Space]
     [SerializeField] private GeneralTranslate _generalTranslate;
+    [SerializeField] private GeneralHeroDamageArea _generalDamageArea;
     [SerializeField] private CurveProgression _scaleCurve;
     [SerializeField] private SwapTextures _swapTextures;
     
     private static SH_Fae _associatedFae;
     private bool _hasHitEdgeOfMap = false;
-
-    public void ProjectileHit()
-    {
-        //_associatedFae.DisableDamageOfBasicProjectilesSet(GetComponent<GeneralHeroDamageArea>());
-    }
 
     private IEnumerator CheckForHitEdgeOfMap()
     {
@@ -63,6 +59,8 @@ public class SHP_FaeBasicProjectile : HeroProjectileFramework
         _generalTranslate.StartMoving(newDirection);
         
         _swapTextures.SwapAllTextures();
+
+        _generalDamageArea.ToggleProjectileCollider(true);
     }
     
     #region Base Ability

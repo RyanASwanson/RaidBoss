@@ -10,13 +10,9 @@ using UnityEngine;
 public class SH_Fae : SpecificHeroFramework
 {
     [Space]
-    [SerializeField] private List<Vector3> _primaryAttackEulers;
+    [SerializeField] private FaeBasicAttackDirections[] _basicAttackDirections;
     [SerializeField] private float _projectileSpawnDistance;
     [SerializeField] private GameObject _basicProjectile;
-    
-    private List<GeneralHeroDamageArea> _currentBasicProjectiles = new();
-    
-    private const int BASIC_PROJECTILES_PER_ATTACK = 4;
 
     [Space]
     [SerializeField] private float _manualContactDamage;
@@ -89,11 +85,10 @@ public class SH_Fae : SpecificHeroFramework
 
     protected void CreateBasicAttackProjectiles()
     {
-        _currentBasicProjectiles.Clear();
         
-        for (int i = 0; i < _primaryAttackEulers.Count; i++)
+        for (int i = 0; i < _basicAttackDirections.Length; i++)
         {
-            GameObject newestProjectile = Instantiate(_basicProjectile, transform.position, Quaternion.Euler(_primaryAttackEulers[i]));
+            GameObject newestProjectile = Instantiate(_basicProjectile, transform.position, Quaternion.Euler(_basicAttackDirections[i].AttackEulers));
             newestProjectile.transform.position += (newestProjectile.transform.forward * _projectileSpawnDistance);
 
             newestProjectile.GetComponent<SHP_FaeBasicProjectile>().SetUpProjectile(_myHeroBase, EHeroAbilityType.Basic);
@@ -103,23 +98,12 @@ public class SH_Fae : SpecificHeroFramework
             //Performs the set up for the damage area so that it knows it's owner
             damageArea.SetUpDamageArea(_myHeroBase);
 
-            _currentBasicProjectiles.Add(damageArea);
-        }
-    }
-
-    public void DisableDamageOfBasicProjectilesSet(GeneralHeroDamageArea ignoreProjectile)
-    {
-        foreach (GeneralHeroDamageArea damageArea in _currentBasicProjectiles)
-        {
-            if (damageArea == ignoreProjectile)
+            if (_basicAttackDirections[i].IsBossDirectionInPositiveX == (_myHeroBase.transform.position.x > 0) ||
+                _basicAttackDirections[i].IsBossDirectionInPositiveZ == (_myHeroBase.transform.position.z > 0))
             {
-                continue;
+                damageArea.ToggleProjectileCollider(false);
             }
-            
-            damageArea.IncreaseDamageMultiplierByAmount(-1);
-            damageArea.IncreaseStaggerMultiplierByAmount(-1);
         }
-        _currentBasicProjectiles.Clear();
     }
 
 
@@ -437,8 +421,6 @@ public class SH_Fae : SpecificHeroFramework
         
         _manualAudioWaitInterval = new WaitForSeconds(_manualAudioInterval);
 
-        _currentBasicProjectiles = new List<GeneralHeroDamageArea>(4);
-
         _startingPassiveBasicAttackSpeed = _currentPassiveBasicAttackSpeed;
 
         base.SetUpSpecificHero(heroBase, heroSO);
@@ -462,4 +444,12 @@ public class SH_Fae : SpecificHeroFramework
         _heroStats.GetCurrentSpeed() * _manualSpeedMultiplier * _currentAccelerationMultiplier;
 
     #endregion
+}
+
+[System.Serializable]
+public class FaeBasicAttackDirections
+{
+    public Vector3 AttackEulers;
+    public bool IsBossDirectionInPositiveX;
+    public bool IsBossDirectionInPositiveZ;
 }

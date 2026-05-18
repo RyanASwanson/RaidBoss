@@ -66,6 +66,19 @@ MonoBehaviour:
   - {x: 0, y: 135, z: 0}
   - {x: 0, y: 225, z: 0}
   - {x: 0, y: 315, z: 0}
+  _basicAttackDirections:
+  - AttackEulers: {x: 0, y: 45, z: 0}
+    IsBossDirectionInPositiveX: 1
+    IsBossDirectionInPositiveZ: 1
+  - AttackEulers: {x: 0, y: 135, z: 0}
+    IsBossDirectionInPositiveX: 1
+    IsBossDirectionInPositiveZ: 0
+  - AttackEulers: {x: 0, y: 225, z: 0}
+    IsBossDirectionInPositiveX: 0
+    IsBossDirectionInPositiveZ: 0
+  - AttackEulers: {x: 0, y: 315, z: 0}
+    IsBossDirectionInPositiveX: 0
+    IsBossDirectionInPositiveZ: 1
   _projectileSpawnDistance: 0.25
   _basicProjectile: {fileID: 8998477801622210341, guid: f4b23504b8f511d49b10e0f78e70a0b4, type: 3}
   _manualContactDamage: 9.5
