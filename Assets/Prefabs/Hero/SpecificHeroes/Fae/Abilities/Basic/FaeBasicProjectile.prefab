@@ -55,6 +55,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3142221925609182018}
   - component: {fileID: 7385941293472164669}
+  - component: {fileID: 1417538793890320466}
   m_Layer: 0
   m_Name: VisualsHolder
   m_TagString: Untagged
@@ -105,6 +106,21 @@ MonoBehaviour:
   _startRotationOverride: {x: 0, y: 0, z: 0}
   _targetLocalEulerAngles: {x: 0, y: 0, z: 0}
   _curveProgression: {fileID: 0}
+--- !u!114 &1417538793890320466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8511218815134909799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7295096076386064f9f0cb6fafbd92ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _swapGroup:
+  - _renderer: {fileID: 3540560461445633827}
+    _swapMaterial: {fileID: 2100000, guid: c5a46f87b4c07dc468a19a933ee856f4, type: 2}
 --- !u!1 &8998477800361508900
 GameObject:
   m_ObjectHideFlags: 0
@@ -328,8 +344,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _doesProjectileBounceOffWalls: 1
+  _wallBounceEffect: {fileID: 2321428861232703458, guid: 76bf9aaf4a141a44c876bd050236f0f9, type: 3}
   _generalTranslate: {fileID: 3085304972099005422}
   _scaleCurve: {fileID: 1648499040863163942}
+  _swapTextures: {fileID: 1417538793890320466}
 --- !u!114 &3085304972099005422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -360,7 +378,7 @@ MonoBehaviour:
   _areaColliders:
   - {fileID: 2432506977616047737}
   _hasLifetime: 1
-  _lifetime: 7
+  _lifetime: 8
   _hasColliderActivationDelay: 0
   _colliderActivationDelay: 0
   _hasColliderLifetime: 0
@@ -374,7 +392,7 @@ MonoBehaviour:
   _colliderLifetimeEndEvent:
     m_PersistentCalls:
       m_Calls: []
-  _enterDamage: 3.25
+  _enterDamage: 3
   _enterStagger: 1
   _enterEvent:
     m_PersistentCalls:
@@ -491,7 +509,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c5a46f87b4c07dc468a19a933ee856f4, type: 2}
+  - {fileID: 2100000, guid: 4985aaa088eb67446af8bedcc3ce8486, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

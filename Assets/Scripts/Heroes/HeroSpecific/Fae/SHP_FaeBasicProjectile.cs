@@ -10,10 +10,14 @@ using UnityEngine;
 public class SHP_FaeBasicProjectile : HeroProjectileFramework
 {
     [SerializeField] private bool _doesProjectileBounceOffWalls;
+
+    [Space]
+    [SerializeField] private GameObject _wallBounceEffect;
     
     [Space]
     [SerializeField] private GeneralTranslate _generalTranslate;
     [SerializeField] private CurveProgression _scaleCurve;
+    [SerializeField] private SwapTextures _swapTextures;
     
     private static SH_Fae _associatedFae;
     private bool _hasHitEdgeOfMap = false;
@@ -45,6 +49,8 @@ public class SHP_FaeBasicProjectile : HeroProjectileFramework
 
     public void RedirectProjectile()
     {
+        Instantiate(_wallBounceEffect, transform.position, transform.rotation);
+        
         Vector3 startDirection = new Vector3(transform.position.x, 0, transform.position.z);
         Vector3 newDirection = new Vector3(_associatedFae._myHeroBase.transform.position.x, 0, _associatedFae._myHeroBase.transform.position.z);
         
@@ -55,6 +61,8 @@ public class SHP_FaeBasicProjectile : HeroProjectileFramework
         newDirection.Normalize();
         
         _generalTranslate.StartMoving(newDirection);
+        
+        _swapTextures.SwapAllTextures();
     }
     
     #region Base Ability

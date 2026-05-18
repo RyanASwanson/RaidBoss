@@ -16,6 +16,7 @@ public class SHP_AstromancerBasicProjectile : HeroProjectileFramework
     [SerializeField] private float _startingScale;
     [SerializeField] private float _damageScalingScaleMultiplier;
     [SerializeField] private GameObject _projectileScaleHolder;
+    [SerializeField] private CurveProgression _hitScaleCurve;
     private Vector3 _projectileScalerVector = new Vector3();
     
     [Space]
@@ -77,6 +78,7 @@ public class SHP_AstromancerBasicProjectile : HeroProjectileFramework
             _generalHealArea.enabled = true;
 
             FlipDirection();
+            PlayReflectEffects(collider.gameObject);
         }
         else
         {
@@ -102,7 +104,7 @@ public class SHP_AstromancerBasicProjectile : HeroProjectileFramework
 
         FlipDirection();
         PlayReflectAudio();
-        CreateReflectEffect(collider.gameObject);
+        PlayReflectEffects(collider.gameObject);
         TriggerHeroPassive();
     }
 
@@ -119,12 +121,13 @@ public class SHP_AstromancerBasicProjectile : HeroProjectileFramework
         _astromancerScript.ActivatePassiveAbilities();
     }
 
-    private void CreateReflectEffect(GameObject reflectHero)
+    private void PlayReflectEffects(GameObject reflectTarget)
     {
-        GameObject reflectEffect = Instantiate(_reflectEffect, Vector3.Lerp(transform.position, reflectHero.transform.position,_percentDistanceToReflectHero), Quaternion.identity);
+        GameObject reflectEffect = Instantiate(_reflectEffect, Vector3.Lerp(transform.position, reflectTarget.transform.position,_percentDistanceToReflectHero), Quaternion.identity);
         reflectEffect.transform.LookAt(gameObject.transform);
         reflectEffect.transform.localEulerAngles = new Vector3(0, reflectEffect.transform.localEulerAngles.y, 0);
-        //reflectEffect.transform.position = new Vector3(reflectEffect.transform.position.x,_reflectEffectSpawnHeight,reflectEffect.transform.position.z);
+        
+        _hitScaleCurve.StartMovingUpOnCurve();
     }
     
     private void PlayReflectAudio()
