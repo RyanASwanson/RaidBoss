@@ -9,15 +9,54 @@ using UnityEngine;
 /// </summary>
 public class SHP_FaeBasicProjectile : HeroProjectileFramework
 {
+    [SerializeField] private bool _doesProjectileBounceOffWalls;
+    
+    [Space]
     [SerializeField] private GeneralTranslate _generalTranslate;
+    [SerializeField] private CurveProgression _scaleCurve;
     
     private static SH_Fae _associatedFae;
+    private bool _hasHitEdgeOfMap = false;
 
     public void ProjectileHit()
     {
-        _associatedFae.DisableDamageOfBasicProjectilesSet(GetComponent<GeneralHeroDamageArea>());
+        //_associatedFae.DisableDamageOfBasicProjectilesSet(GetComponent<GeneralHeroDamageArea>());
     }
 
+    private IEnumerator CheckForHitEdgeOfMap()
+    {
+        while (!_hasHitEdgeOfMap)
+        {
+            float centerDistance = Mathf.Abs(transform.position.x) + Mathf.Abs(transform.position.z);
+            if (centerDistance > EnvironmentManager.Instance.GetMapRadius())
+            {
+                HitEdgeOfMap();
+            }
+            yield return null;
+        }
+    }
+
+    private void HitEdgeOfMap()
+    {
+        _hasHitEdgeOfMap = true;
+        
+        _scaleCurve.StartMovingDownOnCurve();
+    }
+
+    public void RedirectProjectile()
+    {
+        Vector3 startDirection = new Vector3(transform.position.x, 0, transform.position.z);
+        Vector3 newDirection = new Vector3(_associatedFae._myHeroBase.transform.position.x, 0, _associatedFae._myHeroBase.transform.position.z);
+        
+        transform.LookAt(newDirection);
+        transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 0);
+        
+        newDirection -= startDirection;
+        newDirection.Normalize();
+        
+        _generalTranslate.StartMoving(newDirection);
+    }
+    
     #region Base Ability
     public override void SetUpProjectile(HeroBase heroBase, EHeroAbilityType heroAbilityType)
     {
@@ -29,6 +68,11 @@ public class SHP_FaeBasicProjectile : HeroProjectileFramework
         }
         
         _generalTranslate.StartMoving(transform.forward);
+
+        if (_doesProjectileBounceOffWalls)
+        {
+            StartCoroutine(CheckForHitEdgeOfMap());
+        }
     }
     #endregion
 }
