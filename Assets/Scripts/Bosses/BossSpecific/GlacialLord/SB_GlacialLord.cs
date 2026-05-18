@@ -115,7 +115,6 @@ public class SB_GlacialLord : SpecificBossFramework
             }
         }
         
-        
     }
 
     public override void SubscribeToEvents()

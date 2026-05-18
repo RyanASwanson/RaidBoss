@@ -37,6 +37,10 @@ public abstract class SpecificBossFramework : MonoBehaviour
     [Header("Animator")]
     [SerializeField] private Animator _bossSpecificAnimator;
 
+    [Space] 
+    [Header("Audio")]
+    [SerializeField] private float _bossDeathAudioDelay;
+
     #region Fight Start
     /// <summary>
     /// Called when the fight begins to start boss functionality
@@ -530,8 +534,33 @@ public abstract class SpecificBossFramework : MonoBehaviour
         {
             _currentAbility.StopBossAbility();
         }
-        
+
+        AttemptPlaySpecificBossDiedAudio();
         CheckToUnlockSpecialistAchievement();
+    }
+
+    protected virtual void AttemptPlaySpecificBossDiedAudio()
+    {
+        if (_bossDeathAudioDelay > 0)
+        {
+            StartCoroutine(DelayPlaySpecificBossDiedAudio());
+        }
+        else
+        {
+            PlaySpecificBossDiedAudio();
+        }
+    }
+
+    protected virtual IEnumerator DelayPlaySpecificBossDiedAudio()
+    {
+        yield return new WaitForSeconds(_bossDeathAudioDelay);
+        PlaySpecificBossDiedAudio();
+    }
+
+    protected virtual void PlaySpecificBossDiedAudio()
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].BossDeathAudio);
     }
 
     protected virtual void CheckToUnlockSpecialistAchievement()
