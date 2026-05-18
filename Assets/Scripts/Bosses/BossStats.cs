@@ -530,5 +530,7 @@ public class BossStats : BossChildrenFunctionality
     public float SetBossMaxHealth(float value) => _bossMaxHealth = value;
     public float SetBossMaxStagger(float value) => _bossDefaultStaggerMax = value;
     public float SetBossDamageResistanceChangeOnStagger(float value) => _bossDamageResistanceChangeOnStagger = value;
+    public void AddBossDamageResistanceChangeOnStagger(float value) => _bossDamageResistanceChangeOnStagger += value;
+    public void MultiplyBossDamageResistanceChangeOnStagger(float value) => _bossDamageResistanceChangeOnStagger *= value;
     #endregion
 }

@@ -439,7 +439,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2565375756250586651}
   - component: {fileID: 2348501981831418852}
-  - component: {fileID: 2003836301179712638}
   - component: {fileID: 7039280596874109082}
   m_Layer: 5
   m_Name: SelectBossButton
@@ -495,51 +494,6 @@ MonoBehaviour:
   _buttonVisualsHolderSizeCurve: {fileID: 8417122805508388734}
   _resetEventSystemObject: {fileID: 9185542798225302079}
   _lockResetEventSystemObject: {fileID: 4009965716331804304}
---- !u!114 &2003836301179712638
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2565375756250586648}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2348501981831418852}
-          m_TargetAssemblyTypeName: SelectBossLevelButton, Assembly-CSharp
-          m_MethodName: SelectBossButtonHoverBegin
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2348501981831418852}
-          m_TargetAssemblyTypeName: SelectBossLevelButton, Assembly-CSharp
-          m_MethodName: SelectBossButtonHoverEnd
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!114 &7039280596874109082
 MonoBehaviour:
   m_ObjectHideFlags: 0

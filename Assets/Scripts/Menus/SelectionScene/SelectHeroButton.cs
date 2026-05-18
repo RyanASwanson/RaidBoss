@@ -9,7 +9,7 @@ using UnityEngine.UI;
 /// The button that is pressed in order to selected a specific hero
 ///     to add them to your team
 /// </summary>
-public class SelectHeroButton : MonoBehaviour
+public class SelectHeroButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private HeroSO _associatedHero;
 
@@ -198,6 +198,17 @@ public class SelectHeroButton : MonoBehaviour
         _informationLockCurve.StartMovingDownOnCurve();
     }
     #endregion
+    
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        SelectHeroButtonHoverBegin();
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        SelectHeroButtonHoverEnd();
+    }
+    
     
     public void SelectHeroButtonHoverBegin()
     {

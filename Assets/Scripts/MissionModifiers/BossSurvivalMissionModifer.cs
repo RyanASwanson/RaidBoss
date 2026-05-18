@@ -20,8 +20,7 @@ public class BossSurvivalMissionModifer : MissionModifierBase
 
         bossStats.SetBossMaxHealth(bossStats.GetBossMaxHealth() * _bossHealthMultiplier);
         bossStats.SetBossMaxStagger(bossStats.GetBossMaxStagger() * _bossStaggerMultiplier);
-        bossStats.SetBossDamageResistanceChangeOnStagger
-            (bossStats.GetBossDamageResistanceChangeOnStagger() * _bossDamageResistanceChangeOnStaggerMultiplier);
+        bossStats.AddBossDamageResistanceChangeOnStagger(_bossDamageResistanceChangeOnStaggerMultiplier);
     }
     #endregion
 }

@@ -10,7 +10,7 @@ using UnityEngine.UI;
 /// The button that is pressed in order to selected which boss
 /// that you are going to fight
 /// </summary>
-public class SelectBossLevelButton : MonoBehaviour
+public class SelectBossLevelButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private LevelSO _associatedLevel;
     [SerializeField] private bool _bossEnabled;
@@ -201,6 +201,16 @@ public class SelectBossLevelButton : MonoBehaviour
     }
     #endregion
 
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        SelectBossButtonHoverBegin();
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        SelectBossButtonHoverEnd();
+    }
+    
     public void SelectBossButtonHoverBegin()
     {
         _isBossButtonHoveredOver = true;
