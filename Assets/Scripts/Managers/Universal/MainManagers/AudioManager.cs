@@ -237,6 +237,8 @@ public class AudioManager : MainUniversalManagerFramework
         if (CreateInstanceFromReference(specificAudio.GetAudioTrackFromTrackChoice(trackChoice), out eventInstance))
         {
             eventInstance.start();
+            eventInstance.release();
+            
             if (specificAudio.DefaultInstanceFadeInTime > 0)
             {
                 eventInstance.setVolume(0);
@@ -483,7 +485,7 @@ public class AudioManager : MainUniversalManagerFramework
     }
     #endregion
     
-    #region Pausing
+    #region Pausable Audio
 
     public void PausePausableAudio()
     {
@@ -493,6 +495,11 @@ public class AudioManager : MainUniversalManagerFramework
     public void UnpausePausableAudio()
     {
         _pausableAudioBus.setPaused(false);
+    }
+
+    public void StopPausableAudio()
+    {
+        _pausableAudioBus.stopAllEvents(STOP_MODE.IMMEDIATE);
     }
 
     public void FadeOutPausableAudio()
@@ -545,6 +552,27 @@ public class AudioManager : MainUniversalManagerFramework
         }
     }
     #endregion Pausing
+    
+    #region Scene Load
+
+    private void StartOfSceneLoad()
+    {
+        FadeOutPausableAudio();
+        StopBossBackgroundAudio();
+    }
+
+    private void MiddleOfSceneLoad()
+    {
+        StopPausableAudio();
+        UnpausePausableAudio();
+        FadeInPausableAudio();
+    }
+
+    private void EndOfSceneLoad()
+    {
+        
+    }
+    #endregion
 
     /// <summary>
     /// Provides debug statements to better fix bugs
@@ -584,12 +612,12 @@ public class AudioManager : MainUniversalManagerFramework
         base.SubscribeToEvents();
         TimeManager.Instance.GetGamePausedEvent().AddListener(PausePausableAudio);
         TimeManager.Instance.GetGameUnpausedEvent().AddListener(UnpausePausableAudio);
-        SceneLoadManager.Instance.GetOnEndOfSceneLoad().AddListener(UnpausePausableAudio);
         
-        SceneLoadManager.Instance.GetOnStartOfSceneLoad().AddListener(FadeOutPausableAudio);
-        SceneLoadManager.Instance.GetOnEndOfSceneLoad().AddListener(FadeInPausableAudio);
+        SceneLoadManager.Instance.GetOnStartOfSceneLoad().AddListener(StartOfSceneLoad);
         
-        SceneLoadManager.Instance.GetOnStartOfSceneLoad().AddListener(StopBossBackgroundAudio);
+        SceneLoadManager.Instance.GetOnMiddleOfSceneLoad().AddListener(MiddleOfSceneLoad);
+        
+        SceneLoadManager.Instance.GetOnEndOfSceneLoad().AddListener(EndOfSceneLoad);
     }
 
     #endregion
