@@ -10,6 +10,7 @@ using UnityEngine;
 public class SHP_FaeBasicProjectile : HeroProjectileFramework
 {
     [SerializeField] private bool _doesProjectileBounceOffWalls;
+    [SerializeField] private float _wallBounceSpeedMultiplier = 1;
 
     [Space]
     [SerializeField] private GameObject _wallBounceEffect;
@@ -56,10 +57,12 @@ public class SHP_FaeBasicProjectile : HeroProjectileFramework
         newDirection -= startDirection;
         newDirection.Normalize();
         
+        _generalTranslate.StopMoving();
+        _generalTranslate.MultiplySpeed(_wallBounceSpeedMultiplier);
         _generalTranslate.StartMoving(newDirection);
         
         _swapTextures.SwapAllTextures();
-
+        
         _generalDamageArea.ToggleProjectileCollider(true);
     }
     

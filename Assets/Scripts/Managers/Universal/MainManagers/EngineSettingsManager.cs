@@ -89,7 +89,22 @@ public class EngineSettingsManager : MainUniversalManagerFramework
     #endregion
     
     #region Getters
+    public Vector2Int GetCurrentResolution() => new Vector2Int(Screen.currentResolution.width, Screen.currentResolution.height);
     public Vector2Int[] GetGameResolutions() => _gameResolutions;
+
+    public int GetResolutionIDFromCurrentResolution() => GetResolutionIDFromResolution(GetCurrentResolution());
+    public int GetResolutionIDFromResolution(Vector2Int resolution)
+    {
+        for (int i = 0; i < _gameResolutions.Length; i++)
+        {
+            if (resolution == _gameResolutions[i])
+            {
+                Debug.Log("Found " + resolution + " equals " + _gameResolutions[i]);
+                return i;
+            }
+        }
+        return -1;
+    }
     #endregion
 }
 

@@ -24,9 +24,10 @@ public class SH_Fae : SpecificHeroFramework
     [SerializeField] private float _manualSpeedMultiplier;
     [SerializeField] private float _manualWallDistanceRange;
     [SerializeField] private float _manualDamageCooldown;
-    [Range(0,1)][SerializeField] private float _manualBossHoming;
-    [Range(0,1)][SerializeField] private float _manualHeroHitBossHomingLost;
-    [Range(0,1)][SerializeField] private float _manualMinimumBossHoming;
+    [Range(-1,1)][SerializeField] private float _manualBossHoming;
+    [Range(-1,1)][SerializeField] private float _manualHitHeroHomingChange;
+    [Range(-1,1)][SerializeField] private float _manualHitMapBorderHomingChange;
+    [Range(-1,1)][SerializeField] private float _manualMinimumBossHoming;
     [SerializeField] private float _manualMinimumDotProduct;
     [SerializeField] private Vector3 _manualWallExtents;
     private bool _manualCanDamage = true;
@@ -313,8 +314,11 @@ public class SH_Fae : SpecificHeroFramework
             }
             else if (ManualHitHero(rayHit))
             {
-                _currentManualBossHoming -= _manualHeroHitBossHomingLost;
-                _currentManualBossHoming = Mathf.Clamp(_currentManualBossHoming, _manualMinimumBossHoming, _manualBossHoming);
+                ChangeCurrentManualHoming(_manualHitHeroHomingChange);
+            }
+            else if (ManualHitMapBorder(rayHit))
+            {
+                ChangeCurrentManualHoming(_manualHitMapBorderHomingChange);
             }
             
             Vector3 directionToBoss = ManualDirectionToBoss();
@@ -328,8 +332,14 @@ public class SH_Fae : SpecificHeroFramework
 
     private Vector3 ManualDirectionToBoss()
     {
-        return  Vector3.Lerp(_currentManualDirection, 
-            BossManager.Instance.GetDirectionToBoss(transform.position), _manualBossHoming).normalized;
+        return  Vector3.LerpUnclamped(_currentManualDirection, 
+            BossManager.Instance.GetDirectionToBoss(transform.position), _currentManualBossHoming).normalized;
+    }
+
+    private void ChangeCurrentManualHoming(float changeAmount)
+    {
+        _currentManualBossHoming += changeAmount;
+        _currentManualBossHoming = Mathf.Clamp(_currentManualBossHoming, _manualMinimumBossHoming, _manualBossHoming);
     }
 
     /// <summary>
@@ -351,6 +361,11 @@ public class SH_Fae : SpecificHeroFramework
     private bool ManualHitHero(RaycastHit rayHit)
     {
         return TagStringData.DoesColliderBelongToHero(rayHit.collider);
+    }
+
+    private bool ManualHitMapBorder(RaycastHit rayHit)
+    {
+        return TagStringData.DoesColliderBelongToMapBorder(rayHit.collider);
     }
     #endregion
 

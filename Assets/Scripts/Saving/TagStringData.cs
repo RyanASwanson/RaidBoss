@@ -10,6 +10,7 @@ public static class TagStringData
     private const string BOSS_HITBOX_TAG_NAME = "BossHitbox";
     private const string BOSS_MINION_HITBOX_TAG_NAME = "BossMinionHitbox";
     private const string HERO_HITBOX_TAG_NAME = "HeroHitbox";
+    private const string MAP_BORDER_HITBOX_TAG_NAME = "MapBorderHitbox";
     
     public static string GetBossHitboxTagName() => BOSS_HITBOX_TAG_NAME;
     public static string GetBossMinionHitboxTagName() => BOSS_MINION_HITBOX_TAG_NAME;
@@ -28,5 +29,10 @@ public static class TagStringData
     public static bool DoesColliderBelongToHero(Collider collision)
     {
         return collision.gameObject.CompareTag(HERO_HITBOX_TAG_NAME);
+    }
+
+    public static bool DoesColliderBelongToMapBorder(Collider collision)
+    {
+        return collision.gameObject.CompareTag(MAP_BORDER_HITBOX_TAG_NAME);
     }
 }

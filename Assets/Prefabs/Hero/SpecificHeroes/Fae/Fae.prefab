@@ -61,11 +61,6 @@ MonoBehaviour:
   _manualAbilityAnimationBufferBeforeDisable: 0.25
   _passiveAbilityAnimationBufferBeforeDisable: 0.25
   _heroSpecificUI: {fileID: 0}
-  _primaryAttackEulers:
-  - {x: 0, y: 45, z: 0}
-  - {x: 0, y: 135, z: 0}
-  - {x: 0, y: 225, z: 0}
-  - {x: 0, y: 315, z: 0}
   _basicAttackDirections:
   - AttackEulers: {x: 0, y: 45, z: 0}
     IsBossDirectionInPositiveX: 1
@@ -86,12 +81,13 @@ MonoBehaviour:
   _manualDuration: 6
   _heroManualDamageResistance: 0.5
   _accelerateTime: 1
-  _manualSpeedMultiplier: 1.8
+  _manualSpeedMultiplier: 1.9
   _manualWallDistanceRange: 0.4
-  _manualDamageCooldown: 0.275
+  _manualDamageCooldown: 0.25
   _manualBossHoming: 0.75
-  _manualHeroHitBossHomingLost: 0.05
-  _manualMinimumBossHoming: 0.25
+  _manualHitHeroHomingChange: -0.2
+  _manualHitMapBorderHomingChange: 0.55
+  _manualMinimumBossHoming: -0.4
   _manualMinimumDotProduct: -0.6
   _manualWallExtents: {x: 0.15, y: 0.15, z: 0.15}
   _manualAudioInterval: 0.6
