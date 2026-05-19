@@ -191,6 +191,7 @@ public class SH_Mirage : SpecificHeroFramework
     public override void EndManualAbility()
     {
         _myHeroBase.GetPathfinding().SetIsHeroUsingMovementAbility(false);
+        _myHeroBase.GetPathfinding().HeroLookAtBoss();
         
         base.EndManualAbility();
     }

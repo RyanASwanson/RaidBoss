@@ -130,7 +130,7 @@ public class HeroPathfinding : HeroChildrenFunctionality
     /// <summary>
     /// Rotates the hero to look in the direction of the boss
     /// </summary>
-    private void HeroLookAtBoss()
+    public void HeroLookAtBoss()
     {
         HeroLookAt(BossBase.Instance.transform.position);
     }
@@ -141,6 +141,8 @@ public class HeroPathfinding : HeroChildrenFunctionality
     /// <param name="lookLocation"> The location to look at </param>
     public void HeroLookAt(Vector3 lookLocation)
     {
+        StopHeroLookAt();
+        
         _heroRotationCoroutine = StartCoroutine(LookAtProcess(lookLocation));
     }
 
