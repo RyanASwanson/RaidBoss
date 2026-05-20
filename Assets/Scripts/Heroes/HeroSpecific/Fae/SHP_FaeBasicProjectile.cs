@@ -46,6 +46,11 @@ public class SHP_FaeBasicProjectile : HeroProjectileFramework
 
     public void RedirectProjectile()
     {
+        if (_associatedFae.IsUnityNull())
+        {
+            return;
+        }
+        
         Instantiate(_wallBounceEffect, transform.position, transform.rotation);
         
         Vector3 startDirection = new Vector3(transform.position.x, 0, transform.position.z);

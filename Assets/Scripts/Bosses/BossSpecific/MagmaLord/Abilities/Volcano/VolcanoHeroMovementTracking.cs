@@ -174,11 +174,15 @@ public class VolcanoHeroMovementTracking : MonoBehaviour
 
     private void SubscribeToEvents()
     {
+        _associatedHero.GetHeroDiedEvent().AddListener(DestroyTrackingObject);
+        
         GameStateManager.Instance.GetBattleWonOrLostEvent().AddListener(DestroyTrackingObject);
     }
 
     private void UnsubscribeFromEvents()
     {
+        _associatedHero.GetHeroDiedEvent().RemoveListener(DestroyTrackingObject);
+        
         GameStateManager.Instance.GetBattleWonOrLostEvent().RemoveListener(DestroyTrackingObject);
     }
 }
