@@ -185,13 +185,11 @@ public class HeroPillar : MonoBehaviour
     
     public void StartHeroSelectedAnimation()
     {
-        //_heroSpecificAnimator.SetTrigger(HERO_SPECIFIC_SELECTED_ANIM_TRIGGER);
         _heroSpecificAnimator.SetTrigger(HeroVisuals.HERO_SPECIFIC_SELECTED_ANIM_TRIGGER);
     }
     
     public void PlayHeroIdleAnimation()
     {
-        //_heroSpecificAnimator.SetBool(HERO_IDLE_ANIM_BOOL,true);
         _heroSpecificAnimator.SetBool(HeroVisuals.HERO_IDLE_ANIM_BOOL,true);
     }
 
@@ -199,7 +197,6 @@ public class HeroPillar : MonoBehaviour
 
     public void ShowPreviewPillar(bool shouldShow)
     {
-        //_previewBase.SetActive(shouldShow);
         _pillarAnimator.SetBool(HERO_PILLAR_PREVIEW_SHOW_ANIM_BOOL, shouldShow);
     }
 

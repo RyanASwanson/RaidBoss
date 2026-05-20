@@ -931,7 +931,7 @@ public class SelectionController : MonoBehaviour
             {
                 heroesToRemove.Add(SelectionManager.Instance.GetAllSelectedHeroes()[i]);
             }
-
+            
             MoveHeroPillar(i, false);
 
         }
@@ -986,6 +986,9 @@ public class SelectionController : MonoBehaviour
         if (heroPillarNum > 0 &&
             heroPillarNum < SelectionManager.Instance.GetMaxHeroesCountWithCurrentDifficulty())
         {
+            // Shows the pillar preview just to be certain that it is properly displayed
+            // Prevents situations of the pillar moving down and not showing the preview
+            _heroPillars[heroPillarNum].ShowPreviewPillar(true);
             MoveHeroPillar(heroPillarNum, false);
         }
 
