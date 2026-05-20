@@ -17,6 +17,9 @@ public class SH_Vampire : SpecificHeroFramework
     [SerializeField] private float _manualAbilityDurationWarning;
     [SerializeField] private float _manualBufferDuration;
     [SerializeField] private float _manualAbilityHealingIncrease;
+
+    [SerializeField] private HeroAdjustableStatGroup _manualAbilityStatChanges;
+    
     private WaitForSeconds _manualBufferWait;
     private WaitForSeconds _manualAbilityWait;
     private WaitForSeconds _manualAbilityDurationWarningWait;
@@ -78,6 +81,7 @@ public class SH_Vampire : SpecificHeroFramework
         
         _myHeroBase.GetHeroStats().AddDamageTakenOverrideCounter();
         _myHeroBase.GetHeroStats().ChangeCurrentHeroHealingReceivedAdditiveMultiplier(_manualAbilityHealingIncrease);
+        _myHeroBase.GetHeroStats().ApplyStatChangesToStatGroup(_manualAbilityStatChanges,1);
 
         StartCoroutine(ManualAbilityProcess());
         StartCoroutine(ManualAbilityDurationWarningTimer());
@@ -109,6 +113,8 @@ public class SH_Vampire : SpecificHeroFramework
     {
         _myHeroBase.GetHeroStats().RemoveDamageTakenOverrideCounter();
         _myHeroBase.GetHeroStats().ChangeCurrentHeroHealingReceivedAdditiveMultiplier(-_manualAbilityHealingIncrease);
+        
+        _myHeroBase.GetHeroStats().ApplyStatChangesToStatGroup(_manualAbilityStatChanges,-1);
         
         base.EndManualAbility();
     }

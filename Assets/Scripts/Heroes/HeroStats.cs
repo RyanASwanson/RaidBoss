@@ -415,7 +415,7 @@ public class HeroStats : HeroChildrenFunctionality
         ApplyStatChangesToStatGroup(statGroup,-1);
     }
 
-    private void ApplyStatChangesToStatGroup(HeroAdjustableStatGroup statGroup, float statMultiplier)
+    public void ApplyStatChangesToStatGroup(HeroAdjustableStatGroup statGroup, float statMultiplier)
     {
         for (int i = 0; i < statGroup.Stats.Length; i++)
         {

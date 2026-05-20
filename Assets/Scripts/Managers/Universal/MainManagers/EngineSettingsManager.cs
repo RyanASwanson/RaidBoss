@@ -67,7 +67,6 @@ public class EngineSettingsManager : MainUniversalManagerFramework
     
     public void SetScreenResolution(Vector2Int resolution)
     {
-        Debug.Log("Setting Resolution To " + resolution.x + " " + resolution.y);
         Screen.SetResolution(resolution.x, resolution.y, Screen.fullScreen);
     }
     
@@ -99,7 +98,6 @@ public class EngineSettingsManager : MainUniversalManagerFramework
         {
             if (resolution == _gameResolutions[i])
             {
-                Debug.Log("Found " + resolution + " equals " + _gameResolutions[i]);
                 return i;
             }
         }

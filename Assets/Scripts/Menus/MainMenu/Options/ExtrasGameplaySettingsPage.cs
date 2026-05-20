@@ -115,9 +115,4 @@ public class ExtrasGameplaySettingsPage : MonoBehaviour
         
         _bossTargetZoneOutlineStrength.onValueChanged.RemoveListener(BossTargetZoneOutlineStrengthSliderUpdated);
     }
-
-    public void ResetSaveData()
-    {
-        SaveManager.Instance.ResetGameplaySaveData();
-    }
 }
