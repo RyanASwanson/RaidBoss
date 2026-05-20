@@ -749,7 +749,7 @@ MonoBehaviour:
   _heroStats: {fileID: 2507807044940824500}
   _heroSpecificsGO: {fileID: 4263328484758919711}
   _clickCollider: {fileID: 4263328484998917752}
-  _damageCollider: {fileID: 8288659533933419998}
+  _damageCollider: {fileID: 0}
 --- !u!195 &4263328484989411222
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1026,7 +1026,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7483617843689719173}
-  - component: {fileID: 8288659533933419998}
+  - component: {fileID: 5185193816062328794}
   m_Layer: 6
   m_Name: HeroDamageHitbox
   m_TagString: HeroHitbox
@@ -1049,8 +1049,8 @@ Transform:
   m_Father: {fileID: 3352996144472192365}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &8288659533933419998
-SphereCollider:
+--- !u!136 &5185193816062328794
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1059,8 +1059,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.45
+  m_Radius: 0.44
+  m_Height: 1.3
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8288840673254048179
 GameObject:

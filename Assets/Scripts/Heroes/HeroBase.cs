@@ -22,7 +22,7 @@ public class HeroBase : MonoBehaviour
 
     [Header("Colliders")]
     [SerializeField] private Collider _clickCollider;
-    [SerializeField] private SphereCollider _damageCollider;
+    [SerializeField] private CapsuleCollider _damageCollider;
 
     private HeroSO _associatedSO;
     private GameObject _associatedHeroGameObject;
@@ -233,7 +233,7 @@ public class HeroBase : MonoBehaviour
     public HeroStats GetHeroStats() => _heroStats;
 
     public Collider GetClickCollider() => _clickCollider;
-    public SphereCollider GetHeroDamageCollider() => _damageCollider;
+    public CapsuleCollider GetHeroDamageCollider() => _damageCollider;
 
     public HeroSO GetHeroSO() => _associatedSO;
 

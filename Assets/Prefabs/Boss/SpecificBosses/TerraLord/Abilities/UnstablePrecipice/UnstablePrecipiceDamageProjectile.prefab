@@ -5283,7 +5283,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 0.8, y: 1, z: 0.8}
+  m_Size: {x: 0.9, y: 1, z: 0.9}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5659173769327510098
 GameObject:
@@ -5336,6 +5336,10 @@ MonoBehaviour:
   _doesResetRotationToDefaultOnEnable: 0
   _doesUseLocalEulerAngles: 1
   _rotationPerSecond: {x: 0, y: 80, z: 0}
+  _rotationAccelerationCurve: {fileID: 0}
+  _doesUseRotateFunction: 0
+  _rotateFunctionRotationsPerSecond: 0
+  _rotateFunctionAxis: {x: 0, y: 0, z: 0}
   _rotationIndepedentParent: {fileID: 0}
   _hasStartRotationOverride: 0
   _startRotationOverride: {x: 0, y: 0, z: 0}
