@@ -54,8 +54,10 @@ public class BossUIManager : GameUIChildrenFunctionality
     [Space] 
     [Header("BossEnrageBar")]
     [SerializeField] private CurveProgression _enrageBackgroundTransparencyCurve;
+    [SerializeField] private CurveProgression _enragedColorCurve;
     [SerializeField] private List<Image> _bossEnrageBars;
-    [SerializeField] private List<GeneralImageColor> _bossEnrageColors;
+    [SerializeField] private List<GeneralImageColor> _bossEnrageProgressColors;
+    [SerializeField] private List<GeneralImageColor> _bossEnragedColors;
 
     [Space]
     [Header("BossSpecificUI")]
@@ -311,8 +313,13 @@ public class BossUIManager : GameUIChildrenFunctionality
         for (int i = 0; i < _bossEnrageBars.Count; i++)
         {
             _bossEnrageBars[i].fillAmount = percent;
-            _bossEnrageColors[i].UpdateProgress(percent);
+            _bossEnrageProgressColors[i].UpdateProgress(percent);
         }
+    }
+    
+    private void BossEnraged()
+    {
+        _enragedColorCurve.StartMovingUpOnCurve();
     }
 
     #endregion
@@ -443,6 +450,7 @@ public class BossUIManager : GameUIChildrenFunctionality
         
         BossBase.Instance.GetBossEnrageCountdownBegunEvent().AddListener(EnrageWarningBegun);
         BossBase.Instance.GetBossEnrageCountdownProgressUpdatedEvent().AddListener(EnrageWarningProgressUpdated);
+        BossBase.Instance.GetBossEnragedEvent().AddListener(BossEnraged);
     }
 
     protected override void UnsubscribeFromEvents()
@@ -455,6 +463,7 @@ public class BossUIManager : GameUIChildrenFunctionality
         
         BossBase.Instance.GetBossEnrageCountdownBegunEvent().RemoveListener(EnrageWarningBegun);
         BossBase.Instance.GetBossEnrageCountdownProgressUpdatedEvent().RemoveListener(EnrageWarningProgressUpdated);
+        BossBase.Instance.GetBossEnragedEvent().RemoveListener(BossEnraged);
     }
     #endregion
 }

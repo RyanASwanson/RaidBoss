@@ -160,6 +160,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3783645661561410873}
     m_Modifications:
+    - target: {fileID: 1857313448091542383, guid: b30be74494dc02f429e331376638e4ad, type: 3}
+      propertyPath: _curveName
+      value: EnragedColorChanging
+      objectReference: {fileID: 0}
     - target: {fileID: 4578262011095059493, guid: b30be74494dc02f429e331376638e4ad, type: 3}
       propertyPath: m_Name
       value: BaseLevelCanvas
@@ -404,6 +408,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2243341494780792966 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1857313448091542383, guid: b30be74494dc02f429e331376638e4ad, type: 3}
+  m_PrefabInstance: {fileID: 497493319253816297}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 508c048b50abf854791f2f498bb01037, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2243342284602839870 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1857313070622007511, guid: b30be74494dc02f429e331376638e4ad, type: 3}
@@ -445,6 +460,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2679291318533665686 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2578788848854909055, guid: b30be74494dc02f429e331376638e4ad, type: 3}
+  m_PrefabInstance: {fileID: 497493319253816297}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04c4867ba05fc684cb0ee92ea1e9ed1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &2799560610426786237 stripped
@@ -676,6 +702,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 508c048b50abf854791f2f498bb01037, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5198526637260865865 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5675542574641181344, guid: b30be74494dc02f429e331376638e4ad, type: 3}
+  m_PrefabInstance: {fileID: 497493319253816297}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04c4867ba05fc684cb0ee92ea1e9ed1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &5728264264999072875 stripped
@@ -1290,6 +1327,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4510363601482703036, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
+      propertyPath: _enragedColorCurve
+      value: 
+      objectReference: {fileID: 2243341494780792966}
+    - target: {fileID: 4510363601482703036, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
       propertyPath: _damageNumbersOrigin
       value: 
       objectReference: {fileID: 751706027441386050}
@@ -1346,6 +1387,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 231470580143480320}
     - target: {fileID: 4510363601482703036, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
+      propertyPath: _bossEnragedColors.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4510363601482703036, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
       propertyPath: _staggerRecentBars.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -1382,6 +1427,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4510363601482703036, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
+      propertyPath: _bossEnragedColors.Array.data[0]
+      value: 
+      objectReference: {fileID: 5198526637260865865}
+    - target: {fileID: 4510363601482703036, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
+      propertyPath: _bossEnragedColors.Array.data[1]
+      value: 
+      objectReference: {fileID: 2679291318533665686}
+    - target: {fileID: 4510363601482703036, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
       propertyPath: _staggerRecentBars.Array.data[0]
       value: 
       objectReference: {fileID: 6747627274898715656}
@@ -1399,6 +1452,10 @@ PrefabInstance:
       objectReference: {fileID: 7707430240431624979}
     - target: {fileID: 4510363601482703036, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
       propertyPath: _staggerChipScaleCurves.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4510363601482703036, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
+      propertyPath: _bossEnrageProgressColors.Array.size
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4510363601482703036, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
@@ -1425,6 +1482,14 @@ PrefabInstance:
       propertyPath: _staggerChipScaleCurves.Array.data[1]
       value: 
       objectReference: {fileID: 5197890506507316637}
+    - target: {fileID: 4510363601482703036, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
+      propertyPath: _bossEnrageProgressColors.Array.data[0]
+      value: 
+      objectReference: {fileID: 5991743543004215274}
+    - target: {fileID: 4510363601482703036, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
+      propertyPath: _bossEnrageProgressColors.Array.data[1]
+      value: 
+      objectReference: {fileID: 2972890317601438539}
     - target: {fileID: 4510363601482703036, guid: ae7cd8d17cc43ed4cb38cf2a196d6b26, type: 3}
       propertyPath: _healthChipRectTransforms.Array.data[0]
       value: 
