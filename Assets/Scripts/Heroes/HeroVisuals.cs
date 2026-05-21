@@ -111,10 +111,23 @@ public class HeroVisuals : HeroChildrenFunctionality
     {
         float healthPercent = _myHeroBase.GetHeroStats().GetHeroHealthPercentage();
 
-        _recentHealthPopUp.color = DetermineHealthPopUpColor(healthPercent);
-        _recentHealthPopupAnimator.SetTrigger(SHOW_RECENT_HEALTH_POP_UP_ANIM_TRIGGER);
+        SetCustomHealthPopUp(DetermineHealthPopUpColor(healthPercent),true);
 
         float newScale = DetermineRecentHealthPopUpScale(healthPercent);
+        SetCustomHealthPopUpScale(newScale);
+    }
+
+    public void SetCustomHealthPopUp(Color popUpColor, bool doesPlayPopUpAnimation)
+    {
+        _recentHealthPopUp.color = popUpColor;
+        if (doesPlayPopUpAnimation)
+        {
+            _recentHealthPopupAnimator.SetTrigger(SHOW_RECENT_HEALTH_POP_UP_ANIM_TRIGGER);
+        }
+    }
+
+    public void SetCustomHealthPopUpScale(float newScale)
+    {
         _recentHealthOrigin.transform.localScale = new Vector3(newScale, newScale, newScale);
     }
 
