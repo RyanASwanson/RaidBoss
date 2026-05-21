@@ -44,14 +44,18 @@ public class AudioManager : MainUniversalManagerFramework
 
     private void SetInitialAudioVolumeValues()
     {
+        Debug.Log("Setting Initial Audio Volumes");
         _activeVca = GetVCAFromAudioVCAType(EAudioVCAType.Master);
         _activeVca.setVolume(SaveManager.Instance.GetMasterVolume());
+        Debug.Log("Setting Initial Master Volume to " + SaveManager.Instance.GetMasterVolume());
         
         _activeVca = GetVCAFromAudioVCAType(EAudioVCAType.Music);
         _activeVca.setVolume(SaveManager.Instance.GetMusicVolume());
+        Debug.Log("Setting Initial Music Volume to " + SaveManager.Instance.GetMusicVolume());
         
         _activeVca = GetVCAFromAudioVCAType(EAudioVCAType.SoundEffect);
         _activeVca.setVolume(SaveManager.Instance.GetSFXVolume());
+        Debug.Log("Setting Initial SFX Volume to " + SaveManager.Instance.GetSFXVolume());
     }
     #endregion
     
@@ -604,6 +608,8 @@ public class AudioManager : MainUniversalManagerFramework
     {
         base.SetUpMainManager();
         FMODUnity.RuntimeManager.StudioSystem.getBus(_generalStartingBusPath + _pausableBusPath, out _pausableAudioBus);
+        
+        Debug.Log("Setting Up Audio Manager");
         SetInitialAudioVolumeValues();
     }
 

@@ -166,9 +166,12 @@ public class SaveManager : MainUniversalManagerFramework
     /// </summary>
     public void Load()
     {
+        Debug.Log("Calling Load On Save Data");
         //Loads all variables in Json into the Game Save Data class
         if (File.Exists(_path + "Data.json"))
         {
+            Debug.Log("Loading Save Data");
+            
             var json = File.ReadAllText(_path + "Data.json");
             GSD = JsonUtility.FromJson<GameSaveData>(json);
 
@@ -180,6 +183,8 @@ public class SaveManager : MainUniversalManagerFramework
                 GSD.GetGameplaySaveData().GetCurrentMythicPlusLevelSelected());
 
             UpdateOldSaveData();
+            
+            Debug.Log("Volumes: Master "+ GSD.GetGeneralSaveData().MasterVolume + " Music " + GSD.GetGeneralSaveData().MusicVolume + " " +  GSD.GetGeneralSaveData().SfxVolume);
         }
         else
         {
