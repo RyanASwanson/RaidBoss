@@ -86,7 +86,7 @@ public class MissionTutorialVisuals : MonoBehaviour
 
     private void TogglePauseButton()
     {
-        PauseUIManager.Instance.TutorialToggle(_isTutorialOpen);
+        //PauseUIManager.Instance.TutorialToggle(_isTutorialOpen);
     }
 
     private void ToggleTutorialOpen(bool isOpen)

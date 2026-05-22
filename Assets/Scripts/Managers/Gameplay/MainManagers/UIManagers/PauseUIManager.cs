@@ -17,6 +17,13 @@ public class PauseUIManager : GameUIChildrenFunctionality
     private void SetUpPauseButton()
     {
         _pauseButton.onClick.AddListener(PauseButtonPressed);
+
+        TogglePauseButtonInteractability(false);
+    }
+
+    private void SceneFullyLoaded()
+    {
+        TogglePauseButtonInteractability(true);
     }
     
     /// <summary>
@@ -40,7 +47,12 @@ public class PauseUIManager : GameUIChildrenFunctionality
 
     public void TutorialToggle(bool isTutorialActive)
     {
-        _pauseButton.interactable = !isTutorialActive;
+        TogglePauseButtonInteractability(!isTutorialActive);
+    }
+
+    public void TogglePauseButtonInteractability(bool isInteractable)
+    {
+        _pauseButton.interactable = isInteractable;
     }
 
     private void GameWonOrLost()
@@ -73,8 +85,19 @@ public class PauseUIManager : GameUIChildrenFunctionality
         TimeManager.Instance.GetGamePausedEvent().AddListener(GamePausedUI);
         TimeManager.Instance.GetGameUnpausedEvent().AddListener(GameUnpausedUI);
         
+        SceneLoadManager.Instance.GetOnEndOfSceneLoad().AddListener(SceneFullyLoaded);
+        
         GameStateManager.Instance.GetBattleWonOrLostEvent().AddListener(GameWonOrLost);
     }
 
+    protected override void UnsubscribeFromEvents()
+    {
+        TimeManager.Instance.GetGamePausedEvent().RemoveListener(GamePausedUI);
+        TimeManager.Instance.GetGameUnpausedEvent().RemoveListener(GameUnpausedUI);
+        
+        SceneLoadManager.Instance.GetOnEndOfSceneLoad().RemoveListener(SceneFullyLoaded);
+        
+        GameStateManager.Instance.GetBattleWonOrLostEvent().RemoveListener(GameWonOrLost);
+    }
     #endregion
 }
