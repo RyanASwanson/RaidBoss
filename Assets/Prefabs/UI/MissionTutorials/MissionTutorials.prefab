@@ -72,7 +72,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1500, y: 144}
+  m_SizeDelta: {x: 75, y: 144}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &596193118770896209
 CanvasRenderer:
@@ -692,6 +692,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _doesCountLines: 0
   _lineDistance: 0
+  _titleBackgroundWidthIncrease: 75
   _titleText: {fileID: 144752530818274355}
   _titleBackground: {fileID: 1174531711722176571}
   _missionPageHolder: {fileID: 170076674449984641}
@@ -1471,6 +1472,8 @@ MonoBehaviour:
   _doesResetToDefaultProgressOnEnable: 0
   _doesStartMovingUpOnEnable: 0
   _doesStartMovingInCurrentDirectionOnEnable: 0
+  _hasAutomaticStartMovingDelay: 0
+  _automaticStartMovingDelay: 0
   _doesAutomaticallyMoveDownOnHittingMax: 0
   _doesAutomaticallyMoveUpOnHittingMin: 0
   _hasIncreaseDelay: 0
@@ -1563,6 +1566,8 @@ MonoBehaviour:
   _doesResetToDefaultProgressOnEnable: 0
   _doesStartMovingUpOnEnable: 0
   _doesStartMovingInCurrentDirectionOnEnable: 0
+  _hasAutomaticStartMovingDelay: 0
+  _automaticStartMovingDelay: 0
   _doesAutomaticallyMoveDownOnHittingMax: 0
   _doesAutomaticallyMoveUpOnHittingMin: 0
   _hasIncreaseDelay: 0
@@ -1655,6 +1660,8 @@ MonoBehaviour:
   _doesResetToDefaultProgressOnEnable: 0
   _doesStartMovingUpOnEnable: 0
   _doesStartMovingInCurrentDirectionOnEnable: 0
+  _hasAutomaticStartMovingDelay: 0
+  _automaticStartMovingDelay: 0
   _doesAutomaticallyMoveDownOnHittingMax: 0
   _doesAutomaticallyMoveUpOnHittingMin: 0
   _hasIncreaseDelay: 0
@@ -2100,6 +2107,8 @@ MonoBehaviour:
   _doesResetToDefaultProgressOnEnable: 1
   _doesStartMovingUpOnEnable: 0
   _doesStartMovingInCurrentDirectionOnEnable: 0
+  _hasAutomaticStartMovingDelay: 0
+  _automaticStartMovingDelay: 0
   _doesAutomaticallyMoveDownOnHittingMax: 1
   _doesAutomaticallyMoveUpOnHittingMin: 0
   _hasIncreaseDelay: 0
@@ -2327,6 +2336,7 @@ MonoBehaviour:
   - {fileID: 5641269513692647845}
   - {fileID: 9090351857564857710}
   _curveScaleProgression: {fileID: 8592419753767023278}
+  _hoverScaleProgression: {fileID: 0}
 --- !u!222 &4643482499337488493
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2934,6 +2944,8 @@ MonoBehaviour:
   _doesResetToDefaultProgressOnEnable: 0
   _doesStartMovingUpOnEnable: 0
   _doesStartMovingInCurrentDirectionOnEnable: 0
+  _hasAutomaticStartMovingDelay: 0
+  _automaticStartMovingDelay: 0
   _doesAutomaticallyMoveDownOnHittingMax: 0
   _doesAutomaticallyMoveUpOnHittingMin: 0
   _hasIncreaseDelay: 0
@@ -3204,7 +3216,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 1.25, y: 0}
   m_SizeDelta: {x: 100, y: 33.333332}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &144752530818274355
@@ -3221,5 +3233,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hasDefaultText: 1
   _defaultText: Title
+  _doesRemoveColorFromBackgroundText: 1
+  _doesRemoveLineBreaks: 0
   _text: {fileID: 2178549218365832154}
   _backgroundText: {fileID: 2680490310078450643}
