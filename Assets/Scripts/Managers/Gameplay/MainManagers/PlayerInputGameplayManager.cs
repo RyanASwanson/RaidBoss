@@ -44,6 +44,8 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     [Space]
     [SerializeField] private GameObject _heroDirectIcon;
 
+    private UnityEvent<HeroBase> _onHeroControlled = new UnityEvent<HeroBase>();
+
     private UniversalPlayerInputActions _universalPlayerInputActions;
 
     private bool _isSubscribedToInput = false;
@@ -165,19 +167,16 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
             return;
         }
         
-        /*Debug.Log("LivingHeroes");
-        foreach (HeroBase hero in HeroesManager.Instance.GetCurrentLivingHeroes())
-        {
-            Debug.Log(hero.GetHeroSO().GetHeroName());
-        }*/
-        
         ClearControlledHeroes();
         
         AudioManager.Instance.PlaySpecificAudio(
             AudioManager.Instance.GeneralHeroAudio.InteractionAudio.HeroControlled);
 
         newHero.InvokeHeroControlledBegin();
+        
         _controlledHeroes.Add(newHero);
+        
+        InvokeOnHeroControlled(newHero);
     }
 
     public void NewControlledHeroByID(int id)
@@ -485,6 +484,14 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     
     
     #endregion
+    
+    #region Events
+
+    public void InvokeOnHeroControlled(HeroBase heroBase)
+    {
+        _onHeroControlled?.Invoke(heroBase);
+    }
+    #endregion
 
     #region Getters
     /// <summary>
@@ -500,6 +507,8 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     }
 
     public List<HeroBase> GetAllControlledHeroes() => _controlledHeroes;
+
+    public UnityEvent<HeroBase> GetOnHeroControlledEvent => _onHeroControlled;
 
     #endregion
 }

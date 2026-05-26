@@ -23,6 +23,9 @@ public class MissionSO : ScriptableObject
     [Header("Tutorials")]
     [SerializeField] private TutorialPage[] _tutorialPages;
 
+    [Space]
+    [SerializeField] private GameObject _customTutorial;
+
     [Space] 
     [Header("Unlocks")] 
     [SerializeField] private CharacterSO _characterUnlock;
@@ -61,6 +64,8 @@ public class MissionSO : ScriptableObject
     public MissionDisplayHighlight[] GetMissionDisplayHighlights() => _missionDisplayHighlights;
 
     public TutorialPage[] GetTutorialPages() => _tutorialPages;
+    public bool GetHasCustomTutorial() => !_customTutorial.IsUnityNull();
+    public GameObject GetCustomTutorial() =>_customTutorial;
     
     public CharacterSO GetCharacterUnlock() =>_characterUnlock;
     public EGameDifficulty GetDifficultyUnlock() =>_difficultyUnlock;
