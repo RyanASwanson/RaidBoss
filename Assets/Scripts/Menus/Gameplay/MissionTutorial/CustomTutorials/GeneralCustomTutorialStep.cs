@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,7 +10,13 @@ public class GeneralCustomTutorialStep : MonoBehaviour
     [SerializeField] private RectTransform _generalStepTransform;
     [SerializeField] private RectTransform _backgroundTransform;
 
+    [Space]
     [SerializeField] private TextWithBackground _tutorialText;
+    [SerializeField] private RectTransform _textTransform;
+
+    [Space] 
+    [SerializeField] private Image _tutorialImage;
+    [SerializeField] private RectTransform _tutorialImageTransform;
 
     [Space] 
     [SerializeField] private float _buttonInteractabilityDelay;
@@ -75,6 +82,22 @@ public class GeneralCustomTutorialStep : MonoBehaviour
         _continueButtonTransform.anchoredPosition = continueButtonTransform;
         
         _tutorialText.UpdateText(_currentTutorialStep.GeneralStepUI.CustomTutorialUIText);
+        
+        _textTransform.anchoredPosition = _currentTutorialStep.GeneralStepUI.CustomTutorialTextOffsetPosition;
+
+        if (!_currentTutorialStep.GeneralStepUI.CustomTutorialImage.IsUnityNull())
+        {
+            _tutorialImage.sprite = _currentTutorialStep.GeneralStepUI.CustomTutorialImage;
+            _tutorialImage.color = new Color(1f, 1f, 1f, 1f);
+            
+            _tutorialImageTransform.anchoredPosition = _currentTutorialStep.GeneralStepUI.CustomTutorialImageOffsetPosition;
+            _tutorialImageTransform.sizeDelta = _currentTutorialStep.GeneralStepUI.CustomTutorialImageDimensions;
+            _tutorialImageTransform.localScale = _currentTutorialStep.GeneralStepUI.CustomTutorialImageScale;
+        }
+        else
+        {
+            _tutorialImage.color = new Color(1f, 1f, 1f, 0f);
+        }
 
         StartButtonInteractabilityDelay();
     }

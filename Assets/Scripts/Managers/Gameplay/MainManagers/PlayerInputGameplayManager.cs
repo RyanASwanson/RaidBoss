@@ -299,6 +299,14 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
         {
             return;
         }
+
+        if (SelectionManager.Instance.GetSelectedMissionOut(out MissionSO missionSO))
+        {
+            if (!missionSO.GetDoesAutomaticallySelectFirstHero())
+            {
+                return;
+            }
+        }
         
         if (_controlledHeroes.Count == 0)
         {

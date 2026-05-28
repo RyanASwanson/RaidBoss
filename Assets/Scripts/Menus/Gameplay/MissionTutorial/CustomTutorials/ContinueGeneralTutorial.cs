@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class ContinueGeneralTutorial : MonoBehaviour
 {
-    public void ContinueTutorial()
+    public void ProgressTutorial()
+    {
+        BaseCustomTutorial.Instance.ProgressToNextTutorialStep();
+    }
+    
+    public void CloseCurrentTutorial()
     {
         BaseCustomTutorial.Instance.CloseCurrentTutorialStepSection();
     }

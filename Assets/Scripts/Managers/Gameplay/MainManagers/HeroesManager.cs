@@ -86,6 +86,14 @@ public class HeroesManager : MainGameplayManagerFramework
         return heroBase;
     }
 
+    public void ToggleHeroesAbleToUseAbilities(bool canHeroesUseAbilities)
+    {
+        foreach (HeroBase hero in _currentLivingHeroes)
+        {
+            hero.GetSpecificHeroScript().SetCanHeroUseAbilities(canHeroesUseAbilities);
+        }
+    }
+
     /// <summary>
     /// Called by a hero when they die
     /// </summary>

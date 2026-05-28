@@ -79,7 +79,7 @@ public class SH_Fae : SpecificHeroFramework
         CreateBasicAttackProjectiles();
     }
 
-    public override bool ConditionsToActivateBasicAbilities()
+    public override bool DoesMeetConditionsToActivateBasicAbilities()
     {
         return true;
     }

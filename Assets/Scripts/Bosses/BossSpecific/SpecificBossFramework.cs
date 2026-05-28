@@ -8,10 +8,12 @@ using UnityEngine;
 /// </summary>
 public abstract class SpecificBossFramework : MonoBehaviour
 {
-    [Header("Attacks")]
-    [SerializeField] protected List<SpecificBossAbilityFramework> _startingBossAbilities;
+    [Header("Attacks")] 
+    [SerializeField] protected SpecificBossAbilityFramework[] _startingBossAbilities;
     [SerializeField] protected int _attackRepititionProtection;
+    protected SpecificBossAbilityFramework[] _allActivatableBossAbilities;
     protected int _attackRepetitionCounter = 0;
+    
 
     [Space]
     [SerializeField] protected SpecificBossAbilityFramework _abilityLocked;
@@ -20,6 +22,8 @@ public abstract class SpecificBossFramework : MonoBehaviour
     protected Queue<SpecificBossAbilityFramework> _bossCooldownQueue = new Queue<SpecificBossAbilityFramework>();
     protected SpecificBossAbilityFramework _currentAbility;
 
+    protected bool _canAutomaticallyUseAbilities = true;
+        
     protected BossBase _myBossBase;
 
     [Header("GameObjects")]
@@ -52,7 +56,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
         SetUpReadyBossAbilities();
 
         AssignInitialHeroTargets();
-
+        
         StartCoroutine(InitialAttackDelay());
     }
 
@@ -68,7 +72,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
     private IEnumerator InitialAttackDelay()
     {
         yield return new WaitForSeconds(_myBossBase.GetBossSO().GetFightStartDelay());
-        StartNextAbility();
+        StartNextAbility(false);
     }
 
     /// <summary>
@@ -80,21 +84,37 @@ public abstract class SpecificBossFramework : MonoBehaviour
         if (SelectionManager.Instance.GetSelectedMissionStatModifiersOut(out MissionStatModifiers missionStatModifiers))
         {
             usableAbilities = missionStatModifiers.GetBossAbilitiesUsable();
+            _canAutomaticallyUseAbilities = missionStatModifiers.GetCanBossAutomaticallyUseAbilities();
         }
         else
         {
             usableAbilities = new bool[]{true, true, true, true, true};
         }
+
+        int totalActivatableAbilities = _startingBossAbilities.Length;
+        if (!_abilityLocked.IsUnityNull())
+        {
+            totalActivatableAbilities++;
+        }
+        _allActivatableBossAbilities = new SpecificBossAbilityFramework[totalActivatableAbilities];
         
         // Iterates through each ability
-        for (int i = 0; i < _startingBossAbilities.Count; i++)
+        for (int i = 0; i < _startingBossAbilities.Length; i++)
         {
+            _allActivatableBossAbilities[i] = _startingBossAbilities[i];
+            
             if (!usableAbilities[i])
             {
                 _attackRepititionProtection = Mathf.Clamp(_attackRepititionProtection -1, 0, int.MaxValue);
                 continue;
             }
             AddAbilityInitiallyToBossReadyAttacks(_startingBossAbilities[i]);
+        }
+
+
+        if (!_abilityLocked.IsUnityNull())
+        {
+            _allActivatableBossAbilities[_startingBossAbilities.Length] = _abilityLocked;
         }
     }
 
@@ -345,26 +365,48 @@ public abstract class SpecificBossFramework : MonoBehaviour
     /// <summary>
     /// Activates the next ability for the boss to use
     /// </summary>
-    protected virtual void StartNextAbility()
+    protected virtual void StartNextAbility(bool isAbilityForceActivated)
     {
         if (GameStateManager.Instance.GetIsFightOver())
         {
             return;
         }
         
+        if (!_canAutomaticallyUseAbilities && !isAbilityForceActivated)
+        {
+            return;
+        }
 
-        _currentAbility = SelectNextAbility();
+        // Attempts to use the ability
+        // Returns true if the ability was used
+        if (!StartAbility(SelectNextAbility(),isAbilityForceActivated) && !isAbilityForceActivated)
+        {
+            // If the ability was not able to be used, try another ability
+            StartNextAbility(isAbilityForceActivated);
+        }
+    }
+    
+    public virtual bool StartAbility(SpecificBossAbilityFramework bossAbility, bool isAbilityForceActivated)
+    {
+        if (!_canAutomaticallyUseAbilities && !isAbilityForceActivated)
+        {
+            return false;
+        }
+        
+        _currentAbility = bossAbility;
         
         if (_currentAbility.GetCanAbilityBeUsed())
         {
             AddAbilityToEndOfCooldownQueue(_currentAbility);
             _nextAttackProcess = StartCoroutine(UseNextAbilityProcess(_currentAbility));
+            return true;
         }
-        else
-        {
-            // Skip the current ability
-            StartNextAbility();
-        }
+        return false;
+    }
+
+    public virtual bool StartAbility(int abilityID, bool isAbilityForceActivated)
+    {
+        return StartAbility(_allActivatableBossAbilities[abilityID], isAbilityForceActivated);
     }
 
     /// <summary>
@@ -409,7 +451,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
         _nextAttackProcess = null;
 
         // Uses the next ability to repeat the cycle
-        StartNextAbility();
+        StartNextAbility(false);
     }
 
     /// <summary>
@@ -465,9 +507,18 @@ public abstract class SpecificBossFramework : MonoBehaviour
 
     public virtual void SkipCurrentAttack()
     {
-        _currentAbility.StopBossAbility();
+        StopCurrentAttack();
+        
         StopNextAttackProcess();
-        StartNextAbility();
+        StartNextAbility(false);
+    }
+
+    public virtual void StopCurrentAttack()
+    {
+        if (!_currentAbility.IsUnityNull())
+        {
+            _currentAbility.StopBossAbility();
+        }
     }
 
     /// <summary>
@@ -491,7 +542,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
         }
         
         // Starts up the process of using abilities again
-        StartNextAbility();
+        StartNextAbility(false);
 
         // Invokes the event for the boss no longer staggered
         _myBossBase.InvokeBossNoLongerStaggeredEvent();
@@ -510,10 +561,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
         _preventAttacksCoroutine = StartCoroutine(StaggerBossForDuration
             (BossStats.Instance.GetStaggerDuration()));
 
-        if (!_currentAbility.IsUnityNull())
-        {
-            _currentAbility.StopBossAbility();
-        }
+        StopCurrentAttack();
     }
 
     /// <summary>
@@ -530,10 +578,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
     /// </summary>
     protected virtual void BossDied()
     {
-        if (!_currentAbility.IsUnityNull())
-        {
-            _currentAbility.StopBossAbility();
-        }
+        StopCurrentAttack();
 
         AttemptPlaySpecificBossDiedAudio();
         CheckToUnlockSpecialistAchievement();
@@ -651,5 +696,11 @@ public abstract class SpecificBossFramework : MonoBehaviour
     public List<HeroBase> GetBossAttackTargets() => _bossAttackTargets;
 
     public Animator GetBossSpecificAnimator() => _bossSpecificAnimator;
+    #endregion
+    
+    #region Setters
+
+    public void SetCanAutomaticallyUseAbilities(bool canAutomaticallyUseAbilities) => _canAutomaticallyUseAbilities = canAutomaticallyUseAbilities;
+
     #endregion
 }

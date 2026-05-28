@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using FMOD.Studio;
@@ -30,6 +31,8 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     
     protected bool _isManualAbilityActive = false;
 
+    protected bool _canHeroUseAbilities = true;
+
     [Space]
     [Header("Animations")]
     [SerializeField] protected Animator _heroSpecificAnimator;
@@ -54,6 +57,8 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     protected Coroutine _attemptingBasicAbilitiesCoroutine;
     protected Coroutine _basicAbilityCooldownCoroutine;
     protected Coroutine _manualAbilityCooldownCoroutine;
+
+    protected bool _isSubscribedToEvents = false;
 
     #region Basic Abilities
 
@@ -123,7 +128,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     
     public virtual IEnumerator CheckingToAttemptBasicAbilities()
     {
-        while (!ConditionsToActivateBasicAbilities())
+        while (!DoesMeetConditionsToActivateBasicAbilities())
         {
             yield return new WaitForFixedUpdate();
         }
@@ -137,9 +142,9 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     ///     for the basic ability to be used
     /// </summary>
     /// <returns></returns>
-    public virtual bool ConditionsToActivateBasicAbilities()
+    public virtual bool DoesMeetConditionsToActivateBasicAbilities()
     {
-        return !_myHeroBase.GetPathfinding().IsHeroMovingWithPathfinding();
+        return !_myHeroBase.GetPathfinding().IsHeroMovingWithPathfinding() && _canHeroUseAbilities;
     }
 
     protected virtual void TriggerBasicAbilityAnimation()
@@ -420,6 +425,11 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         SubscribeToEvents();
     }
 
+    protected void OnDestroy()
+    {
+        UnsubscribeFromEvents();
+    }
+
     private void SetInitialValues()
     {
         _basicAbilityAnimationDisableWait = new WaitForSeconds(_basicAbilityAnimationBufferBeforeDisable);
@@ -486,16 +496,30 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     /// </summary>
     protected virtual void SubscribeToEvents()
     {
+        if (_isSubscribedToEvents)
+        {
+            return;
+        }
+        
         GameStateManager.Instance.GetStartOfBattleEvent().AddListener(BattleStarted);
         GameStateManager.Instance.GetBattleWonEvent().AddListener(BattleWon);
         _myHeroBase.GetHeroDiedEvent().AddListener(HeroDied);
+
+        _isSubscribedToEvents = true;
     }
 
     protected virtual void UnsubscribeFromEvents()
     {
+        if (!_isSubscribedToEvents)
+        {
+            return;
+        }
+        
         GameStateManager.Instance.GetStartOfBattleEvent().RemoveListener(BattleStarted);
         GameStateManager.Instance.GetBattleWonEvent().RemoveListener(BattleWon);
         _myHeroBase.GetHeroDiedEvent().RemoveListener(HeroDied);
+
+        _isSubscribedToEvents = false;
     }
 
     #region Getters
@@ -506,5 +530,11 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     public Animator GetSpecificHeroAnimator() => _heroSpecificAnimator;
     
     public GameObject GetSpecificHeroUI() => _heroSpecificUI;
+    #endregion
+
+    #region MyRegion
+
+    public void SetCanHeroUseAbilities(bool canUseAbilities) => _canHeroUseAbilities = canUseAbilities;
+
     #endregion
 }

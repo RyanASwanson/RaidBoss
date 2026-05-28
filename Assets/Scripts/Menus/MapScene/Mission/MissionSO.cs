@@ -9,6 +9,7 @@ public class MissionSO : ScriptableObject
     [SerializeField] private int _missionID;
     [TextArea(1, 2)] [SerializeField] private string _missionName;
     [SerializeField] private float _missionTitleScale = 1;
+    [SerializeField] private bool _doesAutomaticallySelectFirstHero = true;
 
     [Space] 
     [Header("Selection")]
@@ -56,6 +57,7 @@ public class MissionSO : ScriptableObject
     public int GetMissionID() =>_missionID;
     public string GetMissionName() =>_missionName;
     public float GetMissionTitleScale() =>_missionTitleScale;
+    public bool GetDoesAutomaticallySelectFirstHero() => _doesAutomaticallySelectFirstHero;
     
     public EGameDifficulty GetAssociatedDifficulty() =>_associatedDifficulty;
     public LevelSO GetAssociatedLevel() =>_associatedLevel;
@@ -91,6 +93,8 @@ public class MissionStatModifiers
     [SerializeField] private float _bossEnrageTimeMultiplier = 1;
     [SerializeField] private float _bossEnrageDamageMultiplier = 1;
     
+    [Space]
+    [SerializeField] private bool _canBossAutomaticallyUseAbilities = true;
     [SerializeField] private bool[] _bossAbilitiesUsable = { true, true, true, true, true };
 
     [Space] 
@@ -107,6 +111,8 @@ public class MissionStatModifiers
     public float GetBossDamageResistanceChangeOnStaggerMultiplier() => _bossDamageResistanceChangeOnStaggerMultiplier;
     public float GetBossEnrageTimeMultiplier() => _bossEnrageTimeMultiplier;
     public float GetBossEnrageDamageMultiplier() => _bossEnrageDamageMultiplier;
+    
+    public bool GetCanBossAutomaticallyUseAbilities() => _canBossAutomaticallyUseAbilities;
     public bool[] GetBossAbilitiesUsable() =>_bossAbilitiesUsable;
     public bool GetIsBossAbilityUsable(int abilityID) =>_bossAbilitiesUsable[abilityID];
     

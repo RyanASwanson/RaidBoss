@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class BaseCustomTutorial : MonoBehaviour
 {
@@ -11,10 +13,13 @@ public class BaseCustomTutorial : MonoBehaviour
     [SerializeField] protected CustomTutorialStep[] _customTutorialSteps;
     protected int _currentTutorialStepIndex = -1;
     protected CustomTutorialStep _currentTutorialStep;
+    protected CustomTutorialIndividualStepUISection _currentIndividualStepUISection;
+
+    [SerializeField] protected bool _doesStopHeroAbilitiesOnBattleStart;
     
     [Space]
     [SerializeField] protected GameObject _individualStepSection;
-    protected GameObject[] _individualStepSections;
+    protected CustomTutorialIndividualStepUISection[] _individualStepSections;
     
     [Space] 
     [SerializeField] protected GeneralCustomTutorialStep _generalCustomTutorialStep;
@@ -22,21 +27,7 @@ public class BaseCustomTutorial : MonoBehaviour
     [SerializeField] protected CurveProgression _customTutorialAlphaProgression;
 
     [SerializeField] protected UnityEvent _onSetUpComplete;
-
-    public virtual void SetUpBaseCustomTutorial()
-    {
-        SetUpInstance();
-
-        SetUpGeneralCustomTutorialStep();
-        CreateIndividualCustomStepUI();
-        
-        InvokeOnSetUpComplete();
-    }
-
-    protected virtual void SetUpInstance()
-    {
-        Instance = this;
-    }
+    [SerializeField] protected UnityEvent _onBattleStart;
 
     protected virtual void SetUpGeneralCustomTutorialStep()
     {
@@ -45,32 +36,43 @@ public class BaseCustomTutorial : MonoBehaviour
 
     protected virtual void CreateIndividualCustomStepUI()
     {
-        _individualStepSections = new GameObject[_customTutorialSteps.Length];
+        _individualStepSections = new CustomTutorialIndividualStepUISection[_customTutorialSteps.Length];
         
         for (int i = 0; i < _customTutorialSteps.Length; i++)
         {
-            _individualStepSections[i] = Instantiate(_individualStepSection, _stepsHolder.transform);
+            _individualStepSections[i] = 
+                Instantiate(_individualStepSection, _stepsHolder.transform).GetComponent<CustomTutorialIndividualStepUISection>();
             
-            SetUpCustomTutorialStepUI(i);
+            _individualStepSections[i].SetUpCustomTutorialIndividualStepUISection(_customTutorialSteps[i].CustomIndividualStepUI);
             
-            _individualStepSections[i].SetActive(false);
+            SetUpCustomIndividualTutorialStepUI(i);
         }
         
     }
 
-    protected virtual void SetUpCustomTutorialStepUI(int stepIndex)
+    protected virtual void SetUpCustomIndividualTutorialStepUI(int stepIndex)
     {
-        _individualStepSections[stepIndex].name = _customTutorialSteps[stepIndex].StepName;
+        _individualStepSections[stepIndex].gameObject.name = _customTutorialSteps[stepIndex].StepName;
         
-        if (!_customTutorialSteps[stepIndex].CustomStepUI.IsUnityNull())
+        if (!_customTutorialSteps[stepIndex].IndividualStepUI.IsUnityNull())
         {
-            Instantiate(_customTutorialSteps[stepIndex].CustomStepUI, _individualStepSections[stepIndex].transform);
+            GameObject newestIndividualStep = Instantiate(_customTutorialSteps[stepIndex].IndividualStepUI, Vector3.zero, Quaternion.identity);
+
+            _individualStepSections[stepIndex].SetUpChildIndividualTutorialUI(newestIndividualStep);
+        }
+    }
+
+    protected virtual void SetUpCustomTutorialObject(int stepIndex)
+    {
+        if (!_customTutorialSteps[stepIndex].CustomTutorialStepObjects.IsUnityNull())
+        {
+            Instantiate(_customTutorialSteps[stepIndex].CustomTutorialStepObjects, _customTutorialSteps[stepIndex].CustomStepObjectPosition, Quaternion.identity);
         }
     }
 
     public virtual void ProgressToNextTutorialStep()
     {
-        Debug.Log("ProgressToNextTutorialStep" + _currentTutorialStepIndex);
+        Debug.Log("ProgressToNextTutorialStep" + (_currentTutorialStepIndex+1));
         if (_currentTutorialStepIndex >= _customTutorialSteps.Length)
         {
             return;
@@ -78,8 +80,34 @@ public class BaseCustomTutorial : MonoBehaviour
         
         _currentTutorialStepIndex++;
         _currentTutorialStep = _customTutorialSteps[_currentTutorialStepIndex];
+        _currentIndividualStepUISection = _individualStepSections[_currentTutorialStepIndex];
         
         OpenCurrentTutorialStepSection();
+    }
+
+    protected virtual void ProgressToNextTutorialStepFromCurrent()
+    {
+        HideCurrentTutorialStepSection();
+        
+        if (_currentTutorialStep.AutomaticStepProgressDelay > 0)
+        {
+            StartDelayProgressToNextTutorialStep(_currentTutorialStep.AutomaticStepProgressDelay);
+        }
+        else
+        {
+            ProgressToNextTutorialStep();
+        }
+    }
+
+    protected virtual void StartDelayProgressToNextTutorialStep(float waitTime)
+    {
+        StartCoroutine(DelayProgressToNextTutorialStep(waitTime));
+    }
+
+    protected virtual IEnumerator DelayProgressToNextTutorialStep(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        ProgressToNextTutorialStep();
     }
 
     public virtual void OpenCurrentTutorialStepSection()
@@ -89,14 +117,23 @@ public class BaseCustomTutorial : MonoBehaviour
             return;
         }
         
-        _individualStepSections[_currentTutorialStepIndex].SetActive(true);
-        ShowGeneralStepUI();
-        DisplayCustomTutorial();
+        ShowGeneralAndIndividualStepUI();
         
-        if (_currentTutorialStep.DoesStopBossAttacksOnProgression)
+        SetUpCustomTutorialObject(_currentTutorialStepIndex);
+        
+        DisplayCustomTutorialBack();
+        
+        if (_currentTutorialStep.DoesStopBossAttacksOnOpen)
         {
-            
+            BossBase.Instance.GetSpecificBossScript().StopCurrentAttack();
         }
+
+        if (_currentTutorialStep.DoesToggleHeroAbilityUse && _currentTutorialStep.DoesDisableHeroAbilitiesOnOpen)
+        {
+            ToggleHeroAbilityUse(false);
+        }
+
+        InvokeCustomTutorialStepTutorialOpen(_currentTutorialStep);
     }
 
     public virtual void CloseCurrentTutorialStepSection()
@@ -105,17 +142,41 @@ public class BaseCustomTutorial : MonoBehaviour
         {
             return;
         }
+        
+        if (_currentTutorialStep.DoesToggleHeroAbilityUse && _currentTutorialStep.DoesEnableHeroAbilitiesOnClose)
+        {
+            ToggleHeroAbilityUse(true);
+        }
+        
+        InvokeCustomTutorialStepTutorialClose(_currentTutorialStep);
 
         if (_currentTutorialStep.DoesAutomaticallyProgressToNextStepOnContinue)
         {
-            ProgressToNextTutorialStep();
+            ProgressToNextTutorialStepFromCurrent();
         }
         else
         {
-            _individualStepSections[_currentTutorialStepIndex].SetActive(false);
-            HideGeneralStepUI();
-            HideCustomTutorial();
+            HideCurrentTutorialStepSection();
         }
+    }
+
+    protected virtual void HideCurrentTutorialStepSection()
+    {
+        HideGeneralAndIndividualStepUI();
+        HideCustomTutorialBack();
+    }
+
+
+    protected virtual void ShowGeneralAndIndividualStepUI()
+    {
+        ShowGeneralStepUI();
+        ShowIndividualStepUI();
+    }
+
+    protected virtual void HideGeneralAndIndividualStepUI()
+    {
+        HideGeneralStepUI();
+        HideIndividualStepUI();
     }
 
     #region General Step
@@ -136,17 +197,95 @@ public class BaseCustomTutorial : MonoBehaviour
     
     #endregion
     
+    #region Individual Step
+
+    protected virtual void ShowIndividualStepUI()
+    {
+        _currentIndividualStepUISection.ShowIndividualStepUI();
+    }
+
+    protected virtual void HideIndividualStepUI()
+    {
+        _currentIndividualStepUISection.HideIndividualStepUI();
+    }
+    #endregion
+    
     #region General Transparency and Appearance
-    public void DisplayCustomTutorial()
+    public void DisplayCustomTutorialBack()
     {
         _customTutorialAlphaProgression.StartMovingUpOnCurve();
     }
 
-    public void HideCustomTutorial()
+    public void HideCustomTutorialBack()
     {
         _customTutorialAlphaProgression.StartMovingDownOnCurve();
     }
     
+    #endregion
+    
+    #region GeneralFunctionality
+
+    public void ToggleBossAutomaticAbilityUse(bool canBossAutomaticallyUseAbilities)
+    {
+        BossBase.Instance.GetSpecificBossScript().SetCanAutomaticallyUseAbilities(canBossAutomaticallyUseAbilities);
+    }
+
+    public void ActivateBossAbility(int abilityID)
+    {
+        BossBase.Instance.GetSpecificBossScript().StartAbility(abilityID, true);
+    }
+    
+    public void ToggleHeroAbilityUse(bool canHeroUseAbilities)
+    {
+        HeroesManager.Instance.ToggleHeroesAbleToUseAbilities(canHeroUseAbilities);
+    }
+    
+    #endregion
+    
+    #region SetUp
+    
+    public virtual void SetUpBaseCustomTutorial()
+    {
+        SetUpInstance();
+
+        SetUpGeneralCustomTutorialStep();
+        CreateIndividualCustomStepUI();
+
+        SubscribeToEvents();
+        
+        InvokeOnSetUpComplete();
+    }
+
+    protected virtual void BattleStarted()
+    {
+        if (_doesStopHeroAbilitiesOnBattleStart)
+        {
+            ToggleHeroAbilityUse(false);
+        }
+        
+        InvokeOnBattleStarted();
+    }
+
+    protected virtual void SetUpInstance()
+    {
+        Instance = this;
+    }
+
+    protected virtual void OnDestroy()
+    {
+        UnsubscribeFromEvents();
+    }
+
+    protected virtual void SubscribeToEvents()
+    {
+        GameStateManager.Instance.GetStartOfBattleEvent().AddListener(BattleStarted);
+    }
+
+    protected virtual void UnsubscribeFromEvents()
+    {
+        GameStateManager.Instance.GetStartOfBattleEvent().RemoveListener(BattleStarted);
+    }
+
     #endregion
     
     #region Custom Progression Event Subscriptions
@@ -175,7 +314,21 @@ public class BaseCustomTutorial : MonoBehaviour
     {
         _onSetUpComplete?.Invoke();
     }
+
+    public void InvokeOnBattleStarted()
+    {
+        _onBattleStart?.Invoke();
+    }
+
+    public void InvokeCustomTutorialStepTutorialOpen(CustomTutorialStep tutorialStep)
+    {
+        tutorialStep.OnCustomTutorialOpen?.Invoke();
+    }
     
+    public void InvokeCustomTutorialStepTutorialClose(CustomTutorialStep tutorialStep)
+    {
+        tutorialStep.OnCustomTutorialClose?.Invoke();
+    }
     #endregion
 }
 
@@ -190,9 +343,15 @@ public class CustomTutorialStep
 
     [Space]
     public bool DoesAutomaticallyProgressToNextStepOnContinue;
+    public float AutomaticStepProgressDelay;
     
     [Space]
-    public bool DoesStopBossAttacksOnProgression;
+    public bool DoesStopBossAttacksOnOpen;
+
+    [Space]
+    public bool DoesToggleHeroAbilityUse;
+    public bool DoesDisableHeroAbilitiesOnOpen;
+    public bool DoesEnableHeroAbilitiesOnClose;
 
     [Space]
     [Header("General Step UI")]
@@ -201,7 +360,13 @@ public class CustomTutorialStep
     
     [Space]
     [Header("Custom Step UI")]
-    public GameObject CustomStepUI;
+    public CustomIndividualTutorialUI CustomIndividualStepUI;
+    public GameObject IndividualStepUI;
+    
+    [Space]
+    [Header("Custom Tutorial Step Objects")]
+    public Vector3 CustomStepObjectPosition;
+    public GameObject CustomTutorialStepObjects;
     
     [Space]
     public UnityEvent OnCustomTutorialOpen;
@@ -212,7 +377,25 @@ public class CustomTutorialStep
 public class CustomGeneralTutorialUI
 {
     [TextArea(2, 10)]public string CustomTutorialUIText;
+    public Vector2 CustomTutorialTextOffsetPosition;
 
+    [Space]
+    public Sprite CustomTutorialImage;
+    public Vector2 CustomTutorialImageOffsetPosition;
+    public Vector2 CustomTutorialImageDimensions;
+    public Vector3 CustomTutorialImageScale;
+
+    [Space]
     public Vector2 CustomTutorialPosition;
     public Vector2 CustomTutorialDimensions;
+}
+
+[System.Serializable]
+public class CustomIndividualTutorialUI
+{
+    public bool DoesUseCanvasGroupCurve;
+    
+    public bool DoesUseScaleCurve;
+
+    public bool DoesUseCustomUIObjectCanvas;
 }
