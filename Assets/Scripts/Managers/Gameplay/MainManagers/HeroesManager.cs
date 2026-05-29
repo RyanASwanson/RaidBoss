@@ -28,6 +28,8 @@ public class HeroesManager : MainGameplayManagerFramework
     private UnityEvent<HeroBase, float> _onHeroDamagedEvent = new UnityEvent<HeroBase, float>();
     private UnityEvent<HeroBase,float> _onHeroHealedEvent = new UnityEvent<HeroBase,float>();
     
+    private UnityEvent<HeroBase> _onHeroManualUsedEvent = new UnityEvent<HeroBase>();
+    
     private UnityEvent<HeroBase> _onHeroDiedEvent = new UnityEvent<HeroBase>();
 
     private void StartHeroSpawning()
@@ -86,11 +88,26 @@ public class HeroesManager : MainGameplayManagerFramework
         return heroBase;
     }
 
+    public void ToggleHeroesChargingAbilities(bool canHeroChargeAbilities)
+    {
+        foreach (HeroBase hero in _currentLivingHeroes)
+        {
+            hero.GetSpecificHeroScript().SetCanHeroChargeAbilities(canHeroChargeAbilities);
+        }
+    }
     public void ToggleHeroesAbleToUseAbilities(bool canHeroesUseAbilities)
     {
         foreach (HeroBase hero in _currentLivingHeroes)
         {
             hero.GetSpecificHeroScript().SetCanHeroUseAbilities(canHeroesUseAbilities);
+        }
+    }
+
+    public void FullyCooldownAllHeroManualAbilities()
+    {
+        for (int i = 0; i < _currentLivingHeroes.Count; i++)
+        {
+            _currentLivingHeroes[i].GetSpecificHeroScript().ManualAbilityFullyCharged();
         }
     }
 
@@ -181,6 +198,15 @@ public class HeroesManager : MainGameplayManagerFramework
         GameStateManager.Instance.GetBattleWonEvent().AddListener(BattleWon);
     }
 
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        _onHeroDamagedEvent.RemoveAllListeners();
+        _onHeroHealedEvent.RemoveAllListeners();
+        _onHeroManualUsedEvent.RemoveAllListeners();
+        _onHeroDiedEvent.RemoveAllListeners();
+    }
+
     #endregion
     
     #region Events
@@ -192,6 +218,11 @@ public class HeroesManager : MainGameplayManagerFramework
     public void InvokeOnHeroHealedEvent(HeroBase heroBase, float healAmount)
     {
         _onHeroHealedEvent?.Invoke(heroBase,healAmount);
+    }
+
+    public void InvokeOnHeroManualAbilityUsed(HeroBase heroBase)
+    {
+        _onHeroManualUsedEvent?.Invoke(heroBase);
     }
     
     public void InvokeOnHeroDiedEvent(HeroBase heroBase)
@@ -210,6 +241,7 @@ public class HeroesManager : MainGameplayManagerFramework
 
     public UnityEvent<HeroBase,float> GetOnHeroDamagedEvent() => _onHeroDamagedEvent;
     public UnityEvent<HeroBase,float> GetOnHeroHealedEvent() => _onHeroHealedEvent;
+    public UnityEvent<HeroBase> GetOnHeroManualAbilityUsedEvent() => _onHeroManualUsedEvent;
     public UnityEvent<HeroBase> GetOnHeroDiedEvent() => _onHeroDiedEvent;
 
     #endregion

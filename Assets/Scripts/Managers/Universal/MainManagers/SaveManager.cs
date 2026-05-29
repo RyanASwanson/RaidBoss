@@ -201,9 +201,25 @@ public class SaveManager : MainUniversalManagerFramework
 
     private void UpdateMissionUnlocksFromOldSaveData()
     {
+        List<int> removalMissions = new List<int>();
         foreach (int i in GSD.GetGameplaySaveData().MissionsComplete)
         {
+            if (i >= _missionsInGame.Length)
+            {
+                removalMissions.Add(i);
+                
+                continue;
+            }
             MissionComplete(_missionsInGame[i]);
+        }
+
+        if (removalMissions.Count > 0)
+        {
+            for (int i = 0; i < removalMissions.Count; i++)
+            {
+                RemoveMissionAsComplete(removalMissions[i]);
+                GSD.GetGameplaySaveData().NextMissionID = removalMissions[i] - 1;
+            }
         }
     }
     #endregion
@@ -518,6 +534,34 @@ public class SaveManager : MainUniversalManagerFramework
         {
             return;
         }
+    }
+
+    public void RemoveMissionAsComplete(MissionSO mission)
+    {
+        if (GSD.GetGameplaySaveData().GetMissionsUnlocked().Contains(mission.GetMissionID()))
+        {
+            GSD.GetGameplaySaveData().GetMissionsUnlocked().Remove(mission.GetMissionID());
+        }
+        
+        if(GSD.GetGameplaySaveData().GetMissionsComplete().Contains(mission.GetMissionID()))
+        {
+            GSD.GetGameplaySaveData().GetMissionsComplete().Remove(mission.GetMissionID());
+        }
+    }
+
+    public void RemoveMissionAsComplete(int missionID)
+    {
+        if (GSD.GetGameplaySaveData().GetMissionsUnlocked().Contains(missionID))
+        {
+            GSD.GetGameplaySaveData().GetMissionsUnlocked().Remove(missionID);
+        }
+        
+        if(GSD.GetGameplaySaveData().GetMissionsComplete().Contains(missionID))
+        {
+            GSD.GetGameplaySaveData().GetMissionsComplete().Remove(missionID);
+        }
+        
+        SaveText();
     }
     #endregion
     

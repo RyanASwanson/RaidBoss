@@ -13,109 +13,119 @@ MonoBehaviour:
   m_Name: Mission12
   m_EditorClassIdentifier: 
   _missionID: 11
-  _missionName: 'The Glacial
+  _missionName: 'The
 
-    Lord'
+    Vampire'
   _missionTitleScale: 1
+  _doesAutomaticallySelectFirstHero: 1
   _associatedDifficulty: 2
   _associatedLevel: {fileID: 11400000, guid: 8493e996e77df644ab18a699456b6c06, type: 2}
   _associatedHeroes:
+  - {fileID: 11400000, guid: 77065cfc021c68f45b33aa0acd24fa46, type: 2}
   - {fileID: 11400000, guid: 2b5cc09a0a41a0c40a6b8c0fa2ebb464, type: 2}
-  - {fileID: 11400000, guid: 0128339a05223db40aae2581988a9ea0, type: 2}
   - {fileID: 11400000, guid: e3a0dad03ec099242b69fcc0759e259a, type: 2}
   - {fileID: 11400000, guid: 5cd74adfdadc94247a4cc60ba024fe89, type: 2}
   _missionDisplayHighlights:
-  - HighlightType: 0
+  - HighlightType: 2
     HightlightID: 0
   _tutorialPages:
-  - TutorialPageTitle: 'Boss: The Glacial Lord'
-    TutorialPageTitleWidth: 1201
-    DefaultTextLocation: {x: 0, y: 40}
-    DefaultText: 'A new foe has appeared. The
+  - TutorialPageTitle: 'Hero: The Vampire'
+    TutorialPageTitleWidth: 1032
+    DefaultTextLocation: {x: 0, y: 43}
+    DefaultText: 'The <color=#FF2A2A>Vampire</color> is a bloodthirsty
 
-      <color=#0079FF>Glacial Lord</color>
-      utilized its <color=#4EA2FF>Frost Fiend</color>
+      and
+      unkillable tank. She inflicts
 
-      minions and ice attacks
-      to
+      heavy stagger, all while healing
 
-      shatter your Heroes.'
+      from
+      any damage dealt.'
     TutorialPageObjectLocation: {x: 0, y: 0}
     TutorialPageObject: {fileID: 0}
     TutorialPageCharacterTutorial:
       TutorialCharacterIconLocation: {x: 0, y: -60}
-      TutorialCharacterIconScaleMultiplier: 1.075
-      TutorialPageCharacterIcon: {fileID: 21300000, guid: 9981069ecead844448de5cc5ddda52a1, type: 3}
-      TutorialPageCharacterBackground: {fileID: 21300000, guid: b2bea2ea6395a3a4698f324d28df7139, type: 3}
-  - TutorialPageTitle: Frost Fiends
-    TutorialPageTitleWidth: 705
-    DefaultTextLocation: {x: 0, y: 35}
-    DefaultText: 'The <color=#0079FF>Glacial Lord</color> has <color=#4EA2FF>Frost
-      Fiends</color>
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: cb844acb71a440d42b466821e2a37512, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: cad11a2bf12278c46a02ba6a7ef54eec, type: 3}
+  - TutorialPageTitle: Blood Lance
+    TutorialPageTitleWidth: 654
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'The <color=#FF2A2A>Vampire</color>''s basic ability is <color=#DF0000>Blood
+      Lance</color>.
 
-      around the arena that perform
+      The <color=#FF2A2A>Vampire</color> fires a projectile
+      that splits
 
-      some of the attacks
-      for the
+      into 3 projectiles after a short distance, dealing
 
-      <color=#0079FF>Glacial Lord</color>.'
+      heavy
+      stagger. Line up the distance just right
+
+      to get the most use out of
+      it.'
     TutorialPageObjectLocation: {x: 0, y: 0}
     TutorialPageObject: {fileID: 0}
     TutorialPageCharacterTutorial:
       TutorialCharacterIconLocation: {x: 0, y: -65}
       TutorialCharacterIconScaleMultiplier: 1
-      TutorialPageCharacterIcon: {fileID: 21300000, guid: e52a946485e5bd14e89a47eaa57b38dc, type: 3}
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: f76c063393ef8e645a7ae785867d7cbc, type: 3}
       TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
-  - TutorialPageTitle: Frost Fiends Weakness
-    TutorialPageTitleWidth: 1261
-    DefaultTextLocation: {x: 0, y: 50}
-    DefaultText: 'Attacks performed by the <color=#0079FF>Glacial Lord</color>
+  - TutorialPageTitle: Bat Swarm
+    TutorialPageTitleWidth: 597
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'The <color=#FF2A2A>Vampire</color>''s basic ability is <color=#DF0000>Bat
+      Swarm</color>.
 
-      can
-      freeze <color=#4EA2FF>Frost Fiends</color>, entirely preventing
+      The <color=#FF2A2A>Vampire</color> disperses into a swarm
+      of bats,
 
-      them
-      from being able to attack. Line up
+      becoming immune to damage and gaining
 
-      the <color=#0079FF>Glacial Lord</color>''s
-      attacks with <color=#4EA2FF>Frost Fiends</color>.'
-    TutorialPageObjectLocation: {x: 0, y: -55}
-    TutorialPageObject: {fileID: 4219184930868017209, guid: a9ba70893c03f9244976c55d023b89f6, type: 3}
+      increased healing
+      and movement speed.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
     TutorialPageCharacterTutorial:
-      TutorialCharacterIconLocation: {x: 0, y: 0}
+      TutorialCharacterIconLocation: {x: 0, y: -65}
       TutorialCharacterIconScaleMultiplier: 1
-      TutorialPageCharacterIcon: {fileID: 0}
-      TutorialPageCharacterBackground: {fileID: 0}
-  - TutorialPageTitle: Freezing Frost Fiends
-    TutorialPageTitleWidth: 1232
-    DefaultTextLocation: {x: 0, y: 70}
-    DefaultText: 'If an attack would freeze a <color=#4EA2FF>Frost Fiend</color>,
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 3f0341e4515938443b042eb518d670d0, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  - TutorialPageTitle: Lifesteal
+    TutorialPageTitleWidth: 487
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'The <color=#FF2A2A>Vampire</color>''s basic ability is <color=#DF0000>Lifesteal</color>.
 
-      the
-      ability target zone will glow yellow.'
-    TutorialPageObjectLocation: {x: 0, y: -37}
-    TutorialPageObject: {fileID: 2782490294402393858, guid: 9045ed8e6e3537847b71ad49af3493ba, type: 3}
+      The
+      <color=#FF2A2A>Vampire</color> heals proportional
+
+      to the damage she
+      deals.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
     TutorialPageCharacterTutorial:
-      TutorialCharacterIconLocation: {x: 0, y: 0}
+      TutorialCharacterIconLocation: {x: 0, y: -55}
       TutorialCharacterIconScaleMultiplier: 1
-      TutorialPageCharacterIcon: {fileID: 0}
-      TutorialPageCharacterBackground: {fileID: 0}
-  _characterUnlock: {fileID: 11400000, guid: 02b364a59624d41448ad2e844c2a0ebb, type: 2}
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 2705d83ecbf743347b995d114c502128, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  _customTutorial: {fileID: 0}
+  _characterUnlock: {fileID: 11400000, guid: 77065cfc021c68f45b33aa0acd24fa46, type: 2}
   _difficultyUnlock: 0
   _missionModifierUnlock: {fileID: 0}
   _missionUnlocks:
-  - {fileID: 11400000, guid: a9fcd5e0dc5d17f4a81a58a9c2ba1c86, type: 2}
+  - {fileID: 11400000, guid: 661092f62fe15ea43acd481bcd130baf, type: 2}
   _achievementUnlocks: []
   _generalMissionUnlocks: 0
   _missionModifiers: []
   _missionStatModifiers:
-    _bossHealthMultiplier: 0.9
+    _bossHealthMultiplier: 1
     _bossStaggerMultiplier: 1
     _bossAttackSpeedMultiplier: 1
     _bossDamageResistanceChangeOnStaggerMultiplier: 1
     _bossEnrageTimeMultiplier: 1
     _bossEnrageDamageMultiplier: 1
-    _bossAbilitiesUsable: 0101000001
+    _canBossAutomaticallyUseAbilities: 1
+    _bossAbilitiesUsable: 0101010101
     _heroHealthMultiplier: 1
     _heroDamageMultiplier: 1
     _heroStaggerMultiplier: 1

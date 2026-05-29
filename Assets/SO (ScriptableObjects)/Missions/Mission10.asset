@@ -13,120 +13,103 @@ MonoBehaviour:
   m_Name: Mission10
   m_EditorClassIdentifier: 
   _missionID: 9
-  _missionName: 'The
+  _missionName: 'Up A
 
-    Chronomancer'
-  _missionTitleScale: 0.95
-  _associatedDifficulty: 1
-  _associatedLevel: {fileID: 11400000, guid: 763a87e823e4c5d4d8c9e44aa8aa4a02, type: 2}
+    Notch'
+  _missionTitleScale: 1
+  _doesAutomaticallySelectFirstHero: 1
+  _associatedDifficulty: 2
+  _associatedLevel: {fileID: 11400000, guid: 53e846bb7c637be46af02e5cd8741558, type: 2}
   _associatedHeroes:
+  - {fileID: 11400000, guid: fa900cf8282b2814fb9eb1a8cc860cd0, type: 2}
   - {fileID: 11400000, guid: 0128339a05223db40aae2581988a9ea0, type: 2}
-  - {fileID: 11400000, guid: e3a0dad03ec099242b69fcc0759e259a, type: 2}
+  - {fileID: 11400000, guid: 2b5cc09a0a41a0c40a6b8c0fa2ebb464, type: 2}
   - {fileID: 11400000, guid: 5cd74adfdadc94247a4cc60ba024fe89, type: 2}
   _missionDisplayHighlights:
-  - HighlightType: 2
-    HightlightID: 2
+  - HighlightType: 1
+    HightlightID: 0
   _tutorialPages:
-  - TutorialPageTitle: Healing
-    TutorialPageTitleWidth: 427
-    DefaultTextLocation: {x: 0, y: 60}
-    DefaultText: 'Some Heroes have ways in which
+  - TutorialPageTitle: Difficulties
+    TutorialPageTitleWidth: 649
+    DefaultTextLocation: {x: 0, y: 50}
+    DefaultText: 'Different missions have different difficulty
 
-      they can heal themselves
-      or other
+      levels. The
+      difficulty of a mission can be
 
-      Heroes. Utilize the healing to
+      seen next to the Boss on the mission
+      scroll
 
-      sustain yourself in harder
-      fights.'
-    TutorialPageObjectLocation: {x: 0, y: -80}
-    TutorialPageObject: {fileID: 8802351148540139332, guid: b57606bb3808e4b4787469467daa649e, type: 3}
+      in the mission selection.'
+    TutorialPageObjectLocation: {x: 0, y: -55}
+    TutorialPageObject: {fileID: 2483143276828620687, guid: f9f3f9b54b99f5a49a86895f3f155aa2, type: 3}
     TutorialPageCharacterTutorial:
       TutorialCharacterIconLocation: {x: 0, y: 0}
       TutorialCharacterIconScaleMultiplier: 0
       TutorialPageCharacterIcon: {fileID: 0}
       TutorialPageCharacterBackground: {fileID: 0}
-  - TutorialPageTitle: 'Hero: The Chronomancer'
-    TutorialPageTitleWidth: 1381
+  - TutorialPageTitle: Difficulties Levels
+    TutorialPageTitleWidth: 1023
     DefaultTextLocation: {x: 0, y: 45}
-    DefaultText: 'The <color=#FBFF00>Chronomancer</color> is a clutch and
+    DefaultText: 'There are 4 main difficulty levels, which are
 
-      precise
-      healer. She can undo major
+      <color=#8DD9A4>Normal</color>,
+      <color=#FFD11C>Heroic</color>, <color=#FC5E50>Mythic</color>, and <color=#BB0D00>Mythic+</color>.'
+    TutorialPageObjectLocation: {x: 0, y: -40}
+    TutorialPageObject: {fileID: 6938674043408630033, guid: 14763028804c0004597e6979452edb68, type: 3}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: 0}
+      TutorialCharacterIconScaleMultiplier: 0
+      TutorialPageCharacterIcon: {fileID: 0}
+      TutorialPageCharacterBackground: {fileID: 0}
+  - TutorialPageTitle: Heroic
+    TutorialPageTitleWidth: 368
+    DefaultTextLocation: {x: 0, y: 0}
+    DefaultText: 'Previous missions were all on <color=#8DD9A4>Normal</color>. This
 
-      mistakes while providing buffs
+      mission
+      is increased to <color=#FFD11C>Heroic</color>. On higher
 
-      to
-      help allies deal damage.'
+      difficulties,
+      the Boss deals more damage,
+
+      has more health, is harder to stagger,
+
+      and
+      attacks slightly faster.'
     TutorialPageObjectLocation: {x: 0, y: 0}
     TutorialPageObject: {fileID: 0}
     TutorialPageCharacterTutorial:
-      TutorialCharacterIconLocation: {x: 0, y: -65}
-      TutorialCharacterIconScaleMultiplier: 1
-      TutorialPageCharacterIcon: {fileID: 21300000, guid: fe2bf9c72fd89414ca1dc07e70fefe01, type: 3}
-      TutorialPageCharacterBackground: {fileID: 21300000, guid: cad11a2bf12278c46a02ba6a7ef54eec, type: 3}
-  - TutorialPageTitle: Time Blast
-    TutorialPageTitleWidth: 580
-    DefaultTextLocation: {x: 0, y: 40}
-    DefaultText: 'The <color=#FBFF00>Chronomancer</color>''s basic ability is <color=#EBDB00>Time
-      Blast</color>.
+      TutorialCharacterIconLocation: {x: 0, y: 0}
+      TutorialCharacterIconScaleMultiplier: 0
+      TutorialPageCharacterIcon: {fileID: 0}
+      TutorialPageCharacterBackground: {fileID: 0}
+  - TutorialPageTitle: Max Heroes
+    TutorialPageTitleWidth: 655
+    DefaultTextLocation: {x: 0, y: 0}
+    DefaultText: 'As the difficulty increases, the max
 
-      The <color=#FBFF00>Chronomancer</color> fires a projectile
-      in a
+      number of Heroes also
+      increases. The max
 
-      clockwork pattern that can heal allies and
+      number of Heroes on <color=#8DD9A4>Normal</color>
+      is 3, on <color=#FFD11C>Heroic</color>
 
-      damage the Boss.'
+      it is 4, and on <color=#FC5E50>Mythic</color>
+      and <color=#BB0D00>Mythic+</color> it is 5.'
     TutorialPageObjectLocation: {x: 0, y: 0}
     TutorialPageObject: {fileID: 0}
     TutorialPageCharacterTutorial:
-      TutorialCharacterIconLocation: {x: 0, y: -65}
-      TutorialCharacterIconScaleMultiplier: 1
-      TutorialPageCharacterIcon: {fileID: 21300000, guid: 561524586736d2e4ca7cedbe3c90cc73, type: 3}
-      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
-  - TutorialPageTitle: Rewind
-    TutorialPageTitleWidth: 418
-    DefaultTextLocation: {x: 0, y: 40}
-    DefaultText: 'The <color=#FBFF00>Chronomancer</color>''s active ability
-
-      is
-      <color=#EBDB00>Rewind</color>. The <color=#FBFF00>Chronomancer</color> reverses
-
-      all
-      damage taken by heroes
-
-      in the past few seconds.'
-    TutorialPageObjectLocation: {x: 0, y: 0}
-    TutorialPageObject: {fileID: 0}
-    TutorialPageCharacterTutorial:
-      TutorialCharacterIconLocation: {x: 0, y: -65}
-      TutorialCharacterIconScaleMultiplier: 1
-      TutorialPageCharacterIcon: {fileID: 21300000, guid: 25df8652d4f478243847ad1e38f346be, type: 3}
-      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
-  - TutorialPageTitle: Accelerate
-    TutorialPageTitleWidth: 582
-    DefaultTextLocation: {x: 0, y: 40}
-    DefaultText: 'The <color=#FBFF00>Chronomancer</color>''s passive ability
-
-      is
-      <color=#EBDB00>Accelerate</color>. The <color=#FBFF00>Chronomancer</color>
-      speeds
-
-      up the cooldowns of allies that
-
-      she affects with her abilities.'
-    TutorialPageObjectLocation: {x: 0, y: 0}
-    TutorialPageObject: {fileID: 0}
-    TutorialPageCharacterTutorial:
-      TutorialCharacterIconLocation: {x: 0, y: -65}
-      TutorialCharacterIconScaleMultiplier: 1
-      TutorialPageCharacterIcon: {fileID: 21300000, guid: 8e71ba263f0bcd44986d875d9e85e80d, type: 3}
-      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
-  _characterUnlock: {fileID: 11400000, guid: 5cd74adfdadc94247a4cc60ba024fe89, type: 2}
-  _difficultyUnlock: 0
+      TutorialCharacterIconLocation: {x: 0, y: 0}
+      TutorialCharacterIconScaleMultiplier: 0
+      TutorialPageCharacterIcon: {fileID: 0}
+      TutorialPageCharacterBackground: {fileID: 0}
+  _customTutorial: {fileID: 0}
+  _characterUnlock: {fileID: 0}
+  _difficultyUnlock: 2
   _missionModifierUnlock: {fileID: 0}
   _missionUnlocks:
-  - {fileID: 11400000, guid: 6681a386d1d2482499068e402344fd59, type: 2}
+  - {fileID: 11400000, guid: 7e552c2bfdf3bdf40ac1df49cbd1dc9c, type: 2}
   _achievementUnlocks: []
   _generalMissionUnlocks: 0
   _missionModifiers: []
@@ -137,7 +120,8 @@ MonoBehaviour:
     _bossDamageResistanceChangeOnStaggerMultiplier: 1
     _bossEnrageTimeMultiplier: 1
     _bossEnrageDamageMultiplier: 1
-    _bossAbilitiesUsable: 0101010100
+    _canBossAutomaticallyUseAbilities: 1
+    _bossAbilitiesUsable: 0101010101
     _heroHealthMultiplier: 1
     _heroDamageMultiplier: 1
     _heroStaggerMultiplier: 1

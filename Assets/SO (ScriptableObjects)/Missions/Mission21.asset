@@ -13,108 +13,49 @@ MonoBehaviour:
   m_Name: Mission21
   m_EditorClassIdentifier: 
   _missionID: 20
-  _missionName: 'The
+  _missionName: 'Tougher
 
-    Alchemist'
+    Battles'
   _missionTitleScale: 1
-  _associatedDifficulty: 2
-  _associatedLevel: {fileID: 11400000, guid: f4cdc78ddb5cc51429696d5d12e95a4f, type: 2}
+  _doesAutomaticallySelectFirstHero: 1
+  _associatedDifficulty: 3
+  _associatedLevel: {fileID: 11400000, guid: 763a87e823e4c5d4d8c9e44aa8aa4a02, type: 2}
   _associatedHeroes:
-  - {fileID: 11400000, guid: fa900cf8282b2814fb9eb1a8cc860cd0, type: 2}
-  - {fileID: 11400000, guid: 0128339a05223db40aae2581988a9ea0, type: 2}
+  - {fileID: 11400000, guid: 77065cfc021c68f45b33aa0acd24fa46, type: 2}
+  - {fileID: 11400000, guid: 2b5cc09a0a41a0c40a6b8c0fa2ebb464, type: 2}
+  - {fileID: 11400000, guid: feb7336736898914f8630a93fd41a2bd, type: 2}
   - {fileID: 11400000, guid: f6c84c9f4fbb63d48b70719944c773d1, type: 2}
   - {fileID: 11400000, guid: fe9a9a645a446584c83f77cfdad05c43, type: 2}
   _missionDisplayHighlights:
-  - HighlightType: 2
-    HightlightID: 3
+  - HighlightType: 1
+    HightlightID: 0
   _tutorialPages:
-  - TutorialPageTitle: 'Hero: The Alchemist'
-    TutorialPageTitleWidth: 1106
-    DefaultTextLocation: {x: 0, y: 45}
-    DefaultText: 'The <color=#AFFF00>Alchemist</color> is a volatile and
-
-      supportive
-      healer. She provides her
-
-      team with good healing and
-
-      unpredictable
-      buffs.'
-    TutorialPageObjectLocation: {x: 0, y: 0}
-    TutorialPageObject: {fileID: 0}
-    TutorialPageCharacterTutorial:
-      TutorialCharacterIconLocation: {x: 0, y: -65}
-      TutorialCharacterIconScaleMultiplier: 1
-      TutorialPageCharacterIcon: {fileID: 21300000, guid: 5beb97f5d3328b343bc51eace7c1f5f9, type: 3}
-      TutorialPageCharacterBackground: {fileID: 21300000, guid: cad11a2bf12278c46a02ba6a7ef54eec, type: 3}
-  - TutorialPageTitle: Healing Potion
-    TutorialPageTitleWidth: 805
+  - TutorialPageTitle: Mythic
+    TutorialPageTitleWidth: 389
     DefaultTextLocation: {x: 0, y: 40}
-    DefaultText: 'The <color=#AFFF00>Alchemist</color>''s basic ability is
+    DefaultText: 'The difficulty has increased
 
-      <color=#9CE400>Healing
-      Potion</color>. The <color=#AFFF00>Alchemist</color>
+      to <color=#FC5E50>Mythic</color>,
+      and with it, the
 
-      tosses a potion
-      that can be picked
+      max amount of Heroes
 
-      up by allies to heal them.'
+      has reached the cap of
+      5.'
     TutorialPageObjectLocation: {x: 0, y: 0}
     TutorialPageObject: {fileID: 0}
     TutorialPageCharacterTutorial:
-      TutorialCharacterIconLocation: {x: 0, y: -65}
-      TutorialCharacterIconScaleMultiplier: 1
-      TutorialPageCharacterIcon: {fileID: 21300000, guid: 8124561ae48a5d441bf108b12425b1e6, type: 3}
-      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
-  - TutorialPageTitle: Mystery Concoction
-    TutorialPageTitleWidth: 1082
-    DefaultTextLocation: {x: 0, y: 40}
-    DefaultText: 'The <color=#AFFF00>Alchemist</color>''s active ability is <color=#9CE400>Mystery
-
-      Concoction</color>.
-      The <color=#AFFF00>Alchemist</color> throws a potion
-
-      that randomly provides
-      a buff to <color=#9F37FF>damage</color>, <color=#FDFF1B>stagger</color>,
-
-      <color=#67FF00>movement
-      and cooldown speeds</color>, or <color=#0066FF>healing
-
-      received and
-      damage reduction</color>.'
-    TutorialPageObjectLocation: {x: 0, y: 0}
-    TutorialPageObject: {fileID: 0}
-    TutorialPageCharacterTutorial:
-      TutorialCharacterIconLocation: {x: 0, y: -65}
-      TutorialCharacterIconScaleMultiplier: 1
-      TutorialPageCharacterIcon: {fileID: 21300000, guid: efe33500d0a820f47a78c45ca3abf2d0, type: 3}
-      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
-  - TutorialPageTitle: Lifeforce Reaction
-    TutorialPageTitleWidth: 1040
-    DefaultTextLocation: {x: 0, y: 40}
-    DefaultText: 'The <color=#AFFF00>Alchemist</color>''s passive ability is
-
-      <color=#9CE400>Lifeforce
-      Reaction</color>. When a potion
-
-      is picked up, it fires a projectile
-      towards
-
-      the Boss to deal minor damage.'
-    TutorialPageObjectLocation: {x: 0, y: 0}
-    TutorialPageObject: {fileID: 0}
-    TutorialPageCharacterTutorial:
-      TutorialCharacterIconLocation: {x: 0, y: -65}
-      TutorialCharacterIconScaleMultiplier: 1
-      TutorialPageCharacterIcon: {fileID: 21300000, guid: 7a2c8587479913e45b739fa8ca468970, type: 3}
-      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
-  _characterUnlock: {fileID: 11400000, guid: fe9a9a645a446584c83f77cfdad05c43, type: 2}
-  _difficultyUnlock: 0
+      TutorialCharacterIconLocation: {x: 0, y: -60}
+      TutorialCharacterIconScaleMultiplier: 1.25
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 64cb822beb4ca4342a56928e180ac4da, type: 3}
+      TutorialPageCharacterBackground: {fileID: 0}
+  _customTutorial: {fileID: 0}
+  _characterUnlock: {fileID: 0}
+  _difficultyUnlock: 3
   _missionModifierUnlock: {fileID: 0}
   _missionUnlocks:
-  - {fileID: 11400000, guid: 29e3be598c0789c4d9959d8bcda1e184, type: 2}
-  _achievementUnlocks:
-  - {fileID: 11400000, guid: 97511b79cc8893346bdf3823b3f80809, type: 2}
+  - {fileID: 11400000, guid: d64e6abf63b761a448285cb798c7efad, type: 2}
+  _achievementUnlocks: []
   _generalMissionUnlocks: 0
   _missionModifiers: []
   _missionStatModifiers:
@@ -124,6 +65,7 @@ MonoBehaviour:
     _bossDamageResistanceChangeOnStaggerMultiplier: 1
     _bossEnrageTimeMultiplier: 1
     _bossEnrageDamageMultiplier: 1
+    _canBossAutomaticallyUseAbilities: 1
     _bossAbilitiesUsable: 0101010101
     _heroHealthMultiplier: 1
     _heroDamageMultiplier: 1

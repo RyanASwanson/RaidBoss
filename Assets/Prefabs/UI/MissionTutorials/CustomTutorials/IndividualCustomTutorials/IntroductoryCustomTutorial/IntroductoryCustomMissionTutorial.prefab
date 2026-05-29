@@ -60,7 +60,9 @@ MonoBehaviour:
     AutomaticStepProgressDelay: 0
     DoesStopBossAttacksOnOpen: 0
     DoesToggleHeroAbilityUse: 0
+    DoesDisableChargingHeroAbilitiesOnOpen: 0
     DoesDisableHeroAbilitiesOnOpen: 0
+    DoesEnableChargingHeroAbilitiesOnClose: 0
     DoesEnableHeroAbilitiesOnClose: 0
     DoesStepHaveGeneralStepUI: 1
     GeneralStepUI:
@@ -102,7 +104,9 @@ MonoBehaviour:
     AutomaticStepProgressDelay: 0
     DoesStopBossAttacksOnOpen: 0
     DoesToggleHeroAbilityUse: 0
+    DoesDisableChargingHeroAbilitiesOnOpen: 0
     DoesDisableHeroAbilitiesOnOpen: 0
+    DoesEnableChargingHeroAbilitiesOnClose: 0
     DoesEnableHeroAbilitiesOnClose: 0
     DoesStepHaveGeneralStepUI: 1
     GeneralStepUI:
@@ -141,13 +145,18 @@ MonoBehaviour:
     AutomaticStepProgressDelay: 0
     DoesStopBossAttacksOnOpen: 0
     DoesToggleHeroAbilityUse: 0
+    DoesDisableChargingHeroAbilitiesOnOpen: 0
     DoesDisableHeroAbilitiesOnOpen: 0
+    DoesEnableChargingHeroAbilitiesOnClose: 0
     DoesEnableHeroAbilitiesOnClose: 0
     DoesStepHaveGeneralStepUI: 1
     GeneralStepUI:
-      CustomTutorialUIText: 'Move this Hero to
+      CustomTutorialUIText: 'Continue, and move
 
-        the target area with
+        this Hero to the
+
+        target
+        area with
 
         right-click.'
       CustomTutorialTextOffsetPosition: {x: 0, y: 0}
@@ -177,7 +186,9 @@ MonoBehaviour:
     AutomaticStepProgressDelay: 0
     DoesStopBossAttacksOnOpen: 0
     DoesToggleHeroAbilityUse: 0
+    DoesDisableChargingHeroAbilitiesOnOpen: 0
     DoesDisableHeroAbilitiesOnOpen: 0
+    DoesEnableChargingHeroAbilitiesOnClose: 0
     DoesEnableHeroAbilitiesOnClose: 0
     DoesStepHaveGeneralStepUI: 1
     GeneralStepUI:
@@ -214,7 +225,9 @@ MonoBehaviour:
     AutomaticStepProgressDelay: 5.75
     DoesStopBossAttacksOnOpen: 0
     DoesToggleHeroAbilityUse: 0
+    DoesDisableChargingHeroAbilitiesOnOpen: 0
     DoesDisableHeroAbilitiesOnOpen: 0
+    DoesEnableChargingHeroAbilitiesOnClose: 0
     DoesEnableHeroAbilitiesOnClose: 0
     DoesStepHaveGeneralStepUI: 1
     GeneralStepUI:
@@ -265,7 +278,9 @@ MonoBehaviour:
     AutomaticStepProgressDelay: 0
     DoesStopBossAttacksOnOpen: 0
     DoesToggleHeroAbilityUse: 0
+    DoesDisableChargingHeroAbilitiesOnOpen: 0
     DoesDisableHeroAbilitiesOnOpen: 0
+    DoesEnableChargingHeroAbilitiesOnClose: 0
     DoesEnableHeroAbilitiesOnClose: 0
     DoesStepHaveGeneralStepUI: 1
     GeneralStepUI:
@@ -302,7 +317,9 @@ MonoBehaviour:
     AutomaticStepProgressDelay: 0
     DoesStopBossAttacksOnOpen: 0
     DoesToggleHeroAbilityUse: 0
+    DoesDisableChargingHeroAbilitiesOnOpen: 0
     DoesDisableHeroAbilitiesOnOpen: 0
+    DoesEnableChargingHeroAbilitiesOnClose: 0
     DoesEnableHeroAbilitiesOnClose: 0
     DoesStepHaveGeneralStepUI: 1
     GeneralStepUI:
@@ -313,7 +330,7 @@ MonoBehaviour:
         the
         Boss to 0 health.
 
-        You can see their health
+        You can see its health
 
         at the top of
         the screen.'
@@ -344,314 +361,29 @@ MonoBehaviour:
     AutomaticStepProgressDelay: 0
     DoesStopBossAttacksOnOpen: 0
     DoesToggleHeroAbilityUse: 0
+    DoesDisableChargingHeroAbilitiesOnOpen: 0
     DoesDisableHeroAbilitiesOnOpen: 0
+    DoesEnableChargingHeroAbilitiesOnClose: 0
     DoesEnableHeroAbilitiesOnClose: 0
     DoesStepHaveGeneralStepUI: 1
     GeneralStepUI:
-      CustomTutorialUIText: 'Heroes have abilities
+      CustomTutorialUIText: 'To defeat the Boss
 
-        that can deal damage
+        Heroes use abilities
 
-        or
-        provide unique
+        which
+        can deal
 
-        effects.'
+        damage or provide
+
+        unique effects'
       CustomTutorialTextOffsetPosition: {x: 0, y: 0}
       CustomTutorialImage: {fileID: 0}
       CustomTutorialImageOffsetPosition: {x: 0, y: 0}
       CustomTutorialImageDimensions: {x: 0, y: 0}
       CustomTutorialImageScale: {x: 0, y: 0, z: 0}
       CustomTutorialPosition: {x: -200, y: 25}
-      CustomTutorialDimensions: {x: 1500, y: 800}
-    CustomIndividualStepUI:
-      DoesUseCanvasGroupCurve: 0
-      DoesUseScaleCurve: 0
-      DoesUseCustomUIObjectCanvas: 0
-    IndividualStepUI: {fileID: 0}
-    CustomStepObjectPosition: {x: 0, y: 0, z: 0}
-    CustomTutorialStepObjects: {fileID: 0}
-    OnCustomTutorialOpen:
-      m_PersistentCalls:
-        m_Calls: []
-    OnCustomTutorialClose:
-      m_PersistentCalls:
-        m_Calls: []
-  - StepName: Hero Ability Types
-    DoesAutomaticallyProgressOnBossHealthThreshold: 0
-    AutomaticProgressBossHealthThreshold: 0
-    DoesAutomaticallyProgressToNextStepOnContinue: 1
-    AutomaticStepProgressDelay: 0
-    DoesStopBossAttacksOnOpen: 0
-    DoesToggleHeroAbilityUse: 0
-    DoesDisableHeroAbilitiesOnOpen: 0
-    DoesEnableHeroAbilitiesOnClose: 0
-    DoesStepHaveGeneralStepUI: 1
-    GeneralStepUI:
-      CustomTutorialUIText: 'Each Hero has 3
-
-        abilities. A basic ability,
-
-        an
-        active ability, and
-
-        a passive ability.'
-      CustomTutorialTextOffsetPosition: {x: 0, y: 0}
-      CustomTutorialImage: {fileID: 0}
-      CustomTutorialImageOffsetPosition: {x: 0, y: -45}
-      CustomTutorialImageDimensions: {x: 939, y: 406}
-      CustomTutorialImageScale: {x: 0.2, y: 0.2, z: 0.2}
-      CustomTutorialPosition: {x: -200, y: 25}
-      CustomTutorialDimensions: {x: 1500, y: 800}
-    CustomIndividualStepUI:
-      DoesUseCanvasGroupCurve: 0
-      DoesUseScaleCurve: 0
-      DoesUseCustomUIObjectCanvas: 0
-    IndividualStepUI: {fileID: 0}
-    CustomStepObjectPosition: {x: 0, y: 0, z: 0}
-    CustomTutorialStepObjects: {fileID: 0}
-    OnCustomTutorialOpen:
-      m_PersistentCalls:
-        m_Calls: []
-    OnCustomTutorialClose:
-      m_PersistentCalls:
-        m_Calls: []
-  - StepName: Guardian Intro
-    DoesAutomaticallyProgressOnBossHealthThreshold: 0
-    AutomaticProgressBossHealthThreshold: 0
-    DoesAutomaticallyProgressToNextStepOnContinue: 1
-    AutomaticStepProgressDelay: 0
-    DoesStopBossAttacksOnOpen: 0
-    DoesToggleHeroAbilityUse: 0
-    DoesDisableHeroAbilitiesOnOpen: 0
-    DoesEnableHeroAbilitiesOnClose: 0
-    DoesStepHaveGeneralStepUI: 1
-    GeneralStepUI:
-      CustomTutorialUIText: 'The current Hero is
-
-        the Guardian and his
-
-        3
-        abilities are Shield
-
-        Slam, Taunt, and
-
-        Resilience'
-      CustomTutorialTextOffsetPosition: {x: 0, y: 0}
-      CustomTutorialImage: {fileID: 0}
-      CustomTutorialImageOffsetPosition: {x: 0, y: -45}
-      CustomTutorialImageDimensions: {x: 939, y: 406}
-      CustomTutorialImageScale: {x: 0.2, y: 0.2, z: 0.2}
-      CustomTutorialPosition: {x: -200, y: 25}
-      CustomTutorialDimensions: {x: 1500, y: 1200}
-    CustomIndividualStepUI:
-      DoesUseCanvasGroupCurve: 0
-      DoesUseScaleCurve: 0
-      DoesUseCustomUIObjectCanvas: 0
-    IndividualStepUI: {fileID: 0}
-    CustomStepObjectPosition: {x: 0, y: 0, z: 0}
-    CustomTutorialStepObjects: {fileID: 0}
-    OnCustomTutorialOpen:
-      m_PersistentCalls:
-        m_Calls: []
-    OnCustomTutorialClose:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2577195436815345019}
-          m_TargetAssemblyTypeName: BaseCustomTutorial, Assembly-CSharp
-          m_MethodName: ToggleBossAutomaticAbilityUse
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - StepName: Basic Abilities
-    DoesAutomaticallyProgressOnBossHealthThreshold: 0
-    AutomaticProgressBossHealthThreshold: 0
-    DoesAutomaticallyProgressToNextStepOnContinue: 1
-    AutomaticStepProgressDelay: 0
-    DoesStopBossAttacksOnOpen: 0
-    DoesToggleHeroAbilityUse: 0
-    DoesDisableHeroAbilitiesOnOpen: 0
-    DoesEnableHeroAbilitiesOnClose: 0
-    DoesStepHaveGeneralStepUI: 1
-    GeneralStepUI:
-      CustomTutorialUIText: 'Basic abilities are used
-
-        automatically on a
-        cooldown.
-
-        Position this Hero near the
-
-        Boss and let him
-        use his
-
-        basic ability.'
-      CustomTutorialTextOffsetPosition: {x: 0, y: 0}
-      CustomTutorialImage: {fileID: 0}
-      CustomTutorialImageOffsetPosition: {x: 0, y: -45}
-      CustomTutorialImageDimensions: {x: 939, y: 406}
-      CustomTutorialImageScale: {x: 0.2, y: 0.2, z: 0.2}
-      CustomTutorialPosition: {x: -200, y: 25}
-      CustomTutorialDimensions: {x: 1600, y: 1200}
-    CustomIndividualStepUI:
-      DoesUseCanvasGroupCurve: 0
-      DoesUseScaleCurve: 0
-      DoesUseCustomUIObjectCanvas: 0
-    IndividualStepUI: {fileID: 0}
-    CustomStepObjectPosition: {x: 0, y: 0, z: 0}
-    CustomTutorialStepObjects: {fileID: 0}
-    OnCustomTutorialOpen:
-      m_PersistentCalls:
-        m_Calls: []
-    OnCustomTutorialClose:
-      m_PersistentCalls:
-        m_Calls: []
-  - StepName: Manual Abilities
-    DoesAutomaticallyProgressOnBossHealthThreshold: 0
-    AutomaticProgressBossHealthThreshold: 0
-    DoesAutomaticallyProgressToNextStepOnContinue: 1
-    AutomaticStepProgressDelay: 0
-    DoesStopBossAttacksOnOpen: 0
-    DoesToggleHeroAbilityUse: 0
-    DoesDisableHeroAbilitiesOnOpen: 0
-    DoesEnableHeroAbilitiesOnClose: 0
-    DoesStepHaveGeneralStepUI: 1
-    GeneralStepUI:
-      CustomTutorialUIText: 'Active abilities require an
-
-        input to activate
-        when fully
-
-        charged. You can track the
-
-        cooldown on the UI
-        or the
-
-        icon near the Hero.'
-      CustomTutorialTextOffsetPosition: {x: 0, y: 0}
-      CustomTutorialImage: {fileID: 0}
-      CustomTutorialImageOffsetPosition: {x: 0, y: -45}
-      CustomTutorialImageDimensions: {x: 939, y: 406}
-      CustomTutorialImageScale: {x: 0.2, y: 0.2, z: 0.2}
-      CustomTutorialPosition: {x: -200, y: 25}
-      CustomTutorialDimensions: {x: 1500, y: 1200}
-    CustomIndividualStepUI:
-      DoesUseCanvasGroupCurve: 0
-      DoesUseScaleCurve: 0
-      DoesUseCustomUIObjectCanvas: 0
-    IndividualStepUI: {fileID: 0}
-    CustomStepObjectPosition: {x: 0, y: 0, z: 0}
-    CustomTutorialStepObjects: {fileID: 0}
-    OnCustomTutorialOpen:
-      m_PersistentCalls:
-        m_Calls: []
-    OnCustomTutorialClose:
-      m_PersistentCalls:
-        m_Calls: []
-  - StepName: Manual Controls
-    DoesAutomaticallyProgressOnBossHealthThreshold: 0
-    AutomaticProgressBossHealthThreshold: 0
-    DoesAutomaticallyProgressToNextStepOnContinue: 1
-    AutomaticStepProgressDelay: 0
-    DoesStopBossAttacksOnOpen: 0
-    DoesToggleHeroAbilityUse: 0
-    DoesDisableHeroAbilitiesOnOpen: 0
-    DoesEnableHeroAbilitiesOnClose: 0
-    DoesStepHaveGeneralStepUI: 1
-    GeneralStepUI:
-      CustomTutorialUIText: 
-      CustomTutorialTextOffsetPosition: {x: 0, y: 0}
-      CustomTutorialImage: {fileID: 0}
-      CustomTutorialImageOffsetPosition: {x: 0, y: -45}
-      CustomTutorialImageDimensions: {x: 939, y: 406}
-      CustomTutorialImageScale: {x: 0.2, y: 0.2, z: 0.2}
-      CustomTutorialPosition: {x: -200, y: 25}
-      CustomTutorialDimensions: {x: 1500, y: 1200}
-    CustomIndividualStepUI:
-      DoesUseCanvasGroupCurve: 0
-      DoesUseScaleCurve: 0
-      DoesUseCustomUIObjectCanvas: 0
-    IndividualStepUI: {fileID: 0}
-    CustomStepObjectPosition: {x: 0, y: 0, z: 0}
-    CustomTutorialStepObjects: {fileID: 0}
-    OnCustomTutorialOpen:
-      m_PersistentCalls:
-        m_Calls: []
-    OnCustomTutorialClose:
-      m_PersistentCalls:
-        m_Calls: []
-  - StepName: Manual Controls Continued
-    DoesAutomaticallyProgressOnBossHealthThreshold: 0
-    AutomaticProgressBossHealthThreshold: 0
-    DoesAutomaticallyProgressToNextStepOnContinue: 1
-    AutomaticStepProgressDelay: 0
-    DoesStopBossAttacksOnOpen: 0
-    DoesToggleHeroAbilityUse: 0
-    DoesDisableHeroAbilitiesOnOpen: 0
-    DoesEnableHeroAbilitiesOnClose: 0
-    DoesStepHaveGeneralStepUI: 1
-    GeneralStepUI:
-      CustomTutorialUIText: 'Heroes have abilities
-
-        that can deal damage
-
-        or
-        provide unique
-
-        effects.'
-      CustomTutorialTextOffsetPosition: {x: 0, y: 0}
-      CustomTutorialImage: {fileID: 0}
-      CustomTutorialImageOffsetPosition: {x: 0, y: -45}
-      CustomTutorialImageDimensions: {x: 939, y: 406}
-      CustomTutorialImageScale: {x: 0.2, y: 0.2, z: 0.2}
-      CustomTutorialPosition: {x: -200, y: 25}
-      CustomTutorialDimensions: {x: 1500, y: 1200}
-    CustomIndividualStepUI:
-      DoesUseCanvasGroupCurve: 0
-      DoesUseScaleCurve: 0
-      DoesUseCustomUIObjectCanvas: 0
-    IndividualStepUI: {fileID: 0}
-    CustomStepObjectPosition: {x: 0, y: 0, z: 0}
-    CustomTutorialStepObjects: {fileID: 0}
-    OnCustomTutorialOpen:
-      m_PersistentCalls:
-        m_Calls: []
-    OnCustomTutorialClose:
-      m_PersistentCalls:
-        m_Calls: []
-  - StepName: Passive Abilities
-    DoesAutomaticallyProgressOnBossHealthThreshold: 0
-    AutomaticProgressBossHealthThreshold: 0
-    DoesAutomaticallyProgressToNextStepOnContinue: 1
-    AutomaticStepProgressDelay: 0
-    DoesStopBossAttacksOnOpen: 0
-    DoesToggleHeroAbilityUse: 0
-    DoesDisableHeroAbilitiesOnOpen: 0
-    DoesEnableHeroAbilitiesOnClose: 0
-    DoesStepHaveGeneralStepUI: 1
-    GeneralStepUI:
-      CustomTutorialUIText: 'Passive abilities are an
-
-        effect that is always
-        active.
-
-        They can come in the form
-
-        of stat bonuses, extra
-
-        attacks,
-        or unique effects.'
-      CustomTutorialTextOffsetPosition: {x: 0, y: 0}
-      CustomTutorialImage: {fileID: 0}
-      CustomTutorialImageOffsetPosition: {x: 0, y: -45}
-      CustomTutorialImageDimensions: {x: 939, y: 406}
-      CustomTutorialImageScale: {x: 0.2, y: 0.2, z: 0.2}
-      CustomTutorialPosition: {x: -200, y: 25}
-      CustomTutorialDimensions: {x: 1500, y: 1200}
+      CustomTutorialDimensions: {x: 1500, y: 850}
     CustomIndividualStepUI:
       DoesUseCanvasGroupCurve: 0
       DoesUseScaleCurve: 0
@@ -671,26 +403,31 @@ MonoBehaviour:
     DoesAutomaticallyProgressToNextStepOnContinue: 0
     AutomaticStepProgressDelay: 0
     DoesStopBossAttacksOnOpen: 0
-    DoesToggleHeroAbilityUse: 0
+    DoesToggleHeroAbilityUse: 1
+    DoesDisableChargingHeroAbilitiesOnOpen: 0
     DoesDisableHeroAbilitiesOnOpen: 0
-    DoesEnableHeroAbilitiesOnClose: 0
+    DoesEnableChargingHeroAbilitiesOnClose: 1
+    DoesEnableHeroAbilitiesOnClose: 1
     DoesStepHaveGeneralStepUI: 1
     GeneralStepUI:
-      CustomTutorialUIText: 'Heroes have abilities
+      CustomTutorialUIText: 'Some Hero abilities
 
-        that can deal damage
+        happen automatically.
 
-        or
-        provide unique
+        Move
+        this Hero close
 
-        effects.'
+        enough to the Boss to
+
+        damage, and defeat
+        it'
       CustomTutorialTextOffsetPosition: {x: 0, y: 0}
       CustomTutorialImage: {fileID: 0}
-      CustomTutorialImageOffsetPosition: {x: 0, y: -45}
-      CustomTutorialImageDimensions: {x: 939, y: 406}
-      CustomTutorialImageScale: {x: 0.2, y: 0.2, z: 0.2}
+      CustomTutorialImageOffsetPosition: {x: 0, y: 0}
+      CustomTutorialImageDimensions: {x: 939, y: 0}
+      CustomTutorialImageScale: {x: 0, y: 0, z: 0}
       CustomTutorialPosition: {x: -200, y: 25}
-      CustomTutorialDimensions: {x: 1500, y: 1200}
+      CustomTutorialDimensions: {x: 1500, y: 900}
     CustomIndividualStepUI:
       DoesUseCanvasGroupCurve: 0
       DoesUseScaleCurve: 0
@@ -714,8 +451,22 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
-            m_BoolArgument: 0
+            m_BoolArgument: 1
           m_CallState: 2
+        - m_Target: {fileID: 2577195436815345019}
+          m_TargetAssemblyTypeName: BaseCustomTutorial, Assembly-CSharp
+          m_MethodName: ActivateBossAbility
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 3
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+  _doesStopBossEnrageProgressOnBattleStart: 1
+  _doesStopChargingHeroAbilitiesOnBattleStart: 1
   _doesStopHeroAbilitiesOnBattleStart: 1
   _individualStepSection: {fileID: 1174250006896115492, guid: 7a7df69f601cc174c926a3de2673ca5d, type: 3}
   _generalCustomTutorialStep: {fileID: 2461870103452877735}

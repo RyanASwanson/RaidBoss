@@ -13,110 +13,118 @@ MonoBehaviour:
   m_Name: Mission6
   m_EditorClassIdentifier: 
   _missionID: 5
-  _missionName: 'The Terra
+  _missionName: 'The
 
-    Lord'
+    Reaper'
   _missionTitleScale: 1
+  _doesAutomaticallySelectFirstHero: 1
   _associatedDifficulty: 1
   _associatedLevel: {fileID: 11400000, guid: 53e846bb7c637be46af02e5cd8741558, type: 2}
   _associatedHeroes:
   - {fileID: 11400000, guid: fa900cf8282b2814fb9eb1a8cc860cd0, type: 2}
   - {fileID: 11400000, guid: 0128339a05223db40aae2581988a9ea0, type: 2}
+  - {fileID: 11400000, guid: 2b5cc09a0a41a0c40a6b8c0fa2ebb464, type: 2}
   _missionDisplayHighlights:
-  - HighlightType: 0
-    HightlightID: 0
+  - HighlightType: 2
+    HightlightID: 2
   _tutorialPages:
-  - TutorialPageTitle: 'Boss: The Terra Lord'
-    TutorialPageTitleWidth: 1155
-    DefaultTextLocation: {x: 0, y: 40}
-    DefaultText: 'A new foe has appeared. The <color=#B8FF31>Terra
+  - TutorialPageTitle: 'Hero: The Reaper'
+    TutorialPageTitleWidth: 960
+    DefaultTextLocation: {x: 0, y: 45}
+    DefaultText: 'In desperate times, unlikely alliances
 
-      Lord</color>
-      harnesses nature itself to
+      are forged. The <color=#CC00FF>Reaper</color>
+      is a nimble and
 
-      crush you. Like all Bosses, it has its
+      unstoppable damage dealer. It drifts
 
-      own
-      unique set of attacks.'
+      throughout
+      the battlefield, leaving death
+
+      in its wake.'
     TutorialPageObjectLocation: {x: 0, y: 0}
     TutorialPageObject: {fileID: 0}
     TutorialPageCharacterTutorial:
-      TutorialCharacterIconLocation: {x: 0, y: -60}
-      TutorialCharacterIconScaleMultiplier: 1.075
-      TutorialPageCharacterIcon: {fileID: 21300000, guid: 6adf6c78c6c82a24c97ad89a6d504a43, type: 3}
-      TutorialPageCharacterBackground: {fileID: 21300000, guid: b2bea2ea6395a3a4698f324d28df7139, type: 3}
-  - TutorialPageTitle: Unstable Precipice
-    TutorialPageTitleWidth: 1035
-    DefaultTextLocation: {x: 0, y: 40}
-    DefaultText: 'On top of a unique set of attacks, you also
-
-      need to be wary
-      of the <color=#B8FF31>Terra Lord</color>''s passive
-
-      ability, <color=#C8FF5E>Unstable
-      Precipice</color>. The arena will
-
-      begin to tilt in the direction the
-      Heroes are on.'
-    TutorialPageObjectLocation: {x: 0, y: 0}
-    TutorialPageObject: {fileID: 0}
-    TutorialPageCharacterTutorial:
-      TutorialCharacterIconLocation: {x: 0, y: -60}
+      TutorialCharacterIconLocation: {x: 0, y: -65}
       TutorialCharacterIconScaleMultiplier: 1
-      TutorialPageCharacterIcon: {fileID: 21300000, guid: c891d6ee2630d11468a6f57578f964b1, type: 3}
-      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
-  - TutorialPageTitle: Weight Influence
-    TutorialPageTitleWidth: 957
-    DefaultTextLocation: {x: 0, y: 60}
-    DefaultText: 'Be wary of pillars left by the
-
-      <color=#B8FF31>Terra Lord</color>''s
-      <color=#C8FF5E>Entomb</color> ability, as
-
-      they also contribute to the
-      weight.'
-    TutorialPageObjectLocation: {x: 0, y: -45}
-    TutorialPageObject: {fileID: 4067812921492274697, guid: 6300a2437fa4b1a419f4d9a0145aedf0, type: 3}
-    TutorialPageCharacterTutorial:
-      TutorialCharacterIconLocation: {x: 0, y: 0}
-      TutorialCharacterIconScaleMultiplier: 0
-      TutorialPageCharacterIcon: {fileID: 0}
-      TutorialPageCharacterBackground: {fileID: 0}
-  - TutorialPageTitle: Staying Balanced
-    TutorialPageTitleWidth: 944
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 2d250d8fa55e1ff40bb7a9f16562db97, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: cad11a2bf12278c46a02ba6a7ef54eec, type: 3}
+  - TutorialPageTitle: Soul Scythe
+    TutorialPageTitleWidth: 654
     DefaultTextLocation: {x: 0, y: 40}
-    DefaultText: 'You can keep track of the current balance at
+    DefaultText: 'The <color=#CC00FF>Reaper</color>''s basic ability is <color=#AF00DB>Soul
+      Scythe</color>.
 
-      the top of
-      the screen. If it reaches the end in
+      The <color=#CC00FF>Reaper</color> has a scythe constantly
 
-      either direction, debris will rain
-      down, inflicting
+      around
+      it, allowing it to deal rapid
 
-      damage until the balance is improved.'
-    TutorialPageObjectLocation: {x: 0, y: -70}
-    TutorialPageObject: {fileID: 8277734731874736608, guid: b0ad0110275716c43850993be7f84d1a, type: 3}
+      damage and stagger, even when moving.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
     TutorialPageCharacterTutorial:
-      TutorialCharacterIconLocation: {x: 0, y: 0}
-      TutorialCharacterIconScaleMultiplier: 0
-      TutorialPageCharacterIcon: {fileID: 0}
-      TutorialPageCharacterBackground: {fileID: 0}
-  _characterUnlock: {fileID: 11400000, guid: be74862a2a733b44c8683efb08f6f861, type: 2}
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: ff7625caa79635949b51aa618fa3fcd4, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  - TutorialPageTitle: Death's Approach
+    TutorialPageTitleWidth: 958
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'The <color=#CC00FF>Reaper</color>''s active ability is <color=#AF00DB>Death''s
+      Approach</color>.
+
+      The <color=#CC00FF>Reaper</color> creates a skull
+      that moves
+
+      towards the <color=#CC00FF>Reaper</color>, dealing damage.
+
+      Keep
+      moving to keep the skull near the Boss.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 4354925d3cdfb0f4880d705122445053, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  - TutorialPageTitle: Rebirth
+    TutorialPageTitleWidth: 434
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'The <color=#CC00FF>Reaper</color>''s passive ability is
+
+      <color=#AF00DB>Rebirth</color>.
+      The <color=#CC00FF>Reaper</color> persists
+
+      after being killed for
+
+      a
+      short period of time.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: fe6d030b04450f043a079a46a9c747c1, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  _customTutorial: {fileID: 0}
+  _characterUnlock: {fileID: 11400000, guid: 2b5cc09a0a41a0c40a6b8c0fa2ebb464, type: 2}
   _difficultyUnlock: 0
   _missionModifierUnlock: {fileID: 0}
   _missionUnlocks:
-  - {fileID: 11400000, guid: 1da492c6ee012114b9206705ff83b5dd, type: 2}
+  - {fileID: 11400000, guid: 8906b8ba7d67be44ba9658f6d55eca9a, type: 2}
   _achievementUnlocks: []
-  _generalMissionUnlocks: 0
+  _generalMissionUnlocks: 1
   _missionModifiers: []
   _missionStatModifiers:
-    _bossHealthMultiplier: 0.45
+    _bossHealthMultiplier: 0.65
     _bossStaggerMultiplier: 1
     _bossAttackSpeedMultiplier: 1
     _bossDamageResistanceChangeOnStaggerMultiplier: 1
     _bossEnrageTimeMultiplier: 1
     _bossEnrageDamageMultiplier: 1
-    _bossAbilitiesUsable: 0101000001
+    _canBossAutomaticallyUseAbilities: 1
+    _bossAbilitiesUsable: 0101010101
     _heroHealthMultiplier: 1
     _heroDamageMultiplier: 1
     _heroStaggerMultiplier: 1

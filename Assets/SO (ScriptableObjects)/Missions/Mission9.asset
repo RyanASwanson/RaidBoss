@@ -13,72 +13,134 @@ MonoBehaviour:
   m_Name: Mission9
   m_EditorClassIdentifier: 
   _missionID: 8
-  _missionName: 'Mission
+  _missionName: 'The
 
-    Modifiers'
-  _missionTitleScale: 1
+    Chronomancer'
+  _missionTitleScale: 0.95
+  _doesAutomaticallySelectFirstHero: 1
   _associatedDifficulty: 1
-  _associatedLevel: {fileID: 11400000, guid: 53e846bb7c637be46af02e5cd8741558, type: 2}
+  _associatedLevel: {fileID: 11400000, guid: 763a87e823e4c5d4d8c9e44aa8aa4a02, type: 2}
   _associatedHeroes:
-  - {fileID: 11400000, guid: fa900cf8282b2814fb9eb1a8cc860cd0, type: 2}
-  - {fileID: 11400000, guid: 2b5cc09a0a41a0c40a6b8c0fa2ebb464, type: 2}
+  - {fileID: 11400000, guid: 0128339a05223db40aae2581988a9ea0, type: 2}
   - {fileID: 11400000, guid: e3a0dad03ec099242b69fcc0759e259a, type: 2}
+  - {fileID: 11400000, guid: 5cd74adfdadc94247a4cc60ba024fe89, type: 2}
   _missionDisplayHighlights:
-  - HighlightType: 3
-    HightlightID: 0
+  - HighlightType: 2
+    HightlightID: 2
   _tutorialPages:
-  - TutorialPageTitle: Mission Modifiers
-    TutorialPageTitleWidth: 990
-    DefaultTextLocation: {x: 0, y: 55}
-    DefaultText: 'Some missions will have modifiers that
+  - TutorialPageTitle: Healing
+    TutorialPageTitleWidth: 427
+    DefaultTextLocation: {x: 0, y: 60}
+    DefaultText: 'Some Heroes have ways in which
 
-      change how you will
-      play. They
+      they can heal themselves
+      or other
 
-      can be seen near the bottom of the
+      Heroes. Utilize the healing to
 
-      mission scroll
-      in the mission selection.'
-    TutorialPageObjectLocation: {x: 0, y: -50}
-    TutorialPageObject: {fileID: 2628942221242811885, guid: 9080da42fa575a2468505ae80afe1fc1, type: 3}
+      sustain yourself in harder
+      fights.'
+    TutorialPageObjectLocation: {x: 0, y: -80}
+    TutorialPageObject: {fileID: 8802351148540139332, guid: b57606bb3808e4b4787469467daa649e, type: 3}
     TutorialPageCharacterTutorial:
       TutorialCharacterIconLocation: {x: 0, y: 0}
       TutorialCharacterIconScaleMultiplier: 0
       TutorialPageCharacterIcon: {fileID: 0}
       TutorialPageCharacterBackground: {fileID: 0}
-  - TutorialPageTitle: 'Modifier: Brittle'
-    TutorialPageTitleWidth: 908
-    DefaultTextLocation: {x: 0, y: 40}
-    DefaultText: 'Boss health is increased, but the
+  - TutorialPageTitle: 'Hero: The Chronomancer'
+    TutorialPageTitleWidth: 1381
+    DefaultTextLocation: {x: 0, y: 45}
+    DefaultText: 'The <color=#FBFF00>Chronomancer</color> is a clutch and
 
-      Boss takes significantly
-      increased
+      precise
+      healer. She can undo major
 
-      damage while staggered.'
+      mistakes while providing buffs
+
+      to
+      help allies deal damage.'
     TutorialPageObjectLocation: {x: 0, y: 0}
     TutorialPageObject: {fileID: 0}
     TutorialPageCharacterTutorial:
-      TutorialCharacterIconLocation: {x: 0, y: -60}
+      TutorialCharacterIconLocation: {x: 0, y: -65}
       TutorialCharacterIconScaleMultiplier: 1
-      TutorialPageCharacterIcon: {fileID: 21300000, guid: 62e8a26981a4b464ea424d1c7d1ef962, type: 3}
-      TutorialPageCharacterBackground: {fileID: 21300000, guid: 818d8b766be8c0d4687ee74e218b8deb, type: 3}
-  _characterUnlock: {fileID: 0}
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: fe2bf9c72fd89414ca1dc07e70fefe01, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: cad11a2bf12278c46a02ba6a7ef54eec, type: 3}
+  - TutorialPageTitle: Time Blast
+    TutorialPageTitleWidth: 580
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'The <color=#FBFF00>Chronomancer</color>''s basic ability is <color=#EBDB00>Time
+      Blast</color>.
+
+      The <color=#FBFF00>Chronomancer</color> fires a projectile
+      in a
+
+      clockwork pattern that can heal allies and
+
+      damage the Boss.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 561524586736d2e4ca7cedbe3c90cc73, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  - TutorialPageTitle: Rewind
+    TutorialPageTitleWidth: 418
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'The <color=#FBFF00>Chronomancer</color>''s active ability
+
+      is
+      <color=#EBDB00>Rewind</color>. The <color=#FBFF00>Chronomancer</color> reverses
+
+      all
+      damage taken by heroes
+
+      in the past few seconds.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 25df8652d4f478243847ad1e38f346be, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  - TutorialPageTitle: Accelerate
+    TutorialPageTitleWidth: 582
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'The <color=#FBFF00>Chronomancer</color>''s passive ability
+
+      is
+      <color=#EBDB00>Accelerate</color>. The <color=#FBFF00>Chronomancer</color>
+      speeds
+
+      up the cooldowns of allies that
+
+      she affects with her abilities.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 8e71ba263f0bcd44986d875d9e85e80d, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  _customTutorial: {fileID: 0}
+  _characterUnlock: {fileID: 11400000, guid: 5cd74adfdadc94247a4cc60ba024fe89, type: 2}
   _difficultyUnlock: 0
-  _missionModifierUnlock: {fileID: 11400000, guid: 552c5c9b813bd4f429e0c22b5df61aa5, type: 2}
+  _missionModifierUnlock: {fileID: 0}
   _missionUnlocks:
-  - {fileID: 11400000, guid: 60df7f5cd6ce1b94084820bf0fd741e3, type: 2}
+  - {fileID: 11400000, guid: 6681a386d1d2482499068e402344fd59, type: 2}
   _achievementUnlocks: []
   _generalMissionUnlocks: 0
-  _missionModifiers:
-  - {fileID: 11400000, guid: 552c5c9b813bd4f429e0c22b5df61aa5, type: 2}
+  _missionModifiers: []
   _missionStatModifiers:
     _bossHealthMultiplier: 0.8
-    _bossStaggerMultiplier: 1
+    _bossStaggerMultiplier: 0.9
     _bossAttackSpeedMultiplier: 1
     _bossDamageResistanceChangeOnStaggerMultiplier: 1
     _bossEnrageTimeMultiplier: 1
     _bossEnrageDamageMultiplier: 1
-    _bossAbilitiesUsable: 0101010101
+    _canBossAutomaticallyUseAbilities: 1
+    _bossAbilitiesUsable: 0101010100
     _heroHealthMultiplier: 1
     _heroDamageMultiplier: 1
     _heroStaggerMultiplier: 1

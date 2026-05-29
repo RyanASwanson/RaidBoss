@@ -13,64 +13,31 @@ MonoBehaviour:
   m_Name: Mission26
   m_EditorClassIdentifier: 
   _missionID: 25
-  _missionName: 'The End
+  _missionName: 'Mythic+
 
-    Game'
+    Terra Lord'
   _missionTitleScale: 1
+  _doesAutomaticallySelectFirstHero: 1
   _associatedDifficulty: 4
-  _associatedLevel: {fileID: 11400000, guid: 763a87e823e4c5d4d8c9e44aa8aa4a02, type: 2}
+  _associatedLevel: {fileID: 11400000, guid: 53e846bb7c637be46af02e5cd8741558, type: 2}
   _associatedHeroes:
-  - {fileID: 11400000, guid: fa900cf8282b2814fb9eb1a8cc860cd0, type: 2}
-  - {fileID: 11400000, guid: 0128339a05223db40aae2581988a9ea0, type: 2}
-  - {fileID: 11400000, guid: e3a0dad03ec099242b69fcc0759e259a, type: 2}
-  - {fileID: 11400000, guid: d7f1d550a7767a0449286a45aa1aeb8d, type: 2}
-  - {fileID: 11400000, guid: 5cd74adfdadc94247a4cc60ba024fe89, type: 2}
-  _missionDisplayHighlights:
-  - HighlightType: 1
-    HightlightID: 0
-  _tutorialPages:
-  - TutorialPageTitle: Mythic+
-    TutorialPageTitleWidth: 471
-    DefaultTextLocation: {x: 0, y: 30}
-    DefaultText: 'The difficulty has increased
-
-      to <color=#BB0D00>Mythic+</color>.
-      Get ready for a
-
-      real challenge.'
-    TutorialPageObjectLocation: {x: 0, y: 0}
-    TutorialPageObject: {fileID: 0}
-    TutorialPageCharacterTutorial:
-      TutorialCharacterIconLocation: {x: 0, y: -60}
-      TutorialCharacterIconScaleMultiplier: 1.25
-      TutorialPageCharacterIcon: {fileID: 21300000, guid: 7d3ee4008449a474a8cfed84359c1e59, type: 3}
-      TutorialPageCharacterBackground: {fileID: 0}
-  - TutorialPageTitle: Greater Challenges
-    TutorialPageTitleWidth: 1049
-    DefaultTextLocation: {x: 0, y: 55}
-    DefaultText: 'If you are seeking an even greater
-
-      challenge, you can infinitely
-
-      increase
-      the difficulty of
-
-      <color=#BB0D00>Mythic+</color> in Free Play.'
-    TutorialPageObjectLocation: {x: 0, y: -53}
-    TutorialPageObject: {fileID: 1655696998721158963, guid: cd55c0e8098b5784a81889e74387c81e, type: 3}
-    TutorialPageCharacterTutorial:
-      TutorialCharacterIconLocation: {x: 0, y: 0}
-      TutorialCharacterIconScaleMultiplier: 1.25
-      TutorialPageCharacterIcon: {fileID: 0}
-      TutorialPageCharacterBackground: {fileID: 0}
+  - {fileID: 11400000, guid: 77065cfc021c68f45b33aa0acd24fa46, type: 2}
+  - {fileID: 11400000, guid: 2b5cc09a0a41a0c40a6b8c0fa2ebb464, type: 2}
+  - {fileID: 11400000, guid: feb7336736898914f8630a93fd41a2bd, type: 2}
+  - {fileID: 11400000, guid: f6c84c9f4fbb63d48b70719944c773d1, type: 2}
+  - {fileID: 11400000, guid: fe9a9a645a446584c83f77cfdad05c43, type: 2}
+  _missionDisplayHighlights: []
+  _tutorialPages: []
+  _customTutorial: {fileID: 0}
   _characterUnlock: {fileID: 0}
-  _difficultyUnlock: 4
+  _difficultyUnlock: 0
   _missionModifierUnlock: {fileID: 0}
   _missionUnlocks:
-  - {fileID: 11400000, guid: a6a9806becdb7ae47b41d154c6ece02f, type: 2}
+  - {fileID: 11400000, guid: a750330e78d71b9489893eb087d8a268, type: 2}
   _achievementUnlocks: []
   _generalMissionUnlocks: 0
-  _missionModifiers: []
+  _missionModifiers:
+  - {fileID: 11400000, guid: e4353d0e1291c2c4c8f83193227aa03c, type: 2}
   _missionStatModifiers:
     _bossHealthMultiplier: 1
     _bossStaggerMultiplier: 1
@@ -78,6 +45,7 @@ MonoBehaviour:
     _bossDamageResistanceChangeOnStaggerMultiplier: 1
     _bossEnrageTimeMultiplier: 1
     _bossEnrageDamageMultiplier: 1
+    _canBossAutomaticallyUseAbilities: 1
     _bossAbilitiesUsable: 0101010101
     _heroHealthMultiplier: 1
     _heroDamageMultiplier: 1

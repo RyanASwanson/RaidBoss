@@ -31,6 +31,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     
     protected bool _isManualAbilityActive = false;
 
+    protected bool _canHeroChargeAbilities = true;
     protected bool _canHeroUseAbilities = true;
 
     [Space]
@@ -89,7 +90,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         _basicAbilityCurrentCharge = 0;
         while (_basicAbilityCurrentCharge < _basicAbilityChargeTime)
         {
-            CooldownAddToBasicAbilityCharge(Time.deltaTime * _myHeroBase.GetHeroStats().GetBasicAbilityCooldownRateMultiplier());
+            CooldownAddToBasicAbilityCharge(Time.deltaTime);
             yield return null;
         }
 
@@ -98,18 +99,23 @@ public abstract class SpecificHeroFramework : MonoBehaviour
 
     protected virtual void CooldownAddToBasicAbilityCharge(float addedAmount)
     {
-        AddToBasicAbilityChargeTime(addedAmount);
+        AddToBasicAbilityChargeTime(addedAmount*_myHeroBase.GetHeroStats().GetBasicAbilityCooldownRateMultiplier());
+    }
+    
+    public virtual void AddToBasicAbilityChargeTime(float addedAmount)
+    {
+        if (!_canHeroChargeAbilities)
+        {
+            return;
+        }
+        
+        _basicAbilityCurrentCharge += addedAmount;
     }
 
     protected virtual void BasicAbilityCooldownReady()
     {
         _basicAbilityCooldownCoroutine = null;
         StartCheckingToAttemptBasicAbilities();
-    }
-
-    public virtual void AddToBasicAbilityChargeTime(float addedAmount)
-    {
-        _basicAbilityCurrentCharge += addedAmount;
     }
 
     public virtual void StartCheckingToAttemptBasicAbilities()
@@ -220,7 +226,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     {
         while (_manualAbilityCurrentCharge < _manualAbilityChargeTime)
         {
-            AddToManualAbilityChargeTime(Time.deltaTime * _myHeroBase.GetHeroStats().GetManualAbilityCooldownRateMultiplier());
+            CooldownAddToManualAbilityCharge(Time.deltaTime);
             yield return null;
         }
 
@@ -229,21 +235,34 @@ public abstract class SpecificHeroFramework : MonoBehaviour
             ManualAbilityFullyCharged();
         }
     }
-
-    public virtual void ManualAbilityFullyCharged()
+    
+    protected virtual void CooldownAddToManualAbilityCharge(float addedAmount)
     {
-        _myHeroBase.InvokeHeroManualAbilityFullyChargedEvent();
+        AddToManualAbilityChargeTime(addedAmount*_myHeroBase.GetHeroStats().GetManualAbilityCooldownRateMultiplier());
     }
-
+    
     public virtual void AddToManualAbilityChargeTime(float addedAmount)
     {
+        if (!_canHeroChargeAbilities)
+        {
+            return;
+        }
+        
         _manualAbilityCurrentCharge += addedAmount;
         _myHeroBase.InvokeHeroManualAbilityChargingEvent();
     }
 
+    public virtual void ManualAbilityFullyCharged()
+    {
+        StopCooldownManualAbility();
+        _manualAbilityCurrentCharge = _manualAbilityChargeTime;
+        
+        _myHeroBase.InvokeHeroManualAbilityFullyChargedEvent();
+    }
+
     public virtual void AttemptActivationOfManualAbility()
     {
-        if(_manualAbilityCurrentCharge >= _manualAbilityChargeTime && !_isManualAbilityActive)
+        if(_manualAbilityCurrentCharge >= _manualAbilityChargeTime && !_isManualAbilityActive && _canHeroUseAbilities)
         {
             ActivateManualAbilities();
         }
@@ -251,7 +270,10 @@ public abstract class SpecificHeroFramework : MonoBehaviour
 
     protected virtual void TriggerManualAbilityAnimation()
     {
-        if (!_hasManualAbilityAnimation) return;
+        if (!_hasManualAbilityAnimation)
+        {
+            return;
+        }
 
         _myHeroBase.GetHeroVisuals().TriggerManualAbilityAnimation();
         _myHeroBase.GetHeroVisuals().ResetManualAbilityAnimation(_manualAbilityAnimationDisableWait);
@@ -534,6 +556,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
 
     #region MyRegion
 
+    public void SetCanHeroChargeAbilities(bool canHeroChargeAbilities) => _canHeroChargeAbilities = canHeroChargeAbilities;
     public void SetCanHeroUseAbilities(bool canUseAbilities) => _canHeroUseAbilities = canUseAbilities;
 
     #endregion

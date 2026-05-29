@@ -30,6 +30,7 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     [SerializeField] private bool _canSelectAlreadySelectedHero;
 
     private bool _canControlHero = true;
+    private bool _canDirectHeroMovement = true;
     private bool _isTutorialPreventingControl = false;
     
     [Space]
@@ -279,6 +280,11 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     
     public void DirectSpecificHeroTo(HeroBase hero, Vector3 newDestination)
     {
+        if (!_canDirectHeroMovement)
+        {
+            return;
+        }
+        
         hero.GetPathfinding().DirectNavigationTo(newDestination);
     }
 
@@ -326,7 +332,7 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     
     private void PlayerDirectClicked(InputAction.CallbackContext context)
     {
-        if (ClickOnPoint(_directClickLayerMask, out RaycastHit clickedOn))
+        if (_canDirectHeroMovement && ClickOnPoint(_directClickLayerMask, out RaycastHit clickedOn))
         {
             DirectAllHeroesTo(clickedOn.point);
             CreateHeroDirectIcon(clickedOn.point);
@@ -518,5 +524,9 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
 
     public UnityEvent<HeroBase> GetOnHeroControlledEvent => _onHeroControlled;
 
+    #endregion
+    
+    #region Setters
+    public void SetCanDirectHeroMovement(bool canDirectHeroMovement) => _canDirectHeroMovement = canDirectHeroMovement;
     #endregion
 }

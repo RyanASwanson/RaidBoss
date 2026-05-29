@@ -449,6 +449,7 @@ public class HeroUIManager : GameUIChildrenFunctionality
     private void ManualFullyCharged()
     {
         ShowManualAbilityChargedIconAboveHero(true);
+        SetHeroManualAbilityCharge(1);
 
         CreateAbilityReChargedIconAboveHero();
         HeroIconOnUIFlash();

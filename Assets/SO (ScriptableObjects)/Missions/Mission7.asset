@@ -15,113 +15,120 @@ MonoBehaviour:
   _missionID: 6
   _missionName: 'The
 
-    Reaper'
+    Shaman'
   _missionTitleScale: 1
+  _doesAutomaticallySelectFirstHero: 1
   _associatedDifficulty: 1
-  _associatedLevel: {fileID: 11400000, guid: 53e846bb7c637be46af02e5cd8741558, type: 2}
+  _associatedLevel: {fileID: 11400000, guid: 763a87e823e4c5d4d8c9e44aa8aa4a02, type: 2}
   _associatedHeroes:
-  - {fileID: 11400000, guid: fa900cf8282b2814fb9eb1a8cc860cd0, type: 2}
   - {fileID: 11400000, guid: 0128339a05223db40aae2581988a9ea0, type: 2}
   - {fileID: 11400000, guid: 2b5cc09a0a41a0c40a6b8c0fa2ebb464, type: 2}
+  - {fileID: 11400000, guid: e3a0dad03ec099242b69fcc0759e259a, type: 2}
   _missionDisplayHighlights:
   - HighlightType: 2
     HightlightID: 2
   _tutorialPages:
-  - TutorialPageTitle: 'Hero: The Reaper'
-    TutorialPageTitleWidth: 960
+  - TutorialPageTitle: 'Hero: The Shaman'
+    TutorialPageTitleWidth: 1010
     DefaultTextLocation: {x: 0, y: 45}
-    DefaultText: 'In desperate times, unlikely alliances
+    DefaultText: 'The <color=#4273FF>Shaman</color> is a well-rounded and
 
-      are forged. The <color=#CC00FF>Reaper</color>
-      is a nimble and
+      strategic
+      damage dealer. He deals damage
 
-      unstoppable damage dealer. It drifts
+      over wide areas while waiting for his
 
-      throughout
-      the battlefield, leaving death
-
-      in its wake.'
+      opportunity
+      to line up repeated damage.'
     TutorialPageObjectLocation: {x: 0, y: 0}
     TutorialPageObject: {fileID: 0}
     TutorialPageCharacterTutorial:
       TutorialCharacterIconLocation: {x: 0, y: -65}
       TutorialCharacterIconScaleMultiplier: 1
-      TutorialPageCharacterIcon: {fileID: 21300000, guid: 2d250d8fa55e1ff40bb7a9f16562db97, type: 3}
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 50055fdb0508a044691e25a12d99168b, type: 3}
       TutorialPageCharacterBackground: {fileID: 21300000, guid: cad11a2bf12278c46a02ba6a7ef54eec, type: 3}
-  - TutorialPageTitle: Soul Scythe
-    TutorialPageTitleWidth: 654
+  - TutorialPageTitle: Tornado
+    TutorialPageTitleWidth: 469
     DefaultTextLocation: {x: 0, y: 40}
-    DefaultText: 'The <color=#CC00FF>Reaper</color>''s basic ability is <color=#AF00DB>Soul
-      Scythe</color>.
+    DefaultText: 'The <color=#4273FF>Shaman</color>''s basic ability is
 
-      The <color=#CC00FF>Reaper</color> has a scythe constantly
+      <color=#6B92FF>Tornado</color>.
+      The <color=#4273FF>Shaman</color> creates a
 
-      around
-      it, allowing it to deal rapid
+      tornado, which deals damage
+      and
 
-      damage and stagger, even when moving.'
+      low stagger vertically.'
     TutorialPageObjectLocation: {x: 0, y: 0}
     TutorialPageObject: {fileID: 0}
     TutorialPageCharacterTutorial:
       TutorialCharacterIconLocation: {x: 0, y: -65}
       TutorialCharacterIconScaleMultiplier: 1
-      TutorialPageCharacterIcon: {fileID: 21300000, guid: ff7625caa79635949b51aa618fa3fcd4, type: 3}
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 8bdea33b2b0c3674fa19fde192c3bec8, type: 3}
       TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
-  - TutorialPageTitle: Death's Approach
-    TutorialPageTitleWidth: 958
+  - TutorialPageTitle: Ball Lightning
+    TutorialPageTitleWidth: 788
     DefaultTextLocation: {x: 0, y: 40}
-    DefaultText: 'The <color=#CC00FF>Reaper</color>''s active ability is <color=#AF00DB>Death''s
-      Approach</color>.
+    DefaultText: 'The <color=#4273FF>Shaman</color>''s active ability is
 
-      The <color=#CC00FF>Reaper</color> creates a skull
-      that moves
+      <color=#6B92FF>Ball
+      Lightning</color>. The <color=#4273FF>Shaman</color> fires a ball
 
-      towards the <color=#CC00FF>Reaper</color>, dealing damage.
+      of
+      lightning that bounces between
 
-      Keep
-      moving to keep the skull near the Boss.'
+      all Heroes. Line it up to hit
+
+      the
+      Boss multiple times.'
     TutorialPageObjectLocation: {x: 0, y: 0}
     TutorialPageObject: {fileID: 0}
     TutorialPageCharacterTutorial:
       TutorialCharacterIconLocation: {x: 0, y: -65}
       TutorialCharacterIconScaleMultiplier: 1
-      TutorialPageCharacterIcon: {fileID: 21300000, guid: 4354925d3cdfb0f4880d705122445053, type: 3}
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 53c272ff603dd9d48a50f92ca834ec29, type: 3}
       TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
-  - TutorialPageTitle: Rebirth
-    TutorialPageTitleWidth: 434
+  - TutorialPageTitle: Spirit Totem
+    TutorialPageTitleWidth: 700
     DefaultTextLocation: {x: 0, y: 40}
-    DefaultText: 'The <color=#CC00FF>Reaper</color>''s passive ability is
+    DefaultText: 'The <color=#4273FF>Shaman</color>''s passive ability is
 
-      <color=#AF00DB>Rebirth</color>.
-      The <color=#CC00FF>Reaper</color> persists
+      <color=#6B92FF>Spirit
+      Totem</color>. The <color=#4273FF>Shaman</color> creates a totem
 
-      after being killed for
+      at
+      his location after using <color=#6B92FF>Ball Lightning</color>. The
 
-      a
-      short period of time.'
+      next
+      use of <color=#6B92FF>Ball Lightning</color> will bounce off
+
+      the totem
+      as well as all Heroes.'
     TutorialPageObjectLocation: {x: 0, y: 0}
     TutorialPageObject: {fileID: 0}
     TutorialPageCharacterTutorial:
       TutorialCharacterIconLocation: {x: 0, y: -65}
       TutorialCharacterIconScaleMultiplier: 1
-      TutorialPageCharacterIcon: {fileID: 21300000, guid: fe6d030b04450f043a079a46a9c747c1, type: 3}
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 8a84224464139aa4790c50fec3f988e0, type: 3}
       TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
-  _characterUnlock: {fileID: 11400000, guid: 2b5cc09a0a41a0c40a6b8c0fa2ebb464, type: 2}
+  _customTutorial: {fileID: 0}
+  _characterUnlock: {fileID: 11400000, guid: e3a0dad03ec099242b69fcc0759e259a, type: 2}
   _difficultyUnlock: 0
   _missionModifierUnlock: {fileID: 0}
   _missionUnlocks:
-  - {fileID: 11400000, guid: 8906b8ba7d67be44ba9658f6d55eca9a, type: 2}
+  - {fileID: 11400000, guid: 891da014c2e98db41900484d53a617bc, type: 2}
   _achievementUnlocks: []
-  _generalMissionUnlocks: 1
+  _generalMissionUnlocks: 0
   _missionModifiers: []
   _missionStatModifiers:
-    _bossHealthMultiplier: 0.65
+    _bossHealthMultiplier: 0.8
     _bossStaggerMultiplier: 1
     _bossAttackSpeedMultiplier: 1
     _bossDamageResistanceChangeOnStaggerMultiplier: 1
     _bossEnrageTimeMultiplier: 1
     _bossEnrageDamageMultiplier: 1
-    _bossAbilitiesUsable: 0101010101
+    _canBossAutomaticallyUseAbilities: 1
+    _bossAbilitiesUsable: 0101010100
     _heroHealthMultiplier: 1
     _heroDamageMultiplier: 1
     _heroStaggerMultiplier: 1

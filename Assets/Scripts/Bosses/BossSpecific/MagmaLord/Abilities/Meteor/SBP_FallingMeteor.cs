@@ -52,6 +52,11 @@ public class SBP_FallingMeteor : BossProjectileFramework
 
     public void MeteorStopped()
     {
+        if (_fallingParticles.IsUnityNull())
+        {
+            return;
+        }
+        
         _fallingParticles.StopAllParticleSystems();
         _fallingParticles.DetachVisualEffect();
     }

@@ -49,7 +49,8 @@ public class MapController : MonoBehaviour
     [Space]
     [Header("Camera")]
     [SerializeField] private float _minimumCameraLocation;
-    [SerializeField] private float _maximumCameraLocation;
+    [SerializeField] private float _additionalMaximumCameraLocation;
+    private float _maximumCameraLocation;
     
     [SerializeField] private  float _cameraMissionOffSet;
 
@@ -121,6 +122,7 @@ public class MapController : MonoBehaviour
         SelectionManager.Instance.SetSelectedGameMode(EGameMode.Missions);
 
         CreateMissions();
+        CalculateMaxCameraLocation();
         SelectStartingMission();
         
         CameraStart();
@@ -167,6 +169,12 @@ public class MapController : MonoBehaviour
     private void SelectStartingMission()
     {
         //SelectMission(_createdMissions[0]);
+    }
+
+    private void CalculateMaxCameraLocation()
+    {
+        _maximumCameraLocation = (SaveManager.Instance.GetMissionsInGame().Length * _missionCreationXIncrease) +
+                                 _additionalMaximumCameraLocation;
     }
     #endregion
     

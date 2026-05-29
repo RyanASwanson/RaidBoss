@@ -15,100 +15,106 @@ MonoBehaviour:
   _missionID: 14
   _missionName: 'The
 
-    Fae'
+    Astromancer'
   _missionTitleScale: 1
+  _doesAutomaticallySelectFirstHero: 1
   _associatedDifficulty: 2
-  _associatedLevel: {fileID: 11400000, guid: 53e846bb7c637be46af02e5cd8741558, type: 2}
+  _associatedLevel: {fileID: 11400000, guid: 8493e996e77df644ab18a699456b6c06, type: 2}
   _associatedHeroes:
-  - {fileID: 11400000, guid: fa900cf8282b2814fb9eb1a8cc860cd0, type: 2}
-  - {fileID: 11400000, guid: 77065cfc021c68f45b33aa0acd24fa46, type: 2}
-  - {fileID: 11400000, guid: e3a0dad03ec099242b69fcc0759e259a, type: 2}
+  - {fileID: 11400000, guid: 2b5cc09a0a41a0c40a6b8c0fa2ebb464, type: 2}
   - {fileID: 11400000, guid: feb7336736898914f8630a93fd41a2bd, type: 2}
+  - {fileID: 11400000, guid: f6c84c9f4fbb63d48b70719944c773d1, type: 2}
+  - {fileID: 11400000, guid: 5cd74adfdadc94247a4cc60ba024fe89, type: 2}
   _missionDisplayHighlights:
   - HighlightType: 2
-    HightlightID: 3
+    HightlightID: 2
   _tutorialPages:
-  - TutorialPageTitle: 'Hero: The Fae'
-    TutorialPageTitleWidth: 774
+  - TutorialPageTitle: 'Hero: The Astromancer'
+    TutorialPageTitleWidth: 1271
     DefaultTextLocation: {x: 0, y: 45}
-    DefaultText: 'The <color=#FF8AF4>Fae</color> is a quick and
+    DefaultText: 'The <color=#7259E6>Astromancer</color> is a slow and
 
-      reckless damage
-      dealer. She
+      powerful
+      damage dealer. He is
 
-      spins around the battlefield,
+      able to unleash powerful spells,
 
-      unleashing a torrent
-      of arrows.'
+      but leaves
+      himself open to damage.'
     TutorialPageObjectLocation: {x: 0, y: 0}
     TutorialPageObject: {fileID: 0}
     TutorialPageCharacterTutorial:
       TutorialCharacterIconLocation: {x: 0, y: -65}
       TutorialCharacterIconScaleMultiplier: 1
-      TutorialPageCharacterIcon: {fileID: 21300000, guid: 4dcb96ecf6438af4eaabb65c39d2cd81, type: 3}
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 1e23a141b2e0353488d142367fb0c989, type: 3}
       TutorialPageCharacterBackground: {fileID: 21300000, guid: cad11a2bf12278c46a02ba6a7ef54eec, type: 3}
-  - TutorialPageTitle: Multishot
-    TutorialPageTitleWidth: 535
+  - TutorialPageTitle: Shooting Star
+    TutorialPageTitleWidth: 766
     DefaultTextLocation: {x: 0, y: 40}
-    DefaultText: 'The <color=#FF8AF4>Fae</color>''s basic ability is <color=#FF88F5>Multishot</color>.
+    DefaultText: 'The <color=#7259E6>Astromancer</color>''s basic ability is
 
-      The
-      <color=#FF8AF4>Fae</color> fires arrows around her in
+      <color=#A368FC>Shooting
+      Star</color>. The <color=#7259E6>Astromancer</color> fires a
 
-      4 diagonal directions
-      that
+      projectile
+      at the Boss that bounces back.
 
-      bounce back towards her.'
+      If it collides with the <color=#7259E6>Astromancer</color>
+      on its
+
+      return, it is reflected back at the boss.'
     TutorialPageObjectLocation: {x: 0, y: 0}
     TutorialPageObject: {fileID: 0}
     TutorialPageCharacterTutorial:
       TutorialCharacterIconLocation: {x: 0, y: -65}
       TutorialCharacterIconScaleMultiplier: 1
-      TutorialPageCharacterIcon: {fileID: 21300000, guid: ae08c1101f2f79b44acc726e516f5084, type: 3}
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 90a97845e8c5d6b4fb158d2e572af5c8, type: 3}
       TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
-  - TutorialPageTitle: Flurry
-    TutorialPageTitleWidth: 381
+  - TutorialPageTitle: Celestial Onslaught
+    TutorialPageTitleWidth: 1056
     DefaultTextLocation: {x: 0, y: 40}
-    DefaultText: 'The <color=#FF8AF4>Fae</color>''s active ability is <color=#FF88F5>Flurry</color>.
+    DefaultText: 'The <color=#7259E6>Astromancer</color>''s active ability is
 
-      The
-      <color=#FF8AF4>Fae</color> bounces around uncontrollably,
+      <color=#A368FC>Celestial
+      Onslaught</color>. The <color=#7259E6>Astromancer</color>
 
-      dealing damage
-      when she collides
+      stands still
+      and fires projectiles at
 
-      with the Boss.'
+      the Boss until he moves.'
     TutorialPageObjectLocation: {x: 0, y: 0}
     TutorialPageObject: {fileID: 0}
     TutorialPageCharacterTutorial:
       TutorialCharacterIconLocation: {x: 0, y: -65}
       TutorialCharacterIconScaleMultiplier: 1
-      TutorialPageCharacterIcon: {fileID: 21300000, guid: a157f7d99ad33a64184d1317ec333ced, type: 3}
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 55efa58f25f54b34f8ea506ecabd4f8d, type: 3}
       TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
-  - TutorialPageTitle: Fleet-footed
-    TutorialPageTitleWidth: 696
+  - TutorialPageTitle: Stars Align
+    TutorialPageTitleWidth: 618
     DefaultTextLocation: {x: 0, y: 40}
-    DefaultText: 'The <color=#FF8AF4>Fae</color>''s passive ability is
+    DefaultText: 'The <color=#7259E6>Astromancer</color>''s passive ability is
 
-      <color=#FF88F5>Fleet-footed</color>.
-      The <color=#FF8AF4>Fae</color> can use
+      <color=#A368FC>Stars
+      Align</color>. The <color=#7259E6>Astromancer</color> reduces
 
-      <color=#FF88F5>Multishot</color>
-      while moving and uses it
+      the cooldown
+      of <color=#A368FC>Celestial Onslaught</color>
 
-      more frequently while doing so.'
+      when reflecting <color=#A368FC>Shooting
+      Star</color>.'
     TutorialPageObjectLocation: {x: 0, y: 0}
     TutorialPageObject: {fileID: 0}
     TutorialPageCharacterTutorial:
       TutorialCharacterIconLocation: {x: 0, y: -65}
       TutorialCharacterIconScaleMultiplier: 1
-      TutorialPageCharacterIcon: {fileID: 21300000, guid: 55feda8602a75f44a9042cd1a82dbfb0, type: 3}
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 842cf0206d9baa44b86423dcff5761c3, type: 3}
       TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
-  _characterUnlock: {fileID: 11400000, guid: feb7336736898914f8630a93fd41a2bd, type: 2}
+  _customTutorial: {fileID: 0}
+  _characterUnlock: {fileID: 11400000, guid: f6c84c9f4fbb63d48b70719944c773d1, type: 2}
   _difficultyUnlock: 0
   _missionModifierUnlock: {fileID: 0}
   _missionUnlocks:
-  - {fileID: 11400000, guid: 5521ecdde3083a642b11424d27c3edee, type: 2}
+  - {fileID: 11400000, guid: c33dd51131a6981458fbc9f586272400, type: 2}
   _achievementUnlocks: []
   _generalMissionUnlocks: 0
   _missionModifiers: []
@@ -119,6 +125,7 @@ MonoBehaviour:
     _bossDamageResistanceChangeOnStaggerMultiplier: 1
     _bossEnrageTimeMultiplier: 1
     _bossEnrageDamageMultiplier: 1
+    _canBossAutomaticallyUseAbilities: 1
     _bossAbilitiesUsable: 0101010101
     _heroHealthMultiplier: 1
     _heroDamageMultiplier: 1

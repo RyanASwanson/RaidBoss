@@ -13,66 +13,110 @@ MonoBehaviour:
   m_Name: Mission20
   m_EditorClassIdentifier: 
   _missionID: 19
-  _missionName: 'The Thunder
+  _missionName: 'The
 
-    Lord'
+    Alchemist'
   _missionTitleScale: 1
+  _doesAutomaticallySelectFirstHero: 1
   _associatedDifficulty: 2
   _associatedLevel: {fileID: 11400000, guid: f4cdc78ddb5cc51429696d5d12e95a4f, type: 2}
   _associatedHeroes:
-  - {fileID: 11400000, guid: 77065cfc021c68f45b33aa0acd24fa46, type: 2}
-  - {fileID: 11400000, guid: 2b5cc09a0a41a0c40a6b8c0fa2ebb464, type: 2}
-  - {fileID: 11400000, guid: d7f1d550a7767a0449286a45aa1aeb8d, type: 2}
-  - {fileID: 11400000, guid: 5cd74adfdadc94247a4cc60ba024fe89, type: 2}
+  - {fileID: 11400000, guid: fa900cf8282b2814fb9eb1a8cc860cd0, type: 2}
+  - {fileID: 11400000, guid: 0128339a05223db40aae2581988a9ea0, type: 2}
+  - {fileID: 11400000, guid: f6c84c9f4fbb63d48b70719944c773d1, type: 2}
+  - {fileID: 11400000, guid: fe9a9a645a446584c83f77cfdad05c43, type: 2}
   _missionDisplayHighlights:
-  - HighlightType: 0
-    HightlightID: 0
+  - HighlightType: 2
+    HightlightID: 3
   _tutorialPages:
-  - TutorialPageTitle: 'Boss: The Thunder Lord'
-    TutorialPageTitleWidth: 1321
-    DefaultTextLocation: {x: 0, y: 40}
-    DefaultText: 'A new foe has appeared. The <color=#FFFE00>Thunder
+  - TutorialPageTitle: 'Hero: The Alchemist'
+    TutorialPageTitleWidth: 1106
+    DefaultTextLocation: {x: 0, y: 45}
+    DefaultText: 'The <color=#AFFF00>Alchemist</color> is a volatile and
 
-      Lord</color>
-      exploits its power of storms to
+      supportive
+      healer. She provides her
 
-      unleash relentless attack that keep
+      team with good healing and
 
-      you
-      on your toes.'
-    TutorialPageObjectLocation: {x: 0, y: 0}
-    TutorialPageObject: {fileID: 0}
-    TutorialPageCharacterTutorial:
-      TutorialCharacterIconLocation: {x: 0, y: -60}
-      TutorialCharacterIconScaleMultiplier: 1.075
-      TutorialPageCharacterIcon: {fileID: 21300000, guid: 27d69f4fa696fc443ba68f63258d742c, type: 3}
-      TutorialPageCharacterBackground: {fileID: 21300000, guid: b2bea2ea6395a3a4698f324d28df7139, type: 3}
-  - TutorialPageTitle: Impending Storm
-    TutorialPageTitleWidth: 956
-    DefaultTextLocation: {x: 0, y: 35}
-    DefaultText: 'The <color=#FFFE00>Thunder Lord</color> has a segment of
-
-      the
-      arena that it constantly fires
-
-      projectiles towards. This area will rotate
-
-      around,
-      so stay on the move to avoid it.'
+      unpredictable
+      buffs.'
     TutorialPageObjectLocation: {x: 0, y: 0}
     TutorialPageObject: {fileID: 0}
     TutorialPageCharacterTutorial:
       TutorialCharacterIconLocation: {x: 0, y: -65}
       TutorialCharacterIconScaleMultiplier: 1
-      TutorialPageCharacterIcon: {fileID: 21300000, guid: 14c93fe0f30d36f48a2ea7e744d2589f, type: 3}
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 5beb97f5d3328b343bc51eace7c1f5f9, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: cad11a2bf12278c46a02ba6a7ef54eec, type: 3}
+  - TutorialPageTitle: Healing Potion
+    TutorialPageTitleWidth: 805
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'The <color=#AFFF00>Alchemist</color>''s basic ability is
+
+      <color=#9CE400>Healing
+      Potion</color>. The <color=#AFFF00>Alchemist</color>
+
+      tosses a potion
+      that can be picked
+
+      up by allies to heal them.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 8124561ae48a5d441bf108b12425b1e6, type: 3}
       TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
-  _characterUnlock: {fileID: 11400000, guid: d54b61fd9d0149a4d8c9f81ff54b24f1, type: 2}
+  - TutorialPageTitle: Mystery Concoction
+    TutorialPageTitleWidth: 1082
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'The <color=#AFFF00>Alchemist</color>''s active ability is <color=#9CE400>Mystery
+
+      Concoction</color>.
+      The <color=#AFFF00>Alchemist</color> throws a potion
+
+      that randomly provides
+      a buff to <color=#9F37FF>damage</color>, <color=#FDFF1B>stagger</color>,
+
+      <color=#67FF00>movement
+      and cooldown speeds</color>, or <color=#0066FF>healing
+
+      received and
+      damage reduction</color>.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: efe33500d0a820f47a78c45ca3abf2d0, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  - TutorialPageTitle: Lifeforce Reaction
+    TutorialPageTitleWidth: 1040
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'The <color=#AFFF00>Alchemist</color>''s passive ability is
+
+      <color=#9CE400>Lifeforce
+      Reaction</color>. When a potion
+
+      is picked up, it fires a projectile
+      towards
+
+      the Boss to deal minor damage.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 7a2c8587479913e45b739fa8ca468970, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  _customTutorial: {fileID: 0}
+  _characterUnlock: {fileID: 11400000, guid: fe9a9a645a446584c83f77cfdad05c43, type: 2}
   _difficultyUnlock: 0
   _missionModifierUnlock: {fileID: 0}
   _missionUnlocks:
-  - {fileID: 11400000, guid: 0d97b8018ae513f4ca2cd3f5da3f6edf, type: 2}
+  - {fileID: 11400000, guid: 29e3be598c0789c4d9959d8bcda1e184, type: 2}
   _achievementUnlocks:
-  - {fileID: 11400000, guid: fbbfe606120ad3442af1d5c8097dba99, type: 2}
+  - {fileID: 11400000, guid: 97511b79cc8893346bdf3823b3f80809, type: 2}
   _generalMissionUnlocks: 0
   _missionModifiers: []
   _missionStatModifiers:
@@ -82,7 +126,8 @@ MonoBehaviour:
     _bossDamageResistanceChangeOnStaggerMultiplier: 1
     _bossEnrageTimeMultiplier: 1
     _bossEnrageDamageMultiplier: 1
-    _bossAbilitiesUsable: 0100010101
+    _canBossAutomaticallyUseAbilities: 1
+    _bossAbilitiesUsable: 0101010101
     _heroHealthMultiplier: 1
     _heroDamageMultiplier: 1
     _heroStaggerMultiplier: 1

@@ -15,6 +15,9 @@ public class BaseCustomTutorial : MonoBehaviour
     protected CustomTutorialStep _currentTutorialStep;
     protected CustomTutorialIndividualStepUISection _currentIndividualStepUISection;
 
+    [SerializeField] protected bool _doesStopBossEnrageProgressOnBattleStart;
+    
+    [SerializeField] protected bool _doesStopChargingHeroAbilitiesOnBattleStart;
     [SerializeField] protected bool _doesStopHeroAbilitiesOnBattleStart;
     
     [Space]
@@ -123,15 +126,25 @@ public class BaseCustomTutorial : MonoBehaviour
         
         DisplayCustomTutorialBack();
         
+        ToggleDirectHeroMovement(false);
+        
         if (_currentTutorialStep.DoesStopBossAttacksOnOpen)
         {
             BossBase.Instance.GetSpecificBossScript().StopCurrentAttack();
         }
 
-        if (_currentTutorialStep.DoesToggleHeroAbilityUse && _currentTutorialStep.DoesDisableHeroAbilitiesOnOpen)
+        if (_currentTutorialStep.DoesToggleHeroAbilityUse)
         {
-            ToggleHeroAbilityUse(false);
+            if (_currentTutorialStep.DoesDisableChargingHeroAbilitiesOnOpen)
+            {
+                ToggleHeroAbilityCharging(false);
+            }
+            if (_currentTutorialStep.DoesDisableHeroAbilitiesOnOpen)
+            {
+                ToggleHeroAbilityUse(false);
+            }
         }
+        
 
         InvokeCustomTutorialStepTutorialOpen(_currentTutorialStep);
     }
@@ -142,11 +155,19 @@ public class BaseCustomTutorial : MonoBehaviour
         {
             return;
         }
-        
-        if (_currentTutorialStep.DoesToggleHeroAbilityUse && _currentTutorialStep.DoesEnableHeroAbilitiesOnClose)
+
+        if (_currentTutorialStep.DoesToggleHeroAbilityUse)
         {
-            ToggleHeroAbilityUse(true);
+            if (_currentTutorialStep.DoesEnableHeroAbilitiesOnClose)
+            {
+                ToggleHeroAbilityCharging(true);
+            }
+            if (_currentTutorialStep.DoesEnableHeroAbilitiesOnClose)
+            {
+                ToggleHeroAbilityUse(true);
+            }
         }
+        
         
         InvokeCustomTutorialStepTutorialClose(_currentTutorialStep);
 
@@ -164,6 +185,7 @@ public class BaseCustomTutorial : MonoBehaviour
     {
         HideGeneralAndIndividualStepUI();
         HideCustomTutorialBack();
+        ToggleDirectHeroMovement(true);
     }
 
 
@@ -177,6 +199,7 @@ public class BaseCustomTutorial : MonoBehaviour
     {
         HideGeneralStepUI();
         HideIndividualStepUI();
+        
     }
 
     #region General Step
@@ -224,7 +247,7 @@ public class BaseCustomTutorial : MonoBehaviour
     #endregion
     
     #region GeneralFunctionality
-
+    
     public void ToggleBossAutomaticAbilityUse(bool canBossAutomaticallyUseAbilities)
     {
         BossBase.Instance.GetSpecificBossScript().SetCanAutomaticallyUseAbilities(canBossAutomaticallyUseAbilities);
@@ -234,12 +257,36 @@ public class BaseCustomTutorial : MonoBehaviour
     {
         BossBase.Instance.GetSpecificBossScript().StartAbility(abilityID, true);
     }
+
+    public void ToggleCanBossProgressStagger(bool canBossProgressStagger)
+    {
+        BossStats.Instance.SetCanProgressBossEnrage(canBossProgressStagger);
+    }
+
+    public void StaggerBoss()
+    {
+        BossStats.Instance.DealStaggerRequiredToStaggerBoss();
+    }
+
+    public void ToggleDirectHeroMovement(bool canDirectMovement)
+    {
+        PlayerInputGameplayManager.Instance.SetCanDirectHeroMovement(canDirectMovement);
+    }
+
+    public void ToggleHeroAbilityCharging(bool canChargeHeroAbilities)
+    {
+        HeroesManager.Instance.ToggleHeroesChargingAbilities(canChargeHeroAbilities);
+    }
     
     public void ToggleHeroAbilityUse(bool canHeroUseAbilities)
     {
         HeroesManager.Instance.ToggleHeroesAbleToUseAbilities(canHeroUseAbilities);
     }
-    
+
+    public void FullyCooldownAllHeroManualAbilities()
+    {
+        HeroesManager.Instance.FullyCooldownAllHeroManualAbilities();
+    }
     #endregion
     
     #region SetUp
@@ -258,6 +305,16 @@ public class BaseCustomTutorial : MonoBehaviour
 
     protected virtual void BattleStarted()
     {
+        if (_doesStopBossEnrageProgressOnBattleStart)
+        {
+            ToggleCanBossProgressStagger(false);
+        }
+        
+        if (_doesStopChargingHeroAbilitiesOnBattleStart)
+        {
+            ToggleHeroAbilityCharging(false);
+        }
+        
         if (_doesStopHeroAbilitiesOnBattleStart)
         {
             ToggleHeroAbilityUse(false);
@@ -305,7 +362,22 @@ public class BaseCustomTutorial : MonoBehaviour
     {
         PlayerInputGameplayManager.Instance.GetOnHeroControlledEvent.RemoveListener(HeroControlledProgression);
     }
+
+    public virtual void SubscribeHeroManualAbilityActivationToStepProgression()
+    {
+        HeroesManager.Instance.GetOnHeroManualAbilityUsedEvent().AddListener(HeroManualAbilityActivationProgression);
+    }
     
+    public virtual void HeroManualAbilityActivationProgression(HeroBase hero)
+    {
+        UnsubscribeHeroManualAbilityActivationToStepProgression();
+        ProgressToNextTutorialStep();
+    }
+    
+    public virtual void UnsubscribeHeroManualAbilityActivationToStepProgression()
+    {
+        HeroesManager.Instance.GetOnHeroManualAbilityUsedEvent().AddListener(HeroManualAbilityActivationProgression);
+    }
     #endregion
     
     #region Events
@@ -350,7 +422,11 @@ public class CustomTutorialStep
 
     [Space]
     public bool DoesToggleHeroAbilityUse;
+
+    public bool DoesDisableChargingHeroAbilitiesOnOpen;
     public bool DoesDisableHeroAbilitiesOnOpen;
+    
+    public bool DoesEnableChargingHeroAbilitiesOnClose;
     public bool DoesEnableHeroAbilitiesOnClose;
 
     [Space]

@@ -13,48 +13,107 @@ MonoBehaviour:
   m_Name: Mission14
   m_EditorClassIdentifier: 
   _missionID: 13
-  _missionName: 'Shared
+  _missionName: 'The
 
-    Survival'
+    Fae'
   _missionTitleScale: 1
+  _doesAutomaticallySelectFirstHero: 1
   _associatedDifficulty: 2
-  _associatedLevel: {fileID: 11400000, guid: 763a87e823e4c5d4d8c9e44aa8aa4a02, type: 2}
+  _associatedLevel: {fileID: 11400000, guid: 53e846bb7c637be46af02e5cd8741558, type: 2}
   _associatedHeroes:
+  - {fileID: 11400000, guid: fa900cf8282b2814fb9eb1a8cc860cd0, type: 2}
   - {fileID: 11400000, guid: 77065cfc021c68f45b33aa0acd24fa46, type: 2}
-  - {fileID: 11400000, guid: 2b5cc09a0a41a0c40a6b8c0fa2ebb464, type: 2}
-  - {fileID: 11400000, guid: 0128339a05223db40aae2581988a9ea0, type: 2}
-  - {fileID: 11400000, guid: 5cd74adfdadc94247a4cc60ba024fe89, type: 2}
+  - {fileID: 11400000, guid: e3a0dad03ec099242b69fcc0759e259a, type: 2}
+  - {fileID: 11400000, guid: feb7336736898914f8630a93fd41a2bd, type: 2}
   _missionDisplayHighlights:
-  - HighlightType: 3
-    HightlightID: 0
+  - HighlightType: 2
+    HightlightID: 3
   _tutorialPages:
-  - TutorialPageTitle: 'Modifier: Shared Survival'
-    TutorialPageTitleWidth: 1448
-    DefaultTextLocation: {x: 0, y: 40}
-    DefaultText: 'If one Hero dies, you instantly
+  - TutorialPageTitle: 'Hero: The Fae'
+    TutorialPageTitleWidth: 774
+    DefaultTextLocation: {x: 0, y: 45}
+    DefaultText: 'The <color=#FF8AF4>Fae</color> is a quick and
 
-      lose the fight. Make sure
-      no
+      reckless damage
+      dealer. She
 
-      Hero is left behind, or they
+      spins around the battlefield,
 
-      will all pay the price.'
+      unleashing a torrent
+      of arrows.'
     TutorialPageObjectLocation: {x: 0, y: 0}
     TutorialPageObject: {fileID: 0}
     TutorialPageCharacterTutorial:
-      TutorialCharacterIconLocation: {x: 0, y: -60}
+      TutorialCharacterIconLocation: {x: 0, y: -65}
       TutorialCharacterIconScaleMultiplier: 1
-      TutorialPageCharacterIcon: {fileID: 21300000, guid: 77b75c240f3e778428dc63b532fd2c77, type: 3}
-      TutorialPageCharacterBackground: {fileID: 21300000, guid: 818d8b766be8c0d4687ee74e218b8deb, type: 3}
-  _characterUnlock: {fileID: 0}
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 4dcb96ecf6438af4eaabb65c39d2cd81, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: cad11a2bf12278c46a02ba6a7ef54eec, type: 3}
+  - TutorialPageTitle: Multishot
+    TutorialPageTitleWidth: 535
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'The <color=#FF8AF4>Fae</color>''s basic ability is <color=#FF88F5>Multishot</color>.
+
+      The
+      <color=#FF8AF4>Fae</color> fires arrows around her in
+
+      4 diagonal directions
+      that
+
+      bounce back towards her.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: ae08c1101f2f79b44acc726e516f5084, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  - TutorialPageTitle: Flurry
+    TutorialPageTitleWidth: 381
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'The <color=#FF8AF4>Fae</color>''s active ability is <color=#FF88F5>Flurry</color>.
+
+      The
+      <color=#FF8AF4>Fae</color> bounces around uncontrollably,
+
+      dealing damage
+      when she collides
+
+      with the Boss.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: a157f7d99ad33a64184d1317ec333ced, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  - TutorialPageTitle: Fleet-footed
+    TutorialPageTitleWidth: 696
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'The <color=#FF8AF4>Fae</color>''s passive ability is
+
+      <color=#FF88F5>Fleet-footed</color>.
+      The <color=#FF8AF4>Fae</color> can use
+
+      <color=#FF88F5>Multishot</color>
+      while moving and uses it
+
+      more frequently while doing so.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 55feda8602a75f44a9042cd1a82dbfb0, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  _customTutorial: {fileID: 0}
+  _characterUnlock: {fileID: 11400000, guid: feb7336736898914f8630a93fd41a2bd, type: 2}
   _difficultyUnlock: 0
-  _missionModifierUnlock: {fileID: 11400000, guid: d77d306ec0a4d884d82eb9316c908513, type: 2}
+  _missionModifierUnlock: {fileID: 0}
   _missionUnlocks:
-  - {fileID: 11400000, guid: 73897f07d3f6333449a9c3992f854a50, type: 2}
+  - {fileID: 11400000, guid: 5521ecdde3083a642b11424d27c3edee, type: 2}
   _achievementUnlocks: []
   _generalMissionUnlocks: 0
-  _missionModifiers:
-  - {fileID: 11400000, guid: d77d306ec0a4d884d82eb9316c908513, type: 2}
+  _missionModifiers: []
   _missionStatModifiers:
     _bossHealthMultiplier: 1
     _bossStaggerMultiplier: 1
@@ -62,7 +121,8 @@ MonoBehaviour:
     _bossDamageResistanceChangeOnStaggerMultiplier: 1
     _bossEnrageTimeMultiplier: 1
     _bossEnrageDamageMultiplier: 1
-    _bossAbilitiesUsable: 0101010100
+    _canBossAutomaticallyUseAbilities: 1
+    _bossAbilitiesUsable: 0101010101
     _heroHealthMultiplier: 1
     _heroDamageMultiplier: 1
     _heroStaggerMultiplier: 1
