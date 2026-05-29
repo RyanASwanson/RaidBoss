@@ -281,14 +281,15 @@ MonoBehaviour:
     GeneralStepUI:
       CustomTutorialUIText: 'The current Hero is
 
-        the Guardian and his
+        the <color=#81F308>Guardian</color>
+        and his
 
-        3
-        abilities are Shield
+        3 abilities are
 
-        Slam, Taunt, and
+        <color=#6FD404>Shield Slam</color>,
+        <color=#6FD404>Taunt</color>,
 
-        Resilience'
+        and <color=#6FD404>Resilience</color>.'
       CustomTutorialTextOffsetPosition: {x: 0, y: 55}
       CustomTutorialImage: {fileID: 21300000, guid: cd6f845e3e386e1439e8843c8e12c0d0, type: 3}
       CustomTutorialImageOffsetPosition: {x: 0, y: -60}
@@ -378,17 +379,17 @@ MonoBehaviour:
     DoesEnableHeroAbilitiesOnClose: 1
     DoesStepHaveGeneralStepUI: 1
     GeneralStepUI:
-      CustomTutorialUIText: 'The Guardian''s basic
+      CustomTutorialUIText: 'The <color=#81F308>Guardian</color>''s basic
 
-        ability is Shield Slam.
+        ability
+        is <color=#6FD404>Shield Slam</color>.
 
-        It
-        deals damage in a
+        It deals damage in a
 
-        radius around him.
+        radius
+        around him.
 
-        Move him close to
-        the
+        Move him close to the
 
         Boss and deal damage'
       CustomTutorialTextOffsetPosition: {x: 0, y: 45}
@@ -457,8 +458,8 @@ MonoBehaviour:
     CustomIndividualStepUI:
       DoesUseCanvasGroupCurve: 0
       DoesUseScaleCurve: 0
-      DoesUseCustomUIObjectCanvas: 0
-    IndividualStepUI: {fileID: 0}
+      DoesUseCustomUIObjectCanvas: 1
+    IndividualStepUI: {fileID: 1263805798639152682, guid: f6cb8d2291f943f4d87cba18b1c657de, type: 3}
     CustomStepObjectPosition: {x: 0, y: 0, z: 0}
     CustomTutorialStepObjects: {fileID: 0}
     OnCustomTutorialOpen:
@@ -492,14 +493,15 @@ MonoBehaviour:
     DoesEnableHeroAbilitiesOnClose: 0
     DoesStepHaveGeneralStepUI: 1
     GeneralStepUI:
-      CustomTutorialUIText: 'The Guardian''s active
+      CustomTutorialUIText: 'The <color=#81F308>Guardian</color>''s active
 
-        ability is Taunt.
+        ability
+        is <color=#6FD404>Taunt</color>.
 
-        He
-        forces the boss
+        He forces the boss
 
-        to target him, and he
+        to
+        target him, and he
 
         reduces damage taken.'
       CustomTutorialTextOffsetPosition: {x: 0, y: 45}
@@ -552,7 +554,7 @@ MonoBehaviour:
         space or middle-click to
 
         activate
-        the Guardian''s
+        the <color=#81F308>Guardian</color>''s
 
         active ability.'
       CustomTutorialTextOffsetPosition: {x: 0, y: 0}
@@ -674,14 +676,15 @@ MonoBehaviour:
     DoesEnableHeroAbilitiesOnClose: 0
     DoesStepHaveGeneralStepUI: 1
     GeneralStepUI:
-      CustomTutorialUIText: 'The Guardian''s passive
+      CustomTutorialUIText: 'The <color=#81F308>Guardian</color>''s passive
 
-        ability is Resilience.
+        ability
+        is <color=#6FD404>Resilience</color>.
 
-        He
-        takes reduced
+        He takes reduced
 
-        damage after
+        damage
+        after
 
         taking damage.'
       CustomTutorialTextOffsetPosition: {x: 0, y: 45}
