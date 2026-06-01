@@ -528,7 +528,7 @@ public class BossStats : BossChildrenFunctionality
         }
     }
 
-    public void MultiplyBossDamageMultiplier(float amount)
+    public void MultiplyBaseBossDamageMultiplier(float amount)
     {
         _baseBossDamageMultiplier *= amount;
     }

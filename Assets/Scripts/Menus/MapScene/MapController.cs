@@ -240,6 +240,13 @@ public class MapController : MonoBehaviour
     
     public void DeselectSelectedMission()
     {
+        // Prevent deselecting a mission while a scene is loading to prevent loading
+        // into a mission without a mission selected
+        if (SceneLoadManager.Instance.IsSceneLoading())
+        {
+            return;
+        }
+        
         if (_currentlySelectedMission.IsUnityNull())
         {
             return;

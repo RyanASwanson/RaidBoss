@@ -447,6 +447,12 @@ public class SaveManager : MainUniversalManagerFramework
 
     public void UnlockMission(MissionSO mission, bool doesUpdateNextMission)
     {
+        if (mission.IsUnityNull())
+        {
+            Debug.LogError("Could not find mission to unlock " + mission.GetMissionName());
+            return;
+        }
+        
         if (!GSD.GetGameplaySaveData().GetMissionsUnlocked().Contains(mission.GetMissionID()))
         {
             GSD.GetGameplaySaveData().GetMissionsUnlocked().Add(mission.GetMissionID());
@@ -469,6 +475,12 @@ public class SaveManager : MainUniversalManagerFramework
 
     public void MissionComplete(MissionSO mission)
     {
+        if (mission.IsUnityNull())
+        {
+            Debug.LogError("Could not find mission to complete " + mission.GetMissionName());
+            return;
+        }
+        
         AddMissionAsComplete(mission);
 
         UnlockCharacterFromMission(mission);

@@ -580,6 +580,7 @@ public class SelectionManager : MainUniversalManagerFramework
         if (IsPlayingMissionsMode())
         {
             selectedMission = GetSelectedMission();
+            
             return true;
         }
 

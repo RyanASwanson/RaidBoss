@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
@@ -51,6 +52,10 @@ public class SceneLoadManager : MainUniversalManagerFramework
 
     public void LoadSceneByEnum(ELoadableScenes scene)
     {
+        if (!CanLoadScene())
+        {
+            return;
+        }
 
         switch (scene)
         {
@@ -69,16 +74,6 @@ public class SceneLoadManager : MainUniversalManagerFramework
             default:
                 break;
         }
-    }
-
-    /// <summary>
-    /// Returns if a scene load can occur.
-    /// Prevented if scene load is currently in process.
-    /// </summary>
-    /// <returns></returns>
-    private bool CanLoadScene()
-    {
-        return _sceneTransitionCoroutine == null;
     }
 
     private IEnumerator SceneLoadProcess(int id)
@@ -220,6 +215,15 @@ public class SceneLoadManager : MainUniversalManagerFramework
     #endregion
 
     #region Getters
+    /// <summary>
+    /// Returns if a scene load can occur.
+    /// Prevented if scene load is currently in process.
+    /// </summary>
+    /// <returns></returns>
+    public bool CanLoadScene()
+    {
+        return _sceneTransitionCoroutine.IsUnityNull();
+    }
 
     public bool IsSceneLoading()
     {
