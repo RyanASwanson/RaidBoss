@@ -134,6 +134,12 @@ public class DebugScript : MonoBehaviour
         {
             DisplayTrackingHeroStats();
         }
+
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            // Low FPS toggle
+            Application.targetFrameRate = Application.targetFrameRate == 30 ? 500 : 30;
+        }
     }
 
     private void BattleStart()

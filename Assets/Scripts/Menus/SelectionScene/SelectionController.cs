@@ -641,7 +641,7 @@ public class SelectionController : MonoBehaviour
     private void DifficultySelected(EGameDifficulty difficulty)
     {
         PlayDifficultySelectedAudio(difficulty);
-        HeroLimitChanged(difficulty);
+        HeroLimitChanged();
     }
     
     /// <summary>
@@ -898,7 +898,7 @@ public class SelectionController : MonoBehaviour
         }
     }
 
-    private void HeroLimitChanged(EGameDifficulty difficulty)
+    private void HeroLimitChanged()
     {
         //Determine if the hero limit went up or down
 
@@ -931,7 +931,7 @@ public class SelectionController : MonoBehaviour
                 heroesToRemove.Add(SelectionManager.Instance.GetAllSelectedHeroes()[i]);
             }
             
-            MoveHeroPillar(i, false);
+            RemoveHeroPillarFromHeroDisplay(i);
 
         }
 
@@ -1071,6 +1071,11 @@ public class SelectionController : MonoBehaviour
     private void MoveHeroPillar(int pillarNum, bool moveUp)
     {
         _heroPillars[pillarNum].MovePillar(moveUp);
+    }
+
+    private void RemoveHeroPillarFromHeroDisplay(int pillarNum)
+    {
+        _heroPillars[pillarNum].PillarNoLongerIncludedInHeroDisplay();
     }
 
     #region HeroBackgrounds

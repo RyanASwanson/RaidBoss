@@ -52,6 +52,12 @@ public class HeroPillar : MonoBehaviour
         _pillarAnimator.SetBool(HERO_PILLAR_MOVE_ANIM_BOOL, moveUp);
     }
 
+    public void PillarNoLongerIncludedInHeroDisplay()
+    {
+        MovePillar(false);
+        AnimateOutHeroOnPillar();
+    }
+
     /// <summary>
     /// Displays a hero on the pillar
     /// </summary>
