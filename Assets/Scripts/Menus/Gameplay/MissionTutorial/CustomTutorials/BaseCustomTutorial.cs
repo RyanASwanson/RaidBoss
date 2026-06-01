@@ -75,7 +75,6 @@ public class BaseCustomTutorial : MonoBehaviour
 
     public virtual void ProgressToNextTutorialStep()
     {
-        Debug.Log("ProgressToNextTutorialStep" + (_currentTutorialStepIndex+1));
         if (_currentTutorialStepIndex >= _customTutorialSteps.Length)
         {
             return;

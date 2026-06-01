@@ -43,6 +43,7 @@ public class PageNavigationCreator : MonoBehaviour
     private UnityEvent<int> _onNumberedPageChange;
     
     private int _currentPageID = 0;
+    private int _targetPageID = -1;
     private int _previousPageID = 0;
 
     private int _totalPages = 0;
@@ -80,10 +81,17 @@ public class PageNavigationCreator : MonoBehaviour
     #region ChangePage
     public void SetTargetPageNumber(int pageNumber)
     {
-        if (pageNumber < 0 || pageNumber >= _totalPages)
+        if (pageNumber < 0 || pageNumber == _currentPageID || pageNumber >= _totalPages)
         {
             return;
         }
+        
+        if (_targetPageID != -1)
+        {
+            _specificPageButtons[_targetPageID].ButtonNoLongerPressed();
+        }
+        
+        _targetPageID = pageNumber;
         
         _specificPageButtons[_previousPageID].ButtonNoLongerPressed();
         _specificPageButtons[pageNumber].ToggleButton(false);
@@ -106,6 +114,8 @@ public class PageNavigationCreator : MonoBehaviour
 
     public void NewPageStartDisplay()
     {
+        _targetPageID = -1;
+        
         if (_doesTogglePageEnables)
         {
             _pages[_currentPageID].SetActive(true);

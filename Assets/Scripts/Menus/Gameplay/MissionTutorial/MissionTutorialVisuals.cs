@@ -33,6 +33,7 @@ public class MissionTutorialVisuals : MonoBehaviour
     [SerializeField] private SelectionPlayButton _playButton;
     
     private int _currentPageID = 0;
+    private int _targetPageID = -1;
     private int _previousPageID = 0;
 
     private int _totalPages = 0;
@@ -98,10 +99,17 @@ public class MissionTutorialVisuals : MonoBehaviour
     #region ChangePage
     public void SetTargetPageNumber(int pageNumber)
     {
-        if (pageNumber < 0 || pageNumber >= _totalPages)
+        if (pageNumber < 0 || pageNumber == _currentPageID  || pageNumber >= _totalPages)
         {
             return;
         }
+
+        if (_targetPageID != -1)
+        {
+            _specificPageButtons[_targetPageID].ButtonNoLongerPressed();
+        }
+        
+        _targetPageID = pageNumber;
         
         _specificPageButtons[_previousPageID].ButtonNoLongerPressed();
         _specificPageButtons[pageNumber].ToggleButton(false);
@@ -127,6 +135,8 @@ public class MissionTutorialVisuals : MonoBehaviour
     public void NewPageStartDisplay()
     {
         UpdatePreviousPageID();
+
+        _targetPageID = -1;
         
         // If the last page has not been visited and we just opened the last page
         if (!_hasLastPageBeenVisited && _currentPageID == _totalPages - 1)

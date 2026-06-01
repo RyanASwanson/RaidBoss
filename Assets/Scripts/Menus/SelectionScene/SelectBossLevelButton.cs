@@ -97,6 +97,11 @@ public class SelectBossLevelButton : MonoBehaviour, IPointerEnterHandler, IPoint
     /// </summary>
     public void SelectBossLevelLeftClicked()
     {
+        if (!_isInteractable)
+        {
+            return;
+        }
+        
         if (!_buttonHasBeenPressed)
         {
             BossLevelSelect();

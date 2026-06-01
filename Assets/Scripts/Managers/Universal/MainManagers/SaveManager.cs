@@ -632,6 +632,8 @@ public class SaveManager : MainUniversalManagerFramework
     
     public bool IsMissionUnlocked(MissionSO missionSO) => GSD.GetGameplaySaveData().GetMissionsUnlocked().Contains(missionSO.GetMissionID());
     public bool IsMissionCompleted(MissionSO missionSO) => GSD.GetGameplaySaveData().GetMissionsComplete().Contains(missionSO.GetMissionID());
+    
+    public HashSet<int> GetMissionsComplete() => GSD.GetGameplaySaveData().GetMissionsComplete();
 
     public bool IsCurrentMissionComplete()
     {

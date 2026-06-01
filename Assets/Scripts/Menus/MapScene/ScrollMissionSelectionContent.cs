@@ -41,6 +41,9 @@ public class ScrollMissionSelectionContent : ScrollUIContents
 
     [Space] 
     [Header("Extended Sections")]
+    [SerializeField] private int _missionsCompletedToViewExtendedSections;
+    
+    [Space]
     [SerializeField] private CurveProgression _extendedBossSection;
     [SerializeField] private TextWithBackground _extendedBossNameText;
     
@@ -222,6 +225,11 @@ public class ScrollMissionSelectionContent : ScrollUIContents
         }
         
         if (_currentHoveredOverExtendedSection.IsUnityNull())
+        {
+            return;
+        }
+
+        if (SaveManager.Instance.GetMissionsComplete().Count < _missionsCompletedToViewExtendedSections)
         {
             return;
         }
