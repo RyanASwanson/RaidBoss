@@ -104,7 +104,7 @@ public class UnlockScrollContents : ScrollUIContents
         _difficultyUnlockSection.SetActive(true);
         _difficultyIconImage.sprite = SelectionManager.Instance.GetDifficultyIcons()[(int)difficulty-1];
 
-        if (GameStateManager.Instance.GetIsCurrentBattleAtHighestMythicPlusLevel())
+        if (GameStateManager.Instance.GetIsCurrentBattleAtHighestMythicPlusLevel() && mythicPlusLevel > 0)
         {
             _difficultyMythicPlusLevelText.UpdateText(mythicPlusLevel.ToString());
         }

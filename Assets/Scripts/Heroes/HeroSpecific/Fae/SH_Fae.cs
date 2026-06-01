@@ -27,9 +27,11 @@ public class SH_Fae : SpecificHeroFramework
     [Range(-1,1)][SerializeField] private float _manualBossHoming;
     [Range(-1,1)][SerializeField] private float _manualHitHeroHomingChange;
     [Range(-1,1)][SerializeField] private float _manualHitMapBorderHomingChange;
+    [Range(-1,1)][SerializeField] private float _manualHitSpawnedEnvironmentHomingChange;
     [Range(-1,1)][SerializeField] private float _manualMinimumBossHoming;
     [SerializeField] private float _manualMinimumDotProduct;
     [SerializeField] private Vector3 _manualWallExtents;
+    private WaitForSeconds _manualDamageWait;
     private bool _manualCanDamage = true;
 
     [Space] 
@@ -47,6 +49,8 @@ public class SH_Fae : SpecificHeroFramework
     [SerializeField] private Vector3 _vfxWeaponSpawnEulers;
     [SerializeField] private GameObject _vfxWeapon;
     [SerializeField] private Transform _vfxWeaponSpawnPoint;
+    private WaitForSeconds _vfxSpawnDelayWait;
+    private WaitForSeconds _vfxSpawnRateWait;
 
     [Space]
     [SerializeField] private LayerMask _bounceLayers;
@@ -86,7 +90,6 @@ public class SH_Fae : SpecificHeroFramework
 
     protected void CreateBasicAttackProjectiles()
     {
-        
         for (int i = 0; i < _basicAttackDirections.Length; i++)
         {
             GameObject newestProjectile = Instantiate(_basicProjectile, transform.position, Quaternion.Euler(_basicAttackDirections[i].AttackEulers));
@@ -263,7 +266,7 @@ public class SH_Fae : SpecificHeroFramework
 
     private IEnumerator WeaponVFXSpawnProcess()
     {
-        yield return new WaitForSeconds(_vfxWeaponDelay);
+        yield return _vfxSpawnDelayWait;
 
         while (_isManualAbilityActive)
         {
@@ -275,13 +278,12 @@ public class SH_Fae : SpecificHeroFramework
             Vector3 randomEulerRotation = new Vector3(Random.Range(-_vfxWeaponSpawnEulers.x, _vfxWeaponSpawnEulers.x),
                 Random.Range(-_vfxWeaponSpawnEulers.y, _vfxWeaponSpawnEulers.y),
                 Random.Range(-_vfxWeaponSpawnEulers.z, _vfxWeaponSpawnEulers.z));
-
-            //newestWeaponVFX.transform.rotation = Random.rotation;
+            
             newestWeaponVFX.transform.eulerAngles = randomEulerRotation;
 
             newestWeaponVFX.transform.position += newestWeaponVFX.transform.forward * _vfxWeaponSpawnDistance;
 
-            yield return new WaitForSeconds(_vfxWeaponSpawnRate);
+            yield return _vfxSpawnRateWait;
         }
     }
 
@@ -320,6 +322,10 @@ public class SH_Fae : SpecificHeroFramework
             {
                 ChangeCurrentManualHoming(_manualHitMapBorderHomingChange);
             }
+            else if (ManualHitSpawnedEnvironment(rayHit))
+            {
+                ChangeCurrentManualHoming(_manualHitSpawnedEnvironmentHomingChange);
+            }
             
             Vector3 directionToBoss = ManualDirectionToBoss();
             float bossDirectionDotProduct = Vector3.Dot(_currentManualDirection, directionToBoss);
@@ -349,7 +355,7 @@ public class SH_Fae : SpecificHeroFramework
     private IEnumerator ManualDamageCooldown()
     {
         _manualCanDamage = false;
-        yield return new WaitForSeconds(_manualDamageCooldown);
+        yield return _manualDamageWait;
         _manualCanDamage = true;
     }
 
@@ -366,6 +372,11 @@ public class SH_Fae : SpecificHeroFramework
     private bool ManualHitMapBorder(RaycastHit rayHit)
     {
         return TagStringData.DoesColliderBelongToMapBorder(rayHit.collider);
+    }
+
+    private bool ManualHitSpawnedEnvironment(RaycastHit rayHit)
+    {
+        return TagStringData.DoesColliderBelongToSpawnedEnvironment(rayHit.collider);
     }
     #endregion
 
@@ -433,8 +444,11 @@ public class SH_Fae : SpecificHeroFramework
     public override void SetUpSpecificHero(HeroBase heroBase, HeroSO heroSO)
     {
         _heroStats = heroBase.GetHeroStats();
-        
+
+        _manualDamageWait = new WaitForSeconds(_manualDamageCooldown);
         _manualAudioWaitInterval = new WaitForSeconds(_manualAudioInterval);
+        _vfxSpawnDelayWait = new WaitForSeconds(_vfxWeaponDelay);
+        _vfxSpawnRateWait = new WaitForSeconds(_vfxWeaponSpawnRate);
 
         _startingPassiveBasicAttackSpeed = _currentPassiveBasicAttackSpeed;
 

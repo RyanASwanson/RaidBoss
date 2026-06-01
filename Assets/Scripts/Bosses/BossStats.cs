@@ -374,7 +374,7 @@ public class BossStats : BossChildrenFunctionality
     {
         _bossDamageResistanceMultiplier+= changeValue;
         
-        _bossDamageResistanceMultiplier = Mathf.Clamp(_bossDamageResistanceMultiplier, 0.001f, int.MaxValue);
+        _bossDamageResistanceMultiplier = Mathf.Clamp(_bossDamageResistanceMultiplier, 0.01f, int.MaxValue);
     }
 
     private void DecreaseBossDamageResistanceOnStagger()

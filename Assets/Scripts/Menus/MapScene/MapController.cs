@@ -187,6 +187,11 @@ public class MapController : MonoBehaviour
             return;
         }
         
+        if (SceneLoadManager.Instance.IsSceneLoading())
+        {
+            return;
+        }
+        
         float moveDistance = Mathf.Abs(_clickAndDragMouseTotalHorizontalMovement);
         
         if (_cameraClickAndDragDuration >= _cameraClickAndDragDurationPreventMissionSelection && 

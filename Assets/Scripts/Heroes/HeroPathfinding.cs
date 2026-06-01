@@ -9,6 +9,13 @@ using UnityEngine.AI;
 /// </summary>
 public class HeroPathfinding : HeroChildrenFunctionality
 {
+    [SerializeField] private float _forceStopSpeedMultiplier;
+    [SerializeField] private float _forceStopDistanceFromEnd;
+    [SerializeField] private float _timeSpentUnderForceStopSpeedToStop;
+    private float _forceStopSpeed;
+    private float _currentTimeSpentUnderForceStopSpeed;
+    
+    [Space]
     [SerializeField] private GameObject _rotationObject;
     [SerializeField] private float _rotateSpeedMultiplier;
 
@@ -28,6 +35,13 @@ public class HeroPathfinding : HeroChildrenFunctionality
     }
     
     #region Movement
+
+    public void SetUpMovement(float moveSpeed, float angularSpeed, float acceleration)
+    {
+        SetHeroMovementValues(moveSpeed, angularSpeed, acceleration);
+        _forceStopSpeed = _forceStopSpeedMultiplier * moveSpeed;
+    }
+    
     /// <summary>
     /// Makes a player walk to a destination
     /// </summary>
@@ -90,7 +104,10 @@ public class HeroPathfinding : HeroChildrenFunctionality
     {
         HeroStats heroStats = _myHeroBase.GetHeroStats();
 
-        if (heroStats.IsHeroDead()) return;
+        if (heroStats.IsHeroDead())
+        {
+            return;
+        }
 
         _meshAgent.speed = heroStats.GetCurrentSpeed();
         _meshAgent.angularSpeed = heroStats.GetAngularSpeed();
@@ -105,13 +122,23 @@ public class HeroPathfinding : HeroChildrenFunctionality
     {
         StopHeroLookAt();
         _meshAgent.autoRepath = true;
+        _currentTimeSpentUnderForceStopSpeed = 0;
 
         yield return new WaitForEndOfFrame();
         
         while(!gameObject.IsUnityNull() && _meshAgent.hasPath )
         {
             yield return null;
-
+            
+            if (_meshAgent.remainingDistance < _forceStopDistanceFromEnd && _meshAgent.velocity.sqrMagnitude < _forceStopSpeed)
+            {
+                _currentTimeSpentUnderForceStopSpeed += Time.deltaTime;
+                if (_currentTimeSpentUnderForceStopSpeed > _timeSpentUnderForceStopSpeedToStop)
+                {
+                    BriefStopCurrentMovement();
+                }
+            }
+            
             if (_meshAgent.pathStatus == NavMeshPathStatus.PathInvalid ||
                 _meshAgent.pathStatus == NavMeshPathStatus.PathPartial)
             {
@@ -190,6 +217,7 @@ public class HeroPathfinding : HeroChildrenFunctionality
     #endregion
 
     #region Base Hero
+    
     public override void SubscribeToEvents()
     {
         base.SubscribeToEvents();
@@ -213,7 +241,7 @@ public class HeroPathfinding : HeroChildrenFunctionality
         _isHeroUsingMovementAbility = isUsingMovementAbility;
     }
     
-    public void OverrideHeroMovement(float moveSpeed, float angularSpeed, float acceleration)
+    public void SetHeroMovementValues(float moveSpeed, float angularSpeed, float acceleration)
     {
         _meshAgent.speed = moveSpeed;
         _meshAgent.angularSpeed = angularSpeed;
