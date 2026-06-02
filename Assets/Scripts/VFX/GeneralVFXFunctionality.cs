@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -92,6 +93,11 @@ public class GeneralVFXFunctionality : MonoBehaviour
     {
         foreach (ParticleSystem ps in _particleSystems)
         {
+            if (ps.IsUnityNull())
+            {
+                continue;
+            }
+            
             ps.Play();
         }
     }
@@ -100,6 +106,11 @@ public class GeneralVFXFunctionality : MonoBehaviour
     {
         foreach (ParticleSystem ps in _particleSystems)
         {
+            if (ps.IsUnityNull())
+            {
+                continue;
+            }
+            
             ps.Stop();
         }
     }
@@ -108,6 +119,10 @@ public class GeneralVFXFunctionality : MonoBehaviour
     {
         foreach(ParticleSystem ps in _particleSystems)
         {
+            if (ps.IsUnityNull())
+            {
+                continue;
+            }
             var psMain = ps.main;
             psMain.loop = shouldLoop;
         }
@@ -117,6 +132,11 @@ public class GeneralVFXFunctionality : MonoBehaviour
     {
         foreach(ParticleSystem ps in _particleSystems)
         {
+            if (ps.IsUnityNull())
+            {
+                continue;
+            }
+            
             ParticleSystem.MainModule main = ps.main;
             main.startColor = new ParticleSystem.MinMaxGradient(firstStartColor);
         }
@@ -126,6 +146,11 @@ public class GeneralVFXFunctionality : MonoBehaviour
     {
         foreach(ParticleSystem ps in _particleSystems)
         {
+            if (ps.IsUnityNull())
+            {
+                continue;
+            }
+            
             ParticleSystem.MainModule main = ps.main;
             main.startColor = new ParticleSystem.MinMaxGradient(firstStartColor, secondStartColor);
         }
@@ -135,6 +160,11 @@ public class GeneralVFXFunctionality : MonoBehaviour
     {
         foreach(ParticleSystem ps in _particleSystems)
         {
+            if (ps.IsUnityNull())
+            {
+                continue;
+            }
+            
             ParticleSystem.ShapeModule shapeModule = ps.shape;
             shapeModule.scale = emissionShapeScale;
         }

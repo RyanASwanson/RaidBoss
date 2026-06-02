@@ -213,18 +213,19 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
         {
             yield break;
         }
-        
+
         //Iterates through all target zones and removes them
-        foreach(BossTargetZoneParent currentZone in _currentTargetZones)
+        for (int i = 0; i < _currentTargetZones.Count; i++)
         {
-            if (currentZone.IsUnityNull())
+            if (_currentTargetZones[i].IsUnityNull())
             {
                 continue;
             }
             
-            currentZone.RemoveBossTargetZones();
+            _currentTargetZones[i].RemoveBossTargetZones();
             yield return _delayedIndividualTargetZoneRemovalWait;
         }
+        
         _currentTargetZones.Clear();
     }
 
