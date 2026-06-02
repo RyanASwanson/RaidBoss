@@ -23,10 +23,10 @@ public class SceneLoadManager : MainUniversalManagerFramework
     
     private WaitForSeconds _sceneTransitionWait = new WaitForSeconds(_sceneTransitionTime/2);
 
-    private const int SPLASH_SCREEN_SCENE_ID = -1;
-    private const int MAIN_MENU_SCENE_ID = 0;
-    private const int MAP_SCENE_SCENE_ID = 1;
-    private const int SELECTION_SCENE_ID = 2;
+    private const int SPLASH_SCREEN_SCENE_ID = 0;
+    private const int MAIN_MENU_SCENE_ID = 1;
+    private const int MAP_SCENE_SCENE_ID = 2;
+    private const int SELECTION_SCENE_ID = 3;
 
     private Coroutine _sceneTransitionCoroutine;
 
