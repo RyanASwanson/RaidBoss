@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _basicAbilityChargeTime: 4
-  _manualAbilityChargeTime: 23
+  _manualAbilityChargeTime: 22
   _doesManualAbilityHaveDuration: 1
   _doesManualAbilityChargeWhileActive: 1
   _isManualAbilityDurationFixed: 0
@@ -62,21 +62,23 @@ MonoBehaviour:
   _passiveAbilityAnimationBufferBeforeDisable: 0.25
   _heroSpecificUI: {fileID: 0}
   _basicProjectile: {fileID: 2326089874878324366, guid: 4e91b3f7a55d11741a98a29c36478819, type: 3}
-  _heroManualDamageResistance: 4
+  _heroManualDamageResistance: 1.6
   _manualAbilityDurationWarning: 7
   _manualBufferDuration: 1
-  _manualAbilityHealingIncrease: 0.75
+  _manualAbilityHealingIncrease: 1.2
   _manualAbilityStatChanges:
-    Stats: 0400000005000000
+    Stats: 03000000070000000400000005000000
     BuffStrength:
+    - 1.2
+    - 1.6
     - 1.5
     - 1.5
-    DoesCreateBuffIcon: 0000
+    DoesCreateBuffIcon: 00000000
     BuffDuration: 0
   _batSpiralRotation: {fileID: 7455698943174933673}
   _manualObjectEmitter: {fileID: 2238349170861177619}
   _manualLifeTimeWarningCurve: {fileID: 4016477926954331254}
-  _passiveAbilityLifestealMultiplier: 1.2
+  _passiveAbilityLifestealMultiplier: 1.3
   _passiveHealingDelay: 0.3
   _passiveHealProjectile: {fileID: 8696333495294499000, guid: 34dec912b6483dc40affae84d4970187, type: 3}
 --- !u!95 &5042494388720665591

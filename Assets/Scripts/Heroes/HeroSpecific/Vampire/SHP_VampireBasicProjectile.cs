@@ -49,7 +49,7 @@ public class SHP_VampireBasicProjectile : HeroProjectileFramework
     {
         while (true)
         {
-            transform.position += transform.forward * _projectileSpeed * Time.deltaTime;
+            transform.position += transform.forward * (_projectileSpeed * Time.deltaTime);
             yield return null;
         }
     }

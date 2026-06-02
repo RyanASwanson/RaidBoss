@@ -180,7 +180,7 @@ public class MaterialSetCustomProperty : MonoBehaviour
         {
             return;
         }
-
+        
         switch (_propertyType)
         {
             case EMaterialSetCustomPropertyType.FloatProperty:

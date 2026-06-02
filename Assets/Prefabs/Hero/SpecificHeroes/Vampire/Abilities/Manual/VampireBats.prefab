@@ -54,16 +54,13 @@ MonoBehaviour:
   _overrideStartingColors:
   - {r: 0, g: 0, b: 0, a: 0}
   - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
   _endColors:
-  - {r: 0.5849056, g: 0.5849056, b: 0.5849056, a: 1}
   - {r: 0.5849056, g: 0.5849056, b: 0.5849056, a: 1}
   - {r: 0.5849056, g: 0.5849056, b: 0.5849056, a: 1}
   _isUsingSharedMaterial: 1
   _meshRenderers:
   - {fileID: 1156599663960612679}
   - {fileID: 2510685443955329814}
-  - {fileID: 5976914131278316664}
   _curveProgression: {fileID: 7181074974782590299}
 --- !u!114 &7181074974782590299
 MonoBehaviour:
@@ -87,6 +84,8 @@ MonoBehaviour:
   _doesResetToDefaultProgressOnEnable: 1
   _doesStartMovingUpOnEnable: 0
   _doesStartMovingInCurrentDirectionOnEnable: 0
+  _hasAutomaticStartMovingDelay: 0
+  _automaticStartMovingDelay: 0
   _doesAutomaticallyMoveDownOnHittingMax: 1
   _doesAutomaticallyMoveUpOnHittingMin: 1
   _hasIncreaseDelay: 0
@@ -310,6 +309,10 @@ MonoBehaviour:
   _doesResetRotationToDefaultOnEnable: 0
   _doesUseLocalEulerAngles: 0
   _rotationPerSecond: {x: 0, y: 180, z: 0}
+  _rotationAccelerationCurve: {fileID: 0}
+  _doesUseRotateFunction: 0
+  _rotateFunctionRotationsPerSecond: 0
+  _rotateFunctionAxis: {x: 0, y: 0, z: 0}
   _rotationIndepedentParent: {fileID: 0}
   _hasStartRotationOverride: 0
   _startRotationOverride: {x: 0, y: 0, z: 0}
@@ -635,10 +638,5 @@ MeshRenderer:
 --- !u!4 &4851570021646825225 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3921242890107716526, guid: 0a72e95edee81ba468bdded3b26ede31, type: 3}
-  m_PrefabInstance: {fileID: 8448524859018114215}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &5976914131278316664 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 2868075140020678879, guid: 0a72e95edee81ba468bdded3b26ede31, type: 3}
   m_PrefabInstance: {fileID: 8448524859018114215}
   m_PrefabAsset: {fileID: 0}
