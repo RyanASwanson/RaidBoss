@@ -30,6 +30,7 @@ public class HeroPathfinding : HeroChildrenFunctionality
     
     private void HeroDied()
     {
+        StartMovingCoroutine();
         StopAbilityToMove();
         _meshAgent.enabled = false;
     }
@@ -62,18 +63,24 @@ public class HeroPathfinding : HeroChildrenFunctionality
     private void StartMovingCoroutine()
     {
         // Checks if the hero is already moving
-        if (!_heroMovementCoroutine.IsUnityNull())
-        {
-            // Stop their current movement so the new movement can take its place
-            StopCoroutine(_heroMovementCoroutine);
-        }
-        else
+        if (!StopMovingCoroutine())
         {
             // Invoke the hero started moving event as the hero isn't moving yet
             _myHeroBase.InvokeHeroStartedMovingEvent();
         }
         
         _heroMovementCoroutine = StartCoroutine(MovingOnNavMesh());
+    }
+
+    private bool StopMovingCoroutine()
+    {
+        if (!_heroMovementCoroutine.IsUnityNull())
+        {
+            StopCoroutine(_heroMovementCoroutine);
+            return true;
+        }
+
+        return false;
     }
 
     public void BriefStopCurrentMovement()

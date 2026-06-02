@@ -39,7 +39,7 @@ public class ExtrasVideoSettingsPage : MonoBehaviour
 
     public void ToggleFullScreen(bool isFullScreen)
     {
-        Screen.fullScreen = isFullScreen;
+        EngineSettingsManager.Instance.ToggleFullScreen(isFullScreen);
         _fullScreenToggleStateSet = isFullScreen;
         SetToggleIcon();
     }

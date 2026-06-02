@@ -177,7 +177,23 @@ public class SBA_ImpendingStorm : SpecificBossAbilityFramework
     
     private void UpdateTargetZone()
     {
+        if (!CheckForTargetZone())
+        {
+            return;
+        }
+        
         _currentImpendingStormTargetZone.transform.eulerAngles = new Vector3(0, _attackRotation, 0);
+    }
+
+    private bool CheckForTargetZone()
+    {
+        if (_currentImpendingStormTargetZone.IsUnityNull())
+        {
+            StopImpendingStorm();
+            return false;
+        }
+
+        return true;
     }
     
     private void StartImpendingStormAttack()

@@ -232,7 +232,7 @@ public class SH_Mirage : SpecificHeroFramework
     /// </summary>
     private void CloneDeath()
     {
-        _cloneBase.GetHeroStats().ForceKillHero();
+        _cloneBase.GetHeroStats().ForceKillHero(false);
     }
     #endregion
 

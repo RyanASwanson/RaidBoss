@@ -217,11 +217,14 @@ public class HeroStats : HeroChildrenFunctionality
         HeroesManager.Instance.HeroDied(_myHeroBase);
     }
 
-    public void ForceKillHero()
+    public void ForceKillHero(bool doesCallHeroManager)
     {
         _myHeroBase.InvokeHeroDiedEvent();
-        
-        HeroesManager.Instance.HeroDied(_myHeroBase);
+
+        if (doesCallHeroManager)
+        {
+            HeroesManager.Instance.HeroDied(_myHeroBase);
+        }
     }
 
     private void SetPreviousHealthValue()

@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EngineSettingsManager : MainUniversalManagerFramework
@@ -70,6 +72,13 @@ public class EngineSettingsManager : MainUniversalManagerFramework
         Screen.SetResolution(resolution.x, resolution.y, Screen.fullScreen);
     }
     
+    #endregion
+    
+    #region Full Screen
+    public void ToggleFullScreen(bool isFullScreen)
+    {
+        Screen.fullScreen = isFullScreen;
+    }
     #endregion
     
     #region BaseManager
