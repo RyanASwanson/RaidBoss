@@ -442,10 +442,27 @@ public class CurveProgression : MonoBehaviour
     public void SetCurveIncreaseTime(float time) => _curveIncreaseTime = time;
     public void SetCurveDecreaseTime(float time) => _curveDecreaseTime = time;
 
+    public void SetHasIncreaseDelay(bool hasDelay)
+    {
+        _hasIncreaseDelay = hasDelay;
+        if (!_hasIncreaseDelay)
+        {
+            StopMoveUpDelay();
+        }
+    }
     public void SetIncreaseDelay(float delay)
     {
         _increaseDelay = delay;
         SetUpIncreaseDelay();
+    }
+    
+    public void SetHasDecreaseDelay(bool hasDelay)
+    {
+        _hasDecreaseDelay = hasDelay;
+        if (!_hasDecreaseDelay)
+        {
+            StopMoveDownDelay();
+        }
     }
 
     public void SetDecreaseDelay(float delay)

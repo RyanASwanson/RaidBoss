@@ -161,6 +161,7 @@ MonoBehaviour:
   _followObject: {fileID: 4953542174275229542}
   _damageArea: {fileID: 42282694769550797}
   _scaleCurve: {fileID: 3069914079884221486}
+  _activeRotation: {fileID: 8929785742948244759}
 --- !u!114 &42282694769550797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,7 +243,19 @@ MonoBehaviour:
       m_Calls: []
   _onFollowObjectMissing:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2621260190841213678}
+        m_TargetAssemblyTypeName: SBP_EncirclingVines, Assembly-CSharp
+        m_MethodName: FollowTargetMissing
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!54 &5958291190454923689
 Rigidbody:
   m_ObjectHideFlags: 0

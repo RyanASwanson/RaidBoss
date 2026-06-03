@@ -85,8 +85,9 @@ MonoBehaviour:
   _damageToFollowTargetOnSwap: 4
   _maxSwaps: 3
   _enrageMaxSwapIncrease: 1
-  _projectileDuration: 16
+  _projectileDuration: 15
   _enrageDurationIncrease: 8
+  _durationIncreaseOnHeroHit: 2
   _moveIntoHeroTime: 0.2
   _moveOutFromHeroTime: 0.4
   _moveOutColliderEnableDelay: 0.15
@@ -112,6 +113,10 @@ MonoBehaviour:
   _doesResetRotationToDefaultOnEnable: 0
   _doesUseLocalEulerAngles: 0
   _rotationPerSecond: {x: 0, y: 80, z: 0}
+  _rotationAccelerationCurve: {fileID: 0}
+  _doesUseRotateFunction: 0
+  _rotateFunctionRotationsPerSecond: 0
+  _rotateFunctionAxis: {x: 0, y: 0, z: 0}
   _rotationIndepedentParent: {fileID: 0}
   _hasStartRotationOverride: 0
   _startRotationOverride: {x: 0, y: 0, z: 0}

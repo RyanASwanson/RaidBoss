@@ -12,6 +12,7 @@ public class SBP_StaticCharge : BossProjectileFramework
     [Space]
     [SerializeField] private float _projectileDuration;
     [SerializeField] private float _enrageDurationIncrease;
+    [SerializeField] private float _durationIncreaseOnHeroHit;
     private bool _isDurationOver = false;
 
     [Space] 
@@ -53,11 +54,10 @@ public class SBP_StaticCharge : BossProjectileFramework
             _maxSwaps += _enrageMaxSwapIncrease;
             _projectileDuration += _enrageDurationIncrease;
         }
-        _damageArea.SetProjectileColliderLifeTime(_projectileDuration);
-        _damageArea.StartColliderLifetime();
         _damageArea.ToggleProjectileCollider(false);
 
         StartMoveOutFromHero();
+        StartProjectileDuration();
     }
     
     public void StaticChargeHit(HeroBase heroTarget)
@@ -65,6 +65,8 @@ public class SBP_StaticCharge : BossProjectileFramework
         _currentSwaps++;
         _previousTarget = _currentTarget;
         _currentTarget = heroTarget;
+
+        _projectileDuration += _durationIncreaseOnHeroHit;
 
         PlayAttackHitAudio();
 
@@ -136,8 +138,27 @@ public class SBP_StaticCharge : BossProjectileFramework
         StartMoveOutFromHero();
     }
 
+    public void StartProjectileDuration()
+    {
+        StartCoroutine(ProjectileDuration());
+    }
+
+    private IEnumerator ProjectileDuration()
+    {
+        float duration = 0;
+
+        while (duration < _projectileDuration)
+        {
+            duration += Time.deltaTime;
+            yield return null;
+        }
+        
+        DurationOver();
+    }
+
     public void DurationOver()
     {
+        _damageArea.ToggleProjectileCollider(false);
         _removalCurve.StartMovingUpOnCurve();
         _isDurationOver = true;
     }

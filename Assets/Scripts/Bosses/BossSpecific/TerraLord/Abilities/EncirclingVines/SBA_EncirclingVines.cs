@@ -13,6 +13,7 @@ public class SBA_EncirclingVines : SpecificBossAbilityFramework
     [SerializeField] private GameObject _encirclingVines;
 
     private BossTargetZoneParent _newestTargetZone;
+    private bool hasHeroTarget;
     
     public const int ENCIRCLING_VINES_LOOP_AUDIO_ID = 0;
     public const int ENCIRCLING_VINES_END_AUDIO_ID = 1;
@@ -23,7 +24,7 @@ public class SBA_EncirclingVines : SpecificBossAbilityFramework
     /// </summary>
     protected override void StartShowTargetZone()
     {
-        bool hasHeroTarget = _mySpecificBoss.GetBossAttackTargets().Count > 1;
+        hasHeroTarget = _mySpecificBoss.GetBossAttackTargets().Count > 1;
         
         if (!hasHeroTarget)
         {
@@ -57,6 +58,11 @@ public class SBA_EncirclingVines : SpecificBossAbilityFramework
     /// </summary>
     protected override void AbilityStart()
     {
+        if (hasHeroTarget && _storedTarget.IsUnityNull())
+        {
+            return;
+        }
+        
         //Spawns the damaging ability
         SBP_EncirclingVines newestVines = 
             Instantiate(_encirclingVines, _newestTargetZone.transform.position, Quaternion.identity).GetComponent<SBP_EncirclingVines>();

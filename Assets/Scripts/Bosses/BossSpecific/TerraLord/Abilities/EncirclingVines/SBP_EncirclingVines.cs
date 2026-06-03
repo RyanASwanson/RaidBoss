@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using FMOD.Studio;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SBP_EncirclingVines : BossProjectileFramework
@@ -23,8 +24,11 @@ public class SBP_EncirclingVines : BossProjectileFramework
 
     [Space] 
     [SerializeField] private CurveProgression _scaleCurve;
+    [SerializeField] private GeneralRotation _activeRotation;
 
     private EventInstance _encirclingVinesLoopInstance;
+    private Coroutine _encirclingVinesEndSFXDelay;
+    private bool _isBeingRemoved = false;
 
     public void AdditionalSetUp(GameObject followTarget)
     {
@@ -55,11 +59,29 @@ public class SBP_EncirclingVines : BossProjectileFramework
         StartScaleChangeRotationProcess();
 
         PlayEncirclingVinesLoopSFX();
-        StartCoroutine(DelayEncirclingVinesEndSFX());
+        StartDelayEncirclingVinesEndSFX();
+    }
+
+    public void FollowTargetMissing()
+    {
+        _scaleCurve.SetHasDecreaseDelay(false);
+        // Also calls EncirclingVinesDownScaleBegin from event on Curve
+        _scaleCurve.StartMovingDownOnCurve();
+        
+        StopDelayEncirclingVinesEndSFX();
+
+        PlayEncirclingVinesEndSFX();
     }
     
     public void EncirclingVinesDownScaleBegun()
     {
+        if (_isBeingRemoved)
+        {
+            return;
+        }
+        
+        _isBeingRemoved = true;
+        _activeRotation.StopRotation();
         StopEncirclingVinesLoopSFX();
         StartScaleChangeRotationProcess();
     }
@@ -77,6 +99,19 @@ public class SBP_EncirclingVines : BossProjectileFramework
         AudioManager.Instance.StartFadeOutStopInstance(_encirclingVinesLoopInstance,
             AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
             BossAbilityAudio[_abilityID].GeneralAbilityAudio[SBA_EncirclingVines.ENCIRCLING_VINES_LOOP_AUDIO_ID]);
+    }
+
+    private void StartDelayEncirclingVinesEndSFX()
+    {
+        _encirclingVinesEndSFXDelay = StartCoroutine(DelayEncirclingVinesEndSFX());
+    }
+
+    private void StopDelayEncirclingVinesEndSFX()
+    {
+        if (!_encirclingVinesEndSFXDelay.IsUnityNull())
+        {
+            StopCoroutine(_encirclingVinesEndSFXDelay);
+        }
     }
     
     private IEnumerator DelayEncirclingVinesEndSFX()
