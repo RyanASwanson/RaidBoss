@@ -13,6 +13,7 @@ public class ResolutionDropdown : MonoBehaviour
     {
         SetStartingDropdownVisuals();
         SetStartingDropdownValue();
+        SubscribeToDropdown();
     }
 
     private void SetStartingDropdownVisuals()
@@ -37,17 +38,26 @@ public class ResolutionDropdown : MonoBehaviour
     private void SetStartingDropdownValue()
     {
         int resolutionIndex = EngineSettingsManager.Instance.GetResolutionIDFromCurrentResolution();
+        if (resolutionIndex < 0)
+        {
+            resolutionIndex = 0;
+        }
+        
         if (resolutionIndex != -1)
         {
             _dropdown.value = resolutionIndex;
             _dropdown.RefreshShownValue();
         }
-        /*for (int i = 0; i < _dropdown.options.Count; i++)
-        {
-            Debug.Log();
-        }*/
+    }
 
-        //EngineSettingsManager.Instance.GetCurrentResolution()
+    private void SubscribeToDropdown()
+    {
+        _dropdown.onValueChanged.AddListener(ResolutionChanged);
+    }
+
+    public void ResolutionChanged(int resolutionIndex)
+    {
+        ResolutionChanged();
     }
 
     public void ResolutionChanged()

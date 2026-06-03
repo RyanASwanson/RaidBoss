@@ -97,7 +97,7 @@ public class EngineSettingsManager : MainUniversalManagerFramework
     #endregion
     
     #region Getters
-    public Vector2Int GetCurrentResolution() => new Vector2Int(Screen.currentResolution.width, Screen.currentResolution.height);
+    public Vector2Int GetCurrentResolution() => new Vector2Int(Screen.width, Screen.height);
     public Vector2Int[] GetGameResolutions() => _gameResolutions;
 
     public int GetResolutionIDFromCurrentResolution() => GetResolutionIDFromResolution(GetCurrentResolution());
