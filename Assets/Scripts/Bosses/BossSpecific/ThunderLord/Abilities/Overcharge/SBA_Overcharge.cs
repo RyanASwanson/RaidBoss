@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SBA_Overcharge : SpecificBossAbilityFramework
@@ -31,6 +32,10 @@ public class SBA_Overcharge : SpecificBossAbilityFramework
     public override void StopBossAbility()
     {
         base.StopBossAbility();
-        _currentTargetZone.RemoveBossTargetZones();
+        
+        if (!_currentTargetZone.IsUnityNull())
+        {
+            _currentTargetZone.RemoveBossTargetZones();
+        }
     }
 }

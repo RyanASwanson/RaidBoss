@@ -45,6 +45,7 @@ public class SBA_ImpendingStorm : SpecificBossAbilityFramework
     [Space]
     [SerializeField] private GameObject _impendingStormTargetZone;
     [SerializeField] private GameObject _impendingStormProjectile;
+    [SerializeField] private SBA_Overcharge _overchargeAbility;
     private BossTargetZoneParent _currentImpendingStormTargetZone;
     
     private Coroutine _rotationCoroutine;
@@ -284,6 +285,8 @@ public class SBA_ImpendingStorm : SpecificBossAbilityFramework
     private void BattleOver()
     {
         StopImpendingStorm();
+        
+        _overchargeAbility.StopBossAbility();
         _currentImpendingStormTargetZone.RemoveBossTargetZones();
     }
 

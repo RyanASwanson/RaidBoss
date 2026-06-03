@@ -15,6 +15,7 @@ public class SBA_Avalanche : SpecificBossAbilityFramework
 
     private GameObject _storedAvalanche;
     private Vector3 _edgeOfMap;
+    private Vector3 _attackDirection;
 
     public const int AVALANCHE_END_AUDIO_ID = 0;
     
@@ -23,7 +24,7 @@ public class SBA_Avalanche : SpecificBossAbilityFramework
     {
         Vector3 spawnLocation = transform.position;
 
-        Vector3 dir = _storedTarget.transform.position - transform.position;
+        Vector3 dir = _attackDirection;
         dir = new Vector3(dir.x, 0, dir.z).normalized;
 
         spawnLocation += dir * _spawnDistance;
@@ -58,18 +59,21 @@ public class SBA_Avalanche : SpecificBossAbilityFramework
     private IEnumerator UpdateTargetZone()
     {
         Vector3 lastCheckedDirection = Vector3.zero;
-        while(!_storedTargetZone.IsUnityNull())
+        
+        while(!_storedTargetZone.IsUnityNull() && !_storedTarget.IsUnityNull())
         {
-            Vector3 currentDirection = _storedTarget.transform.position - Vector3.zero;
+            _storedTargetLocation = _storedTarget.transform.position;
+            _attackDirection = _storedTargetLocation - Vector3.zero;
+            
             _edgeOfMap =  EnvironmentManager.Instance.GetEdgeOfMapLoc(transform.position,
-                (currentDirection).normalized);
+                (_attackDirection).normalized);
 
-            if (lastCheckedDirection == currentDirection)
+            if (lastCheckedDirection == _attackDirection)
             {
                 yield return null;
                 continue;
             }
-            lastCheckedDirection = currentDirection;
+            lastCheckedDirection = _attackDirection;
 
             _storedTargetZone.transform.LookAt(_storedTarget.transform);
             _storedTargetZone.transform.eulerAngles = new Vector3(0, _storedTargetZone.transform.eulerAngles.y, 0);
@@ -90,7 +94,7 @@ public class SBA_Avalanche : SpecificBossAbilityFramework
         //Sets up the projectile
         SBP_Avalanche avalanche = _storedAvalanche.GetComponent<SBP_Avalanche>();
         avalanche.SetUpProjectile(_myBossBase, _abilityID, _wasBossEnragedOnAbilityActivation);
-        avalanche.AdditionalSetUp(_storedTarget.transform.position, this);
+        avalanche.AdditionalSetUp(_storedTargetLocation, this);
 
         base.AbilityStart();
     }
