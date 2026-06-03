@@ -176,7 +176,7 @@ public class BossStats : BossChildrenFunctionality
 
     private void CheckIfBossIsDead(float damage)
     {
-        if (_currentHealth <= 0 && !GameStateManager.Instance.GetIsFightOver())
+        if (_currentHealth <= 0 && !GameStateManager.Instance.GetIsFightOver() && !SceneLoadManager.Instance.IsSceneLoading())
         {
             BossDeath();
         }

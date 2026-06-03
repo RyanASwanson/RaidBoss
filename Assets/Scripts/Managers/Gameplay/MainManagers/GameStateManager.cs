@@ -163,7 +163,7 @@ public class GameStateManager : MainGameplayManagerFramework
         if (SelectionManager.Instance.GetSelectedMissionOut(out MissionSO mission) &&
             mission.GetTutorialPages().Length > 0)
         {
-            
+            // Perform functionality for mission tutorial set up
         }
         else
         {

@@ -580,8 +580,9 @@ public class SelectionManager : MainUniversalManagerFramework
         if (IsPlayingMissionsMode())
         {
             selectedMission = GetSelectedMission();
-            
-            return true;
+
+            // Returns false if the mission is not found
+            return !selectedMission.IsUnityNull();
         }
 
         selectedMission = new();
