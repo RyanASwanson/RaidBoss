@@ -279,6 +279,10 @@ public class SBA_ImpendingStorm : SpecificBossAbilityFramework
 
     private void BossNoLongerStaggered()
     {
+        if (GameStateManager.Instance.GetIsFightOver())
+        {
+            return;
+        }
         StartImpendingStormAttack();
     }
 

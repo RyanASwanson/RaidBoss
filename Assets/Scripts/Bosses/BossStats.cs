@@ -185,7 +185,7 @@ public class BossStats : BossChildrenFunctionality
     private void BossDeath()
     {
         _isBossDead = true;
-
+        
         StopEnrageTimer();
         
         GameStateManager.Instance.SetGameplayState(EGameplayStates.PostBattleWon);
@@ -251,8 +251,8 @@ public class BossStats : BossChildrenFunctionality
     /// </summary>
     private void StartEnrageTimer()
     {
-        // Checks if the boss is already enraged
-        if (_isBossEnraged)
+        // Checks if the boss is already dead or enraged
+        if (_isBossDead || _isBossEnraged)
         {
             // Stop as we don't need to start the enrage timer if the boss is already enraged
             return;
@@ -426,6 +426,7 @@ public class BossStats : BossChildrenFunctionality
     
     public float GetBossDamageResistanceChangeOnStagger() => _bossDamageResistanceChangeOnStagger;
 
+    public bool GetIsBossDead() => _isBossDead;
     public bool GetIsBossStaggered() => _isBossStaggered;
     public bool GetIsBossEnraged() => _isBossEnraged;
     public float GetSecondsSpentEnraged() => _timeSpentEnraged;

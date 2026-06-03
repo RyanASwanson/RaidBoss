@@ -317,12 +317,10 @@ public class SB_TerraLord : SpecificBossFramework
     /// </summary>
     private void PassiveMax()
     {
-        if (_unstablePrecipice.IsAbilityAttacking())
+        if (_unstablePrecipice.IsAbilityAttacking() || GameStateManager.Instance.GetIsFightOver())
         {
             return;
         }
-        
-        //HeroesManager.Instance.ForceKillAllHeroes();
         
         CameraGameManager.Instance.StartCameraShake(_passiveMaxShake);
 
@@ -331,7 +329,7 @@ public class SB_TerraLord : SpecificBossFramework
     
     private void CheckToStopPassiveAttack()
     {
-        if (Mathf.Abs(_passiveCounterValue) < _unstablePrecipiceAttackStopThreshhold)
+        if(_unstablePrecipice.IsAbilityAttacking() && Mathf.Abs(_passiveCounterValue) < _unstablePrecipiceAttackStopThreshhold)
         {
             _unstablePrecipice.StopPassiveAttackProcess();
         }
@@ -491,8 +489,6 @@ public class SB_TerraLord : SpecificBossFramework
         base.BossDied();
 
         StopPassiveProcess();
-
-        _unstablePrecipice.StopBossAbility();
     }
     
     protected override void CheckToUnlockSpecialistAchievement()
@@ -508,6 +504,12 @@ public class SB_TerraLord : SpecificBossFramework
         {
             UnlockedSpecialistAchievement();
         }
+    }
+
+    protected override void GeneralBattleEnd()
+    {
+        base.GeneralBattleEnd();
+        _unstablePrecipice.StopPassiveAttackProcess();
     }
 
     #endregion

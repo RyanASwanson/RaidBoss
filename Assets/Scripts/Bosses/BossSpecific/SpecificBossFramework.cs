@@ -587,6 +587,8 @@ public abstract class SpecificBossFramework : MonoBehaviour
 
         AttemptPlaySpecificBossDiedAudio();
         CheckToUnlockSpecialistAchievement();
+
+        GeneralBattleEnd();
     }
 
     protected virtual void AttemptPlaySpecificBossDiedAudio()
@@ -631,6 +633,12 @@ public abstract class SpecificBossFramework : MonoBehaviour
     protected virtual void BossWonBattle()
     {
         //StopCurrentAttack();
+        GeneralBattleEnd();
+    }
+
+    protected virtual void GeneralBattleEnd()
+    {
+        
     }
     #endregion
 
