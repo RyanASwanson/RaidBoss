@@ -26,8 +26,6 @@ public class AlchemistManualFollowEffect : MonoBehaviour
         
         _materialSetCustomProperty.SetUp();
         StartCoroutine(PotionRemoveWarningTimer(buffDuration));
-        
-        Destroy(gameObject, buffDuration);
     }
     
     private IEnumerator PotionRemoveWarningTimer(float buffDuration)
@@ -39,5 +37,16 @@ public class AlchemistManualFollowEffect : MonoBehaviour
     private void PotionRemoveWarning()
     {
         _lifeTimeWarningCurve.StartMovingUpOnCurve();
+    }
+
+    public void FollowHeroMissing()
+    {
+        _scaleCurve.SetHasDecreaseDelay(false);
+        _scaleCurve.StartMovingDownOnCurve();
+    }
+
+    public void DestroyFollowEffect()
+    {
+        Destroy(gameObject);
     }
 }
