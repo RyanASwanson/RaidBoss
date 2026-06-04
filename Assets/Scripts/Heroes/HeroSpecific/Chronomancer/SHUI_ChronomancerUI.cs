@@ -112,7 +112,8 @@ public class SHUI_ChronomancerUI : SpecificHeroUIFramework
         StopActivationAnimation();
         _isActivationProcessActive = false;
         
-        ResetSpecificHeroText();
+        //ResetSpecificHeroText();
+        UpdateHealthStoredDisplayText(_lastTextNumber);
         ModifyTextScale();
     }
 
