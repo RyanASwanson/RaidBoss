@@ -10,6 +10,10 @@ public class ExtrasUIFunctionality : MonoBehaviour
     
     [SerializeField] private Sprite _optionToggleOff;
     [SerializeField] private Sprite _optionToggleOn;
+
+    [Space] 
+    [SerializeField] private bool _doesShowFeedbackTab;
+    [SerializeField] private GameObject _feedbackTab;
     
     [Space]
     [SerializeField] private CurveProgression _scaleCurve;
@@ -25,6 +29,7 @@ public class ExtrasUIFunctionality : MonoBehaviour
 
     private void Awake()
     {
+        SetUpFeedbackTab();
         SetUpInstance();
     }
 
@@ -65,6 +70,11 @@ public class ExtrasUIFunctionality : MonoBehaviour
     public void OpenControlsDropdownButton(ExtrasControlsButton button)
     {
         _currentControlsDropdown.OpenControlsButtonDropdown(button);
+    }
+
+    private void SetUpFeedbackTab()
+    {
+        _feedbackTab.SetActive(_doesShowFeedbackTab);
     }
 
     public void ActivateSquishCurve()
