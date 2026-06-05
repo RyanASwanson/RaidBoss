@@ -43,11 +43,8 @@ public class ResolutionDropdown : MonoBehaviour
             resolutionIndex = 0;
         }
         
-        if (resolutionIndex != -1)
-        {
-            _dropdown.value = resolutionIndex;
-            _dropdown.RefreshShownValue();
-        }
+        _dropdown.value = resolutionIndex;
+        _dropdown.RefreshShownValue();
     }
 
     private void SubscribeToDropdown()
