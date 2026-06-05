@@ -173,6 +173,18 @@ public class SaveManager : MainUniversalManagerFramework
             GSD = JsonUtility.FromJson<GameSaveData>(json);
 
             GSD = JsonConvert.DeserializeObject<GameSaveData>(json);
+
+            if (GSD.GetGameplaySaveData().IsUnityNull())
+            {
+                Debug.Log("Gameplay Settings is missing from Game Save Data");
+                GameplaySettingsMissingOnLoad();
+            }
+            
+            if (GSD.GetGeneralSaveData().IsUnityNull())
+            {
+                Debug.Log("General Settings is missing from Game Save Data");
+                GeneralSettingsMissingOnLoad();
+            }
             
             SelectionManager.Instance.SetSelectedDifficulty((EGameDifficulty)GSD.GetGameplaySaveData().GetCurrentDifficultySelected());
             SelectionManager.Instance.SetSelectedDifficultyAndMythicPlusLevel(
@@ -221,6 +233,16 @@ public class SaveManager : MainUniversalManagerFramework
                 GSD.GetGameplaySaveData().NextMissionID = removalMissions[i] - 1;
             }
         }
+    }
+
+    private void GameplaySettingsMissingOnLoad()
+    {
+        GSD.ResetGameplaySaveData();
+    }
+
+    private void GeneralSettingsMissingOnLoad()
+    {
+        GSD.ResetGeneralSaveData();
     }
     #endregion
 
@@ -820,7 +842,17 @@ public class GameSaveData
 
     public void ResetGameSaveData()
     {
+        ResetGameplaySaveData();
+        ResetGeneralSaveData();
+    }
+
+    public void ResetGameplaySaveData()
+    {
         _storedGameplaySaveData = new();
+    }
+
+    public void ResetGeneralSaveData()
+    {
         _storedGeneralSaveData = new();
     }
     
