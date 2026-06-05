@@ -93,12 +93,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5688175cce93714583d51e69036cd2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _allBossAbilities:
-  - {fileID: 8901101681536682290}
-  - {fileID: 3475215520520948729}
-  - {fileID: 1777365495296129283}
-  - {fileID: 280044508746416317}
-  - {fileID: 1356851507224398986}
   _startingBossAbilities:
   - {fileID: 8901101681536682290}
   - {fileID: 3475215520520948729}
@@ -260,10 +254,10 @@ MonoBehaviour:
   _doesBossFollowTarget: 0
   _specificAreaTarget: {x: 0, y: -0.75, z: 0}
   _specificLookTarget: {x: 0, y: 0, z: 0}
-  _targetZoneDuration: 5
-  _abilityWindUpTime: 4
-  _timeUntilNextAbility: 7.5
-  _minimumTimeUntilNextAbility: 4
+  _targetZoneDuration: 4.5
+  _abilityWindUpTime: 3.5
+  _timeUntilNextAbility: 7
+  _minimumTimeUntilNextAbility: 3.5
   _hasAbilityDuration: 0
   _abilityDuration: 0
   _delayedIndividualTargetZoneRemovalTime: 0.15
@@ -276,8 +270,8 @@ MonoBehaviour:
   _abilityPrepAudioDelay: 0
   _abilityStartAudioDelay: 0
   _projectileCount: 10
-  _timeBeforeProjectiles: 0.55
-  _timeBetweenProjectiles: 0.15
+  _timeBeforeProjectiles: 0.45
+  _timeBetweenProjectiles: 0.135
   _enrageProjectileCountIncrease: 5
   _enrageTimeBetweenProjectilesDecrease: 0.03
   _upwardsProjectileSpawnVariance: {x: 0.2, y: 0.1, z: 0.2}
