@@ -471,7 +471,7 @@ public class SaveManager : MainUniversalManagerFramework
     {
         if (mission.IsUnityNull())
         {
-            Debug.LogError("Could not find mission to unlock " + mission.GetMissionName());
+            Debug.LogError("Could not find mission to unlock");
             return;
         }
         
