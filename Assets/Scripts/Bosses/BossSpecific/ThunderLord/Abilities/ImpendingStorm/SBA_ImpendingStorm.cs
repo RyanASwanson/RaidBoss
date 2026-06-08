@@ -7,6 +7,9 @@ using UnityEngine;
 public class SBA_ImpendingStorm : SpecificBossAbilityFramework
 {
     [Space]
+    [SerializeField] private bool _doesStopPassiveOnStagger;
+    
+    [Space]
     [SerializeField] private float _baseRotationSpeed;
     [SerializeField] private float[] _difficultyRotationMultiplier;
 
@@ -274,7 +277,10 @@ public class SBA_ImpendingStorm : SpecificBossAbilityFramework
 
     private void BossStaggered()
     {
-        StopImpendingStormAttack();
+        if (_doesStopPassiveOnStagger)
+        {
+            StopImpendingStormAttack();
+        }
     }
 
     private void BossNoLongerStaggered()
@@ -283,7 +289,11 @@ public class SBA_ImpendingStorm : SpecificBossAbilityFramework
         {
             return;
         }
-        StartImpendingStormAttack();
+
+        if (_doesStopPassiveOnStagger)
+        {
+            StartImpendingStormAttack();
+        }
     }
 
     private void BattleOver()

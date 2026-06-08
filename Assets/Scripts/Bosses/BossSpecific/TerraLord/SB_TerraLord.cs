@@ -10,6 +10,9 @@ public class SB_TerraLord : SpecificBossFramework
     public static SB_TerraLord Instance;
 
     [Header("Unstable Precipice")]
+    [SerializeField] private bool _doesStopPassiveOnStagger;
+    
+    [Space]
     [SerializeField] private float _passiveTickRate;
     [SerializeField] private float _minimumTickValue;
     [SerializeField] private float _maximumTickValue;
@@ -471,7 +474,10 @@ public class SB_TerraLord : SpecificBossFramework
     {
         base.BossStaggerOccured();
 
-        StopPassiveProcess();
+        if (_doesStopPassiveOnStagger)
+        {
+            StopPassiveProcess();
+        }
     }
 
     /// <summary>
@@ -481,7 +487,10 @@ public class SB_TerraLord : SpecificBossFramework
     {
         base.BossNoLongerStaggeredOccured();
 
-        StartPassiveProcess();
+        if (_doesStopPassiveOnStagger)
+        {
+            StartPassiveProcess();
+        }
     }
 
     protected override void BossDied()
