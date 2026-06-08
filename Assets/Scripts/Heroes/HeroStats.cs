@@ -155,6 +155,11 @@ public class HeroStats : HeroChildrenFunctionality
             return 0;
         }
 
+        if (IsHeroDead())
+        {
+            return 0;
+        }
+
         //Set the previous health to what it was prior to being healed
         SetPreviousHealthValue();
 
@@ -206,6 +211,8 @@ public class HeroStats : HeroChildrenFunctionality
     {
         // Prevents hero from taking damage as they die
         AddDamageTakenOverrideCounter();
+        
+        AddHealingTakenOverrideCounter();
 
         // Tells the hero base to invoke the death event
         _myHeroBase.InvokeHeroDiedEvent();
