@@ -128,6 +128,12 @@ public class VolcanoHeroMovementTracking : MonoBehaviour
         _materialSetCustomProperty.UpdateMaterialFloatProperty(_volcanoWarningEffectIntensity);
     }
 
+    public void MaxVolcanoMovementAmount()
+    {
+        _currentVolcanoHeroMovementAmount = _volcanoMaxTracking;
+        UpdateVolcanoMovementAmount();
+    }
+
     private void StartMovingVolcanoProgressDownToValue(float targetValue, float moveTime)
     {
         StopMovingVolcanoProgressDownToValue();

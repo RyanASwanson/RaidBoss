@@ -17,19 +17,24 @@ public class SBA_Volcano : SpecificBossAbilityFramework
 
     private float _sharedVolcanoTrackingMultiplier = 1;
 
-    [Space] [SerializeField] private float _projectileDelay;
+    [Space] 
+    [SerializeField] private float _projectileDelay;
 
     private WaitForSeconds _projectileDelayWaitForSeconds;
 
     private const float _rotationAmount = 90;
     private const float _maxRotations = 3;
 
-    [Space] [SerializeField] private float _impactAudioPitchIncrease;
-
-    private List<GameObject> _storedDamageZones = new List<GameObject>();
+    [Space] 
+    [SerializeField] private float _impactAudioPitchIncrease;
+    
     private List<Vector3> _targetLocations = new List<Vector3>();
-
     private List<Vector3> _currentActiveTargetLocations = new List<Vector3>();
+    
+    private List<BossTargetZoneParent> _currentVolcanoFutureTargetZones = new();
+    private List<BossTargetZoneParent> _currentActiveVolcanoFutureTargetZones = new();
+    
+    private List<GameObject> _storedDamageZones = new List<GameObject>();
 
     private Coroutine _targetZoneSpawningProcess;
     private Coroutine _damageZoneSpawningProcess;
@@ -42,15 +47,15 @@ public class SBA_Volcano : SpecificBossAbilityFramework
     [SerializeField] private int _futureTargetZonesCertainChanceToActivate;
     [SerializeField] private int _maxTargetZonesAllowed;
 
-    [Space] [SerializeField] private GameObject _volcanoHeroTrackingObject;
+    [Space] 
+    [SerializeField] private GameObject _volcanoHeroTrackingObject;
     private VolcanoHeroMovementTracking[] _volcanoHeroMovementTracking;
 
-    [Space] [SerializeField] private GameObject _volcanoFutureTargetZone;
+    [Space] 
+    [SerializeField] private GameObject _volcanoFutureTargetZone;
+    [SerializeField] private GameObject _futureTargetZoneVFX;
     [SerializeField] private GameObject _targetZone;
     [SerializeField] private GameObject _volcanoDamageZone;
-
-    private List<BossTargetZoneParent> _currentVolcanoFutureTargetZones = new();
-    private List<BossTargetZoneParent> _currentActiveVolcanoFutureTargetZones = new();
 
 
     public void BattleStarted()
@@ -102,23 +107,43 @@ public class SBA_Volcano : SpecificBossAbilityFramework
 
     public void VolcanoTargetHitMax(VolcanoHeroMovementTracking volcanoHeroMovementTracking)
     {
+        SpawnVolcanoFutureTargetZone(volcanoHeroMovementTracking.transform.position,true);
+    }
+
+    public void SpawnVolcanoFutureTargetZone(Vector3 targetLocation, bool doesPlayAudio)
+    {
         if (_currentVolcanoFutureTargetZones.Count >= _maxTargetZonesAllowed)
         {
             return;
         }
-        
-        BossTargetZoneParent targetZoneParent =
-            Instantiate(_volcanoFutureTargetZone, volcanoHeroMovementTracking.transform.position, Quaternion.identity)
-                .GetComponent<BossTargetZoneParent>();
 
-        targetZoneParent.transform.position =
-            EnvironmentManager.Instance.GetClosestPointToFloor(targetZoneParent.transform.position);
-
+        BossTargetZoneParent targetZoneParent = SpawnVolcanoFutureTargetZone(targetLocation);
+        SpawnVolcanoFutureTargetZoneVFX(targetZoneParent.transform.position);
 
         _currentVolcanoFutureTargetZones.Add(targetZoneParent);
         _targetLocations.Add(targetZoneParent.transform.position);
 
-        PlayVolcanoFutureTargetZoneSpawnedAudio();
+        if (doesPlayAudio)
+        {
+            PlayVolcanoFutureTargetZoneSpawnedAudio();
+        }
+    }
+
+    private BossTargetZoneParent SpawnVolcanoFutureTargetZone(Vector3 targetLocation)
+    {
+        BossTargetZoneParent targetZoneParent =
+            Instantiate(_volcanoFutureTargetZone, targetLocation, Quaternion.identity)
+                .GetComponent<BossTargetZoneParent>();
+
+        targetZoneParent.transform.position =
+            EnvironmentManager.Instance.GetClosestPointToFloor(targetZoneParent.transform.position);
+        
+        return targetZoneParent;
+    }
+
+    private void SpawnVolcanoFutureTargetZoneVFX(Vector3 targetLocation)
+    {
+        Instantiate(_futureTargetZoneVFX,targetLocation, Quaternion.identity);
     }
 
     private IEnumerator VolcanoTargetZoneCreationProcess()
@@ -127,6 +152,7 @@ public class SBA_Volcano : SpecificBossAbilityFramework
 
         _currentActiveTargetLocations.Clear();
         _currentActiveTargetLocations.InsertRange(0, _targetLocations);
+        
         _currentActiveVolcanoFutureTargetZones.Clear();
         _currentActiveVolcanoFutureTargetZones.InsertRange(0, _currentVolcanoFutureTargetZones);
 
@@ -146,6 +172,39 @@ public class SBA_Volcano : SpecificBossAbilityFramework
             }
 
             yield return _projectileDelayWaitForSeconds;
+        }
+    }
+
+    private void BossStaggeredDuringVolcanoTargetZoneCreationProcess()
+    {
+        /*
+         * Since the Magma Lord was staggered in the middle of removing the future zones, and spawning the target
+         * zones, and the _targetLocations and _currentVolcanoFutureTargetZones were cleared it could lead to issues.
+         * The future zones that were already destroyed, or actively being destroyed will not be kept around,
+         * and the other future target zones are not included in the lists and are never removed.
+         *
+         * So we have to respawn the destroyed future target zones, and add the other zones back into the lists
+         */
+        
+        // Iterate through all currently active target locations
+        for (int i = 0; i < _currentActiveTargetLocations.Count; i++)
+        {
+            // If a future target zone is destroyed or is being destroyed
+            if (_currentActiveVolcanoFutureTargetZones[i].IsUnityNull() || _currentActiveVolcanoFutureTargetZones[i].GetIsDestroyingSelf())
+            {
+                // Spawn a new replacement future target zone
+                BossTargetZoneParent targetZoneParent = SpawnVolcanoFutureTargetZone(_currentActiveTargetLocations[i]);
+                
+                // Add it back to the lists
+                _targetLocations.Insert(i,targetZoneParent.transform.position);
+                _currentVolcanoFutureTargetZones.Insert(i,targetZoneParent);
+                
+                continue;
+            }
+            
+            // Add the future target zones that weren't removed back into the lists
+            _targetLocations.Insert(i,_currentActiveTargetLocations[i]);
+            _currentVolcanoFutureTargetZones.Insert(i,_currentActiveVolcanoFutureTargetZones[i]);
         }
     }
 
@@ -215,8 +274,6 @@ public class SBA_Volcano : SpecificBossAbilityFramework
     /// </summary>
     protected override void StartShowTargetZone()
     {
-        //DetermineAttackLocations();
-
         _targetZoneSpawningProcess = StartCoroutine(VolcanoTargetZoneCreationProcess());
 
         base.StartShowTargetZone();
@@ -240,6 +297,7 @@ public class SBA_Volcano : SpecificBossAbilityFramework
         if (!_targetZoneSpawningProcess.IsUnityNull())
         {
             StopCoroutine(_targetZoneSpawningProcess);
+            BossStaggeredDuringVolcanoTargetZoneCreationProcess();
         }
 
         if (!_damageZoneSpawningProcess.IsUnityNull())

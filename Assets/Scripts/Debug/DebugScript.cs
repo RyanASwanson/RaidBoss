@@ -105,6 +105,11 @@ public class DebugScript : MonoBehaviour
             switch (SelectionManager.Instance.GetSelectedBoss().GetBossID())
             {
                 case 0:
+                    VolcanoHeroMovementTracking[] volcanoHeroMovementTracking = FindObjectsOfType<VolcanoHeroMovementTracking>();
+                    foreach (VolcanoHeroMovementTracking volcanoTracking in volcanoHeroMovementTracking)
+                    {
+                        volcanoTracking.MaxVolcanoMovementAmount();
+                    }
                     return;
                 case 1:
                     SB_TerraLord.Instance.TerraLordDebug();

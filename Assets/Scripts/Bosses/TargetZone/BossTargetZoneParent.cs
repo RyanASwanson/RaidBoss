@@ -58,5 +58,9 @@ public class BossTargetZoneParent : MonoBehaviour
         _isDestroyingSelf = true;
     }
     
+    #region Getters
     public BossTargetZone[] GetBossTargetZones() => _bossTargetZone;
+    
+    public bool GetIsDestroyingSelf() => _isDestroyingSelf;
+    #endregion
 }
