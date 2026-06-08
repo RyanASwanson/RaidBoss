@@ -27,6 +27,7 @@ public class SBA_Volcano : SpecificBossAbilityFramework
 
     [Space] 
     [SerializeField] private float _impactAudioPitchIncrease;
+    [SerializeField] private int _impactMaxAudioPitchIncreases;
     
     private List<Vector3> _targetLocations = new List<Vector3>();
     private List<Vector3> _currentActiveTargetLocations = new List<Vector3>();
@@ -206,6 +207,18 @@ public class SBA_Volcano : SpecificBossAbilityFramework
             _targetLocations.Insert(i,_currentActiveTargetLocations[i]);
             _currentVolcanoFutureTargetZones.Insert(i,_currentActiveVolcanoFutureTargetZones[i]);
         }
+
+        /*
+        // If there are more target zones than there are allowed remove those extras.
+        // This could happen if the boss is staggered during Volcano and new zones are spawned before the stagger
+        */
+        for (int i = _targetLocations.Count-1; i >= _maxTargetZonesAllowed; i--)
+        {
+            _currentVolcanoFutureTargetZones[i].RemoveBossTargetZones();
+            
+            _targetLocations.RemoveAt(i);
+            _currentVolcanoFutureTargetZones.RemoveAt(i);
+        }
     }
 
     private IEnumerator VolcanoDamageCreationProcess()
@@ -247,14 +260,16 @@ public class SBA_Volcano : SpecificBossAbilityFramework
                 .GeneralAbilityAudio[VOLCANO_FUTURE_TARGET_ZONE_SPAWNED_AUDIO_ID]);
     }
 
-    private void PlayVolcanoAbilityAudio(int volcanoSpawned)
+    private void PlayVolcanoAbilityAudio(int volcanoesSpawned)
     {
         AudioManager.Instance.PlaySpecificAudio(
             AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].BossAbilityAudio[_abilityID]
                 .GeneralAbilityAudio[VOLCANO_IMPACT_AUDIO_ID], out EventInstance eventInstance);
+        
+        volcanoesSpawned = Mathf.Clamp(0,_impactMaxAudioPitchIncreases,volcanoesSpawned);
 
         eventInstance.getPitch(out float pitch);
-        eventInstance.setPitch(pitch + (volcanoSpawned * _impactAudioPitchIncrease));
+        eventInstance.setPitch(pitch + (volcanoesSpawned * _impactAudioPitchIncrease));
     }
 
 
@@ -284,6 +299,8 @@ public class SBA_Volcano : SpecificBossAbilityFramework
     /// </summary>
     protected override void AbilityStart()
     {
+        _targetZoneSpawningProcess = null;
+        
         SB_MagmaLord.Instance.SetHasVolcanoBeenUsed(true);
 
         _damageZoneSpawningProcess = StartCoroutine(VolcanoDamageCreationProcess());
