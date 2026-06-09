@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SpecificTutorialPage : MonoBehaviour
 {
-    [SerializeField] private TextWithBackground _defaultText;
+    [SerializeField] private TextWithOutline _defaultOutlineText;
 
     [Space] 
     [SerializeField] private Transform _missionPageHolder;
@@ -15,8 +15,8 @@ public class SpecificTutorialPage : MonoBehaviour
     
     public virtual void SetUpPage(TutorialPage tutorialPage)
     {
-        _defaultText.UpdateText(tutorialPage.DefaultText);
-        _defaultText.UpdateLocation(tutorialPage.DefaultTextLocation);
+        _defaultOutlineText.UpdateText(tutorialPage.DefaultText);
+        _defaultOutlineText.UpdateLocation(tutorialPage.DefaultTextLocation);
 
         if (!tutorialPage.TutorialPageObject.IsUnityNull())
         {

@@ -10,7 +10,7 @@ public class TextWithOutline : MonoBehaviour
     [TextArea(1, 10)][SerializeField] private string _defaultText;
 
     [Space] 
-    [SerializeField] private bool _doesRemoveColorFromBackgroundText = true;
+    [SerializeField] private bool _doesRemoveColorFromText = false;
     [SerializeField] private bool _doesRemoveLineBreaks = false;
     
     [Space]
@@ -39,7 +39,7 @@ public class TextWithOutline : MonoBehaviour
         
         CurrentString = newString;
         
-        if (_doesRemoveColorFromBackgroundText)
+        if (_doesRemoveColorFromText)
         {
             newString = Regex.Replace(newString, "<color=.*?>|</color>", string.Empty);
         }
