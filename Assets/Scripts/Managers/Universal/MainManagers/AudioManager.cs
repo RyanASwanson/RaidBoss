@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using FMOD.Studio;
@@ -211,7 +212,6 @@ public class AudioManager : MainUniversalManagerFramework
                 return PlayOneShotFromSpecificAudio(specificAudio, trackChoice);
             case ESpecificAudioPlayType.Instance:
                 bool succeeded = StartSpecificAudioInstance(specificAudio, trackChoice,doesAddToVolumeAdjustmentDictionary,out eventInstance);
-                
                 // If this audio cancels previous instances of itself on play
                 if (specificAudio.DoesCancelPreviousInstancesOfSpecificAudioOnPlay)
                 {
@@ -239,7 +239,7 @@ public class AudioManager : MainUniversalManagerFramework
             eventInstance.start();
             eventInstance.release();
             
-            if (specificAudio.DefaultInstanceFadeInTime > 0)
+            if (specificAudio.DefaultInstanceFadeInTime > 0 && specificAudio.AudioVCAType != EAudioVCAType.Music)
             {
                 eventInstance.setVolume(0);
                 StartAdjustInstanceVolumeOverTime(eventInstance, false, doesAddToVolumeAdjustmentDictionary, 1,
@@ -342,7 +342,6 @@ public class AudioManager : MainUniversalManagerFramework
         while (timer < 1)
         {
             timer += Time.deltaTime/ adjustTime;
-            
             eventInstance.setVolume(Mathf.Lerp(startVolume, endVolume, timer));
             yield return null;
         }
@@ -364,6 +363,7 @@ public class AudioManager : MainUniversalManagerFramework
         {
             fadeOutTime = _currentMusic.DefaultInstanceFadeOutTime;
         }
+        
         PlayMusic(musicID, fadeOutTime,AllMusic[musicID].DefaultInstanceFadeInTime, allowSameSong);
     }
 
@@ -408,7 +408,7 @@ public class AudioManager : MainUniversalManagerFramework
         {
             // Fade out that track
             StartFadeOutStopInstance(_currentMusicInstance, fadeOutTime);
-            yield return fadeOutTime;
+            yield return new WaitForSeconds(fadeOutTime);
         }
         else
         {
@@ -421,9 +421,9 @@ public class AudioManager : MainUniversalManagerFramework
             _currentMusic = specificAudio;
             _currentMusicInstance = eventInstance;
             
-            yield return fadeInTime;
+            yield return new WaitForSeconds(fadeInTime);
         }
-
+        
         _musicChangeCoroutine = null;
     }
 

@@ -25,6 +25,8 @@ public class SpecificAudio
     [Space]
     [Header("Duplicate Protection")]
     public bool DoesCancelPreviousInstancesOfSpecificAudioOnPlay;
+
+    public EAudioVCAType AudioVCAType = EAudioVCAType.SoundEffect;
     
     [Space]
     [Header("PlayRulesAndChoices")]
@@ -105,6 +107,13 @@ public class SpecificAudio
     public bool HasAudioTracks() => AudioTracks.Length > 0;
 
     #endregion
+}
+
+public enum EAudioVCAType
+{
+    Master,
+    Music,
+    SoundEffect,
 }
 
 public enum ESpecificAudioPlayType

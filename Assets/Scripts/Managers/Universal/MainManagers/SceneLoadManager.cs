@@ -34,9 +34,16 @@ public class SceneLoadManager : MainUniversalManagerFramework
     private UnityEvent _onMiddleOfSceneLoad = new UnityEvent();
     private UnityEvent _onEndOfSceneLoad = new UnityEvent();
     
+    private UnityEvent _onStartMusicOnSceneLoad = new UnityEvent();
     private UnityEvent _onGameplaySceneLoaded = new UnityEvent();
     
     private ESceneLoadState _sceneLoadState;
+
+    private IEnumerator DelayInitialMusicEvent()
+    {
+        yield return null;
+        InvokeOnStartMusicOnSceneLoad();
+    }
     
     /// <summary>
     /// Loads a scene using the build ID
@@ -107,6 +114,7 @@ public class SceneLoadManager : MainUniversalManagerFramework
             AudioManager.Instance.UserInterfaceAudio.SceneLoadUserInterfaceAudio.SceneLoadMiddle);
 
         InvokeOnMiddleOfSceneLoadEvent();
+        InvokeOnStartMusicOnSceneLoad();
 
         yield return null;
 
@@ -190,6 +198,13 @@ public class SceneLoadManager : MainUniversalManagerFramework
         base.SetUpInstance();
         Instance = this;
     }
+
+    public override void SetUpMainManager()
+    {
+        base.SetUpMainManager();
+        StartCoroutine(DelayInitialMusicEvent());
+    }
+
     #endregion
 
     #region Events
@@ -208,6 +223,11 @@ public class SceneLoadManager : MainUniversalManagerFramework
         _onEndOfSceneLoad?.Invoke();
     }
 
+    private void InvokeOnStartMusicOnSceneLoad()
+    {
+        _onStartMusicOnSceneLoad?.Invoke();
+    }
+    
     private void InvokeOnGameplaySceneLoaded()
     {
         _onGameplaySceneLoaded?.Invoke();
@@ -233,6 +253,7 @@ public class SceneLoadManager : MainUniversalManagerFramework
     public UnityEvent GetOnStartOfSceneLoad() => _onStartOfSceneLoad;
     public UnityEvent GetOnMiddleOfSceneLoad() => _onMiddleOfSceneLoad;
     public UnityEvent GetOnEndOfSceneLoad() => _onEndOfSceneLoad;
+    public UnityEvent GetOnStartMusicOnSceneLoad() => _onStartMusicOnSceneLoad;
     public UnityEvent GetOnGameplaySceneLoaded() => _onGameplaySceneLoaded;
     #endregion
 }
