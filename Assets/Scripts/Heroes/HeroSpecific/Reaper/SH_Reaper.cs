@@ -113,6 +113,11 @@ public class SH_Reaper : SpecificHeroFramework
 
     private void EndPassiveAbility()
     {
+        if (GameStateManager.Instance.GetIsFightOver())
+        {
+            return;
+        }
+        
         _myHeroBase.GetHeroStats().RemoveDeathOverrideCounter();
         _myHeroBase.GetHeroStats().KillHero();
     }

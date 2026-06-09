@@ -50,6 +50,7 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     private UniversalPlayerInputActions _universalPlayerInputActions;
 
     private bool _isSubscribedToInput = false;
+    private bool _isSubscribeToGameplayInput = false;
     
     /// <summary>
     /// Sets the click and drag based on what it is set in the save manager
@@ -138,6 +139,16 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     {
         yield return _scrollCooldownWait;
         _scrollCooldownCoroutine = null;
+    }
+
+    private void GamePaused()
+    {
+        UnsubscribeFromGameplayInput();
+    }
+
+    private void GameUnpaused()
+    {
+        SubscribeToGameplayInput();
     }
     
     #region Controlling Heroes
@@ -419,32 +430,72 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
         _universalPlayerInputActions = new UniversalPlayerInputActions();
         _universalPlayerInputActions.GameplayActions.Enable();
 
-        _universalPlayerInputActions.GameplayActions.SelectClick.started += PlayerSelectClicked;
-        _universalPlayerInputActions.GameplayActions.DirectClick.started += PlayerDirectClicked;
-        _universalPlayerInputActions.GameplayActions.ActiveAbility.started += HeroActiveButton;
-        _universalPlayerInputActions.GameplayActions.NumberPress.started += HeroNumberPress;
-        _universalPlayerInputActions.GameplayActions.SpecificAbilityPress.started += SpecificHeroAbilityPress;
-        _universalPlayerInputActions.GameplayActions.MouseScroll.performed += MouseScroll;
-        _universalPlayerInputActions.GameplayActions.EscapePress.started += EscapePress;
+        SubscribeToGameplayInput();
+
+        SubscribeToGeneralInput();
 
         _isSubscribedToInput = true;
     }
     
     private void UnsubscribeToPlayerInput()
     {
-        if (!_isSubscribedToInput) return;
+        if (!_isSubscribedToInput)
+        {
+            return;
+        }
+        
+        UnsubscribeFromGameplayInput();
 
+        UnsubscribeFromGeneralInput();
+
+        _universalPlayerInputActions.Disable();
+
+        _isSubscribedToInput = false;
+    }
+    
+    
+    private void SubscribeToGameplayInput()
+    {
+        if (_isSubscribeToGameplayInput)
+        {
+            return;
+        }
+        
+        _universalPlayerInputActions.GameplayActions.SelectClick.started += PlayerSelectClicked;
+        _universalPlayerInputActions.GameplayActions.DirectClick.started += PlayerDirectClicked;
+        _universalPlayerInputActions.GameplayActions.ActiveAbility.started += HeroActiveButton;
+        _universalPlayerInputActions.GameplayActions.NumberPress.started += HeroNumberPress;
+        _universalPlayerInputActions.GameplayActions.SpecificAbilityPress.started += SpecificHeroAbilityPress;
+        _universalPlayerInputActions.GameplayActions.MouseScroll.performed += MouseScroll;
+        
+        _isSubscribeToGameplayInput = true;
+    }
+
+    private void UnsubscribeFromGameplayInput()
+    {
+        if (!_isSubscribeToGameplayInput)
+        {
+            return;
+        }
+        
         _universalPlayerInputActions.GameplayActions.SelectClick.started -= PlayerSelectClicked;
         _universalPlayerInputActions.GameplayActions.DirectClick.started -= PlayerDirectClicked;
         _universalPlayerInputActions.GameplayActions.ActiveAbility.started -= HeroActiveButton;
         _universalPlayerInputActions.GameplayActions.NumberPress.started -= HeroNumberPress;
         _universalPlayerInputActions.GameplayActions.SpecificAbilityPress.started -= SpecificHeroAbilityPress;
         _universalPlayerInputActions.GameplayActions.MouseScroll.performed -= MouseScroll;
+        
+        _isSubscribeToGameplayInput = false;
+    }
+
+    private void SubscribeToGeneralInput()
+    {
+        _universalPlayerInputActions.GameplayActions.EscapePress.started += EscapePress;
+    }
+
+    private void UnsubscribeFromGeneralInput()
+    {
         _universalPlayerInputActions.GameplayActions.EscapePress.started -= EscapePress;
-
-        _universalPlayerInputActions.Disable();
-
-        _isSubscribedToInput = false;
     }
     #endregion
 
@@ -478,6 +529,9 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
         GameStateManager.Instance.GetBattleWonOrLostEvent().AddListener(UnsubscribeToPlayerInput);
         
         GameStateManager.Instance.GetStartOfBattleEvent().AddListener(BattleStart);
+        
+        TimeManager.Instance.GetGamePausedEvent().AddListener(GamePaused);
+        TimeManager.Instance.GetGameUnpausedEvent().AddListener(GameUnpaused);
     }
 
     protected override void UnsubscribeToEvents()
@@ -485,6 +539,9 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
         GameStateManager.Instance.GetBattleWonOrLostEvent().RemoveListener(UnsubscribeToPlayerInput);
         
         GameStateManager.Instance.GetStartOfBattleEvent().RemoveListener(BattleStart);
+        
+        TimeManager.Instance.GetGamePausedEvent().RemoveListener(GamePaused);
+        TimeManager.Instance.GetGameUnpausedEvent().RemoveListener(GameUnpaused);
     }
     
     /// <summary>

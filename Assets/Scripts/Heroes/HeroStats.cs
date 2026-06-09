@@ -192,7 +192,8 @@ public class HeroStats : HeroChildrenFunctionality
     /// </summary>
     private void CheckIfHeroIsDead()
     {
-        if (_currentHealth <= 0)
+        // If the hero is out of health, and the battle isn't over, and a scene isn't currently loading
+        if (_currentHealth <= 0 && !GameStateManager.Instance.GetIsFightOver() && !SceneLoadManager.Instance.IsSceneLoading())
         {
             if(ShouldOverrideDeath())
             {
