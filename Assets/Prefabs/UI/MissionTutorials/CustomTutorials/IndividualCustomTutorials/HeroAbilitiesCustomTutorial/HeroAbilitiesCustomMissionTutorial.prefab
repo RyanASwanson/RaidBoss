@@ -1,0 +1,1025 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1571508193140830535
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3534467783846541828}
+  - component: {fileID: 8359267292518208276}
+  - component: {fileID: 8218591431442095361}
+  - component: {fileID: 6589950001013833529}
+  m_Layer: 5
+  m_Name: TransparencyCanvasGroup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3534467783846541828
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571508193140830535}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7554611273715687802}
+  m_Father: {fileID: 46051989562311764}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &8359267292518208276
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571508193140830535}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &8218591431442095361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571508193140830535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 006440fa1a1df28428ebec74706c47ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _canvasGroup: {fileID: 8359267292518208276}
+  _curveProgression: {fileID: 6589950001013833529}
+--- !u!114 &6589950001013833529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571508193140830535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 508c048b50abf854791f2f498bb01037, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _curveName: CanvasGroupAlpha
+  _curveIncreaseTime: 0.4
+  _curveDecreaseTime: 0.4
+  _minCurveValue: 0
+  _maxCurveValue: 1
+  _hasDefaultValue: 0
+  _defaultValue: 0
+  _doesResetToDefaultProgressOnEnable: 0
+  _doesStartMovingUpOnEnable: 0
+  _doesStartMovingInCurrentDirectionOnEnable: 0
+  _hasAutomaticStartMovingDelay: 0
+  _automaticStartMovingDelay: 0
+  _doesAutomaticallyMoveDownOnHittingMax: 0
+  _doesAutomaticallyMoveUpOnHittingMin: 0
+  _hasIncreaseDelay: 0
+  _increaseDelay: 0
+  _hasDecreaseDelay: 0
+  _decreaseDelay: 0
+  _doesLerpUnchained: 0
+  _curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  OnSetUpComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  _onStartedIncreasing:
+    m_PersistentCalls:
+      m_Calls: []
+  _onStartedDecreasing:
+    m_PersistentCalls:
+      m_Calls: []
+  _onMaxValueReached:
+    m_PersistentCalls:
+      m_Calls: []
+  _onMinValueReached:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!1 &3313866425558484935
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1000243057464433800}
+  m_Layer: 5
+  m_Name: IndividualSteps
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1000243057464433800
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3313866425558484935}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 46051989562311764}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &7960743746713462453
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 46051989562311764}
+  - component: {fileID: 5170186439404320021}
+  m_Layer: 5
+  m_Name: HeroAbilitiesCustomMissionTutorial
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &46051989562311764
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7960743746713462453}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 3534467783846541828}
+  - {fileID: 2143539021658323784}
+  - {fileID: 1000243057464433800}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5170186439404320021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7960743746713462453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 372a7e621b54bd64b9962d80613d4984, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _customTutorialSteps:
+  - StepName: Hero Ability Types
+    DoesAutomaticallyProgressOnBossHealthThreshold: 0
+    AutomaticProgressBossHealthThreshold: 0
+    DoesAutomaticallyProgressToNextStepOnContinue: 1
+    AutomaticStepProgressDelay: 0
+    DoesStopBossAttacksOnOpen: 0
+    DoesToggleHeroAbilityUse: 0
+    DoesDisableChargingHeroAbilitiesOnOpen: 0
+    DoesDisableHeroAbilitiesOnOpen: 0
+    DoesEnableChargingHeroAbilitiesOnClose: 0
+    DoesEnableHeroAbilitiesOnClose: 0
+    DoesStepHaveGeneralStepUI: 1
+    GeneralStepUI:
+      CustomTutorialUIText: 'Each Hero has 3
+
+        abilities. A basic ability,
+
+        an
+        active ability, and
+
+        a passive ability.'
+      CustomTutorialTextOffsetPosition: {x: 0, y: 0}
+      CustomTutorialImage: {fileID: 0}
+      CustomTutorialImageOffsetPosition: {x: 0, y: 0}
+      CustomTutorialImageDimensions: {x: 0, y: 0}
+      CustomTutorialImageScale: {x: 0, y: 0, z: 0}
+      CustomTutorialPosition: {x: 200, y: 25}
+      CustomTutorialDimensions: {x: 1500, y: 800}
+    CustomIndividualStepUI:
+      DoesUseCanvasGroupCurve: 0
+      DoesUseScaleCurve: 0
+      DoesUseCustomUIObjectCanvas: 0
+    IndividualStepUI: {fileID: 0}
+    CustomStepObjectPosition: {x: 0, y: 0, z: 0}
+    CustomTutorialStepObjects: {fileID: 0}
+    OnCustomTutorialOpen:
+      m_PersistentCalls:
+        m_Calls: []
+    OnCustomTutorialClose:
+      m_PersistentCalls:
+        m_Calls: []
+  - StepName: Guardian Intro
+    DoesAutomaticallyProgressOnBossHealthThreshold: 0
+    AutomaticProgressBossHealthThreshold: 0
+    DoesAutomaticallyProgressToNextStepOnContinue: 1
+    AutomaticStepProgressDelay: 0
+    DoesStopBossAttacksOnOpen: 0
+    DoesToggleHeroAbilityUse: 0
+    DoesDisableChargingHeroAbilitiesOnOpen: 0
+    DoesDisableHeroAbilitiesOnOpen: 0
+    DoesEnableChargingHeroAbilitiesOnClose: 0
+    DoesEnableHeroAbilitiesOnClose: 0
+    DoesStepHaveGeneralStepUI: 1
+    GeneralStepUI:
+      CustomTutorialUIText: 'The current Hero is
+
+        the <color=#81F308>Guardian</color>
+        and his
+
+        3 abilities are
+
+        <color=#6FD404>Shield Slam</color>,
+        <color=#6FD404>Taunt</color>,
+
+        and <color=#6FD404>Resilience</color>.'
+      CustomTutorialTextOffsetPosition: {x: 0, y: 62}
+      CustomTutorialImage: {fileID: 21300000, guid: cd6f845e3e386e1439e8843c8e12c0d0, type: 3}
+      CustomTutorialImageOffsetPosition: {x: 0, y: -56}
+      CustomTutorialImageDimensions: {x: 672, y: 450}
+      CustomTutorialImageScale: {x: 0.275, y: 0.275, z: 0.275}
+      CustomTutorialPosition: {x: 200, y: 25}
+      CustomTutorialDimensions: {x: 1500, y: 1350}
+    CustomIndividualStepUI:
+      DoesUseCanvasGroupCurve: 0
+      DoesUseScaleCurve: 0
+      DoesUseCustomUIObjectCanvas: 0
+    IndividualStepUI: {fileID: 0}
+    CustomStepObjectPosition: {x: 0, y: 0, z: 0}
+    CustomTutorialStepObjects: {fileID: 0}
+    OnCustomTutorialOpen:
+      m_PersistentCalls:
+        m_Calls: []
+    OnCustomTutorialClose:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5170186439404320021}
+          m_TargetAssemblyTypeName: BaseCustomTutorial, Assembly-CSharp
+          m_MethodName: ToggleBossAutomaticAbilityUse
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - StepName: Basic Abilities
+    DoesAutomaticallyProgressOnBossHealthThreshold: 0
+    AutomaticProgressBossHealthThreshold: 0
+    DoesAutomaticallyProgressToNextStepOnContinue: 1
+    AutomaticStepProgressDelay: 0
+    DoesStopBossAttacksOnOpen: 0
+    DoesToggleHeroAbilityUse: 0
+    DoesDisableChargingHeroAbilitiesOnOpen: 0
+    DoesDisableHeroAbilitiesOnOpen: 0
+    DoesEnableChargingHeroAbilitiesOnClose: 0
+    DoesEnableHeroAbilitiesOnClose: 0
+    DoesStepHaveGeneralStepUI: 1
+    GeneralStepUI:
+      CustomTutorialUIText: 'Basic abilities are used
+
+        automatically on a
+        cooldown.
+
+        Most Heroes can only use
+
+        their basic ability
+        while
+
+        standing still.'
+      CustomTutorialTextOffsetPosition: {x: 0, y: 0}
+      CustomTutorialImage: {fileID: 0}
+      CustomTutorialImageOffsetPosition: {x: 0, y: -45}
+      CustomTutorialImageDimensions: {x: 939, y: 406}
+      CustomTutorialImageScale: {x: 0.2, y: 0.2, z: 0.2}
+      CustomTutorialPosition: {x: 200, y: 25}
+      CustomTutorialDimensions: {x: 1600, y: 1000}
+    CustomIndividualStepUI:
+      DoesUseCanvasGroupCurve: 0
+      DoesUseScaleCurve: 0
+      DoesUseCustomUIObjectCanvas: 0
+    IndividualStepUI: {fileID: 0}
+    CustomStepObjectPosition: {x: 0, y: 0, z: 0}
+    CustomTutorialStepObjects: {fileID: 0}
+    OnCustomTutorialOpen:
+      m_PersistentCalls:
+        m_Calls: []
+    OnCustomTutorialClose:
+      m_PersistentCalls:
+        m_Calls: []
+  - StepName: Shield Slam
+    DoesAutomaticallyProgressOnBossHealthThreshold: 0
+    AutomaticProgressBossHealthThreshold: 0
+    DoesAutomaticallyProgressToNextStepOnContinue: 1
+    AutomaticStepProgressDelay: 9
+    DoesStopBossAttacksOnOpen: 0
+    DoesToggleHeroAbilityUse: 1
+    DoesDisableChargingHeroAbilitiesOnOpen: 0
+    DoesDisableHeroAbilitiesOnOpen: 0
+    DoesEnableChargingHeroAbilitiesOnClose: 1
+    DoesEnableHeroAbilitiesOnClose: 1
+    DoesStepHaveGeneralStepUI: 1
+    GeneralStepUI:
+      CustomTutorialUIText: 'The <color=#81F308>Guardian</color>''s basic
+
+        ability
+        is <color=#6FD404>Shield Slam</color>.
+
+        It deals damage in a
+
+        radius
+        around him.
+
+        Move him close to the
+
+        Boss and deal damage'
+      CustomTutorialTextOffsetPosition: {x: 0, y: 45}
+      CustomTutorialImage: {fileID: 21300000, guid: adc3ba35859e58146aac739eed3c8810, type: 3}
+      CustomTutorialImageOffsetPosition: {x: 0, y: -65}
+      CustomTutorialImageDimensions: {x: 199, y: 196}
+      CustomTutorialImageScale: {x: 0.4, y: 0.4, z: 0.4}
+      CustomTutorialPosition: {x: 200, y: 25}
+      CustomTutorialDimensions: {x: 1550, y: 1300}
+    CustomIndividualStepUI:
+      DoesUseCanvasGroupCurve: 0
+      DoesUseScaleCurve: 0
+      DoesUseCustomUIObjectCanvas: 0
+    IndividualStepUI: {fileID: 0}
+    CustomStepObjectPosition: {x: 0, y: 0, z: 0}
+    CustomTutorialStepObjects: {fileID: 0}
+    OnCustomTutorialOpen:
+      m_PersistentCalls:
+        m_Calls: []
+    OnCustomTutorialClose:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5170186439404320021}
+          m_TargetAssemblyTypeName: BaseCustomTutorial, Assembly-CSharp
+          m_MethodName: ToggleBossAutomaticAbilityUse
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - StepName: Manual Abilities
+    DoesAutomaticallyProgressOnBossHealthThreshold: 0
+    AutomaticProgressBossHealthThreshold: 0
+    DoesAutomaticallyProgressToNextStepOnContinue: 1
+    AutomaticStepProgressDelay: 0
+    DoesStopBossAttacksOnOpen: 0
+    DoesToggleHeroAbilityUse: 1
+    DoesDisableChargingHeroAbilitiesOnOpen: 1
+    DoesDisableHeroAbilitiesOnOpen: 1
+    DoesEnableChargingHeroAbilitiesOnClose: 0
+    DoesEnableHeroAbilitiesOnClose: 0
+    DoesStepHaveGeneralStepUI: 1
+    GeneralStepUI:
+      CustomTutorialUIText: 'Active abilities require an
+
+        input to activate
+        when fully
+
+        charged. You can track the
+
+        cooldown on the UI
+        or the
+
+        icon near the Hero.'
+      CustomTutorialTextOffsetPosition: {x: 0, y: 45}
+      CustomTutorialImage: {fileID: 21300000, guid: cb46513de2635034c9dbe8964aed8f89, type: 3}
+      CustomTutorialImageOffsetPosition: {x: 0, y: -52}
+      CustomTutorialImageDimensions: {x: 543, y: 273}
+      CustomTutorialImageScale: {x: 0.32, y: 0.32, z: 0.32}
+      CustomTutorialPosition: {x: 200, y: 25}
+      CustomTutorialDimensions: {x: 1600, y: 1200}
+    CustomIndividualStepUI:
+      DoesUseCanvasGroupCurve: 0
+      DoesUseScaleCurve: 0
+      DoesUseCustomUIObjectCanvas: 1
+    IndividualStepUI: {fileID: 1263805798639152682, guid: f6cb8d2291f943f4d87cba18b1c657de, type: 3}
+    CustomStepObjectPosition: {x: 0, y: 0, z: 0}
+    CustomTutorialStepObjects: {fileID: 0}
+    OnCustomTutorialOpen:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5170186439404320021}
+          m_TargetAssemblyTypeName: BaseCustomTutorial, Assembly-CSharp
+          m_MethodName: FullyCooldownAllHeroManualAbilities
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    OnCustomTutorialClose:
+      m_PersistentCalls:
+        m_Calls: []
+  - StepName: Taunt
+    DoesAutomaticallyProgressOnBossHealthThreshold: 0
+    AutomaticProgressBossHealthThreshold: 0
+    DoesAutomaticallyProgressToNextStepOnContinue: 1
+    AutomaticStepProgressDelay: 0
+    DoesStopBossAttacksOnOpen: 0
+    DoesToggleHeroAbilityUse: 0
+    DoesDisableChargingHeroAbilitiesOnOpen: 0
+    DoesDisableHeroAbilitiesOnOpen: 0
+    DoesEnableChargingHeroAbilitiesOnClose: 0
+    DoesEnableHeroAbilitiesOnClose: 0
+    DoesStepHaveGeneralStepUI: 1
+    GeneralStepUI:
+      CustomTutorialUIText: 'The <color=#81F308>Guardian</color>''s active
+
+        ability
+        is <color=#6FD404>Taunt</color>.
+
+        He forces the Boss
+
+        to
+        target him, and he
+
+        reduces damage taken.'
+      CustomTutorialTextOffsetPosition: {x: 0, y: 45}
+      CustomTutorialImage: {fileID: 21300000, guid: 108594a0fe678354f94a9d3c2ed79958, type: 3}
+      CustomTutorialImageOffsetPosition: {x: 0, y: -65}
+      CustomTutorialImageDimensions: {x: 199, y: 199}
+      CustomTutorialImageScale: {x: 0.4, y: 0.4, z: 0.4}
+      CustomTutorialPosition: {x: 200, y: 25}
+      CustomTutorialDimensions: {x: 1500, y: 1300}
+    CustomIndividualStepUI:
+      DoesUseCanvasGroupCurve: 0
+      DoesUseScaleCurve: 0
+      DoesUseCustomUIObjectCanvas: 0
+    IndividualStepUI: {fileID: 0}
+    CustomStepObjectPosition: {x: 0, y: 0, z: 0}
+    CustomTutorialStepObjects: {fileID: 0}
+    OnCustomTutorialOpen:
+      m_PersistentCalls:
+        m_Calls: []
+    OnCustomTutorialClose:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5170186439404320021}
+          m_TargetAssemblyTypeName: BaseCustomTutorial, Assembly-CSharp
+          m_MethodName: ToggleBossAutomaticAbilityUse
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - StepName: Manual Controls
+    DoesAutomaticallyProgressOnBossHealthThreshold: 0
+    AutomaticProgressBossHealthThreshold: 0
+    DoesAutomaticallyProgressToNextStepOnContinue: 1
+    AutomaticStepProgressDelay: 9
+    DoesStopBossAttacksOnOpen: 0
+    DoesToggleHeroAbilityUse: 1
+    DoesDisableChargingHeroAbilitiesOnOpen: 0
+    DoesDisableHeroAbilitiesOnOpen: 0
+    DoesEnableChargingHeroAbilitiesOnClose: 1
+    DoesEnableHeroAbilitiesOnClose: 1
+    DoesStepHaveGeneralStepUI: 1
+    GeneralStepUI:
+      CustomTutorialUIText: 'Continue, and use
+
+        space or middle-click to
+
+        activate
+        the <color=#81F308>Guardian</color>''s
+
+        active ability.'
+      CustomTutorialTextOffsetPosition: {x: 0, y: 0}
+      CustomTutorialImage: {fileID: 0}
+      CustomTutorialImageOffsetPosition: {x: 0, y: -45}
+      CustomTutorialImageDimensions: {x: 939, y: 406}
+      CustomTutorialImageScale: {x: 0.2, y: 0.2, z: 0.2}
+      CustomTutorialPosition: {x: 200, y: 25}
+      CustomTutorialDimensions: {x: 1500, y: 800}
+    CustomIndividualStepUI:
+      DoesUseCanvasGroupCurve: 0
+      DoesUseScaleCurve: 0
+      DoesUseCustomUIObjectCanvas: 0
+    IndividualStepUI: {fileID: 0}
+    CustomStepObjectPosition: {x: 0, y: 0, z: 0}
+    CustomTutorialStepObjects: {fileID: 0}
+    OnCustomTutorialOpen:
+      m_PersistentCalls:
+        m_Calls: []
+    OnCustomTutorialClose:
+      m_PersistentCalls:
+        m_Calls: []
+  - StepName: Manual Controls Continued
+    DoesAutomaticallyProgressOnBossHealthThreshold: 0
+    AutomaticProgressBossHealthThreshold: 0
+    DoesAutomaticallyProgressToNextStepOnContinue: 1
+    AutomaticStepProgressDelay: 0
+    DoesStopBossAttacksOnOpen: 0
+    DoesToggleHeroAbilityUse: 1
+    DoesDisableChargingHeroAbilitiesOnOpen: 1
+    DoesDisableHeroAbilitiesOnOpen: 1
+    DoesEnableChargingHeroAbilitiesOnClose: 0
+    DoesEnableHeroAbilitiesOnClose: 0
+    DoesStepHaveGeneralStepUI: 1
+    GeneralStepUI:
+      CustomTutorialUIText: 'You can also use
+
+        the Q,W,E,R,T
+
+        keys
+        to use the
+
+        active ability of a
+
+        specific Hero.'
+      CustomTutorialTextOffsetPosition: {x: 0, y: 0}
+      CustomTutorialImage: {fileID: 0}
+      CustomTutorialImageOffsetPosition: {x: 0, y: -45}
+      CustomTutorialImageDimensions: {x: 939, y: 406}
+      CustomTutorialImageScale: {x: 0.2, y: 0.2, z: 0.2}
+      CustomTutorialPosition: {x: 200, y: 25}
+      CustomTutorialDimensions: {x: 1300, y: 900}
+    CustomIndividualStepUI:
+      DoesUseCanvasGroupCurve: 0
+      DoesUseScaleCurve: 0
+      DoesUseCustomUIObjectCanvas: 0
+    IndividualStepUI: {fileID: 0}
+    CustomStepObjectPosition: {x: 0, y: 0, z: 0}
+    CustomTutorialStepObjects: {fileID: 0}
+    OnCustomTutorialOpen:
+      m_PersistentCalls:
+        m_Calls: []
+    OnCustomTutorialClose:
+      m_PersistentCalls:
+        m_Calls: []
+  - StepName: Passive Abilities
+    DoesAutomaticallyProgressOnBossHealthThreshold: 0
+    AutomaticProgressBossHealthThreshold: 0
+    DoesAutomaticallyProgressToNextStepOnContinue: 1
+    AutomaticStepProgressDelay: 0
+    DoesStopBossAttacksOnOpen: 0
+    DoesToggleHeroAbilityUse: 0
+    DoesDisableChargingHeroAbilitiesOnOpen: 0
+    DoesDisableHeroAbilitiesOnOpen: 0
+    DoesEnableChargingHeroAbilitiesOnClose: 0
+    DoesEnableHeroAbilitiesOnClose: 0
+    DoesStepHaveGeneralStepUI: 1
+    GeneralStepUI:
+      CustomTutorialUIText: 'Passive abilities are
+
+        an effect that is always
+
+        in
+        use. They can be stat
+
+        bonuses, extra attacks,
+
+        or unique
+        effects.'
+      CustomTutorialTextOffsetPosition: {x: 0, y: 0}
+      CustomTutorialImage: {fileID: 0}
+      CustomTutorialImageOffsetPosition: {x: 0, y: -45}
+      CustomTutorialImageDimensions: {x: 939, y: 406}
+      CustomTutorialImageScale: {x: 0.2, y: 0.2, z: 0.2}
+      CustomTutorialPosition: {x: 200, y: 25}
+      CustomTutorialDimensions: {x: 1500, y: 1000}
+    CustomIndividualStepUI:
+      DoesUseCanvasGroupCurve: 0
+      DoesUseScaleCurve: 0
+      DoesUseCustomUIObjectCanvas: 0
+    IndividualStepUI: {fileID: 0}
+    CustomStepObjectPosition: {x: 0, y: 0, z: 0}
+    CustomTutorialStepObjects: {fileID: 0}
+    OnCustomTutorialOpen:
+      m_PersistentCalls:
+        m_Calls: []
+    OnCustomTutorialClose:
+      m_PersistentCalls:
+        m_Calls: []
+  - StepName: Resilience
+    DoesAutomaticallyProgressOnBossHealthThreshold: 0
+    AutomaticProgressBossHealthThreshold: 0
+    DoesAutomaticallyProgressToNextStepOnContinue: 1
+    AutomaticStepProgressDelay: 0
+    DoesStopBossAttacksOnOpen: 0
+    DoesToggleHeroAbilityUse: 0
+    DoesDisableChargingHeroAbilitiesOnOpen: 0
+    DoesDisableHeroAbilitiesOnOpen: 0
+    DoesEnableChargingHeroAbilitiesOnClose: 0
+    DoesEnableHeroAbilitiesOnClose: 0
+    DoesStepHaveGeneralStepUI: 1
+    GeneralStepUI:
+      CustomTutorialUIText: 'The <color=#81F308>Guardian</color>''s passive
+
+        ability
+        is <color=#6FD404>Resilience</color>.
+
+        He takes reduced
+
+        damage
+        after
+
+        taking damage.'
+      CustomTutorialTextOffsetPosition: {x: 0, y: 45}
+      CustomTutorialImage: {fileID: 21300000, guid: 2d22f9449dbfb5242b8b64c3c71f021f, type: 3}
+      CustomTutorialImageOffsetPosition: {x: 0, y: -65}
+      CustomTutorialImageDimensions: {x: 199, y: 198}
+      CustomTutorialImageScale: {x: 0.4, y: 0.4, z: 0.4}
+      CustomTutorialPosition: {x: 200, y: 25}
+      CustomTutorialDimensions: {x: 1500, y: 1300}
+    CustomIndividualStepUI:
+      DoesUseCanvasGroupCurve: 0
+      DoesUseScaleCurve: 0
+      DoesUseCustomUIObjectCanvas: 0
+    IndividualStepUI: {fileID: 0}
+    CustomStepObjectPosition: {x: 0, y: 0, z: 0}
+    CustomTutorialStepObjects: {fileID: 0}
+    OnCustomTutorialOpen:
+      m_PersistentCalls:
+        m_Calls: []
+    OnCustomTutorialClose:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5170186439404320021}
+          m_TargetAssemblyTypeName: BaseCustomTutorial, Assembly-CSharp
+          m_MethodName: ToggleBossAutomaticAbilityUse
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - StepName: Final
+    DoesAutomaticallyProgressOnBossHealthThreshold: 0
+    AutomaticProgressBossHealthThreshold: 0
+    DoesAutomaticallyProgressToNextStepOnContinue: 0
+    AutomaticStepProgressDelay: 0
+    DoesStopBossAttacksOnOpen: 0
+    DoesToggleHeroAbilityUse: 1
+    DoesDisableChargingHeroAbilitiesOnOpen: 0
+    DoesDisableHeroAbilitiesOnOpen: 0
+    DoesEnableChargingHeroAbilitiesOnClose: 1
+    DoesEnableHeroAbilitiesOnClose: 1
+    DoesStepHaveGeneralStepUI: 1
+    GeneralStepUI:
+      CustomTutorialUIText: 'Use your newfound
+
+        strength to defeat
+
+        the
+        Boss.'
+      CustomTutorialTextOffsetPosition: {x: 0, y: 0}
+      CustomTutorialImage: {fileID: 0}
+      CustomTutorialImageOffsetPosition: {x: 0, y: -45}
+      CustomTutorialImageDimensions: {x: 939, y: 406}
+      CustomTutorialImageScale: {x: 0.2, y: 0.2, z: 0.2}
+      CustomTutorialPosition: {x: 200, y: 25}
+      CustomTutorialDimensions: {x: 1350, y: 800}
+    CustomIndividualStepUI:
+      DoesUseCanvasGroupCurve: 0
+      DoesUseScaleCurve: 0
+      DoesUseCustomUIObjectCanvas: 0
+    IndividualStepUI: {fileID: 0}
+    CustomStepObjectPosition: {x: 0, y: 0, z: 0}
+    CustomTutorialStepObjects: {fileID: 0}
+    OnCustomTutorialOpen:
+      m_PersistentCalls:
+        m_Calls: []
+    OnCustomTutorialClose:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5170186439404320021}
+          m_TargetAssemblyTypeName: BaseCustomTutorial, Assembly-CSharp
+          m_MethodName: ToggleBossAutomaticAbilityUse
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 5170186439404320021}
+          m_TargetAssemblyTypeName: BaseCustomTutorial, Assembly-CSharp
+          m_MethodName: ActivateBossAbility
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 1
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+  _doesStopBossEnrageProgressOnBattleStart: 1
+  _doesStopChargingHeroAbilitiesOnBattleStart: 1
+  _doesStopHeroAbilitiesOnBattleStart: 1
+  _individualStepSection: {fileID: 1174250006896115492, guid: 7a7df69f601cc174c926a3de2673ca5d, type: 3}
+  _generalCustomTutorialStep: {fileID: 5057095313431991241}
+  _stepsHolder: {fileID: 3313866425558484935}
+  _customTutorialAlphaProgression: {fileID: 6589950001013833529}
+  _onSetUpComplete:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5170186439404320021}
+        m_TargetAssemblyTypeName: BaseCustomTutorial, Assembly-CSharp
+        m_MethodName: SubscribeHeroControlToStepProgression
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _onBattleStart:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!1001 &5554665526348323021
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 3534467783846541828}
+    m_Modifications:
+    - target: {fileID: 2720592198224951735, guid: 7dacedd9a29d711479267f108ac097d2, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2720592198224951735, guid: 7dacedd9a29d711479267f108ac097d2, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2720592198224951735, guid: 7dacedd9a29d711479267f108ac097d2, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2720592198224951735, guid: 7dacedd9a29d711479267f108ac097d2, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2720592198224951735, guid: 7dacedd9a29d711479267f108ac097d2, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2720592198224951735, guid: 7dacedd9a29d711479267f108ac097d2, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2720592198224951735, guid: 7dacedd9a29d711479267f108ac097d2, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2720592198224951735, guid: 7dacedd9a29d711479267f108ac097d2, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2720592198224951735, guid: 7dacedd9a29d711479267f108ac097d2, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2720592198224951735, guid: 7dacedd9a29d711479267f108ac097d2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2720592198224951735, guid: 7dacedd9a29d711479267f108ac097d2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2720592198224951735, guid: 7dacedd9a29d711479267f108ac097d2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2720592198224951735, guid: 7dacedd9a29d711479267f108ac097d2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2720592198224951735, guid: 7dacedd9a29d711479267f108ac097d2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2720592198224951735, guid: 7dacedd9a29d711479267f108ac097d2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2720592198224951735, guid: 7dacedd9a29d711479267f108ac097d2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2720592198224951735, guid: 7dacedd9a29d711479267f108ac097d2, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2720592198224951735, guid: 7dacedd9a29d711479267f108ac097d2, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2720592198224951735, guid: 7dacedd9a29d711479267f108ac097d2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2720592198224951735, guid: 7dacedd9a29d711479267f108ac097d2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2720592198224951735, guid: 7dacedd9a29d711479267f108ac097d2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009465762444596861, guid: 7dacedd9a29d711479267f108ac097d2, type: 3}
+      propertyPath: m_Name
+      value: GeneralCustomTutorial
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7dacedd9a29d711479267f108ac097d2, type: 3}
+--- !u!224 &7554611273715687802 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2720592198224951735, guid: 7dacedd9a29d711479267f108ac097d2, type: 3}
+  m_PrefabInstance: {fileID: 5554665526348323021}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7798820667756540086
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 46051989562311764}
+    m_Modifications:
+    - target: {fileID: 2308113649469208282, guid: 14c8bdf43351f044eb0f3508ec744707, type: 3}
+      propertyPath: m_Name
+      value: IndividualGeneralStepSection
+      objectReference: {fileID: 0}
+    - target: {fileID: 8180115211256826878, guid: 14c8bdf43351f044eb0f3508ec744707, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8180115211256826878, guid: 14c8bdf43351f044eb0f3508ec744707, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8180115211256826878, guid: 14c8bdf43351f044eb0f3508ec744707, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8180115211256826878, guid: 14c8bdf43351f044eb0f3508ec744707, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8180115211256826878, guid: 14c8bdf43351f044eb0f3508ec744707, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8180115211256826878, guid: 14c8bdf43351f044eb0f3508ec744707, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8180115211256826878, guid: 14c8bdf43351f044eb0f3508ec744707, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8180115211256826878, guid: 14c8bdf43351f044eb0f3508ec744707, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8180115211256826878, guid: 14c8bdf43351f044eb0f3508ec744707, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8180115211256826878, guid: 14c8bdf43351f044eb0f3508ec744707, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8180115211256826878, guid: 14c8bdf43351f044eb0f3508ec744707, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8180115211256826878, guid: 14c8bdf43351f044eb0f3508ec744707, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8180115211256826878, guid: 14c8bdf43351f044eb0f3508ec744707, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8180115211256826878, guid: 14c8bdf43351f044eb0f3508ec744707, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8180115211256826878, guid: 14c8bdf43351f044eb0f3508ec744707, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8180115211256826878, guid: 14c8bdf43351f044eb0f3508ec744707, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8180115211256826878, guid: 14c8bdf43351f044eb0f3508ec744707, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8180115211256826878, guid: 14c8bdf43351f044eb0f3508ec744707, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8180115211256826878, guid: 14c8bdf43351f044eb0f3508ec744707, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8180115211256826878, guid: 14c8bdf43351f044eb0f3508ec744707, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8180115211256826878, guid: 14c8bdf43351f044eb0f3508ec744707, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 14c8bdf43351f044eb0f3508ec744707, type: 3}
+--- !u!224 &2143539021658323784 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8180115211256826878, guid: 14c8bdf43351f044eb0f3508ec744707, type: 3}
+  m_PrefabInstance: {fileID: 7798820667756540086}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5057095313431991241 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3032210588587680639, guid: 14c8bdf43351f044eb0f3508ec744707, type: 3}
+  m_PrefabInstance: {fileID: 7798820667756540086}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c14fb802ba3733148953edff345cf34b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

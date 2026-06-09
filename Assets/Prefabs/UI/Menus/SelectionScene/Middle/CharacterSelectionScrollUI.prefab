@@ -217,7 +217,7 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: -25
+  m_lineSpacing: -27
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -369,6 +369,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8495342299011021316}
   - component: {fileID: 1631897908433077519}
+  - component: {fileID: 1800593257806354087}
   m_Layer: 5
   m_Name: AbilityNameHolder
   m_TagString: Untagged
@@ -411,8 +412,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hasDefaultText: 0
   _defaultText: 
+  _doesRemoveColorFromBackgroundText: 1
+  _doesRemoveLineBreaks: 0
   _text: {fileID: 2492672141683649236}
   _backgroundText: {fileID: 4137313106971548570}
+--- !u!114 &1800593257806354087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3636011445541943483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4af3fdcbed7400489706fe6c8a01933, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hasDefaultText: 0
+  _defaultText: 
+  _doesRemoveColorFromBackgroundText: 1
+  _doesRemoveLineBreaks: 0
+  _text: {fileID: 4137313106971548570}
 --- !u!1 &4341881840148782545
 GameObject:
   m_ObjectHideFlags: 0
@@ -653,6 +673,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hasDefaultText: 0
   _defaultText: 
+  _doesRemoveColorFromBackgroundText: 1
+  _doesRemoveLineBreaks: 0
   _text: {fileID: 8403780417257214904}
   _backgroundText: {fileID: 5646770865599792672}
 --- !u!1 &7797136968379969372
@@ -938,6 +960,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hasDefaultText: 0
   _defaultText: 
+  _doesRemoveColorFromBackgroundText: 1
+  _doesRemoveLineBreaks: 0
   _text: {fileID: 3205515838732055445}
   _backgroundText: {fileID: 8338144139796333176}
 --- !u!1 &9151080752617697861
@@ -1015,8 +1039,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278255610
-  m_fontColor: {r: 0.9788537, g: 1, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 2
   m_fontColorGradient:
@@ -1045,7 +1069,7 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: -0.2
   m_wordSpacing: 0
-  m_lineSpacing: 15
+  m_lineSpacing: 14.6
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 /// <summary>
@@ -27,10 +28,15 @@ public class HeroStats : HeroChildrenFunctionality
     private float _heroDefaultDamageResistance;
     private float _currentDamageResistance;
 
-    private float _currentDamageMultiplier = 1;
-    private float _currentStaggerMultiplier = 1;
-    private float _currentHealingDealtMultiplier = 1;
-    private float _currentHealingReceivedMultiplier = 1;
+    private float _currentDamageAdditiveMultiplier = 1;
+    private float _currentDamageMultiplicativeMultiplier = 1;
+    private float _currentStaggerAdditiveMultiplier = 1;
+    private float _currentStaggerMultiplicativeMultiplier = 1;
+    
+    private float _currentHealingDealtAdditiveMultiplier = 1;
+    private float _currentHealingDealtMultiplicativeMultiplier = 1;
+    private float _currentHealingReceivedAdditiveMultiplier = 1;
+    private float _currentHealingReceivedMultiplicativeMultiplier = 1;
 
     private int _damageTakenOverridesCounter = 0;
     private int _healingTakenOverridesCounter = 0;
@@ -43,7 +49,10 @@ public class HeroStats : HeroChildrenFunctionality
     [SerializeField] private Sprite _staggerBuffIcon;
     [SerializeField] private Sprite _speedBuffIcon;
     [SerializeField] private Sprite _healingBuffIcon;
-
+    
+    private float _totalDamageDealt = 0;
+    private float _totalStaggerDealt = 0;
+    private float _totalHealingDealt = 0;
 
     /// <summary>
     /// Assigns the values of the stats after the heroSO is assigned
@@ -56,9 +65,7 @@ public class HeroStats : HeroChildrenFunctionality
         SetUpCurrentStats();
 
         //Sets up the movement speed
-        _myHeroBase.GetPathfinding().GetNavMeshAgent().speed = _currentMoveSpeed ;
-        _myHeroBase.GetPathfinding().GetNavMeshAgent().angularSpeed = _currentAngularSpeed ;
-        _myHeroBase.GetPathfinding().GetNavMeshAgent().acceleration = _currentAcceleration;
+        _myHeroBase.GetPathfinding().SetUpMovement(_currentMoveSpeed,_currentAngularSpeed,_currentAcceleration);
     }
 
     #region Stats Set Up
@@ -80,9 +87,9 @@ public class HeroStats : HeroChildrenFunctionality
         {
             _heroMaxHealth *= missionStatModifiers.GetHeroHealthMultiplier();
             
-            _currentDamageMultiplier *= missionStatModifiers.GetHeroDamageMultiplier();
-            _currentStaggerMultiplier *= missionStatModifiers.GetHeroStaggerMultiplier();
-            _currentHealingReceivedMultiplier *= missionStatModifiers.GetHeroHealingReceivedMultiplier();
+            _currentDamageMultiplicativeMultiplier *= missionStatModifiers.GetHeroDamageMultiplier();
+            _currentStaggerMultiplicativeMultiplier *= missionStatModifiers.GetHeroStaggerMultiplier();
+            _currentHealingReceivedMultiplicativeMultiplier *= missionStatModifiers.GetHeroHealingReceivedMultiplier();
         }
         
         GameplayModifiersManager.Instance.AdjustHeroStatsFromModifiers(this);
@@ -118,10 +125,11 @@ public class HeroStats : HeroChildrenFunctionality
 
         SetPreviousHealthValue();
         
-        _currentHealth -= damage / _currentDamageResistance;
-        _myHeroBase.InvokeHeroDamagedEvent(damage / _currentDamageResistance);
+        damage /= _currentDamageResistance;
+        _currentHealth -= damage;
+        _myHeroBase.InvokeHeroDamagedEvent(damage);
         
-        HeroesManager.Instance.InvokeOnHeroDamagedEvent(_myHeroBase);
+        HeroesManager.Instance.InvokeOnHeroDamagedEvent(_myHeroBase,damage);
         
         AudioManager.Instance.PlaySpecificAudio(
             AudioManager.Instance.GeneralHeroAudio.HealthAudio.HeroTookDamage);
@@ -133,22 +141,30 @@ public class HeroStats : HeroChildrenFunctionality
     /// Called to heal a hero
     /// </summary>
     /// <param name="healing"> The amount of healing </param>
-    public void HealHero(float healing)
+    public float HealHero(float healing)
     {
         //Checks for a healing override before healing
         if(ShouldOverrideHealing())
         {
             _myHeroBase.InvokeHeroHealedOverrideEvent(healing);
-            return;
+            return 0;
         }
 
-        if (healing == 0 || IsHeroMaxHealth()) return;
+        if (healing == 0 || IsHeroMaxHealth())
+        {
+            return 0;
+        }
+
+        if (IsHeroDead())
+        {
+            return 0;
+        }
 
         //Set the previous health to what it was prior to being healed
         SetPreviousHealthValue();
 
         //Scale healing with healing received
-        healing *= _currentHealingReceivedMultiplier;
+        healing *= GetCurrentHealingReceivedMultiplier();
 
         //Store the health prior to being healed
         float healthDifference = _currentHealth;
@@ -163,10 +179,12 @@ public class HeroStats : HeroChildrenFunctionality
         healthDifference = _currentHealth - healthDifference;
         _myHeroBase.InvokeHeroHealedEvent(healthDifference);
         
-        HeroesManager.Instance.InvokeOnHeroHealedEvent(_myHeroBase);
+        HeroesManager.Instance.InvokeOnHeroHealedEvent(_myHeroBase,healing);
         
         AudioManager.Instance.PlaySpecificAudio(
             AudioManager.Instance.GeneralHeroAudio.HealthAudio.HeroTookHealing);
+
+        return healing;
     }
 
     /// <summary>
@@ -193,6 +211,8 @@ public class HeroStats : HeroChildrenFunctionality
     {
         // Prevents hero from taking damage as they die
         AddDamageTakenOverrideCounter();
+        
+        AddHealingTakenOverrideCounter();
 
         // Tells the hero base to invoke the death event
         _myHeroBase.InvokeHeroDiedEvent();
@@ -204,11 +224,14 @@ public class HeroStats : HeroChildrenFunctionality
         HeroesManager.Instance.HeroDied(_myHeroBase);
     }
 
-    public void ForceKillHero()
+    public void ForceKillHero(bool doesCallHeroManager)
     {
         _myHeroBase.InvokeHeroDiedEvent();
-        
-        HeroesManager.Instance.HeroDied(_myHeroBase);
+
+        if (doesCallHeroManager)
+        {
+            HeroesManager.Instance.HeroDied(_myHeroBase);
+        }
     }
 
     private void SetPreviousHealthValue()
@@ -367,9 +390,14 @@ public class HeroStats : HeroChildrenFunctionality
     /// <param name="secondaryValue"></param> How much a secondary stat (if it exists) is changed by
     /// <param name="duration"></param> How long the stat is changed for 
     public void ApplyStatChangeForDuration(HeroGeneralAdjustableStats stat, 
-        float changeValue, float secondaryValue, float duration)
+        float changeValue, float duration, bool doesCreateBuffIcons)
     {
-        StartCoroutine(StatChangeDurationProcess(stat, changeValue, secondaryValue, duration));
+        StartCoroutine(StatChangeDurationProcess(stat, changeValue, duration,doesCreateBuffIcons));
+    }
+
+    public void ApplyStatChangesForDuration(HeroAdjustableStatGroup statGroup)
+    {
+        StartCoroutine(StatChangeDurationProcess(statGroup));
     }
 
     /// <summary>
@@ -381,43 +409,59 @@ public class HeroStats : HeroChildrenFunctionality
     /// <param name="duration"></param>
     /// <returns></returns>
     private IEnumerator StatChangeDurationProcess(HeroGeneralAdjustableStats stat,
-        float changeValue, float secondaryValue, float duration)
+        float changeValue, float duration, bool doesCreateBuffIcons)
     {
-        ChangeSpecificStat(stat, changeValue,secondaryValue,true);
+        ChangeSpecificStat(stat, changeValue,doesCreateBuffIcons);
         yield return new WaitForSeconds(duration);
-        ChangeSpecificStat(stat, -changeValue, -secondaryValue,true);
+        ChangeSpecificStat(stat, -changeValue,doesCreateBuffIcons);
+    }
+
+    private IEnumerator StatChangeDurationProcess(HeroAdjustableStatGroup statGroup)
+    {
+        ApplyStatChangesToStatGroup(statGroup,1);
+        yield return new WaitForSeconds(statGroup.BuffDuration);
+        ApplyStatChangesToStatGroup(statGroup,-1);
+    }
+
+    public void ApplyStatChangesToStatGroup(HeroAdjustableStatGroup statGroup, float statMultiplier)
+    {
+        for (int i = 0; i < statGroup.Stats.Length; i++)
+        {
+            ChangeSpecificStat(statGroup.Stats[i], statGroup.BuffStrength[i] * statMultiplier, statGroup.DoesCreateBuffIcon[i]);
+        }
     }
 
 
-    private void ChangeSpecificStat(HeroGeneralAdjustableStats stat, float changeValue, float secondaryValue, bool createBuffIcons)
+    private void ChangeSpecificStat(HeroGeneralAdjustableStats stat, float changeValue, bool doesCreateBuffIcons)
     {
         Sprite buffDebuffIconSprite = null;
 
         switch(stat)
         {
             case (HeroGeneralAdjustableStats.DamageMultiplier):
-                ChangeCurrentHeroDamageMultiplier(changeValue);
+                ChangeCurrentHeroDamageAdditiveMultiplier(changeValue);
 
                 buffDebuffIconSprite = _damageBuffIcon;
                 break;
             case (HeroGeneralAdjustableStats.StaggerMultiplier):
-                ChangeCurrentHeroStaggerMultiplier(changeValue);
+                ChangeCurrentHeroStaggerAdditiveMultiplier(changeValue);
 
                 buffDebuffIconSprite = _staggerBuffIcon;
                 break;
             case (HeroGeneralAdjustableStats.HealingDealtMultiplier):
-                ChangeCurrentHeroHealingDealtMultiplier(changeValue);
+                ChangeCurrentHeroHealingDealtAdditiveMultiplier(changeValue);
                 return;
             case (HeroGeneralAdjustableStats.HealingRecievedMultiplier):
-                ChangeCurrentHeroHealingReceivedMultiplier(changeValue);
+                ChangeCurrentHeroHealingReceivedAdditiveMultiplier(changeValue);
 
                 buffDebuffIconSprite = _healingBuffIcon;
                 break;
             case (HeroGeneralAdjustableStats.SpeedMultiplier):
                 ChangeCurrentHeroSpeed(changeValue);
-                ChangeCurrentHeroAcceleration(secondaryValue);
-
                 buffDebuffIconSprite = _speedBuffIcon;
+                break;
+            case (HeroGeneralAdjustableStats.AccelerationMultiplier):
+                ChangeCurrentHeroAcceleration(changeValue);
                 break;
             case (HeroGeneralAdjustableStats.AggroMultiplier):
                 ChangeCurrentHeroAggro(changeValue);
@@ -425,34 +469,68 @@ public class HeroStats : HeroChildrenFunctionality
             case (HeroGeneralAdjustableStats.DamageResistanceMultiplier):
                 ChangeCurrentHeroDamageResistance(changeValue);
                 break;
+            case(HeroGeneralAdjustableStats.BasicAbilityCooldownRateMultiplier):
+                if (changeValue < 0)
+                {
+                    changeValue = 1 / Mathf.Abs(changeValue);
+                }
+                ChangeCurrentBasicAbilityCooldownRate(changeValue);
+                break;
+            case (HeroGeneralAdjustableStats.ManualAbilityCooldownRateMultiplier):
+                if (changeValue < 0)
+                {
+                    changeValue = 1 / Mathf.Abs(changeValue);
+                }
+                ChangeCurrentManualAbilityCooldownRate(changeValue);
+                break;
         }
 
         // If the stat has an icon associated with it and creating icons is allowed
         // Tell the associated HeroUI manager to create a buff/debuff icon
-        if (!buffDebuffIconSprite.IsUnityNull() && createBuffIcons)
+        if (!buffDebuffIconSprite.IsUnityNull() && doesCreateBuffIcons)
         {
             _myHeroBase.GetHeroUIManager().CreateBuffDebuffIcon(buffDebuffIconSprite, changeValue > 0);
         }
     }
 
-    public void ChangeCurrentHeroDamageMultiplier(float changeValue)
+    public void ChangeCurrentHeroDamageAdditiveMultiplier(float changeValue)
     {
-        _currentDamageMultiplier += changeValue;
+        _currentDamageAdditiveMultiplier += changeValue;
     }
 
-    public void ChangeCurrentHeroStaggerMultiplier(float changeValue)
+    public void ChangeCurrentHeroDamageMultiplicativeMultiplier(float changeValue)
     {
-        _currentStaggerMultiplier += changeValue;
+        _currentDamageMultiplicativeMultiplier *= changeValue;
     }
 
-    public void ChangeCurrentHeroHealingDealtMultiplier(float changeValue)
+    public void ChangeCurrentHeroStaggerAdditiveMultiplier(float changeValue)
     {
-        _currentHealingDealtMultiplier += changeValue;
+        _currentStaggerAdditiveMultiplier += changeValue;
     }
 
-    public void ChangeCurrentHeroHealingReceivedMultiplier(float changeValue)
+    public void ChangeCurrentHeroStaggerMultiplicativeMultiplier(float changeValue)
     {
-        _currentHealingReceivedMultiplier += changeValue;
+        _currentStaggerMultiplicativeMultiplier *= changeValue;
+    }
+
+    public void ChangeCurrentHeroHealingDealtAdditiveMultiplier(float changeValue)
+    {
+        _currentHealingDealtAdditiveMultiplier += changeValue;
+    }
+
+    public void ChangeCurrentHeroHealingDealtMultiplicativeMultiplier(float changeValue)
+    {
+        _currentHealingDealtMultiplicativeMultiplier *= changeValue;
+    }
+
+    public void ChangeCurrentHeroHealingReceivedAdditiveMultiplier(float changeValue)
+    {
+        _currentHealingReceivedAdditiveMultiplier += changeValue;
+    }
+
+    public void ChangeCurrentHeroHealingReceivedMultiplicativeMultiplier(float changeValue)
+    {
+        _currentHealingReceivedMultiplicativeMultiplier *= changeValue;
     }
 
     /// <summary>
@@ -547,14 +625,23 @@ public class HeroStats : HeroChildrenFunctionality
     public float GetCurrentAggro() => _currentAggro;
     public float GetCurrentDamageResistance() => _currentDamageResistance;
 
-    public float GetCurrentDamageMultiplier() => _currentDamageMultiplier;
-    public float GetCurrentStaggerMultiplier() => _currentStaggerMultiplier;
-    public float GetCurrentHealingDealtMultiplier() => _currentHealingDealtMultiplier;
-    public float GetCurrentHealingReceivedMultiplier() => _currentHealingReceivedMultiplier;
+    public float GetCurrentDamageAdditiveMultiplier() => _currentDamageAdditiveMultiplier;
+    public float GetCurrentStaggerAdditiveMultiplier() => _currentStaggerAdditiveMultiplier;
+    public float GetCurrentHealingDealtAdditiveMultiplier() => _currentHealingDealtAdditiveMultiplier;
+    public float GetCurrentHealingReceivedAdditiveMultiplier() => _currentHealingReceivedAdditiveMultiplier;
+
+    public float GetCurrentDamageMultiplier() => _currentDamageAdditiveMultiplier * _currentDamageMultiplicativeMultiplier;
+    public float GetCurrentStaggerMultiplier() => _currentStaggerAdditiveMultiplier * _currentStaggerMultiplicativeMultiplier;
+    public float GetCurrentHealingDealtMultiplier() => _currentHealingDealtAdditiveMultiplier * _currentHealingDealtMultiplicativeMultiplier;
+    public float GetCurrentHealingReceivedMultiplier() => _currentHealingReceivedAdditiveMultiplier * _currentHealingReceivedMultiplicativeMultiplier;
 
     public float GetBasicAbilityCooldownRateMultiplier() => _basicAbilityCooldownRateMultiplier;
     public float GetManualAbilityCooldownRateMultiplier() => _manualAbilityCooldownRateMultiplier;
 
+
+    public float GetTotalHeroDamageDealt() => _totalDamageDealt;
+    public float GetTotalHeroStaggerDealt() => _totalStaggerDealt;
+    public float GetTotalHeroHealingDealt() => _totalHealingDealt;
     #endregion
 
     #region Setters
@@ -563,9 +650,32 @@ public class HeroStats : HeroChildrenFunctionality
     {
         _myHeroBase.GetHeroDamageCollider().radius *= multiplier;
     }
+
+    public void AddToTotalHeroDamageDealt(float damage)
+    {
+        _totalDamageDealt += damage;
+    }
+    
+    public void AddToTotalHeroStaggerDealt(float stagger)
+    {
+        _totalStaggerDealt += stagger;
+    }
+    
+    public void AddToTotalHeroHealingDealt(float healing)
+    {
+        _totalHealingDealt += healing;
+    }
     #endregion
 }
 
+[System.Serializable]
+public class HeroAdjustableStatGroup
+{
+    public HeroGeneralAdjustableStats[] Stats;
+    public float[] BuffStrength;
+    public bool[] DoesCreateBuffIcon;
+    public float BuffDuration;
+}
 
 /// <summary>
 /// The stats which can be adjusted by buffs/debuffs
@@ -579,5 +689,7 @@ public enum HeroGeneralAdjustableStats
     SpeedMultiplier,
     AccelerationMultiplier,
     AggroMultiplier,
-    DamageResistanceMultiplier
+    DamageResistanceMultiplier,
+    BasicAbilityCooldownRateMultiplier,
+    ManualAbilityCooldownRateMultiplier
 };

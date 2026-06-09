@@ -6,7 +6,7 @@ public class BossSurvivalMissionModifer : MissionModifierBase
 {
     [SerializeField] private float _bossHealthMultiplier = 1;
     [SerializeField] private float _bossStaggerMultiplier = 1;
-    [SerializeField] private float _bossDamageResistanceChangeOnStaggerMultiplier = 1;
+    [SerializeField] private float _bossDamageResistanceChangeOnStagger = 0;
     
     #region BaseMissionModifier
     public override void SetUpMissionModifier()
@@ -20,8 +20,7 @@ public class BossSurvivalMissionModifer : MissionModifierBase
 
         bossStats.SetBossMaxHealth(bossStats.GetBossMaxHealth() * _bossHealthMultiplier);
         bossStats.SetBossMaxStagger(bossStats.GetBossMaxStagger() * _bossStaggerMultiplier);
-        bossStats.SetBossDamageResistanceChangeOnStagger
-            (bossStats.GetBossDamageResistanceChangeOnStagger() * _bossDamageResistanceChangeOnStaggerMultiplier);
+        bossStats.AddBossDamageResistanceChangeOnStagger(_bossDamageResistanceChangeOnStagger);
     }
     #endregion
 }

@@ -113,6 +113,11 @@ public class SH_Mirage : SpecificHeroFramework
     /// </summary>
     public void CreateBasicAbilityProjectile(bool castByHero)
     {
+        if(_currentBasicTargetZone.IsUnityNull())
+        {
+            return;
+        }
+        
         //Spawns the projectile at the location of the midpoint
         GameObject newestProjectile = Instantiate(_basicProjectile, 
             _currentBasicTargetZone.transform.position, _currentBasicTargetZone.transform.rotation);
@@ -185,7 +190,15 @@ public class SH_Mirage : SpecificHeroFramework
 
     public void CloneSwapOver()
     {
+        EndManualAbility();
+    }
+
+    public override void EndManualAbility()
+    {
         _myHeroBase.GetPathfinding().SetIsHeroUsingMovementAbility(false);
+        _myHeroBase.GetPathfinding().HeroLookAtBoss();
+        
+        base.EndManualAbility();
     }
 
     /*/// <summary>
@@ -224,7 +237,7 @@ public class SH_Mirage : SpecificHeroFramework
     /// </summary>
     private void CloneDeath()
     {
-        _cloneBase.GetHeroStats().ForceKillHero();
+        _cloneBase.GetHeroStats().ForceKillHero(false);
     }
     #endregion
 

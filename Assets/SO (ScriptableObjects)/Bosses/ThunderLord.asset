@@ -19,15 +19,15 @@ MonoBehaviour:
   _bossID: 3
   _bossMusicID: 2
   _maxHP: 300
-  _baseStaggerMax: 85
+  _baseStaggerMax: 80
   _staggerDuration: 15
   _rotationSpeed: 3
   _damageIncrementMultiplier: 1.05
-  _damageResistanceChangeOnStagger: 0.15
+  _damageResistanceChangeOnStagger: 0.3
   _fightStartDelay: 1.5
-  _enrageTime: 150
-  _enrageDamageMultiplier: 1.5
-  _enrageScalingDamageMultiplierIncreasePerMinute: 0.8
+  _enrageTime: 145
+  _enrageDamageMultiplier: 0.225
+  _enrageScalingDamageMultiplierIncreasePerMinute: 0.75
   _bossPrefab: {fileID: 4545186188398149087, guid: b957cd9513f6701418f71e07da17d51f, type: 3}
   _bossIcon: {fileID: 21300000, guid: 27d69f4fa696fc443ba68f63258d742c, type: 3}
   _floorMaterial: {fileID: 2100000, guid: c9983282f3a72214eb51c72723297d70, type: 2}
@@ -40,13 +40,23 @@ MonoBehaviour:
   _bossHighlightedColor: {r: 1, g: 0.99412286, b: 0, a: 1}
   _bossPressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
   _bossSelectedColor: {r: 1, g: 1, b: 1, a: 1}
+  _bossUIColor: {r: 1, g: 0.99734867, b: 0.3238992, a: 1}
+  _bossAbilityTextUIColor: {r: 1, g: 0.9960785, b: 0.3254902, a: 1}
   _bossSelectionIcon: {fileID: 21300000, guid: f35f76d47fe648f49abf433b0c9ed820, type: 3}
   _bossAbilities:
   - _abilityName: Thunderbolt
     _abilityType: 0
-    _abilityDescription: 'The Thunder
+    _abilityDescription: 'Thunderbolts
 
-      Lord strikes the
+      strikes the
+
+      location of a Hero
+
+      multiple
+      times'
+    _abilityWideDescription: 'Thunderbolts
+
+      strikes the
 
       location of
       a Hero
@@ -57,39 +67,55 @@ MonoBehaviour:
 
       Charge'
     _abilityType: 0
-    _abilityDescription: 'The Thunder Lord
+    _abilityDescription: 'A cloud follows a Hero
 
-      creates a projectile
+      then deals damage and
 
-      that
-      follows a hero
+      switches
+      targets if hit
 
-      and damages them if
+      by another Hero'
+    _abilityWideDescription: 'A cloud follows a Hero
 
-      it hits a seperate Hero
+      then deals damage and
 
-      then
-      switches targets'
+      switches
+      targets if hit
+
+      by another Hero'
     _abilityImage: {fileID: 21300000, guid: c6cf640e6963c2c42a828612e3fb3bfc, type: 3}
   - _abilityName: Thunderclap
     _abilityType: 0
-    _abilityDescription: 'The Thunder Lord
+    _abilityDescription: 'Damage is dealt
 
-      deals damage in an
+      perpendicular to
 
-      area
-      relative to
+      Impending
+      Storm
 
-      Impending Storm if no
+      if no Hero is in
 
-      hero is on the opposite
+      the safe zone'
+    _abilityWideDescription: 'Damage is dealt
 
-      side
-      of the arena'
+      perpendicular to
+
+      Impending
+      Storm if no
+
+      Hero is in the safe zone'
     _abilityImage: {fileID: 21300000, guid: 6057d9efe5bf23a4fb082ef14b9b6564, type: 3}
   - _abilityName: Overcharge
     _abilityType: 0
     _abilityDescription: 'Impending
+
+      Storm flips to
+
+      the other side
+
+      of
+      the arena'
+    _abilityWideDescription: 'Impending
 
       Storm flips to
 
@@ -103,6 +129,14 @@ MonoBehaviour:
       Storm'
     _abilityType: 1
     _abilityDescription: 'The Thunder
+
+      Lord constantly
+
+      fires projectiles
+      in
+
+      a rotating pattern'
+    _abilityWideDescription: 'The Thunder
 
       Lord constantly
 

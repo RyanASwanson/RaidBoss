@@ -121,14 +121,32 @@ public class HeroUIManager : GameUIChildrenFunctionality
         _heroControlledIcon.color = _associatedHeroBase.GetHeroSO().GetHeroUIColor();
         
         _heroNotControlledNumberAnimator = heroVisuals.GetHeroNotControlledNumberAnimator();
-        heroVisuals.GetHeroNotControlledNumberTextBackground().text = _associatedHeroBase.GetHeroIDStartOne().ToString();
-        heroVisuals.GetHeroNotControlledNumberText().text = _associatedHeroBase.GetHeroIDStartOne().ToString();
-        if (_doesUseHeroColorForNotControlledNumber)
-        {
-            heroVisuals.GetHeroNotControlledNumberText().color = _associatedHeroBase.GetHeroSO().GetHeroUIColor();
-        }
 
+        if (SaveManager.Instance.GetDoesShowHeroControlInputUI())
+        {
+            heroVisuals.GetHeroNotControlledNumberText().UpdateText(_associatedHeroBase.GetHeroIDStartOne().ToString());
+        
+            if (_doesUseHeroColorForNotControlledNumber)
+            {
+                heroVisuals.GetHeroNotControlledNumberText().UpdateTextColor(_associatedHeroBase.GetHeroSO().GetHeroUIColor());
+            }
+        }
+        else
+        {
+            heroVisuals.GetHeroNotControlledNumberText().gameObject.SetActive(false);
+        }
+        
         ShowHeroNotControlledNumber(true);
+
+        if (SaveManager.Instance.GetDoesShowHeroManualInputUI())
+        {
+            heroVisuals.GetHeroManualAbilityInputText().UpdateText(
+                ControlsManager.Instance.GetDefaultUseSpecificHeroAbilityInputs()[_associatedHeroBase.GetHeroID()]);
+        }
+        else
+        {
+            heroVisuals.GetHeroManualAbilityInputText().gameObject.SetActive(false);
+        }
 
         _generalOrigin = heroVisuals.GetGeneralOrigin();
         _damageNumbersOrigin = heroVisuals.GetDamageNumbersOrigin();
@@ -431,6 +449,7 @@ public class HeroUIManager : GameUIChildrenFunctionality
     private void ManualFullyCharged()
     {
         ShowManualAbilityChargedIconAboveHero(true);
+        SetHeroManualAbilityCharge(1);
 
         CreateAbilityReChargedIconAboveHero();
         HeroIconOnUIFlash();

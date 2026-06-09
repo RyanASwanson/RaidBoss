@@ -7,6 +7,9 @@ using UnityEngine.Serialization;
 
 public class SBA_IcicleRain : SpecificBossAbilityFramework
 {
+    [SerializeField] private Vector3 _enrageUpwardsEffectVisualsPositionOffset;
+    [SerializeField] private Vector3 _enrageUpwardsEffectVisualsRotation;
+    
     [Space]
     [SerializeField] private GameObject _targetZone;
     [SerializeField] private GameObject _icicleRain;
@@ -15,29 +18,18 @@ public class SBA_IcicleRain : SpecificBossAbilityFramework
     private BossTargetZoneParent _newestTargetZone;
 
     public const int ICICLE_RAIN_IMPACT_AUDIO_ID = 0;
-
-    /// <summary>
-    /// Makes the target zone and attack follow the hero it is targetting
-    /// </summary>
-    /// <param name="followingObject"></param>
-    /// <returns></returns>
-    protected IEnumerator FollowHeroTarget(GameObject followingObject)
-    {
-        while (!followingObject.IsUnityNull() && !_storedTarget.IsUnityNull())
-        {
-            //Set the position of the object to be at the location of the current target
-            //The Y remains consistent
-            followingObject.transform.position =
-                new Vector3(_storedTarget.transform.position.x, _specificAreaTarget.y, _storedTarget.transform.position.z);
-
-            yield return null;
-        }
-    }
     
     #region Base Ability
     protected override void AbilityPrep()
     {
         Instantiate(_icicleRainUpwardsVisual, transform.position, Quaternion.identity);
+
+        if (_wasBossEnragedOnAbilityActivation)
+        {
+            GameObject upwardsVisual = Instantiate(_icicleRainUpwardsVisual, transform.position, Quaternion.identity);
+            upwardsVisual.transform.position += _enrageUpwardsEffectVisualsPositionOffset;
+            upwardsVisual.transform.localEulerAngles += _enrageUpwardsEffectVisualsRotation;
+        }
         base.AbilityPrep();
     }
     
@@ -67,13 +59,9 @@ public class SBA_IcicleRain : SpecificBossAbilityFramework
         GameObject newestIcicleRain = Instantiate(_icicleRain, _newestTargetZone.transform.position, Quaternion.identity);
 
         SBP_IcicleRain icicleFunc = newestIcicleRain.GetComponent<SBP_IcicleRain>();
-        icicleFunc.SetUpProjectile(_myBossBase, _abilityID);
+        icicleFunc.SetUpProjectile(_myBossBase, _abilityID, _wasBossEnragedOnAbilityActivation);
         
-        
-
         base.AbilityStart();
     }
-
-    
     #endregion
 }

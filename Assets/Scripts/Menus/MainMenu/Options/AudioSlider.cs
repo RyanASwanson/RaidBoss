@@ -41,10 +41,3 @@ public class AudioSlider : MonoBehaviour
         SaveManager.Instance.SetVolumeFromAudioVCAType(_audioVCAType, _audioSlider.value);
     }
 }
-
-public enum EAudioVCAType
-{
-    Master,
-    Music,
-    SoundEffect,
-}

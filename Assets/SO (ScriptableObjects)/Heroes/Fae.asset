@@ -16,7 +16,7 @@ MonoBehaviour:
   _heroID: 6
   _selectionDisplayScaleMultiplier: 1.4
   _hasUIManager: 1
-  _maxHP: 40
+  _maxHP: 45
   _moveSpeed: 5
   _angularSpeed: 140
   _moveAcceleration: 11
@@ -27,7 +27,7 @@ MonoBehaviour:
   _heroBasicAbilityIcon: {fileID: 21300000, guid: ae08c1101f2f79b44acc726e516f5084, type: 3}
   _heroManualAbilityIcon: {fileID: 21300000, guid: a157f7d99ad33a64184d1317ec333ced, type: 3}
   _heroPassiveAbilityIcon: {fileID: 21300000, guid: 55feda8602a75f44a9042cd1a82dbfb0, type: 3}
-  _survivalStat: 2
+  _survivalStat: 1
   _damageStat: 4
   _staggerStat: 1
   _speedStat: 5
@@ -39,27 +39,60 @@ MonoBehaviour:
   _heroSelectedColor: {r: 1, g: 1, b: 1, a: 1}
   _heroOutlineColor: {r: 1, g: 0.7960785, b: 0.9803922, a: 1}
   _heroUIColor: {r: 1, g: 0.7960785, b: 0.9803922, a: 1}
+  _heroAbilityTextUIColor: {r: 1, g: 0.53144646, b: 0.9583509, a: 1}
+  _heroSelectionParticleColors:
+  - {r: 1, g: 0.70754707, b: 0.97187954, a: 1}
+  - {r: 1, g: 0.49371064, b: 0.95157236, a: 1}
   _heroBackgroundMaterial: {fileID: 2100000, guid: 43d14b967446eb74ea15756aa6b90631, type: 2}
   _basicAbilityName: Multishot
-  _basicAbilityDescription: 'The Fae fires
+  _basicAbilityDescription: 'Fires arrows in
 
-    arrows in diagonal
+    diagonal directions
 
-    directions'
+    that reflect
+    towards
+
+    the Fae'
+  _basicAbilityWideDescription: 'Fires arrows in
+
+    diagonal directions
+
+    that
+    reflect towards
+
+    the Fae'
   _manualAbilityName: Flurry
-  _manualAbilityDescription: 'The Fae spins
+  _manualAbilityDescription: 'The Fae recklessly
 
-    around the
+    spins around the
 
-    battlefield recklessly
+    battlefield
+    dealing
+
+    damage and reduces
+
+    damage taken'
+  _manualAbilityWideDescription: 'The Fae recklessly spins
+
+    around the battlefield
 
     dealing
-    damage'
+    damage and
+
+    reduces damage taken'
   _passiveAbilityName: Fleet-footed
   _passiveAbilityDescription: 'The Fae uses
 
     Multishot faster
 
     when she is
+
+    moving'
+  _passiveAbilityWideDescription: 'The Fae uses
+
+    Multishot faster
+
+    when she
+    is
 
     moving'

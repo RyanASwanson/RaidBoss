@@ -88,15 +88,8 @@ public class CurveProgression : MonoBehaviour
 
     private void OnEnable()
     {
-        if (_hasIncreaseDelay)
-        {
-            _increaseWait = new WaitForSeconds(_increaseDelay);
-        }
-        
-        if (_hasDecreaseDelay)
-        {
-            _decreaseWait = new WaitForSeconds(_decreaseDelay);
-        }
+        SetUpIncreaseDelay();
+        SetUpDecreaseDelay();
         
         if (_doesResetToDefaultProgressOnEnable)
         {
@@ -104,6 +97,22 @@ public class CurveProgression : MonoBehaviour
         }
 
         AutomaticMovementOnEnable();
+    }
+
+    private void SetUpIncreaseDelay()
+    {
+        if (_hasIncreaseDelay)
+        {
+            _increaseWait = new WaitForSeconds(_increaseDelay);
+        }
+    }
+
+    private void SetUpDecreaseDelay()
+    {
+        if (_hasDecreaseDelay)
+        {
+            _decreaseWait = new WaitForSeconds(_decreaseDelay);
+        }
     }
 
     private void AutomaticMovementOnEnable()
@@ -404,16 +413,62 @@ public class CurveProgression : MonoBehaviour
         _onMinValueReached?.Invoke();
     }
 
+    #region Getters
+    public string GetCurveName() => _curveName;
+
+    public float GetCurveIncreaseTime() => _curveIncreaseTime;
+
+    public float GetCurveDecreaseTime() => _curveDecreaseTime;
+    
     public bool IsOppositeDirectionUpOnCurve()
     {
         return CurveStatus == ECurveStatus.Decreasing || CurveStatus == ECurveStatus.AtMinValue;
     }
+    
+    #endregion
 
     #region Setters
 
+    public void SetCurveName(string curveName)
+    {
+        _curveName = curveName;
+    }
+    
     public void SetHasStartingValue(bool hasStartingValue)
     {
         _hasDefaultValue = hasStartingValue;
+    }
+    
+    public void SetCurveIncreaseTime(float time) => _curveIncreaseTime = time;
+    public void SetCurveDecreaseTime(float time) => _curveDecreaseTime = time;
+
+    public void SetHasIncreaseDelay(bool hasDelay)
+    {
+        _hasIncreaseDelay = hasDelay;
+        if (!_hasIncreaseDelay)
+        {
+            StopMoveUpDelay();
+        }
+    }
+    public void SetIncreaseDelay(float delay)
+    {
+        _increaseDelay = delay;
+        SetUpIncreaseDelay();
+    }
+    
+    public void SetHasDecreaseDelay(bool hasDelay)
+    {
+        _hasDecreaseDelay = hasDelay;
+        if (!_hasDecreaseDelay)
+        {
+            StopMoveDownDelay();
+        }
+    }
+
+    public void SetDecreaseDelay(float delay)
+    {
+        _decreaseDelay = delay;
+        SetUpDecreaseDelay();
     }
 
     #endregion

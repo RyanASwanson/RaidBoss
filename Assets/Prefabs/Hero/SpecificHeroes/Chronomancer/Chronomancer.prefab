@@ -79,7 +79,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _basicAbilityChargeTime: 3
-  _manualAbilityChargeTime: 25
+  _manualAbilityChargeTime: 28
+  _doesManualAbilityHaveDuration: 1
+  _doesManualAbilityChargeWhileActive: 1
+  _isManualAbilityDurationFixed: 1
+  _manualAbilityFixedDuration: 1
   _heroSpecificAnimator: {fileID: 9030357306950637488}
   _hasBasicAbilityAnimation: 1
   _hasManualAbilityAnimation: 1
@@ -94,9 +98,13 @@ MonoBehaviour:
   _basicDirectionObj: {fileID: 7919605255219938636, guid: 195370cd976f1e34faed3fd73bb7ed15, type: 3}
   _rewindTimeAmount: 8
   _manualTimeVariationAmount: 0.5
-  _manualTimeVariationDuration: 1
   _manualProjectile: {fileID: 4438191204458733012, guid: 33b57e780c1db6d44963af273ee70136, type: 3}
-  _passiveAbilityBasicCooldownReduction: 5
+  _passiveAbilityBasicCooldownReduction: 1.25
+  _passiveAbilityManualCooldownReduction: 2.5
+  _passiveAbilityBasicCooldownSpeedIncrease: 1.4
+  _passiveAbilityManualCooldownSpeedIncrease: 1.5
+  _passiveAbilityCooldownSpeedDuration: 4
+  _passiveTargetHeroVisualEffect: {fileID: 2583560564099120019, guid: 8639f44d01f5ff54c930922727aaffb8, type: 3}
 --- !u!95 &9030357306950637488
 Animator:
   serializedVersion: 5

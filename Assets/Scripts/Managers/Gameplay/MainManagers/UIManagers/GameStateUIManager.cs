@@ -15,6 +15,9 @@ public class GameStateUIManager : GameUIChildrenFunctionality
     [Space]
     [SerializeField] private GameObject _loseUI;
     [SerializeField] private float _loseUIDelay;
+    
+    [Space]
+    [SerializeField] private WinLoseScreenFunctionality _winLoseScreen;
 
     private void BattleWinUI()
     {
@@ -25,6 +28,7 @@ public class GameStateUIManager : GameUIChildrenFunctionality
     {
         yield return new WaitForSeconds(_winUIDelay);
         _winUI.SetActive(true);
+        _winLoseScreen.BattleWon();
     }
     
     private void BattleLoseUI()
@@ -36,6 +40,7 @@ public class GameStateUIManager : GameUIChildrenFunctionality
     {
         yield return new WaitForSeconds(_loseUIDelay);
         _loseUI.SetActive(true);
+        _winLoseScreen.BattleLost();
     }
     
     #region BaseManager

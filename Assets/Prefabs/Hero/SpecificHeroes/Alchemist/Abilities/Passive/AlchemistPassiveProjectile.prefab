@@ -131,8 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _projectileDamage: 2
-  _projectileStagger: 1
-  _moveTime: 1
+  _projectileStagger: 2.1
   _moveBetween: {fileID: 2905918363570740992}
 --- !u!114 &2905918363570740992
 MonoBehaviour:
@@ -180,11 +179,17 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _floatDestroyDelay: 0
+  _doesSetDefaultStartPositionOnStart: 0
+  _hasDefaultStartPosition: 0
+  _defaultStartPosition: {x: 0, y: 0, z: 0}
+  _defaultEndPosition: {x: 0, y: 0, z: 0}
+  _curveProgression: {fileID: 0}
   _onEndOfMovement:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 155826608772828596}
-        m_TargetAssemblyTypeName: SHP_AlchemistPassiveProjectile, Assembly-CSharp
+        m_TargetAssemblyTypeName: HeroMoveTowardsBossProjectile, Assembly-CSharp
         m_MethodName: EndOfMovement
         m_Mode: 1
         m_Arguments:

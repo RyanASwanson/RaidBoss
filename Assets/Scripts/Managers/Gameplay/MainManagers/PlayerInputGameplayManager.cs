@@ -30,6 +30,7 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     [SerializeField] private bool _canSelectAlreadySelectedHero;
 
     private bool _canControlHero = true;
+    private bool _canDirectHeroMovement = true;
     private bool _isTutorialPreventingControl = false;
     
     [Space]
@@ -43,6 +44,8 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
 
     [Space]
     [SerializeField] private GameObject _heroDirectIcon;
+
+    private UnityEvent<HeroBase> _onHeroControlled = new UnityEvent<HeroBase>();
 
     private UniversalPlayerInputActions _universalPlayerInputActions;
 
@@ -165,19 +168,16 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
             return;
         }
         
-        /*Debug.Log("LivingHeroes");
-        foreach (HeroBase hero in HeroesManager.Instance.GetCurrentLivingHeroes())
-        {
-            Debug.Log(hero.GetHeroSO().GetHeroName());
-        }*/
-        
         ClearControlledHeroes();
         
         AudioManager.Instance.PlaySpecificAudio(
             AudioManager.Instance.GeneralHeroAudio.InteractionAudio.HeroControlled);
 
         newHero.InvokeHeroControlledBegin();
+        
         _controlledHeroes.Add(newHero);
+        
+        InvokeOnHeroControlled(newHero);
     }
 
     public void NewControlledHeroByID(int id)
@@ -280,6 +280,11 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     
     public void DirectSpecificHeroTo(HeroBase hero, Vector3 newDestination)
     {
+        if (!_canDirectHeroMovement)
+        {
+            return;
+        }
+        
         hero.GetPathfinding().DirectNavigationTo(newDestination);
     }
 
@@ -300,6 +305,14 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
         {
             return;
         }
+
+        if (SelectionManager.Instance.GetSelectedMissionOut(out MissionSO missionSO))
+        {
+            if (!missionSO.GetDoesAutomaticallySelectFirstHero())
+            {
+                return;
+            }
+        }
         
         if (_controlledHeroes.Count == 0)
         {
@@ -319,7 +332,7 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     
     private void PlayerDirectClicked(InputAction.CallbackContext context)
     {
-        if (ClickOnPoint(_directClickLayerMask, out RaycastHit clickedOn))
+        if (_canDirectHeroMovement && ClickOnPoint(_directClickLayerMask, out RaycastHit clickedOn))
         {
             DirectAllHeroesTo(clickedOn.point);
             CreateHeroDirectIcon(clickedOn.point);
@@ -485,6 +498,14 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     
     
     #endregion
+    
+    #region Events
+
+    public void InvokeOnHeroControlled(HeroBase heroBase)
+    {
+        _onHeroControlled?.Invoke(heroBase);
+    }
+    #endregion
 
     #region Getters
     /// <summary>
@@ -501,5 +522,11 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
 
     public List<HeroBase> GetAllControlledHeroes() => _controlledHeroes;
 
+    public UnityEvent<HeroBase> GetOnHeroControlledEvent => _onHeroControlled;
+
+    #endregion
+    
+    #region Setters
+    public void SetCanDirectHeroMovement(bool canDirectHeroMovement) => _canDirectHeroMovement = canDirectHeroMovement;
     #endregion
 }

@@ -33,8 +33,6 @@ public class SBA_Frostbite : SpecificBossAbilityFramework
             newTargetZone.transform.eulerAngles = new Vector3(0, newTargetZone.transform.eulerAngles.y, 0);
             
             _currentTargetZones.Add(newTargetZone);
-            
-            frostFiend.SetCurrentTargetZone(newTargetZone);
 
             if (frostFiend.IsMinionFrozen())
             {
@@ -45,6 +43,8 @@ public class SBA_Frostbite : SpecificBossAbilityFramework
             _attackingFiends.Add(frostFiend);
 
             frostFiend.FrostbiteAttack();
+            
+            frostFiend.AddTargetZone(newTargetZone);
         }    
     }
 

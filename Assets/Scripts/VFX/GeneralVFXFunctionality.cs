@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -22,6 +23,7 @@ public class GeneralVFXFunctionality : MonoBehaviour
     [SerializeField] private float _customEmissionCurveMultiplier;
     [SerializeField] private AnimationCurve _customEmissionRateCurve;
     private float[] _startingParticleSystemsEmissionRates;
+    private bool _hasSetUpCustomEmissionRate = false;
 
     [Space]
     [SerializeField] private List<ParticleSystem> _particleSystems;
@@ -91,7 +93,25 @@ public class GeneralVFXFunctionality : MonoBehaviour
     {
         foreach (ParticleSystem ps in _particleSystems)
         {
+            if (ps.IsUnityNull())
+            {
+                continue;
+            }
+            
             ps.Play();
+        }
+    }
+
+    public void StopAllParticleSystems()
+    {
+        foreach (ParticleSystem ps in _particleSystems)
+        {
+            if (ps.IsUnityNull())
+            {
+                continue;
+            }
+            
+            ps.Stop();
         }
     }
     
@@ -99,8 +119,54 @@ public class GeneralVFXFunctionality : MonoBehaviour
     {
         foreach(ParticleSystem ps in _particleSystems)
         {
+            if (ps.IsUnityNull())
+            {
+                continue;
+            }
             var psMain = ps.main;
             psMain.loop = shouldLoop;
+        }
+    }
+
+    public void SetStartColor(Color firstStartColor)
+    {
+        foreach(ParticleSystem ps in _particleSystems)
+        {
+            if (ps.IsUnityNull())
+            {
+                continue;
+            }
+            
+            ParticleSystem.MainModule main = ps.main;
+            main.startColor = new ParticleSystem.MinMaxGradient(firstStartColor);
+        }
+    }
+    
+    public void SetStartColor(Color firstStartColor, Color secondStartColor)
+    {
+        foreach(ParticleSystem ps in _particleSystems)
+        {
+            if (ps.IsUnityNull())
+            {
+                continue;
+            }
+            
+            ParticleSystem.MainModule main = ps.main;
+            main.startColor = new ParticleSystem.MinMaxGradient(firstStartColor, secondStartColor);
+        }
+    }
+    
+    public void SetEmissionShapeScale(Vector3 emissionShapeScale)
+    {
+        foreach(ParticleSystem ps in _particleSystems)
+        {
+            if (ps.IsUnityNull())
+            {
+                continue;
+            }
+            
+            ParticleSystem.ShapeModule shapeModule = ps.shape;
+            shapeModule.scale = emissionShapeScale;
         }
     }
 
@@ -111,6 +177,8 @@ public class GeneralVFXFunctionality : MonoBehaviour
         {
             _startingParticleSystemsEmissionRates[i] = _particleSystems[i].emission.rateOverTimeMultiplier;
         }
+
+        _hasSetUpCustomEmissionRate = true;
     }
 
     public void SetEmissionRateMultiplierWithCurve(float emissionRateMultiplier)
@@ -118,11 +186,15 @@ public class GeneralVFXFunctionality : MonoBehaviour
         emissionRateMultiplier = _customEmissionRateCurve.Evaluate(emissionRateMultiplier) * _customEmissionCurveMultiplier;
 
         SetEmissionRateMultiplier(emissionRateMultiplier);
-        
     }
 
     public void SetEmissionRateMultiplier(float emissionRateMultiplier)
     {
+        if (!_hasSetUpCustomEmissionRate)
+        {
+            return;
+        }
+        
         for (int i = 0; i < _particleSystems.Count; i++)
         {
             ParticleSystem.EmissionModule emissionModule = _particleSystems[i].emission;

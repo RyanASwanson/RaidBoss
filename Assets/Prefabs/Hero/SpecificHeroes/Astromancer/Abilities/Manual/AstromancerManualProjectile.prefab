@@ -5114,8 +5114,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 464ad8dfc32198944bf89cc13006b76b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectileDamage: 1.75
-  _projectileStagger: 0.5
+  _projectileDamage: 2.15
+  _projectileStagger: 0.4
   _moveTime: 1
   _moveTowardsTargetCurve:
     serializedVersion: 2
@@ -5228,8 +5228,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _purpleVisuals: {fileID: 0}
-  _blueVisuals: {fileID: 0}
   _visualsHolder: {fileID: 7302071461079648035}
   _damageArea: {fileID: 497922461095690516}
 --- !u!114 &497922461095690516
@@ -5247,8 +5245,12 @@ MonoBehaviour:
   _areaColliders: []
   _hasLifetime: 0
   _lifetime: 0
+  _hasColliderActivationDelay: 0
+  _colliderActivationDelay: 0
   _hasColliderLifetime: 0
   _colliderLifetime: 0
+  _doesHitCenteredVFXCopyRotation: 0
+  _hitCenteredVFXCopyTarget: {fileID: 0}
   _hitCenteredVFX: {fileID: 3019119312082034931, guid: 8d539d0578236a1459deeb4d11628609, type: 3}
   _lifetimeEndEvent:
     m_PersistentCalls:
@@ -5376,4 +5378,12 @@ MonoBehaviour:
   _lifeTime: 1.8
   _hasDetachTime: 1
   _detachTime: 0.99
+  _hasCustomEmmisionRateCurve: 0
+  _customEmissionCurveMultiplier: 0
+  _customEmissionRateCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   _particleSystems: []

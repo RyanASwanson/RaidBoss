@@ -13,117 +13,75 @@ MonoBehaviour:
   m_Name: Mission8
   m_EditorClassIdentifier: 
   _missionID: 7
-  _missionName: 'The
+  _missionName: 'Mission
 
-    Shaman'
+    Modifiers'
   _missionTitleScale: 1
+  _doesAutomaticallySelectFirstHero: 1
   _associatedDifficulty: 1
-  _associatedLevel: {fileID: 11400000, guid: 763a87e823e4c5d4d8c9e44aa8aa4a02, type: 2}
+  _associatedLevel: {fileID: 11400000, guid: 53e846bb7c637be46af02e5cd8741558, type: 2}
   _associatedHeroes:
-  - {fileID: 11400000, guid: 0128339a05223db40aae2581988a9ea0, type: 2}
+  - {fileID: 11400000, guid: fa900cf8282b2814fb9eb1a8cc860cd0, type: 2}
   - {fileID: 11400000, guid: 2b5cc09a0a41a0c40a6b8c0fa2ebb464, type: 2}
   - {fileID: 11400000, guid: e3a0dad03ec099242b69fcc0759e259a, type: 2}
   _missionDisplayHighlights:
-  - HighlightType: 2
-    HightlightID: 2
+  - HighlightType: 3
+    HightlightID: 0
   _tutorialPages:
-  - TutorialPageTitle: 'Hero: The Shaman'
-    TutorialPageTitleWidth: 1075
-    DefaultTextLocation: {x: 0, y: 45}
-    DefaultText: 'The <color=#4273FF>Shaman</color> is a well rounded and
+  - TutorialPageTitle: Mission Modifiers
+    TutorialPageTitleWidth: 990
+    DefaultTextLocation: {x: 0, y: 55}
+    DefaultText: 'Some missions will have modifiers that
 
-      strategic
-      damage dealer. He deals damage
+      change how you will
+      play. They
 
-      over wide areas while waiting for his
+      can be seen near the bottom of the
 
-      opportunity
-      to line up repeated damage.'
-    TutorialPageObjectLocation: {x: 0, y: 0}
-    TutorialPageObject: {fileID: 0}
+      mission scroll
+      in the mission selection.'
+    TutorialPageObjectLocation: {x: 0, y: -50}
+    TutorialPageObject: {fileID: 2628942221242811885, guid: 9080da42fa575a2468505ae80afe1fc1, type: 3}
     TutorialPageCharacterTutorial:
-      TutorialCharacterIconLocation: {x: 0, y: -65}
-      TutorialCharacterIconScaleMultiplier: 1
-      TutorialPageCharacterIcon: {fileID: 21300000, guid: 50055fdb0508a044691e25a12d99168b, type: 3}
-      TutorialPageCharacterBackground: {fileID: 21300000, guid: cad11a2bf12278c46a02ba6a7ef54eec, type: 3}
-  - TutorialPageTitle: Tornado
-    TutorialPageTitleWidth: 560
+      TutorialCharacterIconLocation: {x: 0, y: 0}
+      TutorialCharacterIconScaleMultiplier: 0
+      TutorialPageCharacterIcon: {fileID: 0}
+      TutorialPageCharacterBackground: {fileID: 0}
+  - TutorialPageTitle: 'Modifier: Brittle'
+    TutorialPageTitleWidth: 908
     DefaultTextLocation: {x: 0, y: 40}
-    DefaultText: 'The <color=#4273FF>Shaman</color>''s basic ability is
+    DefaultText: 'Boss health is increased, but the
 
-      <color=#0042FF>Tornado</color>.
-      The <color=#4273FF>Shaman</color> creates a
+      Boss takes significantly
+      increased
 
-      tornado which deals damage
-      and
-
-      low stagger vertically.'
+      damage while staggered.'
     TutorialPageObjectLocation: {x: 0, y: 0}
     TutorialPageObject: {fileID: 0}
     TutorialPageCharacterTutorial:
-      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconLocation: {x: 0, y: -60}
       TutorialCharacterIconScaleMultiplier: 1
-      TutorialPageCharacterIcon: {fileID: 21300000, guid: 8bdea33b2b0c3674fa19fde192c3bec8, type: 3}
-      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
-  - TutorialPageTitle: Ball Lightning
-    TutorialPageTitleWidth: 880
-    DefaultTextLocation: {x: 0, y: 40}
-    DefaultText: 'The <color=#4273FF>Shaman</color>''s active ability is
-
-      <color=#0042FF>Ball
-      Lightning</color>. The <color=#4273FF>Shaman</color> fires a ball
-
-      of
-      lightning that bounces between
-
-      all heroes. Line it up to hit
-
-      the
-      boss multiple times.'
-    TutorialPageObjectLocation: {x: 0, y: 0}
-    TutorialPageObject: {fileID: 0}
-    TutorialPageCharacterTutorial:
-      TutorialCharacterIconLocation: {x: 0, y: -65}
-      TutorialCharacterIconScaleMultiplier: 1
-      TutorialPageCharacterIcon: {fileID: 21300000, guid: 53c272ff603dd9d48a50f92ca834ec29, type: 3}
-      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
-  - TutorialPageTitle: Spirit Totem
-    TutorialPageTitleWidth: 740
-    DefaultTextLocation: {x: 0, y: 40}
-    DefaultText: 'The <color=#4273FF>Shaman</color>''s passive ability is
-
-      <color=#0042FF>Spirit
-      Totem</color>. The <color=#4273FF>Shaman</color> creates a totem
-
-      at
-      his location after using <color=#0042FF>Ball Lightning</color>. The
-
-      next
-      use of <color=#0042FF>Ball Lightning</color> will bounce off
-
-      of the
-      totem as well as all heroes.'
-    TutorialPageObjectLocation: {x: 0, y: 0}
-    TutorialPageObject: {fileID: 0}
-    TutorialPageCharacterTutorial:
-      TutorialCharacterIconLocation: {x: 0, y: -65}
-      TutorialCharacterIconScaleMultiplier: 1
-      TutorialPageCharacterIcon: {fileID: 21300000, guid: 8a84224464139aa4790c50fec3f988e0, type: 3}
-      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
-  _characterUnlock: {fileID: 11400000, guid: e3a0dad03ec099242b69fcc0759e259a, type: 2}
-  _missionModifierUnlock: {fileID: 0}
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 62e8a26981a4b464ea424d1c7d1ef962, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: 818d8b766be8c0d4687ee74e218b8deb, type: 3}
+  _customTutorial: {fileID: 0}
+  _characterUnlock: {fileID: 0}
+  _difficultyUnlock: 0
+  _missionModifierUnlock: {fileID: 11400000, guid: 552c5c9b813bd4f429e0c22b5df61aa5, type: 2}
   _missionUnlocks:
-  - {fileID: 11400000, guid: 891da014c2e98db41900484d53a617bc, type: 2}
+  - {fileID: 11400000, guid: 60df7f5cd6ce1b94084820bf0fd741e3, type: 2}
   _achievementUnlocks: []
-  _missionModifiers: []
+  _generalMissionUnlocks: 0
+  _missionModifiers:
+  - {fileID: 11400000, guid: 552c5c9b813bd4f429e0c22b5df61aa5, type: 2}
   _missionStatModifiers:
-    _bossHealthMultiplier: 0.8
+    _bossHealthMultiplier: 0.9
     _bossStaggerMultiplier: 1
     _bossAttackSpeedMultiplier: 1
     _bossDamageResistanceChangeOnStaggerMultiplier: 1
     _bossEnrageTimeMultiplier: 1
     _bossEnrageDamageMultiplier: 1
-    _bossAbilitiesUsable: 0101010100
+    _canBossAutomaticallyUseAbilities: 1
+    _bossAbilitiesUsable: 0101010101
     _heroHealthMultiplier: 1
     _heroDamageMultiplier: 1
     _heroStaggerMultiplier: 1

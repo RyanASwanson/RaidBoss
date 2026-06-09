@@ -45,8 +45,11 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
 
         _currentTargets = newTargets;
     }
-    
-    
+
+    private void DetermineTargetsUsingAll()
+    {
+        _currentTargets = _allTargets;
+    }
 
     private void CreateTargetZone(Vector3 location, bool isDeactivated, BlizzardTargets targets)
     {
@@ -54,7 +57,7 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
 
         foreach (GlacialLord_FrostFiend fiend in targets.GetAssociatedFiends())
         {
-            fiend.SetCurrentTargetZone(newTargetZone);
+            fiend.AddTargetZone(newTargetZone);
         }
 
         if (isDeactivated)
@@ -82,6 +85,14 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
         _setUpTargetsCounter++;
     }
 
+    private void BlizzardEndOnFrostFiends()
+    {
+        foreach (GlacialLord_FrostFiend fiend in _glacialLord.GetAllFrostFiends())
+        {
+            fiend.BlizzardEnded();
+        }
+    }
+
     private void AttemptPlayMinionsActiveAbilityPrepWind()
     {
         List<GlacialLord_FrostFiend> frostFiends = _glacialLord.GetAllFrostFiends();
@@ -102,7 +113,12 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
             AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
                 BossAbilityAudio[_abilityID].GeneralAbilityAudio[BLIZZARD_MINIONS_ACTIVE_ABILITY_PREP_WIND_AUDIO_ID]);
     }
-    
+
+    private void BossEnraged()
+    {
+        CreateEnragePreviewZones();
+        DetermineTargetsUsingAll();
+    }
     
     #region PreviewZones
 
@@ -126,9 +142,24 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
         }
     }
 
-    private void CreatePreviewZone()
+    private BlizzardPreviewGlow CreatePreviewZone()
     {
-        _currentPreviewZones.Add(Instantiate(_previewGlow, transform.position, Quaternion.identity).GetComponent<BlizzardPreviewGlow>());
+        BlizzardPreviewGlow previewGlow = Instantiate(_previewGlow, transform.position, Quaternion.identity)
+            .GetComponent<BlizzardPreviewGlow>();
+        
+        _currentPreviewZones.Add(previewGlow);
+        return previewGlow;
+    }
+
+    private void CreateEnragePreviewZones()
+    {
+        for (int i = 0; i < _allTargets.Count; i++)
+        {
+            if (_verticalTarget == (i % 2 == 0))
+            {
+                CreatePreviewZone().MovePreviewGlowToTargetLocation(_allTargets[i].GetAttackLocation());
+            }
+        }
     }
     
     #endregion
@@ -142,7 +173,6 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
         _glacialLord.GetFrostFiendSpawnedEvent().AddListener(FrostFiendSpawned);
         GameStateManager.Instance.GetStartOfBattleEvent().AddListener(CreateInitialPreviewZones);
     }
-    
 
     protected override void StartShowTargetZone()
     {
@@ -160,6 +190,11 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
             CreateTargetZone(targets.GetAttackLocation(),false, targets);
             targets.CallBlizzardAttackOnMinions();
             _activeTargets.Add(targets);
+        }
+
+        foreach (GlacialLord_FrostFiend fiend in _glacialLord.GetAllFrostFiends())
+        {
+            fiend.DetermineBlizzardStateFromSuccessCounter();
         }
 
         AttemptPlayMinionsActiveAbilityPrepWind();
@@ -189,8 +224,13 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
 
     protected override void AbilityDurationEnded()
     {
-        DetermineTargets(true);
-        SetPreviewZoneLocations();
+        if (!BossStats.Instance.GetIsBossEnraged())
+        {
+            DetermineTargets(true);
+            SetPreviewZoneLocations();
+        }
+
+        BlizzardEndOnFrostFiends();
     }
     
 
@@ -204,8 +244,34 @@ public class SBA_Blizzard : SpecificBossAbilityFramework
                 return;
             }
         }
+    }
+    
+    public override void StopBossAbility()
+    {
+        BlizzardEndOnFrostFiends();
+        base.StopBossAbility();
+    }
+
+    public override void SubscribeToEvents()
+    {
+        if (_isSubscribedToEvents)
+        {
+            return;
+        }
         
+        _myBossBase.GetBossEnragedEvent().AddListener(BossEnraged);
+        base.SubscribeToEvents();
+    }
+
+    public override void UnsubscribeFromEvents()
+    {
+        if (!_isSubscribedToEvents)
+        {
+            return;
+        }
         
+        _myBossBase.GetBossEnragedEvent().RemoveListener(BossEnraged);
+        base.UnsubscribeFromEvents();
     }
 
     #endregion
@@ -252,7 +318,7 @@ public class BlizzardTargets
     {
         foreach (GlacialLord_FrostFiend fiend in _associatedFiends)
         {
-            fiend.BlizzardAttack();
+            fiend.BlizzardGroupAttackSucceeded();
             fiend.PlayBlizzardMinionEffect(_attackLocation);
         }
     }
@@ -263,7 +329,7 @@ public class BlizzardTargets
         {
             if(!fiend.IsMinionFrozen())
             {
-                fiend.BlizzardFailed();
+                fiend.BlizzardGroupAttackFailed();
                 fiend.PlayBlizzardMinionEffect(_attackLocation);
             }
         }

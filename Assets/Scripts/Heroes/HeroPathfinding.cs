@@ -9,6 +9,13 @@ using UnityEngine.AI;
 /// </summary>
 public class HeroPathfinding : HeroChildrenFunctionality
 {
+    [SerializeField] private float _forceStopSpeedMultiplier;
+    [SerializeField] private float _forceStopDistanceFromEnd;
+    [SerializeField] private float _timeSpentUnderForceStopSpeedToStop;
+    private float _forceStopSpeed;
+    private float _currentTimeSpentUnderForceStopSpeed;
+    
+    [Space]
     [SerializeField] private GameObject _rotationObject;
     [SerializeField] private float _rotateSpeedMultiplier;
 
@@ -20,6 +27,22 @@ public class HeroPathfinding : HeroChildrenFunctionality
     private Coroutine _heroMovementCoroutine = null;
     private bool _isHeroUsingMovementAbility = false;
 
+    
+    private void HeroDied()
+    {
+        StartMovingCoroutine();
+        StopAbilityToMove();
+        _meshAgent.enabled = false;
+    }
+    
+    #region Movement
+
+    public void SetUpMovement(float moveSpeed, float angularSpeed, float acceleration)
+    {
+        SetHeroMovementValues(moveSpeed, angularSpeed, acceleration);
+        _forceStopSpeed = _forceStopSpeedMultiplier * moveSpeed;
+    }
+    
     /// <summary>
     /// Makes a player walk to a destination
     /// </summary>
@@ -40,18 +63,24 @@ public class HeroPathfinding : HeroChildrenFunctionality
     private void StartMovingCoroutine()
     {
         // Checks if the hero is already moving
-        if (!_heroMovementCoroutine.IsUnityNull())
-        {
-            // Stop their current movement so the new movement can take its place
-            StopCoroutine(_heroMovementCoroutine);
-        }
-        else
+        if (!StopMovingCoroutine())
         {
             // Invoke the hero started moving event as the hero isn't moving yet
             _myHeroBase.InvokeHeroStartedMovingEvent();
         }
         
         _heroMovementCoroutine = StartCoroutine(MovingOnNavMesh());
+    }
+
+    private bool StopMovingCoroutine()
+    {
+        if (!_heroMovementCoroutine.IsUnityNull())
+        {
+            StopCoroutine(_heroMovementCoroutine);
+            return true;
+        }
+
+        return false;
     }
 
     public void BriefStopCurrentMovement()
@@ -69,8 +98,6 @@ public class HeroPathfinding : HeroChildrenFunctionality
         {
             _meshAgent.isStopped = false;
         }
-
-        
     }
 
     public void StopAbilityToMove()
@@ -84,7 +111,10 @@ public class HeroPathfinding : HeroChildrenFunctionality
     {
         HeroStats heroStats = _myHeroBase.GetHeroStats();
 
-        if (heroStats.IsHeroDead()) return;
+        if (heroStats.IsHeroDead())
+        {
+            return;
+        }
 
         _meshAgent.speed = heroStats.GetCurrentSpeed();
         _meshAgent.angularSpeed = heroStats.GetAngularSpeed();
@@ -99,13 +129,23 @@ public class HeroPathfinding : HeroChildrenFunctionality
     {
         StopHeroLookAt();
         _meshAgent.autoRepath = true;
+        _currentTimeSpentUnderForceStopSpeed = 0;
 
         yield return new WaitForEndOfFrame();
         
         while(!gameObject.IsUnityNull() && _meshAgent.hasPath )
         {
             yield return null;
-
+            
+            if (_meshAgent.remainingDistance < _forceStopDistanceFromEnd && _meshAgent.velocity.sqrMagnitude < _forceStopSpeed)
+            {
+                _currentTimeSpentUnderForceStopSpeed += Time.deltaTime;
+                if (_currentTimeSpentUnderForceStopSpeed > _timeSpentUnderForceStopSpeedToStop)
+                {
+                    BriefStopCurrentMovement();
+                }
+            }
+            
             if (_meshAgent.pathStatus == NavMeshPathStatus.PathInvalid ||
                 _meshAgent.pathStatus == NavMeshPathStatus.PathPartial)
             {
@@ -118,12 +158,13 @@ public class HeroPathfinding : HeroChildrenFunctionality
         
         HeroLookAtBoss();
     }
+    #endregion
 
     #region Hero Rotation
     /// <summary>
     /// Rotates the hero to look in the direction of the boss
     /// </summary>
-    private void HeroLookAtBoss()
+    public void HeroLookAtBoss()
     {
         HeroLookAt(BossBase.Instance.transform.position);
     }
@@ -134,6 +175,8 @@ public class HeroPathfinding : HeroChildrenFunctionality
     /// <param name="lookLocation"> The location to look at </param>
     public void HeroLookAt(Vector3 lookLocation)
     {
+        StopHeroLookAt();
+        
         _heroRotationCoroutine = StartCoroutine(LookAtProcess(lookLocation));
     }
 
@@ -181,10 +224,11 @@ public class HeroPathfinding : HeroChildrenFunctionality
     #endregion
 
     #region Base Hero
+    
     public override void SubscribeToEvents()
     {
         base.SubscribeToEvents();
-        _myHeroBase.GetHeroDiedEvent().AddListener(StopAbilityToMove);
+        _myHeroBase.GetHeroDiedEvent().AddListener(HeroDied);
     }
     #endregion
 
@@ -204,7 +248,7 @@ public class HeroPathfinding : HeroChildrenFunctionality
         _isHeroUsingMovementAbility = isUsingMovementAbility;
     }
     
-    public void OverrideHeroMovement(float moveSpeed, float angularSpeed, float acceleration)
+    public void SetHeroMovementValues(float moveSpeed, float angularSpeed, float acceleration)
     {
         _meshAgent.speed = moveSpeed;
         _meshAgent.angularSpeed = angularSpeed;

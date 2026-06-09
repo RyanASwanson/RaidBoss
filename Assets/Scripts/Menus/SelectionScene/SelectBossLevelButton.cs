@@ -10,7 +10,7 @@ using UnityEngine.UI;
 /// The button that is pressed in order to selected which boss
 /// that you are going to fight
 /// </summary>
-public class SelectBossLevelButton : MonoBehaviour, IPointerClickHandler
+public class SelectBossLevelButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private LevelSO _associatedLevel;
     [SerializeField] private bool _bossEnabled;
@@ -22,7 +22,16 @@ public class SelectBossLevelButton : MonoBehaviour, IPointerClickHandler
 
     private Color _defaultColor;
 
+    [Space]
     [SerializeField] private GameObject _lockVisuals;
+    
+    [Space]
+    [SerializeField] private CurveProgression _informationLockCurve;
+    [SerializeField] private Image _informationLockVisuals;
+    [SerializeField] private Sprite _informationLockIcon;
+    [SerializeField] private Sprite _informationUnlockIcon;
+    [SerializeField] private Color _informationLockUnlockedColor;
+    private Color _informationUnlockLockedColor;
 
     [Space] 
     [SerializeField] private CurveProgression _buttonSizeCurve;
@@ -30,8 +39,11 @@ public class SelectBossLevelButton : MonoBehaviour, IPointerClickHandler
     
     [Space] 
     [SerializeField] private ResetEventSystemSelectedObject _resetEventSystemObject;
+    [SerializeField] private ResetEventSystemSelectedObject _lockResetEventSystemObject;
     
     private bool _isInteractable = false;
+    private bool _isBossButtonHoveredOver = false;
+    private bool _isInformationLocked = false;
 
     // Start is called before the first frame update
     void Start()
@@ -44,6 +56,9 @@ public class SelectBossLevelButton : MonoBehaviour, IPointerClickHandler
         {
             UpdateFreePlayButtonInteractability();
             SetButtonBossIconVisuals();
+            
+            _informationUnlockLockedColor = _informationLockVisuals.color;
+            SetInformationLockIcon();
         }
     }
 
@@ -59,14 +74,17 @@ public class SelectBossLevelButton : MonoBehaviour, IPointerClickHandler
         _defaultColor = _iconVisuals.color;
         _iconVisuals.sprite = _associatedLevel.GetLevelBoss().GetBossIcon();
 
-        //Get the colorblock for the button
-        ColorBlock colorVar = _levelBossButton.colors;
-        //Set the highlighted color for the button to be the boss highlighted color
-        colorVar.highlightedColor = _associatedLevel.GetLevelBoss().GetBossHighlightedColor();
-        //Set the pressed color for the button to be the boss highlighted color
-        colorVar.pressedColor = _associatedLevel.GetLevelBoss().GetBossPressedColor();
-        //Sets the colorblock for the button
-        _levelBossButton.colors = colorVar;
+        if (!_levelBossButton.IsUnityNull())
+        {
+            //Get the colorblock for the button
+            ColorBlock colorVar = _levelBossButton.colors;
+            //Set the highlighted color for the button to be the boss highlighted color
+            colorVar.highlightedColor = _associatedLevel.GetLevelBoss().GetBossHighlightedColor();
+            //Set the pressed color for the button to be the boss highlighted color
+            colorVar.pressedColor = _associatedLevel.GetLevelBoss().GetBossPressedColor();
+            //Sets the colorblock for the button
+            _levelBossButton.colors = colorVar;
+        }
     }
     
     private void SetDefaultIconColor()
@@ -74,31 +92,16 @@ public class SelectBossLevelButton : MonoBehaviour, IPointerClickHandler
         _defaultColor = _iconVisuals.color;
     }
     
-    public void OnPointerClick(PointerEventData eventData)
+    /// <summary>
+    /// The button to select and deselect heroes is pressed
+    /// </summary>
+    public void SelectBossLevelLeftClicked()
     {
         if (!_isInteractable)
         {
             return;
         }
         
-        switch (eventData.button)
-        {
-            case PointerEventData.InputButton.Left:
-                SelectBossLevelLeftClicked();
-                return;
-            case PointerEventData.InputButton.Middle:
-                return;
-            case PointerEventData.InputButton.Right:
-                SelectBossLevelRightClicked();
-                return;
-        }
-    }
-
-    /// <summary>
-    /// The button to select and deselect heroes is pressed
-    /// </summary>
-    public void SelectBossLevelLeftClicked()
-    {
         if (!_buttonHasBeenPressed)
         {
             BossLevelSelect();
@@ -128,20 +131,116 @@ public class SelectBossLevelButton : MonoBehaviour, IPointerClickHandler
         _buttonHasBeenPressed = !_buttonHasBeenPressed;
     }
     
-    private void SelectBossLevelRightClicked()
+    #region Information Lock
+    public void SelectBossLevelRightClicked()
     {
+        _lockResetEventSystemObject.ResetSelectedEventSystemObject();
+        if (!_isInformationLocked)
+        {
+            InformationLockBossSelection();
+        }
+        else
+        {
+            SelectionManager.Instance.UnlockBossInformation();
+        }
+    }
+    
+    private void InformationLockBossSelection()
+    {
+        _isInformationLocked = true;
+        
+        SetInformationLockIcon();
+        
         SelectionManager.Instance.LockUnlockBossInformation(_associatedLevel.GetLevelBoss());
+        
+        SelectionManager.Instance.GetInformationUnlockedEvent().AddListener(InformationUnlockBossSelection);
+    }
+    
+    private void InformationUnlockBossSelection()
+    {
+        SelectionManager.Instance.GetInformationUnlockedEvent().RemoveListener(InformationUnlockBossSelection);
+
+        _isInformationLocked = false;
+        SetInformationLockIcon();
+
+        if (!_isBossButtonHoveredOver)
+        {
+            HideInformationLock();
+        }
     }
 
+    private void SetInformationLockIcon()
+    {
+        if (_informationLockVisuals.IsUnityNull())
+        {
+            return;
+        }
+        
+        _informationLockVisuals.sprite = _isInformationLocked ? _informationLockIcon : _informationUnlockIcon;
+        _informationLockVisuals.color = _isInformationLocked ? _informationUnlockLockedColor  : _informationLockUnlockedColor;
+    }
+    
+    private void ShowInformationLock()
+    {
+        if (_informationLockCurve.IsUnityNull())
+        {
+            return;
+        }
+        
+        _informationLockCurve.StartMovingUpOnCurve();
+    }
+
+    private void HideInformationLock()
+    {
+        if (_isInformationLocked)
+        {
+            return;
+        }
+        
+        if (_informationLockCurve.IsUnityNull())
+        {
+            return;
+        }
+        
+        _informationLockCurve.StartMovingDownOnCurve();
+    }
+    #endregion
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        SelectBossButtonHoverBegin();
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        SelectBossButtonHoverEnd();
+    }
+    
     public void SelectBossButtonHoverBegin()
     {
-        _buttonVisualsHolderSizeCurve.StartMovingUpOnCurve();
+        _isBossButtonHoveredOver = true;
+        
+        if (!_buttonVisualsHolderSizeCurve.IsUnityNull())
+        {
+            _buttonVisualsHolderSizeCurve.StartMovingUpOnCurve();
+        }
+        
+        ShowInformationLock();
+
         SelectionManager.Instance.BossHoveredOver(_associatedLevel.GetLevelBoss());
     }
 
     public void SelectBossButtonHoverEnd()
     {
-        _buttonVisualsHolderSizeCurve.StartMovingDownOnCurve();
+        _isBossButtonHoveredOver = false;
+        
+        if (!_buttonVisualsHolderSizeCurve.IsUnityNull())
+        {
+            _buttonVisualsHolderSizeCurve.StartMovingDownOnCurve();
+        }
+
+        HideInformationLock();
+        
         SelectionManager.Instance.BossNotHoveredOver(_associatedLevel.GetLevelBoss());
     }
 
@@ -180,6 +279,12 @@ public class SelectBossLevelButton : MonoBehaviour, IPointerClickHandler
         }
         
         _lockVisuals.SetActive(!interactable);
+    }
+
+    public void SetAssociatedLevel(LevelSO level)
+    {
+        _associatedLevel = level;
+        SetButtonBossIconVisuals();
     }
     #endregion
 }

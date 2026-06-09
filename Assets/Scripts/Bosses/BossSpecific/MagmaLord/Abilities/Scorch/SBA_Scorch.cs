@@ -22,7 +22,8 @@ public class SBA_Scorch : SpecificBossAbilityFramework
 
     protected override void AbilityStart()
     {
-        Instantiate(_scorch, _specificAreaTarget, Quaternion.identity);
+        Instantiate(_scorch, _specificAreaTarget, Quaternion.identity)
+            .GetComponent<GeneralBossEnrageEvent>().PerformEnrageChecks(_wasBossEnragedOnAbilityActivation);
 
         base.AbilityStart();
     }

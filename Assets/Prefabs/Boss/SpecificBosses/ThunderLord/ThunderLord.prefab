@@ -134,6 +134,7 @@ MonoBehaviour:
   _bossVisualsBase: {fileID: 1959938029746022254}
   _bossSpecificUI: {fileID: 0}
   _bossSpecificAnimator: {fileID: 369159119829130634}
+  _bossDeathAudioDelay: 0.34
   _impendingStorm: {fileID: 4229742585446162984}
   _deathVFX: {fileID: 535478365435603842, guid: 3522235b8405f8d4ea53b3e96ab950a2, type: 3}
 --- !u!1 &5828132170197320695
@@ -192,6 +193,7 @@ MonoBehaviour:
   _targetZoneDuration: 4
   _abilityWindUpTime: 4
   _timeUntilNextAbility: 8.5
+  _minimumTimeUntilNextAbility: 6
   _hasAbilityDuration: 0
   _abilityDuration: 3.5
   _delayedIndividualTargetZoneRemovalTime: 0
@@ -229,6 +231,7 @@ MonoBehaviour:
   _targetZoneDuration: 3
   _abilityWindUpTime: 3
   _timeUntilNextAbility: 7
+  _minimumTimeUntilNextAbility: 4.5
   _hasAbilityDuration: 0
   _abilityDuration: 0
   _delayedIndividualTargetZoneRemovalTime: 0
@@ -259,9 +262,10 @@ MonoBehaviour:
   _doesBossFollowTarget: 0
   _specificAreaTarget: {x: 0, y: -0.75, z: 0}
   _specificLookTarget: {x: 0, y: 0, z: -1}
-  _targetZoneDuration: 4
-  _abilityWindUpTime: 4
-  _timeUntilNextAbility: 8.25
+  _targetZoneDuration: 3.75
+  _abilityWindUpTime: 3.75
+  _timeUntilNextAbility: 8
+  _minimumTimeUntilNextAbility: 4.6
   _hasAbilityDuration: 0
   _abilityDuration: 0
   _delayedIndividualTargetZoneRemovalTime: 0
@@ -297,6 +301,7 @@ MonoBehaviour:
   _targetZoneDuration: 3
   _abilityWindUpTime: 3
   _timeUntilNextAbility: 7
+  _minimumTimeUntilNextAbility: 4
   _hasAbilityDuration: 0
   _abilityDuration: 0
   _delayedIndividualTargetZoneRemovalTime: 0
@@ -330,6 +335,7 @@ MonoBehaviour:
   _targetZoneDuration: 0
   _abilityWindUpTime: 0
   _timeUntilNextAbility: 0
+  _minimumTimeUntilNextAbility: 0
   _hasAbilityDuration: 0
   _abilityDuration: 0
   _delayedIndividualTargetZoneRemovalTime: 0
@@ -341,13 +347,51 @@ MonoBehaviour:
   _animationTriggerName: 
   _abilityPrepAudioDelay: 0
   _abilityStartAudioDelay: 0
+  _doesStopPassiveOnStagger: 1
   _baseRotationSpeed: 3.25
   _difficultyRotationMultiplier:
   - 1
   - 1
   - 1
   - 1
-  _maxBossHealthRotationMultiplier: 1.25
+  _overchargeRotationSpeedMultiplier: 1
+  _overchargeRotationDecayTime: 1
+  _enrageOverchargeEnrageSpeedMultiplierFlatIncrease: 1.5
+  _enrageOverchargeRotationDecayTime: 3.75
+  _overchargeDecayCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.45
+      value: 0.82
+      inSlope: -0.8205445
+      outSlope: -0.8205445
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -1
+      outSlope: -1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _maxBossHealthRotationMultiplier: 1.2
   _bossHealthRotationMultiplierCurve:
     serializedVersion: 2
     m_Curve:
@@ -379,6 +423,7 @@ MonoBehaviour:
   _attackSpawnOffset: 1.35
   _impendingStormTargetZone: {fileID: 4420273998558425968, guid: 73533755deba99a448f8b928b2333e51, type: 3}
   _impendingStormProjectile: {fileID: 7473947792879290714, guid: d73ce7ebc07b08e43a50b76e436b843e, type: 3}
+  _overchargeAbility: {fileID: 3735870002245042852}
 --- !u!1 &5840844531538604685
 GameObject:
   m_ObjectHideFlags: 0

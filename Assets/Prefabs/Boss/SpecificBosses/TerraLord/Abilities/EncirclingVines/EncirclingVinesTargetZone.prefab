@@ -31,8 +31,8 @@ Transform:
   m_GameObject: {fileID: 781978710473251967}
   m_LocalRotation: {x: -0, y: 0.38268343, z: -0, w: 0.92387956}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.10000001, y: 0.1, z: 0.10000001}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 0.10000001, y: 0.09, z: 0.10000001}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2052651866090251964}
   m_RootOrder: 0
@@ -185,7 +185,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 475ff4c5aed64074a851089e467f6afd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bossTargetZone: []
+  _bossTargetZone:
+  - {fileID: 3691589586282383721}
 --- !u!114 &3116877292814421530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,6 +203,7 @@ MonoBehaviour:
   _doesDisableOnStart: 0
   _doesHideAfterStopFollowing: 0
   _doesDestroyAfterStopFollowing: 0
+  _destroyFollowDelay: 0
   _doesSetRotationOnFollowStart: 0
   _followStartEulerAngles: {x: 0, y: 0, z: 0}
   _followLocationOffset: {x: 0, y: -0.5, z: 0}
@@ -215,6 +217,21 @@ MonoBehaviour:
   _onFollowStop:
     m_PersistentCalls:
       m_Calls: []
+  _onFollowObjectMissing:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -3126569099446140452}
+        m_TargetAssemblyTypeName: BossTargetZoneParent, Assembly-CSharp
+        m_MethodName: RemoveBossTargetZones
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &8198313977416099936
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -285,6 +302,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7906694626514013916, guid: 246c2215125a93d49b05e3888d0d50af, type: 3}
   m_PrefabInstance: {fileID: 8198313977416099936}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3691589586282383721 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4827130972294422793, guid: 246c2215125a93d49b05e3888d0d50af, type: 3}
+  m_PrefabInstance: {fileID: 8198313977416099936}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bde5517895593f41886eb06a2a43fd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &6077048277752508574 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2706733840278739198, guid: 246c2215125a93d49b05e3888d0d50af, type: 3}

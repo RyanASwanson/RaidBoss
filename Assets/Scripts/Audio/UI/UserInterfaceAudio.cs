@@ -30,10 +30,26 @@ public class SelectionSceneUserInterfaceAudio
 {
     public SpecificAudio BossSelected;
     
+    public SpecificAudio BossDeselected;
+    
+    
+    [Space]
+    public SpecificAudio HeroSelected;
+    
+    public SpecificAudio HeroDeselected;
+    
+    [Space]
+    public SpecificAudio SelectionInformationLocked;
+
+    public SpecificAudio SelectionInformationUnlocked;
+    
+    [Space]
     public SpecificAudio[] DifficultySelected;
     
-    public SpecificAudio HeroSelected;
-
+    public SpecificAudio GeneralMissionModifierSelected;
+    
+    public SpecificAudio GeneralMissionModifierDeselected;
+    
     [Space] 
     public SpecificAudio ScrollOpenStart;
 }
@@ -44,6 +60,10 @@ public class GameplayUserInterfaceAudio
     public SpecificAudio BattleWon;
     
     public SpecificAudio BattleLost;
+
+    public SpecificAudio BattlePaused;
+    
+    public SpecificAudio BattleUnpaused;
 }
 
 [System.Serializable]

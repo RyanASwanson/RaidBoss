@@ -16,13 +16,15 @@ public class GlacialLord_FrostFiend : BossMinionBase
     [SerializeField] private GameObject _frozenEffectBase;
 
     [Space] 
-    [SerializeField] private float _timeFreezeCrackedAtEnd;
+    [Range(0,1)][SerializeField] private float _freezeProgressRequiredForIceCrack;
     [SerializeField] private GameObject _frozenEffect;
     [SerializeField] private GameObject _frozenEffectCracked;
     [SerializeField] private ParticleSystem _frozenEffectCrackedVFX;
     
     [Space]
-    [SerializeField] private GeneralVFXFunctionality _blizzardVFXFunctionality;
+    [SerializeField] private GeneralVFXFunctionality[] _blizzardVFXFunctionality;
+    private int _blizzardVFXUsed = 0;
+    private int _blizzardSucessCounter = 0;
     
     [Space]
     [SerializeField] private Animator _frostFiendAnimator;
@@ -38,15 +40,14 @@ public class GlacialLord_FrostFiend : BossMinionBase
     
     private bool _isMinionFrozen;
     private static float _freezeDuration;
-    private static float _timeBeforeFreezeCrack;
     
     private float _timeFrozen = 0;
     private bool _isFreezeCracked = false;
     private Coroutine _frozenCoroutine;
     
     private UnityEvent _onMinionFrozen = new UnityEvent();
-
-    private BossTargetZoneParent _currentTargetZone;
+    
+    private List<BossTargetZoneParent> _currentTargetZones = new List<BossTargetZoneParent>();
 
     private const int FROST_FIEND_ABILITY_ID = 4;
     
@@ -56,34 +57,71 @@ public class GlacialLord_FrostFiend : BossMinionBase
 
     private bool _hasFrostFiendAttacked = false;
 
-    public void AdditionalSetUp(float freezeDuration)
+    public void SetUpMinionFreezeDuration(float freezeDuration)
     {
         _freezeDuration = freezeDuration;
-        _timeBeforeFreezeCrack = freezeDuration - _timeFreezeCrackedAtEnd;
     }
 
-    public void BlizzardAttack()
+    public void BlizzardGroupAttackSucceeded()
+    {
+        _blizzardSucessCounter++;
+    }
+
+    public void BlizzardGroupAttackFailed()
+    {
+        _blizzardSucessCounter--;
+    }
+
+    public void DetermineBlizzardStateFromSuccessCounter()
+    {
+        if (_isMinionFrozen)
+        {
+            return;
+        }
+        
+        if (_blizzardSucessCounter >= 0)
+        {
+            BlizzardAttack();
+            return;
+        }
+        BlizzardFailed();
+    }
+    
+    private void BlizzardAttack()
     {
         BlizzardAttackAnim();
     }
 
-    public void BlizzardFailed()
+    private void BlizzardFailed()
     {
         BlizzardFailedAnim();
-
     }
 
     public void PlayBlizzardMinionEffect(Vector3 targetLocation)
     {
-        _blizzardVFXFunctionality.transform.LookAt(targetLocation);
-        _blizzardVFXFunctionality.transform.eulerAngles = new Vector3(0, _blizzardVFXFunctionality.transform.eulerAngles.y, 0);
+        _blizzardVFXFunctionality[_blizzardVFXUsed].transform.LookAt(targetLocation);
+        _blizzardVFXFunctionality[_blizzardVFXUsed].transform.eulerAngles = new Vector3(0, _blizzardVFXFunctionality[_blizzardVFXUsed].transform.eulerAngles.y, 0);
 
-        _blizzardVFXFunctionality.PlayAllParticleSystems();
+        _blizzardVFXFunctionality[_blizzardVFXUsed].PlayAllParticleSystems();
+        _blizzardVFXUsed++;
+    }
+
+    public void BlizzardEnded()
+    {
+        ResetTargetZones();
+        _blizzardVFXUsed = 0;
+        _blizzardSucessCounter = 0;
     }
 
     public void FrostbiteAttack()
     {
         FrostbiteAttackAnim();
+        GeneralMinionAttack();
+    }
+
+    private void GeneralMinionAttack()
+    {
+        ResetTargetZones();
     }
 
     public void FrostFiendDeath()
@@ -91,9 +129,14 @@ public class GlacialLord_FrostFiend : BossMinionBase
         DeathAnim();
     }
 
-    public void SetCurrentTargetZone(BossTargetZoneParent target)
+    public void AddTargetZone(BossTargetZoneParent target)
     {
-        _currentTargetZone = target;
+        _currentTargetZones.Add(target);
+    }
+
+    public void ResetTargetZones()
+    {
+        _currentTargetZones.Clear();
     }
 
     #region Freezing
@@ -115,10 +158,7 @@ public class GlacialLord_FrostFiend : BossMinionBase
         _isMinionFrozen = true;
         InvokeOnMinionFrozen();
 
-        if (!_currentTargetZone.IsUnityNull())
-        {
-            _currentTargetZone.SetTargetZoneDeactivatedStatesOfAllTargetZones(true);
-        }
+        DeactivateAssociatedTargetZones();
         
         _isFreezeCracked = false;
         CrackFreezeEffect(_isFreezeCracked);
@@ -131,6 +171,18 @@ public class GlacialLord_FrostFiend : BossMinionBase
 
         return true;
     }
+
+    private void DeactivateAssociatedTargetZones()
+    {
+        foreach (BossTargetZoneParent targetZone in _currentTargetZones)
+        {
+            if (targetZone.IsUnityNull())
+            {
+                continue;
+            }
+            targetZone.SetTargetZoneDeactivatedStatesOfAllTargetZones(true);
+        }
+    }
     
 
     private IEnumerator FreezeProcess()
@@ -138,13 +190,14 @@ public class GlacialLord_FrostFiend : BossMinionBase
         _timeFrozen = 0;
         while (_timeFrozen < _freezeDuration)
         {
-            if (!_isFreezeCracked && _timeFrozen > _timeBeforeFreezeCrack)
+            if (!_isFreezeCracked && (_timeFrozen/_freezeDuration > _freezeProgressRequiredForIceCrack))
             {
                 _isFreezeCracked = true;
                 CrackFreezeEffect(_isFreezeCracked);
                 _frozenEffectCrackedVFX.Play();
                 PlayMinionFreezeCrackedAudio();
             }
+            
             _timeFrozen +=  SB_GlacialLord.Instance.GetMinionUnfreezeSpeedMultiplier() * Time.deltaTime;
             
             float scaleProgress = Mathf.Lerp(_frozenMaxScaleOverFreeze, _frozenMinScaleOverFreeze, _timeFrozen / _freezeDuration);
@@ -221,6 +274,12 @@ public class GlacialLord_FrostFiend : BossMinionBase
     private void BlizzardFailedAnim()
     {
         _frostFiendAnimator.SetTrigger(_fiendBlizzardFailedAnimTrigger);
+    }
+
+    private void ResetBlizzardAnims()
+    {
+        _frostFiendAnimator.ResetTrigger(_fiendBlizzardAnimTrigger);
+        _frostFiendAnimator.ResetTrigger(_fiendBlizzardFailedAnimTrigger);
     }
 
     private void FrostbiteAttackAnim()

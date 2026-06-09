@@ -9,7 +9,7 @@ using UnityEngine.UI;
 /// The button that is pressed in order to selected a specific hero
 ///     to add them to your team
 /// </summary>
-public class SelectHeroButton : MonoBehaviour, IPointerClickHandler
+public class SelectHeroButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private HeroSO _associatedHero;
 
@@ -23,7 +23,16 @@ public class SelectHeroButton : MonoBehaviour, IPointerClickHandler
     [SerializeField] private Image _bestDifficultyBeatenIcon;
     [SerializeField] private TextWithBackground _mythicPlusLevelText;
 
+    [Space]
     [SerializeField] private GameObject _lockVisuals;
+    
+    [Space]
+    [SerializeField] private CurveProgression _informationLockCurve;
+    [SerializeField] private Image _informationLockVisuals;
+    [SerializeField] private Sprite _informationLockIcon;
+    [SerializeField] private Sprite _informationUnlockIcon;
+    [SerializeField] private Color _informationLockUnlockedColor;
+    private Color _informationUnlockLockedColor;
 
     [Space] 
     [SerializeField] private CurveProgression _buttonSizeCurve;
@@ -31,10 +40,12 @@ public class SelectHeroButton : MonoBehaviour, IPointerClickHandler
 
     [Space] 
     [SerializeField] private ResetEventSystemSelectedObject _resetEventSystemObject;
+    [SerializeField] private ResetEventSystemSelectedObject _lockResetEventSystemObject;
 
     private bool _isInteractable = false;
-
-
+    private bool _isHeroButtonHoveredOver = false;
+    private bool _isInformationLocked = false;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -46,6 +57,8 @@ public class SelectHeroButton : MonoBehaviour, IPointerClickHandler
         {
             UpdateFreePlayButtonInteractability();
             SetButtonHeroIconVisuals();
+            _informationUnlockLockedColor = _informationLockVisuals.color;
+            SetInformationLockIcon();
         }
     }
 
@@ -83,32 +96,17 @@ public class SelectHeroButton : MonoBehaviour, IPointerClickHandler
         _iconVisuals.sprite = null;
         _iconVisuals.color = _defaultColor;
     }
-
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        if (!_isInteractable)
-        {
-            return;
-        }
-        
-        switch (eventData.button)
-        {
-            case PointerEventData.InputButton.Left:
-                SelectHeroButtonLeftClicked();
-                return;
-            case PointerEventData.InputButton.Middle:
-                return;
-            case PointerEventData.InputButton.Right:
-                SelectHeroButtonRightClicked();
-                return;
-        }
-    }
     
     /// <summary>
     /// The button to select and deselect heroes is pressed
     /// </summary>
     public void SelectHeroButtonLeftClicked()
     {
+        if (!_isInteractable)
+        {
+            return;
+        }
+        
         if (!_buttonHasBeenPressed)
         {
             //Prevent button press at max heroes just in case
@@ -126,25 +124,127 @@ public class SelectHeroButton : MonoBehaviour, IPointerClickHandler
         _buttonHasBeenPressed = !_buttonHasBeenPressed;
     }
 
-    private void SelectHeroButtonRightClicked()
+    #region Information Lock
+    public void SelectHeroButtonRightClicked()
     {
-        InformationLockHeroSelection();
+        _lockResetEventSystemObject.ResetSelectedEventSystemObject();
+        if (!_isInformationLocked)
+        {
+            InformationLockHeroSelection();
+        }
+        else
+        {
+            SelectionManager.Instance.UnlockHeroInformation();
+        }
     }
 
-    public void InformationLockHeroSelection()
+    private void InformationLockHeroSelection()
     {
+        _isInformationLocked = true;
+        
+        SetInformationLockIcon();
+        
         SelectionManager.Instance.LockUnlockHeroInformation(_associatedHero);
+        
+        SelectionManager.Instance.GetInformationUnlockedEvent().AddListener(InformationUnlockHeroSelection);
     }
+
+    private void InformationUnlockHeroSelection()
+    {
+        SelectionManager.Instance.GetInformationUnlockedEvent().RemoveListener(InformationUnlockHeroSelection);
+
+        _isInformationLocked = false;
+        SetInformationLockIcon();
+
+        if (!_isHeroButtonHoveredOver)
+        {
+            HideInformationLock();
+        }
+    }
+
+    private void SetInformationLockIcon()
+    {
+        if (_informationLockVisuals.IsUnityNull())
+        {
+            return;
+        }
+        
+        _informationLockVisuals.sprite = _isInformationLocked ? _informationLockIcon : _informationUnlockIcon;
+        _informationLockVisuals.color = _isInformationLocked ? _informationUnlockLockedColor  : _informationLockUnlockedColor;
+    }
+    
+    private void ShowInformationLock()
+    {
+        if (_informationLockCurve.IsUnityNull())
+        {
+            return;
+        }
+        
+        _informationLockCurve.StartMovingUpOnCurve();
+    }
+
+    private void HideInformationLock()
+    {
+        if (_isInformationLocked)
+        {
+            return;
+        }
+        
+        if (_informationLockCurve.IsUnityNull())
+        {
+            return;
+        }
+        
+        _informationLockCurve.StartMovingDownOnCurve();
+    }
+    #endregion
+    
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        SelectHeroButtonHoverBegin();
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        SelectHeroButtonHoverEnd();
+    }
+    
     
     public void SelectHeroButtonHoverBegin()
     {
-        _buttonVisualsHolderSizeCurve.StartMovingUpOnCurve();
+        _isHeroButtonHoveredOver = true;
+        
+        if (!_buttonVisualsHolderSizeCurve.IsUnityNull())
+        {
+            _buttonVisualsHolderSizeCurve.StartMovingUpOnCurve();
+        }
+
+        ShowInformationLock();
+
+        if (_associatedHero.IsUnityNull())
+        {
+            return;
+        }
+
         SelectionManager.Instance.HeroHoveredOver(_associatedHero);
     }
 
     public void SelectHeroButtonHoverEnd()
     {
-        _buttonVisualsHolderSizeCurve.StartMovingDownOnCurve();
+        _isHeroButtonHoveredOver = false;
+        
+        if (!_buttonVisualsHolderSizeCurve.IsUnityNull())
+        {
+            _buttonVisualsHolderSizeCurve.StartMovingDownOnCurve();
+        }
+        
+        HideInformationLock();
+        
+        if (_associatedHero.IsUnityNull())
+        {
+            return;
+        }
+        
         SelectionManager.Instance.HeroNotHoveredOver(_associatedHero);
     }
 
@@ -205,6 +305,12 @@ public class SelectHeroButton : MonoBehaviour, IPointerClickHandler
         UpdateHeroIconColor(_defaultColor);
     }
 
+    public void ClearAssociatedHero()
+    {
+        ClearButtonHeroIconVisuals();
+        _associatedHero = null;
+    }
+
     #region Getters
     public HeroSO GetAssociatedHero() => _associatedHero;
     #endregion
@@ -227,7 +333,6 @@ public class SelectHeroButton : MonoBehaviour, IPointerClickHandler
 
         SetButtonHeroIconVisuals();
     }
-    
     
     #endregion
 }

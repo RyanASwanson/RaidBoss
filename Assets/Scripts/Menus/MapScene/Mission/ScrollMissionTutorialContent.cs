@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class ScrollMissionTutorialContent : ScrollUIContents
 {
-    [Header("Title")]
+    [Header("Title")] 
+    [SerializeField] private float _titleBackgroundWidthIncrease;
     [SerializeField] private TextWithBackground _titleText;
     [SerializeField] private RectTransform _titleBackground;
     
@@ -56,7 +57,7 @@ public class ScrollMissionTutorialContent : ScrollUIContents
         _titleText.UpdateText(_currentMission.GetTutorialPages()[_missionTutorialVisuals.GetCurrentPageID()].TutorialPageTitle);
         
         _titleBackground.sizeDelta = new Vector2(
-            _currentMission.GetTutorialPages()[_missionTutorialVisuals.GetCurrentPageID()].TutorialPageTitleWidth, 
+            _currentMission.GetTutorialPages()[_missionTutorialVisuals.GetCurrentPageID()].TutorialPageTitleWidth + _titleBackgroundWidthIncrease, 
             _titleBackground.sizeDelta.y);
         
         _missionTutorialVisuals.NewPageStartDisplay();

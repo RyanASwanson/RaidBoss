@@ -97,4 +97,9 @@ public class GeneralTranslate : MonoBehaviour
             _curveProgression.OnCurveValueChanged.RemoveListener(UpdateAccelerationCurve);
         }
     }
+    
+    #region Setters
+    public void SetSpeed(float speed) => _speed = speed;
+    public void MultiplySpeed(float speedMultiplier) => _speed *= speedMultiplier;
+    #endregion
 }

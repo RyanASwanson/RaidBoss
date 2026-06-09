@@ -48,8 +48,8 @@ MonoBehaviour:
   _healthBars:
   - {fileID: 0}
   - {fileID: 0}
-  _timeForRecentHealthDrainStart: 0.5
-  _recentHealthDrainPercentPerSecond: 0.05
+  _timeForRecentHealthDrainStart: 0.45
+  _recentHealthDrainPercentPerSecond: 0.055
   _healthChipRectTransforms: []
   _healthChipScaleCurves: []
   _healthChipLength: 148
@@ -107,6 +107,12 @@ MonoBehaviour:
     m_RotationOrder: 4
   _staggerChipRectTransforms: []
   _staggerChipScaleCurves: []
+  _staggerRecentBars: []
+  _staggerBars:
+  - {fileID: 0}
+  - {fileID: 0}
+  _timeForRecentStaggerDrainStart: 0.45
+  _recentStaggerDrainPercentPerSecond: 0.045
   _staggerChipLength: 117
   _staggerChipOffset: 0.9
   _staggerChipScaleCurve:
@@ -213,12 +219,11 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _staggerRecentBars: []
-  _staggerBars:
-  - {fileID: 0}
-  - {fileID: 0}
-  _timeForRecentStaggerDrainStart: 0.5
-  _recentStaggerDrainPercentPerSecond: 0.04
+  _enrageBackgroundTransparencyCurve: {fileID: 0}
+  _enragedColorCurve: {fileID: 0}
+  _bossEnrageBars: []
+  _bossEnrageProgressColors: []
+  _bossEnragedColors: []
   _bossSpecificUIHolder: {fileID: 0}
   _damageNumbersOrigin: {fileID: 0}
   _damageNumber: {fileID: 6326443314085953860, guid: 25457b0b01ddcfb49a04782df07d0888, type: 3}

@@ -16,7 +16,8 @@ public class SHP_ShamanManualProjectile : HeroProjectileFramework
     [SerializeField] private float _vfxLightningDuration;
     [SerializeField] private GameObject _vfxLightning;
     [SerializeField] private Transform _vfxLightningSpawnPoint;
-    //private List<GameObject> _spawnedVFXLightning
+
+    private WaitForSeconds _vfxLightningSpawnWait;
     
     [Space]
     [SerializeField] private float _targetReachedPitchIncrease;
@@ -28,7 +29,6 @@ public class SHP_ShamanManualProjectile : HeroProjectileFramework
     private float _targetReachedCounter = 0;
 
     private GeneralHeroDamageArea _damageArea;
-    private SH_Shaman _ownerShaman;
 
     /// <summary>
     /// Determines the order to go between each hero
@@ -114,12 +114,20 @@ public class SHP_ShamanManualProjectile : HeroProjectileFramework
                 {
                     ProjectileReachedTargetHero();
                 }
-                
+            }
+            else
+            {
+                _targetsNotGoneTo.Dequeue();
+                yield return null;
             }
         }
-       
-        _ownerShaman = (SH_Shaman)_mySpecificHero;
-        _ownerShaman.ActivatePassiveAbilities();
+        
+        if (!_mySpecificHero.IsUnityNull())
+        {
+            // Activates the Shaman's passive
+            _mySpecificHero.ActivatePassiveAbilities();
+        }
+        
         Destroy(gameObject);
     }
 
@@ -128,7 +136,7 @@ public class SHP_ShamanManualProjectile : HeroProjectileFramework
         while(true)
         {
             //TODO rework this to use unity VFX instead of spawning game objects
-            yield return new WaitForSeconds(_vfxLightningSpawnRate);
+            yield return _vfxLightningSpawnWait;
 
             GameObject newestLighting = Instantiate(_vfxLightning, _vfxLightningSpawnPoint.transform);
 
@@ -172,6 +180,7 @@ public class SHP_ShamanManualProjectile : HeroProjectileFramework
     public void AdditionalSetUp(GameObject totem)
     {
         _damageArea = GetComponent<GeneralHeroDamageArea>();
+        _vfxLightningSpawnWait = new WaitForSeconds(_vfxLightningSpawnRate);
         
         DetermineTargetOrder(totem);
 

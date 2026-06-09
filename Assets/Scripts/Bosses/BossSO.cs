@@ -59,6 +59,9 @@ public class BossSO : CharacterSO
     [SerializeField] private Color _bossHighlightedColor;
     [SerializeField] private Color _bossPressedColor;
     [SerializeField] private Color _bossSelectedColor;
+    
+    [SerializeField] private Color _bossUIColor;
+    [SerializeField] private Color _bossAbilityTextUIColor;
 
     [SerializeField] private Sprite _bossSelectionIcon;
 
@@ -108,6 +111,8 @@ public class BossSO : CharacterSO
     public Color GetBossHighlightedColor() => _bossHighlightedColor;
     public Color GetBossPressedColor() => _bossPressedColor;
     public Color GetBossSelectedColor() => _bossSelectedColor;
+    public Color GetBossUIColor() => _bossUIColor;
+    public Color GetBossAbilityTextUIColor() => _bossAbilityTextUIColor;
     
     public Sprite GetBossSelectionIcon() => _bossSelectionIcon;
 
@@ -124,7 +129,12 @@ public class BossSO : CharacterSO
         
         return _associatedAchievements[_bossSpecialistAchievementID];
     }
-
+    
+    public Sprite GetAbilityIconFromID(int id) => _bossAbilities[id]._abilityImage;
+    public string GetAbilityNameFromID(int id) => _bossAbilities[id]._abilityName;
+    public EBossAbilityType GetAbilityTypeFromID(int id) => _bossAbilities[id]._abilityType;
+    public string GetAbilityDescriptionFromID(int id) => _bossAbilities[id]._abilityDescription;
+    public string GetAbilityWideDescriptionFromID(int id) => _bossAbilities[id]._abilityWideDescription;
     #endregion
 }
 
@@ -132,13 +142,14 @@ public class BossSO : CharacterSO
 public class BossAbilityInformation
 {
     [TextArea(1, 2)] public string _abilityName;
-    public BossAbilityType _abilityType;
+    public EBossAbilityType _abilityType;
     [TextArea(5, 10)] public string _abilityDescription;
+    [TextArea(5, 10)] public string _abilityWideDescription;
 
     public Sprite _abilityImage;
 }
 
-public enum BossAbilityType
+public enum EBossAbilityType
 {
     Active,
     Passive,

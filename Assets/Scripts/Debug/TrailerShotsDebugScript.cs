@@ -553,12 +553,12 @@ public class TrailerShotsDebugScript : MonoBehaviour
 
         foreach (HeroBase hero in HeroesManager.Instance.GetCurrentLivingHeroes())
         {
-            hero.GetPathfinding().OverrideHeroMovement(1.2f, 80, 5f);
+            hero.GetPathfinding().SetHeroMovementValues(1.2f, 80, 5f);
             hero.GetPathfinding().AdjustNavMeshSize(.3f);
             hero.GetHeroStats().AdjustHeroHitboxSize(.25f);
         }
-        HeroesManager.Instance.GetCurrentLivingHeroes()[0].GetPathfinding().OverrideHeroMovement(1.5f, 80, 5f);
-        HeroesManager.Instance.GetCurrentLivingHeroes()[4].GetPathfinding().OverrideHeroMovement(1.5f, 80, 5f);
+        HeroesManager.Instance.GetCurrentLivingHeroes()[0].GetPathfinding().SetHeroMovementValues(1.5f, 80, 5f);
+        HeroesManager.Instance.GetCurrentLivingHeroes()[4].GetPathfinding().SetHeroMovementValues(1.5f, 80, 5f);
         
 
         //PlayerInputGameplayManager.Instance.HeroMoveIn();

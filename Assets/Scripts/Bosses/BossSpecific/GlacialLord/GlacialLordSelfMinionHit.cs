@@ -42,4 +42,9 @@ public class GlacialLordSelfMinionHit : MonoBehaviour
             return;
         }
     }
+    
+    
+    #region Setters
+    public void MultiplyHitDistance(float multiplier) => _distance *= multiplier;
+    #endregion
 }

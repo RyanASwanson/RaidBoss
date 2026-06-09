@@ -55,4 +55,10 @@ public class GeneralScale : MonoBehaviour
             _curveProgression.OnCurveValueChanged.RemoveListener(UpdateLocalScale);
         }
     }
+
+    #region Setters
+
+    public void MultiplyEndingScale(float multiplier) => _endingScale *= multiplier;
+
+    #endregion
 }

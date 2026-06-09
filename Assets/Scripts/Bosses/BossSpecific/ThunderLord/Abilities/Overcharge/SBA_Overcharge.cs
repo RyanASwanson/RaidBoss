@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SBA_Overcharge : SpecificBossAbilityFramework
 {
     [SerializeField] private GameObject _overchargeTargetZone;
     [SerializeField] private GameObject _overchargeTargetVFX;
-    
+
+    private BossTargetZoneParent _currentTargetZone;
     
     protected override void StartShowTargetZone()
     {
@@ -24,6 +26,16 @@ public class SBA_Overcharge : SpecificBossAbilityFramework
     protected override void AbilityStart()
     {
         base.AbilityStart();
-        SB_ThunderLord.Instance.GetImpendingStorm().ActivateOvercharge();
+        SB_ThunderLord.Instance.GetImpendingStorm().ActivateOvercharge(_wasBossEnragedOnAbilityActivation);
+    }
+
+    public override void StopBossAbility()
+    {
+        base.StopBossAbility();
+        
+        if (!_currentTargetZone.IsUnityNull())
+        {
+            _currentTargetZone.RemoveBossTargetZones();
+        }
     }
 }

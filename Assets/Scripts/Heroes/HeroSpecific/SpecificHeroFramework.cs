@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using FMOD.Studio;
@@ -18,11 +19,20 @@ public abstract class SpecificHeroFramework : MonoBehaviour
 
     [SerializeField] protected float _manualAbilityChargeTime;
 
-    /*[SerializeField] protected bool _doesManualAbilityHaveDuration;
-    [SerializeField] protected float _manualAbilityDuration;*/
+    [SerializeField] protected bool _doesManualAbilityHaveDuration;
+    [SerializeField] protected bool _doesManualAbilityChargeWhileActive;
+
+    [Space] 
+    [SerializeField] protected bool _isManualAbilityDurationFixed;
+    [SerializeField] protected float _manualAbilityFixedDuration;
+    protected WaitForSeconds _manualAbilityFixedWait;
+    
     protected float _manualAbilityCurrentCharge = 0;
     
     protected bool _isManualAbilityActive = false;
+
+    protected bool _canHeroChargeAbilities = true;
+    protected bool _canHeroUseAbilities = true;
 
     [Space]
     [Header("Animations")]
@@ -48,6 +58,8 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     protected Coroutine _attemptingBasicAbilitiesCoroutine;
     protected Coroutine _basicAbilityCooldownCoroutine;
     protected Coroutine _manualAbilityCooldownCoroutine;
+
+    protected bool _isSubscribedToEvents = false;
 
     #region Basic Abilities
 
@@ -78,7 +90,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         _basicAbilityCurrentCharge = 0;
         while (_basicAbilityCurrentCharge < _basicAbilityChargeTime)
         {
-            CooldownAddToBasicAbilityCharge(Time.deltaTime * _myHeroBase.GetHeroStats().GetBasicAbilityCooldownRateMultiplier());
+            CooldownAddToBasicAbilityCharge(Time.deltaTime);
             yield return null;
         }
 
@@ -87,18 +99,23 @@ public abstract class SpecificHeroFramework : MonoBehaviour
 
     protected virtual void CooldownAddToBasicAbilityCharge(float addedAmount)
     {
-        AddToBasicAbilityChargeTime(addedAmount);
+        AddToBasicAbilityChargeTime(addedAmount*_myHeroBase.GetHeroStats().GetBasicAbilityCooldownRateMultiplier());
+    }
+    
+    public virtual void AddToBasicAbilityChargeTime(float addedAmount)
+    {
+        if (!_canHeroChargeAbilities)
+        {
+            return;
+        }
+        
+        _basicAbilityCurrentCharge += addedAmount;
     }
 
     protected virtual void BasicAbilityCooldownReady()
     {
         _basicAbilityCooldownCoroutine = null;
         StartCheckingToAttemptBasicAbilities();
-    }
-
-    public virtual void AddToBasicAbilityChargeTime(float addedAmount)
-    {
-        _basicAbilityCurrentCharge += addedAmount;
     }
 
     public virtual void StartCheckingToAttemptBasicAbilities()
@@ -117,7 +134,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     
     public virtual IEnumerator CheckingToAttemptBasicAbilities()
     {
-        while (!ConditionsToActivateBasicAbilities())
+        while (!DoesMeetConditionsToActivateBasicAbilities())
         {
             yield return new WaitForFixedUpdate();
         }
@@ -131,9 +148,9 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     ///     for the basic ability to be used
     /// </summary>
     /// <returns></returns>
-    public virtual bool ConditionsToActivateBasicAbilities()
+    public virtual bool DoesMeetConditionsToActivateBasicAbilities()
     {
-        return !_myHeroBase.GetPathfinding().IsHeroMovingWithPathfinding();
+        return !_myHeroBase.GetPathfinding().IsHeroMovingWithPathfinding() && _canHeroUseAbilities;
     }
 
     protected virtual void TriggerBasicAbilityAnimation()
@@ -181,6 +198,11 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         {
             _manualAbilityChargeTime *= missionStatModifiers.GetHeroManualCooldownTimeMultiplier();
         }
+
+        if (_isManualAbilityDurationFixed)
+        {
+            _manualAbilityFixedWait = new WaitForSeconds(_manualAbilityFixedDuration);
+        }
     }
     
     /// <summary>
@@ -204,22 +226,43 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     {
         while (_manualAbilityCurrentCharge < _manualAbilityChargeTime)
         {
-            AddToManualAbilityChargeTime(Time.deltaTime * _myHeroBase.GetHeroStats().GetManualAbilityCooldownRateMultiplier());
+            CooldownAddToManualAbilityCharge(Time.deltaTime);
             yield return null;
         }
 
-        _myHeroBase.InvokeHeroManualAbilityFullyChargedEvent();
+        if (!_isManualAbilityActive)
+        {
+            ManualAbilityFullyCharged();
+        }
     }
-
+    
+    protected virtual void CooldownAddToManualAbilityCharge(float addedAmount)
+    {
+        AddToManualAbilityChargeTime(addedAmount*_myHeroBase.GetHeroStats().GetManualAbilityCooldownRateMultiplier());
+    }
+    
     public virtual void AddToManualAbilityChargeTime(float addedAmount)
     {
+        if (!_canHeroChargeAbilities)
+        {
+            return;
+        }
+        
         _manualAbilityCurrentCharge += addedAmount;
         _myHeroBase.InvokeHeroManualAbilityChargingEvent();
     }
 
+    public virtual void ManualAbilityFullyCharged()
+    {
+        StopCooldownManualAbility();
+        _manualAbilityCurrentCharge = _manualAbilityChargeTime;
+        
+        _myHeroBase.InvokeHeroManualAbilityFullyChargedEvent();
+    }
+
     public virtual void AttemptActivationOfManualAbility()
     {
-        if(_manualAbilityCurrentCharge >= _manualAbilityChargeTime)
+        if(_manualAbilityCurrentCharge >= _manualAbilityChargeTime && !_isManualAbilityActive && _canHeroUseAbilities)
         {
             ActivateManualAbilities();
         }
@@ -227,7 +270,10 @@ public abstract class SpecificHeroFramework : MonoBehaviour
 
     protected virtual void TriggerManualAbilityAnimation()
     {
-        if (!_hasManualAbilityAnimation) return;
+        if (!_hasManualAbilityAnimation)
+        {
+            return;
+        }
 
         _myHeroBase.GetHeroVisuals().TriggerManualAbilityAnimation();
         _myHeroBase.GetHeroVisuals().ResetManualAbilityAnimation(_manualAbilityAnimationDisableWait);
@@ -260,14 +306,45 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         
         PlayManualAbilityAudio();
 
-        StartCooldownManualAbility();
-
         _myHeroBase.InvokeHeroManualAbilityUsedEvent();
+
+        if (_doesManualAbilityHaveDuration)
+        {
+            if (_isManualAbilityDurationFixed)
+            {
+                StartCoroutine(FixedManualAbilityDuration());
+            }
+            
+            if (_doesManualAbilityChargeWhileActive)
+            {
+                StartCooldownManualAbility();
+            }
+        }
+        else
+        {
+            EndManualAbility();
+        }
+    }
+
+    public virtual IEnumerator FixedManualAbilityDuration()
+    {
+        yield return _manualAbilityFixedWait;
+        
+        EndManualAbility();
     }
 
     public virtual void EndManualAbility()
     {
         _isManualAbilityActive = false;
+
+        if (_manualAbilityCurrentCharge >= _manualAbilityChargeTime)
+        {
+            ManualAbilityFullyCharged();
+        }
+        else if (!_doesManualAbilityChargeWhileActive)
+        {
+            StartCooldownManualAbility();
+        }
     }
     #endregion
 
@@ -320,10 +397,13 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     public virtual void DamageBoss(float damage)
     {
         damage *= _myHeroBase.GetHeroStats().GetCurrentDamageMultiplier();
-
-        BossStats.Instance.DealDamageToBoss(damage);
-
+        
+        // Returns damage adjusted for boss damage resistance
+        damage = BossStats.Instance.DealDamageToBoss(damage);
+        
         _myHeroBase.InvokeHeroDealtDamageEvent(damage);
+        
+        _myHeroBase.GetHeroStats().AddToTotalHeroDamageDealt(damage);
     }
 
     /// <summary>
@@ -334,9 +414,12 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     {
         stagger *= _myHeroBase.GetHeroStats().GetCurrentStaggerMultiplier();
 
-        BossStats.Instance.DealStaggerToBoss(stagger);
+        // Returns stagger adjusted for boss stagger resistance if implemented
+        stagger = BossStats.Instance.DealStaggerToBoss(stagger);
 
         _myHeroBase.InvokeHeroDealtStaggerEvent(stagger);
+        
+        _myHeroBase.GetHeroStats().AddToTotalHeroStaggerDealt(stagger);
     }
 
     /// <summary>
@@ -347,7 +430,11 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     public virtual void HealTargetHero(float healing, HeroBase target)
     {
         healing *= _myHeroBase.GetHeroStats().GetCurrentHealingDealtMultiplier();
-        target.GetHeroStats().HealHero(healing);
+        
+        // Returns healing adjusted for healing resistance
+        healing = target.GetHeroStats().HealHero(healing);
+        
+        _myHeroBase.GetHeroStats().AddToTotalHeroHealingDealt(healing);
     }
 
     #endregion
@@ -358,6 +445,11 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         SetInitialValues();
         SetUpAbilities();
         SubscribeToEvents();
+    }
+
+    protected void OnDestroy()
+    {
+        UnsubscribeFromEvents();
     }
 
     private void SetInitialValues()
@@ -426,16 +518,30 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     /// </summary>
     protected virtual void SubscribeToEvents()
     {
+        if (_isSubscribedToEvents)
+        {
+            return;
+        }
+        
         GameStateManager.Instance.GetStartOfBattleEvent().AddListener(BattleStarted);
         GameStateManager.Instance.GetBattleWonEvent().AddListener(BattleWon);
         _myHeroBase.GetHeroDiedEvent().AddListener(HeroDied);
+
+        _isSubscribedToEvents = true;
     }
 
     protected virtual void UnsubscribeFromEvents()
     {
+        if (!_isSubscribedToEvents)
+        {
+            return;
+        }
+        
         GameStateManager.Instance.GetStartOfBattleEvent().RemoveListener(BattleStarted);
         GameStateManager.Instance.GetBattleWonEvent().RemoveListener(BattleWon);
         _myHeroBase.GetHeroDiedEvent().RemoveListener(HeroDied);
+
+        _isSubscribedToEvents = false;
     }
 
     #region Getters
@@ -446,5 +552,12 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     public Animator GetSpecificHeroAnimator() => _heroSpecificAnimator;
     
     public GameObject GetSpecificHeroUI() => _heroSpecificUI;
+    #endregion
+
+    #region MyRegion
+
+    public void SetCanHeroChargeAbilities(bool canHeroChargeAbilities) => _canHeroChargeAbilities = canHeroChargeAbilities;
+    public void SetCanHeroUseAbilities(bool canUseAbilities) => _canHeroUseAbilities = canUseAbilities;
+
     #endregion
 }

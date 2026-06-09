@@ -17,6 +17,13 @@ public class GeneralRotation : MonoBehaviour
     
     [Space]
     [SerializeField] private Vector3 _rotationPerSecond;
+    [SerializeField] private CurveProgression _rotationAccelerationCurve;
+    private float _rotationsPerSecondAcceleration = 1;
+    
+    [Space]
+    [SerializeField] private bool _doesUseRotateFunction = false;
+    [SerializeField] private float _rotateFunctionRotationsPerSecond;
+    [SerializeField] private Vector3 _rotateFunctionAxis;
 
     private Vector3 _storedRotation;
     
@@ -73,8 +80,16 @@ public class GeneralRotation : MonoBehaviour
         {
             ResetToDefaultRotation();
         }
+
+        if (_doesUseRotateFunction)
+        {
+            _rotationCoroutine = StartCoroutine(RotationWithRotate());
+        }
+        else
+        {
+            _rotationCoroutine = StartCoroutine(_rotationIndepedentParent.IsUnityNull() ? RotationProcess() : RotationWithParentProcess());
+        }
         
-        _rotationCoroutine = StartCoroutine(_rotationIndepedentParent.IsUnityNull() ? RotationProcess() : RotationWithParent());
     }
 
     public void StopRotation()
@@ -112,6 +127,7 @@ public class GeneralRotation : MonoBehaviour
 
     public void AddRotationWithoutParent(Vector3 rotation)
     {
+        rotation *= _rotationsPerSecondAcceleration;
         if (_doesUseLocalEulerAngles)
         {
             transform.localEulerAngles += rotation;
@@ -120,10 +136,9 @@ public class GeneralRotation : MonoBehaviour
         {
             transform.eulerAngles += rotation;
         }
-        
     }
 
-    private IEnumerator RotationWithParent()
+    private IEnumerator RotationWithParentProcess()
     {
         _storedRotation = Vector3.zero;
         while (!gameObject.IsUnityNull())
@@ -135,8 +150,22 @@ public class GeneralRotation : MonoBehaviour
 
     public void AddRotationWithParent(Vector3 rotation)
     {
-        _storedRotation += rotation;
+        _storedRotation += rotation * _rotationsPerSecondAcceleration;
         transform.localEulerAngles = -_rotationIndepedentParent.transform.eulerAngles + _storedRotation;
+    }
+
+    public IEnumerator RotationWithRotate()
+    {
+        while (!gameObject.IsUnityNull())
+        {
+            AddRotationWithRotate(_rotateFunctionAxis, _rotateFunctionRotationsPerSecond*Time.deltaTime);
+            yield return null;
+        }
+    }
+
+    public void AddRotationWithRotate(Vector3 rotateAxis, float rotateAmount)
+    {
+        transform.Rotate(rotateAxis, rotateAmount*_rotationsPerSecondAcceleration);
     }
     
     public void UpdateRotationProgress(float rotationProgress)
@@ -144,9 +173,19 @@ public class GeneralRotation : MonoBehaviour
         transform.localEulerAngles = Vector3.Lerp(_startLocalEulerAngles, _targetLocalEulerAngles, rotationProgress);
     }
 
+    public void UpdateAcceleration(float acceleration)
+    {
+        _rotationsPerSecondAcceleration = acceleration;
+    }
+
     public void SubscribeToEvents()
     {
-        if (_curveProgression)
+        if (!_rotationAccelerationCurve.IsUnityNull())
+        {
+            _rotationAccelerationCurve.OnCurveValueChanged.AddListener(UpdateAcceleration);
+        }
+        
+        if (!_curveProgression.IsUnityNull())
         {
             _curveProgression.OnCurveValueChanged.AddListener(UpdateRotationProgress);
         }
@@ -154,7 +193,12 @@ public class GeneralRotation : MonoBehaviour
 
     public void UnsubscribeFromEvents()
     {
-        if (_curveProgression)
+        if (!_rotationAccelerationCurve.IsUnityNull())
+        {
+            _rotationAccelerationCurve.OnCurveValueChanged.RemoveListener(UpdateAcceleration);
+        }
+        
+        if (!_curveProgression.IsUnityNull())
         {
             _curveProgression.OnCurveValueChanged.RemoveListener(UpdateRotationProgress);
         }
@@ -172,5 +216,9 @@ public class GeneralRotation : MonoBehaviour
         _rotationIndepedentParent = parent;
     }
 
+    #endregion
+    
+    #region Setters
+    public void MultiplyTargetLocalEulerAngles(float targetAnglesMultiplier) => _targetLocalEulerAngles *= targetAnglesMultiplier;
     #endregion
 }

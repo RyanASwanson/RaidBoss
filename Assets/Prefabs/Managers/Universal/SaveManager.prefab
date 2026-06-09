@@ -44,6 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ea2c532798b4de409293f7517997f19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _levelsInGame:
+  - {fileID: 11400000, guid: 763a87e823e4c5d4d8c9e44aa8aa4a02, type: 2}
+  - {fileID: 11400000, guid: 53e846bb7c637be46af02e5cd8741558, type: 2}
+  - {fileID: 11400000, guid: 8493e996e77df644ab18a699456b6c06, type: 2}
+  - {fileID: 11400000, guid: f4cdc78ddb5cc51429696d5d12e95a4f, type: 2}
   _bossesInGame:
   - {fileID: 11400000, guid: ae367cf30c2e683448f040b2ab293c9e, type: 2}
   - {fileID: 11400000, guid: be74862a2a733b44c8683efb08f6f861, type: 2}
@@ -63,7 +68,6 @@ MonoBehaviour:
   _missionsInGame:
   - {fileID: 11400000, guid: ef6298f4f93727e4e8b0f2c149e6f81e, type: 2}
   - {fileID: 11400000, guid: f4d416b708afb4e45a47eb872b8aa2ad, type: 2}
-  - {fileID: 11400000, guid: 4ca6bd1d159eefd4fb7c2110f515fdf5, type: 2}
   - {fileID: 11400000, guid: 969ba0805bf40174990c5c889b926c13, type: 2}
   - {fileID: 11400000, guid: fcfd0a27990972e44bfdc6fac01bea39, type: 2}
   - {fileID: 11400000, guid: 5a9388c2a2f1b0e4a85421c9ae9d644d, type: 2}
@@ -77,10 +81,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 661092f62fe15ea43acd481bcd130baf, type: 2}
   - {fileID: 11400000, guid: 73897f07d3f6333449a9c3992f854a50, type: 2}
   - {fileID: 11400000, guid: 5521ecdde3083a642b11424d27c3edee, type: 2}
-  - {fileID: 11400000, guid: cffd91f23e4165d4686fec856928674d, type: 2}
   - {fileID: 11400000, guid: c33dd51131a6981458fbc9f586272400, type: 2}
-  - {fileID: 11400000, guid: 91b3c11f531373b4e995051887c9ba79, type: 2}
+  - {fileID: 11400000, guid: cffd91f23e4165d4686fec856928674d, type: 2}
   - {fileID: 11400000, guid: 718aeed55d16f1a49a527021660d8f9d, type: 2}
+  - {fileID: 11400000, guid: 91b3c11f531373b4e995051887c9ba79, type: 2}
   - {fileID: 11400000, guid: 0d97b8018ae513f4ca2cd3f5da3f6edf, type: 2}
   - {fileID: 11400000, guid: 29e3be598c0789c4d9959d8bcda1e184, type: 2}
   - {fileID: 11400000, guid: d64e6abf63b761a448285cb798c7efad, type: 2}
@@ -90,12 +94,16 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a6a9806becdb7ae47b41d154c6ece02f, type: 2}
   - {fileID: 11400000, guid: a750330e78d71b9489893eb087d8a268, type: 2}
   - {fileID: 11400000, guid: c1ba0821228c03749b7b6e5c743f56cc, type: 2}
-  _missionModifiersInGame: []
+  _missionModifiersInGame:
+  - {fileID: 11400000, guid: 552c5c9b813bd4f429e0c22b5df61aa5, type: 2}
+  - {fileID: 11400000, guid: d77d306ec0a4d884d82eb9316c908513, type: 2}
+  - {fileID: 11400000, guid: e4353d0e1291c2c4c8f83193227aa03c, type: 2}
+  - {fileID: 11400000, guid: b34526fa2437dcd41861707b2480005c, type: 2}
   _bossesStartingUnlocked:
   - {fileID: 11400000, guid: ae367cf30c2e683448f040b2ab293c9e, type: 2}
   _heroesStartingUnlocked:
   - {fileID: 11400000, guid: fa900cf8282b2814fb9eb1a8cc860cd0, type: 2}
   _missionsStartingUnlocked:
   - {fileID: 11400000, guid: ef6298f4f93727e4e8b0f2c149e6f81e, type: 2}
-  _bossTargetZoneMaxOutlineStrength: 0.3
+  _bossTargetZoneMaxOutlineStrength: 1
   _lordOfTheElementsAchievement: {fileID: 11400000, guid: 39b37bee807837d4e9905fceddc85a17, type: 2}

@@ -16,6 +16,9 @@ public class SH_Reaper : SpecificHeroFramework
 
     [Space]
     [SerializeField] private float _deathPersistDuration;
+
+    [Space] 
+    [SerializeField] private Gradient _deathHealthUIPopUpColor; 
     
     [Space]
     [SerializeField] private GeneralVFXFunctionality _passiveActivationVFXFunctionality;
@@ -82,7 +85,11 @@ public class SH_Reaper : SpecificHeroFramework
     {
         base.ActivatePassiveAbilities();
         
+        _myHeroBase.GetHeroStats().AddDamageTakenOverrideCounter();
+        _myHeroBase.GetHeroStats().AddHealingTakenOverrideCounter();
+        
         _passiveActivationVFXFunctionality.PlayAllParticleSystems();
+        
         StartCoroutine(PassiveProcess());
     }
 
@@ -93,11 +100,26 @@ public class SH_Reaper : SpecificHeroFramework
     /// <returns></returns>
     private IEnumerator PassiveProcess()
     {
-        _myHeroBase.GetHeroStats().AddDamageTakenOverrideCounter();
-        _myHeroBase.GetHeroStats().AddHealingTakenOverrideCounter();
-        yield return new WaitForSeconds(_deathPersistDuration);
+        float progress = 0;
+        while (progress < 1)
+        {
+            progress += Time.deltaTime / _deathPersistDuration;
+            UpdatePopUpHealthUIColor(progress);
+            yield return null;
+        }
+
+        EndPassiveAbility();
+    }
+
+    private void EndPassiveAbility()
+    {
         _myHeroBase.GetHeroStats().RemoveDeathOverrideCounter();
         _myHeroBase.GetHeroStats().KillHero();
+    }
+
+    private void UpdatePopUpHealthUIColor(float progress)
+    {
+        _myHeroBase.GetHeroVisuals().SetCustomHealthPopUp(_deathHealthUIPopUpColor.Evaluate(progress),false);
     }
     #endregion
     

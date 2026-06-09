@@ -11,6 +11,7 @@ public class GeneralBossDamageArea : GeneralAbilityAreaFramework
     [Space]
     [SerializeField] private bool _canPreventReHitWithoutInitialDamage;
     [SerializeField] private float _preventReHitDuration;
+    private float _multiplicativeDamageMultiplier = 1;
 
     [Space]
 
@@ -122,7 +123,7 @@ public class GeneralBossDamageArea : GeneralAbilityAreaFramework
     /// <param name="abilityDamage"> The amount of damage being dealt </param>
     private void DealDamage(HeroBase heroBase, float abilityDamage)
     {
-        BossBase.Instance.GetSpecificBossScript().DamageHero(heroBase,abilityDamage);
+        BossBase.Instance.GetSpecificBossScript().DamageHero(heroBase,abilityDamage*_multiplicativeDamageMultiplier);
     }
 
     /// <summary>
@@ -145,5 +146,12 @@ public class GeneralBossDamageArea : GeneralAbilityAreaFramework
     
     public UnityEvent<HeroBase> GetGeneralHitEvent() => _generalHitEvent;
 
+    #endregion
+    
+    #region Setters
+    public void MultiplyDamageMultiplier(float multiplier)
+    {
+        _multiplicativeDamageMultiplier *= multiplier;
+    }
     #endregion
 }

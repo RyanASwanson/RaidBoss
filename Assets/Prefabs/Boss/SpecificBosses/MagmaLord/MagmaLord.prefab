@@ -102,6 +102,7 @@ MonoBehaviour:
   _targetZoneDuration: 3
   _abilityWindUpTime: 3
   _timeUntilNextAbility: 6.75
+  _minimumTimeUntilNextAbility: 3
   _hasAbilityDuration: 0
   _abilityDuration: 0
   _delayedIndividualTargetZoneRemovalTime: 0
@@ -137,6 +138,7 @@ MonoBehaviour:
   _targetZoneDuration: 3
   _abilityWindUpTime: 3
   _timeUntilNextAbility: 6.75
+  _minimumTimeUntilNextAbility: 3.75
   _hasAbilityDuration: 0
   _abilityDuration: 0
   _delayedIndividualTargetZoneRemovalTime: 0
@@ -170,6 +172,7 @@ MonoBehaviour:
   _targetZoneDuration: 3
   _abilityWindUpTime: 3
   _timeUntilNextAbility: 7
+  _minimumTimeUntilNextAbility: 3.7
   _hasAbilityDuration: 0
   _abilityDuration: 0
   _delayedIndividualTargetZoneRemovalTime: 0
@@ -205,6 +208,7 @@ MonoBehaviour:
   _targetZoneDuration: 3
   _abilityWindUpTime: 3
   _timeUntilNextAbility: 7
+  _minimumTimeUntilNextAbility: 3.8
   _hasAbilityDuration: 0
   _abilityDuration: 0
   _delayedIndividualTargetZoneRemovalTime: 0
@@ -237,7 +241,8 @@ MonoBehaviour:
   _specificLookTarget: {x: 0, y: 0, z: -1}
   _targetZoneDuration: 4
   _abilityWindUpTime: 4
-  _timeUntilNextAbility: 7.75
+  _timeUntilNextAbility: 7.85
+  _minimumTimeUntilNextAbility: 5.25
   _hasAbilityDuration: 0
   _abilityDuration: 0
   _delayedIndividualTargetZoneRemovalTime: 0
@@ -249,15 +254,17 @@ MonoBehaviour:
   _animationTriggerName: VolcanoAbility
   _abilityPrepAudioDelay: 0
   _abilityStartAudioDelay: 0
-  _sharedVolcanoTrackingEnrageMultiplier: 1.15
-  _sharedVolcanoTrackingEnrageScalingMultiplierIncreasePerMinute: 0.4
+  _sharedVolcanoTrackingEnrageMultiplier: 1.1
+  _sharedVolcanoTrackingEnrageScalingMultiplierIncreasePerMinute: 0.35
   _projectileDelay: 0.2
-  _impactAudioPitchIncrease: 0.3
+  _impactAudioPitchIncrease: 0.25
+  _impactMaxAudioPitchIncreases: 8
   _futureTargetZonesRequiredToActivate: 3
-  _futureTargetZonesCertainChanceToActivate: 7
-  _maxTargetZonesAllowed: 12
+  _futureTargetZonesCertainChanceToActivate: 5
+  _maxTargetZonesAllowed: 15
   _volcanoHeroTrackingObject: {fileID: 3479084661189140251, guid: 4ce92b97e440fe2489396dbc0bd466da, type: 3}
   _volcanoFutureTargetZone: {fileID: 1678602154797263835, guid: aab61dad3e5d59d469715d8b62c9a806, type: 3}
+  _futureTargetZoneVFX: {fileID: 5937030855405630525, guid: b31e520fb7a2a0b45bbb7005bbe0e635, type: 3}
   _targetZone: {fileID: 1953041730564889602, guid: c854f73f9135c2f439013660c2afab98, type: 3}
   _volcanoDamageZone: {fileID: 7816546349087960188, guid: d0d5519e062e34a41ba90cec54478c08, type: 3}
 --- !u!1 &6950114219375309769
@@ -372,6 +379,7 @@ MonoBehaviour:
   _bossVisualsBase: {fileID: 7107661798084011450}
   _bossSpecificUI: {fileID: 0}
   _bossSpecificAnimator: {fileID: 8927430472980390374}
+  _bossDeathAudioDelay: 0
   _volcano: {fileID: 4065764590218907969}
   _deathEffect: {fileID: 3027351174208574774, guid: 09f4b747b82e4c444b7da6d89f2f8962, type: 3}
 --- !u!1001 &9167238552230700712

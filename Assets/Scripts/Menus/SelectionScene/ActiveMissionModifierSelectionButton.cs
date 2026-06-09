@@ -19,14 +19,31 @@ public class ActiveMissionModifierSelectionButton : MonoBehaviour
 
     private bool _isButtonHoveredOver = false;
 
-    private void Start()
+    public void SetStartingMissionModifierStatus(bool showModifier)
+    {
+        _defaultColor = _associatedModifierImage.color;
+        if (showModifier)
+        {
+            StartingSelectedMissionModifier();
+        }
+        else
+        {
+            StartingEmptyMissionModifier();
+        }
+    }
+    
+    private void StartingSelectedMissionModifier()
+    {
+        UpdateModifierImage(false);
+    }
+
+    private void StartingEmptyMissionModifier()
     {
         SetButtonModifierIconVisuals();
     }
-
+    
     private void SetButtonModifierIconVisuals()
     {
-        _defaultColor = _associatedModifierImage.color;
         _associatedModifierImage.enabled = false;
     }
     
@@ -58,8 +75,13 @@ public class ActiveMissionModifierSelectionButton : MonoBehaviour
 
     public void UpdateHoveredModifierImage()
     {
+        UpdateSpecificModifierImage(_hoveredMissionModifier);
+    }
+
+    public void UpdateSpecificModifierImage(MissionModifierSO missionModifier)
+    {
         _associatedModifierImage.enabled = true;
-        _associatedModifierImage.sprite = _hoveredMissionModifier.GetModifierSprite();
+        _associatedModifierImage.sprite = missionModifier.GetModifierSprite();
         _associatedModifierImage.color = _hoverColor;
     }
 
@@ -75,7 +97,7 @@ public class ActiveMissionModifierSelectionButton : MonoBehaviour
         {
             return;
         }
-
+        
         SelectionController.Instance.ForceMissionModifierButtonPress(
             SelectionManager.Instance.GetCurrentMissionModifiers()[_activeMissionModifierID].GetModifierID());
 

@@ -48,7 +48,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _basicAbilityChargeTime: 4.25
-  _manualAbilityChargeTime: 20
+  _manualAbilityChargeTime: 21
+  _doesManualAbilityHaveDuration: 1
+  _doesManualAbilityChargeWhileActive: 1
+  _isManualAbilityDurationFixed: 0
+  _manualAbilityFixedDuration: 0
   _heroSpecificAnimator: {fileID: 2172733275908692571}
   _hasBasicAbilityAnimation: 1
   _hasManualAbilityAnimation: 1
@@ -57,23 +61,36 @@ MonoBehaviour:
   _manualAbilityAnimationBufferBeforeDisable: 0.25
   _passiveAbilityAnimationBufferBeforeDisable: 0.25
   _heroSpecificUI: {fileID: 0}
-  _primaryAttackEulers:
-  - {x: 0, y: 45, z: 0}
-  - {x: 0, y: 135, z: 0}
-  - {x: 0, y: 225, z: 0}
-  - {x: 0, y: 315, z: 0}
+  _basicAttackDirections:
+  - AttackEulers: {x: 0, y: 45, z: 0}
+    IsBossDirectionInPositiveX: 1
+    IsBossDirectionInPositiveZ: 1
+  - AttackEulers: {x: 0, y: 135, z: 0}
+    IsBossDirectionInPositiveX: 1
+    IsBossDirectionInPositiveZ: 0
+  - AttackEulers: {x: 0, y: 225, z: 0}
+    IsBossDirectionInPositiveX: 0
+    IsBossDirectionInPositiveZ: 0
+  - AttackEulers: {x: 0, y: 315, z: 0}
+    IsBossDirectionInPositiveX: 0
+    IsBossDirectionInPositiveZ: 1
   _projectileSpawnDistance: 0.25
   _basicProjectile: {fileID: 8998477801622210341, guid: f4b23504b8f511d49b10e0f78e70a0b4, type: 3}
-  _manualContactDamage: 8.25
-  _manualContactStagger: 1.5
+  _manualContactDamage: 9.5
+  _manualContactStagger: 1.75
   _manualDuration: 6
+  _heroManualDamageResistance: 0.5
   _accelerateTime: 1
-  _manualSpeedMultiplier: 1.8
+  _manualSpeedMultiplier: 1.9
   _manualWallDistanceRange: 0.4
-  _manualDamageCooldown: 0.3
+  _manualDamageCooldown: 0.2
   _manualBossHoming: 0.75
+  _manualHitHeroHomingChange: -0.2
+  _manualHitMapBorderHomingChange: 0.55
+  _manualHitSpawnedEnvironmentHomingChange: -0.15
+  _manualMinimumBossHoming: -0.4
   _manualMinimumDotProduct: -0.6
-  _manualWallExtents: {x: 0.35, y: 0.35, z: 0.35}
+  _manualWallExtents: {x: 0.2, y: 0.15, z: 0.2}
   _manualAudioInterval: 0.6
   _swirlVFX: {fileID: 6385816117923813334, guid: 8e2015b0e6d678a44ae747f5478b39b0, type: 3}
   _vfxWeaponSpawnRate: 0.1
@@ -86,8 +103,8 @@ MonoBehaviour:
   _bounceLayers:
     serializedVersion: 2
     m_Bits: 5440
-  _passiveBasicAttackSpeedChangeWalking: 1.65
-  _passiveBasicAttackSpeedChangeManual: 3
+  _passiveBasicAttackSpeedChangeWalking: 1.6
+  _passiveBasicAttackSpeedChangeManual: 2.4
 --- !u!95 &2172733275908692571
 Animator:
   serializedVersion: 5

@@ -28,7 +28,7 @@ MonoBehaviour:
   _heroManualAbilityIcon: {fileID: 21300000, guid: 9a9468215be2ca6488e0b159d8153429, type: 3}
   _heroPassiveAbilityIcon: {fileID: 21300000, guid: cc73c377a2f1f6d489e1fee45cb15de1, type: 3}
   _survivalStat: 3
-  _damageStat: 3
+  _damageStat: 4
   _staggerStat: 2
   _speedStat: 3
   _utilityStat: 2
@@ -39,20 +39,40 @@ MonoBehaviour:
   _heroSelectedColor: {r: 1, g: 1, b: 1, a: 1}
   _heroOutlineColor: {r: 0.91372555, g: 0.7686275, b: 0.16078432, a: 1}
   _heroUIColor: {r: 0.91372555, g: 0.7686275, b: 0.16078432, a: 1}
+  _heroAbilityTextUIColor: {r: 0.8490566, g: 0.70138675, b: 0.08276953, a: 1}
+  _heroSelectionParticleColors:
+  - {r: 0.754717, g: 0.70202446, b: 0.38210508, a: 1}
+  - {r: 0.654088, g: 0.6046511, b: 0.32704392, a: 1}
   _heroBackgroundMaterial: {fileID: 2100000, guid: fc1032b04afed854baecec7aa66be8f0, type: 2}
   _basicAbilityName: Sandblast
-  _basicAbilityDescription: 'The Mirage deals
+  _basicAbilityDescription: 'Deals damage in
 
-    damage in the
+    the center between
 
-    center between
-    it
+    the Mirage
+    and
 
-    and it''s clone'
+    it''s clone'
+  _basicAbilityWideDescription: 'Deals damage in
+
+    the center between
+
+    the
+    Mirage and
+
+    it''s clone'
   _manualAbilityName: 'Sandstone
 
     Clone'
-  _manualAbilityDescription: 'The Mirage has an
+  _manualAbilityDescription: 'The Mirage has
+
+    an everpresent
+
+    clone that
+    it switches
+
+    places with.'
+  _manualAbilityWideDescription: 'The Mirage has an
 
     everpresent clone that
 
@@ -64,10 +84,18 @@ MonoBehaviour:
     can be targeted
 
     by the
-    boss and
+    Boss and
 
     casts Sandblast
 
     when it would
 
     take damage'
+  _passiveAbilityWideDescription: 'The Mirage''s clone
+
+    can be targeted by the
+
+    Boss
+    and casts Sandblast
+
+    when it would take damage'

@@ -17,14 +17,19 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
         
     [Space]
     [SerializeField] private PotionTypes _potionType;
-    [SerializeField] private float _buffStrength;
-    [SerializeField] private float _secondaryBuffStrength;
-    [SerializeField] private float _buffDuration;
+    [SerializeField] private HeroAdjustableStatGroup _statChanges;
+    [SerializeField] private Color[] _potionPickUpColors;
+
+    [Space] 
+    [SerializeField] private float _potionPickUpEffectScale;
+    [SerializeField] private GameObject _potionPickUpVisualEffect;
+    [SerializeField] private GameObject _potionBuffFollowVisualEffect;
     
     [Space]
     [SerializeField] private GeneralHeroHealArea _healArea;
 
     [SerializeField] private CurveProgression _lifeTimeWarningCurve;
+    [SerializeField] private MeshRenderer _potionMesh;
 
     [Space]
     [SerializeField] private Animator _animator;
@@ -50,24 +55,16 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
             _potionIdleWarningWait = new WaitForSeconds(_idleLifetimeWarning);
         }
 
-        _healArea.GetEnterEvent().AddListener(PotionGeneralPickUp);
+        //_healArea.GetEnterEvent().AddListener(PotionGeneralPickUp);
+        _healArea.GetStayEvent().AddListener(PotionGeneralPickUp);
 
-        switch (_potionType)
+        if (_potionType == PotionTypes.HealingPotion)
         {
-            case (PotionTypes.DamagePotion):
-                _healArea.GetEnterEvent().AddListener(DamageBuff);
-                return;
-            case (PotionTypes.StaggerPotion):
-                _healArea.GetEnterEvent().AddListener(StaggerBuff);
-                return;
-            case (PotionTypes.SpeedPotion):
-                _healArea.GetEnterEvent().AddListener(SpeedBuff);
-                return;
-            case (PotionTypes.UtilityPotion):
-                _healArea.GetEnterEvent().AddListener(UtilityBuff);
-                return;
+            return;
         }
         
+        //_healArea.GetEnterEvent().AddListener(ApplyBuffToHero);
+        _healArea.GetStayEvent().AddListener(ApplyBuffToHero);
     }
 
     /// <summary>
@@ -105,6 +102,13 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
     {
         ActivateAlchemistPassive(collider);
         PlayPotionPickUpAudio();
+        CreatePotionPickUpEffect();
+        RemovePickedUpPotion();
+    }
+
+    private void RemovePickedUpPotion()
+    {
+        
     }
     
     /// <summary>
@@ -115,56 +119,16 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
     {
         _alchemist.ActivatePassiveAbilities(collider.transform.position);
     }
-
-    /// <summary>
-    /// Makes the potion apply a damage buff
-    /// </summary>
-    /// <param name="collider"></param>
-    private void DamageBuff(Collider collider)
+    
+    private void ApplyBuffToHero(Collider hero)
     {
-        ApplyBuffToHero(collider.GetComponentInParent<HeroBase>().GetHeroStats(),
-            HeroGeneralAdjustableStats.DamageMultiplier);
-    }
-
-    /// <summary>
-    /// Makes the potion apply a stagger buff
-    /// </summary>
-    /// <param name="collider"></param>
-    private void StaggerBuff(Collider collider)
-    {
-        ApplyBuffToHero(collider.GetComponentInParent<HeroBase>().GetHeroStats(),
-            HeroGeneralAdjustableStats.StaggerMultiplier);
-    }
-
-    /// <summary>
-    /// Makes the potion apply a speed buff
-    /// </summary>
-    /// <param name="collider"></param>
-    private void SpeedBuff(Collider collider)
-    {
-        ApplyBuffToHero(collider.GetComponentInParent<HeroBase>().GetHeroStats(),
-            HeroGeneralAdjustableStats.SpeedMultiplier);
-    }
-
-    /// <summary>
-    /// Makes the potion apply a healing buff
-    /// </summary>
-    /// <param name="collider"></param>
-    private void UtilityBuff(Collider collider)
-    {
-        ApplyBuffToHero(collider.GetComponentInParent<HeroBase>().GetHeroStats(),
-            HeroGeneralAdjustableStats.HealingRecievedMultiplier);
-    }
-
-    /// <summary>
-    /// Applies the desired buff to the target hero
-    /// </summary>
-    /// <param name="collider"></param>
-    private void ApplyBuffToHero(HeroStats heroStats, HeroGeneralAdjustableStats stat)
-    {
+        HeroBase heroBase = hero.GetComponentInParent<HeroBase>();
+        
         PlayPotionBuffActivatedAudio();
         
-        heroStats.ApplyStatChangeForDuration(stat, _buffStrength,_secondaryBuffStrength, _buffDuration);
+        CreatePotionFollowEffect(heroBase);
+        
+        heroBase.GetHeroStats().ApplyStatChangesForDuration(_statChanges);
     }
 
     /// <summary>
@@ -191,6 +155,25 @@ public class SHP_AlchemistPotion : HeroProjectileFramework
     private void PotionRemoveWarning()
     {
         _lifeTimeWarningCurve.StartMovingUpOnCurve();
+    }
+
+    private void CreatePotionPickUpEffect()
+    {
+        GeneralVFXFunctionality vfxFunctionality =
+            Instantiate(_potionPickUpVisualEffect, transform.position, Quaternion.identity)
+                .GetComponent<GeneralVFXFunctionality>();
+
+        vfxFunctionality.gameObject.transform.localScale *= _potionPickUpEffectScale;
+        vfxFunctionality.SetStartColor(_potionPickUpColors[0], _potionPickUpColors[1]);
+        vfxFunctionality.PlayAllParticleSystems();
+    }
+    private void CreatePotionFollowEffect(HeroBase heroBase)
+    {
+        AlchemistManualFollowEffect alchemistManualFollowEffect = 
+            Instantiate(_potionBuffFollowVisualEffect, heroBase.transform.position, Quaternion.identity)
+                .GetComponent<AlchemistManualFollowEffect>();
+        
+        alchemistManualFollowEffect.SetUp(heroBase.gameObject,_potionMesh.material, _statChanges.BuffDuration);
     }
 
     private void PlayPotionLandedAudio()

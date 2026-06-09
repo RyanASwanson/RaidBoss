@@ -13,10 +13,11 @@ public class SH_Vampire : SpecificHeroFramework
     [SerializeField] private GameObject _basicProjectile;
 
     [Space]
-    [SerializeField] private float _manualAbilityDuration;
     [SerializeField] private float _manualAbilityDurationWarning;
     [SerializeField] private float _manualBufferDuration;
-    [SerializeField] private float _manualAbilityHealingIncrease;
+
+    [SerializeField] private HeroAdjustableStatGroup _manualAbilityStatChanges;
+    
     private WaitForSeconds _manualBufferWait;
     private WaitForSeconds _manualAbilityWait;
     private WaitForSeconds _manualAbilityDurationWarningWait;
@@ -75,6 +76,8 @@ public class SH_Vampire : SpecificHeroFramework
     public override void ActivateManualAbilities()
     {
         base.ActivateManualAbilities();
+        
+        _myHeroBase.GetHeroStats().ApplyStatChangesToStatGroup(_manualAbilityStatChanges,1);
 
         StartCoroutine(ManualAbilityProcess());
         StartCoroutine(ManualAbilityDurationWarningTimer());
@@ -82,19 +85,13 @@ public class SH_Vampire : SpecificHeroFramework
 
     protected IEnumerator ManualAbilityProcess()
     {
-        HeroStats heroStats = _myHeroBase.GetHeroStats();
-
-        heroStats.AddDamageTakenOverrideCounter();
-        heroStats.ChangeCurrentHeroHealingReceivedMultiplier(_manualAbilityHealingIncrease);
-        
         yield return _manualBufferWait;
         
         _manualObjectEmitter.StartEmittingObject();
 
         yield return _manualAbilityWait;
 
-        heroStats.RemoveDamageTakenOverrideCounter();
-        heroStats.ChangeCurrentHeroHealingReceivedMultiplier(-_manualAbilityHealingIncrease);
+        EndManualAbility();
     }
 
     private IEnumerator ManualAbilityDurationWarningTimer()
@@ -106,6 +103,13 @@ public class SH_Vampire : SpecificHeroFramework
     private void ManualAbilityDurationWarning()
     {
         _manualLifeTimeWarningCurve.StartMovingUpOnCurve();
+    }
+
+    public override void EndManualAbility()
+    {
+        _myHeroBase.GetHeroStats().ApplyStatChangesToStatGroup(_manualAbilityStatChanges,-1);
+        
+        base.EndManualAbility();
     }
 
     #endregion
@@ -134,7 +138,6 @@ public class SH_Vampire : SpecificHeroFramework
     private IEnumerator PassiveProcess()
     {
         yield return _passiveAbilityWait;
-        //ActivatePassiveAbilities();
         CreatePassiveProjectile();
 
         _passiveProcess = null;
@@ -181,7 +184,7 @@ public class SH_Vampire : SpecificHeroFramework
         _batSpiralRotation.SetRotationIndependentParent(_myHeroBase.gameObject);
             
         _manualBufferWait = new WaitForSeconds(_manualBufferDuration);
-        _manualAbilityWait = new WaitForSeconds(_manualAbilityDuration-_manualBufferDuration);
+        _manualAbilityWait = new WaitForSeconds(_manualAbilityFixedDuration-_manualBufferDuration);
         _manualAbilityDurationWarningWait = new WaitForSeconds(_manualAbilityDurationWarning);
         _passiveAbilityWait = new WaitForSeconds(_passiveHealingDelay);
     }

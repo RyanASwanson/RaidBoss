@@ -50,6 +50,7 @@ public class BossStats : BossChildrenFunctionality
     private bool _hasEnrageImpendingBegun = false;
 
     private float _bossEnragedWarningProgress = 0;
+    private bool _canProgressBossEnrage = true;
 
     #region Set Up
     /// <summary>
@@ -105,12 +106,6 @@ public class BossStats : BossChildrenFunctionality
 
         if (SelectionManager.Instance.IsPlayingFreeMode())
         {
-            /*Debug.Log("Multipliers of level " + SelectionManager.Instance.GetMythicPlusLevel() +
-                      "    health: " + SelectionManager.Instance.GetHealthMultiplierFromMythicPlusLevel()
-                      + "    stagger: " + SelectionManager.Instance.GetStaggerMultiplierFromMythicPlusLevel()
-                      + "    damage: " + SelectionManager.Instance.GetDamageMultiplierFromMythicPlusLevel()
-                      + "    speed: " + SelectionManager.Instance.GetSpeedMultiplierFromMythicPlusLevel());*/
-            
             _bossMaxHealth *= SelectionManager.Instance.GetHealthMultiplierFromMythicPlusLevel();
 
             _bossDefaultStaggerMax *= SelectionManager.Instance.GetStaggerMultiplierFromMythicPlusLevel();
@@ -121,8 +116,9 @@ public class BossStats : BossChildrenFunctionality
         //Sets the starting health and stagger values
         _currentHealth = _bossMaxHealth;
         _currentStaggerCounter = 0;
-        
-        //Debug.Log("Stats:    health: " + _currentHealth + "    stagger: " + _bossDefaultStaggerMax + "    damage: " + _baseBossDamageMultiplier);
+
+        _storedEnrageMultiplier += 1;
+        _enrageMaxTime = _currentTimeUntilEnrage;
     }
 #endregion
 
@@ -180,7 +176,7 @@ public class BossStats : BossChildrenFunctionality
 
     private void CheckIfBossIsDead(float damage)
     {
-        if (_currentHealth <= 0)
+        if (_currentHealth <= 0 && !GameStateManager.Instance.GetIsFightOver() && !SceneLoadManager.Instance.IsSceneLoading())
         {
             BossDeath();
         }
@@ -189,6 +185,8 @@ public class BossStats : BossChildrenFunctionality
     private void BossDeath()
     {
         _isBossDead = true;
+        
+        StopEnrageTimer();
         
         GameStateManager.Instance.SetGameplayState(EGameplayStates.PostBattleWon);
     }
@@ -253,23 +251,17 @@ public class BossStats : BossChildrenFunctionality
     /// </summary>
     private void StartEnrageTimer()
     {
-        // Checks if the boss is already enraged
-        if (_isBossEnraged)
+        // Checks if the boss is already dead or enraged
+        if (_isBossDead || _isBossEnraged)
         {
             // Stop as we don't need to start the enrage timer if the boss is already enraged
             return;
         }
+
+        StopEnrageTimer();
         
-        // Checks if the enrage timer is already active
-        if (_enrageCoroutine.IsUnityNull())
-        {
-            // Start the timer as the timer isn't active yet
-            _enrageCoroutine = StartCoroutine(BossEnrageCounter());
-        }
-        else
-        {
-            Debug.LogWarning("Cannot start Enrage timer while it is already active");
-        }
+        // Start the timer as the timer isn't active yet
+        _enrageCoroutine = StartCoroutine(BossEnrageCounter());
     }
 
     /// <summary>
@@ -282,6 +274,7 @@ public class BossStats : BossChildrenFunctionality
         {
             // Stop the enrage timer
             StopCoroutine(_enrageCoroutine);
+            _enrageCoroutine = null;
         }
     }
 
@@ -300,6 +293,7 @@ public class BossStats : BossChildrenFunctionality
 
         EnrageMax();
     }
+    
 
     private void BossEnrageImpending()
     {
@@ -309,7 +303,13 @@ public class BossStats : BossChildrenFunctionality
     
     public void BeginBossEnrageWarning()
     {
+        BossEnrageWarningStartSFX();
         BossBase.Instance.InvokeBossEnrageCountdownBegunEvent();
+    }
+
+    private void BossEnrageWarningStartSFX()
+    {
+        AudioManager.Instance.PlaySpecificAudio(AudioManager.Instance.GeneralBossAudio.EnrageAudio.BossEnrageWarningStart);
     }
 
     /// <summary>
@@ -374,7 +374,7 @@ public class BossStats : BossChildrenFunctionality
     {
         _bossDamageResistanceMultiplier+= changeValue;
         
-        _bossDamageResistanceMultiplier = Mathf.Clamp(_bossDamageResistanceMultiplier, 0.001f, int.MaxValue);
+        _bossDamageResistanceMultiplier = Mathf.Clamp(_bossDamageResistanceMultiplier, 0.01f, int.MaxValue);
     }
 
     private void DecreaseBossDamageResistanceOnStagger()
@@ -426,6 +426,7 @@ public class BossStats : BossChildrenFunctionality
     
     public float GetBossDamageResistanceChangeOnStagger() => _bossDamageResistanceChangeOnStagger;
 
+    public bool GetIsBossDead() => _isBossDead;
     public bool GetIsBossStaggered() => _isBossStaggered;
     public bool GetIsBossEnraged() => _isBossEnraged;
     public float GetSecondsSpentEnraged() => _timeSpentEnraged;
@@ -440,12 +441,17 @@ public class BossStats : BossChildrenFunctionality
     #endregion
 
     #region Setters
-    public void DealDamageToBoss(float damage)
+    public float DealDamageToBoss(float damage)
     {
         // Stop if the boss is already dead
         if (_isBossDead)
         {
-            return;
+            return 0;
+        }
+        
+        if (damage <= 0)
+        {
+            return 0;
         }
         
         damage /= _bossDamageResistanceMultiplier;
@@ -453,23 +459,52 @@ public class BossStats : BossChildrenFunctionality
         _myBossBase.InvokeBossDamagedEvent(damage);
         
         AudioManager.Instance.PlaySpecificAudio(AudioManager.Instance.GeneralBossAudio.HealthStaggerAudio.BossTookDamage);
+
+        return damage;
     }
 
-    public void DealStaggerToBoss(float stagger)
+    public void DealDamageToBossFromNonHeroSource(float damage)
+    {
+        DealDamageToBoss(damage);
+    }
+
+    public float DealStaggerToBoss(float stagger)
     {
         // Stop if the boss is already dead or staggered
         if (_isBossDead || _isBossStaggered)
         {
-            return;
+            return 0;
+        }
+
+        if (stagger <= 0)
+        {
+            return 0;
         }
 
         _currentStaggerCounter += stagger;
         _myBossBase.InvokeBossStaggerDealt(stagger);
         CheckIfBossIsStaggered();
+        
+        return stagger;
+    }
+    
+    public void DealStaggerToBossFromNonHeroSource(float damage)
+    {
+        DealStaggerToBoss(damage);
+    }
+
+    public void DealStaggerRequiredToStaggerBoss()
+    {
+        DealStaggerToBoss(_bossDefaultStaggerMax - _currentStaggerCounter);
     }
 
     public void DecreaseTimeUntilEnraged(float enrageTime)
     {
+        if (!_canProgressBossEnrage)
+        {
+            return;
+        }
+        
         _currentTimeUntilEnrage -= enrageTime;
         _timeUntilEnrageProgress = 1 - (_currentTimeUntilEnrage / _enrageMaxTime);
         _myBossBase.InvokeBossEnrageProgressUpdatedEvent(_timeUntilEnrageProgress);
@@ -494,7 +529,7 @@ public class BossStats : BossChildrenFunctionality
         }
     }
 
-    public void MultiplyBossDamageMultiplier(float amount)
+    public void MultiplyBaseBossDamageMultiplier(float amount)
     {
         _baseBossDamageMultiplier *= amount;
     }
@@ -507,5 +542,9 @@ public class BossStats : BossChildrenFunctionality
     public float SetBossMaxHealth(float value) => _bossMaxHealth = value;
     public float SetBossMaxStagger(float value) => _bossDefaultStaggerMax = value;
     public float SetBossDamageResistanceChangeOnStagger(float value) => _bossDamageResistanceChangeOnStagger = value;
+    public void AddBossDamageResistanceChangeOnStagger(float value) => _bossDamageResistanceChangeOnStagger += value;
+    public void MultiplyBossDamageResistanceChangeOnStagger(float value) => _bossDamageResistanceChangeOnStagger *= value;
+    
+    public void SetCanProgressBossEnrage(bool canProgressEnrage) => _canProgressBossEnrage = canProgressEnrage;
     #endregion
 }

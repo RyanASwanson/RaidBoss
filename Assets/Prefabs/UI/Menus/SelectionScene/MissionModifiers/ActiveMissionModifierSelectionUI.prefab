@@ -153,6 +153,8 @@ MonoBehaviour:
   _doesResetToDefaultProgressOnEnable: 1
   _doesStartMovingUpOnEnable: 0
   _doesStartMovingInCurrentDirectionOnEnable: 0
+  _hasAutomaticStartMovingDelay: 0
+  _automaticStartMovingDelay: 0
   _doesAutomaticallyMoveDownOnHittingMax: 0
   _doesAutomaticallyMoveUpOnHittingMin: 0
   _hasIncreaseDelay: 0
@@ -486,8 +488,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _curveName: SelectedScale
-  _curveIncreaseTime: 0.25
-  _curveDecreaseTime: 0.25
+  _curveIncreaseTime: 0.15
+  _curveDecreaseTime: 0.15
   _minCurveValue: 0
   _maxCurveValue: 1
   _hasDefaultValue: 0
@@ -495,6 +497,8 @@ MonoBehaviour:
   _doesResetToDefaultProgressOnEnable: 0
   _doesStartMovingUpOnEnable: 0
   _doesStartMovingInCurrentDirectionOnEnable: 0
+  _hasAutomaticStartMovingDelay: 0
+  _automaticStartMovingDelay: 0
   _doesAutomaticallyMoveDownOnHittingMax: 1
   _doesAutomaticallyMoveUpOnHittingMin: 0
   _hasIncreaseDelay: 0

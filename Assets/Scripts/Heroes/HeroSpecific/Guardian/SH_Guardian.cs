@@ -12,9 +12,7 @@ public class SH_Guardian : SpecificHeroFramework
     [SerializeField] private GameObject _basicProjectile;
     
     [Space]
-    [SerializeField] private float _heroManualAbilityDuration;
     [Range(0,1)][SerializeField] private float _heroManualDamageResistance;
-    private WaitForSeconds _heroManualAbilityWait;
 
     [SerializeField] private GameObject _tauntVfxObject;
     private CurveProgression _currentTauntVfx;
@@ -55,28 +53,23 @@ public class SH_Guardian : SpecificHeroFramework
     public override void ActivateManualAbilities()
     {
         BossBase.Instance.GetSpecificBossScript().AddHeroOverrideAggro(_myHeroBase);
-        StartCoroutine(ManualDuration());
-
-        base.ActivateManualAbilities();
-    }
-
-    private IEnumerator ManualDuration()
-    {
-        //_heroManualDamageResistance
         _myHeroBase.GetHeroStats().ChangeCurrentHeroDamageResistance(_heroManualDamageResistance);
 
         if (!_currentTauntVfx.IsUnityNull())
         {
             _currentTauntVfx.StartMovingUpOnCurve();
         }
-        
-        yield return _heroManualAbilityWait;
 
-        ManualEnded();
+        base.ActivateManualAbilities();
     }
 
-    private void ManualEnded()
+    public override void EndManualAbility()
     {
+        if (!_isManualAbilityActive)
+        {
+            return;
+        }
+        
         BossBase.Instance.GetSpecificBossScript().RemoveHeroOverrideAggro(_myHeroBase);
         
         _myHeroBase.GetHeroStats().ChangeCurrentHeroDamageResistance(-_heroManualDamageResistance);
@@ -85,6 +78,8 @@ public class SH_Guardian : SpecificHeroFramework
         {
             _currentTauntVfx.StartMovingDownOnCurve();
         }
+        
+        base.EndManualAbility();
     }
     #endregion
 
@@ -143,9 +138,6 @@ public class SH_Guardian : SpecificHeroFramework
         
         // Saves the WaitForSeconds of the passive to avoid needing to use new in the coroutine
         _heroPassiveWait = new WaitForSeconds(_heroPassiveAbilityDuration);
-        
-        // Saves the WaitForSeconds of the manual to avoid needing to use new in the coroutine
-        _heroManualAbilityWait = new WaitForSeconds(_heroManualAbilityDuration);
     }
 
     protected override void BattleStarted()
@@ -161,7 +153,7 @@ public class SH_Guardian : SpecificHeroFramework
     protected override void HeroDied()
     {
         base.HeroDied();
-        ManualEnded();
+        EndManualAbility();
     }
 
     /// <summary>

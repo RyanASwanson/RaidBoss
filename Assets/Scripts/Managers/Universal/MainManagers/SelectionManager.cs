@@ -53,7 +53,16 @@ public class SelectionManager : MainUniversalManagerFramework
     [Space]
     [SerializeField] private List<string> _difficultyNames;
     [SerializeField] private List<Sprite> _difficultyIcons;
+    [SerializeField] private Color[] _difficultyColors;
+    
+    [Space]
+    [SerializeField] private Color _basicAbilityColor;
+    [SerializeField] private Color _manualAbilityColor;
+    [SerializeField] private Color _passiveAbilityColor;
+    [SerializeField] private Color _hybridAbilityColor;
 
+    [SerializeField] private Color _missionModifierColor;
+    
     private Dictionary<EGameDifficulty, float> _difficultyDamageMultiplierDictionary = new();
     private Dictionary<EGameDifficulty, float> _difficultyAttackSpeedMultiplierDictionary = new();
     private Dictionary<EGameDifficulty, float> _difficultyHealthMultiplierDictionary = new();
@@ -92,13 +101,15 @@ public class SelectionManager : MainUniversalManagerFramework
 
     private UnityEvent<EGameDifficulty> _difficultySelectionEvent = new UnityEvent<EGameDifficulty>();
     private UnityEvent<int> _mythicPlusLevelSelectionEvent = new UnityEvent<int>();
+    private UnityEvent<EGameDifficulty> _difficultyHoveredOverEvent = new UnityEvent<EGameDifficulty>();
+    private UnityEvent<EGameDifficulty> _difficultyNotHoveredOverEvent = new UnityEvent<EGameDifficulty>();
     private UnityEvent _informationUnlockedEvent = new UnityEvent();
 
-    public UnityEvent<MissionModifierSO> _missionModifierSelectionEvent;
-    public UnityEvent<MissionModifierSO> _missionModifierDeselectionEvent;
-    public UnityEvent<MissionModifierSO> _missionModifierSwapEvent;
-    public UnityEvent<MissionModifierSO> _missionModifierHoveredOverEvent;
-    public UnityEvent<MissionModifierSO> _missionModifierNotHoveredOverEvent;
+    private UnityEvent<MissionModifierSO> _missionModifierSelectionEvent = new();
+    private UnityEvent<MissionModifierSO> _missionModifierDeselectionEvent = new();
+    private UnityEvent<MissionModifierSO> _missionModifierSwapEvent = new();
+    private UnityEvent<MissionModifierSO> _missionModifierHoveredOverEvent = new();
+    private UnityEvent<MissionModifierSO> _missionModifierNotHoveredOverEvent = new();
 
     private UnityEvent<HeroSO> _heroSelectionEvent = new UnityEvent<HeroSO>();
     private UnityEvent<HeroSO> _heroDeselectionEvent = new UnityEvent<HeroSO>();
@@ -195,14 +206,18 @@ public class SelectionManager : MainUniversalManagerFramework
 
     public void LockUnlockBossInformation(BossSO bossSO)
     {
-        if (bossSO == SelectionController.SelectionLockedCharacter)
-        {
-            InvokeInformationUnlockedEvent();
-        }
-        else
+        bool isCharacterAlreadyLocked = bossSO == SelectionController.SelectionLockedCharacter;
+        UnlockBossInformation();
+        
+        if (!isCharacterAlreadyLocked)
         {
             InvokeBossInformationLockedEvent(bossSO);
         }
+    }
+
+    public void UnlockBossInformation()
+    {
+        InvokeInformationUnlockedEvent();
     }
     
     public void HeroHoveredOver(HeroSO heroSO)
@@ -217,14 +232,23 @@ public class SelectionManager : MainUniversalManagerFramework
 
     public void LockUnlockHeroInformation(HeroSO heroSO)
     {
-        if (heroSO == SelectionController.SelectionLockedCharacter)
+        bool isCharacterAlreadyLocked = heroSO == SelectionController.SelectionLockedCharacter;
+        if (SelectionController.SelectionLockedCharacter.IsUnityNull())
         {
-            InvokeInformationUnlockedEvent();
+            isCharacterAlreadyLocked = false;
         }
-        else
+
+        UnlockHeroInformation();
+
+        if (!isCharacterAlreadyLocked)
         {
             InvokeHeroInformationLockedEvent(heroSO);
         }
+    }
+
+    public void UnlockHeroInformation()
+    {
+        InvokeInformationUnlockedEvent();
     }
 
     public void AddMissionModifier(MissionModifierSO missionModifierSO)
@@ -272,15 +296,18 @@ public class SelectionManager : MainUniversalManagerFramework
     /// Removes the currently selected heroes, boss, level
     /// Difficulty is not reset
     /// </summary>
-    public void ResetSelectionData()
+    public void ResetSelectionData(bool doesResetModifiers)
     {
         _currentSelectedMission = null;
         
         _selectedHeroes = new();
         _selectedBoss = null;
         _selectedLevel = null;
-
-        _currentMissionModifiers.Clear();
+        
+        if (doesResetModifiers)
+        {
+            _currentMissionModifiers.Clear();
+        }
     }
 
     #region BaseManager
@@ -344,6 +371,16 @@ public class SelectionManager : MainUniversalManagerFramework
         _mythicPlusLevelSelectionEvent?.Invoke(level);
     }
 
+    public void InvokeDifficultyHoveredOverEvent(EGameDifficulty eGameDifficulty)
+    {
+        _difficultyHoveredOverEvent?.Invoke(eGameDifficulty);
+    }
+    
+    public void InvokeDifficultyNotHoveredOverEvent(EGameDifficulty eGameDifficulty)
+    {
+        _difficultyNotHoveredOverEvent?.Invoke(eGameDifficulty);
+    }
+    
     public void InvokeInformationUnlockedEvent()
     {
         _informationUnlockedEvent?.Invoke();
@@ -415,13 +452,17 @@ public class SelectionManager : MainUniversalManagerFramework
     public bool AtMaxBossSelected() => !_selectedBoss.IsUnityNull();
 
     public float GetDamageMultiplierFromDifficulty() => _difficultyDamageMultiplierDictionary[_currentEGameDifficulty];
+    public float GetDamageMultiplierFromDifficulty(EGameDifficulty difficulty) => _difficultyDamageMultiplierDictionary[difficulty];
     public float GetSpeedMultiplierFromDifficulty() => _difficultyAttackSpeedMultiplierDictionary[_currentEGameDifficulty];
+    public float GetSpeedMultiplierFromDifficulty(EGameDifficulty difficulty) => _difficultyAttackSpeedMultiplierDictionary[difficulty];
     public float GetHealthMultiplierFromDifficulty() => _difficultyHealthMultiplierDictionary[_currentEGameDifficulty];
-    public float GetStaggerMultiplierFromDifficulty() => _difficultyHealthMultiplierDictionary[_currentEGameDifficulty];
+    public float GetHealthMultiplierFromDifficulty(EGameDifficulty difficulty) => _difficultyHealthMultiplierDictionary[difficulty];
+    public float GetStaggerMultiplierFromDifficulty() => _difficultyStaggerMultiplierDictionary[_currentEGameDifficulty];
+    public float GetStaggerMultiplierFromDifficulty(EGameDifficulty difficulty) => _difficultyStaggerMultiplierDictionary[difficulty];
 
     public float GetDamageMultiplierFromMythicPlusLevel()
     {
-        if (_currentMythicPlusLevel == 0)
+        if (_currentEGameDifficulty != EGameDifficulty.MythicPlus || _currentMythicPlusLevel == 0)
         {
             return 1;
         }
@@ -436,7 +477,7 @@ public class SelectionManager : MainUniversalManagerFramework
 
     public float GetSpeedMultiplierFromMythicPlusLevel()
     {
-        if (_currentMythicPlusLevel == 0)
+        if (_currentEGameDifficulty != EGameDifficulty.MythicPlus || _currentMythicPlusLevel == 0)
         {
             return 1;
         }
@@ -451,7 +492,7 @@ public class SelectionManager : MainUniversalManagerFramework
     
     public float GetHealthMultiplierFromMythicPlusLevel()
     {
-        if (_currentMythicPlusLevel == 0)
+        if (_currentEGameDifficulty != EGameDifficulty.MythicPlus ||_currentMythicPlusLevel == 0)
         {
             return 1;
         }
@@ -466,7 +507,7 @@ public class SelectionManager : MainUniversalManagerFramework
     
     public float GetStaggerMultiplierFromMythicPlusLevel()
     {
-        if (_currentMythicPlusLevel == 0)
+        if (_currentEGameDifficulty != EGameDifficulty.MythicPlus || _currentMythicPlusLevel == 0)
         {
             return 1;
         }
@@ -480,12 +521,52 @@ public class SelectionManager : MainUniversalManagerFramework
     }
     
     public int GetHeroLimitFromDifficulty() => _difficultyHeroLimit[_currentEGameDifficulty];
+    public int GetHeroLimitFromDifficulty(EGameDifficulty difficulty) => _difficultyHeroLimit[difficulty];
 
+    public string GetDifficultyNameFromDifficulty(EGameDifficulty difficulty) => _difficultyNames[(int)difficulty-1];
     public List<string> GetDifficultyNames() => _difficultyNames;
     public List<Sprite> GetDifficultyIcons() => _difficultyIcons;
     public Sprite GetDifficultyIconOfCurrentDifficulty() => GetDifficultyIconFromDifficulty(_currentEGameDifficulty);
     public Sprite GetDifficultyIconFromDifficulty(EGameDifficulty difficulty) => GetDifficultyIconFromDifficulty((int)difficulty);
     public Sprite GetDifficultyIconFromDifficulty(int difficulty) => _difficultyIcons[difficulty-1];
+    public Color GetDifficultyColorFromDifficulty(EGameDifficulty difficulty) => _difficultyColors[(int)difficulty-1];
+    
+    public Color GetBasicAbilityColor() => _basicAbilityColor;
+    public Color GetManualAbilityColor() => _manualAbilityColor;
+    public Color GetPassiveAbilityColor() => _passiveAbilityColor;
+    public Color GetHybridAbilityColor() => _hybridAbilityColor;
+
+    public Color GetBossAbilityColorFromEnum(EBossAbilityType bossAbilityType)
+    {
+        switch (bossAbilityType)
+        {
+            case(EBossAbilityType.Active):
+                return _manualAbilityColor;
+            case(EBossAbilityType.Passive):
+                return _passiveAbilityColor;
+            case(EBossAbilityType.Hybrid):
+                return _hybridAbilityColor;
+            default:
+                return Color.white;
+        }
+    }
+    
+    public Color GetHeroAbilityColorFromEnum(EHeroAbilityType heroAbilityType)
+    {
+        switch (heroAbilityType)
+        {
+            case(EHeroAbilityType.Basic):
+                return _basicAbilityColor;
+            case(EHeroAbilityType.Manual):
+                return _manualAbilityColor;
+            case(EHeroAbilityType.Passive):
+                return _passiveAbilityColor;
+            default:
+                return Color.white;
+        }
+    }
+
+    public Color GetMissionModifierColor() => _missionModifierColor;
     
     public List<MissionModifierSO> GetCurrentMissionModifiers() => _currentMissionModifiers;
     public int GetMissionModifierCount() => _currentMissionModifiers.Count;
@@ -499,7 +580,9 @@ public class SelectionManager : MainUniversalManagerFramework
         if (IsPlayingMissionsMode())
         {
             selectedMission = GetSelectedMission();
-            return true;
+
+            // Returns false if the mission is not found
+            return !selectedMission.IsUnityNull();
         }
 
         selectedMission = new();
@@ -526,7 +609,8 @@ public class SelectionManager : MainUniversalManagerFramework
     public int GetMythicPlusLevel() => _currentMythicPlusLevel;
 
     public bool GetIsAtHighestMythicPlusLevel() =>
-        _currentMythicPlusLevel == SaveManager.Instance.GetHighestMythicPlusLevelUnlocked();
+        _currentMythicPlusLevel == SaveManager.Instance.GetHighestMythicPlusLevelUnlocked() &&
+        _currentEGameDifficulty == EGameDifficulty.MythicPlus;
 
     public bool IsPlayingMythicPlusLevelsAboveZero()
     {
@@ -543,7 +627,7 @@ public class SelectionManager : MainUniversalManagerFramework
     
     public List<HeroSO> GetAllSelectedHeroes() => _selectedHeroes;
     public HeroSO GetHeroAtValue(int val) => _selectedHeroes[val];
-    public HeroSO GetHeroAtLastPostion() => GetHeroAtValue(GetSelectedHeroesCount() - 1);
+    public HeroSO GetHeroAtLastPosition() => GetHeroAtValue(GetSelectedHeroesCount() - 1);
     public float GetHeroSelectionProgress() => (float)_selectedHeroes.Count / GetHeroLimitFromDifficulty();
     public int GetSelectedHeroesCount() => _selectedHeroes.Count;
     public int GetDefaultMaxHeroesCount() => _maxHeroes;
@@ -554,6 +638,47 @@ public class SelectionManager : MainUniversalManagerFramework
     public EGameMode GetSelectedGameMode() => _currentGameMode;
     public bool IsPlayingMissionsMode() => _currentGameMode == EGameMode.Missions;
     public bool IsPlayingFreeMode() => _currentGameMode == EGameMode.Free;
+
+    public bool DoesCurrentCombatHaveUnlock()
+    {
+        if (IsPlayingMissionsMode())
+        {
+            if (GameStateManager.Instance.GetIsCurrentMissionAlreadyComplete())
+            {
+                return false;
+            }
+            
+            CharacterSO characterSO = _currentSelectedMission.GetCharacterUnlock();
+            if (!characterSO.IsUnityNull())
+            {
+                return true;
+            }
+
+            if (_currentSelectedMission.GetIsDifficultyUnlockNotEmpty())
+            {
+                return true;
+            }
+
+            if (!_currentSelectedMission.GetMissionModifierUnlock().IsUnityNull())
+            {
+                return true;
+            }
+
+            if (_currentSelectedMission.GetHasGeneralMissionUnlock())
+            {
+                return true;
+            }
+        }
+        else if (IsPlayingFreeMode())
+        {
+            if (GameStateManager.Instance.GetIsCurrentBattleAtHighestMythicPlusLevel())
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
     
 
     public UnityEvent<BossSO> GetBossSelectionEvent() => _bossSelectionEvent;
@@ -566,6 +691,8 @@ public class SelectionManager : MainUniversalManagerFramework
     
     public UnityEvent<EGameDifficulty> GetDifficultySelectionEvent() => _difficultySelectionEvent;
     public UnityEvent<int> GetMythicPlusLevelSelectionEvent() => _mythicPlusLevelSelectionEvent;
+    public UnityEvent<EGameDifficulty> GetDifficultyHoveredOverEvent() => _difficultyHoveredOverEvent;
+    public UnityEvent<EGameDifficulty> GetDifficultyNotHoveredOverEvent() => _difficultyNotHoveredOverEvent;
     public UnityEvent GetInformationUnlockedEvent() => _informationUnlockedEvent;
 
     public UnityEvent<MissionModifierSO> GetMissionModifierSelectionEvent() => _missionModifierSelectionEvent;

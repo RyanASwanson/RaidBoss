@@ -1,5 +1,38 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1103417052926351169
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9078564867978266625}
+  m_Layer: 0
+  m_Name: BlizzardVFX
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9078564867978266625
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1103417052926351169}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1783993556553069225}
+  - {fileID: 2402723896093222497}
+  m_Father: {fileID: 4319846792845351860}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4319846792139540758
 GameObject:
   m_ObjectHideFlags: 0
@@ -65,7 +98,7 @@ Transform:
   - {fileID: 4319846793182936090}
   - {fileID: 4319846792139540759}
   - {fileID: 5650141003453692597}
-  - {fileID: 1783993556553069225}
+  - {fileID: 9078564867978266625}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -86,11 +119,13 @@ MonoBehaviour:
   _frozenMaxScaleOverFreeze: 1.5
   _frozenMinScaleOverFreeze: 1.1
   _frozenEffectBase: {fileID: 8522072795408361714}
-  _timeFreezeCrackedAtEnd: 7
+  _freezeProgressRequiredForIceCrack: 0.75
   _frozenEffect: {fileID: 4837207418118867762}
   _frozenEffectCracked: {fileID: 4295631647647319863}
   _frozenEffectCrackedVFX: {fileID: 4008387299771372837}
-  _blizzardVFXFunctionality: {fileID: 8196953077451195901}
+  _blizzardVFXFunctionality:
+  - {fileID: 8196953077451195901}
+  - {fileID: 5213859340612718901}
   _frostFiendAnimator: {fileID: 2535172192572996261}
 --- !u!95 &2535172192572996261
 Animator:
@@ -361,20 +396,20 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3456192958512604467, guid: 264ce9a5c9d17864bae88c1428c00a27, type: 3}
   m_PrefabInstance: {fileID: 1442824144673495337}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &2838602295846094906
+--- !u!1001 &2233373822731885810
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 4319846792845351860}
+    m_TransformParent: {fileID: 9078564867978266625}
     m_Modifications:
     - target: {fileID: 4586556747106073234, guid: 51abb1c4d75dd6f4bb40f9b8536fab39, type: 3}
       propertyPath: m_Name
-      value: FrostFiendBlizzardVFX
+      value: FrostFiendBlizzardVFX (1)
       objectReference: {fileID: 0}
     - target: {fileID: 4586556747106073235, guid: 51abb1c4d75dd6f4bb40f9b8536fab39, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4586556747106073235, guid: 51abb1c4d75dd6f4bb40f9b8536fab39, type: 3}
       propertyPath: m_LocalPosition.x
@@ -394,15 +429,88 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4586556747106073235, guid: 51abb1c4d75dd6f4bb40f9b8536fab39, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4586556747106073235, guid: 51abb1c4d75dd6f4bb40f9b8536fab39, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4586556747106073235, guid: 51abb1c4d75dd6f4bb40f9b8536fab39, type: 3}
       propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4586556747106073235, guid: 51abb1c4d75dd6f4bb40f9b8536fab39, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4586556747106073235, guid: 51abb1c4d75dd6f4bb40f9b8536fab39, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4586556747106073235, guid: 51abb1c4d75dd6f4bb40f9b8536fab39, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 51abb1c4d75dd6f4bb40f9b8536fab39, type: 3}
+--- !u!4 &2402723896093222497 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4586556747106073235, guid: 51abb1c4d75dd6f4bb40f9b8536fab39, type: 3}
+  m_PrefabInstance: {fileID: 2233373822731885810}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5213859340612718901 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6243626095699414471, guid: 51abb1c4d75dd6f4bb40f9b8536fab39, type: 3}
+  m_PrefabInstance: {fileID: 2233373822731885810}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17d57178ea0021a4b8e770bad5c72d0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &2838602295846094906
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 9078564867978266625}
+    m_Modifications:
+    - target: {fileID: 4586556747106073234, guid: 51abb1c4d75dd6f4bb40f9b8536fab39, type: 3}
+      propertyPath: m_Name
+      value: FrostFiendBlizzardVFX
+      objectReference: {fileID: 0}
+    - target: {fileID: 4586556747106073235, guid: 51abb1c4d75dd6f4bb40f9b8536fab39, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4586556747106073235, guid: 51abb1c4d75dd6f4bb40f9b8536fab39, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4586556747106073235, guid: 51abb1c4d75dd6f4bb40f9b8536fab39, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4586556747106073235, guid: 51abb1c4d75dd6f4bb40f9b8536fab39, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4586556747106073235, guid: 51abb1c4d75dd6f4bb40f9b8536fab39, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4586556747106073235, guid: 51abb1c4d75dd6f4bb40f9b8536fab39, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4586556747106073235, guid: 51abb1c4d75dd6f4bb40f9b8536fab39, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4586556747106073235, guid: 51abb1c4d75dd6f4bb40f9b8536fab39, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4586556747106073235, guid: 51abb1c4d75dd6f4bb40f9b8536fab39, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

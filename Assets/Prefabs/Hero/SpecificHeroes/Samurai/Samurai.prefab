@@ -48,8 +48,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 151818022b97ef14a94b67950712868b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _basicAbilityChargeTime: 6
-  _manualAbilityChargeTime: 25
+  _basicAbilityChargeTime: 5.75
+  _manualAbilityChargeTime: 30
+  _doesManualAbilityHaveDuration: 1
+  _doesManualAbilityChargeWhileActive: 1
+  _isManualAbilityDurationFixed: 0
+  _manualAbilityFixedDuration: 0
   _heroSpecificAnimator: {fileID: 1969857870274726929}
   _hasBasicAbilityAnimation: 1
   _hasManualAbilityAnimation: 1
@@ -60,13 +64,13 @@ MonoBehaviour:
   _heroSpecificUI: {fileID: 0}
   _basicProjectile: {fileID: 5625124809019392836, guid: de7156d0f762a6e4d9414d853c7e7058, type: 3}
   _manualAbilityDuration: 2
-  _manualAbilityParryDamage: 40
-  _manualAbilityParryStagger: 15
+  _manualAbilityParryDamage: 45
+  _manualAbilityParryStagger: 9
   _manualAbilityHitboxScaleMultiplier: 1.25
   _parryBonusIFrames: 3
   _parryEffect: {fileID: 7161449249740579407, guid: 14989cb0a1dedfc4a8293e0b73d36e6e, type: 3}
   _samuraiParryColorVisualsCurve: {fileID: 6485131445182798027}
-  _passiveRechargeManualAmount: 3
+  _passiveRechargeManualAmount: 5.25
 --- !u!95 &1969857870274726929
 Animator:
   serializedVersion: 5
@@ -100,6 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 369bcc862835c2b41a6b1d018a12a33c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _doesPerformSetUpOnEnable: 1
   _propertyType: 2
   _propertyName: _Color
   _progressMultiplier: 1
@@ -149,6 +154,8 @@ MonoBehaviour:
   _doesResetToDefaultProgressOnEnable: 0
   _doesStartMovingUpOnEnable: 0
   _doesStartMovingInCurrentDirectionOnEnable: 0
+  _hasAutomaticStartMovingDelay: 0
+  _automaticStartMovingDelay: 0
   _doesAutomaticallyMoveDownOnHittingMax: 0
   _doesAutomaticallyMoveUpOnHittingMin: 0
   _hasIncreaseDelay: 0

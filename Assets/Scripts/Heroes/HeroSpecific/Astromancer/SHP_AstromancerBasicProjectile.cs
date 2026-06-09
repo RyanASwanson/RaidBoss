@@ -6,8 +6,20 @@ public class SHP_AstromancerBasicProjectile : HeroProjectileFramework
 {
     [SerializeField] private float _projectileSpeed;
     [SerializeField] private float _damageScalingPerSecond;
-    [Space]
 
+    [Space] 
+    [Range(0,1)][SerializeField] private float _percentDistanceToReflectHero;
+    [SerializeField] private float _reflectEffectSpawnHeight;
+    [SerializeField] private GameObject _reflectEffect;
+
+    [Space] 
+    [SerializeField] private float _startingScale;
+    [SerializeField] private float _damageScalingScaleMultiplier;
+    [SerializeField] private GameObject _projectileScaleHolder;
+    [SerializeField] private CurveProgression _hitScaleCurve;
+    private Vector3 _projectileScalerVector = new Vector3();
+    
+    [Space]
     [SerializeField] private GeneralHeroDamageArea _generalDamageArea;
     [SerializeField] private GeneralHeroHealArea _generalHealArea;
 
@@ -17,16 +29,14 @@ public class SHP_AstromancerBasicProjectile : HeroProjectileFramework
 
     private Vector3 _storedDirection;
 
-    private float _damageScalingAmount = 0;
-
-    
-
+    private float _currentStoredDamageScalingAmount = 0;
+    private float _totalDamageScalingAmount = 0;
 
     private IEnumerator MoveProjectile()
     {
         while (true)
         {
-            transform.position += _storedDirection * _projectileSpeed * Time.deltaTime;
+            transform.position += _storedDirection * (_projectileSpeed * Time.deltaTime);
             yield return null;
         }
     }
@@ -35,14 +45,24 @@ public class SHP_AstromancerBasicProjectile : HeroProjectileFramework
     {
         while(true)
         {
-            _damageScalingAmount += _damageScalingPerSecond * Time.deltaTime;
+            _currentStoredDamageScalingAmount += _damageScalingPerSecond * Time.deltaTime;
+            _totalDamageScalingAmount += _damageScalingPerSecond * Time.deltaTime;
+            ScaleProjectileBasedOnDamageScaling();
             yield return null;
         }
     }
 
+    private void ScaleProjectileBasedOnDamageScaling()
+    {
+        float projectileScaleAmount = _startingScale * ((_totalDamageScalingAmount * _damageScalingScaleMultiplier) + 1);
+        _projectileScalerVector.Set(projectileScaleAmount,projectileScaleAmount,projectileScaleAmount);
+        
+        _projectileScaleHolder.transform.localScale = _projectileScalerVector;
+    }
+
     private void AdjustDamageAreaScaling()
     {
-        _generalDamageArea.IncreaseDamageMultiplierByAmount(_damageScalingAmount);
+        _generalDamageArea.IncreaseDamageMultiplierByAmount(_currentStoredDamageScalingAmount);
     }
 
     public void HitBoss(Collider collider)
@@ -50,16 +70,16 @@ public class SHP_AstromancerBasicProjectile : HeroProjectileFramework
         AdjustDamageAreaScaling();
         if (!_hasHitBoss)
         {
-            _damageScalingAmount = 0; 
-
+            _currentStoredDamageScalingAmount = 0;
+            
             _hasHitBoss = true;
 
             _generalDamageArea.enabled = false;
             _generalHealArea.enabled = true;
 
             FlipDirection();
+            PlayReflectEffects(collider.gameObject);
         }
-           
         else
         {
             _generalDamageArea.DestroyProjectile();
@@ -84,6 +104,7 @@ public class SHP_AstromancerBasicProjectile : HeroProjectileFramework
 
         FlipDirection();
         PlayReflectAudio();
+        PlayReflectEffects(collider.gameObject);
         TriggerHeroPassive();
     }
 
@@ -98,6 +119,15 @@ public class SHP_AstromancerBasicProjectile : HeroProjectileFramework
     public void TriggerHeroPassive()
     {
         _astromancerScript.ActivatePassiveAbilities();
+    }
+
+    private void PlayReflectEffects(GameObject reflectTarget)
+    {
+        GameObject reflectEffect = Instantiate(_reflectEffect, Vector3.Lerp(transform.position, reflectTarget.transform.position,_percentDistanceToReflectHero), Quaternion.identity);
+        reflectEffect.transform.LookAt(gameObject.transform);
+        reflectEffect.transform.localEulerAngles = new Vector3(0, reflectEffect.transform.localEulerAngles.y, 0);
+        
+        _hitScaleCurve.StartMovingUpOnCurve();
     }
     
     private void PlayReflectAudio()

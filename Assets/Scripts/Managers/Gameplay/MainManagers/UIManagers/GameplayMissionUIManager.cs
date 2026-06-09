@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameplayMissionUIManager : GameUIChildrenFunctionality
 {
     [SerializeField] private GameObject _missionTutorialUIObjectParent;
+    [SerializeField] private GameObject _missionCustomTutorialUIObjectParent;
     
     [Space]
     [SerializeField] private GameObject _missionTutorialVisuals;
@@ -19,6 +20,14 @@ public class GameplayMissionUIManager : GameUIChildrenFunctionality
                 Instantiate(_missionTutorialVisuals, _missionTutorialUIObjectParent.transform).GetComponent<MissionTutorialVisuals>();
             
             missionTutorialVisuals.SetUpMissionTutorials();
+
+            if (mission.GetHasCustomTutorial())
+            {
+                BaseCustomTutorial customTutorial =
+                    Instantiate(mission.GetCustomTutorial(), _missionCustomTutorialUIObjectParent.transform).GetComponent<BaseCustomTutorial>();
+                
+                customTutorial.SetUpBaseCustomTutorial();
+            }
         }
 
 

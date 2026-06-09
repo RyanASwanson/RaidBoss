@@ -14,6 +14,10 @@ public class SBP_Avalanche : BossProjectileFramework
 
     private float _projectileAcceleration = 0;
 
+    [Space] 
+    [SerializeField] private float _enrageMaxScaleMultiplier;
+    [SerializeField] private float _enrageRotationMultiplier;
+
     [Space]
     [SerializeField] private float _wallContactDistance;
     [SerializeField] private Vector3 _wallContactHalfExtents;
@@ -21,10 +25,18 @@ public class SBP_Avalanche : BossProjectileFramework
     [Space]
     [SerializeField] protected CinemachineCameraShakeData _screenShakeData;
 
+    [Space] 
+    //This functionality is done here rather than on the General Damage Area to enable greater functionality
+    [SerializeField] private GameObject _avalancheDestructionVFX;
+
     [Space]
     [SerializeField] private GlacialLordSelfMinionHit _minionHit;
     [Space]
     [SerializeField] private GeneralBossDamageArea _damageArea;
+
+    [Space] 
+    [SerializeField] private GeneralScale _growingScale;
+    [SerializeField] private GeneralRotation _curveRotation;
 
     private SBA_Avalanche _specificBossAbility;
     
@@ -95,9 +107,18 @@ public class SBP_Avalanche : BossProjectileFramework
     private void AtEndOfPath()
     {
         _specificBossAbility.ProjectileReachedEndOfPath();
+        CreateDestructionVFX();
         PlayAvalancheEndScreenShake();
         _minionHit.MinionContactFromDistance();
         _damageArea.DestroyProjectile();
+    }
+
+    private void CreateDestructionVFX()
+    {
+        GameObject destructionVFX = 
+            Instantiate(_avalancheDestructionVFX, _curveRotation.transform.position, _curveRotation.transform.rotation);
+        
+        destructionVFX.transform.localScale = _growingScale.transform.localScale;
     }
     
     private void PlayAvalancheEndScreenShake()
@@ -111,6 +132,14 @@ public class SBP_Avalanche : BossProjectileFramework
     {
         _specificBossAbility = specificAbility;
         ProjectileLookAt(lookDirection);
+
+        if (_wasBossEnragedOnAbilityActivation)
+        {
+            _growingScale.MultiplyEndingScale(_enrageMaxScaleMultiplier);
+            _curveRotation.MultiplyTargetLocalEulerAngles(_enrageRotationMultiplier);
+            _minionHit.MultiplyHitDistance(_enrageMaxScaleMultiplier);
+        }
+        
         StartProjectileMovement();
     }
     #endregion

@@ -17,24 +17,26 @@ MonoBehaviour:
 
     Strengths'
   _missionTitleScale: 1
+  _doesAutomaticallySelectFirstHero: 0
   _associatedDifficulty: 1
   _associatedLevel: {fileID: 11400000, guid: 763a87e823e4c5d4d8c9e44aa8aa4a02, type: 2}
   _associatedHeroes:
   - {fileID: 11400000, guid: fa900cf8282b2814fb9eb1a8cc860cd0, type: 2}
-  _missionDisplayHighlights: []
+  _missionDisplayHighlights:
+  - HighlightType: 2
+    HightlightID: 0
   _tutorialPages:
   - TutorialPageTitle: "Hero Abilities\r"
-    TutorialPageTitleWidth: 800
+    TutorialPageTitleWidth: 745
     DefaultTextLocation: {x: 0, y: 0}
-    DefaultText: 'Each hero has 3 abilities unique
+    DefaultText: 'Now it''s time to learn
 
-      to them, being a basic
-      ability, an
+      about Heroes and their
 
-      active ability, and a passive ability.
+      abilities.
+      Start by controlling
 
-      Each hero
-      has one of each.'
+      the Hero again.'
     TutorialPageObjectLocation: {x: 0, y: 0}
     TutorialPageObject: {fileID: 0}
     TutorialPageCharacterTutorial:
@@ -42,114 +44,23 @@ MonoBehaviour:
       TutorialCharacterIconScaleMultiplier: 0
       TutorialPageCharacterIcon: {fileID: 0}
       TutorialPageCharacterBackground: {fileID: 0}
-  - TutorialPageTitle: "Basic Abilities\r"
-    TutorialPageTitleWidth: 850
-    DefaultTextLocation: {x: 0, y: 0}
-    DefaultText: 'Basic Abilities are used by heroes
-
-      automatically. They have
-      a short
-
-      cooldown between each use. Most
-
-      heroes will only use
-      basic abilities
-
-      when standing still.'
-    TutorialPageObjectLocation: {x: 0, y: 0}
-    TutorialPageObject: {fileID: 0}
-    TutorialPageCharacterTutorial:
-      TutorialCharacterIconLocation: {x: 0, y: 0}
-      TutorialCharacterIconScaleMultiplier: 0
-      TutorialPageCharacterIcon: {fileID: 0}
-      TutorialPageCharacterBackground: {fileID: 0}
-  - TutorialPageTitle: Active Abilities
-    TutorialPageTitleWidth: 900
-    DefaultTextLocation: {x: 0, y: 50}
-    DefaultText: 'Active abilities require an input to activate
-
-      when they
-      are fully charged. The cooldown
-
-      can be tracked at the bottom of the
-      screen,
-
-      or via an icon on the hero when charged.'
-    TutorialPageObjectLocation: {x: 0, y: -60}
-    TutorialPageObject: {fileID: 2859117182787882857, guid: 2cf3318e1591b3f4081b7625cd6228c7, type: 3}
-    TutorialPageCharacterTutorial:
-      TutorialCharacterIconLocation: {x: 0, y: 0}
-      TutorialCharacterIconScaleMultiplier: 0
-      TutorialPageCharacterIcon: {fileID: 0}
-      TutorialPageCharacterBackground: {fileID: 0}
-  - TutorialPageTitle: "Active Controls\r"
-    TutorialPageTitleWidth: 925
-    DefaultTextLocation: {x: 0, y: 0}
-    DefaultText: 'To use the active ability of the selected
-
-      hero you can press
-      space or
-
-      the middle mouse button.
-
-      You can also use Q,W,E,R,T
-      to use
-
-      the active ability of a specific hero.
-
-      The input depends
-      on the slot
-
-      the hero is in on your team.'
-    TutorialPageObjectLocation: {x: 0, y: 0}
-    TutorialPageObject: {fileID: 0}
-    TutorialPageCharacterTutorial:
-      TutorialCharacterIconLocation: {x: 0, y: 0}
-      TutorialCharacterIconScaleMultiplier: 0
-      TutorialPageCharacterIcon: {fileID: 0}
-      TutorialPageCharacterBackground: {fileID: 0}
-  - TutorialPageTitle: Passive Abilities
-    TutorialPageTitleWidth: 950
-    DefaultTextLocation: {x: 0, y: 0}
-    DefaultText: "Passive abilities are an aspect of the\r\nhero that is always in
-      effect. They can come\r\nin the form of stat bonuses, extra attacks, or\r\nunique
-      effects.\r"
-    TutorialPageObjectLocation: {x: 0, y: 0}
-    TutorialPageObject: {fileID: 0}
-    TutorialPageCharacterTutorial:
-      TutorialCharacterIconLocation: {x: 0, y: 0}
-      TutorialCharacterIconScaleMultiplier: 0
-      TutorialPageCharacterIcon: {fileID: 0}
-      TutorialPageCharacterBackground: {fileID: 0}
-  - TutorialPageTitle: Hero Specifics
-    TutorialPageTitleWidth: 900
-    DefaultTextLocation: {x: 0, y: 0}
-    DefaultText: 'You will learn about your current
-
-      hero, the Guardian and
-      his abilities
-
-      on the next mission.'
-    TutorialPageObjectLocation: {x: 0, y: 0}
-    TutorialPageObject: {fileID: 0}
-    TutorialPageCharacterTutorial:
-      TutorialCharacterIconLocation: {x: 0, y: 0}
-      TutorialCharacterIconScaleMultiplier: 0
-      TutorialPageCharacterIcon: {fileID: 0}
-      TutorialPageCharacterBackground: {fileID: 0}
+  _customTutorial: {fileID: 7960743746713462453, guid: 4b45d97f545cc954fa0528332fa3cb31, type: 3}
   _characterUnlock: {fileID: 0}
+  _difficultyUnlock: 0
   _missionModifierUnlock: {fileID: 0}
   _missionUnlocks:
-  - {fileID: 11400000, guid: 4ca6bd1d159eefd4fb7c2110f515fdf5, type: 2}
+  - {fileID: 11400000, guid: 969ba0805bf40174990c5c889b926c13, type: 2}
   _achievementUnlocks: []
+  _generalMissionUnlocks: 0
   _missionModifiers: []
   _missionStatModifiers:
-    _bossHealthMultiplier: 0.065
+    _bossHealthMultiplier: 0.075
     _bossStaggerMultiplier: 1
     _bossAttackSpeedMultiplier: 0.8
     _bossDamageResistanceChangeOnStaggerMultiplier: 1
     _bossEnrageTimeMultiplier: 1.5
     _bossEnrageDamageMultiplier: 1
+    _canBossAutomaticallyUseAbilities: 0
     _bossAbilitiesUsable: 0101000100
     _heroHealthMultiplier: 1
     _heroDamageMultiplier: 1

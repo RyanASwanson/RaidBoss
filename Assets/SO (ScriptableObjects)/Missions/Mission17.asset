@@ -17,6 +17,7 @@ MonoBehaviour:
 
     Actives'
   _missionTitleScale: 1
+  _doesAutomaticallySelectFirstHero: 1
   _associatedDifficulty: 2
   _associatedLevel: {fileID: 11400000, guid: 53e846bb7c637be46af02e5cd8741558, type: 2}
   _associatedHeroes:
@@ -29,14 +30,14 @@ MonoBehaviour:
     HightlightID: 0
   _tutorialPages:
   - TutorialPageTitle: 'Modifier: Enhanced Actives'
-    TutorialPageTitleWidth: 1575
+    TutorialPageTitleWidth: 1523
     DefaultTextLocation: {x: 0, y: 40}
-    DefaultText: 'The Basic abilities of heroes are charged
+    DefaultText: 'The Basic abilities of Heroes are charged
 
       far slower, but
       the Active abilities charge
 
-      substantially faster. Additionally boss
+      substantially faster. Additionally, Boss
       health
 
       is slightly increased.'
@@ -47,11 +48,14 @@ MonoBehaviour:
       TutorialCharacterIconScaleMultiplier: 1
       TutorialPageCharacterIcon: {fileID: 21300000, guid: 01ecefcfdcec0f4429345d02711a961f, type: 3}
       TutorialPageCharacterBackground: {fileID: 21300000, guid: 818d8b766be8c0d4687ee74e218b8deb, type: 3}
+  _customTutorial: {fileID: 0}
   _characterUnlock: {fileID: 0}
+  _difficultyUnlock: 0
   _missionModifierUnlock: {fileID: 11400000, guid: e4353d0e1291c2c4c8f83193227aa03c, type: 2}
   _missionUnlocks:
-  - {fileID: 11400000, guid: c33dd51131a6981458fbc9f586272400, type: 2}
+  - {fileID: 11400000, guid: 718aeed55d16f1a49a527021660d8f9d, type: 2}
   _achievementUnlocks: []
+  _generalMissionUnlocks: 0
   _missionModifiers:
   - {fileID: 11400000, guid: e4353d0e1291c2c4c8f83193227aa03c, type: 2}
   _missionStatModifiers:
@@ -61,6 +65,7 @@ MonoBehaviour:
     _bossDamageResistanceChangeOnStaggerMultiplier: 1
     _bossEnrageTimeMultiplier: 1
     _bossEnrageDamageMultiplier: 1
+    _canBossAutomaticallyUseAbilities: 1
     _bossAbilitiesUsable: 0101010101
     _heroHealthMultiplier: 1
     _heroDamageMultiplier: 1

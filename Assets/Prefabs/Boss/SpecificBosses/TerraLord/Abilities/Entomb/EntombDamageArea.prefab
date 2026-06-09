@@ -142,7 +142,7 @@ MonoBehaviour:
       m_Calls: []
   _canPreventReHitWithoutInitialDamage: 0
   _preventReHitDuration: 5
-  _enterDamage: 3.75
+  _enterDamage: 5.06
   _enterEvent:
     m_PersistentCalls:
       m_Calls:
@@ -330,7 +330,7 @@ MonoBehaviour:
       m_Calls: []
   _canPreventReHitWithoutInitialDamage: 0
   _preventReHitDuration: 5
-  _enterDamage: 3.75
+  _enterDamage: 5.06
   _enterEvent:
     m_PersistentCalls:
       m_Calls:
@@ -503,6 +503,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _entombCompleteDelay: 0.75
   _entombPersistantTime: 26
+  _entombEnragePersistantTimeMultiplier: 2.75
+  _enrageWallDamageMultiplier: 0.5
   _closingWalls:
   - {fileID: 2753615494377525193}
   - {fileID: 2338302277446499341}
@@ -561,7 +563,7 @@ GameObject:
   - component: {fileID: 8734023338100501375}
   m_Layer: 12
   m_Name: PathfindingWall
-  m_TagString: Untagged
+  m_TagString: SpawnedEnvironmentHitbox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

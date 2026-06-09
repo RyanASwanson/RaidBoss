@@ -10,6 +10,7 @@ public class SBA_StaticCharge : SpecificBossAbilityFramework
     [SerializeField] private GameObject _staticChargeObject;
 
     private BossTargetZoneParent _newestTargetZone;
+    private bool hasHeroTarget;
     
     public const int STATIC_CHARGE_ATTACK_HIT_AUDIO_ID = 0;
     
@@ -21,7 +22,7 @@ public class SBA_StaticCharge : SpecificBossAbilityFramework
     /// </summary>
     protected override void StartShowTargetZone()
     {
-        bool hasHeroTarget = _mySpecificBoss.GetBossAttackTargets().Count > 1;
+        hasHeroTarget = _mySpecificBoss.GetBossAttackTargets().Count > 1;
         
         if (!hasHeroTarget)
         {
@@ -56,12 +57,17 @@ public class SBA_StaticCharge : SpecificBossAbilityFramework
     /// </summary>
     protected override void AbilityStart()
     {
+        if (hasHeroTarget && _storedTarget.IsUnityNull())
+        {
+            return;
+        }
+        
         //Spawns the damaging ability
         GameObject newestStaticCharge = Instantiate(_staticChargeObject, _newestTargetZone.transform.position, Quaternion.identity);
 
         if (newestStaticCharge.TryGetComponent(out SBP_StaticCharge staticCharge))
         {
-            staticCharge.SetUpProjectile(_myBossBase, _abilityID);
+            staticCharge.SetUpProjectile(_myBossBase, _abilityID,_wasBossEnragedOnAbilityActivation);
             staticCharge.AdditionalSetUp(_storedTarget);
         }
         

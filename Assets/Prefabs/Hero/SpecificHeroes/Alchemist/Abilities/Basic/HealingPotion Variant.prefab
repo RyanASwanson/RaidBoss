@@ -7,17 +7,37 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -3453419747926540237, guid: d0bbc584927d2094a801f0a9471107c0, type: 3}
+      propertyPath: _potionPickUpColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -3453419747926540237, guid: d0bbc584927d2094a801f0a9471107c0, type: 3}
+      propertyPath: _potionPickUpColor.r
+      value: 0.7803922
+      objectReference: {fileID: 0}
+    - target: {fileID: -3453419747926540237, guid: d0bbc584927d2094a801f0a9471107c0, type: 3}
+      propertyPath: _potionPickUpEffectScale
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: -3453419747926540237, guid: d0bbc584927d2094a801f0a9471107c0, type: 3}
+      propertyPath: _potionPickUpColors.Array.data[0].r
+      value: 0.86666673
+      objectReference: {fileID: 0}
+    - target: {fileID: -3453419747926540237, guid: d0bbc584927d2094a801f0a9471107c0, type: 3}
+      propertyPath: _potionPickUpColors.Array.data[1].r
+      value: 0.72156864
+      objectReference: {fileID: 0}
     - target: {fileID: 2449731219547203033, guid: d0bbc584927d2094a801f0a9471107c0, type: 3}
       propertyPath: m_Name
       value: HealingPotion Variant
       objectReference: {fileID: 0}
     - target: {fileID: 3208233250891310857, guid: d0bbc584927d2094a801f0a9471107c0, type: 3}
-      propertyPath: _enterHealing
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3208233250891310857, guid: d0bbc584927d2094a801f0a9471107c0, type: 3}
       propertyPath: _ignoreFullHealth
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3208233250891310857, guid: d0bbc584927d2094a801f0a9471107c0, type: 3}
+      propertyPath: _stayHealingPerTick
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7327038695363032743, guid: d0bbc584927d2094a801f0a9471107c0, type: 3}
       propertyPath: m_RootOrder

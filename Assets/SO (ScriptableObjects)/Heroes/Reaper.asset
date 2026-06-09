@@ -16,7 +16,7 @@ MonoBehaviour:
   _heroID: 2
   _selectionDisplayScaleMultiplier: 1.4
   _hasUIManager: 1
-  _maxHP: 50
+  _maxHP: 45
   _moveSpeed: 5
   _angularSpeed: 140
   _moveAcceleration: 11
@@ -39,28 +39,47 @@ MonoBehaviour:
   _heroSelectedColor: {r: 1, g: 1, b: 1, a: 1}
   _heroOutlineColor: {r: 0.6862745, g: 0, b: 0.8588236, a: 1}
   _heroUIColor: {r: 0.6862745, g: 0, b: 0.8588236, a: 1}
+  _heroAbilityTextUIColor: {r: 0.6862745, g: 0, b: 0.85882354, a: 1}
+  _heroSelectionParticleColors:
+  - {r: 0.7294118, g: 0.5921569, b: 0.90196085, a: 1}
+  - {r: 0.8000001, g: 0, b: 1, a: 1}
   _heroBackgroundMaterial: {fileID: 2100000, guid: ab5ac044e21fa524f9c82d488ccd7b57, type: 2}
   _basicAbilityName: Soul Scythe
-  _basicAbilityDescription: 'The Reaper
+  _basicAbilityDescription: 'A scythe constantly
 
-    creates a scythe
+    circles around the
 
-    that circles it'
+    Reaper'
+  _basicAbilityWideDescription: 'A scythe constantly
+
+    circles around the
+
+    Reaper'
   _manualAbilityName: 'Death''s
 
     Approach'
-  _manualAbilityDescription: 'The Reaper
+  _manualAbilityDescription: 'Creates a floating
 
-    creates a floating
+    skull that moves
 
-    skull that
-    moves
+    towards
+    the Reaper'
+  _manualAbilityWideDescription: 'Creates a floating
 
-    towards the Reaper'
+    skull that moves
+
+    towards
+    the Reaper'
   _passiveAbilityName: Rebirth
-  _passiveAbilityDescription: 'The Reaper
+  _passiveAbilityDescription: 'The Reaper persists
 
-    persists after death
+    after being killed
 
-    for a short
-    time'
+    for
+    a short time'
+  _passiveAbilityWideDescription: 'The Reaper persists
+
+    after being killed
+
+    for
+    a short time'

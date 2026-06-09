@@ -84,21 +84,13 @@ public class GeneralHeroDamageArea : GeneralAbilityAreaFramework
     {
         if (_myHeroBase.IsUnityNull())
         {
-            Debug.Log("Cant Find Hero Base");
+            BossStats.Instance.DealDamageToBossFromNonHeroSource(abilityDamage);
+            BossStats.Instance.DealStaggerToBossFromNonHeroSource(abilityStagger);
             return;
         }
-
-        // Check if damage is more than 0 to prevent negative damage
-        if (abilityDamage > 0)
-        {
-            _myHeroBase.GetSpecificHeroScript().DamageBoss(abilityDamage * _damageMultiplier);
-        }
-
-        // Check if stagger is more than 0 to prevent negative damage
-        if (abilityStagger > 0)
-        {
-            _myHeroBase.GetSpecificHeroScript().StaggerBoss(abilityStagger * _staggerMultiplier);
-        }
+        
+        _myHeroBase.GetSpecificHeroScript().DamageBoss(abilityDamage * _damageMultiplier);
+        _myHeroBase.GetSpecificHeroScript().StaggerBoss(abilityStagger * _staggerMultiplier);
     }
 
     #endregion

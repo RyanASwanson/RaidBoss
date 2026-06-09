@@ -285,14 +285,23 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _idleLifetime: 15
-  _idleLifetimeWarning: 10.5
+  _idleLifetime: 17
+  _idleLifetimeWarning: 12.5
   _potionType: 0
-  _buffStrength: 0
-  _secondaryBuffStrength: 0
-  _buffDuration: 0
+  _statChanges:
+    Stats: 
+    BuffStrength: []
+    DoesCreateBuffIcon: 
+    BuffDuration: 0
+  _potionPickUpColors:
+  - {r: 0, g: 0, b: 0, a: 1}
+  - {r: 0, g: 0, b: 0, a: 1}
+  _potionPickUpEffectScale: 1
+  _potionPickUpVisualEffect: {fileID: 7804051128310190629, guid: e0f4dba6a650af549b8f64a2e4109410, type: 3}
+  _potionBuffFollowVisualEffect: {fileID: 0}
   _healArea: {fileID: 3208233250891310857}
   _lifeTimeWarningCurve: {fileID: 2752754430777487032}
+  _potionMesh: {fileID: 0}
   _animator: {fileID: 7264058780040159826}
 --- !u!114 &3208233250891310857
 MonoBehaviour:
@@ -327,9 +336,14 @@ MonoBehaviour:
   _enterHealing: 0
   _enterEvent:
     m_PersistentCalls:
+      m_Calls: []
+  _stayHealingPerTick: 0
+  _stayHealingTickRate: 0
+  _stayEvent:
+    m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3208233250891310857}
-        m_TargetAssemblyTypeName: GeneralHeroHealArea, Assembly-CSharp
+        m_TargetAssemblyTypeName: GeneralAbilityAreaFramework, Assembly-CSharp
         m_MethodName: DestroyProjectile
         m_Mode: 1
         m_Arguments:
@@ -340,11 +354,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  _stayHealingPerTick: 0
-  _stayHealingTickRate: 0
-  _stayEvent:
-    m_PersistentCalls:
-      m_Calls: []
   _exitHealing: 0
   _exitEvent:
     m_PersistentCalls:
@@ -433,6 +442,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 369bcc862835c2b41a6b1d018a12a33c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _doesPerformSetUpOnEnable: 1
   _propertyType: 2
   _propertyName: _Color
   _progressMultiplier: 1
@@ -466,6 +476,8 @@ MonoBehaviour:
   _doesResetToDefaultProgressOnEnable: 0
   _doesStartMovingUpOnEnable: 0
   _doesStartMovingInCurrentDirectionOnEnable: 0
+  _hasAutomaticStartMovingDelay: 0
+  _automaticStartMovingDelay: 0
   _doesAutomaticallyMoveDownOnHittingMax: 1
   _doesAutomaticallyMoveUpOnHittingMin: 1
   _hasIncreaseDelay: 0

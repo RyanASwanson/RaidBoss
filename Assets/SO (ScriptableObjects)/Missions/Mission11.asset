@@ -13,107 +13,112 @@ MonoBehaviour:
   m_Name: Mission11
   m_EditorClassIdentifier: 
   _missionID: 10
-  _missionName: 'Up A
+  _missionName: 'The Glacial
 
-    Notch'
+    Lord'
   _missionTitleScale: 1
+  _doesAutomaticallySelectFirstHero: 1
   _associatedDifficulty: 2
-  _associatedLevel: {fileID: 11400000, guid: 53e846bb7c637be46af02e5cd8741558, type: 2}
+  _associatedLevel: {fileID: 11400000, guid: 8493e996e77df644ab18a699456b6c06, type: 2}
   _associatedHeroes:
-  - {fileID: 11400000, guid: fa900cf8282b2814fb9eb1a8cc860cd0, type: 2}
-  - {fileID: 11400000, guid: 0128339a05223db40aae2581988a9ea0, type: 2}
   - {fileID: 11400000, guid: 2b5cc09a0a41a0c40a6b8c0fa2ebb464, type: 2}
+  - {fileID: 11400000, guid: 0128339a05223db40aae2581988a9ea0, type: 2}
+  - {fileID: 11400000, guid: e3a0dad03ec099242b69fcc0759e259a, type: 2}
   - {fileID: 11400000, guid: 5cd74adfdadc94247a4cc60ba024fe89, type: 2}
   _missionDisplayHighlights:
-  - HighlightType: 1
+  - HighlightType: 0
     HightlightID: 0
   _tutorialPages:
-  - TutorialPageTitle: Difficulties
-    TutorialPageTitleWidth: 750
+  - TutorialPageTitle: 'Boss: The Glacial Lord'
+    TutorialPageTitleWidth: 1201
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'A new foe has appeared. The
+
+      <color=#0079FF>Glacial Lord</color>
+      utilized its <color=#4EA2FF>Frost Fiend</color>
+
+      minions and ice attacks
+      to
+
+      shatter your Heroes.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -60}
+      TutorialCharacterIconScaleMultiplier: 1.075
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 9981069ecead844448de5cc5ddda52a1, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: b2bea2ea6395a3a4698f324d28df7139, type: 3}
+  - TutorialPageTitle: Frost Fiends
+    TutorialPageTitleWidth: 705
+    DefaultTextLocation: {x: 0, y: 35}
+    DefaultText: 'The <color=#0079FF>Glacial Lord</color> has <color=#4EA2FF>Frost
+      Fiends</color>
+
+      around the arena that perform
+
+      some of the attacks
+      for the
+
+      <color=#0079FF>Glacial Lord</color>.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: e52a946485e5bd14e89a47eaa57b38dc, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  - TutorialPageTitle: Frozen Fiends
+    TutorialPageTitleWidth: 797
     DefaultTextLocation: {x: 0, y: 50}
-    DefaultText: 'Different missions have different difficulty
+    DefaultText: 'Attacks performed by the <color=#0079FF>Glacial Lord</color>
 
-      levels. The
-      difficulty of a mission can be
+      can
+      freeze <color=#4EA2FF>Frost Fiends</color>, entirely preventing
 
-      seen next to the boss on the mission
-      scroll
+      them
+      from being able to attack. Line up
 
-      in the mission selection.'
+      the <color=#0079FF>Glacial Lord</color>''s
+      attacks with <color=#4EA2FF>Frost Fiends</color>.'
     TutorialPageObjectLocation: {x: 0, y: -55}
-    TutorialPageObject: {fileID: 2483143276828620687, guid: f9f3f9b54b99f5a49a86895f3f155aa2, type: 3}
+    TutorialPageObject: {fileID: 4219184930868017209, guid: a9ba70893c03f9244976c55d023b89f6, type: 3}
     TutorialPageCharacterTutorial:
       TutorialCharacterIconLocation: {x: 0, y: 0}
-      TutorialCharacterIconScaleMultiplier: 0
+      TutorialCharacterIconScaleMultiplier: 1
       TutorialPageCharacterIcon: {fileID: 0}
       TutorialPageCharacterBackground: {fileID: 0}
-  - TutorialPageTitle: Difficulties Levels
-    TutorialPageTitleWidth: 1065
-    DefaultTextLocation: {x: 0, y: 45}
-    DefaultText: 'There are 4 main difficulty levels, which are
+  - TutorialPageTitle: Freezing Frost Fiends
+    TutorialPageTitleWidth: 1232
+    DefaultTextLocation: {x: 0, y: 70}
+    DefaultText: 'If an attack would freeze a <color=#4EA2FF>Frost Fiend</color>,
 
-      Normal, Heroic,
-      Mythic, and Mythic+.'
-    TutorialPageObjectLocation: {x: 0, y: -40}
-    TutorialPageObject: {fileID: 6938674043408630033, guid: 14763028804c0004597e6979452edb68, type: 3}
+      the
+      ability target zone will glow yellow.'
+    TutorialPageObjectLocation: {x: 0, y: -37}
+    TutorialPageObject: {fileID: 2782490294402393858, guid: 9045ed8e6e3537847b71ad49af3493ba, type: 3}
     TutorialPageCharacterTutorial:
       TutorialCharacterIconLocation: {x: 0, y: 0}
-      TutorialCharacterIconScaleMultiplier: 0
+      TutorialCharacterIconScaleMultiplier: 1
       TutorialPageCharacterIcon: {fileID: 0}
       TutorialPageCharacterBackground: {fileID: 0}
-  - TutorialPageTitle: Heroic
-    TutorialPageTitleWidth: 450
-    DefaultTextLocation: {x: 0, y: 0}
-    DefaultText: 'Previous missions were all on Normal. This
-
-      mission is increased
-      to Heroic. On higher
-
-      difficulties, the boss deals more damage,
-
-      has
-      more health, is harder to stagger,
-
-      and attacks slightly faster.'
-    TutorialPageObjectLocation: {x: 0, y: 0}
-    TutorialPageObject: {fileID: 0}
-    TutorialPageCharacterTutorial:
-      TutorialCharacterIconLocation: {x: 0, y: 0}
-      TutorialCharacterIconScaleMultiplier: 0
-      TutorialPageCharacterIcon: {fileID: 0}
-      TutorialPageCharacterBackground: {fileID: 0}
-  - TutorialPageTitle: Max Heroes
-    TutorialPageTitleWidth: 750
-    DefaultTextLocation: {x: 0, y: 0}
-    DefaultText: 'Additionally as the difficulty increases the
-
-      max number
-      of heroes also increases. The max
-
-      number of heroes on Normal is 3, on
-      Heroic
-
-      it is 4, and on Mythic and Mythic+ it is 5.'
-    TutorialPageObjectLocation: {x: 0, y: 0}
-    TutorialPageObject: {fileID: 0}
-    TutorialPageCharacterTutorial:
-      TutorialCharacterIconLocation: {x: 0, y: 0}
-      TutorialCharacterIconScaleMultiplier: 0
-      TutorialPageCharacterIcon: {fileID: 0}
-      TutorialPageCharacterBackground: {fileID: 0}
-  _characterUnlock: {fileID: 0}
+  _customTutorial: {fileID: 0}
+  _characterUnlock: {fileID: 11400000, guid: 02b364a59624d41448ad2e844c2a0ebb, type: 2}
+  _difficultyUnlock: 0
+  _missionModifierUnlock: {fileID: 0}
   _missionUnlocks:
-  - {fileID: 11400000, guid: 7e552c2bfdf3bdf40ac1df49cbd1dc9c, type: 2}
+  - {fileID: 11400000, guid: a9fcd5e0dc5d17f4a81a58a9c2ba1c86, type: 2}
   _achievementUnlocks: []
+  _generalMissionUnlocks: 0
   _missionModifiers: []
   _missionStatModifiers:
-    _bossHealthMultiplier: 0.8
-    _bossStaggerMultiplier: 0.9
+    _bossHealthMultiplier: 1
+    _bossStaggerMultiplier: 1
     _bossAttackSpeedMultiplier: 1
     _bossDamageResistanceChangeOnStaggerMultiplier: 1
     _bossEnrageTimeMultiplier: 1
     _bossEnrageDamageMultiplier: 1
-    _bossAbilitiesUsable: 0101010101
+    _canBossAutomaticallyUseAbilities: 1
+    _bossAbilitiesUsable: 0101000001
     _heroHealthMultiplier: 1
     _heroDamageMultiplier: 1
     _heroStaggerMultiplier: 1

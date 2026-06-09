@@ -19,15 +19,15 @@ MonoBehaviour:
   _bossID: 0
   _bossMusicID: 2
   _maxHP: 300
-  _baseStaggerMax: 85
-  _staggerDuration: 13
+  _baseStaggerMax: 80
+  _staggerDuration: 14
   _rotationSpeed: 4
   _damageIncrementMultiplier: 1.05
-  _damageResistanceChangeOnStagger: 0.15
+  _damageResistanceChangeOnStagger: 0.3
   _fightStartDelay: 1.5
-  _enrageTime: 150
-  _enrageDamageMultiplier: 1.5
-  _enrageScalingDamageMultiplierIncreasePerMinute: 0.8
+  _enrageTime: 145
+  _enrageDamageMultiplier: 0.225
+  _enrageScalingDamageMultiplierIncreasePerMinute: 0.75
   _bossPrefab: {fileID: 7107661797792204574, guid: 60af20eb747065c438b9c82d3b46c59e, type: 3}
   _bossIcon: {fileID: 21300000, guid: 21d4b6b1ff7b4a44e98295360c31c422, type: 3}
   _floorMaterial: {fileID: 2100000, guid: 0ab886077d8ff854999683aa4bb3e217, type: 2}
@@ -40,55 +40,93 @@ MonoBehaviour:
   _bossHighlightedColor: {r: 0.9622642, g: 0.48694822, b: 0.20576708, a: 1}
   _bossPressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
   _bossSelectedColor: {r: 1, g: 1, b: 1, a: 1}
+  _bossUIColor: {r: 0.9607843, g: 0.42435515, b: 0.20392154, a: 1}
+  _bossAbilityTextUIColor: {r: 1, g: 0.2605888, b: 0.05098039, a: 1}
   _bossSelectionIcon: {fileID: 21300000, guid: 1f6452ea0a0a2ff4597ae74b9436e245, type: 3}
   _bossAbilities:
   - _abilityName: Meteor
     _abilityType: 0
-    _abilityDescription: 'The Magma Lord
+    _abilityDescription: 'A meteor falls
 
-      launches a meteor
+      from the sky which
 
-      from the
-      sky which
+      follows
+      its target
 
-      follows its target'
+      after landing'
+    _abilityWideDescription: 'A meteor falls
+
+      from the sky which
+
+      follows
+      its target
+
+      after landing'
     _abilityImage: {fileID: 21300000, guid: 3378e285c3ebc5b40a15698d0b2abda4, type: 3}
   - _abilityName: Magma Wave
     _abilityType: 0
-    _abilityDescription: 'The Magma Lord
+    _abilityDescription: 'A wave of magma
 
-      creates a wave
+      moves in from the
 
-      on the outside
-      of
+      outside
+      of the arena'
+    _abilityWideDescription: 'A wave of magma
 
-      the arena that
+      moves in from the
 
-      moves inwards'
+      outside
+      of the arena'
     _abilityImage: {fileID: 21300000, guid: 84030649f0f14bd43bfbf065cfc89a0d, type: 3}
   - _abilityName: Lava Blast
     _abilityType: 0
-    _abilityDescription: 'The Magma Lord
+    _abilityDescription: 'All Heroes far
 
-      damages all distant
+      from the Magma Lord
 
-      heroes
-      if no Hero
+      take damage
+      if no
 
-      is up close'
+      Hero is in the
+
+      safe zone'
+    _abilityWideDescription: 'All Heroes far
+
+      from the Magma Lord
+
+      take
+      damage if no
+
+      Hero is in the safe zone'
     _abilityImage: {fileID: 21300000, guid: 45021def284c3fd409ffd816a7e447b0, type: 3}
   - _abilityName: Scorch
     _abilityType: 0
-    _abilityDescription: 'The Magma Lord
+    _abilityDescription: 'Deals damage to
 
-      damages all Heroes
+      all Heroes close to
 
-      close to
-      it'
+      the Magma
+      Lord'
+    _abilityWideDescription: 'Deals damage to
+
+      all Heroes close to
+
+      the
+      Magma Lord'
     _abilityImage: {fileID: 21300000, guid: b8580abf2331f0442bc603c1eb6ef082, type: 3}
   - _abilityName: Volcano
     _abilityType: 2
     _abilityDescription: 'Fissures appear under
+
+      Heroes that stand still
+
+      for
+      extended periods
+
+      which can be activated
+
+      by the Magma Lord'
+    _abilityWideDescription: 'Fissures appear under
 
       Heroes that stand still
 

@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Handles the speed at which the game plays
@@ -19,6 +19,17 @@ public class TimeManager : MainUniversalManagerFramework
     [Header("Hero Values")]
     [SerializeField] private float _largeHeroDamageTimeSpeed;
     [SerializeField] private float _largeHeroDamageDuration;
+
+    [Space]
+    [SerializeField] private float largeHeroDamageRepeatedCooldownWindow;
+    
+    [SerializeField] private float largeHeroDamageRepeatedTimeSpeed;
+    [SerializeField] private float largeHeroDamageRepeatedTimeDuration;
+    
+    
+    private WaitForSeconds _largeHeroDamageRepeatedCooldownWait;
+    private Coroutine _largeHeroDamageRepeatedCooldownProcess;
+    private bool _isLargeHeroDamageOnCooldown = false;
     [Space]
 
     [SerializeField] private float _heroDeathTimeSpeed;
@@ -152,7 +163,34 @@ public class TimeManager : MainUniversalManagerFramework
     /// </summary>
     public void LargeHeroDamageStaggerTimeSlow()
     {
-        AddNewTimeVariationForDuration(_largeHeroDamageTimeSpeed, _largeHeroDamageDuration);
+        if (!_isLargeHeroDamageOnCooldown)
+        {
+            AddNewTimeVariationForDuration(_largeHeroDamageTimeSpeed, _largeHeroDamageDuration);
+        }
+        else
+        {
+            AddNewTimeVariationForDuration(largeHeroDamageRepeatedTimeSpeed, largeHeroDamageRepeatedTimeDuration);
+        }
+        
+        StartLargeHeroDamageStaggerRepeatedCooldown();
+    }
+
+    private void StartLargeHeroDamageStaggerRepeatedCooldown()
+    {
+        // Keeps the current cooldown going and doesn't start a new cooldown
+        if (_isLargeHeroDamageOnCooldown)
+        {
+            return;
+        }
+
+        _largeHeroDamageRepeatedCooldownProcess = StartCoroutine(LargeHeroDamageStaggerRepeatedCooldown());
+    }
+
+    private IEnumerator LargeHeroDamageStaggerRepeatedCooldown()
+    {
+        _isLargeHeroDamageOnCooldown = true;
+        yield return _largeHeroDamageRepeatedCooldownWait;
+        _isLargeHeroDamageOnCooldown = false;
     }
 
     /// <summary>
@@ -197,6 +235,7 @@ public class TimeManager : MainUniversalManagerFramework
         if (doesPause)
         {
             InvokeGamePausedEvent();
+            PlayTimePausedAudio();
         }
     }
 
@@ -212,6 +251,7 @@ public class TimeManager : MainUniversalManagerFramework
         if (isPaused)
         {
             InvokeGameUnpausedEvent();
+            PlayTimeUnpausedAudio();
         }
     }
 
@@ -233,12 +273,28 @@ public class TimeManager : MainUniversalManagerFramework
     {
         _canUpdateTimeVariation = true;
     }
+
+    private void PlayTimePausedAudio()
+    {
+        AudioManager.Instance.PlaySpecificAudio(AudioManager.Instance.UserInterfaceAudio.GameplayUserInterfaceAudio.BattlePaused);
+    }
+
+    private void PlayTimeUnpausedAudio()
+    {
+        AudioManager.Instance.PlaySpecificAudio(AudioManager.Instance.UserInterfaceAudio.GameplayUserInterfaceAudio.BattleUnpaused);
+    }
     
     #region BaseManager
     public override void SetUpInstance()
     {
         base.SetUpInstance();
         Instance = this;
+    }
+
+    public override void SetUpMainManager()
+    {
+        base.SetUpMainManager();
+        _largeHeroDamageRepeatedCooldownWait = new WaitForSeconds(largeHeroDamageRepeatedCooldownWindow);
     }
 
     protected override void SubscribeToEvents()

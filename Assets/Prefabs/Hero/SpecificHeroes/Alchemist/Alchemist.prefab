@@ -47,11 +47,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _basicAbilityChargeTime: 6
-  _manualAbilityChargeTime: 16
+  _manualAbilityChargeTime: 15
+  _doesManualAbilityHaveDuration: 0
+  _doesManualAbilityChargeWhileActive: 0
+  _isManualAbilityDurationFixed: 0
+  _manualAbilityFixedDuration: 0
   _heroSpecificAnimator: {fileID: 6085188593475991012}
   _hasBasicAbilityAnimation: 1
   _hasManualAbilityAnimation: 1
   _hasPassiveAbilityAnimation: 0
+  _basicAbilityAnimationBufferBeforeDisable: 0.25
+  _manualAbilityAnimationBufferBeforeDisable: 0.25
+  _passiveAbilityAnimationBufferBeforeDisable: 0.25
+  _heroSpecificUI: {fileID: 0}
   _basicProjectile: {fileID: 3656080390387977326, guid: 97563b6c912c28a4c862ad53e7f41614, type: 3}
   _manualProjectiles:
   - {fileID: 6912701359158857355, guid: 6ae6633ee64697040b8ec4718ed56b2b, type: 3}

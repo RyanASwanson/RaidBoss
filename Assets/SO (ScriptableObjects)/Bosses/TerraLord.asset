@@ -19,15 +19,15 @@ MonoBehaviour:
   _bossID: 1
   _bossMusicID: 2
   _maxHP: 300
-  _baseStaggerMax: 90
-  _staggerDuration: 16
+  _baseStaggerMax: 80
+  _staggerDuration: 15
   _rotationSpeed: 2
   _damageIncrementMultiplier: 1.05
-  _damageResistanceChangeOnStagger: 0.15
+  _damageResistanceChangeOnStagger: 0.3
   _fightStartDelay: 1.5
-  _enrageTime: 150
-  _enrageDamageMultiplier: 1.5
-  _enrageScalingDamageMultiplierIncreasePerMinute: 0.8
+  _enrageTime: 145
+  _enrageDamageMultiplier: 0.225
+  _enrageScalingDamageMultiplierIncreasePerMinute: 0.75
   _bossPrefab: {fileID: 501763575178469067, guid: a5c2fc6b57543e841872d88998c5cbd0, type: 3}
   _bossIcon: {fileID: 21300000, guid: 6adf6c78c6c82a24c97ad89a6d504a43, type: 3}
   _floorMaterial: {fileID: 2100000, guid: d7dc27c7dbe139046a781b7920657a1e, type: 2}
@@ -40,44 +40,56 @@ MonoBehaviour:
   _bossHighlightedColor: {r: 0.72156864, g: 1, b: 0.19215688, a: 1}
   _bossPressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
   _bossSelectedColor: {r: 1, g: 1, b: 1, a: 1}
+  _bossUIColor: {r: 0.72156864, g: 1, b: 0.19215688, a: 1}
+  _bossAbilityTextUIColor: {r: 0.7810688, g: 1, b: 0.3679244, a: 1}
   _bossSelectionIcon: {fileID: 21300000, guid: 645f4972ce2264a4e9726b920066b98f, type: 3}
   _bossAbilities:
   - _abilityName: 'Crystal
 
       Barrage'
     _abilityType: 0
-    _abilityDescription: 'The Terra Lord
+    _abilityDescription: 'Crystals rain down
 
-      fires several
-
-      crystals that
-
-      cover
-      a quarter
-
-      of the arena'
-    _abilityImage: {fileID: 21300000, guid: 79466d8e9f95ef945994fe0492809aae, type: 3}
-  - _abilityName: Tremor
-    _abilityType: 0
-    _abilityDescription: 'The Terra Lord
-
-      creates spikes
-
-      in the middle
+      and cover a quarter
 
       of
       the arena'
+    _abilityWideDescription: 'Crystals rain down
+
+      and cover a quarter
+
+      of
+      the arena'
+    _abilityImage: {fileID: 21300000, guid: 79466d8e9f95ef945994fe0492809aae, type: 3}
+  - _abilityName: Tremor
+    _abilityType: 0
+    _abilityDescription: 'Spikes stab up
+
+      in the middle
+
+      of the arena'
+    _abilityWideDescription: 'Spikes stab up
+
+      in the middle
+
+      of the arena'
     _abilityImage: {fileID: 21300000, guid: 2de6b1a97ced3e542bd621f5e13543f7, type: 3}
   - _abilityName: Entomb
     _abilityType: 0
-    _abilityDescription: 'The Terra Lord
+    _abilityDescription: 'Two pillars
 
-      creates two pillars
-
-      which
       close in and
 
       create a wall that
+
+      hinders
+      movement'
+    _abilityWideDescription: 'Two pillars
+
+      close in and
+
+      create a wall
+      that
 
       hinders movement'
     _abilityImage: {fileID: 21300000, guid: bc7f6787f19233c489333ec2d063c42f, type: 3}
@@ -85,15 +97,17 @@ MonoBehaviour:
 
       Vines'
     _abilityType: 0
-    _abilityDescription: 'The Terra Lord
+    _abilityDescription: 'Vines surround a
 
-      creates vines that
+      Hero and damage
 
-      surround
-      a Hero
+      Heroes around
+      them'
+    _abilityWideDescription: 'Vines surround a
 
-      and damage heroes
+      Hero and damage
 
+      Heroes
       around them'
     _abilityImage: {fileID: 21300000, guid: 4390ee7a10a2e4f40bfba77d0a66da93, type: 3}
   - _abilityName: 'Unstable
@@ -109,7 +123,17 @@ MonoBehaviour:
 
       either side for
 
-      extended periods.'
+      extended periods'
+    _abilityWideDescription: 'The Arena becomes
+
+      more unstable as
+
+      Heroes
+      remain on
+
+      either side for
+
+      extended periods'
     _abilityImage: {fileID: 21300000, guid: c891d6ee2630d11468a6f57578f964b1, type: 3}
   _associatedAchievements:
   - {fileID: 11400000, guid: 95d7f430059d2d74cbb31ec002f4bc58, type: 2}

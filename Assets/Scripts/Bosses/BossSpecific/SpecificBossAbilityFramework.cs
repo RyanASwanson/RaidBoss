@@ -22,6 +22,7 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     [SerializeField] protected float _targetZoneDuration;
     [SerializeField] protected float _abilityWindUpTime;
     [SerializeField] protected float _timeUntilNextAbility;
+    [SerializeField] protected float _minimumTimeUntilNextAbility;
     protected WaitForSeconds _targetZoneWait;
 
     [Space] 
@@ -83,6 +84,8 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
         {
             _timeUntilNextAbility /= SelectionManager.Instance.GetSpeedMultiplierFromMythicPlusLevel();
         }
+
+        _timeUntilNextAbility = Mathf.Clamp(_timeUntilNextAbility, _minimumTimeUntilNextAbility, float.MaxValue);
         
         _targetZoneWait = new WaitForSeconds(_targetZoneDuration);
 
@@ -210,18 +213,19 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
         {
             yield break;
         }
-        
+
         //Iterates through all target zones and removes them
-        foreach(BossTargetZoneParent currentZone in _currentTargetZones)
+        for (int i = 0; i < _currentTargetZones.Count; i++)
         {
-            if (currentZone.IsUnityNull())
+            if (_currentTargetZones[i].IsUnityNull())
             {
                 continue;
             }
             
-            currentZone.RemoveBossTargetZones();
+            _currentTargetZones[i].RemoveBossTargetZones();
             yield return _delayedIndividualTargetZoneRemovalWait;
         }
+        
         _currentTargetZones.Clear();
     }
 
@@ -513,6 +517,20 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     public void SetIsAbilityActive(bool active)
     {
         _isAbilityEnabled = active;
+    }
+
+    public void SetDelayedIndividualDelayedTargetZoneRemovalTime(float removalTime)
+    {
+        if (Mathf.Approximately(removalTime, _delayedIndividualTargetZoneRemovalTime))
+        {
+            return;
+        }
+        
+        _delayedIndividualTargetZoneRemovalTime = removalTime;
+        if (_delayedIndividualTargetZoneRemovalTime > 0)
+        {
+            _delayedIndividualTargetZoneRemovalWait = new WaitForSeconds(_delayedIndividualTargetZoneRemovalTime);
+        }
     }
 
     #endregion

@@ -32,6 +32,7 @@ public class GeneralBossAbilityAudio
 [System.Serializable]
 public class GeneralBossEnrageAudio
 {
+    public SpecificAudio BossEnrageWarningStart;
     public SpecificAudio BossEnrageImpending;
     public SpecificAudio BossEnrageStarted;
 }

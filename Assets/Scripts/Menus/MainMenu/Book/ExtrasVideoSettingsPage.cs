@@ -7,8 +7,6 @@ using UnityEngine.UI;
 public class ExtrasVideoSettingsPage : MonoBehaviour
 {
     [SerializeField] private Image _fullScreenToggleImage;
-    [SerializeField] private Sprite _fullScreenToggleOff;
-    [SerializeField] private Sprite _fullScreenToggleOn;
     
     [Space]
     [SerializeField] private Toggle _fullScreenToggle;
@@ -41,14 +39,14 @@ public class ExtrasVideoSettingsPage : MonoBehaviour
 
     public void ToggleFullScreen(bool isFullScreen)
     {
-        Screen.fullScreen = isFullScreen;
+        EngineSettingsManager.Instance.ToggleFullScreen(isFullScreen);
         _fullScreenToggleStateSet = isFullScreen;
         SetToggleIcon();
     }
 
     private void SetToggleIcon()
     {
-        _fullScreenToggleImage.sprite = _fullScreenToggleStateSet ? _fullScreenToggleOn : _fullScreenToggleOff;
+        _fullScreenToggleImage.sprite = ExtrasUIFunctionality.Instance.GetOptionsToggleBool(_fullScreenToggleStateSet);
     }
 
     private void SubscribeToToggle()

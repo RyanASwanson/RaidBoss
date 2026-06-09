@@ -13,6 +13,12 @@ public class SBA_CrystalBarrage : SpecificBossAbilityFramework
     [SerializeField] private float _timeBeforeProjectiles;
     [SerializeField] private float _timeBetweenProjectiles;
     private WaitForSeconds _delayBetweenProjectiles;
+    private int _currentProjectileCount;
+    private float _currentTimeBetweenProjectiles;
+
+    [Space] 
+    [SerializeField] private int _enrageProjectileCountIncrease;
+    [SerializeField] private float _enrageTimeBetweenProjectilesDecrease;
 
     [Space]
     [SerializeField] private Vector3 _upwardsProjectileSpawnVariance;
@@ -27,8 +33,6 @@ public class SBA_CrystalBarrage : SpecificBossAbilityFramework
 
     [Space]
     [SerializeField] private float _spawnYEulerVariance;
-    [SerializeField] private float _fallingTime;
-    private WaitForSeconds _fallingWait;
 
     [Space]
     [SerializeField] private GameObject _targetZone;
@@ -94,7 +98,8 @@ public class SBA_CrystalBarrage : SpecificBossAbilityFramework
         }
 
         Vector3 randomSpawnVariance;
-        for (int i = 0; i < _targetLocations.Length; i++)
+
+        for (int i = 0; i < _currentProjectileCount; i++)
         {
             randomSpawnVariance = new Vector3(Random.Range(-_targetWidth, _targetWidth),
                 0, Random.Range(-_targetWidth, _targetWidth));
@@ -120,7 +125,7 @@ public class SBA_CrystalBarrage : SpecificBossAbilityFramework
     
     private IEnumerator CreateIndividualTargetZonesProcess()
     {
-        for (int i = 0; i < _projectileCount; i++)
+        for (int i = 0; i < _currentProjectileCount; i++)
         {
             _currentTargetZones.Add((Instantiate(_individualTargetZone, _targetLocations[i], Quaternion.identity).GetComponent<BossTargetZoneParent>()));
             if (i != 0)
@@ -151,7 +156,7 @@ public class SBA_CrystalBarrage : SpecificBossAbilityFramework
     {
         yield return new WaitForSeconds(_timeBeforeProjectiles);
 
-        for(int i = 0; i < _projectileCount; i++)
+        for(int i = 0; i < _currentProjectileCount; i++)
         {
             CreateUpwardsProjectile();
             yield return _delayBetweenProjectiles;
@@ -197,10 +202,9 @@ public class SBA_CrystalBarrage : SpecificBossAbilityFramework
 
     private IEnumerator DamageProjectileProcess()
     {
-        for (int i = 0; i < _projectileCount; i++)
+        for (int i = 0; i < _currentProjectileCount; i++)
         {
             CreateDamageProjectile(i);
-            StartCoroutine(PlayProjectileImpactDelay());
             yield return _delayBetweenProjectiles;
         }
     }
@@ -209,22 +213,12 @@ public class SBA_CrystalBarrage : SpecificBossAbilityFramework
     {
         Vector3 spawnEulerAngles = new Vector3(0, Random.Range(-_spawnYEulerVariance,_spawnYEulerVariance), 0);
 
-        Instantiate(_crystalBarrage, _targetLocations[projectileID], Quaternion.Euler(spawnEulerAngles));
-    }
+        SBP_CrystalBarrage crystalBarrage =
+            Instantiate(_crystalBarrage, _targetLocations[projectileID], Quaternion.Euler(spawnEulerAngles))
+            .GetComponent<SBP_CrystalBarrage>();
 
-    private IEnumerator PlayProjectileImpactDelay()
-    {
-        yield return _fallingWait;
-        PlayProjectileImpactSFX();
+        crystalBarrage.SetUpProjectile(_myBossBase, _abilityID, _wasBossEnragedOnAbilityActivation);
     }
-    
-    private void PlayProjectileImpactSFX()
-    {
-        AudioManager.Instance.PlaySpecificAudio(
-            AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
-                BossAbilityAudio[_abilityID].GeneralAbilityAudio[CRYSTAL_BARRAGE_IMPACT_AUDIO_ID]);
-    }
-    
     #endregion
 
     #region Base Ability
@@ -232,12 +226,25 @@ public class SBA_CrystalBarrage : SpecificBossAbilityFramework
     {
         base.AbilitySetUp(bossBase);
         
-        _delayBetweenProjectiles = new WaitForSeconds(_timeBetweenProjectiles);
-        _fallingWait = new WaitForSeconds(_fallingTime);
-        
-        _targetLocations = new Vector3[_projectileCount];
+        _targetLocations = new Vector3[_projectileCount + _enrageProjectileCountIncrease];
         
         CalculateTargetLocations();
+    }
+
+    protected override void AbilityPrep()
+    {
+        _currentProjectileCount = _projectileCount;
+        _currentTimeBetweenProjectiles = _timeBetweenProjectiles;
+        
+        if (_wasBossEnragedOnAbilityActivation)
+        {
+            _currentProjectileCount += _enrageProjectileCountIncrease;
+            _currentTimeBetweenProjectiles -= _enrageTimeBetweenProjectilesDecrease;
+        }
+        _delayBetweenProjectiles = new WaitForSeconds(_currentTimeBetweenProjectiles);
+        SetDelayedIndividualDelayedTargetZoneRemovalTime(_currentTimeBetweenProjectiles);
+        
+        base.AbilityPrep();
     }
 
     /// <summary>
@@ -247,8 +254,7 @@ public class SBA_CrystalBarrage : SpecificBossAbilityFramework
     protected override void StartShowTargetZone()
     {
         DetermineTargetLocation();
-
-        //_currentTargetZones.Add(Instantiate(_targetZone, _currentTargetLocation, Quaternion.identity).GetComponent<BossTargetZoneParent>());
+        
         StartCreateIndividualTargetZoneProcess();
 
         StartUpwardsProjectileProcess();

@@ -119,6 +119,7 @@ public class SBA_Meteor : SpecificBossAbilityFramework
 
             _storedTargetLocation = new Vector3(_storedTargetLocation.x, -.3f, _storedTargetLocation.z);
             _storedMovingMeteor = Instantiate(_movingMeteor, _storedTargetLocation, Quaternion.identity).GetComponent<SBP_FollowingMeteor>();
+            _storedMovingMeteor.SetUpProjectile(_myBossBase, _abilityID, _wasBossEnragedOnAbilityActivation);
             _storedMovingMeteor.AdditionalSetUp(_storedHeroLocation);
         }
         
