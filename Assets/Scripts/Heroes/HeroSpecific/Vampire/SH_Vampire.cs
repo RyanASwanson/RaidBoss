@@ -27,6 +27,8 @@ public class SH_Vampire : SpecificHeroFramework
     [SerializeField] private CustomObjectEmitter _manualObjectEmitter;
     [SerializeField] private TrailRenderer[] _batTrailRenderers;
 
+    [Space] 
+    [SerializeField] private CurveProgression _manualScaleCurve;
 
     [Space] 
     [SerializeField] private CurveProgression _manualLifeTimeWarningCurve;
