@@ -62,10 +62,8 @@ MonoBehaviour:
   _passiveAbilityAnimationBufferBeforeDisable: 0.25
   _heroSpecificUI: {fileID: 0}
   _basicProjectile: {fileID: 2326089874878324366, guid: 4e91b3f7a55d11741a98a29c36478819, type: 3}
-  _heroManualDamageResistance: 1.6
   _manualAbilityDurationWarning: 7
   _manualBufferDuration: 1
-  _manualAbilityHealingIncrease: 1.2
   _manualAbilityStatChanges:
     Stats: 03000000070000000400000005000000
     BuffStrength:
@@ -77,6 +75,11 @@ MonoBehaviour:
     BuffDuration: 0
   _batSpiralRotation: {fileID: 7455698943174933673}
   _manualObjectEmitter: {fileID: 2238349170861177619}
+  _batTrailRenderers:
+  - {fileID: 4267871546776925505}
+  - {fileID: 8991524339012166899}
+  - {fileID: 8955842585769069923}
+  - {fileID: 7305771706586895044}
   _manualLifeTimeWarningCurve: {fileID: 4016477926954331254}
   _passiveAbilityLifestealMultiplier: 1.3
   _passiveHealingDelay: 0.3
@@ -112,10 +115,6 @@ PrefabInstance:
     - target: {fileID: 765828979446408723, guid: f14d8af99e72011479ee3f2a9beb653c, type: 3}
       propertyPath: m_Name
       value: VampireBats
-      objectReference: {fileID: 0}
-    - target: {fileID: 765828979446408723, guid: f14d8af99e72011479ee3f2a9beb653c, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4228083629024248214, guid: f14d8af99e72011479ee3f2a9beb653c, type: 3}
       propertyPath: m_RootOrder
@@ -201,6 +200,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 508c048b50abf854791f2f498bb01037, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!96 &4267871546776925505 stripped
+TrailRenderer:
+  m_CorrespondingSourceObject: {fileID: 8011813917274723436, guid: f14d8af99e72011479ee3f2a9beb653c, type: 3}
+  m_PrefabInstance: {fileID: 6058793680759841069}
+  m_PrefabAsset: {fileID: 0}
+--- !u!96 &7305771706586895044 stripped
+TrailRenderer:
+  m_CorrespondingSourceObject: {fileID: 3564168545869001705, guid: f14d8af99e72011479ee3f2a9beb653c, type: 3}
+  m_PrefabInstance: {fileID: 6058793680759841069}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &7455698943174933673 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3702766414677941636, guid: f14d8af99e72011479ee3f2a9beb653c, type: 3}
@@ -215,6 +224,16 @@ MonoBehaviour:
 --- !u!4 &7978130488079474875 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4228083629024248214, guid: f14d8af99e72011479ee3f2a9beb653c, type: 3}
+  m_PrefabInstance: {fileID: 6058793680759841069}
+  m_PrefabAsset: {fileID: 0}
+--- !u!96 &8955842585769069923 stripped
+TrailRenderer:
+  m_CorrespondingSourceObject: {fileID: 2908379374481222734, guid: f14d8af99e72011479ee3f2a9beb653c, type: 3}
+  m_PrefabInstance: {fileID: 6058793680759841069}
+  m_PrefabAsset: {fileID: 0}
+--- !u!96 &8991524339012166899 stripped
+TrailRenderer:
+  m_CorrespondingSourceObject: {fileID: 2944623527552812510, guid: f14d8af99e72011479ee3f2a9beb653c, type: 3}
   m_PrefabInstance: {fileID: 6058793680759841069}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6627653811387902913

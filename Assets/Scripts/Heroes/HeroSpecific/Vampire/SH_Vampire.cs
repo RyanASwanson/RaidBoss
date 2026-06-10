@@ -25,6 +25,7 @@ public class SH_Vampire : SpecificHeroFramework
     [Space] 
     [SerializeField] private GeneralRotation _batSpiralRotation;
     [SerializeField] private CustomObjectEmitter _manualObjectEmitter;
+    [SerializeField] private TrailRenderer[] _batTrailRenderers;
 
 
     [Space] 
@@ -94,6 +95,26 @@ public class SH_Vampire : SpecificHeroFramework
         EndManualAbility();
     }
 
+    public void StartShowingBats()
+    {
+        _batSpiralRotation.BeginRotation();
+        ShowingBats(true);
+    }
+
+    public void StopShowingBats()
+    {
+        _batSpiralRotation.StopRotation();
+        ShowingBats(false);
+    }
+    
+    public void ShowingBats(bool isShowingBats)
+    {
+        foreach (TrailRenderer renderer in _batTrailRenderers)
+        {
+            renderer.enabled = isShowingBats;
+        }
+    }
+    
     private IEnumerator ManualAbilityDurationWarningTimer()
     {
         yield return _manualAbilityDurationWarningWait;

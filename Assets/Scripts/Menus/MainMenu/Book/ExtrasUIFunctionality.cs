@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -101,8 +102,11 @@ public class ExtrasUIFunctionality : MonoBehaviour
         
         _extrasCanvasGroup.blocksRaycasts = false;
         _scaleCurve.StartMovingDownOnCurve();
-        
-        EventSystem.current.SetSelectedGameObject(null);
+
+        if (!EventSystem.current.IsUnityNull())
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+        }
     }
 
     private void CloseExtraUIPressed(InputAction.CallbackContext context)
