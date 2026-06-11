@@ -12,7 +12,8 @@ public class SHP_FaeBasicProjectile : HeroProjectileFramework
     [SerializeField] private bool _doesProjectileBounceOffWalls;
     [SerializeField] private float _wallBounceSpeedMultiplier = 1;
 
-    [Space]
+    [Space] 
+    [SerializeField] private float _distanceRequiredForPerpendicularProjectileDamage;
     [SerializeField] private Vector3 _projectileAlignedWithBossHitboxMultiplier = Vector3.one;
 
     [Space]
@@ -76,7 +77,7 @@ public class SHP_FaeBasicProjectile : HeroProjectileFramework
         
         
 
-        if (_isProjectileAlignedWithBoss || Vector3.Distance(_positionOfFaeOnAbilityUse, _associatedFae._myHeroBase.transform.position) > .15f)
+        if (_isProjectileAlignedWithBoss || Vector3.Distance(_positionOfFaeOnAbilityUse, _associatedFae._myHeroBase.transform.position) >= _distanceRequiredForPerpendicularProjectileDamage)
         {
             // Fae moved enough
             _generalDamageArea.ToggleProjectileCollider(true);
@@ -100,7 +101,6 @@ public class SHP_FaeBasicProjectile : HeroProjectileFramework
              * This is not done to unaligned projectiles as it would cause you to be able to hit all 4 arrows by
              * standing close enough to the Boss
              */
-            return;
             _boxCollider.size = new Vector3(_boxCollider.size.x * _projectileAlignedWithBossHitboxMultiplier.x,
                 _boxCollider.size.y *_projectileAlignedWithBossHitboxMultiplier.y, 
                 _boxCollider.size.z * _projectileAlignedWithBossHitboxMultiplier.z);

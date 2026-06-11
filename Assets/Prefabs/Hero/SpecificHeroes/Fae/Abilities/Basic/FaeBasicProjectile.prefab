@@ -43,7 +43,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.4, y: 0.5, z: 0.6}
+  m_Size: {x: 0.35, y: 0.5, z: 0.6}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8511218815134909799
 GameObject:
@@ -345,13 +345,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _doesProjectileBounceOffWalls: 1
   _wallBounceSpeedMultiplier: 1.4
-  _projectileAlignedWithBossHitboxMultiplier: {x: 1, y: 1, z: 1}
-  _wallBounceEffect: {fileID: 0}
+  _distanceRequiredForPerpendicularProjectileDamage: 0.2
+  _projectileAlignedWithBossHitboxMultiplier: {x: 1.2, y: 1, z: 1}
+  _wallBounceEffect: {fileID: 2321428861232703458, guid: 76bf9aaf4a141a44c876bd050236f0f9, type: 3}
   _generalTranslate: {fileID: 3085304972099005422}
-  _generalDamageArea: {fileID: 0}
-  _boxCollider: {fileID: 0}
-  _scaleCurve: {fileID: 0}
-  _swapTextures: {fileID: 0}
+  _generalDamageArea: {fileID: 8541676034526641626}
+  _boxCollider: {fileID: 2432506977616047737}
+  _scaleCurve: {fileID: 1648499040863163942}
+  _swapTextures: {fileID: 1417538793890320466}
 --- !u!114 &3085304972099005422
 MonoBehaviour:
   m_ObjectHideFlags: 0
