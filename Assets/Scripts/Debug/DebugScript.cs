@@ -96,7 +96,11 @@ public class DebugScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.L))
         {
             List<HeroBase> heroes = PlayerInputGameplayManager.Instance.GetAllControlledHeroes();
-            
+
+            if (heroes.Count <= 0)
+            {
+                return;
+            }
             heroes[0].GetHeroStats().KillHero();
         }
 

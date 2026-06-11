@@ -543,7 +543,12 @@ public class SaveManager : MainUniversalManagerFramework
     public void UnlockMissionsFromMission(MissionSO mission)
     {
         MissionSO[] missionUnlocks = mission.GetMissionUnlocks();
-
+        
+        if (missionUnlocks.Length <= 0)
+        {
+            return;
+        }
+        
         for (int i = 0; i < missionUnlocks.Length; i++)
         {
             // Unlocks the mission

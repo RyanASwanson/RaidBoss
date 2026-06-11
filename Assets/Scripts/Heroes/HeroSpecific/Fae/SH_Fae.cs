@@ -90,23 +90,45 @@ public class SH_Fae : SpecificHeroFramework
 
     protected void CreateBasicAttackProjectiles()
     {
+        bool isProjectileAlignedOnX = false;
+        bool isProjectileAlignedOnZ = false;
+        
         for (int i = 0; i < _basicAttackDirections.Length; i++)
         {
-            GameObject newestProjectile = Instantiate(_basicProjectile, transform.position, Quaternion.Euler(_basicAttackDirections[i].AttackEulers));
+            SHP_FaeBasicProjectile newestProjectile = 
+                Instantiate(_basicProjectile, transform.position, 
+                    Quaternion.Euler(_basicAttackDirections[i].AttackEulers)).GetComponent<SHP_FaeBasicProjectile>();
+            
             newestProjectile.transform.position += (newestProjectile.transform.forward * _projectileSpawnDistance);
 
-            newestProjectile.GetComponent<SHP_FaeBasicProjectile>().SetUpProjectile(_myHeroBase, EHeroAbilityType.Basic);
+            newestProjectile.SetUpProjectile(_myHeroBase, EHeroAbilityType.Basic);
 
             GeneralHeroDamageArea damageArea = newestProjectile.GetComponent<GeneralHeroDamageArea>();
             
             //Performs the set up for the damage area so that it knows it's owner
             damageArea.SetUpDamageArea(_myHeroBase);
 
-            if (_basicAttackDirections[i].IsBossDirectionInPositiveX == (_myHeroBase.transform.position.x > 0) ||
-                _basicAttackDirections[i].IsBossDirectionInPositiveZ == (_myHeroBase.transform.position.z > 0))
+            isProjectileAlignedOnX = _basicAttackDirections[i].IsBossDirectionInPositiveX !=
+                                     (_myHeroBase.transform.position.x > 0);
+            isProjectileAlignedOnZ = _basicAttackDirections[i].IsBossDirectionInPositiveZ !=
+                                     (_myHeroBase.transform.position.z > 0);
+            
+            /*
+             * If the projectile doesn't line up on either direction. The only arrow that will not pass this is the
+             * one fired directly at the Boss. The other 3 will enter this if statement
+             */
+            if (!isProjectileAlignedOnX || !isProjectileAlignedOnZ)
             {
                 damageArea.ToggleProjectileCollider(false);
+                
+                if (isProjectileAlignedOnX != isProjectileAlignedOnZ)
+                {
+                    // The projectile direction is perpendicular to the boss
+                    continue;
+                }
             }
+            
+            newestProjectile.AdditionalSetUp(true);
         }
     }
 

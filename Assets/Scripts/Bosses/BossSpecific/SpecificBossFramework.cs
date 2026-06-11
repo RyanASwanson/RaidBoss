@@ -480,12 +480,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
             // If the ability targets heroes
             case (EBossAbilityTargetMethod.HeroTarget):
                 targetHero = DetermineAggroTarget();
-                if (targetHero.IsUnityNull())
-                {
-                    Debug.Log("Missing Hero Target " + currentAbility.GetAbilityID());
-                }
                 return ClosestFloorSpaceOfTarget(targetHero.gameObject);
-            
             // If the ability targets heroes with a specific ignore
             // Currently has no functionality
             case (EBossAbilityTargetMethod.HeroTargetWithIgnore):
