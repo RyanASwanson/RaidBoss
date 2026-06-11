@@ -157,7 +157,14 @@ public class SH_Mirage : SpecificHeroFramework
     private void CreateClone()
     {
         Vector3 spawnLocation = _myHeroBase.transform.position + (_myHeroBase.transform.forward * _cloneSpawnOffset);
-
+        
+        // Alternative option to spawn the clone opposite to the Mirage
+        // Currently going with placing the clone behind, as otherwise mirage never really has to move. Maybe will change?
+        /*Vector3 spawnLocation = new Vector3(-_myHeroBase.transform.position.x, _myHeroBase.transform.position.y, -_myHeroBase.transform.position.z);
+        Vector3 spawnRotation = new Vector3(_myHeroBase.transform.eulerAngles.x, _myHeroBase.transform.eulerAngles.y+180, _myHeroBase.transform.eulerAngles.z);
+        Quaternion.Euler(spawnRotation);
+        */
+        
         _cloneBase = HeroesManager.Instance.CreateHeroBase(spawnLocation,
             _myHeroBase.transform.rotation, _cloneSO);
 
