@@ -245,14 +245,6 @@ public class SH_Mirage : SpecificHeroFramework
     //Passive is handled by the clone
     #endregion
 
-    private void HeroDied()
-    {
-        StopMovingBasicTargetZone();
-        _currentBasicTargetZone.StartMovingDownOnCurve();
-        
-        CloneDeath();
-    }
-
     #region Base Hero
     /// <summary>
     /// Performs the set up for the Mirage
@@ -276,13 +268,14 @@ public class SH_Mirage : SpecificHeroFramework
         base.BattleStarted();
     }
 
-    /// <summary>
-    /// Subscribes to any needed events
-    /// </summary>
-    protected override void SubscribeToEvents()
+    protected override void HeroDied()
     {
-        base.SubscribeToEvents();
-        _myHeroBase.GetHeroDiedEvent().AddListener(HeroDied);
+        StopMovingBasicTargetZone();
+        _currentBasicTargetZone.StartMovingDownOnCurve();
+        
+        CloneDeath();
+        
+        base.HeroDied();
     }
     #endregion
 

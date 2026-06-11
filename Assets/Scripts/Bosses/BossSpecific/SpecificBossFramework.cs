@@ -160,7 +160,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
     /// Removes a specific hero from the list of heroes that can be targeted
     /// </summary>
     /// <param name="heroBase"></param>
-    protected virtual void RemoveHeroTarget(HeroBase heroBase)
+    public virtual void RemoveHeroTarget(HeroBase heroBase)
     {
         if (!_bossAttackTargets.Contains(heroBase))
         {
@@ -480,6 +480,10 @@ public abstract class SpecificBossFramework : MonoBehaviour
             // If the ability targets heroes
             case (EBossAbilityTargetMethod.HeroTarget):
                 targetHero = DetermineAggroTarget();
+                if (targetHero.IsUnityNull())
+                {
+                    Debug.Log("Missing Hero Target " + currentAbility.GetAbilityID());
+                }
                 return ClosestFloorSpaceOfTarget(targetHero.gameObject);
             
             // If the ability targets heroes with a specific ignore

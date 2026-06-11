@@ -460,10 +460,28 @@ public class SH_Fae : SpecificHeroFramework
     /// </summary>
     protected override void SubscribeToEvents()
     {
-        base.SubscribeToEvents();
-
+        if (_isSubscribedToEvents)
+        {
+            return;
+        }
+        
         _myHeroBase.GetHeroStartedMovingEvent().AddListener(IncreaseBasicAttackSpeedOnMoveStart);
         _myHeroBase.GetHeroStoppedMovingEvent().AddListener(DecreaseBasicAttackSpeedOnMoveEnd);
+        
+        base.SubscribeToEvents();
+    }
+
+    protected override void UnsubscribeFromEvents()
+    {
+        if (!_isSubscribedToEvents)
+        {
+            return;
+        }
+        
+        _myHeroBase.GetHeroStartedMovingEvent().RemoveListener(IncreaseBasicAttackSpeedOnMoveStart);
+        _myHeroBase.GetHeroStoppedMovingEvent().RemoveListener(DecreaseBasicAttackSpeedOnMoveEnd);
+        
+        base.UnsubscribeFromEvents();
     }
     #endregion
     

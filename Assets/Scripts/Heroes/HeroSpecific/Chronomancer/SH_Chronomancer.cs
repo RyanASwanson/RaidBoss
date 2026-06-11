@@ -452,24 +452,24 @@ public class SH_Chronomancer : SpecificHeroFramework
 
     protected override void SubscribeToEvents()
     {
-        base.SubscribeToEvents();
-        
         if (_isSubscribedToEvents)
         {
             return;
         }
         HeroesManager.Instance.GetOnHeroDiedEvent().AddListener(RemoveSpecificHeroValues);
+        
+        base.SubscribeToEvents();
     }
 
     protected override void UnsubscribeFromEvents()
     {
-        base.UnsubscribeFromEvents();
-        
         if (!_isSubscribedToEvents)
         {
             return;
         }
         HeroesManager.Instance.GetOnHeroDiedEvent().RemoveListener(RemoveSpecificHeroValues);
+        
+        base.UnsubscribeFromEvents();
     }
     #endregion
     

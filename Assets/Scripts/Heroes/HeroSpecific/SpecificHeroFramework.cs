@@ -555,7 +555,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     public GameObject GetSpecificHeroUI() => _heroSpecificUI;
     #endregion
 
-    #region MyRegion
+    #region Setters
 
     public void SetCanHeroChargeAbilities(bool canHeroChargeAbilities) => _canHeroChargeAbilities = canHeroChargeAbilities;
     public void SetCanHeroUseAbilities(bool canUseAbilities) => _canHeroUseAbilities = canUseAbilities;

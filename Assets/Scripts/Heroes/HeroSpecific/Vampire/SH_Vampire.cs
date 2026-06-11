@@ -217,10 +217,26 @@ public class SH_Vampire : SpecificHeroFramework
     /// </summary>
     protected override void SubscribeToEvents()
     {
-        base.SubscribeToEvents();
-
+        if (_isSubscribedToEvents)
+        {
+            return;
+        }
         _myHeroBase.GetHeroDealtDamageEvent().AddListener(AddToPassiveHealingCounter);
+        
+        base.SubscribeToEvents();
     }
+
+    protected override void UnsubscribeFromEvents()
+    {
+        if (!_isSubscribedToEvents)
+        {
+            return;
+        }
+        _myHeroBase.GetHeroDealtDamageEvent().RemoveListener(AddToPassiveHealingCounter);
+        
+        base.UnsubscribeFromEvents();
+    }
+
     #endregion
     
 }

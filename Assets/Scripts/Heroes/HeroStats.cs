@@ -41,6 +41,7 @@ public class HeroStats : HeroChildrenFunctionality
     private int _damageTakenOverridesCounter = 0;
     private int _healingTakenOverridesCounter = 0;
     private int _deathOverridesCounter = 0;
+    private static float _deathOverrideHealth = .001f;
 
     private float _basicAbilityCooldownRateMultiplier = 1;
     private float _manualAbilityCooldownRateMultiplier = 1;
@@ -197,6 +198,7 @@ public class HeroStats : HeroChildrenFunctionality
         {
             if(ShouldOverrideDeath())
             {
+                _currentHealth = _deathOverrideHealth;
                 _myHeroBase.InvokeHeroDeathOverrideEvent();
                 return;
             }
@@ -232,10 +234,14 @@ public class HeroStats : HeroChildrenFunctionality
         _currentHealth = 0;
         
         _myHeroBase.InvokeHeroDiedEvent();
-
+        
         if (doesCallHeroManager)
         {
             HeroesManager.Instance.HeroDied(_myHeroBase);
+        }
+        else
+        {
+            BossBase.Instance.GetSpecificBossScript().HeroDied(_myHeroBase);
         }
     }
 
@@ -638,6 +644,10 @@ public class HeroStats : HeroChildrenFunctionality
     public float GetCurrentStaggerMultiplier() => _currentStaggerAdditiveMultiplier * _currentStaggerMultiplicativeMultiplier;
     public float GetCurrentHealingDealtMultiplier() => _currentHealingDealtAdditiveMultiplier * _currentHealingDealtMultiplicativeMultiplier;
     public float GetCurrentHealingReceivedMultiplier() => _currentHealingReceivedAdditiveMultiplier * _currentHealingReceivedMultiplicativeMultiplier;
+
+    public float GetDamageTakenOverrideCounter() => _damageTakenOverridesCounter;
+    public float GetHealingTakenOverrideCounter() => _healingTakenOverridesCounter;
+    public float GetDeathOverrideCounter() => _deathOverridesCounter;
 
     public float GetBasicAbilityCooldownRateMultiplier() => _basicAbilityCooldownRateMultiplier;
     public float GetManualAbilityCooldownRateMultiplier() => _manualAbilityCooldownRateMultiplier;
