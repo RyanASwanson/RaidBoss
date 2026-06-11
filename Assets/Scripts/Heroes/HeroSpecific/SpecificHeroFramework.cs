@@ -485,7 +485,8 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     /// </summary>
     protected virtual void HeroDied()
     {
-
+        DeactivateHeroSpecificActivity();
+        _canHeroUseAbilities = false;
     }
     
     /// <summary>

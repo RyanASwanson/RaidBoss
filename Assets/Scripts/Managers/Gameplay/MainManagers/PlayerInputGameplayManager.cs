@@ -377,8 +377,10 @@ public class PlayerInputGameplayManager : MainGameplayManagerFramework
     {
         int pressNumVal = (int)context.ReadValue<float>();
 
-        if(IsInvalidHeroPress(pressNumVal))
+        if (IsInvalidHeroPress(pressNumVal))
+        {
             return;
+        }
         
         HeroesManager.Instance.GetCurrentHeroes()
             [pressNumVal].GetSpecificHeroScript().AttemptActivationOfManualAbility();

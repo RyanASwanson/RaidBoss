@@ -210,6 +210,8 @@ public class HeroStats : HeroChildrenFunctionality
     /// </summary>
     public void KillHero()
     {
+        _currentHealth = 0;
+        
         // Prevents hero from taking damage as they die
         AddDamageTakenOverrideCounter();
         
@@ -227,6 +229,8 @@ public class HeroStats : HeroChildrenFunctionality
 
     public void ForceKillHero(bool doesCallHeroManager)
     {
+        _currentHealth = 0;
+        
         _myHeroBase.InvokeHeroDiedEvent();
 
         if (doesCallHeroManager)
@@ -298,10 +302,9 @@ public class HeroStats : HeroChildrenFunctionality
     /// <summary>
     /// Determines if death should be overridden based on if they have any death overrides.
     /// Only taken into account when damage kills the hero, not if they are forcibly killed.
-    ///     -EX: Terra Lord Passive forcibly kills
     /// </summary>
     /// <returns></returns>
-    private bool ShouldOverrideDeath()
+    public bool ShouldOverrideDeath()
     {
         return _deathOverridesCounter > 0;
     }

@@ -245,6 +245,12 @@ public abstract class SpecificBossFramework : MonoBehaviour
 
     public virtual void AddHeroOverrideAggro(HeroBase heroBase)
     {
+        // Prevent dead Heroes from overriding aggro
+        if (heroBase.GetHeroStats().IsHeroDead())
+        {
+            return;
+        }
+        
         if (_aggroOverrides.Contains(heroBase))
         {
             return;
