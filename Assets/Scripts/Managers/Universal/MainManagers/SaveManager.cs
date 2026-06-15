@@ -353,7 +353,7 @@ public class SaveManager : MainUniversalManagerFramework
         // Resets the best difficulties beaten
         ResetBossHeroDifficultyDictionary();
         
-        SelectionManager.Instance.ResetSelectionData(true);
+        SelectionManager.Instance.ResetSelectionData(true,true);
         
         InvokeOnGameplaySaveDataReset();
 
@@ -903,6 +903,9 @@ public class GameplaySaveData
         
         BossHeroBestDifficultyComplete = new();
 
+        CurrentDifficultySelected = 1;
+        CurrentMythicPlusLevelSelected = 0;
+        
         HighestDifficultyUnlocked = 1;
         HighestMythicPlusLevelUnlocked = 0;
     }
