@@ -11,7 +11,7 @@ public class GeneralCustomTutorialStep : MonoBehaviour
     [SerializeField] private RectTransform _backgroundTransform;
 
     [Space]
-    [SerializeField] private TextWithBackground _tutorialText;
+    [SerializeField] private TextWithOutline _tutorialText;
     [SerializeField] private RectTransform _textTransform;
 
     [Space] 
@@ -82,8 +82,8 @@ public class GeneralCustomTutorialStep : MonoBehaviour
         _continueButtonTransform.anchoredPosition = continueButtonTransform;
         
         _tutorialText.UpdateText(_currentTutorialStep.GeneralStepUI.CustomTutorialUIText);
-        
-        _textTransform.anchoredPosition = _currentTutorialStep.GeneralStepUI.CustomTutorialTextOffsetPosition;
+        _tutorialText.UpdateLocation(_currentTutorialStep.GeneralStepUI.CustomTutorialTextOffsetPosition);
+        //_textTransform.anchoredPosition = _currentTutorialStep.GeneralStepUI.CustomTutorialTextOffsetPosition;
 
         if (!_currentTutorialStep.GeneralStepUI.CustomTutorialImage.IsUnityNull())
         {

@@ -8,9 +8,9 @@ public class AbilityDescriptionFunctionality : ScrollUIContents
     [SerializeField] private bool _isBoss;
     
     [Space]
-    [SerializeField] private TextWithBackground _abilityNameText;
-    [SerializeField] private TextWithBackground _abilityTypeText;
-    [SerializeField] private TextWithBackground _abilityDescriptionText;
+    [SerializeField] private TextWithOutline _abilityNameText;
+    [SerializeField] private TextWithOutline _abilityTypeText;
+    [SerializeField] private TextWithOutline _abilityDescriptionText;
 
     public override int UpdateContentsAndCountLines()
     {
@@ -67,7 +67,6 @@ public class AbilityDescriptionFunctionality : ScrollUIContents
         
         _abilityTypeText.UpdateText("Modifier");
         _abilityTypeText.UpdateTextColor(SelectionManager.Instance.GetMissionModifierColor());
-        
         
         _abilityDescriptionText.UpdateText(SelectionController.Instance.GetMissionModifierUIToDisplay().GetModifierDescription());
     }
