@@ -539,13 +539,13 @@ MonoBehaviour:
   - StepName: Manual Controls
     DoesAutomaticallyProgressOnBossHealthThreshold: 0
     AutomaticProgressBossHealthThreshold: 0
-    DoesAutomaticallyProgressToNextStepOnContinue: 1
-    AutomaticStepProgressDelay: 9
+    DoesAutomaticallyProgressToNextStepOnContinue: 0
+    AutomaticStepProgressDelay: 2
     DoesStopBossAttacksOnOpen: 0
     DoesToggleHeroAbilityUse: 1
     DoesDisableChargingHeroAbilitiesOnOpen: 0
     DoesDisableHeroAbilitiesOnOpen: 0
-    DoesEnableChargingHeroAbilitiesOnClose: 1
+    DoesEnableChargingHeroAbilitiesOnClose: 0
     DoesEnableHeroAbilitiesOnClose: 1
     DoesStepHaveGeneralStepUI: 1
     GeneralStepUI:
@@ -576,7 +576,19 @@ MonoBehaviour:
         m_Calls: []
     OnCustomTutorialClose:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 5170186439404320021}
+          m_TargetAssemblyTypeName: BaseCustomTutorial, Assembly-CSharp
+          m_MethodName: SubscribeHeroManualAbilityActivationToStepProgression
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   - StepName: Manual Controls Continued
     DoesAutomaticallyProgressOnBossHealthThreshold: 0
     AutomaticProgressBossHealthThreshold: 0

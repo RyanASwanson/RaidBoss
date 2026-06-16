@@ -307,6 +307,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         PlayManualAbilityAudio();
 
         _myHeroBase.InvokeHeroManualAbilityUsedEvent();
+        HeroesManager.Instance.InvokeOnHeroManualAbilityUsed(_myHeroBase);
 
         if (_doesManualAbilityHaveDuration)
         {
