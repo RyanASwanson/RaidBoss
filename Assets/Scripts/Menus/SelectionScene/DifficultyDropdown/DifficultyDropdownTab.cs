@@ -14,12 +14,12 @@ public class DifficultyDropdownTab : MonoBehaviour
     [SerializeField] private DifficultyDropdown _difficultyDropdown;
     
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        SetDifficultyColor();
+        SetUpDifficultyTab();
     }
 
-    private void SetDifficultyColor()
+    private void SetUpDifficultyTab()
     {
         List<string> difficultyNames = SelectionManager.Instance.GetDifficultyNames();
 
