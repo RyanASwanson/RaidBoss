@@ -888,7 +888,7 @@ public class GameplaySaveData
     public int CurrentMythicPlusLevelSelected = 0;
 
     public int HighestDifficultyUnlocked = 1;
-    public int HighestMythicPlusLevelUnlocked = 0;
+    public int HighestMythicPlusLevelUnlocked = 1;
     
     public void ResetGameplaySaveData()
     {
@@ -907,7 +907,7 @@ public class GameplaySaveData
         CurrentMythicPlusLevelSelected = 0;
         
         HighestDifficultyUnlocked = 1;
-        HighestMythicPlusLevelUnlocked = 0;
+        HighestMythicPlusLevelUnlocked = 1;
     }
     
     #region Getters
