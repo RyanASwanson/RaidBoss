@@ -41,6 +41,7 @@ public class HeroStats : HeroChildrenFunctionality
     private int _damageTakenOverridesCounter = 0;
     private int _healingTakenOverridesCounter = 0;
     private int _deathOverridesCounter = 0;
+    private static float _deathOverrideHealth = .001f;
 
     private float _basicAbilityCooldownRateMultiplier = 1;
     private float _manualAbilityCooldownRateMultiplier = 1;
@@ -192,10 +193,12 @@ public class HeroStats : HeroChildrenFunctionality
     /// </summary>
     private void CheckIfHeroIsDead()
     {
-        if (_currentHealth <= 0)
+        // If the hero is out of health, and the battle isn't over, and a scene isn't currently loading
+        if (_currentHealth <= 0 && !GameStateManager.Instance.GetIsFightOver() && !SceneLoadManager.Instance.IsSceneLoading())
         {
             if(ShouldOverrideDeath())
             {
+                _currentHealth = _deathOverrideHealth;
                 _myHeroBase.InvokeHeroDeathOverrideEvent();
                 return;
             }
@@ -209,6 +212,8 @@ public class HeroStats : HeroChildrenFunctionality
     /// </summary>
     public void KillHero()
     {
+        _currentHealth = 0;
+        
         // Prevents hero from taking damage as they die
         AddDamageTakenOverrideCounter();
         
@@ -226,11 +231,17 @@ public class HeroStats : HeroChildrenFunctionality
 
     public void ForceKillHero(bool doesCallHeroManager)
     {
+        _currentHealth = 0;
+        
         _myHeroBase.InvokeHeroDiedEvent();
-
+        
         if (doesCallHeroManager)
         {
             HeroesManager.Instance.HeroDied(_myHeroBase);
+        }
+        else
+        {
+            BossBase.Instance.GetSpecificBossScript().HeroDied(_myHeroBase);
         }
     }
 
@@ -297,10 +308,9 @@ public class HeroStats : HeroChildrenFunctionality
     /// <summary>
     /// Determines if death should be overridden based on if they have any death overrides.
     /// Only taken into account when damage kills the hero, not if they are forcibly killed.
-    ///     -EX: Terra Lord Passive forcibly kills
     /// </summary>
     /// <returns></returns>
-    private bool ShouldOverrideDeath()
+    public bool ShouldOverrideDeath()
     {
         return _deathOverridesCounter > 0;
     }
@@ -634,6 +644,10 @@ public class HeroStats : HeroChildrenFunctionality
     public float GetCurrentStaggerMultiplier() => _currentStaggerAdditiveMultiplier * _currentStaggerMultiplicativeMultiplier;
     public float GetCurrentHealingDealtMultiplier() => _currentHealingDealtAdditiveMultiplier * _currentHealingDealtMultiplicativeMultiplier;
     public float GetCurrentHealingReceivedMultiplier() => _currentHealingReceivedAdditiveMultiplier * _currentHealingReceivedMultiplicativeMultiplier;
+
+    public float GetDamageTakenOverrideCounter() => _damageTakenOverridesCounter;
+    public float GetHealingTakenOverrideCounter() => _healingTakenOverridesCounter;
+    public float GetDeathOverrideCounter() => _deathOverridesCounter;
 
     public float GetBasicAbilityCooldownRateMultiplier() => _basicAbilityCooldownRateMultiplier;
     public float GetManualAbilityCooldownRateMultiplier() => _manualAbilityCooldownRateMultiplier;

@@ -83,15 +83,13 @@ public class BaseCustomTutorial : MonoBehaviour
         _currentTutorialStepIndex++;
         _currentTutorialStep = _customTutorialSteps[_currentTutorialStepIndex];
         _currentIndividualStepUISection = _individualStepSections[_currentTutorialStepIndex];
-        
+                
         OpenCurrentTutorialStepSection();
     }
-
+    
     protected virtual void ProgressToNextTutorialStepFromCurrent()
     {
-        HideCurrentTutorialStepSection();
-        
-        if (_currentTutorialStep.AutomaticStepProgressDelay > 0)
+        if (!_currentTutorialStep.IsUnityNull() && _currentTutorialStep.AutomaticStepProgressDelay > 0)
         {
             StartDelayProgressToNextTutorialStep(_currentTutorialStep.AutomaticStepProgressDelay);
         }
@@ -157,7 +155,7 @@ public class BaseCustomTutorial : MonoBehaviour
 
         if (_currentTutorialStep.DoesToggleHeroAbilityUse)
         {
-            if (_currentTutorialStep.DoesEnableHeroAbilitiesOnClose)
+            if (_currentTutorialStep.DoesEnableChargingHeroAbilitiesOnClose)
             {
                 ToggleHeroAbilityCharging(true);
             }
@@ -167,16 +165,13 @@ public class BaseCustomTutorial : MonoBehaviour
             }
         }
         
-        
         InvokeCustomTutorialStepTutorialClose(_currentTutorialStep);
 
+        HideCurrentTutorialStepSection();
+        
         if (_currentTutorialStep.DoesAutomaticallyProgressToNextStepOnContinue)
         {
             ProgressToNextTutorialStepFromCurrent();
-        }
-        else
-        {
-            HideCurrentTutorialStepSection();
         }
     }
 
@@ -354,7 +349,7 @@ public class BaseCustomTutorial : MonoBehaviour
     protected virtual void HeroControlledProgression(HeroBase hero)
     {
         UnsubscribeHeroControlToStepProgression();
-        ProgressToNextTutorialStep();
+        ProgressToNextTutorialStepFromCurrent();
     }
 
     public virtual void UnsubscribeHeroControlToStepProgression()
@@ -370,12 +365,12 @@ public class BaseCustomTutorial : MonoBehaviour
     public virtual void HeroManualAbilityActivationProgression(HeroBase hero)
     {
         UnsubscribeHeroManualAbilityActivationToStepProgression();
-        ProgressToNextTutorialStep();
+        ProgressToNextTutorialStepFromCurrent();
     }
     
     public virtual void UnsubscribeHeroManualAbilityActivationToStepProgression()
     {
-        HeroesManager.Instance.GetOnHeroManualAbilityUsedEvent().AddListener(HeroManualAbilityActivationProgression);
+        HeroesManager.Instance.GetOnHeroManualAbilityUsedEvent().RemoveListener(HeroManualAbilityActivationProgression);
     }
     #endregion
     

@@ -70,6 +70,10 @@ MonoBehaviour:
   _doesResetRotationToDefaultOnEnable: 0
   _doesUseLocalEulerAngles: 0
   _rotationPerSecond: {x: -35, y: 0, z: 0}
+  _rotationAccelerationCurve: {fileID: 0}
+  _doesUseRotateFunction: 0
+  _rotateFunctionRotationsPerSecond: 0
+  _rotateFunctionAxis: {x: 0, y: 0, z: 0}
   _rotationIndepedentParent: {fileID: 0}
   _hasStartRotationOverride: 0
   _startRotationOverride: {x: 0, y: 0, z: 0}
@@ -112,6 +116,8 @@ MonoBehaviour:
   _doesResetToDefaultProgressOnEnable: 0
   _doesStartMovingUpOnEnable: 1
   _doesStartMovingInCurrentDirectionOnEnable: 0
+  _hasAutomaticStartMovingDelay: 0
+  _automaticStartMovingDelay: 0
   _doesAutomaticallyMoveDownOnHittingMax: 0
   _doesAutomaticallyMoveUpOnHittingMin: 0
   _hasIncreaseDelay: 0
@@ -165,10 +171,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8284131840879145105}
     m_Modifications:
-    - target: {fileID: 1878175694767530187, guid: 0a72e95edee81ba468bdded3b26ede31, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3921242890107716526, guid: 0a72e95edee81ba468bdded3b26ede31, type: 3}
       propertyPath: m_RootOrder
       value: 0

@@ -47,6 +47,11 @@ public class HeroMoveTowardsBossProjectile : HeroProjectileFramework
     public override void SetUpProjectile(HeroBase heroBase, EHeroAbilityType heroAbilityType)
     {
         base.SetUpProjectile(heroBase, heroAbilityType);
+
+        if (_moveBetween.IsUnityNull())
+        {
+            Debug.LogError("Did not find move between script");
+        }
         
         _moveBetween.StartMoveProcess(BossBase.Instance.gameObject);
     }

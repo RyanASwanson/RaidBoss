@@ -296,13 +296,18 @@ public class SelectionManager : MainUniversalManagerFramework
     /// Removes the currently selected heroes, boss, level
     /// Difficulty is not reset
     /// </summary>
-    public void ResetSelectionData(bool doesResetModifiers)
+    public void ResetSelectionData(bool doesResetDifficulty, bool doesResetModifiers)
     {
         _currentSelectedMission = null;
         
         _selectedHeroes = new();
         _selectedBoss = null;
         _selectedLevel = null;
+
+        if (doesResetDifficulty)
+        {
+            _currentEGameDifficulty = EGameDifficulty.Normal;
+        }
         
         if (doesResetModifiers)
         {

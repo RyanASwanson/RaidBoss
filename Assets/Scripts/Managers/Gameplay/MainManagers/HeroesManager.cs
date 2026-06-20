@@ -137,7 +137,6 @@ public class HeroesManager : MainGameplayManagerFramework
 
         BossBase.Instance.GetSpecificBossScript().HeroDied(deadHero);
         
-        
         InvokeOnHeroDiedEvent(deadHero);
     }
 

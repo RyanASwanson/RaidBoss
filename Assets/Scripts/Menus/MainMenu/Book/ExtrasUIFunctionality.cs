@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class ExtrasUIFunctionality : MonoBehaviour
@@ -18,7 +20,11 @@ public class ExtrasUIFunctionality : MonoBehaviour
     [Space]
     [SerializeField] private CurveProgression _scaleCurve;
     [SerializeField] private CurveProgression _squishCurve;
-    
+
+    [Space] 
+    [SerializeField] private CanvasGroup _extrasCanvasGroup;
+
+    private bool _isShowingExtrasUI = false;
     private int _currentPageIndex = 0;
     private ExtrasPage _currentPage;
     
@@ -84,14 +90,25 @@ public class ExtrasUIFunctionality : MonoBehaviour
 
     public void ShowExtrasUI()
     {
+        _isShowingExtrasUI = true;
+        
+        _extrasCanvasGroup.blocksRaycasts = true;
         _scaleCurve.StartMovingUpOnCurve();
     }
 
     public void HideExtrasUI()
     {
+        _isShowingExtrasUI = false;
+        
+        _extrasCanvasGroup.blocksRaycasts = false;
         _scaleCurve.StartMovingDownOnCurve();
+
+        if (!EventSystem.current.IsUnityNull())
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+        }
     }
-    
+
     private void CloseExtraUIPressed(InputAction.CallbackContext context)
     {
         HideExtrasUI();

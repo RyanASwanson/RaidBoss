@@ -130,7 +130,7 @@ public class SelectionController : MonoBehaviour
     [SerializeField] private Camera _heroCamera;
 
     // Start is called before the first frame update
-    void OnEnable()
+    private void OnEnable()
     {
         Instance = this;
         SubscribeToEvents();
@@ -142,6 +142,13 @@ public class SelectionController : MonoBehaviour
         BossSideStart();
         CenterStart();
         HeroSideStart();
+    }
+
+    private void OnDisable()
+    {
+        UnsubscribeFromEvents();
+        
+        ResetInformationLock();
     }
 
     #region Boss Side
@@ -577,12 +584,17 @@ public class SelectionController : MonoBehaviour
         {
             return;
         }
-        
-        IsSelectionInformationLocked = false;
-        SelectionLockedCharacter = null;
+
+        ResetInformationLock();
         
         _characterInformationLockVisuals.SetActive(false);
         PlaySelectionInformationUnlockAudio();
+    }
+
+    private void ResetInformationLock()
+    {
+        IsSelectionInformationLocked = false;
+        SelectionLockedCharacter = null;
     }
 
     private void CheckMaxCharactersSelectionStatus()
@@ -1258,7 +1270,6 @@ public class SelectionController : MonoBehaviour
 
         SelectionManager.Instance.GetHeroSwapEvent().AddListener(SwapHero);
         
-
         SelectionManager.Instance.GetHeroHoveredOverEvent().AddListener(HeroHoveredOver);
         SelectionManager.Instance.GetHeroNotHoveredOverEvent().AddListener(HeroNotHoveredOver);
         
@@ -1267,6 +1278,41 @@ public class SelectionController : MonoBehaviour
         SelectionManager.Instance.GetDifficultySelectionEvent().AddListener(DifficultySelected);
         
         SelectionManager.Instance.GetInformationUnlockedEvent().AddListener(UnlockCharacterInformation);
+    }
+
+    private void UnsubscribeFromEvents()
+    {
+        SelectionManager.Instance.GetBossSelectionEvent().RemoveListener(NewBossAddedSelection);
+        SelectionManager.Instance.GetBossDeselectionEvent().RemoveListener(BossRemovedSelection);
+
+        SelectionManager.Instance.GetBossSwapEvent().RemoveListener(SwapBoss);
+
+        SelectionManager.Instance.GetBossHoveredOverEvent().RemoveListener(BossHoveredOver);
+        SelectionManager.Instance.GetBossNotHoveredOverEvent().RemoveListener(BossNotHoveredOver);
+        
+        SelectionManager.Instance.GetBossInformationLockedEvent().RemoveListener(InformationLockBoss);
+        
+        SelectionManager.Instance.GetMissionModifierSelectionEvent().RemoveListener(MissionModifierSelected);
+        SelectionManager.Instance.GetMissionModifierDeselectionEvent().RemoveListener(MissionModifierDeselected);
+        
+        SelectionManager.Instance.GetMissionModifierSwapEvent().RemoveListener(MissionModifierSwap);
+        
+        SelectionManager.Instance.GetMissionModifierHoveredOverEvent().RemoveListener(MissionModifierHoveredOver);
+        SelectionManager.Instance.GetMissionModifierNotHoveredOverEvent().RemoveListener(MissionModifierNotHoveredOver);
+
+        SelectionManager.Instance.GetHeroSelectionEvent().RemoveListener(NewHeroAddedSelection);
+        SelectionManager.Instance.GetHeroDeselectionEvent().RemoveListener(HeroRemovedSelection);
+
+        SelectionManager.Instance.GetHeroSwapEvent().RemoveListener(SwapHero);
+        
+        SelectionManager.Instance.GetHeroHoveredOverEvent().RemoveListener(HeroHoveredOver);
+        SelectionManager.Instance.GetHeroNotHoveredOverEvent().RemoveListener(HeroNotHoveredOver);
+        
+        SelectionManager.Instance.GetHeroInformationLockedEvent().RemoveListener(InformationLockHero);
+
+        SelectionManager.Instance.GetDifficultySelectionEvent().RemoveListener(DifficultySelected);
+        
+        SelectionManager.Instance.GetInformationUnlockedEvent().RemoveListener(UnlockCharacterInformation);
     }
     
     #region Getters

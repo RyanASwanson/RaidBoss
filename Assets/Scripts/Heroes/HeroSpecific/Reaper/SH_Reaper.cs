@@ -83,6 +83,12 @@ public class SH_Reaper : SpecificHeroFramework
     #region Passive Abilities
     public override void ActivatePassiveAbilities()
     {
+        // Return as there is another death override in effect. That Death Override is used first.
+        if (_myHeroBase.GetHeroStats().GetDeathOverrideCounter() > 1)
+        {
+            return;
+        }
+        
         base.ActivatePassiveAbilities();
         
         _myHeroBase.GetHeroStats().AddDamageTakenOverrideCounter();
@@ -113,6 +119,11 @@ public class SH_Reaper : SpecificHeroFramework
 
     private void EndPassiveAbility()
     {
+        if (GameStateManager.Instance.GetIsFightOver())
+        {
+            return;
+        }
+        
         _myHeroBase.GetHeroStats().RemoveDeathOverrideCounter();
         _myHeroBase.GetHeroStats().KillHero();
     }
@@ -132,8 +143,23 @@ public class SH_Reaper : SpecificHeroFramework
 
     protected override void SubscribeToEvents()
     {
-        base.SubscribeToEvents();
-
+        if (_isSubscribedToEvents)
+        {
+            return;
+        }
         _myHeroBase.GetHeroDeathOverrideEvent().AddListener(ActivatePassiveAbilities);
+        
+        base.SubscribeToEvents();
+    }
+
+    protected override void UnsubscribeFromEvents()
+    {
+        if (!_isSubscribedToEvents)
+        {
+            return;
+        }
+        _myHeroBase.GetHeroDeathOverrideEvent().AddListener(ActivatePassiveAbilities);
+        
+        base.UnsubscribeFromEvents();
     }
 }

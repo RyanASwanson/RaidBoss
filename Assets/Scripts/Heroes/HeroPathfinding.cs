@@ -85,6 +85,11 @@ public class HeroPathfinding : HeroChildrenFunctionality
 
     public void BriefStopCurrentMovement()
     {
+        if (!_meshAgent.isActiveAndEnabled)
+        {
+            return;
+        }
+        
         _meshAgent.isStopped = true;
         _meshAgent.SetDestination(transform.position);
         StartCoroutine(BriefReenableMovement());

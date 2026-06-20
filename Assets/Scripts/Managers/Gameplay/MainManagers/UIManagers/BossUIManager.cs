@@ -103,6 +103,13 @@ public class BossUIManager : GameUIChildrenFunctionality
         CreateDamageStaggerNumber(EDamageNumberType.Damage, damage, _damageNumber, _damageNumbersOrigin);
     }
 
+    private void BossDied()
+    {
+        // Ensures the chips always spawn in the complete middle with no offset
+        _healthChipOffset = 0;
+        ShowHealthChips();
+    }
+
     /// <summary>
     /// Sets the health bar of the boss to accurately reflect the boss health
     /// </summary>
@@ -155,6 +162,7 @@ public class BossUIManager : GameUIChildrenFunctionality
     {
         Vector2 chipLocation = Vector3.zero;
         chipLocation.Set(Mathf.Lerp(0,_healthChipLength,_healthBars[0].fillAmount)+_healthChipOffset,0);
+        
         for (int i = 0; i < _healthChipScaleCurves.Length; i++)
         {
             chipLocation.x *= -1;
@@ -451,6 +459,8 @@ public class BossUIManager : GameUIChildrenFunctionality
         BossBase.Instance.GetBossEnrageCountdownBegunEvent().AddListener(EnrageWarningBegun);
         BossBase.Instance.GetBossEnrageCountdownProgressUpdatedEvent().AddListener(EnrageWarningProgressUpdated);
         BossBase.Instance.GetBossEnragedEvent().AddListener(BossEnraged);
+        
+        GameStateManager.Instance.GetBattleWonEvent().AddListener(BossDied);
     }
 
     protected override void UnsubscribeFromEvents()
@@ -464,6 +474,8 @@ public class BossUIManager : GameUIChildrenFunctionality
         BossBase.Instance.GetBossEnrageCountdownBegunEvent().RemoveListener(EnrageWarningBegun);
         BossBase.Instance.GetBossEnrageCountdownProgressUpdatedEvent().RemoveListener(EnrageWarningProgressUpdated);
         BossBase.Instance.GetBossEnragedEvent().RemoveListener(BossEnraged);
+        
+        GameStateManager.Instance.GetBattleWonEvent().RemoveListener(BossDied);
     }
     #endregion
 }

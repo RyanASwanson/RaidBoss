@@ -115,15 +115,31 @@ public class MirageClone : SpecificHeroFramework
 
     protected override void SubscribeToEvents()
     {
-        //_myHeroBase.GetHeroStartedMovingEvent().AddListener(StartCooldownBasicAbility);
-
-        //Stops the clone from using the basic ability after it stops moving
-        //_myHeroBase.GetHeroStoppedMovingEvent().AddListener(EndBasicCastProcess);
-
+        if (_isSubscribedToEvents)
+        {
+            return;
+        }
+        
         BossBase.Instance.GetBossTargetsAssignedEvent().AddListener(AssignSelfAsBossTarget);
 
         _myHeroBase.GetHeroDamagedOverrideEvent().AddListener(CloneCounterAttack);
+        
         base.SubscribeToEvents();
     }
+
+    protected override void UnsubscribeFromEvents()
+    {
+        if (!_isSubscribedToEvents)
+        {
+            return;
+        }
+        
+        BossBase.Instance.GetBossTargetsAssignedEvent().AddListener(AssignSelfAsBossTarget);
+
+        _myHeroBase.GetHeroDamagedOverrideEvent().AddListener(CloneCounterAttack);
+        
+        base.UnsubscribeFromEvents();
+    }
+
     #endregion
 }

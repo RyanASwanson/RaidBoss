@@ -353,7 +353,7 @@ public class SaveManager : MainUniversalManagerFramework
         // Resets the best difficulties beaten
         ResetBossHeroDifficultyDictionary();
         
-        SelectionManager.Instance.ResetSelectionData(true);
+        SelectionManager.Instance.ResetSelectionData(true,true);
         
         InvokeOnGameplaySaveDataReset();
 
@@ -543,7 +543,12 @@ public class SaveManager : MainUniversalManagerFramework
     public void UnlockMissionsFromMission(MissionSO mission)
     {
         MissionSO[] missionUnlocks = mission.GetMissionUnlocks();
-
+        
+        if (missionUnlocks.Length <= 0)
+        {
+            return;
+        }
+        
         for (int i = 0; i < missionUnlocks.Length; i++)
         {
             // Unlocks the mission
@@ -883,7 +888,7 @@ public class GameplaySaveData
     public int CurrentMythicPlusLevelSelected = 0;
 
     public int HighestDifficultyUnlocked = 1;
-    public int HighestMythicPlusLevelUnlocked = 0;
+    public int HighestMythicPlusLevelUnlocked = 1;
     
     public void ResetGameplaySaveData()
     {
@@ -898,8 +903,11 @@ public class GameplaySaveData
         
         BossHeroBestDifficultyComplete = new();
 
+        CurrentDifficultySelected = 1;
+        CurrentMythicPlusLevelSelected = 0;
+        
         HighestDifficultyUnlocked = 1;
-        HighestMythicPlusLevelUnlocked = 0;
+        HighestMythicPlusLevelUnlocked = 1;
     }
     
     #region Getters

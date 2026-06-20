@@ -307,6 +307,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
         PlayManualAbilityAudio();
 
         _myHeroBase.InvokeHeroManualAbilityUsedEvent();
+        HeroesManager.Instance.InvokeOnHeroManualAbilityUsed(_myHeroBase);
 
         if (_doesManualAbilityHaveDuration)
         {
@@ -485,7 +486,8 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     /// </summary>
     protected virtual void HeroDied()
     {
-
+        DeactivateHeroSpecificActivity();
+        _canHeroUseAbilities = false;
     }
     
     /// <summary>
@@ -554,7 +556,7 @@ public abstract class SpecificHeroFramework : MonoBehaviour
     public GameObject GetSpecificHeroUI() => _heroSpecificUI;
     #endregion
 
-    #region MyRegion
+    #region Setters
 
     public void SetCanHeroChargeAbilities(bool canHeroChargeAbilities) => _canHeroChargeAbilities = canHeroChargeAbilities;
     public void SetCanHeroUseAbilities(bool canUseAbilities) => _canHeroUseAbilities = canUseAbilities;

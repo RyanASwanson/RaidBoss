@@ -178,7 +178,7 @@ public class SelectableMission : MonoBehaviour
 
     public void DeselectMission()
     {
-        SelectionManager.Instance.ResetSelectionData(true);
+        SelectionManager.Instance.ResetSelectionData(false,true);
 
         RemoveAllPreviews();
     }

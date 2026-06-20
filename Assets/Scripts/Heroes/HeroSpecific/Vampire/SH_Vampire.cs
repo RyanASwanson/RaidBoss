@@ -25,7 +25,10 @@ public class SH_Vampire : SpecificHeroFramework
     [Space] 
     [SerializeField] private GeneralRotation _batSpiralRotation;
     [SerializeField] private CustomObjectEmitter _manualObjectEmitter;
+    [SerializeField] private TrailRenderer[] _batTrailRenderers;
 
+    [Space] 
+    [SerializeField] private CurveProgression _manualScaleCurve;
 
     [Space] 
     [SerializeField] private CurveProgression _manualLifeTimeWarningCurve;
@@ -94,6 +97,26 @@ public class SH_Vampire : SpecificHeroFramework
         EndManualAbility();
     }
 
+    public void StartShowingBats()
+    {
+        _batSpiralRotation.BeginRotation();
+        ShowingBats(true);
+    }
+
+    public void StopShowingBats()
+    {
+        _batSpiralRotation.StopRotation();
+        ShowingBats(false);
+    }
+    
+    public void ShowingBats(bool isShowingBats)
+    {
+        foreach (TrailRenderer renderer in _batTrailRenderers)
+        {
+            renderer.enabled = isShowingBats;
+        }
+    }
+    
     private IEnumerator ManualAbilityDurationWarningTimer()
     {
         yield return _manualAbilityDurationWarningWait;
@@ -194,10 +217,26 @@ public class SH_Vampire : SpecificHeroFramework
     /// </summary>
     protected override void SubscribeToEvents()
     {
-        base.SubscribeToEvents();
-
+        if (_isSubscribedToEvents)
+        {
+            return;
+        }
         _myHeroBase.GetHeroDealtDamageEvent().AddListener(AddToPassiveHealingCounter);
+        
+        base.SubscribeToEvents();
     }
+
+    protected override void UnsubscribeFromEvents()
+    {
+        if (!_isSubscribedToEvents)
+        {
+            return;
+        }
+        _myHeroBase.GetHeroDealtDamageEvent().RemoveListener(AddToPassiveHealingCounter);
+        
+        base.UnsubscribeFromEvents();
+    }
+
     #endregion
     
 }

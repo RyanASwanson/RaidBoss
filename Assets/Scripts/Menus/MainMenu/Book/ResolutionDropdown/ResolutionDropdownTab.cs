@@ -15,14 +15,26 @@ public class ResolutionDropdownTab : MonoBehaviour
     private int _resolutionIndex;
     
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         DetermineLockState();
     }
 
     private void DetermineLockState()
     {
+        // Gets the number listed in the name
         _resolutionIndex = (int)Char.GetNumericValue(name[5]);
+        
+        // Gets the second number listed in the name
+        int tempInt = (int)Char.GetNumericValue(name[6]);
+        // If the second number exists
+        if (tempInt >= 0)
+        {
+            // Put the first value in the 10s place
+            _resolutionIndex *= 10;
+            // Put the second value in the 1s place
+            _resolutionIndex += tempInt;
+        }
 
         SetResolutionLock(!EngineSettingsManager.Instance.GetIsResolutionCompatibleWithCurrentScreenResolution(_resolutionIndex));
     }

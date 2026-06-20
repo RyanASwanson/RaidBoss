@@ -12,17 +12,24 @@ public class SHP_FaeBasicProjectile : HeroProjectileFramework
     [SerializeField] private bool _doesProjectileBounceOffWalls;
     [SerializeField] private float _wallBounceSpeedMultiplier = 1;
 
+    [Space] 
+    [SerializeField] private float _distanceRequiredForPerpendicularProjectileDamage;
+    [SerializeField] private Vector3 _projectileAlignedWithBossHitboxMultiplier = Vector3.one;
+
     [Space]
     [SerializeField] private GameObject _wallBounceEffect;
     
     [Space]
     [SerializeField] private GeneralTranslate _generalTranslate;
     [SerializeField] private GeneralHeroDamageArea _generalDamageArea;
+    [SerializeField] private BoxCollider _boxCollider;
     [SerializeField] private CurveProgression _scaleCurve;
     [SerializeField] private SwapTextures _swapTextures;
     
     private static SH_Fae _associatedFae;
     private bool _hasHitEdgeOfMap = false;
+    private Vector3 _positionOfFaeOnAbilityUse;
+    private bool _isProjectileAlignedWithBoss = false;
 
     private IEnumerator CheckForHitEdgeOfMap()
     {
@@ -68,7 +75,36 @@ public class SHP_FaeBasicProjectile : HeroProjectileFramework
         
         _swapTextures.SwapAllTextures();
         
-        _generalDamageArea.ToggleProjectileCollider(true);
+        
+
+        if (_isProjectileAlignedWithBoss || Vector3.Distance(_positionOfFaeOnAbilityUse, _associatedFae._myHeroBase.transform.position) >= _distanceRequiredForPerpendicularProjectileDamage)
+        {
+            // Fae moved enough
+            _generalDamageArea.ToggleProjectileCollider(true);
+        }
+    }
+    
+    public void AdditionalSetUp(bool isAlignedWithBoss)
+    {
+         /*
+          * A projectile is aligned with the Boss when the projectile is fired in the direction towards or directly away
+          * from the Boss. Projectiles that are perpendicular to the boss are not aligned.
+          * For example if the Fae is in the bottom right of the arena, the arrows fired top left and bottom right are
+          * considered aligned. Even if the projectiles aren't going to hit the Boss they are still aligned.
+          */
+         _isProjectileAlignedWithBoss = isAlignedWithBoss;
+    
+        if (_isProjectileAlignedWithBoss)
+        {
+            /*
+             * Gives projectiles that are aligned with the Boss a more forgiving hit box.
+             * This is not done to unaligned projectiles as it would cause you to be able to hit all 4 arrows by
+             * standing close enough to the Boss
+             */
+            _boxCollider.size = new Vector3(_boxCollider.size.x * _projectileAlignedWithBossHitboxMultiplier.x,
+                _boxCollider.size.y *_projectileAlignedWithBossHitboxMultiplier.y, 
+                _boxCollider.size.z * _projectileAlignedWithBossHitboxMultiplier.z);
+        }
     }
     
     #region Base Ability
@@ -81,6 +117,7 @@ public class SHP_FaeBasicProjectile : HeroProjectileFramework
             _associatedFae = (SH_Fae)heroBase.GetSpecificHeroScript();
         }
         
+        _positionOfFaeOnAbilityUse = heroBase.transform.position;
         _generalTranslate.StartMoving(transform.forward);
 
         if (_doesProjectileBounceOffWalls)

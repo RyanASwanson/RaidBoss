@@ -84,6 +84,12 @@ public class SH_Guardian : SpecificHeroFramework
     #endregion
 
     #region Passive Abilities
+
+    private void HeroDamaged(float damage)
+    {
+        ActivatePassiveAbilities();
+    }
+    
     /// <summary>
     /// Activates the passive ability of the Guardian
     /// </summary>
@@ -161,9 +167,24 @@ public class SH_Guardian : SpecificHeroFramework
     /// </summary>
     protected override void SubscribeToEvents()
     {
-        base.SubscribeToEvents();
+        if (_isSubscribedToEvents)
+        {
+            return;
+        }
+        _myHeroBase.GetHeroDamagedEvent().AddListener(HeroDamaged);
         
-        _myHeroBase.GetHeroDamagedEvent().AddListener(delegate{ActivatePassiveAbilities();});
+        base.SubscribeToEvents();
+    }
+
+    protected override void UnsubscribeFromEvents()
+    {
+        if (!_isSubscribedToEvents)
+        {
+            return;
+        }
+        _myHeroBase.GetHeroDamagedEvent().RemoveListener(HeroDamaged);
+        
+        base.UnsubscribeFromEvents();
     }
 
     #endregion

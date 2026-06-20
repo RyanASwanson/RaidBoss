@@ -43,7 +43,17 @@ public class MythicPlusScalerSelection : MonoBehaviour
     void Start()
     {
         DetermineLockState();
-        SetMythicPlusLevel(SelectionManager.Instance.GetMythicPlusLevel(),true);
+        
+        if (!_isLocked)
+        {
+            SetMythicPlusLevel(SelectionManager.Instance.GetMythicPlusLevel(),true);
+        }
+        else
+        {
+            _leftButton.interactable = false;
+            _rightButton.interactable = false;
+        }
+        
     }
 
     public void LeftButtonPressed()

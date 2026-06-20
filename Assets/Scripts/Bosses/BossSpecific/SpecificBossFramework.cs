@@ -160,7 +160,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
     /// Removes a specific hero from the list of heroes that can be targeted
     /// </summary>
     /// <param name="heroBase"></param>
-    protected virtual void RemoveHeroTarget(HeroBase heroBase)
+    public virtual void RemoveHeroTarget(HeroBase heroBase)
     {
         if (!_bossAttackTargets.Contains(heroBase))
         {
@@ -245,6 +245,12 @@ public abstract class SpecificBossFramework : MonoBehaviour
 
     public virtual void AddHeroOverrideAggro(HeroBase heroBase)
     {
+        // Prevent dead Heroes from overriding aggro
+        if (heroBase.GetHeroStats().IsHeroDead())
+        {
+            return;
+        }
+        
         if (_aggroOverrides.Contains(heroBase))
         {
             return;
@@ -475,7 +481,6 @@ public abstract class SpecificBossFramework : MonoBehaviour
             case (EBossAbilityTargetMethod.HeroTarget):
                 targetHero = DetermineAggroTarget();
                 return ClosestFloorSpaceOfTarget(targetHero.gameObject);
-            
             // If the ability targets heroes with a specific ignore
             // Currently has no functionality
             case (EBossAbilityTargetMethod.HeroTargetWithIgnore):
