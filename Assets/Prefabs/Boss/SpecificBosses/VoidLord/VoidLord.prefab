@@ -135,13 +135,19 @@ MonoBehaviour:
   - {fileID: 5270321043563821661}
   - {fileID: 2755443899003495909}
   - {fileID: 2318144848940937099}
-  - {fileID: 0}
   _attackRepititionProtection: 2
   _abilityLocked: {fileID: 0}
   _bossVisualsBase: {fileID: 7847220093884167647}
   _bossSpecificUI: {fileID: 0}
   _bossSpecificAnimator: {fileID: 3288117475359143609}
   _bossDeathAudioDelay: 0
+  _passiveRayOfHopeSpawnRate: 6
+  _passiveRayOfHopeSpawnDistanceChecks: 5
+  _passiveRayOfHopeMinimumBossDistance: 0.75
+  _passiveRayOfHopeMapRadiusOffset: -2.75
+  _rayOfHope: {fileID: 2444281431200962, guid: ac613d6b8e8cf0b49a216f99e483eef9, type: 3}
+  _fadingHopeAttackFrequency: 3
+  _fadingHope: {fileID: 6888634742638398736}
 --- !u!1 &3906560227171296406
 GameObject:
   m_ObjectHideFlags: 0
@@ -431,6 +437,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdb6153db1337bc44afe4c1b0e056622, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _abilityID: 4
+  _targetMethod: 3
+  _doesBossFollowTarget: 0
+  _specificAreaTarget: {x: 0, y: -0.75, z: 0}
+  _specificLookTarget: {x: 0, y: 0, z: -1}
+  _targetZoneDuration: 1.5
+  _abilityWindUpTime: 1.5
+  _timeUntilNextAbility: 3.5
+  _minimumTimeUntilNextAbility: 2.75
+  _hasAbilityDuration: 0
+  _abilityDuration: 0
+  _delayedIndividualTargetZoneRemovalTime: 0
+  _hasScreenShake: 0
+  _screenShakeData:
+    Intensity: 0
+    Frequency: 0
+    Duration: 0
+  _animationTriggerName: 
+  _abilityPrepAudioDelay: 0
+  _abilityStartAudioDelay: 0
+  _targetZone: {fileID: 4878898202747522946, guid: 136c56835e9639744905dfea93b39850, type: 3}
+  _fadingHope: {fileID: 988759024017845002, guid: 52a3dfbd8a599dc49813d97de2341441, type: 3}
 --- !u!1 &7847220093884167647
 GameObject:
   m_ObjectHideFlags: 0

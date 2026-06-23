@@ -5,7 +5,6 @@ using UnityEngine.Events;
 
 public class GeneralHeroHealArea : GeneralAbilityAreaFramework
 {
-
     [SerializeField] private bool _ignoreFullHealth;
 
     [Header("Enter")]

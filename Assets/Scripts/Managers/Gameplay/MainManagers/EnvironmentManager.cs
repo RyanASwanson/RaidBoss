@@ -11,6 +11,7 @@ public class EnvironmentManager : MainGameplayManagerFramework
     public static EnvironmentManager Instance;
     
     [SerializeField] private float _mapRadius;
+    [SerializeField] private float _defaultGroundHeight;
     
     [Tooltip("The offset that is generally used for the height of projectiles")]
     [SerializeField] private Vector3 _floorOffsetHeight;
@@ -110,6 +111,7 @@ public class EnvironmentManager : MainGameplayManagerFramework
 
     #region Getters
     public float GetMapRadius() => _mapRadius;
+    public float GetDefaultGroundHeight() => _defaultGroundHeight;
     public Vector3 GetFloorOffset() => _floorOffsetHeight;
 
     public Vector3 GetRandomLocationOnMap()

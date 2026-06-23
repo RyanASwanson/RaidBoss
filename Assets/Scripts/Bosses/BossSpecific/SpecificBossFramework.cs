@@ -423,7 +423,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
     /// Randomly selected an ability from the list of readied abilities
     /// </summary>
     /// <returns> The next ability selected</returns>
-    protected SpecificBossAbilityFramework SelectNextAbility()
+    protected virtual SpecificBossAbilityFramework SelectNextAbility()
     {
         int randomAbility = Random.Range(0, _readyBossAttacks.Count);
 
