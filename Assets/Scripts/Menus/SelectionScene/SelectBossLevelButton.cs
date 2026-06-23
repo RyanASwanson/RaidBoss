@@ -64,6 +64,14 @@ public class SelectBossLevelButton : MonoBehaviour, IPointerEnterHandler, IPoint
 
     private void UpdateFreePlayButtonInteractability()
     {
+        if (_associatedLevel.IsUnityNull())
+        {
+            Debug.Log("Level");
+        }
+        if (_associatedLevel.GetLevelBoss().IsUnityNull())
+        {
+            Debug.Log("Missing");
+        }
         bool bossUnlocked = SaveManager.Instance.IsBossUnlocked(_associatedLevel.GetLevelBoss());
         
         SetButtonInteractability(bossUnlocked);

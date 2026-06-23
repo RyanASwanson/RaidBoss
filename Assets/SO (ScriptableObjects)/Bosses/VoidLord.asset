@@ -1,0 +1,141 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c5c7c63fa9fece468a73e969f83e50e, type: 3}
+  m_Name: VoidLord
+  m_EditorClassIdentifier: 
+  _name: Void Lord
+  _selectionScreenName: 'Void
+
+    Lord'
+  _bossID: 0
+  _bossMusicID: 2
+  _maxHP: 300
+  _baseStaggerMax: 80
+  _staggerDuration: 14
+  _rotationSpeed: 2
+  _damageIncrementMultiplier: 1.05
+  _damageResistanceChangeOnStagger: 0.3
+  _fightStartDelay: 1.5
+  _enrageTime: 145
+  _enrageDamageMultiplier: 0.225
+  _enrageScalingDamageMultiplierIncreasePerMinute: 0.75
+  _bossPrefab: {fileID: 3811834620768653377, guid: 09f2406ae8c1b9343a395bc7c9bdb86a, type: 3}
+  _bossIcon: {fileID: 21300000, guid: 21d4b6b1ff7b4a44e98295360c31c422, type: 3}
+  _floorMaterial: {fileID: 2100000, guid: 0ab886077d8ff854999683aa4bb3e217, type: 2}
+  _miniFloorMaterial: {fileID: 2100000, guid: 483089e60be2af440bb9c26546e5e149, type: 2}
+  _miniFloorLockedMaterial: {fileID: 2100000, guid: 8ad6661593a7a424faf1d5ee174ffe13, type: 2}
+  _missionSelectionGlowMaterial: {fileID: 2100000, guid: 4e9c4171832812748bb249015f18fbf9, type: 2}
+  _backgroundMaterial: {fileID: 2100000, guid: 8d2f36d01f36e8642b5f41a8eccc22dd, type: 2}
+  _backgroundParticles: {fileID: 4980922677642885067, guid: 190d91df6e0a32c47b95d6e0a092ff48, type: 3}
+  _bossStandard: {fileID: 84773752785426710, guid: 5fb6cd399bf6d764e99499c278cab8a9, type: 3}
+  _bossHighlightedColor: {r: 0.9622642, g: 0.48694822, b: 0.20576708, a: 1}
+  _bossPressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+  _bossSelectedColor: {r: 1, g: 1, b: 1, a: 1}
+  _bossUIColor: {r: 0.9607843, g: 0.42435515, b: 0.20392154, a: 1}
+  _bossAbilityTextUIColor: {r: 1, g: 0.2605888, b: 0.05098039, a: 1}
+  _bossSelectionIcon: {fileID: 21300000, guid: 1f6452ea0a0a2ff4597ae74b9436e245, type: 3}
+  _bossAbilities:
+  - _abilityName: Meteor
+    _abilityType: 0
+    _abilityDescription: 'A meteor falls
+
+      from the sky which
+
+      follows
+      its target
+
+      after landing'
+    _abilityWideDescription: 'A meteor falls
+
+      from the sky which
+
+      follows
+      its target
+
+      after landing'
+    _abilityImage: {fileID: 21300000, guid: 3378e285c3ebc5b40a15698d0b2abda4, type: 3}
+  - _abilityName: Magma Wave
+    _abilityType: 0
+    _abilityDescription: 'A wave of magma
+
+      moves in from the
+
+      outside
+      of the arena'
+    _abilityWideDescription: 'A wave of magma
+
+      moves in from the
+
+      outside
+      of the arena'
+    _abilityImage: {fileID: 21300000, guid: 84030649f0f14bd43bfbf065cfc89a0d, type: 3}
+  - _abilityName: Lava Blast
+    _abilityType: 0
+    _abilityDescription: 'All Heroes far
+
+      from the Magma Lord
+
+      take damage
+      if no
+
+      Hero is in the
+
+      safe zone'
+    _abilityWideDescription: 'All Heroes far
+
+      from the Magma Lord
+
+      take
+      damage if no
+
+      Hero is in the safe zone'
+    _abilityImage: {fileID: 21300000, guid: 45021def284c3fd409ffd816a7e447b0, type: 3}
+  - _abilityName: Scorch
+    _abilityType: 0
+    _abilityDescription: 'Deals damage to
+
+      all Heroes close to
+
+      the Magma
+      Lord'
+    _abilityWideDescription: 'Deals damage to
+
+      all Heroes close to
+
+      the
+      Magma Lord'
+    _abilityImage: {fileID: 21300000, guid: b8580abf2331f0442bc603c1eb6ef082, type: 3}
+  - _abilityName: Volcano
+    _abilityType: 2
+    _abilityDescription: 'Fissures appear under
+
+      Heroes that stand still
+
+      for
+      extended periods
+
+      which can be activated
+
+      by the Magma Lord'
+    _abilityWideDescription: 'Fissures appear under
+
+      Heroes that stand still
+
+      for
+      extended periods
+
+      which can be activated
+
+      by the Magma Lord'
+    _abilityImage: {fileID: 21300000, guid: 3f36a531e11b5f74aa9726acfffe8707, type: 3}
+  _associatedAchievements:
+  - {fileID: 11400000, guid: fc97380105a05fb4a91bbf9a14fd2590, type: 2}
