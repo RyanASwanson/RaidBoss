@@ -6,7 +6,7 @@ using UnityEngine.Serialization;
 
 public class GlacialLordTargetZone : BossTargetZone
 {
-    [FormerlySerializedAs("_miniontInRangeMat")] [SerializeField] private Material _minionInRangeMat;
+    [SerializeField] private Material _minionInRangeMat;
     
     protected List<BossMinionBase> _minionsInRange = new List<BossMinionBase>();
     

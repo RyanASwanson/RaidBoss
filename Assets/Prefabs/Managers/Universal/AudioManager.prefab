@@ -1219,6 +1219,240 @@ MonoBehaviour:
           Data4: -2100746564
         Path: event:/SoundEffect/Bosses/Specific/ThunderLord/Death/ThunderLordDeath
     MiscellaneousBossAudio: []
+  - AssociatedBoss: VoidLord
+    SelectionSelectedAudio:
+      AudioName: LightningLordSelected
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+      AudioVCAType: 2
+      DefaultPlayType: 1
+      DefaultAudioChoice: 0
+      AudioTracks:
+      - Guid:
+          Data1: -1363530573
+          Data2: 1116071005
+          Data3: 1785673656
+          Data4: -1112083907
+        Path: event:/SoundEffect/Bosses/Specific/ThunderLord/Abilities/Thunderbolt/ThunderLordThunderbolt
+    BossAbilityAudio:
+    - AbilityName: Thunderbolt
+      AbilityPrep:
+        AudioName: 
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        AudioVCAType: 2
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks: []
+      AbilityStart:
+        AudioName: 
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        AudioVCAType: 2
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks: []
+      GeneralAbilityAudio:
+      - AudioName: ThunderboltActivation
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        AudioVCAType: 2
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: -1363530573
+            Data2: 1116071005
+            Data3: 1785673656
+            Data4: -1112083907
+          Path: event:/SoundEffect/Bosses/Specific/ThunderLord/Abilities/Thunderbolt/ThunderLordThunderbolt
+    - AbilityName: StaticCharge
+      AbilityPrep:
+        AudioName: StaticCharge
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        AudioVCAType: 2
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: 1019476985
+            Data2: 1261553801
+            Data3: 413196713
+            Data4: 1388448461
+          Path: event:/SoundEffect/Bosses/Specific/ThunderLord/Abilities/StaticCharge/ThunderLordStaticCharge
+      AbilityStart:
+        AudioName: 
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        AudioVCAType: 2
+        DefaultPlayType: 1
+        DefaultAudioChoice: 0
+        AudioTracks: []
+      GeneralAbilityAudio:
+      - AudioName: StaticChargeAttackHit
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        AudioVCAType: 2
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: -586800513
+            Data2: 1242921837
+            Data3: -221529700
+            Data4: 1083843066
+          Path: event:/SoundEffect/Bosses/Specific/ThunderLord/Abilities/StaticCharge/ThunderLordStaticChargeAttackHit
+    - AbilityName: Thunderclap
+      AbilityPrep:
+        AudioName: 
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        AudioVCAType: 2
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks: []
+      AbilityStart:
+        AudioName: Thunderclap
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        AudioVCAType: 2
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: -442606594
+            Data2: 1073978133
+            Data3: 2090665127
+            Data4: -318463521
+          Path: event:/SoundEffect/Bosses/Specific/ThunderLord/Abilities/Thunderclap/ThunderLordThunderclap
+      GeneralAbilityAudio:
+      - AudioName: ThunderclapFailed
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        AudioVCAType: 2
+        DefaultPlayType: 1
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: -146961177
+            Data2: 1116950394
+            Data3: -1852463731
+            Data4: 650404567
+          Path: event:/SoundEffect/Bosses/Specific/ThunderLord/Abilities/Thunderclap/ThunderLordThunderclapFailed
+    - AbilityName: Overcharge
+      AbilityPrep:
+        AudioName: 
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        AudioVCAType: 2
+        DefaultPlayType: 1
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: 311079646
+            Data2: 1128440064
+            Data3: -1779581
+            Data4: -804043991
+          Path: event:/SoundEffect/Bosses/Specific/ThunderLord/Abilities/Overcharge/ThunderLordOvercharge
+      AbilityStart:
+        AudioName: 
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        AudioVCAType: 2
+        DefaultPlayType: 1
+        DefaultAudioChoice: 0
+        AudioTracks: []
+      GeneralAbilityAudio: []
+    - AbilityName: ImpendingStorm
+      AbilityPrep:
+        AudioName: 
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        AudioVCAType: 2
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks: []
+      AbilityStart:
+        AudioName: 
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        AudioVCAType: 2
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks: []
+      GeneralAbilityAudio:
+      - AudioName: 
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        AudioVCAType: 2
+        DefaultPlayType: 0
+        DefaultAudioChoice: 1
+        AudioTracks:
+        - Guid:
+            Data1: -1949135384
+            Data2: 1297142234
+            Data3: -64034380
+            Data4: -1020005259
+          Path: event:/SoundEffect/Bosses/Specific/ThunderLord/Abilities/ImpendingStorm/ThunderLordImpendingStormAttack1
+        - Guid:
+            Data1: -1405329700
+            Data2: 1331166085
+            Data3: 1540112830
+            Data4: -383119157
+          Path: event:/SoundEffect/Bosses/Specific/ThunderLord/Abilities/ImpendingStorm/ThunderLordImpendingStormAttack2
+        - Guid:
+            Data1: -1850533541
+            Data2: 1212186599
+            Data3: -403281508
+            Data4: 2145027524
+          Path: event:/SoundEffect/Bosses/Specific/ThunderLord/Abilities/ImpendingStorm/ThunderLordImpendingStormAttack3
+    BossAmbience:
+      AudioName: ThunderLordAmbience
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+      AudioVCAType: 2
+      DefaultPlayType: 1
+      DefaultAudioChoice: 0
+      AudioTracks:
+      - Guid:
+          Data1: 327012091
+          Data2: 1205306152
+          Data3: -149384782
+          Data4: 1622480293
+        Path: event:/SoundEffect/Bosses/Specific/ThunderLord/Ambience/ThunderLordAmbience
+    BossDeathAudio:
+      AudioName: LightningLordDeath
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
+      DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+      AudioVCAType: 2
+      DefaultPlayType: 0
+      DefaultAudioChoice: 0
+      AudioTracks:
+      - Guid:
+          Data1: 631850944
+          Data2: 1337766433
+          Data3: -1597217908
+          Data4: -2100746564
+        Path: event:/SoundEffect/Bosses/Specific/ThunderLord/Death/ThunderLordDeath
+    MiscellaneousBossAudio: []
   GeneralHeroAudio:
     HealthAudio:
       HeroTookDamage:

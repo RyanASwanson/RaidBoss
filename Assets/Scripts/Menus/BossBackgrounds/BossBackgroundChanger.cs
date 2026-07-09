@@ -69,7 +69,7 @@ public class BossBackgroundChanger : MonoBehaviour
         {
             return;
         }
-
+        
         HideCurrentBackground();
         ShowBackground(level);
         ShowBackgroundParticles(level);
@@ -89,7 +89,6 @@ public class BossBackgroundChanger : MonoBehaviour
         {
             return;
         }
-        
         _currentBackgroundCurveProgression.StartMovingUpOnCurve();
     }
 

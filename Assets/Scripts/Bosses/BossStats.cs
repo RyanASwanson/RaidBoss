@@ -436,8 +436,11 @@ public class BossStats : BossChildrenFunctionality
 
     public float GetBossEnrageDamageMultiplier() => _bossEnrageDamageMultiplier;
 
-    public float GetCombinedBossDamageMultiplier() => _baseBossDamageMultiplier * _bossLowHealthDamageMultiplier 
-        * _bossEnrageDamageMultiplier * _storedScalingEnrageDamageMultiplier;
+    public float GetCombinedBossDamageMultiplier() => GetCombinedBossDamageMultiplierWithoutEnrage() 
+                                                      * _bossEnrageDamageMultiplier * _storedScalingEnrageDamageMultiplier;
+
+    public float GetCombinedBossDamageMultiplierWithoutEnrage() =>
+        _baseBossDamageMultiplier * _bossLowHealthDamageMultiplier;
     #endregion
 
     #region Setters

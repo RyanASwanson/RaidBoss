@@ -14,10 +14,11 @@ public class SB_VoidLord : SpecificBossFramework
     [SerializeField] private float _passiveRayOfHopeSpawnDistanceChecks;
     [SerializeField] private float _passiveRayOfHopeMinimumBossDistance;
     [SerializeField] private float _passiveRayOfHopeMapRadiusOffset;
-    [SerializeField] private GameObject _rayOfHope;
+    [SerializeField] private GameObject _rayOfHopeTargetZone;
     private Coroutine _rayOfHopePassiveSpawning;
     private float _rayOfHopePassiveSpawningTimer = 0;
     private float _rayOfHopeSpawnMapRadius;
+    private SBP_RayOfHopeTargetZone _newestRayOfHopeTargetZone;
 
     [Space]
     [SerializeField] private int _fadingHopeAttackFrequency;
@@ -53,16 +54,16 @@ public class SB_VoidLord : SpecificBossFramework
             if (_rayOfHopePassiveSpawningTimer >= _passiveRayOfHopeSpawnRate)
             {
                 _rayOfHopePassiveSpawningTimer = 0;
-                SpawnRayOfHope(GetFurthestRandomRayOfHopeSpawnPoint());
+                SpawnRayOfHopeTargetZone(GetFurthestRandomRayOfHopeSpawnPoint()).SpawnRayOnDelay(2);
             }
             
             yield return null;
         }
     }
 
-    private void SpawnRayOfHope(Vector3 spawnPoint)
+    private SBP_RayOfHopeTargetZone SpawnRayOfHopeTargetZone(Vector3 spawnPoint)
     {
-        Instantiate(_rayOfHope, spawnPoint, Quaternion.identity);
+        return Instantiate(_rayOfHopeTargetZone, spawnPoint, Quaternion.identity).GetComponent<SBP_RayOfHopeTargetZone>();
     }
 
     private Vector3 GetFurthestRandomRayOfHopeSpawnPoint()

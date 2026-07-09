@@ -311,6 +311,27 @@ public abstract class SpecificBossFramework : MonoBehaviour
             .DealDamageToHero(damage * BossStats.Instance.GetCombinedBossDamageMultiplier());
     }
 
+    /// <summary>
+    /// Specifically used for Bosses with functionality to heal Heroes
+    /// </summary>
+    /// <param name="heroBase"></param>
+    /// <param name="healing"></param>
+    public virtual void HealHero(HeroBase heroBase, float healing)
+    {
+        if (healing <= 0)
+        {
+            return;
+        }
+
+        if (heroBase.IsUnityNull())
+        {
+            return;
+        }
+            
+        heroBase.GetHeroStats()
+            .HealHero(healing * BossStats.Instance.GetCombinedBossDamageMultiplierWithoutEnrage());
+    }
+
     protected virtual void AddAbilityInitiallyToBossReadyAttacks(SpecificBossAbilityFramework newAbility)
     {
         newAbility.SetIsAbilityActive(true);
