@@ -24,7 +24,8 @@ public class SBP_RayOfHopeTargetZone : BossProjectileFramework
     {
         _targetZoneParent.RemoveBossTargetZones();
         
-        Instantiate(_rayOfHope,transform.position,transform.rotation);
+        Instantiate(_rayOfHope,transform.position,transform.rotation)
+            .GetComponent<SBP_RayOfHope>().SetUpProjectile(_myBossBase,_abilityID);
     }
     
     #region BaseProjectile

@@ -37,14 +37,16 @@ MonoBehaviour:
   _backgroundMaterial: {fileID: 2100000, guid: 90e5ca58f9b1fb34b99bb5727b3c87ee, type: 2}
   _backgroundParticles: {fileID: 4980922677642885067, guid: 190d91df6e0a32c47b95d6e0a092ff48, type: 3}
   _bossStandard: {fileID: 84773752785426710, guid: 5fb6cd399bf6d764e99499c278cab8a9, type: 3}
-  _bossHighlightedColor: {r: 0.9622642, g: 0.48694822, b: 0.20576708, a: 1}
+  _bossHighlightedColor: {r: 0.5428867, g: 0.19182372, b: 1, a: 1}
   _bossPressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
   _bossSelectedColor: {r: 1, g: 1, b: 1, a: 1}
-  _bossUIColor: {r: 0.9607843, g: 0.42435515, b: 0.20392154, a: 1}
-  _bossAbilityTextUIColor: {r: 1, g: 0.2605888, b: 0.05098039, a: 1}
+  _bossUIColor: {r: 0.60885686, g: 0.31132066, b: 1, a: 1}
+  _bossAbilityTextUIColor: {r: 0.60784316, g: 0.30980393, b: 1, a: 1}
   _bossSelectionIcon: {fileID: 21300000, guid: 1f6452ea0a0a2ff4597ae74b9436e245, type: 3}
   _bossAbilities:
-  - _abilityName: Meteor
+  - _abilityName: 'Dread
+
+      Spears'
     _abilityType: 0
     _abilityDescription: 'A meteor falls
 
@@ -63,7 +65,7 @@ MonoBehaviour:
 
       after landing'
     _abilityImage: {fileID: 21300000, guid: 3378e285c3ebc5b40a15698d0b2abda4, type: 3}
-  - _abilityName: Magma Wave
+  - _abilityName: Isolation
     _abilityType: 0
     _abilityDescription: 'A wave of magma
 
@@ -78,7 +80,7 @@ MonoBehaviour:
       outside
       of the arena'
     _abilityImage: {fileID: 21300000, guid: 84030649f0f14bd43bfbf065cfc89a0d, type: 3}
-  - _abilityName: Lava Blast
+  - _abilityName: Void Maw
     _abilityType: 0
     _abilityDescription: 'All Heroes far
 
@@ -99,7 +101,9 @@ MonoBehaviour:
 
       Hero is in the safe zone'
     _abilityImage: {fileID: 21300000, guid: 45021def284c3fd409ffd816a7e447b0, type: 3}
-  - _abilityName: Scorch
+  - _abilityName: 'Despair
+
+      Hex'
     _abilityType: 0
     _abilityDescription: 'Deals damage to
 
@@ -114,7 +118,9 @@ MonoBehaviour:
       the
       Magma Lord'
     _abilityImage: {fileID: 21300000, guid: b8580abf2331f0442bc603c1eb6ef082, type: 3}
-  - _abilityName: Volcano
+  - _abilityName: 'Fading
+
+      Hope'
     _abilityType: 2
     _abilityDescription: 'Fissures appear under
 

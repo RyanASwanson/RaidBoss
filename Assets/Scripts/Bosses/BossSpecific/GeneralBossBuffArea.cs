@@ -98,7 +98,7 @@ public class GeneralBossBuffArea : GeneralAbilityAreaFramework
     }
     #endregion
     
-    private void DealHealing(HeroBase heroBase, float abilityHealing)
+    public void DealHealing(HeroBase heroBase, float abilityHealing)
     {
         BossBase.Instance.GetSpecificBossScript().HealHero(heroBase,abilityHealing*_multiplicativeHealingMultiplier);
     }
@@ -125,5 +125,9 @@ public class GeneralBossBuffArea : GeneralAbilityAreaFramework
     {
         _multiplicativeHealingMultiplier *= multiplier;
     }
+    
+    public void SetEnterHealing(float healing) => _enterHealing = healing;
+    public void SetStayHealing(float healing) => _stayHealingPerTick = healing;
+    public void SetExitHealing(float healing) => _exitHealing = healing;
     #endregion
 }

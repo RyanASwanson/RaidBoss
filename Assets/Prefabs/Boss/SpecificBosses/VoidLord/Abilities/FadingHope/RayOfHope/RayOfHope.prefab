@@ -48,6 +48,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 475a01c7d4a86d64eaa1662ebc9e06d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _baseHealing: 1.5
+  _bossBuffArea: {fileID: 4459823935729660059}
 --- !u!114 &4459823935729660059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92,22 +94,10 @@ MonoBehaviour:
   _canPreventReHitWithoutInitialHealing: 0
   _canHitFullHealthHeroes: 0
   _preventReHitDuration: 0
-  _enterHealing: 4.25
+  _enterHealing: 0
   _enterEvent:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: -5881607884276978780}
-        m_TargetAssemblyTypeName: SBP_RayOfHope, Assembly-CSharp
-        m_MethodName: RemoveRayOfHope
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   _stayHealingPerTick: 0
   _stayEvent:
     m_PersistentCalls:
