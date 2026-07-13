@@ -475,22 +475,13 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     }
     #endregion AbilityAudio
 
-    #region RETIRED Targeting
-
-    /// <summary>
-    /// Provides the target for an ability with a hero target with an ignore
-    /// </summary>
-    /// <returns></returns>
-    protected virtual HeroBase GetIgnoreHeroTarget()
-    {
-        return null;
-    }
+    #region Specific Targeting
 
     /// <summary>
     /// Provides the target for an ability with a specific hero target
     /// </summary>
     /// <returns></returns>
-    protected virtual HeroBase GetSpecificHeroTarget()
+    public virtual HeroBase GetSpecificHeroTarget()
     {
         return null;
     }
@@ -539,7 +530,6 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
 public enum EBossAbilityTargetMethod
 {
     HeroTarget,
-    HeroTargetWithIgnore,
     SpecificHeroTarget,
     SpecificAreaTarget,
 };

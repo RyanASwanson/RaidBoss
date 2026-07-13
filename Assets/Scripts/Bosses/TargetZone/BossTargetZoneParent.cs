@@ -62,5 +62,18 @@ public class BossTargetZoneParent : MonoBehaviour
     public BossTargetZone[] GetBossTargetZones() => _bossTargetZone;
     
     public bool GetIsDestroyingSelf() => _isDestroyingSelf;
+
+    public bool GetDoAnyZonesContainHero()
+    {
+        foreach (BossTargetZone targetZone in _bossTargetZone)
+        {
+            if (targetZone.DoesZoneContainHero())
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
     #endregion
 }

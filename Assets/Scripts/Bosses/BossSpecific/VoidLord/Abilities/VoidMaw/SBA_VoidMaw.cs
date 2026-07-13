@@ -16,6 +16,7 @@ public class SBA_VoidMaw : SpecificBossAbilityFramework
 
     protected override void StartShowTargetZone()
     {
+        Instantiate(_targetZone, _myBossBase.transform.position, Quaternion.identity);
         base.StartShowTargetZone();
     }
 

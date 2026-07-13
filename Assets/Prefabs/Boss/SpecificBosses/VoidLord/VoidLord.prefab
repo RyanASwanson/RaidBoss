@@ -132,7 +132,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _startingBossAbilities:
   - {fileID: 5577432848493111636}
-  - {fileID: 5270321043563821661}
+  - {fileID: 6069566729229583720}
   - {fileID: 2755443899003495909}
   - {fileID: 2318144848940937099}
   _attackRepititionProtection: 2
@@ -259,8 +259,7 @@ GameObject:
   m_Component:
   - component: {fileID: 215549559631898166}
   - component: {fileID: 5577432848493111636}
-  - component: {fileID: 2391625947259796838}
-  - component: {fileID: 5270321043563821661}
+  - component: {fileID: 6069566729229583720}
   - component: {fileID: 2755443899003495909}
   - component: {fileID: 2318144848940937099}
   - component: {fileID: 6888634742638398736}
@@ -320,7 +319,7 @@ MonoBehaviour:
   _abilityStartAudioDelay: 0
   _targetZone: {fileID: 7684834674679282806, guid: df0097d38fee2d043a7cf9a02264dae9, type: 3}
   _dreadSpears: {fileID: 974123808729791369, guid: bac6e8e7f532fb64b833966325868982, type: 3}
---- !u!114 &2391625947259796838
+--- !u!114 &6069566729229583720
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -329,67 +328,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 6562952960105213545}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd801e819b281f9469c7a37e07610830, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _abilityID: 0
-  _targetMethod: 0
-  _doesBossFollowTarget: 0
-  _specificAreaTarget: {x: 0, y: 0, z: 0}
-  _specificLookTarget: {x: 0, y: 0, z: 0}
-  _targetZoneDuration: 3
-  _abilityWindUpTime: 3
-  _timeUntilNextAbility: 6.75
-  _minimumTimeUntilNextAbility: 3
-  _hasAbilityDuration: 0
-  _abilityDuration: 0
-  _delayedIndividualTargetZoneRemovalTime: 0
-  _hasScreenShake: 1
-  _screenShakeData:
-    Intensity: 1.5
-    Frequency: 0.005
-    Duration: 0.6
-  _animationTriggerName: MeteorAbility
-  _abilityPrepAudioDelay: 2.7
-  _abilityStartAudioDelay: 0
-  _targetZone: {fileID: 6056850892271742068, guid: 9378af13b13c4d54994d83756af53c51, type: 3}
-  _fallingMeteor: {fileID: 682529596721825427, guid: c8d89f6c95b295b4f95fa1299237d0ab, type: 3}
-  _movingMeteor: {fileID: 9559560874134544, guid: fa1607bbc0c668943a9691d2c973185e, type: 3}
-  _directionalTargetZone: {fileID: 3258646551934675283, guid: 614f0c4d784ebde46aa0ee71eaa164d8, type: 3}
---- !u!114 &5270321043563821661
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6562952960105213545}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd3fea178f77d9148808259f6405f521, type: 3}
+  m_Script: {fileID: 11500000, guid: 5978c79ed847aa24b9b7f0f81d8f886f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _abilityID: 1
-  _targetMethod: 0
+  _targetMethod: 1
   _doesBossFollowTarget: 0
   _specificAreaTarget: {x: 0, y: 0, z: 0}
   _specificLookTarget: {x: 0, y: 0, z: 0}
-  _targetZoneDuration: 3
-  _abilityWindUpTime: 3
-  _timeUntilNextAbility: 6.75
-  _minimumTimeUntilNextAbility: 3.75
+  _targetZoneDuration: 3.5
+  _abilityWindUpTime: 3.5
+  _timeUntilNextAbility: 7.25
+  _minimumTimeUntilNextAbility: 4.25
   _hasAbilityDuration: 0
   _abilityDuration: 0
   _delayedIndividualTargetZoneRemovalTime: 0
   _hasScreenShake: 0
   _screenShakeData:
-    Intensity: 1.5
-    Frequency: 0.005
-    Duration: 0.6
-  _animationTriggerName: MagmaWaveAbility
-  _abilityPrepAudioDelay: 1.5
+    Intensity: 0
+    Frequency: 0
+    Duration: 0
+  _animationTriggerName: 
+  _abilityPrepAudioDelay: 0
   _abilityStartAudioDelay: 0
-  _targetZone: {fileID: 1434915122738560515, guid: 10c4e99070375d64b9c383ff6679711c, type: 3}
-  _magmaWave: {fileID: 67737127216543128, guid: 5b14ca24520b4e94eaa40d3eeed68f39, type: 3}
+  _targetSafeZone: {fileID: 5844609925775582221, guid: 71a22ff9125138b4f843500f58cb0b69, type: 3}
+  _isolation: {fileID: 7816546349087960188, guid: d0d5519e062e34a41ba90cec54478c08, type: 3}
 --- !u!114 &2755443899003495909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -403,7 +366,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _abilityID: 2
-  _targetMethod: 3
+  _targetMethod: 2
   _doesBossFollowTarget: 0
   _specificAreaTarget: {x: 0, y: -0.75, z: 0}
   _specificLookTarget: {x: 0, y: 0, z: -1}
@@ -439,7 +402,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _abilityID: 3
-  _targetMethod: 3
+  _targetMethod: 2
   _doesBossFollowTarget: 0
   _specificAreaTarget: {x: 0, y: -0.75, z: 0}
   _specificLookTarget: {x: 0, y: 0, z: -1}
@@ -473,7 +436,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _abilityID: 4
-  _targetMethod: 3
+  _targetMethod: 2
   _doesBossFollowTarget: 0
   _specificAreaTarget: {x: 0, y: -0.75, z: 0}
   _specificLookTarget: {x: 0, y: 0, z: -1}

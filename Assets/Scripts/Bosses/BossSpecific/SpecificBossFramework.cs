@@ -243,6 +243,11 @@ public abstract class SpecificBossFramework : MonoBehaviour
         return null;
     }
 
+    public virtual HeroBase DetermineAggroTargetFromAggroOverrideTargets()
+    {
+        return DetermineAggroFromHeroes(_aggroOverrides);
+    }
+
     public virtual void AddHeroOverrideAggro(HeroBase heroBase)
     {
         // Prevent dead Heroes from overriding aggro
@@ -502,14 +507,18 @@ public abstract class SpecificBossFramework : MonoBehaviour
             case (EBossAbilityTargetMethod.HeroTarget):
                 targetHero = DetermineAggroTarget();
                 return ClosestFloorSpaceOfTarget(targetHero.gameObject);
-            // If the ability targets heroes with a specific ignore
-            // Currently has no functionality
-            case (EBossAbilityTargetMethod.HeroTargetWithIgnore):
-                
             // If the ability targets a specific hero
             // Currently has no functionality
             case (EBossAbilityTargetMethod.SpecificHeroTarget):
-                
+                if (_aggroOverrides.Count > 0)
+                {
+                    targetHero = DetermineAggroTargetFromAggroOverrideTargets();
+                }
+                else
+                {
+                    targetHero = currentAbility.GetSpecificHeroTarget();
+                }
+                return ClosestFloorSpaceOfTarget(targetHero.gameObject);
             // If the ability targets a specific location
             case (EBossAbilityTargetMethod.SpecificAreaTarget):
                 return currentAbility.GetSpecificLookTarget();
@@ -517,6 +526,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
 
         // In case the ability were to not fall into anything above
         Debug.LogError("Boss was unable to determine target location or hero");
+        Debug.Log(_currentAbility.GetTargetMethod().ToString());
         return Vector3.zero;
     }
 
