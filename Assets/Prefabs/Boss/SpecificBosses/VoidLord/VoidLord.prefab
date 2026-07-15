@@ -133,8 +133,8 @@ MonoBehaviour:
   _startingBossAbilities:
   - {fileID: 5577432848493111636}
   - {fileID: 6069566729229583720}
-  - {fileID: 2755443899003495909}
-  - {fileID: 2318144848940937099}
+  - {fileID: 6033841262033244920}
+  - {fileID: 4092225638221786090}
   _attackRepititionProtection: 2
   _abilityLocked: {fileID: 0}
   _bossVisualsBase: {fileID: 7847220093884167647}
@@ -145,7 +145,7 @@ MonoBehaviour:
   _passiveRayOfHopeSpawnDistanceChecks: 5
   _passiveRayOfHopeMinimumBossDistance: 0.9
   _passiveRayOfHopeMapRadiusOffset: -2.75
-  _defaultRayOfHopeSpawnDelay: 2
+  _defaultRayOfHopeSpawnDelay: 1.5
   _rayOfHopeTargetZone: {fileID: 2444281431200962, guid: 686190dc5f4aff545b665d925620485c, type: 3}
   _fadingHopeAttackFrequency: 3
   _fadingHope: {fileID: 6888634742638398736}
@@ -260,8 +260,8 @@ GameObject:
   - component: {fileID: 215549559631898166}
   - component: {fileID: 5577432848493111636}
   - component: {fileID: 6069566729229583720}
-  - component: {fileID: 2755443899003495909}
-  - component: {fileID: 2318144848940937099}
+  - component: {fileID: 6033841262033244920}
+  - component: {fileID: 4092225638221786090}
   - component: {fileID: 6888634742638398736}
   m_Layer: 0
   m_Name: AttackFunctionality
@@ -353,7 +353,7 @@ MonoBehaviour:
   _abilityStartAudioDelay: 0
   _targetSafeZone: {fileID: 5844609925775582221, guid: 71a22ff9125138b4f843500f58cb0b69, type: 3}
   _isolation: {fileID: 7816546349087960188, guid: d0d5519e062e34a41ba90cec54478c08, type: 3}
---- !u!114 &2755443899003495909
+--- !u!114 &6033841262033244920
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -362,34 +362,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 6562952960105213545}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd43f85232f7360429a752b231728aae, type: 3}
+  m_Script: {fileID: 11500000, guid: ab0480b53d8a5474aacdbd18af738a27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _abilityID: 2
-  _targetMethod: 2
-  _doesBossFollowTarget: 0
+  _targetMethod: 0
+  _doesBossFollowTarget: 1
   _specificAreaTarget: {x: 0, y: -0.75, z: 0}
-  _specificLookTarget: {x: 0, y: 0, z: -1}
-  _targetZoneDuration: 3
-  _abilityWindUpTime: 3
-  _timeUntilNextAbility: 7
-  _minimumTimeUntilNextAbility: 3.7
+  _specificLookTarget: {x: 0, y: 0, z: 0}
+  _targetZoneDuration: 3.5
+  _abilityWindUpTime: 3.5
+  _timeUntilNextAbility: 7.25
+  _minimumTimeUntilNextAbility: 4.25
   _hasAbilityDuration: 0
   _abilityDuration: 0
   _delayedIndividualTargetZoneRemovalTime: 0
-  _hasScreenShake: 1
+  _hasScreenShake: 0
   _screenShakeData:
-    Intensity: 1.5
-    Frequency: 0.005
-    Duration: 0.6
-  _animationTriggerName: MagmaBlastAbility
+    Intensity: 0
+    Frequency: 0
+    Duration: 0
+  _animationTriggerName: 
   _abilityPrepAudioDelay: 0
   _abilityStartAudioDelay: 0
-  _safeZone: {fileID: 169363956474427008, guid: e270951fa36051a4382b71d47853c6b5, type: 3}
-  _targetZone: {fileID: 6615160108974288117, guid: d7c2fb44fb70837468eeede21f8eccc2, type: 3}
-  _lavaBlast: {fileID: 8404173106920906590, guid: f6f5c4b3853e51f499d7730b805b7c20, type: 3}
-  _failedVFX: {fileID: 1009709570266169288, guid: 7c4bf28e86ad5a64184f4b85007a7c50, type: 3}
---- !u!114 &2318144848940937099
+  _targetZone: {fileID: 4715497035469608174, guid: a9c6b72cacca60541bace2b976815260, type: 3}
+  _voidMaw: {fileID: 1700282735584100792, guid: d0a1c2f425831e34eb81fcf2b676c575, type: 3}
+--- !u!114 &4092225638221786090
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -398,14 +396,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 6562952960105213545}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f072c9eb47c8cac4ba8205fda5d98e11, type: 3}
+  m_Script: {fileID: 11500000, guid: 2c980be36e77eba46813019733113358, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _abilityID: 3
-  _targetMethod: 2
+  _targetMethod: 0
   _doesBossFollowTarget: 0
-  _specificAreaTarget: {x: 0, y: -0.75, z: 0}
-  _specificLookTarget: {x: 0, y: 0, z: -1}
+  _specificAreaTarget: {x: 0, y: 0, z: 0}
+  _specificLookTarget: {x: 0, y: 0, z: 0}
   _targetZoneDuration: 3
   _abilityWindUpTime: 3
   _timeUntilNextAbility: 7
@@ -413,16 +411,16 @@ MonoBehaviour:
   _hasAbilityDuration: 0
   _abilityDuration: 0
   _delayedIndividualTargetZoneRemovalTime: 0
-  _hasScreenShake: 1
+  _hasScreenShake: 0
   _screenShakeData:
-    Intensity: 1.5
-    Frequency: 0.005
-    Duration: 0.6
-  _animationTriggerName: ScorchAbility
-  _abilityPrepAudioDelay: 2
+    Intensity: 0
+    Frequency: 0
+    Duration: 0
+  _animationTriggerName: 
+  _abilityPrepAudioDelay: 0
   _abilityStartAudioDelay: 0
-  _targetZone: {fileID: 2799529881703815393, guid: f90289cd0f8e9c744955fdad85fb3c34, type: 3}
-  _scorch: {fileID: 258438868437321791, guid: 26efc0bc94ce70b45862102c75d83a4e, type: 3}
+  _targetZone: {fileID: 1479127947176232992, guid: 085db5feebd58124a92ad0c3ca185486, type: 3}
+  _despairHex: {fileID: 1386880791929432648, guid: 8bd92b44ec7ba9b4ea10345a51e20ff5, type: 3}
 --- !u!114 &6888634742638398736
 MonoBehaviour:
   m_ObjectHideFlags: 0

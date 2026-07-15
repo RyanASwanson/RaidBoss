@@ -7,6 +7,8 @@ public class SBA_VoidMaw : SpecificBossAbilityFramework
     [SerializeField] private GameObject _targetZone;
     [SerializeField] private GameObject _voidMaw;
     
+    private SBP_VoidMawTargetZone _newestTargetZone;
+    
     #region Base Ability
 
     public override void AbilitySetUp(BossBase bossBase)
@@ -16,7 +18,12 @@ public class SBA_VoidMaw : SpecificBossAbilityFramework
 
     protected override void StartShowTargetZone()
     {
-        Instantiate(_targetZone, _myBossBase.transform.position, Quaternion.identity);
+        _newestTargetZone = Instantiate(_targetZone, _specificAreaTarget, Quaternion.identity)
+            .GetComponent<SBP_VoidMawTargetZone>();
+        
+        _newestTargetZone.TargetZoneSetUp(_storedTarget);
+        _currentTargetZones.Add(_newestTargetZone.GetComponent<BossTargetZoneParent>());
+        
         base.StartShowTargetZone();
     }
 
@@ -24,6 +31,9 @@ public class SBA_VoidMaw : SpecificBossAbilityFramework
     protected override void AbilityStart()
     {
         base.AbilityStart();
+        SBP_VoidMaw voidMaw = Instantiate(_voidMaw, Vector3.zero, Quaternion.identity).GetComponent<SBP_VoidMaw>();
+        voidMaw.SetUpProjectile(_myBossBase,_abilityID);
+        voidMaw.AdditionalSetUp(_storedTarget, _newestTargetZone.StopVoidMawTargetTracking());
     }
     
     protected override void AbilityDurationEnded()

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,13 +34,6 @@ public class SBP_StaticCharge : BossProjectileFramework
     
     private HeroBase _currentTarget;
     private HeroBase _previousTarget;
-    
-    public override void SetUpProjectile(BossBase bossBase, int newAbilityID)
-    {
-        SubscribeToEvents();
-        
-        base.SetUpProjectile(bossBase, newAbilityID);
-    }
 
     public void AdditionalSetUp(HeroBase starterTarget)
     {
@@ -59,7 +53,12 @@ public class SBP_StaticCharge : BossProjectileFramework
         StartMoveOutFromHero();
         StartProjectileDuration();
     }
-    
+
+    private void OnDestroy()
+    {
+        UnsubscribeFromEvents();
+    }
+
     public void StaticChargeHit(HeroBase heroTarget)
     {
         _currentSwaps++;
@@ -174,4 +173,18 @@ public class SBP_StaticCharge : BossProjectileFramework
     {
         _damageArea.GetGeneralHitEvent().AddListener(StaticChargeHit);
     }
+
+    private void UnsubscribeFromEvents()
+    {
+        _damageArea.GetGeneralHitEvent().RemoveListener(StaticChargeHit);
+    }
+    
+    #region Base Ability
+    public override void SetUpProjectile(BossBase bossBase, int newAbilityID)
+    {
+        SubscribeToEvents();
+        
+        base.SetUpProjectile(bossBase, newAbilityID);
+    }
+    #endregion
 }

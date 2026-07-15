@@ -44,7 +44,9 @@ public class SBP_DreadSpears : BossProjectileFramework
     
     private void SpawnProjectile()
     {
-        Instantiate(_dreadSpear, _targetSpawnLocation, Quaternion.identity);
+        GameObject dreadSpear = Instantiate(_dreadSpear, _dreadSpearsHolder.transform);
+        dreadSpear.transform.position = _targetSpawnLocation;
+        //Instantiate(_dreadSpear, _targetSpawnLocation, Quaternion.identity);
         
         _projectileCounter++;
         CalculateNextTargetSpawnLocation();

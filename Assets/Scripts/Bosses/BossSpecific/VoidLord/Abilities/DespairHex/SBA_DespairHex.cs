@@ -7,6 +7,8 @@ public class SBA_DespairHex : SpecificBossAbilityFramework
     [SerializeField] private GameObject _targetZone;
     [SerializeField] private GameObject _despairHex;
     
+    private BossTargetZoneParent _newestTargetZone;
+    
     private List<HeroBase> _hexedHeroes = new List<HeroBase>();
     
     #region Base Ability
@@ -18,12 +20,22 @@ public class SBA_DespairHex : SpecificBossAbilityFramework
 
     protected override void StartShowTargetZone()
     {
+        //Spawns the target area
+        _newestTargetZone = Instantiate(_targetZone, _storedTargetLocation, Quaternion.identity).GetComponent<BossTargetZoneParent>();
+        //Adds the target area to the list of target areas
+        _currentTargetZones.Add(_newestTargetZone);
+
+        _newestTargetZone.GetComponent<FollowObject>().StartFollowingObject(_storedTarget.gameObject);
+        
         base.StartShowTargetZone();
     }
 
 
     protected override void AbilityStart()
     {
+        SBP_DespairHex hex = Instantiate(_despairHex, _storedTargetLocation, Quaternion.identity).GetComponent<SBP_DespairHex>();
+        hex.SetUpProjectile(_myBossBase, _abilityID);
+        hex.AdditionalSetUp(_storedTarget);
         base.AbilityStart();
     }
     
