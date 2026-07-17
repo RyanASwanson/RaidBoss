@@ -10,6 +10,11 @@ public class SBP_DreadSpears : BossProjectileFramework
     [SerializeField] private float _initialProjectileDistance;
     [SerializeField] private float _distancePerProjectile;
     [SerializeField] private float _edgeOfMapOffset;
+
+    [Space] 
+    [SerializeField] private float _minimumProjectileVariation;
+    [SerializeField] private float _maximumProjectileVariation;
+    [SerializeField] private Vector3 _projectileVariationDirection;
     
     private WaitForSeconds _projectileWait;
     private Vector3 _targetSpawnLocation;
@@ -34,19 +39,26 @@ public class SBP_DreadSpears : BossProjectileFramework
     /// <returns></returns>
     private IEnumerator SpikeSpawningProcess()
     {
+        int projectileCounter = 0;
         while(_targetSpawnDistance < _edgeOfMapDistance)
         {
-            SpawnProjectile();
+            SpawnProjectile(projectileCounter);
+            projectileCounter++;
             yield return _projectileWait;
         }
     }
 
     
-    private void SpawnProjectile()
+    private void SpawnProjectile(int projectileCounter)
     {
-        GameObject dreadSpear = Instantiate(_dreadSpear, _dreadSpearsHolder.transform);
+        SBP_DreadSpear dreadSpear = Instantiate(_dreadSpear, _dreadSpearsHolder.transform).GetComponent<SBP_DreadSpear>();
         dreadSpear.transform.position = _targetSpawnLocation;
-        //Instantiate(_dreadSpear, _targetSpawnLocation, Quaternion.identity);
+        
+        dreadSpear.transform.localPosition += _projectileVariationDirection * 
+                                              (Random.Range(_minimumProjectileVariation,_maximumProjectileVariation) *
+                                               (projectileCounter % 2 == 1 ? -1 : 1));
+
+        dreadSpear.SetUpProjectile(_myBossBase,_abilityID, _wasBossEnragedOnAbilityActivation);
         
         _projectileCounter++;
         CalculateNextTargetSpawnLocation();

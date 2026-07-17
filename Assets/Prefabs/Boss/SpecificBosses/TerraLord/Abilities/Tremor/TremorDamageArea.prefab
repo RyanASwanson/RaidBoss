@@ -219,9 +219,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8560503281689201347}
+  - component: {fileID: 4661937781226650440}
   - component: {fileID: 8560503281689201344}
   - component: {fileID: 8560503281689201345}
-  - component: {fileID: 4661937781226650440}
   m_Layer: 0
   m_Name: TremorDamageArea
   m_TagString: Untagged
@@ -246,6 +246,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4661937781226650440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8560503281689201346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df59486db7db0bc4091724a96e24919f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spikeSeperationTime: 0.2
+  _spikes:
+  - {fileID: 4994857150861356388}
+  - {fileID: 8079045479494343106}
+  - {fileID: 979505109651491802}
+  - {fileID: 5914091804426335872}
+  - {fileID: 3987000067859621704}
+  - {fileID: 1253106088173453851}
+  _randomRotation: {x: 0, y: 10, z: 10}
+  _spikeCameraShakeDate:
+    Intensity: 0.75
+    Frequency: 0.005
+    Duration: 0.6
+  _spikeStartVFX: {fileID: 732951501355936762, guid: 0691459e835f04d4092c7b453a9d71f0, type: 3}
 --- !u!114 &8560503281689201344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -313,32 +339,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 62
   m_CollisionDetection: 0
---- !u!114 &4661937781226650440
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8560503281689201346}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df59486db7db0bc4091724a96e24919f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _spikeSeperationTime: 0.2
-  _spikes:
-  - {fileID: 4994857150861356388}
-  - {fileID: 8079045479494343106}
-  - {fileID: 979505109651491802}
-  - {fileID: 5914091804426335872}
-  - {fileID: 3987000067859621704}
-  - {fileID: 1253106088173453851}
-  _randomRotation: {x: 0, y: 10, z: 10}
-  _spikeCameraShakeDate:
-    Intensity: 0.75
-    Frequency: 0.005
-    Duration: 0.6
-  _spikeStartVFX: {fileID: 732951501355936762, guid: 0691459e835f04d4092c7b453a9d71f0, type: 3}
 --- !u!1 &8560503282452747703
 GameObject:
   m_ObjectHideFlags: 0

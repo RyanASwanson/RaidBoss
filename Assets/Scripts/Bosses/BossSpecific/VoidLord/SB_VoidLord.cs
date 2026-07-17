@@ -16,7 +16,11 @@ public class SB_VoidLord : SpecificBossFramework
     [SerializeField] private float _passiveRayOfHopeMapRadiusOffset;
 
     [SerializeField] private float _defaultRayOfHopeSpawnDelay;
+
+    [Space] 
+    [SerializeField] private SBA_DespairHex _despairHex;
     
+    [Space]
     [SerializeField] private GameObject _rayOfHopeTargetZone;
     private Coroutine _rayOfHopePassiveSpawning;
     private float _rayOfHopePassiveSpawningTimer = 0;
@@ -201,5 +205,11 @@ public class SB_VoidLord : SpecificBossFramework
         }*/
     }
     
+    #endregion
+
+    #region Getters
+
+    public SBA_DespairHex GetDespairHex() => _despairHex;
+
     #endregion
 }

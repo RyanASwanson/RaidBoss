@@ -46,8 +46,13 @@ public class SBP_DespairHex : BossProjectileFramework
     private HeroBase _currentTarget;
     private HeroBase _previousTarget;
     
-    public void AdditionalSetUp(HeroBase followTarget)
+    private SBA_DespairHex _despairHex;
+    
+    public void AdditionalSetUp(SBA_DespairHex despairHex, HeroBase followTarget)
     {
+        _despairHex = despairHex;
+        _currentTarget = followTarget;
+        
         _moveInWait = new WaitForSeconds(_moveIntoHeroTime);
         _moveOutWait = new WaitForSeconds(_moveOutFromHeroTime);
         _moveOutColliderEnableWait = new WaitForSeconds(_moveOutColliderEnableDelay);
@@ -65,11 +70,13 @@ public class SBP_DespairHex : BossProjectileFramework
         
         _projectileDestinationMovementIndices = new int[_projectiles.Length];
         DetermineProjectileMovementDestinations();
-
+        
         StartProjectileMovement();
         
         _damageArea.ToggleProjectileCollider(false);
         _followObject.StartFollowingObject(followTarget.gameObject);
+        
+        _despairHex.AddHexedHero(followTarget);
 
         StartMoveOutFromHero();
         StartProjectileDuration();
@@ -78,6 +85,8 @@ public class SBP_DespairHex : BossProjectileFramework
     private void OnDestroy()
     {
         UnsubscribeFromEvents();
+        
+        _despairHex.RemoveHexedHero(_currentTarget);
     }
     
     #region ProjectileMovement
@@ -154,6 +163,7 @@ public class SBP_DespairHex : BossProjectileFramework
 
     public void HexHitHero(HeroBase target)
     {
+        _previousTarget = _currentTarget;
         _currentTarget = target;
         
         _projectileDuration += _durationIncreaseOnHeroHit;
@@ -189,6 +199,7 @@ public class SBP_DespairHex : BossProjectileFramework
         }
         else
         {
+            _despairHex.RemoveHexedHero(_currentTarget);
             Destroy(gameObject);
         }
     }
@@ -220,6 +231,9 @@ public class SBP_DespairHex : BossProjectileFramework
 
     private void SwapTarget(HeroBase heroTarget)
     {
+        _despairHex.RemoveHexedHero(_previousTarget);
+        _despairHex.AddHexedHero(heroTarget);
+        
         _followObject.StartFollowingObject(heroTarget.gameObject);
         StartMoveOutFromHero();
     }
@@ -260,8 +274,14 @@ public class SBP_DespairHex : BossProjectileFramework
     private void DurationOver()
     {
         _damageArea.ToggleProjectileCollider(false);
-        _removalCurve.StartMovingUpOnCurve();
         _isDurationOver = true;
+        _removalCurve.StartMovingUpOnCurve();
+    }
+
+    public void RemovalConcluded()
+    {
+        _despairHex.RemoveHexedHero(_currentTarget);
+        Destroy(gameObject);
     }
 
     private void PlayAttackHitAudio()
@@ -282,11 +302,16 @@ public class SBP_DespairHex : BossProjectileFramework
     }
     
     #region Base Ability
-    public override void SetUpProjectile(BossBase bossBase, int newAbilityID)
+    public override void SetUpProjectile(BossBase bossBase, int newAbilityID, bool wasEnragedOnAbilityActivation)
     {
         SubscribeToEvents();
+
+        if (wasEnragedOnAbilityActivation)
+        {
+            _projectileDuration += _enrageDurationIncrease;
+        }
         
-        base.SetUpProjectile(bossBase, newAbilityID);
+        base.SetUpProjectile(bossBase, newAbilityID, wasEnragedOnAbilityActivation);
     }
     #endregion
 }

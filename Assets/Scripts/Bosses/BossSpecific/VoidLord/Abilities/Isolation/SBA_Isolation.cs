@@ -34,7 +34,6 @@ public class SBA_Isolation : SpecificBossAbilityFramework
 
     protected override void RemoveTargetZones()
     {
-        Debug.Log("RemoveTargetZones");
         _currentTargetSafeZone.RemoveAllZones();
         base.RemoveTargetZones();
     }

@@ -1,21 +1,75 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SBA_DespairHex : SpecificBossAbilityFramework
 {
+    [Space]
+    [SerializeField] private float _despairDamage;
+    
+    [Space]
     [SerializeField] private GameObject _targetZone;
     [SerializeField] private GameObject _despairHex;
     
     private BossTargetZoneParent _newestTargetZone;
+    private SBP_DespairHex _newestHex;
     
     private List<HeroBase> _hexedHeroes = new List<HeroBase>();
+
+    public void AddHexedHero(HeroBase hero)
+    {
+        if (hero.IsUnityNull())
+        {
+            return;
+        }
+        
+        if (_hexedHeroes.Contains(hero))
+        {
+            Debug.LogError("Attempted to apply hex to hexed hero");
+            return;
+        }
+
+        _hexedHeroes.Add(hero);
+    }
+
+    public void RemoveHexedHero(HeroBase hero)
+    {
+        if (hero.IsUnityNull())
+        {
+            return;
+        }
+        
+        _hexedHeroes?.Remove(hero);
+    }
+
+    public bool AttemptHexDamage(HeroBase hero)
+    {
+        if (!GetIsHeroHexed(hero))
+        {
+            return false;
+        }
+
+        _myBossBase.GetSpecificBossScript().DamageHero(hero,_despairDamage);
+        
+        return true;
+    }
     
     #region Base Ability
 
     public override void AbilitySetUp(BossBase bossBase)
     {
         base.AbilitySetUp(bossBase);
+    }
+
+    protected override void AbilityPrep()
+    {
+        if (!_newestHex.IsUnityNull())
+        {
+            _newestHex.ForceEndDuration();
+        }
+
+        base.AbilityPrep();
     }
 
     protected override void StartShowTargetZone()
@@ -33,9 +87,9 @@ public class SBA_DespairHex : SpecificBossAbilityFramework
 
     protected override void AbilityStart()
     {
-        SBP_DespairHex hex = Instantiate(_despairHex, _storedTargetLocation, Quaternion.identity).GetComponent<SBP_DespairHex>();
-        hex.SetUpProjectile(_myBossBase, _abilityID);
-        hex.AdditionalSetUp(_storedTarget);
+        _newestHex = Instantiate(_despairHex, _storedTargetLocation, Quaternion.identity).GetComponent<SBP_DespairHex>();
+        _newestHex.SetUpProjectile(_myBossBase, _abilityID,_wasBossEnragedOnAbilityActivation);
+        _newestHex.AdditionalSetUp(this, _storedTarget);
         base.AbilityStart();
     }
     
@@ -48,5 +102,24 @@ public class SBA_DespairHex : SpecificBossAbilityFramework
     {
         base.StopBossAbility();
     }
+    
+    public override bool GetCanAbilityBeUsed()
+    {
+        if (_newestHex.IsUnityNull())
+        {
+            return true;
+        }
+
+        Debug.Log("Change");
+        return Random.Range(0,2) == 0;
+    }
+    #endregion
+
+    #region Getters
+
+    public float GetDespairDamage() => _despairDamage;
+    
+    public bool GetIsHeroHexed(HeroBase hero) => _hexedHeroes.Contains(hero);
+
     #endregion
 }

@@ -11,11 +11,21 @@ public class SBP_RayOfHope : BossProjectileFramework
 
     public void HitHero(HeroBase heroBase)
     {
-        /*
-         * Potentially implement more clear solution on basing healing on amount of living Heroes
-         * Healing has to be reduced as Heroes die, or with only 1 hero alive the healing would be all going into 1 Hero.
-         */
-        _bossBuffArea.DealHealing(heroBase, _baseHealing*HeroesManager.Instance.GetAmountOfLivingHeroes());
+        // If we did not deal hex damage
+        if (!SB_VoidLord.Instance.GetDespairHex().AttemptHexDamage(heroBase))
+        {
+            if (heroBase.GetHeroStats().IsHeroMaxHealth())
+            {
+                return;
+            }
+            
+            /*
+             * Potentially implement more clear solution on basing healing on amount of living Heroes
+             * Healing has to be reduced as Heroes die, or with only 1 hero alive the healing would be all going into 1 Hero.
+             */
+            _bossBuffArea.DealHealing(heroBase, _baseHealing*HeroesManager.Instance.GetAmountOfLivingHeroes());
+        }
+        
         RemoveRayOfHope();
     }
     

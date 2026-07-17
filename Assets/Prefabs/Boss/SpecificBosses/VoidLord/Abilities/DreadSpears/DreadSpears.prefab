@@ -139,9 +139,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ca3b62872875b44692ad528b0ef0f31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectileInterval: 0.4
-  _initialProjectileDistance: 1.1
-  _distancePerProjectile: 0.6
+  _projectileInterval: 0.35
+  _initialProjectileDistance: 1.2
+  _distancePerProjectile: 0.35
   _edgeOfMapOffset: -0.5
+  _minimumProjectileVariation: 0.1
+  _maximumProjectileVariation: 0.35
+  _projectileVariationDirection: {x: 1, y: 0, z: 0}
   _dreadSpearsHolder: {fileID: 432743739379860978}
   _dreadSpear: {fileID: 3835641130026813574, guid: c2b16af95a6da72438f5e0ccb2b45e78, type: 3}

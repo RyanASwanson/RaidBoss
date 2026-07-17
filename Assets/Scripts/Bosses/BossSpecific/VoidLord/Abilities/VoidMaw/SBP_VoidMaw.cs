@@ -36,7 +36,6 @@ public class SBP_VoidMaw : BossProjectileFramework
         {
             _startLocation.Set(0, 0, _startLocation.z);
         }
-        Debug.Log("Target Location " + _startLocation + " from " + _targetHero.transform.position + " and hero distance of " + _heroDistance);
     }
 
     private void StartMovingVoidMaws()
