@@ -87,6 +87,11 @@ public class SBA_DespairHex : SpecificBossAbilityFramework
 
     protected override void AbilityStart()
     {
+        if (_storedTarget.IsUnityNull())
+        {
+            return;
+        }
+        
         _newestHex = Instantiate(_despairHex, _storedTargetLocation, Quaternion.identity).GetComponent<SBP_DespairHex>();
         _newestHex.SetUpProjectile(_myBossBase, _abilityID,_wasBossEnragedOnAbilityActivation);
         _newestHex.AdditionalSetUp(this, _storedTarget);
@@ -111,6 +116,7 @@ public class SBA_DespairHex : SpecificBossAbilityFramework
         }
 
         Debug.Log("Change");
+        // Has a chance to not allow the ability to be used if there is already a hex in use
         return Random.Range(0,2) == 0;
     }
     #endregion

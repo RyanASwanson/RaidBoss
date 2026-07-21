@@ -31,7 +31,7 @@ public class SBA_VoidMaw : SpecificBossAbilityFramework
     protected override void AbilityStart()
     {
         base.AbilityStart();
-        SBP_VoidMaw voidMaw = Instantiate(_voidMaw, Vector3.zero, Quaternion.identity).GetComponent<SBP_VoidMaw>();
+        SBP_VoidMaw voidMaw = Instantiate(_voidMaw, _specificLookTarget, Quaternion.identity).GetComponent<SBP_VoidMaw>();
         voidMaw.SetUpProjectile(_myBossBase,_abilityID);
         voidMaw.AdditionalSetUp(_storedTarget, _newestTargetZone.StopVoidMawTargetTracking());
     }

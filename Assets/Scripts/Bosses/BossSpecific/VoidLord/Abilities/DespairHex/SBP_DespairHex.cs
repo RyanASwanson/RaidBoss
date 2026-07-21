@@ -32,6 +32,8 @@ public class SBP_DespairHex : BossProjectileFramework
     [SerializeField] private float _projectileDistanceMultiplier;
     [SerializeField] private Vector3[] _projectileMoveVectors;
     [SerializeField] private GameObject[] _projectiles;
+    [SerializeField] private LookAtObject[] _inwardParticles;
+    [SerializeField] private LookAtObject _sigil;
     private int[] _projectileMovementStartIndices;
     private int[] _projectileDestinationMovementIndices;
     private Coroutine _projectileMovementCoroutine;
@@ -70,7 +72,14 @@ public class SBP_DespairHex : BossProjectileFramework
         
         _projectileDestinationMovementIndices = new int[_projectiles.Length];
         DetermineProjectileMovementDestinations();
+
+        for (int i = 0; i < _inwardParticles.Length; i++)
+        {
+            _inwardParticles[i].StartLookingAtObject(followTarget.transform,true);
+        }
         
+        _sigil.StartLookingAtObject(_projectiles[0].transform,true);
+            
         StartProjectileMovement();
         
         _damageArea.ToggleProjectileCollider(false);

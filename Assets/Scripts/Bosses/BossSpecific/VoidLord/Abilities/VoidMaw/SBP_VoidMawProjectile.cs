@@ -5,6 +5,7 @@ using UnityEngine;
 public class SBP_VoidMawProjectile : BossProjectileFramework
 {
     [SerializeField] private float _baseMoveTime;
+    [SerializeField] private float _minimumMoveTime;
     [SerializeField] private AnimationCurve _moveCurve;
     private float _moveTime;
     
@@ -14,6 +15,9 @@ public class SBP_VoidMawProjectile : BossProjectileFramework
     
     private int _movementID = 0;
     private Vector3 _movementStartLocation;
+
+    [Space] 
+    [SerializeField] private CurveProgression _scaleCurve;
 
     private SBP_VoidMaw _associatedMawOwner;
     
@@ -27,7 +31,7 @@ public class SBP_VoidMawProjectile : BossProjectileFramework
         
         _endLocation = -startLocation;
         
-        _moveTime = _baseMoveTime * heroDistance;
+        _moveTime = Mathf.Clamp( _baseMoveTime * heroDistance,_minimumMoveTime,float.MaxValue);
 
         UseNextVoidMawMovement();
     }
@@ -52,6 +56,13 @@ public class SBP_VoidMawProjectile : BossProjectileFramework
     private void StartMovingVoidMaw(Vector3 startLocation, Vector3 endLocation)
     {
         _movementID++;
+        
+        transform.LookAt(transform.position + (startLocation - endLocation));
+        transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 0);
+        
+        _scaleCurve.SetDecreaseDelay(_moveTime - (_scaleCurve.GetCurveIncreaseTime() + _scaleCurve.GetCurveDecreaseTime()));
+        _scaleCurve.StartMovingUpOnCurve();
+        
         StartCoroutine(MoveVoidMaw(startLocation,endLocation));
     }
 
@@ -61,7 +72,7 @@ public class SBP_VoidMawProjectile : BossProjectileFramework
         while (progress < 1)
         {
             progress += Time.deltaTime / _moveTime;
-            transform.position = Vector3.Lerp(startLocation, endLocation, _moveCurve.Evaluate(progress));
+            transform.localPosition = Vector3.Lerp(startLocation, endLocation, _moveCurve.Evaluate(progress));
             yield return null;
         }
         transform.position = endLocation;
