@@ -10,6 +10,7 @@ public class SB_VoidLord : SpecificBossFramework
     public static SB_VoidLord Instance;
 
     [Space] 
+    [SerializeField] private bool _doesPassivelySpawnRays;
     [SerializeField] private float _passiveRayOfHopeSpawnRate;
     [SerializeField] private float _passiveRayOfHopeSpawnDistanceChecks;
     [SerializeField] private float _passiveRayOfHopeMinimumBossDistance;
@@ -39,6 +40,11 @@ public class SB_VoidLord : SpecificBossFramework
 
     private void StartSpawningPassiveRaysOfHope()
     {
+        if (!_doesPassivelySpawnRays)
+        {
+            return;
+        }
+        
         StopSpawningPassiveRaysOfHope();
         
         _rayOfHopePassiveSpawning = StartCoroutine(SpawnPassiveRaysOfHope());
@@ -68,7 +74,7 @@ public class SB_VoidLord : SpecificBossFramework
         }
     }
 
-    private SBP_RayOfHopeTargetZone SpawnRayOfHopeTargetZone(Vector3 spawnPoint)
+    public SBP_RayOfHopeTargetZone SpawnRayOfHopeTargetZone(Vector3 spawnPoint)
     {
         SBP_RayOfHopeTargetZone rayTargetZone = Instantiate(_rayOfHopeTargetZone, spawnPoint, Quaternion.identity)
             .GetComponent<SBP_RayOfHopeTargetZone>();
@@ -210,6 +216,7 @@ public class SB_VoidLord : SpecificBossFramework
     #region Getters
 
     public SBA_DespairHex GetDespairHex() => _despairHex;
+    public SBA_FadingHope GetFadingHope() => _fadingHope;
 
     #endregion
 }

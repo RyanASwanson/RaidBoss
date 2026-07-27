@@ -21,6 +21,11 @@ public class SBP_DespairHex : BossProjectileFramework
 
     [SerializeField] private float _moveOutColliderEnableDelay;
     private WaitForSeconds _moveOutColliderEnableWait;
+    
+    [SerializeField] private float _ignorePreviousTargetTime;
+    private WaitForSeconds _ignorePreviousTargetWait;
+    private Coroutine _ignorePreviousTargetCoroutine;
+    private HeroBase _ignoreTarget;
 
     [Space] 
     [SerializeField] private float _moveDelay;
@@ -58,6 +63,7 @@ public class SBP_DespairHex : BossProjectileFramework
         _moveInWait = new WaitForSeconds(_moveIntoHeroTime);
         _moveOutWait = new WaitForSeconds(_moveOutFromHeroTime);
         _moveOutColliderEnableWait = new WaitForSeconds(_moveOutColliderEnableDelay);
+        _ignorePreviousTargetWait = new WaitForSeconds(_ignorePreviousTargetTime);
         
         _projectileMoveDelayWait = new WaitForSeconds(_moveDelay);
         
@@ -73,10 +79,7 @@ public class SBP_DespairHex : BossProjectileFramework
         _projectileDestinationMovementIndices = new int[_projectiles.Length];
         DetermineProjectileMovementDestinations();
 
-        for (int i = 0; i < _inwardParticles.Length; i++)
-        {
-            _inwardParticles[i].StartLookingAtObject(followTarget.transform,true);
-        }
+        SetInwardVFXTarget(followTarget);
         
         _sigil.StartLookingAtObject(_projectiles[0].transform,true);
             
@@ -169,14 +172,31 @@ public class SBP_DespairHex : BossProjectileFramework
         }
     }
     #endregion
+    
+    #region VFX
+
+    private void SetInwardVFXTarget(HeroBase followTarget)
+    {
+        for (int i = 0; i < _inwardParticles.Length; i++)
+        {
+            _inwardParticles[i].StartLookingAtObject(followTarget.transform,true);
+        }
+    }
+    #endregion
 
     public void HexHitHero(HeroBase target)
     {
+        if (target == _ignoreTarget)
+        {
+            return;
+        }
+        
         _previousTarget = _currentTarget;
         _currentTarget = target;
         
         _projectileDuration += _durationIncreaseOnHeroHit;
-        
+
+        StartIgnorePreviousTarget(_previousTarget);
         _damageArea.ToggleProjectileCollider(false);
         
         StartMoveIntoHero();
@@ -215,6 +235,7 @@ public class SBP_DespairHex : BossProjectileFramework
 
     private void StartMoveOutFromHero()
     {
+        SetInwardVFXTarget(_currentTarget);
         _scaleCurve.StartMovingUpOnCurve();
         StartCoroutine(MoveOutFromHero());
     }
@@ -236,6 +257,29 @@ public class SBP_DespairHex : BossProjectileFramework
     private void ColliderReenabledOnMovingOut()
     {
         _damageArea.ToggleProjectileCollider(true);
+    }
+
+    private void StartIgnorePreviousTarget(HeroBase target)
+    {
+        StopIgnorePreviousTarget();
+        
+        _ignoreTarget = target;
+
+        _ignorePreviousTargetCoroutine = StartCoroutine(IgnorePreviousTargetProcess());
+    }
+
+    private void StopIgnorePreviousTarget()
+    {
+        if (!_ignorePreviousTargetCoroutine.IsUnityNull())
+        {
+            StopCoroutine(_ignorePreviousTargetCoroutine);
+        }
+    }
+
+    private IEnumerator IgnorePreviousTargetProcess()
+    {
+        yield return _ignorePreviousTargetWait;
+        _ignoreTarget = null;
     }
 
     private void SwapTarget(HeroBase heroTarget)

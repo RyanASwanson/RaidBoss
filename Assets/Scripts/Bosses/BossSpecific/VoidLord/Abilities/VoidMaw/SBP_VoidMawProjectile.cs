@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class SBP_VoidMawProjectile : BossProjectileFramework
 {
-    [SerializeField] private float _baseMoveTime;
+    //[SerializeField] private float _baseMoveTime;
     [SerializeField] private float _minimumMoveTime;
+    [SerializeField] private float _maximumMoveTime;
+
+    [Space]
+    [SerializeField] private float _minimumHeroDistance;
+    [SerializeField] private float _maximumHeroDistance;
+    
+    [Space]
     [SerializeField] private AnimationCurve _moveCurve;
     private float _moveTime;
     
@@ -18,6 +25,7 @@ public class SBP_VoidMawProjectile : BossProjectileFramework
 
     [Space] 
     [SerializeField] private CurveProgression _scaleCurve;
+    [SerializeField] private GeneralVFXFunctionality _voidMawVFX;
 
     private SBP_VoidMaw _associatedMawOwner;
     
@@ -26,12 +34,14 @@ public class SBP_VoidMawProjectile : BossProjectileFramework
         _associatedMawOwner = maw;
         _startLocation = startLocation;
         
+        
         _midPointLocation.Set(_startLocation.z,_startLocation.y,_startLocation.x);
         _midPointLocation *= mawID > 0 ? -1 : 1;
         
         _endLocation = -startLocation;
         
-        _moveTime = Mathf.Clamp( _baseMoveTime * heroDistance,_minimumMoveTime,float.MaxValue);
+        //_moveTime = Mathf.Clamp( _baseMoveTime * heroDistance,_minimumMoveTime,float.MaxValue);
+        _moveTime = Mathf.Lerp(_minimumMoveTime,_maximumMoveTime,(heroDistance - _minimumHeroDistance) / (_maximumHeroDistance - _minimumHeroDistance));
 
         UseNextVoidMawMovement();
     }
@@ -47,6 +57,9 @@ public class SBP_VoidMawProjectile : BossProjectileFramework
                 StartMovingVoidMaw(_midPointLocation,_endLocation);
                 return;
             default:
+                _voidMawVFX.SetLoopOfParticleSystems(false);
+                _voidMawVFX.DetachVisualEffect();
+                _voidMawVFX.StartDelayedLifetime();
                 _associatedMawOwner.MawReachedEnd();
                 return;
         }

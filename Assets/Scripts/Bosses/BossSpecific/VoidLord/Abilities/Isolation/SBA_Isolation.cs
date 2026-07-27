@@ -10,6 +10,7 @@ public class SBA_Isolation : SpecificBossAbilityFramework
     [SerializeField] private GameObject _isolation;
 
     private BossSharedSafeAndTargetZone _currentTargetSafeZone;
+    private SBP_IsolationTargetZone _isolationTargetZone;
     
     #region Base Ability
 
@@ -22,10 +23,14 @@ public class SBA_Isolation : SpecificBossAbilityFramework
     {
         base.StartShowTargetZone();
         
-        _currentTargetSafeZone = Instantiate(_targetSafeZone, _storedTarget.transform.position, Quaternion.identity)
-            .GetComponent<BossSharedSafeAndTargetZone>();
+        _isolationTargetZone = Instantiate(_targetSafeZone, _storedTarget.transform.position, Quaternion.identity)
+            .GetComponent<SBP_IsolationTargetZone>();
         
-        _currentTargetSafeZone.GetComponent<FollowObject>().StartFollowingObject(_storedTarget.gameObject);
+        _isolationTargetZone.SetUpProjectile(_myBossBase,_abilityID);
+        _isolationTargetZone.AdditionalSetUp(_storedTarget);
+
+        _currentTargetSafeZone = _isolationTargetZone.GetStoredSafeAndTargetZone();
+
         /*//Spawns the target area
         _newestTargetZone = Instantiate(_targetZone, _storedTargetLocation, Quaternion.identity).GetComponent<BossTargetZoneParent>();
         //Adds the target area to the list of target areas
@@ -34,7 +39,7 @@ public class SBA_Isolation : SpecificBossAbilityFramework
 
     protected override void RemoveTargetZones()
     {
-        _currentTargetSafeZone.RemoveAllZones();
+        _isolationTargetZone.RemoveTargetZones();
         base.RemoveTargetZones();
     }
 
@@ -42,10 +47,13 @@ public class SBA_Isolation : SpecificBossAbilityFramework
     {
         if (_currentTargetSafeZone.GetIsHeroInSafeZone())
         {
+            _isolationTargetZone.SpawnRay();
             return;
         }
 
-        Instantiate(_isolation, _storedTarget.transform.position, Quaternion.identity);
+        GameObject isolation = Instantiate(_isolation, _storedTarget.transform.position, Quaternion.identity);
+        isolation.transform.position = new Vector3(_storedTarget.transform.position.x, _specificAreaTarget.y, _storedTarget.transform.position.z);
+        
         base.AbilityStart();
     }
     

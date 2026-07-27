@@ -48,6 +48,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4737fcdcb2e2864285914990e350d86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rayHeight: -0.75
+  _minimumRayDistance: 1.5
+  _maximumRayDistance: 4.5
   _targetZoneParent: {fileID: 8589542659700500840}
   _rayOfHope: {fileID: 2444281431200962, guid: ac613d6b8e8cf0b49a216f99e483eef9, type: 3}
 --- !u!114 &8589542659700500840
@@ -229,7 +232,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.95, y: 1, z: 0.95}
+  m_Size: {x: 0.96, y: 1, z: 0.96}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &8937513922363338797
 PrefabInstance:
@@ -247,6 +250,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 929866654372461345, guid: c4ff6247892c37f4ba5180883364c059, type: 3}
+      propertyPath: _targetZones.Array.data[0]
+      value: 
+      objectReference: {fileID: 2444282212371378}
+    - target: {fileID: 1402652471399810202, guid: c4ff6247892c37f4ba5180883364c059, type: 3}
+      propertyPath: _targetZones.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1402652471399810202, guid: c4ff6247892c37f4ba5180883364c059, type: 3}
       propertyPath: _targetZones.Array.data[0]
       value: 
       objectReference: {fileID: 2444282212371378}

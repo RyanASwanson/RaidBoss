@@ -6,36 +6,23 @@ public class SBP_VoidMaw : BossProjectileFramework
 {
     [SerializeField] private SBP_VoidMawProjectile[] _voidMaws;
 
+    private SBA_VoidMaw _voidMawAbility;
     private HeroBase _targetHero;
     private float _heroDistance;
+    private Vector3 _heroCorner;
     
     private Vector3 _startLocation = new();
     private Vector3 _endLocation = new();
 
     private int _projectilesCompleted = 0;
 
-    public void AdditionalSetUp(HeroBase targetHero, float heroDistance)
+    public void AdditionalSetUp(SBA_VoidMaw voidMawAbility, Vector3 heroCorner, float heroDistance)
     {
-        _targetHero = targetHero;
+        _voidMawAbility = voidMawAbility;
+        _heroCorner = heroCorner;
         _heroDistance = heroDistance;
         
-        DetermineTargetLocations();
         StartMovingVoidMaws();
-    }
-    
-    private void DetermineTargetLocations()
-    {
-        _startLocation.Set(-Mathf.Round(_targetHero.transform.position.x / _heroDistance) * _heroDistance, 0, 
-            -Mathf.Round(_targetHero.transform.position.z / _heroDistance) * _heroDistance);
-
-        if (Mathf.Abs(_startLocation.x) > Mathf.Abs(_startLocation.z))
-        {
-            _startLocation.Set(_startLocation.x, 0, 0);
-        }
-        else
-        {
-            _startLocation.Set(0, 0, _startLocation.z);
-        }
     }
 
     private void StartMovingVoidMaws()
@@ -43,7 +30,7 @@ public class SBP_VoidMaw : BossProjectileFramework
         for(int i = 0; i < _voidMaws.Length; i++)
         {
             _voidMaws[i].SetUpProjectile(_myBossBase,_abilityID);
-            _voidMaws[i].AdditionalSetUp(this, i,_startLocation, _heroDistance);
+            _voidMaws[i].AdditionalSetUp(this, i,-_heroCorner, _heroDistance);
         }
     }
 
@@ -53,6 +40,7 @@ public class SBP_VoidMaw : BossProjectileFramework
         
         if (_projectilesCompleted >= _voidMaws.Length)
         {
+            _voidMawAbility.MawsReachedEnd();
             Destroy(gameObject);
         }
     }

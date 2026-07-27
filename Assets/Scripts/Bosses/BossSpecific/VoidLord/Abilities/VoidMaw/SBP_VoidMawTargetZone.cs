@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SBP_VoidMawTargetZone : BossProjectileFramework
 {
+    [SerializeField] private bool _doesTargetZoneTrack;
+    
+    [Space]
     [SerializeField] private float _minTargetZoneDistance;
     [SerializeField] private float _maxTargetZoneDistance;
 
@@ -14,19 +18,35 @@ public class SBP_VoidMawTargetZone : BossProjectileFramework
     [Space]
     [SerializeField] private GameObject[] _targetZones;
     private Vector3[] _targetZoneDirections;
+    
     private float _targetZoneHeight;
     private float _heroDistance;
+    private float _cornerDistance;
+    
+    private Vector3 _tempHeroPosition;
+    private Vector3 _tempTargetZoneLocation;
+    
+    private Vector3 _closestHeroCorner = new();
+    private Vector3 _heroCornerDistanceVector;
+    
     private Coroutine _targetZoneTrackingProcess;
     
     private HeroBase _storedHeroTarget;
 
-    public void TargetZoneSetUp(HeroBase heroTarget)
+    public void TargetZoneSetUp(HeroBase heroTarget, SBP_RayOfHopeTargetZone associatedRay)
     {
         _storedHeroTarget = heroTarget;
 
         SetUpDirections();
-        
-        _targetZoneTrackingProcess = StartCoroutine(UpdateTargetZones());
+
+        if (_doesTargetZoneTrack)
+        {
+            _targetZoneTrackingProcess = StartCoroutine(UpdateTargetZonesProcess(associatedRay));
+        }
+        else
+        {
+            UpdateTargetZones(associatedRay);
+        }
     }
 
     private void SetUpDirections()
@@ -40,38 +60,72 @@ public class SBP_VoidMawTargetZone : BossProjectileFramework
         _targetZoneHeight = _targetZoneDirections[0].y;
     }
 
-    private IEnumerator UpdateTargetZones()
+    private IEnumerator UpdateTargetZonesProcess(SBP_RayOfHopeTargetZone associatedRay)
     {
-        Vector3 heroPosition = new();
-        Vector3 targetZoneLocation = new();
-        
-        while (true)
+        while (!_storedHeroTarget.IsUnityNull())
         {
-            heroPosition = Quaternion.AngleAxis(-45,Vector3.up) * _storedHeroTarget.transform.position;
+            UpdateTargetZones(associatedRay);
             
-            _heroDistance = Mathf.Max(Mathf.Abs(heroPosition.x),Mathf.Abs(heroPosition.z));
-            
-            _heroDistance = Mathf.Clamp(_heroDistance, _minTargetZoneDistance, _maxTargetZoneDistance);
-            
-            for (int i = 0; i < _targetZones.Length; i++)
-            {
-                targetZoneLocation = _targetZoneDirections[i] * _heroDistance;
-                targetZoneLocation.Set(targetZoneLocation.x, _targetZoneHeight, targetZoneLocation.z);
-                _targetZones[i].transform.position = targetZoneLocation;
-                
-                targetZoneLocation.Set(1,1,GetTargetSizeSizeScalar() ) ;
-                _targetZones[i].transform.localScale = targetZoneLocation;
-            }
             yield return null;
         }
         
     }
 
-    public float StopVoidMawTargetTracking()
+    private void UpdateTargetZones(SBP_RayOfHopeTargetZone associatedRay)
     {
-        StopCoroutine(_targetZoneTrackingProcess);
+        _tempHeroPosition = Quaternion.AngleAxis(-45,Vector3.up) * _storedHeroTarget.transform.position;
+            
+        _heroDistance = Mathf.Max(Mathf.Abs(_tempHeroPosition.x),Mathf.Abs(_tempHeroPosition.z));
+            
+        _heroDistance = Mathf.Clamp(_heroDistance, _minTargetZoneDistance, _maxTargetZoneDistance);
+            
+        for (int i = 0; i < _targetZones.Length; i++)
+        {
+            _tempTargetZoneLocation = _targetZoneDirections[i] * _heroDistance;
+            _tempTargetZoneLocation.Set(_tempTargetZoneLocation.x, _targetZoneHeight, _tempTargetZoneLocation.z);
+            _targetZones[i].transform.position = _tempTargetZoneLocation;
+                
+            _tempTargetZoneLocation.Set(1,1,GetTargetSizeSizeScalar() ) ;
+            _targetZones[i].transform.localScale = _tempTargetZoneLocation;
+        }
+            
+        CalculateClosestHeroCorner();
+            
+        if (!associatedRay.IsUnityNull())
+        {
+            associatedRay.SetRayPosition(_closestHeroCorner);
+        }
+    }
+    
+    public void CalculateClosestHeroCorner()
+    {
+        CalculateCornerDistance();
         
-        return GetCornerDistance();
+        _closestHeroCorner = Vector3.zero;
+        if (Mathf.Abs(_storedHeroTarget.transform.position.x) >
+            Mathf.Abs(_storedHeroTarget.transform.position.z))
+        {
+            _closestHeroCorner.x = _storedHeroTarget.transform.position.x > 0 ? _cornerDistance : -_cornerDistance;
+        }
+        else
+        {
+            _closestHeroCorner.z = _storedHeroTarget.transform.position.z > 0 ? _cornerDistance : -_cornerDistance;
+        }
+    }
+    
+    public void CalculateCornerDistance()
+    {
+        _heroCornerDistanceVector = new Vector3(GetHeroDistance(),0,GetHeroDistance());
+        _heroCornerDistanceVector = Quaternion.AngleAxis(45, Vector3.up) * _heroCornerDistanceVector;
+        _cornerDistance =  Mathf.Max(Mathf.Abs(_heroCornerDistanceVector.x), Mathf.Abs(_heroCornerDistanceVector.z));
+    }
+
+    public void StopVoidMawTargetTracking()
+    {
+        if (!_targetZoneTrackingProcess.IsUnityNull())
+        {
+            StopCoroutine(_targetZoneTrackingProcess);
+        }
     }
     
     #region Base Ability
@@ -85,13 +139,9 @@ public class SBP_VoidMawTargetZone : BossProjectileFramework
     #region Getters
     public float GetHeroDistance() => _heroDistance;
 
-    public float GetCornerDistance()
-    {
-        Vector3 tempPos = new Vector3(GetHeroDistance(),0,GetHeroDistance());
-        tempPos = Quaternion.AngleAxis(45, Vector3.up) * tempPos;
+    public float GetCornerDistance() => _cornerDistance;
 
-        return Mathf.Max(Mathf.Abs(tempPos.x), Mathf.Abs(tempPos.z));
-    }
+    public Vector3 GetClosestCorner() => _closestHeroCorner;
     
     public float GetTargetSizeSizeScalar() => (_heroDistance * _distanceMultiplicativeSizeScalar) + _distanceAdditiveSizeScalar;
 
