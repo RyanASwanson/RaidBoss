@@ -522,6 +522,9 @@ public abstract class SpecificBossFramework : MonoBehaviour
             // If the ability targets a specific location
             case (EBossAbilityTargetMethod.SpecificAreaTarget):
                 return currentAbility.GetSpecificLookTarget();
+            case (EBossAbilityTargetMethod.CustomAreaTarget):
+                targetHero = DetermineAggroTarget();
+                return currentAbility.GetCustomAreaTarget(targetHero);
         }
 
         // In case the ability were to not fall into anything above

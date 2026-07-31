@@ -563,7 +563,7 @@ public class AudioManager : MainUniversalManagerFramework
 
     private void MiddleOfSceneLoad()
     {
-        StopPausableAudio();
+        //StopPausableAudio();
         UnpausePausableAudio();
         FadeInPausableAudio();
     }
@@ -572,6 +572,17 @@ public class AudioManager : MainUniversalManagerFramework
     {
         
     }
+
+    private void SceneTransitionClosedIn()
+    {
+        StopPausableAudio();
+    }
+
+    private void SceneTransitionOpenedUp()
+    {
+        
+    }
+
     #endregion
 
     /// <summary>
@@ -610,6 +621,7 @@ public class AudioManager : MainUniversalManagerFramework
     protected override void SubscribeToEvents()
     {
         base.SubscribeToEvents();
+        
         TimeManager.Instance.GetGamePausedEvent().AddListener(PausePausableAudio);
         TimeManager.Instance.GetGameUnpausedEvent().AddListener(UnpausePausableAudio);
         
@@ -618,6 +630,9 @@ public class AudioManager : MainUniversalManagerFramework
         SceneLoadManager.Instance.GetOnMiddleOfSceneLoad().AddListener(MiddleOfSceneLoad);
         
         SceneLoadManager.Instance.GetOnEndOfSceneLoad().AddListener(EndOfSceneLoad);
+        
+        SceneLoadManager.Instance.GetOnSceneTransitionCloseInCompleted().AddListener(SceneTransitionClosedIn);
+        SceneLoadManager.Instance.GetOnSceneTransitionOpenUpCompleted().AddListener(SceneTransitionOpenedUp);
     }
 
     #endregion

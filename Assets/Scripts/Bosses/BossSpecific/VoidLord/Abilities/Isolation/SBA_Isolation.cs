@@ -51,8 +51,13 @@ public class SBA_Isolation : SpecificBossAbilityFramework
             return;
         }
 
-        GameObject isolation = Instantiate(_isolation, _storedTarget.transform.position, Quaternion.identity);
-        isolation.transform.position = new Vector3(_storedTarget.transform.position.x, _specificAreaTarget.y, _storedTarget.transform.position.z);
+        /*if (_storedTarget.IsUnityNull())
+        {
+            return;
+        }*/
+
+        GameObject isolation = Instantiate(_isolation, _isolationTargetZone.transform.position, Quaternion.identity);
+        isolation.transform.position = new Vector3(_isolationTargetZone.transform.position.x, _specificAreaTarget.y, _isolationTargetZone.transform.position.z);
         
         base.AbilityStart();
     }

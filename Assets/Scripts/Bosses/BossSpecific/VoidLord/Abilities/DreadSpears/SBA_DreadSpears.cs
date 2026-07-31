@@ -16,6 +16,7 @@ public class SBA_DreadSpears : SpecificBossAbilityFramework
     private GameObject _storedTargetZone;
     private Vector3 _attackDirection;
     private Vector3 _rayPosition;
+    private Coroutine _targetZoneCoroutine;
     
     private IEnumerator UpdateTargetZone()
     {
@@ -62,7 +63,7 @@ public class SBA_DreadSpears : SpecificBossAbilityFramework
 
         _associatedRay = SB_VoidLord.Instance.SpawnRayOfHopeTargetZone(_storedTarget.transform.position);
 
-        StartCoroutine(UpdateTargetZone());
+        _targetZoneCoroutine = StartCoroutine(UpdateTargetZone());
         
         base.StartShowTargetZone();
     }
@@ -70,6 +71,11 @@ public class SBA_DreadSpears : SpecificBossAbilityFramework
 
     protected override void AbilityStart()
     {
+        if (!_targetZoneCoroutine.IsUnityNull())
+        {
+            StopCoroutine(_targetZoneCoroutine);
+        }
+        
         //Sets up the projectile
         SBP_DreadSpears dreadSpears = Instantiate(_dreadSpears, _storedTargetZone.transform.position, Quaternion.identity)
             .GetComponent<SBP_DreadSpears>();

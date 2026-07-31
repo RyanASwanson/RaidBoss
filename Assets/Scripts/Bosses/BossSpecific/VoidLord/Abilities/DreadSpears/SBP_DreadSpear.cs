@@ -7,6 +7,7 @@ public class SBP_DreadSpear : BossProjectileFramework
 {
     [SerializeField] private float _dreadSpearDuration;
     [SerializeField] private float _enrageSpearDurationIncrease;
+    [SerializeField] private float _spearImpactDecalDurationOffset;
     private WaitForSeconds _dreadSpearWait;
 
     [Space]
@@ -16,6 +17,7 @@ public class SBP_DreadSpear : BossProjectileFramework
     [Space] 
     [SerializeField] private Transform _vfxSpawnPoint;
     [SerializeField] private GameObject _spearVFX;
+    [SerializeField] private CurveProgression _impactDecalCurve;
     private GeneralVFXFunctionality _spawnedVFX;
     
     private void StartDreadSpearDuration()
@@ -59,6 +61,7 @@ public class SBP_DreadSpear : BossProjectileFramework
         {
             _dreadSpearDuration += _enrageSpearDurationIncrease;
         }
+        _impactDecalCurve.SetCurveDecreaseTime(_dreadSpearDuration + _spearImpactDecalDurationOffset);
 
         CreateSpearVFX();
         

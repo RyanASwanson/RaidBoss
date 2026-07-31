@@ -34,6 +34,9 @@ public class SceneLoadManager : MainUniversalManagerFramework
     private UnityEvent _onMiddleOfSceneLoad = new UnityEvent();
     private UnityEvent _onEndOfSceneLoad = new UnityEvent();
     
+    private UnityEvent _onSceneTransitionCloseInCompleted = new UnityEvent();
+    private UnityEvent _onSceneTransitionOpenUpCompleted = new UnityEvent();
+    
     private UnityEvent _onStartMusicOnSceneLoad = new UnityEvent();
     private UnityEvent _onGameplaySceneLoaded = new UnityEvent();
     
@@ -99,6 +102,8 @@ public class SceneLoadManager : MainUniversalManagerFramework
         yield return _sceneTransitionWait;
 
         _sceneLoadState = ESceneLoadState.MiddleOfLoading;
+
+        InvokeOnSceneTransitionCloseInCompleted();
         
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(id);
 
@@ -223,6 +228,16 @@ public class SceneLoadManager : MainUniversalManagerFramework
         _onEndOfSceneLoad?.Invoke();
     }
 
+    private void InvokeOnSceneTransitionCloseInCompleted()
+    {
+        _onSceneTransitionCloseInCompleted?.Invoke();
+    }
+    
+    private void InvokeOnSceneTransitionOpenUpCompleted()
+    {
+        _onSceneTransitionOpenUpCompleted?.Invoke();
+    }
+
     private void InvokeOnStartMusicOnSceneLoad()
     {
         _onStartMusicOnSceneLoad?.Invoke();
@@ -253,6 +268,8 @@ public class SceneLoadManager : MainUniversalManagerFramework
     public UnityEvent GetOnStartOfSceneLoad() => _onStartOfSceneLoad;
     public UnityEvent GetOnMiddleOfSceneLoad() => _onMiddleOfSceneLoad;
     public UnityEvent GetOnEndOfSceneLoad() => _onEndOfSceneLoad;
+    public UnityEvent GetOnSceneTransitionCloseInCompleted() => _onSceneTransitionCloseInCompleted;
+    public UnityEvent GetOnSceneTransitionOpenUpCompleted() => _onSceneTransitionOpenUpCompleted;
     public UnityEvent GetOnStartMusicOnSceneLoad() => _onStartMusicOnSceneLoad;
     public UnityEvent GetOnGameplaySceneLoaded() => _onGameplaySceneLoaded;
     #endregion

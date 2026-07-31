@@ -163,6 +163,13 @@ public class SB_VoidLord : SpecificBossFramework
 
     public override bool StartAbility(SpecificBossAbilityFramework bossAbility, bool isAbilityForceActivated)
     {
+        bool wasAbilityUsed = base.StartAbility(bossAbility, isAbilityForceActivated);
+
+        if (!wasAbilityUsed)
+        {
+            return false;
+        }
+        
         if (bossAbility == _fadingHope)
         {
             FadingHopeUsed();
@@ -172,7 +179,7 @@ public class SB_VoidLord : SpecificBossFramework
             _fadingHopeCounter++;
         }
         
-        return base.StartAbility(bossAbility, isAbilityForceActivated);
+        return true;
     }
     
     /// <summary>

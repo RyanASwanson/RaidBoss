@@ -73,5 +73,21 @@ public class SBA_VoidMaw : SpecificBossAbilityFramework
         base.StopBossAbility();
         _associatedRay.RemoveRay();
     }
+    
+    public override Vector3 GetCustomAreaTarget(HeroBase targetHero)
+    {
+        Vector3 customTarget = Vector3.zero;
+        customTarget.Set(targetHero.transform.position.x, 0, targetHero.transform.position.z);
+        customTarget.Normalize();
+        if (Mathf.Abs(customTarget.x) > Mathf.Abs(customTarget.z))
+        {
+            customTarget.Set(customTarget.x, customTarget.y, 0);
+        }
+        else
+        {
+            customTarget.Set(0, customTarget.y, customTarget.z);
+        }
+        return customTarget;
+    }
     #endregion
 }

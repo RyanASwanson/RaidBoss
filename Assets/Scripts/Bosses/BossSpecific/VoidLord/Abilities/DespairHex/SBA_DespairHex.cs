@@ -107,7 +107,25 @@ public class SBA_DespairHex : SpecificBossAbilityFramework
     {
         base.StopBossAbility();
     }
-    
+
+    public override HeroBase GetSpecificHeroTarget()
+    {
+        List<HeroBase> heroes = HeroesManager.Instance.GetCurrentLivingHeroes();
+        float lowestHeroHealth = float.MaxValue;
+        int lowestHeroHealthIndex = 0;
+
+        for (int i = 0; i < heroes.Count; i++)
+        {
+            if (heroes[i].GetHeroStats().GetCurrentHealth() < lowestHeroHealth)
+            {
+                lowestHeroHealth = heroes[i].GetHeroStats().GetCurrentHealth();
+                lowestHeroHealthIndex = i;
+            }
+        }
+
+        return heroes[lowestHeroHealthIndex];
+    }
+
     public override bool GetCanAbilityBeUsed()
     {
         if (_newestHex.IsUnityNull())

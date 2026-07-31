@@ -485,7 +485,7 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     {
         return null;
     }
-
+    
     #endregion
 
     #region Getters
@@ -497,6 +497,7 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
     public bool GetDoesBossFollowTarget() => _doesBossFollowTarget;
     public Vector3 GetSpecificAreaTarget() => _specificAreaTarget;
     public Vector3 GetSpecificLookTarget() => _specificLookTarget;
+    public virtual Vector3 GetCustomAreaTarget(HeroBase targetHero) => Vector3.zero;
 
     public float GetTimeUntilNextAbility() => _timeUntilNextAbility;
     public float GetAbilityWindUpTime() => _abilityWindUpTime;
@@ -532,4 +533,5 @@ public enum EBossAbilityTargetMethod
     HeroTarget,
     SpecificHeroTarget,
     SpecificAreaTarget,
+    CustomAreaTarget,
 };
