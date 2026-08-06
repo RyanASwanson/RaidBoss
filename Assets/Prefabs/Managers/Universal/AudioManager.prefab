@@ -1236,7 +1236,7 @@ MonoBehaviour:
           Data4: -1112083907
         Path: event:/SoundEffect/Bosses/Specific/ThunderLord/Abilities/Thunderbolt/ThunderLordThunderbolt
     BossAbilityAudio:
-    - AbilityName: Thunderbolt
+    - AbilityName: DreadSpears
       AbilityPrep:
         AudioName: 
         DefaultInstanceFadeInTime: 0
@@ -1256,63 +1256,23 @@ MonoBehaviour:
         DefaultAudioChoice: 0
         AudioTracks: []
       GeneralAbilityAudio:
-      - AudioName: ThunderboltActivation
-        DefaultInstanceFadeInTime: 0
-        DefaultInstanceFadeOutTime: 0
-        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
-        AudioVCAType: 2
-        DefaultPlayType: 0
-        DefaultAudioChoice: 0
-        AudioTracks:
-        - Guid:
-            Data1: -1363530573
-            Data2: 1116071005
-            Data3: 1785673656
-            Data4: -1112083907
-          Path: event:/SoundEffect/Bosses/Specific/ThunderLord/Abilities/Thunderbolt/ThunderLordThunderbolt
-    - AbilityName: StaticCharge
-      AbilityPrep:
-        AudioName: StaticCharge
-        DefaultInstanceFadeInTime: 0
-        DefaultInstanceFadeOutTime: 0
-        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
-        AudioVCAType: 2
-        DefaultPlayType: 0
-        DefaultAudioChoice: 0
-        AudioTracks:
-        - Guid:
-            Data1: 1019476985
-            Data2: 1261553801
-            Data3: 413196713
-            Data4: 1388448461
-          Path: event:/SoundEffect/Bosses/Specific/ThunderLord/Abilities/StaticCharge/ThunderLordStaticCharge
-      AbilityStart:
-        AudioName: 
+      - AudioName: DreadSpearStab
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
         DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
         AudioVCAType: 2
         DefaultPlayType: 1
         DefaultAudioChoice: 0
-        AudioTracks: []
-      GeneralAbilityAudio:
-      - AudioName: StaticChargeAttackHit
-        DefaultInstanceFadeInTime: 0
-        DefaultInstanceFadeOutTime: 0
-        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
-        AudioVCAType: 2
-        DefaultPlayType: 0
-        DefaultAudioChoice: 0
         AudioTracks:
         - Guid:
-            Data1: -586800513
-            Data2: 1242921837
-            Data3: -221529700
-            Data4: 1083843066
-          Path: event:/SoundEffect/Bosses/Specific/ThunderLord/Abilities/StaticCharge/ThunderLordStaticChargeAttackHit
-    - AbilityName: Thunderclap
+            Data1: -1480895141
+            Data2: 1086669634
+            Data3: 764371331
+            Data4: 1802971777
+          Path: event:/SoundEffect/Bosses/Specific/VoidLord/Abilities/DreadSpears/DreadSpearStab
+    - AbilityName: Isolation
       AbilityPrep:
-        AudioName: 
+        AudioName: IsolationPrep
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
         DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
@@ -1321,7 +1281,7 @@ MonoBehaviour:
         DefaultAudioChoice: 0
         AudioTracks: []
       AbilityStart:
-        AudioName: Thunderclap
+        AudioName: IsolationStart
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
         DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
@@ -1330,53 +1290,13 @@ MonoBehaviour:
         DefaultAudioChoice: 0
         AudioTracks:
         - Guid:
-            Data1: -442606594
-            Data2: 1073978133
-            Data3: 2090665127
-            Data4: -318463521
-          Path: event:/SoundEffect/Bosses/Specific/ThunderLord/Abilities/Thunderclap/ThunderLordThunderclap
-      GeneralAbilityAudio:
-      - AudioName: ThunderclapFailed
-        DefaultInstanceFadeInTime: 0
-        DefaultInstanceFadeOutTime: 0
-        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
-        AudioVCAType: 2
-        DefaultPlayType: 1
-        DefaultAudioChoice: 0
-        AudioTracks:
-        - Guid:
-            Data1: -146961177
-            Data2: 1116950394
-            Data3: -1852463731
-            Data4: 650404567
-          Path: event:/SoundEffect/Bosses/Specific/ThunderLord/Abilities/Thunderclap/ThunderLordThunderclapFailed
-    - AbilityName: Overcharge
-      AbilityPrep:
-        AudioName: 
-        DefaultInstanceFadeInTime: 0
-        DefaultInstanceFadeOutTime: 0
-        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
-        AudioVCAType: 2
-        DefaultPlayType: 1
-        DefaultAudioChoice: 0
-        AudioTracks:
-        - Guid:
-            Data1: 311079646
-            Data2: 1128440064
-            Data3: -1779581
-            Data4: -804043991
-          Path: event:/SoundEffect/Bosses/Specific/ThunderLord/Abilities/Overcharge/ThunderLordOvercharge
-      AbilityStart:
-        AudioName: 
-        DefaultInstanceFadeInTime: 0
-        DefaultInstanceFadeOutTime: 0
-        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
-        AudioVCAType: 2
-        DefaultPlayType: 1
-        DefaultAudioChoice: 0
-        AudioTracks: []
+            Data1: -1973409932
+            Data2: 1334706580
+            Data3: -2099807085
+            Data4: 1541494639
+          Path: event:/SoundEffect/Bosses/Specific/VoidLord/Abilities/Isolation/VoidLordIsolation
       GeneralAbilityAudio: []
-    - AbilityName: ImpendingStorm
+    - AbilityName: VoidMaw
       AbilityPrep:
         AudioName: 
         DefaultInstanceFadeInTime: 0
@@ -1387,6 +1307,71 @@ MonoBehaviour:
         DefaultAudioChoice: 0
         AudioTracks: []
       AbilityStart:
+        AudioName: VoidMawStart
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        AudioVCAType: 2
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: 1344970894
+            Data2: 1307276782
+            Data3: 1877634977
+            Data4: 1809133752
+          Path: event:/SoundEffect/Bosses/Specific/VoidLord/Abilities/VoidMaw/VoidLordVoidMaw
+      GeneralAbilityAudio: []
+    - AbilityName: DespairHex
+      AbilityPrep:
+        AudioName: 
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        AudioVCAType: 2
+        DefaultPlayType: 1
+        DefaultAudioChoice: 0
+        AudioTracks: []
+      AbilityStart:
+        AudioName: DespairHexStart
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        AudioVCAType: 2
+        DefaultPlayType: 1
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: 1778403384
+            Data2: 1335458310
+            Data3: 498331292
+            Data4: 448857288
+          Path: event:/SoundEffect/Bosses/Specific/VoidLord/Abilities/DespairHex/DespairHexStart
+      GeneralAbilityAudio:
+      - AudioName: DespairHexSwap
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        AudioVCAType: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: -404201439
+            Data2: 1312154402
+            Data3: -2098546524
+            Data4: -1836003013
+          Path: event:/SoundEffect/Bosses/Specific/VoidLord/Abilities/DespairHex/DespairHexSwap
+      - AudioName: DespairHexHit
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        AudioVCAType: 0
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks: []
+    - AbilityName: FadingHope
+      AbilityPrep:
         AudioName: 
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
@@ -1395,35 +1380,40 @@ MonoBehaviour:
         DefaultPlayType: 0
         DefaultAudioChoice: 0
         AudioTracks: []
-      GeneralAbilityAudio:
-      - AudioName: 
+      AbilityStart:
+        AudioName: FadingHopeUsed
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
         DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
         AudioVCAType: 2
         DefaultPlayType: 0
-        DefaultAudioChoice: 1
+        DefaultAudioChoice: 0
         AudioTracks:
         - Guid:
-            Data1: -1949135384
-            Data2: 1297142234
-            Data3: -64034380
-            Data4: -1020005259
-          Path: event:/SoundEffect/Bosses/Specific/ThunderLord/Abilities/ImpendingStorm/ThunderLordImpendingStormAttack1
+            Data1: -1572438721
+            Data2: 1191547565
+            Data3: -228525651
+            Data4: 989567766
+          Path: event:/SoundEffect/Bosses/Specific/VoidLord/Abilities/FadingHope/FadingHope
+      GeneralAbilityAudio:
+      - AudioName: RayOfHopeSpawn
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        AudioVCAType: 2
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
         - Guid:
-            Data1: -1405329700
-            Data2: 1331166085
-            Data3: 1540112830
-            Data4: -383119157
-          Path: event:/SoundEffect/Bosses/Specific/ThunderLord/Abilities/ImpendingStorm/ThunderLordImpendingStormAttack2
-        - Guid:
-            Data1: -1850533541
-            Data2: 1212186599
-            Data3: -403281508
-            Data4: 2145027524
-          Path: event:/SoundEffect/Bosses/Specific/ThunderLord/Abilities/ImpendingStorm/ThunderLordImpendingStormAttack3
+            Data1: -1264054724
+            Data2: 1116993851
+            Data3: -1860995184
+            Data4: 1587659596
+          Path: event:/SoundEffect/Bosses/Specific/VoidLord/Abilities/FadingHope/RayOfHope/RayOfHopeSpawned
     BossAmbience:
       AudioName: VoidLordAmbience
+      DefaultInstanceFadeInTime: 0
+      DefaultInstanceFadeOutTime: 0
       DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
       AudioVCAType: 2
       DefaultPlayType: 1

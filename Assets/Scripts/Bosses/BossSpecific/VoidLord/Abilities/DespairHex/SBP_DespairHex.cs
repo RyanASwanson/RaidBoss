@@ -198,6 +198,8 @@ public class SBP_DespairHex : BossProjectileFramework
 
         StartIgnorePreviousTarget(_previousTarget);
         _damageArea.ToggleProjectileCollider(false);
+
+        PlayHexHitAudio();
         
         StartMoveIntoHero();
     }
@@ -237,6 +239,8 @@ public class SBP_DespairHex : BossProjectileFramework
     {
         SetInwardVFXTarget(_currentTarget);
         _scaleCurve.StartMovingUpOnCurve();
+        PlayHexSwapAudio();
+        
         StartCoroutine(MoveOutFromHero());
     }
 
@@ -336,12 +340,19 @@ public class SBP_DespairHex : BossProjectileFramework
         _despairHex.RemoveHexedHero(_currentTarget);
         Destroy(gameObject);
     }
-
-    private void PlayAttackHitAudio()
+    
+    private void PlayHexSwapAudio()
     {
-        /*AudioManager.Instance.PlaySpecificAudio(
+        AudioManager.Instance.PlaySpecificAudio(
             AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
-                BossAbilityAudio[_abilityID].GeneralAbilityAudio[SBA_StaticCharge.STATIC_CHARGE_ATTACK_HIT_AUDIO_ID]);*/
+                BossAbilityAudio[_abilityID].GeneralAbilityAudio[SBA_DespairHex.DESPAIR_HEX_SWAP_AUDIO_ID]);
+    }
+
+    private void PlayHexHitAudio()
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
+                BossAbilityAudio[_abilityID].GeneralAbilityAudio[SBA_DespairHex.DESPAIR_HEX_HIT_AUDIO_ID]);
     }
     
     private void SubscribeToEvents()

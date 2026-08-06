@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using FMOD.Studio;
 using UnityEngine;
 
 public class SBP_DreadSpears : BossProjectileFramework
@@ -15,6 +16,10 @@ public class SBP_DreadSpears : BossProjectileFramework
     [SerializeField] private float _minimumProjectileVariation;
     [SerializeField] private float _maximumProjectileVariation;
     [SerializeField] private Vector3 _projectileVariationDirection;
+
+    [Space] 
+    [SerializeField] private float _volumeDecreasePerSpear;
+    [SerializeField] private float _maximumVolumeDecrease;
     
     private WaitForSeconds _projectileWait;
     private Vector3 _targetSpawnLocation;
@@ -59,7 +64,8 @@ public class SBP_DreadSpears : BossProjectileFramework
                                                (projectileCounter % 2 == 1 ? -1 : 1));
 
         dreadSpear.SetUpProjectile(_myBossBase,_abilityID, _wasBossEnragedOnAbilityActivation);
-        
+
+        PlayDreadSpearStabSpawnAudio();
         _projectileCounter++;
         CalculateNextTargetSpawnLocation();
     }
@@ -69,6 +75,19 @@ public class SBP_DreadSpears : BossProjectileFramework
         _targetSpawnLocation = transform.forward * ((_distancePerProjectile * _projectileCounter) + _initialProjectileDistance);
         _targetSpawnLocation.Set(_targetSpawnLocation.x, transform.position.y, _targetSpawnLocation.z);
         _targetSpawnDistance = Vector3.Distance(Vector3.zero, _targetSpawnLocation);
+    }
+    
+    private void PlayDreadSpearStabSpawnAudio()
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
+                BossAbilityAudio[_abilityID].GeneralAbilityAudio[SBA_DreadSpears.DREAD_SPEAR_STAB_AUDIO_ID], out EventInstance eventInstance);
+        
+        eventInstance.getVolume(out float vol);
+        eventInstance.setVolume(Mathf.Clamp(vol - (_projectileCounter * _volumeDecreasePerSpear),_maximumVolumeDecrease,int.MaxValue));
+        
+        /*eventInstance.getVolume(out vol);
+        Debug.Log(vol);*/
     }
     
     #region Base Ability

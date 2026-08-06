@@ -16,6 +16,9 @@ public class SBA_DespairHex : SpecificBossAbilityFramework
     private SBP_DespairHex _newestHex;
     
     private List<HeroBase> _hexedHeroes = new List<HeroBase>();
+    
+    public const int DESPAIR_HEX_SWAP_AUDIO_ID = 0;
+    public const int DESPAIR_HEX_HIT_AUDIO_ID = 1;
 
     public void AddHexedHero(HeroBase hero)
     {

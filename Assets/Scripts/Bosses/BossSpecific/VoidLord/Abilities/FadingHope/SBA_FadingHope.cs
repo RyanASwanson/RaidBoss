@@ -7,6 +7,8 @@ public class SBA_FadingHope : SpecificBossAbilityFramework
     [SerializeField] private GameObject _targetZone;
     [SerializeField] private GameObject _fadingHope;
     
+    public const int RAY_OF_HOPE_SPAWN_AUDIO_ID = 0;
+    
     #region Base Ability
 
     protected override void StartShowTargetZone()

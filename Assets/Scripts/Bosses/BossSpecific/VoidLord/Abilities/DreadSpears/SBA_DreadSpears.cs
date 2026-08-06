@@ -18,6 +18,8 @@ public class SBA_DreadSpears : SpecificBossAbilityFramework
     private Vector3 _rayPosition;
     private Coroutine _targetZoneCoroutine;
     
+    public const int DREAD_SPEAR_STAB_AUDIO_ID = 0;
+    
     private IEnumerator UpdateTargetZone()
     {
         Vector3 lastCheckedDirection = Vector3.zero;

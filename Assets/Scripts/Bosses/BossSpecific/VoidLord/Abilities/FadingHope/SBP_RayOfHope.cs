@@ -28,6 +28,13 @@ public class SBP_RayOfHope : BossProjectileFramework
         
         RemoveRayOfHope();
     }
+
+    private void PlayRayOfHopeSpawnAudio()
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
+                BossAbilityAudio[_abilityID].GeneralAbilityAudio[SBA_FadingHope.RAY_OF_HOPE_SPAWN_AUDIO_ID]);
+    }
     
     public void RemoveRayOfHope()
     {
@@ -50,6 +57,8 @@ public class SBP_RayOfHope : BossProjectileFramework
     {
         base.SetUpProjectile(bossBase, newAbilityID);
         SubscribeToEvents();
+        
+        PlayRayOfHopeSpawnAudio();
     }
     #endregion
 }
