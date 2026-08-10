@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class SBA_DespairHex : SpecificBossAbilityFramework
 {
+    [Space] 
+    [SerializeField] private bool _doesSpawnRay;
+    private SBP_RayOfHopeTargetZone _associatedRay;
+    
     [Space]
     [SerializeField] private float _despairDamage;
     
@@ -14,6 +18,9 @@ public class SBA_DespairHex : SpecificBossAbilityFramework
     
     private BossTargetZoneParent _newestTargetZone;
     private SBP_DespairHex _newestHex;
+    
+    private Vector3 _rayPosition;
+    private Coroutine _targetZoneCoroutine;
     
     private List<HeroBase> _hexedHeroes = new List<HeroBase>();
     
@@ -58,6 +65,22 @@ public class SBA_DespairHex : SpecificBossAbilityFramework
         return true;
     }
     
+    private IEnumerator UpdateTargetZone()
+    {
+        while(!_storedTarget.IsUnityNull())
+        {
+            if (!_associatedRay.IsUnityNull())
+            {
+                _rayPosition = _storedTarget.transform.position;
+                _rayPosition.Set(-_rayPosition.x,_rayPosition.y,-_rayPosition.z);
+                _associatedRay.SetRayPosition(_rayPosition);
+            }
+
+            yield return null;
+            
+        }
+    }
+    
     #region Base Ability
 
     public override void AbilitySetUp(BossBase bossBase)
@@ -84,6 +107,10 @@ public class SBA_DespairHex : SpecificBossAbilityFramework
 
         _newestTargetZone.GetComponent<FollowObject>().StartFollowingObject(_storedTarget.gameObject);
         
+        _associatedRay = SB_VoidLord.Instance.SpawnRayOfHopeTargetZone(_storedTarget.transform.position);
+
+        _targetZoneCoroutine = StartCoroutine(UpdateTargetZone());
+        
         base.StartShowTargetZone();
     }
 
@@ -94,10 +121,21 @@ public class SBA_DespairHex : SpecificBossAbilityFramework
         {
             return;
         }
+
+        if (!_targetZoneCoroutine.IsUnityNull())
+        {
+            StopCoroutine(_targetZoneCoroutine);
+        }
         
         _newestHex = Instantiate(_despairHex, _storedTargetLocation, Quaternion.identity).GetComponent<SBP_DespairHex>();
         _newestHex.SetUpProjectile(_myBossBase, _abilityID,_wasBossEnragedOnAbilityActivation);
         _newestHex.AdditionalSetUp(this, _storedTarget);
+        
+        if (!_associatedRay.IsUnityNull())
+        {
+            _associatedRay.SpawnRayOfHope();
+        }
+        
         base.AbilityStart();
     }
     
@@ -109,6 +147,7 @@ public class SBA_DespairHex : SpecificBossAbilityFramework
     public override void StopBossAbility()
     {
         base.StopBossAbility();
+        _associatedRay.RemoveRay();
     }
 
     public override HeroBase GetSpecificHeroTarget()

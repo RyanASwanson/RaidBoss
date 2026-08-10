@@ -49,6 +49,7 @@ public class SBP_DespairHex : BossProjectileFramework
     [SerializeField] private GeneralBossDamageArea _damageArea;
     [SerializeField] private CurveProgression _scaleCurve;
     [SerializeField] private CurveProgression _removalCurve;
+    [SerializeField] private CurveProgression _sigilCurve;
 
     private HeroBase _currentTarget;
     private HeroBase _previousTarget;
@@ -333,6 +334,7 @@ public class SBP_DespairHex : BossProjectileFramework
         _damageArea.ToggleProjectileCollider(false);
         _isDurationOver = true;
         _removalCurve.StartMovingUpOnCurve();
+        _sigilCurve.StartMovingDownOnCurve();
     }
 
     public void RemovalConcluded()

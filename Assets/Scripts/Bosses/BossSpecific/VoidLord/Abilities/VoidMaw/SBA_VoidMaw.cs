@@ -15,6 +15,8 @@ public class SBA_VoidMaw : SpecificBossAbilityFramework
     
     private SBP_VoidMawTargetZone _newestTargetZone;
     
+    public const int VOID_MAW_LOOP_AUDIO_ID = 0;
+    
     private void SpawnRay()
     {
         _associatedRay = SB_VoidLord.Instance.SpawnRayOfHopeTargetZone(transform.position);

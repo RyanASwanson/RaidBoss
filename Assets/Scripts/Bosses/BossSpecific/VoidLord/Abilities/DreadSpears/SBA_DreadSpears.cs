@@ -18,23 +18,25 @@ public class SBA_DreadSpears : SpecificBossAbilityFramework
     private Vector3 _rayPosition;
     private Coroutine _targetZoneCoroutine;
     
+    private Vector3 _lastCheckedDirection = Vector3.zero;
+    
     public const int DREAD_SPEAR_STAB_AUDIO_ID = 0;
     
     private IEnumerator UpdateTargetZone()
     {
-        Vector3 lastCheckedDirection = Vector3.zero;
+        _lastCheckedDirection = Vector3.zero;
         
         while(!_storedTargetZone.IsUnityNull() && !_storedTarget.IsUnityNull())
         {
             _storedTargetLocation = _storedTarget.transform.position;
             _attackDirection = _storedTargetLocation - Vector3.zero;
 
-            if (lastCheckedDirection == _attackDirection)
+            if (_lastCheckedDirection == _attackDirection)
             {
                 yield return null;
                 continue;
             }
-            lastCheckedDirection = _attackDirection;
+            _lastCheckedDirection = _attackDirection;
 
             _storedTargetZone.transform.LookAt(_storedTarget.transform);
             _storedTargetZone.transform.eulerAngles = new Vector3(0, _storedTargetZone.transform.eulerAngles.y, 0);
@@ -82,7 +84,8 @@ public class SBA_DreadSpears : SpecificBossAbilityFramework
         SBP_DreadSpears dreadSpears = Instantiate(_dreadSpears, _storedTargetZone.transform.position, Quaternion.identity)
             .GetComponent<SBP_DreadSpears>();
         
-        dreadSpears.transform.LookAt(_storedTarget.transform.position);
+        //dreadSpears.transform.LookAt(_storedTarget.transform.position);
+        dreadSpears.transform.LookAt(_lastCheckedDirection);
         dreadSpears.transform.eulerAngles = new Vector3(0, dreadSpears.transform.eulerAngles.y, 0);
         
         dreadSpears.SetUpProjectile(_myBossBase, _abilityID, _wasBossEnragedOnAbilityActivation);

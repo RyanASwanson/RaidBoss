@@ -14,6 +14,7 @@ Material:
   m_InvalidKeywords:
   - _DESATURATELIGHTCOLOR_ON
   - _FRONTGRADIENTCHANGEDIRECTION_ON
+  - _LOCALHEIGHTFOG_ON
   - _RIGHTGRADIENTCHANGEDIRECTION_ON
   - _RIMGRADIENTCHANGEDIRECTION_ON
   - _TOPGRADIENTCHANGEDIRECTION_ON
@@ -78,7 +79,7 @@ Material:
     - _DistanceFogStartPosition: 10
     - _DstBlend: 10
     - _Exposure: 0.79
-    - _FogHeight: 7.5
+    - _FogHeight: 1
     - _FrontGradient: 0
     - _FrontGradientCenter: 0.426
     - _FrontGradientChangeDirection: 1
@@ -88,13 +89,13 @@ Material:
     - _FrontTextureLevel: 1
     - _GradientRamp: 0
     - _HeightFog: 1
-    - _HeightFogDensity: 0.0135
-    - _HeightFogStartPosition: 0.37
+    - _HeightFogDensity: 0.005
+    - _HeightFogStartPosition: 0.2
     - _Intensity: 1.09
     - _Light: 0
     - _Lightmap: 0
     - _LightmapLevel: 5
-    - _LocalHeightFog: 0
+    - _LocalHeightFog: 1
     - _MainTextureLevel: 1
     - _MultiplyLightmap: 0
     - _OpacityLevel: 1
@@ -140,16 +141,16 @@ Material:
     - _CenterColor: {r: 1, g: 1, b: 1, a: 1}
     - _DistanceFogColor: {r: 0.9490197, g: 0.909804, b: 0.4039216, a: 1}
     - _ExternalColor: {r: 1, g: 0, b: 0, a: 1}
-    - _FrontColor: {r: 1, g: 1, b: 1, a: 0}
+    - _FrontColor: {r: 0.98039216, g: 1, b: 0.49803913, a: 0}
     - _FrontTopColor: {r: 0, g: 0, b: 0, a: 1}
     - _HeightFogColor: {r: 0.98039216, g: 1, b: 0.49999988, a: 0}
     - _LightmapColor: {r: 0, g: 0, b: 0, a: 1}
-    - _RightColor: {r: 1, g: 1, b: 1, a: 0}
+    - _RightColor: {r: 0.98039216, g: 1, b: 0.49803922, a: 0}
     - _RightTopColor: {r: 0, g: 0, b: 0, a: 1}
-    - _RimColor: {r: 1, g: 1, b: 1, a: 0}
+    - _RimColor: {r: 0.98039216, g: 1, b: 0.49803922, a: 0}
     - _RimTopColor: {r: 0, g: 0, b: 0, a: 1}
     - _SimulatedLightPosition: {r: 0, g: 0, b: 0, a: 0}
-    - _TopColor: {r: 1, g: 1, b: 1, a: 0}
+    - _TopColor: {r: 0.98039216, g: 1, b: 0.49803922, a: 0}
     - _TopTopColor: {r: 0, g: 0, b: 0, a: 1}
     - _WorldDistanceFogPosition: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

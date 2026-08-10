@@ -12,32 +12,67 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 693bc80e562020641a7353805d099d2c, type: 3}
   m_Name: Mission27
   m_EditorClassIdentifier: 
-  _missionID: 26
-  _missionName: 'Mythic+
+  _missionID: 24
+  _missionName: 'The End
 
-    Glacial Lord'
+    Game'
   _missionTitleScale: 1
   _doesAutomaticallySelectFirstHero: 1
   _associatedDifficulty: 4
-  _associatedLevel: {fileID: 11400000, guid: 8493e996e77df644ab18a699456b6c06, type: 2}
+  _associatedLevel: {fileID: 11400000, guid: 763a87e823e4c5d4d8c9e44aa8aa4a02, type: 2}
   _associatedHeroes:
   - {fileID: 11400000, guid: fa900cf8282b2814fb9eb1a8cc860cd0, type: 2}
-  - {fileID: 11400000, guid: 77065cfc021c68f45b33aa0acd24fa46, type: 2}
   - {fileID: 11400000, guid: 0128339a05223db40aae2581988a9ea0, type: 2}
-  - {fileID: 11400000, guid: 2b5cc09a0a41a0c40a6b8c0fa2ebb464, type: 2}
+  - {fileID: 11400000, guid: e3a0dad03ec099242b69fcc0759e259a, type: 2}
   - {fileID: 11400000, guid: f6c84c9f4fbb63d48b70719944c773d1, type: 2}
-  _missionDisplayHighlights: []
-  _tutorialPages: []
+  - {fileID: 11400000, guid: 5cd74adfdadc94247a4cc60ba024fe89, type: 2}
+  _missionDisplayHighlights:
+  - HighlightType: 1
+    HightlightID: 0
+  _tutorialPages:
+  - TutorialPageTitle: Mythic+
+    TutorialPageTitleWidth: 471
+    DefaultTextLocation: {x: 0, y: 30}
+    DefaultText: 'The difficulty has increased
+
+      to <color=#BB0D00>Mythic+</color>.
+      Get ready for a
+
+      real challenge.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -60}
+      TutorialCharacterIconScaleMultiplier: 1.25
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 7d3ee4008449a474a8cfed84359c1e59, type: 3}
+      TutorialPageCharacterBackground: {fileID: 0}
+  - TutorialPageTitle: Greater Challenges
+    TutorialPageTitleWidth: 1049
+    DefaultTextLocation: {x: 0, y: 55}
+    DefaultText: 'If you are seeking an even greater
+
+      challenge, you can infinitely
+
+      increase
+      the difficulty of
+
+      <color=#BB0D00>Mythic+</color> in Free Play.'
+    TutorialPageObjectLocation: {x: 0, y: -53}
+    TutorialPageObject: {fileID: 1655696998721158963, guid: cd55c0e8098b5784a81889e74387c81e, type: 3}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: 0}
+      TutorialCharacterIconScaleMultiplier: 1.25
+      TutorialPageCharacterIcon: {fileID: 0}
+      TutorialPageCharacterBackground: {fileID: 0}
   _customTutorial: {fileID: 0}
   _characterUnlock: {fileID: 0}
-  _difficultyUnlock: 0
+  _difficultyUnlock: 4
   _missionModifierUnlock: {fileID: 0}
   _missionUnlocks:
-  - {fileID: 11400000, guid: c1ba0821228c03749b7b6e5c743f56cc, type: 2}
+  - {fileID: 11400000, guid: a6a9806becdb7ae47b41d154c6ece02f, type: 2}
   _achievementUnlocks: []
   _generalMissionUnlocks: 0
-  _missionModifiers:
-  - {fileID: 11400000, guid: 552c5c9b813bd4f429e0c22b5df61aa5, type: 2}
+  _missionModifiers: []
   _missionStatModifiers:
     _bossHealthMultiplier: 1
     _bossStaggerMultiplier: 1

@@ -51,6 +51,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _minimumMoveTime: 1.2
   _maximumMoveTime: 2.6
+  _collisionEnableDistance: 1
   _minimumHeroDistance: 1
   _maximumHeroDistance: 6.5
   _moveCurve:
@@ -77,6 +78,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _damageArea: {fileID: 2513802278050975735}
   _scaleCurve: {fileID: 4330070732434501111}
   _voidMawVFX: {fileID: 4450457236284141596}
 --- !u!114 &2513802278050975735
@@ -95,8 +97,8 @@ MonoBehaviour:
   - {fileID: 7349881310967431527}
   _hasLifetime: 0
   _lifetime: 0
-  _hasColliderActivationDelay: 1
-  _colliderActivationDelay: 0.25
+  _hasColliderActivationDelay: 0
+  _colliderActivationDelay: 0
   _hasColliderLifetime: 0
   _colliderLifetime: 0
   _doesHitCenteredVFXCopyRotation: 0
@@ -391,8 +393,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _curveName: ScaleCurve
-  _curveIncreaseTime: 0.3
-  _curveDecreaseTime: 0.3
+  _curveIncreaseTime: 0.5
+  _curveDecreaseTime: 0.5
   _minCurveValue: 0
   _maxCurveValue: 1
   _hasDefaultValue: 0
@@ -402,7 +404,7 @@ MonoBehaviour:
   _doesStartMovingInCurrentDirectionOnEnable: 0
   _hasAutomaticStartMovingDelay: 0
   _automaticStartMovingDelay: 0
-  _doesAutomaticallyMoveDownOnHittingMax: 1
+  _doesAutomaticallyMoveDownOnHittingMax: 0
   _doesAutomaticallyMoveUpOnHittingMin: 0
   _hasIncreaseDelay: 0
   _increaseDelay: 0
@@ -422,6 +424,15 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
+      time: 0.45
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
       time: 1
       value: 1
       inSlope: 0
@@ -438,10 +449,34 @@ MonoBehaviour:
       m_Calls: []
   _onStartedIncreasing:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4563798267486821958}
+        m_TargetAssemblyTypeName: SBP_VoidMawProjectile, Assembly-CSharp
+        m_MethodName: StartedScalingUp
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _onStartedDecreasing:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4563798267486821958}
+        m_TargetAssemblyTypeName: SBP_VoidMawProjectile, Assembly-CSharp
+        m_MethodName: StartedScalingDown
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _onMaxValueReached:
     m_PersistentCalls:
       m_Calls: []
@@ -639,7 +674,7 @@ BoxCollider:
   m_GameObject: {fileID: 2818340921585129795}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 0.75, y: 1, z: 0.75}
   m_Center: {x: 0, y: 0, z: 0}

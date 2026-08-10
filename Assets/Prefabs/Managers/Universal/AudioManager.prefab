@@ -1221,7 +1221,7 @@ MonoBehaviour:
     MiscellaneousBossAudio: []
   - AssociatedBoss: VoidLord
     SelectionSelectedAudio:
-      AudioName: LightningLordSelected
+      AudioName: VoidLordSelected
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
       DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
@@ -1230,11 +1230,11 @@ MonoBehaviour:
       DefaultAudioChoice: 0
       AudioTracks:
       - Guid:
-          Data1: -1363530573
-          Data2: 1116071005
-          Data3: 1785673656
-          Data4: -1112083907
-        Path: event:/SoundEffect/Bosses/Specific/ThunderLord/Abilities/Thunderbolt/ThunderLordThunderbolt
+          Data1: -1572438721
+          Data2: 1191547565
+          Data3: -228525651
+          Data4: 989567766
+        Path: event:/SoundEffect/Bosses/Specific/VoidLord/Abilities/FadingHope/FadingHope
     BossAbilityAudio:
     - AbilityName: DreadSpears
       AbilityPrep:
@@ -1314,14 +1314,22 @@ MonoBehaviour:
         AudioVCAType: 2
         DefaultPlayType: 0
         DefaultAudioChoice: 0
+        AudioTracks: []
+      GeneralAbilityAudio:
+      - AudioName: VoidMawMovement
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0.5
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        AudioVCAType: 2
+        DefaultPlayType: 1
+        DefaultAudioChoice: 0
         AudioTracks:
         - Guid:
             Data1: 1344970894
             Data2: 1307276782
             Data3: 1877634977
             Data4: 1809133752
-          Path: event:/SoundEffect/Bosses/Specific/VoidLord/Abilities/VoidMaw/VoidLordVoidMaw
-      GeneralAbilityAudio: []
+          Path: event:/SoundEffect/Bosses/Specific/VoidLord/Abilities/VoidMaw/VoidLordVoidMawMovement
     - AbilityName: DespairHex
       AbilityPrep:
         AudioName: 
@@ -1369,7 +1377,13 @@ MonoBehaviour:
         AudioVCAType: 0
         DefaultPlayType: 0
         DefaultAudioChoice: 0
-        AudioTracks: []
+        AudioTracks:
+        - Guid:
+            Data1: 245338242
+            Data2: 1258182805
+            Data3: 1130730381
+            Data4: -581505147
+          Path: event:/SoundEffect/Bosses/Specific/VoidLord/Abilities/DespairHex/DespairHexHit
     - AbilityName: FadingHope
       AbilityPrep:
         AudioName: 

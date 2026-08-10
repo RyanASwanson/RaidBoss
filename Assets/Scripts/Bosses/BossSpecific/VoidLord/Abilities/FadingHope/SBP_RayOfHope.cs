@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SBP_RayOfHope : BossProjectileFramework
@@ -8,9 +9,18 @@ public class SBP_RayOfHope : BossProjectileFramework
     
     [Space]
     [SerializeField] private GeneralBossBuffArea _bossBuffArea;
+    [SerializeField] private MoveBetween _crystalMoveBetween;
+    [SerializeField] private CurveProgression _appearCurve;
+
+    private bool _isRemovingRay = false;
 
     public void HitHero(HeroBase heroBase)
     {
+        if (_isRemovingRay)
+        {
+            return;
+        }
+        
         // If we did not deal hex damage
         if (!SB_VoidLord.Instance.GetDespairHex().AttemptHexDamage(heroBase))
         {
@@ -26,7 +36,7 @@ public class SBP_RayOfHope : BossProjectileFramework
             _bossBuffArea.DealHealing(heroBase, _baseHealing*HeroesManager.Instance.GetAmountOfLivingHeroes());
         }
         
-        RemoveRayOfHope();
+        RemoveRayOfHope(heroBase);
     }
 
     private void PlayRayOfHopeSpawnAudio()
@@ -35,11 +45,35 @@ public class SBP_RayOfHope : BossProjectileFramework
             AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
                 BossAbilityAudio[_abilityID].GeneralAbilityAudio[SBA_FadingHope.RAY_OF_HOPE_SPAWN_AUDIO_ID]);
     }
-    
-    public void RemoveRayOfHope()
+
+    public void RemoveRayOfHopeWithoutTarget()
     {
+        RemoveRayOfHope(null);
+    }
+    
+    public void RemoveRayOfHope(HeroBase heroBase)
+    {
+        if (_isRemovingRay)
+        {
+            return;
+        }
+        
+        _isRemovingRay = true;
+
+        if (!heroBase.IsUnityNull())
+        {
+            _crystalMoveBetween.transform.SetParent(null);
+            _crystalMoveBetween.StartMoveProcess(heroBase.gameObject);
+        }
+        
         UnsubscribeFromEvents();
-        Destroy(this.gameObject);
+        
+        _appearCurve.StartMovingDownOnCurve();
+    }
+
+    public void DestroyRayOfHope()
+    {
+        Destroy(gameObject);
     }
 
     private void SubscribeToEvents()

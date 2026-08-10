@@ -12,32 +12,85 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 693bc80e562020641a7353805d099d2c, type: 3}
   m_Name: Mission26
   m_EditorClassIdentifier: 
-  _missionID: 25
-  _missionName: 'Mythic+
+  _missionID: 28
+  _missionName: 'The Void
 
-    Terra Lord'
-  _missionTitleScale: 1
+    Lord'
+  _missionTitleScale: 0.95
   _doesAutomaticallySelectFirstHero: 1
-  _associatedDifficulty: 4
-  _associatedLevel: {fileID: 11400000, guid: 53e846bb7c637be46af02e5cd8741558, type: 2}
+  _associatedDifficulty: 3
+  _associatedLevel: {fileID: 11400000, guid: 3d83e30a3f68f4f4f972fe8ae71e82fb, type: 2}
   _associatedHeroes:
-  - {fileID: 11400000, guid: 2b5cc09a0a41a0c40a6b8c0fa2ebb464, type: 2}
-  - {fileID: 11400000, guid: e3a0dad03ec099242b69fcc0759e259a, type: 2}
+  - {fileID: 11400000, guid: 77065cfc021c68f45b33aa0acd24fa46, type: 2}
   - {fileID: 11400000, guid: feb7336736898914f8630a93fd41a2bd, type: 2}
   - {fileID: 11400000, guid: d7f1d550a7767a0449286a45aa1aeb8d, type: 2}
+  - {fileID: 11400000, guid: 5cd74adfdadc94247a4cc60ba024fe89, type: 2}
   - {fileID: 11400000, guid: fe9a9a645a446584c83f77cfdad05c43, type: 2}
   _missionDisplayHighlights: []
-  _tutorialPages: []
+  _tutorialPages:
+  - TutorialPageTitle: Despair Hex
+    TutorialPageTitleWidth: 1321
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'The <color=#8F51FF>Void Lord</color> can use
+
+      Despair Hex
+      to apply a debuff to Heroes.
+
+      Affected Heroes take damage from
+
+      Rays
+      of Hope instead of healing.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -60}
+      TutorialCharacterIconScaleMultiplier: 1.075
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: fb71eb76be651ae49867a33c62f908cc, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: b2bea2ea6395a3a4698f324d28df7139, type: 3}
+  - TutorialPageTitle: Debuff Target Zones
+    TutorialPageTitleWidth: 956
+    DefaultTextLocation: {x: 0, y: 35}
+    DefaultText: 'Boss abilities that provide debuffs
+
+      to Heroes such as <color=#6B3CBD>Despair
+      Hex</color>
+
+      have purple target zones to signify
+
+      the negative
+      effect.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 9b676d33e1073e146b6919d53cb09fbc, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  - TutorialPageTitle: Transferring Despair
+    TutorialPageTitleWidth: 956
+    DefaultTextLocation: {x: 0, y: 35}
+    DefaultText: 'If <color=#6B3CBD>Despair Hex</color> contacts
+
+      another Hero,
+      the effect will transfer
+
+      to that Hero instead.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 9b676d33e1073e146b6919d53cb09fbc, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
   _customTutorial: {fileID: 0}
-  _characterUnlock: {fileID: 0}
+  _characterUnlock: {fileID: 11400000, guid: 94961c305140e63489e691fe1bf5f7b7, type: 2}
   _difficultyUnlock: 0
   _missionModifierUnlock: {fileID: 0}
   _missionUnlocks:
-  - {fileID: 11400000, guid: a750330e78d71b9489893eb087d8a268, type: 2}
+  - {fileID: 11400000, guid: 0a9a788308d70254690b1b619227c01a, type: 2}
   _achievementUnlocks: []
   _generalMissionUnlocks: 0
-  _missionModifiers:
-  - {fileID: 11400000, guid: e4353d0e1291c2c4c8f83193227aa03c, type: 2}
+  _missionModifiers: []
   _missionStatModifiers:
     _bossHealthMultiplier: 1
     _bossStaggerMultiplier: 1

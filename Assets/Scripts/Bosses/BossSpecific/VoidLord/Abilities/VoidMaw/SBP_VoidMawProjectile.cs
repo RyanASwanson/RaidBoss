@@ -9,6 +9,9 @@ public class SBP_VoidMawProjectile : BossProjectileFramework
     [SerializeField] private float _maximumMoveTime;
 
     [Space]
+    [SerializeField] private float _collisionEnableDistance;
+
+    [Space]
     [SerializeField] private float _minimumHeroDistance;
     [SerializeField] private float _maximumHeroDistance;
     
@@ -24,6 +27,7 @@ public class SBP_VoidMawProjectile : BossProjectileFramework
     private Vector3 _movementStartLocation;
 
     [Space] 
+    [SerializeField] private GeneralBossDamageArea _damageArea;
     [SerializeField] private CurveProgression _scaleCurve;
     [SerializeField] private GeneralVFXFunctionality _voidMawVFX;
 
@@ -33,7 +37,6 @@ public class SBP_VoidMawProjectile : BossProjectileFramework
     {
         _associatedMawOwner = maw;
         _startLocation = startLocation;
-        
         
         _midPointLocation.Set(_startLocation.z,_startLocation.y,_startLocation.x);
         _midPointLocation *= mawID > 0 ? -1 : 1;
@@ -65,6 +68,19 @@ public class SBP_VoidMawProjectile : BossProjectileFramework
         }
         
     }
+
+    public void StartedScalingUp()
+    {
+        
+    }
+
+    public void StartedScalingDown()
+    {
+        if (_movementID == 2)
+        {
+            _associatedMawOwner.FinalScalingDownVoidMaw();
+        }
+    }
     
     private void StartMovingVoidMaw(Vector3 startLocation, Vector3 endLocation)
     {
@@ -73,7 +89,7 @@ public class SBP_VoidMawProjectile : BossProjectileFramework
         transform.LookAt(transform.position + (startLocation - endLocation));
         transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 0);
         
-        _scaleCurve.SetDecreaseDelay(_moveTime - (_scaleCurve.GetCurveIncreaseTime() + _scaleCurve.GetCurveDecreaseTime()));
+        //_scaleCurve.SetDecreaseDelay(_moveTime - (_scaleCurve.GetCurveIncreaseTime() + _scaleCurve.GetCurveDecreaseTime()));
         _scaleCurve.StartMovingUpOnCurve();
         
         StartCoroutine(MoveVoidMaw(startLocation,endLocation));
@@ -82,10 +98,38 @@ public class SBP_VoidMawProjectile : BossProjectileFramework
     private IEnumerator MoveVoidMaw(Vector3 startLocation, Vector3 endLocation)
     {
         float progress = 0;
+        bool isCollisionActive = false;
+        
         while (progress < 1)
         {
             progress += Time.deltaTime / _moveTime;
             transform.localPosition = Vector3.Lerp(startLocation, endLocation, _moveCurve.Evaluate(progress));
+            
+            _voidMawVFX.SetEmissionRateMultiplierWithCurve(progress);
+            
+            if (Vector3.Distance(transform.localPosition, startLocation) <= _collisionEnableDistance)
+            {
+                if (!isCollisionActive)
+                {
+                    _damageArea.ToggleProjectileCollider(false);
+                    isCollisionActive = true;
+                }
+            }
+            else if (Vector3.Distance(transform.localPosition, endLocation) <= _collisionEnableDistance)
+            {
+                if (isCollisionActive)
+                {
+                    _damageArea.ToggleProjectileCollider(false);
+                    _scaleCurve.StartMovingDownOnCurve();
+                    //_voidMawVFX.SetLoopOfParticleSystems(false);
+                    isCollisionActive = false;
+                }
+            }
+            else
+            {
+                _damageArea.ToggleProjectileCollider(true);
+            }
+            
             yield return null;
         }
         transform.position = endLocation;

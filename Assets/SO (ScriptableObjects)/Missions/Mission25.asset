@@ -12,65 +12,103 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 693bc80e562020641a7353805d099d2c, type: 3}
   m_Name: Mission25
   m_EditorClassIdentifier: 
-  _missionID: 24
-  _missionName: 'The End
+  _missionID: 28
+  _missionName: 'The Void
 
-    Game'
-  _missionTitleScale: 1
+    Lord'
+  _missionTitleScale: 0.95
   _doesAutomaticallySelectFirstHero: 1
-  _associatedDifficulty: 4
-  _associatedLevel: {fileID: 11400000, guid: 763a87e823e4c5d4d8c9e44aa8aa4a02, type: 2}
+  _associatedDifficulty: 3
+  _associatedLevel: {fileID: 11400000, guid: 3d83e30a3f68f4f4f972fe8ae71e82fb, type: 2}
   _associatedHeroes:
   - {fileID: 11400000, guid: fa900cf8282b2814fb9eb1a8cc860cd0, type: 2}
-  - {fileID: 11400000, guid: 0128339a05223db40aae2581988a9ea0, type: 2}
-  - {fileID: 11400000, guid: e3a0dad03ec099242b69fcc0759e259a, type: 2}
-  - {fileID: 11400000, guid: f6c84c9f4fbb63d48b70719944c773d1, type: 2}
+  - {fileID: 11400000, guid: feb7336736898914f8630a93fd41a2bd, type: 2}
+  - {fileID: 11400000, guid: d7f1d550a7767a0449286a45aa1aeb8d, type: 2}
   - {fileID: 11400000, guid: 5cd74adfdadc94247a4cc60ba024fe89, type: 2}
-  _missionDisplayHighlights:
-  - HighlightType: 1
-    HightlightID: 0
+  - {fileID: 11400000, guid: fe9a9a645a446584c83f77cfdad05c43, type: 2}
+  _missionDisplayHighlights: []
   _tutorialPages:
-  - TutorialPageTitle: Mythic+
-    TutorialPageTitleWidth: 471
-    DefaultTextLocation: {x: 0, y: 30}
-    DefaultText: 'The difficulty has increased
+  - TutorialPageTitle: 'Boss: The Void Lord'
+    TutorialPageTitleWidth: 1068
+    DefaultTextLocation: {x: 0, y: 40}
+    DefaultText: 'A new foe has appeared. The <color=#8F51FF>Void
 
-      to <color=#BB0D00>Mythic+</color>.
-      Get ready for a
+      Lord</color>
+      calls upon the madness
 
-      real challenge.'
+      within the void to drain the hope
+
+      from
+      your Heroes.'
     TutorialPageObjectLocation: {x: 0, y: 0}
     TutorialPageObject: {fileID: 0}
     TutorialPageCharacterTutorial:
       TutorialCharacterIconLocation: {x: 0, y: -60}
-      TutorialCharacterIconScaleMultiplier: 1.25
-      TutorialPageCharacterIcon: {fileID: 21300000, guid: 7d3ee4008449a474a8cfed84359c1e59, type: 3}
-      TutorialPageCharacterBackground: {fileID: 0}
-  - TutorialPageTitle: Greater Challenges
-    TutorialPageTitleWidth: 1049
-    DefaultTextLocation: {x: 0, y: 55}
-    DefaultText: 'If you are seeking an even greater
+      TutorialCharacterIconScaleMultiplier: 1.075
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: a46309a0afc9f494585361ffa3fb838a, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: b2bea2ea6395a3a4698f324d28df7139, type: 3}
+  - TutorialPageTitle: Fading Hope
+    TutorialPageTitleWidth: 685
+    DefaultTextLocation: {x: 0, y: 35}
+    DefaultText: 'The <color=#8F51FF>Void Lord</color> will occasionally
 
-      challenge, you can infinitely
+      perform
+      <color=#6B3CBD>Fading Hope</color> which
 
-      increase
-      the difficulty of
-
-      <color=#BB0D00>Mythic+</color> in Free Play.'
-    TutorialPageObjectLocation: {x: 0, y: -53}
-    TutorialPageObject: {fileID: 1655696998721158963, guid: cd55c0e8098b5784a81889e74387c81e, type: 3}
+      deals damage to all Heroes.'
+    TutorialPageObjectLocation: {x: 0, y: 0}
+    TutorialPageObject: {fileID: 0}
     TutorialPageCharacterTutorial:
-      TutorialCharacterIconLocation: {x: 0, y: 0}
-      TutorialCharacterIconScaleMultiplier: 1.25
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 21300000, guid: 9b676d33e1073e146b6919d53cb09fbc, type: 3}
+      TutorialPageCharacterBackground: {fileID: 21300000, guid: e1908552323c2764f9a06cd60265194a, type: 3}
+  - TutorialPageTitle: Rays of Hope
+    TutorialPageTitleWidth: 709
+    DefaultTextLocation: {x: 0, y: 53}
+    DefaultText: 'Hope is not lost yet. The <color=#8F51FF>Void Lord</color>
+
+      also
+      spawns <color=#6B3CBD>Rays of Hope</color> with its other
+
+      attacks. <color=#6B3CBD>Rays
+      of Hope</color> restore health to
+
+      the Hero that touches it.'
+    TutorialPageObjectLocation: {x: 0, y: -53}
+    TutorialPageObject: {fileID: 67691793726138335, guid: daf7da7a088e70f45acd39ce4a8dc4d3, type: 3}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
+      TutorialPageCharacterIcon: {fileID: 0}
+      TutorialPageCharacterBackground: {fileID: 0}
+  - TutorialPageTitle: Buff Target Zones
+    TutorialPageTitleWidth: 1021
+    DefaultTextLocation: {x: 0, y: 53}
+    DefaultText: 'Boss abilities that provide buffs or
+
+      healing to Heroes such
+      as <color=#6B3CBD>Rays of Hope</color>
+
+      have green target zones to signify
+
+      the
+      positive effect.'
+    TutorialPageObjectLocation: {x: 0, y: -54}
+    TutorialPageObject: {fileID: 2377917332233223092, guid: 0455dd200afd3d145b41eb114e3ac37f, type: 3}
+    TutorialPageCharacterTutorial:
+      TutorialCharacterIconLocation: {x: 0, y: -65}
+      TutorialCharacterIconScaleMultiplier: 1
       TutorialPageCharacterIcon: {fileID: 0}
       TutorialPageCharacterBackground: {fileID: 0}
   _customTutorial: {fileID: 0}
-  _characterUnlock: {fileID: 0}
-  _difficultyUnlock: 4
+  _characterUnlock: {fileID: 11400000, guid: 94961c305140e63489e691fe1bf5f7b7, type: 2}
+  _difficultyUnlock: 0
   _missionModifierUnlock: {fileID: 0}
   _missionUnlocks:
-  - {fileID: 11400000, guid: a6a9806becdb7ae47b41d154c6ece02f, type: 2}
-  _achievementUnlocks: []
+  - {fileID: 11400000, guid: 52e4f0e116d915f438263f67ac92f9e7, type: 2}
+  _achievementUnlocks:
+  - {fileID: 11400000, guid: fbbfe606120ad3442af1d5c8097dba99, type: 2}
   _generalMissionUnlocks: 0
   _missionModifiers: []
   _missionStatModifiers:
@@ -81,7 +119,7 @@ MonoBehaviour:
     _bossEnrageTimeMultiplier: 1
     _bossEnrageDamageMultiplier: 1
     _canBossAutomaticallyUseAbilities: 1
-    _bossAbilitiesUsable: 0101010101
+    _bossAbilitiesUsable: 0101010001
     _heroHealthMultiplier: 1
     _heroDamageMultiplier: 1
     _heroStaggerMultiplier: 1
