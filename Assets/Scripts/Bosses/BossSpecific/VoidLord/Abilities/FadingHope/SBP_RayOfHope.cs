@@ -100,6 +100,8 @@ public class SBP_RayOfHope : BossProjectileFramework
         _rayCrystal.gameObject.SetActive(false);
         
         _appearCurve.SetCurveDecreaseTime(_appearCurve.GetCurveDecreaseTime()*_rayDestructionRemovalMultiplier);
+
+        SB_VoidLord.Instance.SetHasRayOfHopeBeenDestroyed(true);
             
         RemoveRayOfHope(null);
     }

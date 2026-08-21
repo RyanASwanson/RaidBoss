@@ -66,6 +66,11 @@ public class SBA_Isolation : SpecificBossAbilityFramework
 
     protected override void AbilityStart()
     {
+        if (_storedTarget.IsUnityNull())
+        {
+            return;
+        }
+        
         if (_currentTargetSafeZone.GetIsHeroInSafeZone())
         {
             AbilityFailed();

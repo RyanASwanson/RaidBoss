@@ -36,6 +36,8 @@ public class SB_VoidLord : SpecificBossFramework
     [Space] 
     [SerializeField] private GameObject _deathEffects;
     
+    private bool _hasRayOfHopeBeenDestroyed = false;
+    
     public void FadingHopeUsed()
     {
         _fadingHopeCounter = 0;
@@ -216,10 +218,10 @@ public class SB_VoidLord : SpecificBossFramework
             return;
         }
         
-        /*if ()
+        if (!_hasRayOfHopeBeenDestroyed)
         {
             UnlockedSpecialistAchievement();
-        }*/
+        }
     }
     
     /// <summary>
@@ -239,4 +241,8 @@ public class SB_VoidLord : SpecificBossFramework
     public SBA_FadingHope GetFadingHope() => _fadingHope;
 
     #endregion
+    
+    #region Setters
+    public void SetHasRayOfHopeBeenDestroyed(bool beenHit) => _hasRayOfHopeBeenDestroyed = beenHit;
+    #endregion 
 }
