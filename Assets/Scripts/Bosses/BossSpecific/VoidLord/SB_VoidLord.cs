@@ -33,6 +33,9 @@ public class SB_VoidLord : SpecificBossFramework
     [SerializeField] private SBA_FadingHope _fadingHope;
     private int _fadingHopeCounter = 0;
 
+    [Space] 
+    [SerializeField] private GameObject _deathEffects;
+    
     public void FadingHopeUsed()
     {
         _fadingHopeCounter = 0;
@@ -200,6 +203,7 @@ public class SB_VoidLord : SpecificBossFramework
     
     protected override void BossDied()
     {
+        Instantiate(_deathEffects, _bossSpecificAnimator.transform);
         base.BossDied();
     }
 
@@ -216,6 +220,15 @@ public class SB_VoidLord : SpecificBossFramework
         {
             UnlockedSpecialistAchievement();
         }*/
+    }
+    
+    /// <summary>
+    /// Performs any set up that is unique to the boss
+    /// </summary>
+    /// <param name="bossBase"> The base of the boss </param>
+    public override void SetUpSpecificBoss(BossBase bossBase)
+    {
+        base.SetUpSpecificBoss(bossBase);
     }
     
     #endregion

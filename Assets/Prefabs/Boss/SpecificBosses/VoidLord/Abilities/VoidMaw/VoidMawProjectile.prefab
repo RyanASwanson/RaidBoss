@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 2513802278050975735}
   - component: {fileID: 100070577387241211}
   - component: {fileID: 2855754014343445335}
+  - component: {fileID: 5102018166366713057}
+  - component: {fileID: 2007690160775787560}
   m_Layer: 0
   m_Name: VoidMawProjectile
   m_TagString: Untagged
@@ -164,6 +166,40 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5102018166366713057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1516731405452017302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c86becc803c469946a614a88f044aed3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _specificLayerHit: {fileID: 2007690160775787560}
+--- !u!114 &2007690160775787560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1516731405452017302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ceac5457de96c846af219e36aa12f8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _onEnterBossSpecificLayer:
+    m_PersistentCalls:
+      m_Calls: []
+  _onExitBossSpecificLayer:
+    m_PersistentCalls:
+      m_Calls: []
+  _onDestructionOfBossSpecificLayer:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1572276019284986158
 GameObject:
   m_ObjectHideFlags: 0

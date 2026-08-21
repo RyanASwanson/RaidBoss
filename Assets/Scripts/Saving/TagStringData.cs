@@ -12,6 +12,7 @@ public static class TagStringData
     private const string HERO_HITBOX_TAG_NAME = "HeroHitbox";
     private const string MAP_BORDER_HITBOX_TAG_NAME = "MapBorderHitbox";
     private const string SPAWNED_ENVIRONMENT_TAG_NAME = "SpawnedEnvironmentHitbox";
+    private const string BOSS_SPECIFIC_TAG_NAME = "BossSpecificLayer";
     
     public static string GetBossHitboxTagName() => BOSS_HITBOX_TAG_NAME;
     public static string GetBossMinionHitboxTagName() => BOSS_MINION_HITBOX_TAG_NAME;
@@ -40,5 +41,10 @@ public static class TagStringData
     public static bool DoesColliderBelongToSpawnedEnvironment(Collider collision)
     {
         return collision.gameObject.CompareTag(SPAWNED_ENVIRONMENT_TAG_NAME);
+    }
+
+    public static bool DoesColliderBelongToBossSpecificObject(Collider collision)
+    {
+        return collision.gameObject.CompareTag(BOSS_SPECIFIC_TAG_NAME);
     }
 }

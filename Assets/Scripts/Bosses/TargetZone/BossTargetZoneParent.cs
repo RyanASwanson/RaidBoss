@@ -57,6 +57,11 @@ public class BossTargetZoneParent : MonoBehaviour
         Destroy(gameObject,destroyDelay);
         _isDestroyingSelf = true;
     }
+
+    public void TargetZoneVisualsDeactivated()
+    {
+        
+    }
     
     #region Getters
     public BossTargetZone[] GetBossTargetZones() => _bossTargetZone;

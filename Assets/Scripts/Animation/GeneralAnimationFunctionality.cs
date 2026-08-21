@@ -13,8 +13,11 @@ public class GeneralAnimationFunctionality : MonoBehaviour
     [Space] 
     [SerializeField] private bool _isVFXChilded;
     [SerializeField] private Transform _vfxTargetLocation;
-    
+
     [Space] 
+    [SerializeField] private UnityEvent[] _animationPlayEvents;
+    
+    [Space]
     [SerializeField] private UnityEvent _onDestroySelfEvent;
     [SerializeField] private UnityEvent _onDestroyParentEvent;
 
@@ -47,6 +50,11 @@ public class GeneralAnimationFunctionality : MonoBehaviour
             createdVfx.transform.localScale = Vector3.one;
         }
 
+    }
+
+    public void PlayAnimationEvent(int eventID)
+    {
+        _animationPlayEvents[eventID]?.Invoke();
     }
 
     public void DestroySelf()

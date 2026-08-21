@@ -98,13 +98,17 @@ public class SBP_DespairHex : BossProjectileFramework
     private void OnDestroy()
     {
         UnsubscribeFromEvents();
-        
+
+        if (_despairHex.IsUnityNull())
+        {
+            return;
+        }
         _despairHex.RemoveHexedHero(_currentTarget);
     }
     
     #region ProjectileMovement
 
-    private void StartProjectileMovement()
+    public void StartProjectileMovement()
     {
         StopProjectileMovement();
         

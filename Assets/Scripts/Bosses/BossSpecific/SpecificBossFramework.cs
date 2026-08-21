@@ -39,7 +39,7 @@ public abstract class SpecificBossFramework : MonoBehaviour
     protected Coroutine _preventAttacksCoroutine;
 
     [Header("Animator")]
-    [SerializeField] private Animator _bossSpecificAnimator;
+    [SerializeField] protected Animator _bossSpecificAnimator;
 
     [Space] 
     [Header("Audio")]

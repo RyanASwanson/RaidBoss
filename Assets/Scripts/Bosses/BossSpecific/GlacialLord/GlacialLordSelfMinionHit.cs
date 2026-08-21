@@ -14,13 +14,10 @@ public class GlacialLordSelfMinionHit : MonoBehaviour
 
     public bool MinionContactFromDistance()
     {
-        //TODO Rework this line by instancing the Glacial Lord
-        SB_GlacialLord glacialLord =(SB_GlacialLord)BossBase.Instance.GetSpecificBossScript();
-
         Vector3 startCheck = Vector3.zero;
         Vector3 endCheck = Vector3.zero;
 
-        foreach(GlacialLord_FrostFiend fiend in glacialLord.GetAllFrostFiends())
+        foreach(GlacialLord_FrostFiend fiend in SB_GlacialLord.Instance.GetAllFrostFiends())
         {
             startCheck.Set(transform.position.x,0,transform.position.z);
             endCheck.Set(fiend.transform.position.x,0,fiend.transform.position.z);

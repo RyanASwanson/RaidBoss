@@ -65,7 +65,10 @@ public class SBA_DreadSpears : SpecificBossAbilityFramework
         //Adds the newly spawn target zone into the list of target zones currently active
         _currentTargetZones.Add(_storedTargetZone.GetComponent<BossTargetZoneParent>());
 
-        _associatedRay = SB_VoidLord.Instance.SpawnRayOfHopeTargetZone(_storedTarget.transform.position);
+        if (_doesSpawnRay)
+        {
+            _associatedRay = SB_VoidLord.Instance.SpawnRayOfHopeTargetZone(_storedTarget.transform.position);
+        }
 
         _targetZoneCoroutine = StartCoroutine(UpdateTargetZone());
         
@@ -101,7 +104,10 @@ public class SBA_DreadSpears : SpecificBossAbilityFramework
     public override void StopBossAbility()
     {
         base.StopBossAbility();
-        _associatedRay.RemoveRay();
+        if (!_associatedRay.IsUnityNull())
+        {
+            _associatedRay.RemoveRay();
+        }
     }
     #endregion
 }

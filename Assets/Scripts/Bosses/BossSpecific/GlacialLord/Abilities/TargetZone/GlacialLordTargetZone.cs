@@ -7,9 +7,29 @@ using UnityEngine.Serialization;
 public class GlacialLordTargetZone : BossTargetZone
 {
     [SerializeField] private Material _minionInRangeMat;
+    [SerializeField] private Material _minionAndHeroInRangeMat;
     
     protected List<BossMinionBase> _minionsInRange = new List<BossMinionBase>();
-    
+
+
+    protected override void DetermineTargetZoneMaterial()
+    {
+        if (_minionsInRange.Count > 0)
+        {
+            if (_heroesInRange.Count > 0)
+            {
+                SetTargetZonesToMinionAndHeroInRange();
+            }
+            else
+            {
+                SetTargetZonesToMinionInRange();
+            }
+            
+            return;
+        }
+        
+        base.DetermineTargetZoneMaterial();
+    }
     
     /// <summary>
     /// Adds a new minion to the target zone
@@ -29,7 +49,7 @@ public class GlacialLordTargetZone : BossTargetZone
     /// </summary>
     protected void FirstMinionInRange()
     {
-        SetTargetZonesToMinionInRange();
+        DetermineTargetZoneMaterial();
     }
 
     /// <summary>
@@ -54,22 +74,17 @@ public class GlacialLordTargetZone : BossTargetZone
     /// </summary>
     protected void NoMoreMinionsInRange()
     {
-        SetTargetZonesToNoMinion();
+        DetermineTargetZoneMaterial();
     }
     
     protected void SetTargetZonesToMinionInRange()
     {
         AttemptAllTargetZonesToMaterial(_minionInRangeMat);
     }
-
-    protected void SetTargetZonesToNoMinion()
+    
+    protected void SetTargetZonesToMinionAndHeroInRange()
     {
-        if (DoesZoneContainHero())
-        {
-            AttemptAllTargetZonesToMaterial(_heroInRangeMat);
-            return;
-        }
-        AttemptAllTargetZonesToMaterial(_noHeroInRangeMat);
+        AttemptAllTargetZonesToMaterial(_minionAndHeroInRangeMat);
     }
     
     #region BaseTargetZone

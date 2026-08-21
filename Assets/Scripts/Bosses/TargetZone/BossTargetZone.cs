@@ -43,6 +43,8 @@ public class BossTargetZone : BossProjectileFramework
     [Space] 
     [SerializeField] private UnityEvent _onTargetZoneSetToHeroInRange;
     [SerializeField] private UnityEvent _onTargetZoneSetToNoHeroInRange;
+
+    protected bool _isSubscribedToEvents = false;
     
     private Animator _targetAnimator;
 
@@ -58,13 +60,14 @@ public class BossTargetZone : BossProjectileFramework
     
     protected BossTargetZoneParent _bossTargetZoneParent;
 
-    protected void Start()
+    protected virtual void Start()
     {
         if (_targetZoneTopColorProperty == -1)
         {
             SetTopColorProperty();
         }
         
+        SubscribeToEvents();
         PlayAppearAnimation();
         StartCoroutine(DelayInitialMaterialChange());
 
@@ -76,8 +79,7 @@ public class BossTargetZone : BossProjectileFramework
 
     protected void OnDestroy()
     {
-        _onTargetZoneSetToHeroInRange.RemoveAllListeners();
-        _onTargetZoneSetToNoHeroInRange.RemoveAllListeners();
+        UnsubscribeFromEvents();
     }
 
     protected void SetTopColorProperty()
@@ -100,13 +102,20 @@ public class BossTargetZone : BossProjectileFramework
     {
         yield return new WaitForSeconds(_materialChangeDelay);
         _isDelayingMaterialChange = false;
+        DetermineTargetZoneMaterial();
+    }
+
+    protected virtual void DetermineTargetZoneMaterial()
+    {
         if (DoesZoneContainHero())
         {
             SetTargetZonesToHeroInRange();
+            InvokeOnTargetZoneSetToHeroInRange();
         }
         else
         {
             SetTargetZonesToNoHero();
+            InvokeOnTargetZoneSetToNoHeroInRange();
         }
     }
 
@@ -128,8 +137,7 @@ public class BossTargetZone : BossProjectileFramework
     /// </summary>
     protected virtual void FirstHeroInRange()
     {
-        SetTargetZonesToHeroInRange();
-        InvokeOnTargetZoneSetToHeroInRange();
+        DetermineTargetZoneMaterial();
     }
 
     /// <summary>
@@ -154,8 +162,7 @@ public class BossTargetZone : BossProjectileFramework
     /// </summary>
     protected virtual void NoMoreHeroesInRange()
     {
-        SetTargetZonesToNoHero();
-        InvokeOnTargetZoneSetToNoHeroInRange();
+        DetermineTargetZoneMaterial();
     }
 
     protected virtual void SetTargetZonesToHeroInRange()
@@ -193,17 +200,8 @@ public class BossTargetZone : BossProjectileFramework
         
         _targetZoneStatus = _targetZoneNonDeactivatedStatus;
         // Note that this is using _targetZoneNonDeactivatedStatus not _targetZoneStatus
-        switch (_targetZoneNonDeactivatedStatus)
-        {
-            case EBossTargetZoneStatus.NoHeroInRange:
-                SetTargetZonesToNoHero();
-                return;
-            case EBossTargetZoneStatus.HeroInRange:
-                SetTargetZonesToHeroInRange();
-                return;
-            default:
-                return;
-        }
+        
+        DetermineTargetZoneMaterial();
     }
     
     public void ForceSetMaterialToDeactivatedState()
@@ -243,6 +241,29 @@ public class BossTargetZone : BossProjectileFramework
             renderer.material = newMaterial;
         }
         SetOutlineColorToMaterialColor(newMaterial);
+    }
+
+    protected virtual void SubscribeToEvents()
+    {
+        if (_isSubscribedToEvents)
+        {
+            return;
+        }
+
+        _isSubscribedToEvents = true;
+    }
+
+    protected virtual void UnsubscribeFromEvents()
+    {
+        if (!_isSubscribedToEvents)
+        {
+            return;
+        }
+        
+        _onTargetZoneSetToHeroInRange.RemoveAllListeners();
+        _onTargetZoneSetToNoHeroInRange.RemoveAllListeners();
+
+        _isSubscribedToEvents = false;
     }
     
     #region Outline

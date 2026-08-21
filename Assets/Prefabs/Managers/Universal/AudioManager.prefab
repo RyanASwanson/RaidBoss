@@ -1234,7 +1234,7 @@ MonoBehaviour:
           Data2: 1191547565
           Data3: -228525651
           Data4: 989567766
-        Path: event:/SoundEffect/Bosses/Specific/VoidLord/Abilities/FadingHope/FadingHope
+        Path: event:/SoundEffect/Bosses/Specific/VoidLord/Abilities/FadingHope/VoidLordFadingHope
     BossAbilityAudio:
     - AbilityName: DreadSpears
       AbilityPrep:
@@ -1269,7 +1269,7 @@ MonoBehaviour:
             Data2: 1086669634
             Data3: 764371331
             Data4: 1802971777
-          Path: event:/SoundEffect/Bosses/Specific/VoidLord/Abilities/DreadSpears/DreadSpearStab
+          Path: event:/SoundEffect/Bosses/Specific/VoidLord/Abilities/DreadSpears/VoidLordDreadSpearStab
     - AbilityName: Isolation
       AbilityPrep:
         AudioName: IsolationPrep
@@ -1295,7 +1295,21 @@ MonoBehaviour:
             Data3: -2099807085
             Data4: 1541494639
           Path: event:/SoundEffect/Bosses/Specific/VoidLord/Abilities/Isolation/VoidLordIsolation
-      GeneralAbilityAudio: []
+      GeneralAbilityAudio:
+      - AudioName: IsolationFailed
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        AudioVCAType: 2
+        DefaultPlayType: 0
+        DefaultAudioChoice: 0
+        AudioTracks:
+        - Guid:
+            Data1: -897090033
+            Data2: 1102538118
+            Data3: 786226335
+            Data4: -1531804057
+          Path: event:/SoundEffect/Bosses/Specific/VoidLord/Abilities/Isolation/VoidLordIsolationFailed
     - AbilityName: VoidMaw
       AbilityPrep:
         AudioName: 
@@ -1314,7 +1328,13 @@ MonoBehaviour:
         AudioVCAType: 2
         DefaultPlayType: 0
         DefaultAudioChoice: 0
-        AudioTracks: []
+        AudioTracks:
+        - Guid:
+            Data1: 1522769453
+            Data2: 1265809967
+            Data3: -1426722411
+            Data4: -1650610804
+          Path: event:/SoundEffect/Bosses/Specific/VoidLord/Abilities/VoidMaw/VoidLordVoidMawStart
       GeneralAbilityAudio:
       - AudioName: VoidMawMovement
         DefaultInstanceFadeInTime: 0
@@ -1354,7 +1374,7 @@ MonoBehaviour:
             Data2: 1335458310
             Data3: 498331292
             Data4: 448857288
-          Path: event:/SoundEffect/Bosses/Specific/VoidLord/Abilities/DespairHex/DespairHexStart
+          Path: event:/SoundEffect/Bosses/Specific/VoidLord/Abilities/DespairHex/VoidLordDespairHexStart
       GeneralAbilityAudio:
       - AudioName: DespairHexSwap
         DefaultInstanceFadeInTime: 0
@@ -1369,7 +1389,7 @@ MonoBehaviour:
             Data2: 1312154402
             Data3: -2098546524
             Data4: -1836003013
-          Path: event:/SoundEffect/Bosses/Specific/VoidLord/Abilities/DespairHex/DespairHexSwap
+          Path: event:/SoundEffect/Bosses/Specific/VoidLord/Abilities/DespairHex/VoidLordDespairHexSwap
       - AudioName: DespairHexHit
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
@@ -1383,7 +1403,7 @@ MonoBehaviour:
             Data2: 1258182805
             Data3: 1130730381
             Data4: -581505147
-          Path: event:/SoundEffect/Bosses/Specific/VoidLord/Abilities/DespairHex/DespairHexHit
+          Path: event:/SoundEffect/Bosses/Specific/VoidLord/Abilities/DespairHex/VoidLordDespairHexHit
     - AbilityName: FadingHope
       AbilityPrep:
         AudioName: 
@@ -1408,9 +1428,35 @@ MonoBehaviour:
             Data2: 1191547565
             Data3: -228525651
             Data4: 989567766
-          Path: event:/SoundEffect/Bosses/Specific/VoidLord/Abilities/FadingHope/FadingHope
+          Path: event:/SoundEffect/Bosses/Specific/VoidLord/Abilities/FadingHope/VoidLordFadingHope
       GeneralAbilityAudio:
       - AudioName: RayOfHopeSpawn
+        DefaultInstanceFadeInTime: 0
+        DefaultInstanceFadeOutTime: 0
+        DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
+        AudioVCAType: 2
+        DefaultPlayType: 0
+        DefaultAudioChoice: 1
+        AudioTracks:
+        - Guid:
+            Data1: -1264054724
+            Data2: 1116993851
+            Data3: -1860995184
+            Data4: 1587659596
+          Path: event:/SoundEffect/Bosses/Specific/VoidLord/Abilities/FadingHope/RayOfHope/VoidLordRayOfHopeSpawned1
+        - Guid:
+            Data1: 1016366628
+            Data2: 1230924693
+            Data3: -1180501866
+            Data4: 115248751
+          Path: event:/SoundEffect/Bosses/Specific/VoidLord/Abilities/FadingHope/RayOfHope/VoidLordRayOfHopeSpawned2
+        - Guid:
+            Data1: 1252472036
+            Data2: 1341761123
+            Data3: 841656968
+            Data4: 863678322
+          Path: event:/SoundEffect/Bosses/Specific/VoidLord/Abilities/FadingHope/RayOfHope/VoidLordRayOfHopeSpawned3
+      - AudioName: RayOfHopeDestroyed
         DefaultInstanceFadeInTime: 0
         DefaultInstanceFadeOutTime: 0
         DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
@@ -1419,11 +1465,11 @@ MonoBehaviour:
         DefaultAudioChoice: 0
         AudioTracks:
         - Guid:
-            Data1: -1264054724
-            Data2: 1116993851
-            Data3: -1860995184
-            Data4: 1587659596
-          Path: event:/SoundEffect/Bosses/Specific/VoidLord/Abilities/FadingHope/RayOfHope/RayOfHopeSpawned
+            Data1: -477099545
+            Data2: 1307257118
+            Data3: 104096182
+            Data4: -944783397
+          Path: event:/SoundEffect/Bosses/Specific/VoidLord/Abilities/FadingHope/RayOfHope/VoidLordRayOfHopeDestroyed
     BossAmbience:
       AudioName: VoidLordAmbience
       DefaultInstanceFadeInTime: 0
@@ -1440,7 +1486,7 @@ MonoBehaviour:
           Data4: -1713154430
         Path: event:/SoundEffect/Bosses/Specific/VoidLord/Ambience/VoidLordAmbience
     BossDeathAudio:
-      AudioName: LightningLordDeath
+      AudioName: VoidLordDeath
       DefaultInstanceFadeInTime: 0
       DefaultInstanceFadeOutTime: 0
       DoesCancelPreviousInstancesOfSpecificAudioOnPlay: 0
@@ -1449,11 +1495,11 @@ MonoBehaviour:
       DefaultAudioChoice: 0
       AudioTracks:
       - Guid:
-          Data1: 631850944
-          Data2: 1337766433
-          Data3: -1597217908
-          Data4: -2100746564
-        Path: event:/SoundEffect/Bosses/Specific/ThunderLord/Death/ThunderLordDeath
+          Data1: 395521271
+          Data2: 1183557616
+          Data3: -1865332334
+          Data4: -356072591
+        Path: event:/SoundEffect/Bosses/Specific/VoidLord/Death/VoidLordDeath
     MiscellaneousBossAudio: []
   GeneralHeroAudio:
     HealthAudio:

@@ -12,6 +12,27 @@ public class SBA_Isolation : SpecificBossAbilityFramework
     private BossSharedSafeAndTargetZone _currentTargetSafeZone;
     private SBP_IsolationTargetZone _isolationTargetZone;
     
+    private const int ISOLATION_FAILED_AUDIO_ID = 0;
+    
+    /// <summary>
+    /// If there is a hero in the safe zone the ability fails and doesn't deal damage
+    /// </summary>
+    private void AbilityFailed()
+    {
+        PlayFailedAudio();
+        _isolationTargetZone.SpawnRay();
+    }
+    
+    /// <summary>
+    /// Plays the audio of the ability failing
+    /// </summary>
+    private void PlayFailedAudio()
+    {
+        AudioManager.Instance.PlaySpecificAudio(
+            AudioManager.Instance.AllSpecificBossAudio[_myBossBase.GetBossSO().GetBossID()].
+                BossAbilityAudio[_abilityID].GeneralAbilityAudio[ISOLATION_FAILED_AUDIO_ID]);
+    }
+    
     #region Base Ability
 
     public override void AbilitySetUp(BossBase bossBase)
@@ -47,14 +68,9 @@ public class SBA_Isolation : SpecificBossAbilityFramework
     {
         if (_currentTargetSafeZone.GetIsHeroInSafeZone())
         {
-            _isolationTargetZone.SpawnRay();
+            AbilityFailed();
             return;
         }
-
-        /*if (_storedTarget.IsUnityNull())
-        {
-            return;
-        }*/
 
         GameObject isolation = Instantiate(_isolation, _isolationTargetZone.transform.position, Quaternion.identity);
         isolation.transform.position = new Vector3(_isolationTargetZone.transform.position.x, _specificAreaTarget.y, _isolationTargetZone.transform.position.z);
