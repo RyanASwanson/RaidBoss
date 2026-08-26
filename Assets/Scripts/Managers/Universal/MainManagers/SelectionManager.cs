@@ -308,6 +308,12 @@ public class SelectionManager : MainUniversalManagerFramework
         {
             _currentEGameDifficulty = EGameDifficulty.Normal;
         }
+        // In case the current difficulty is higher than the unlocked difficulty
+        else if ( _currentEGameDifficulty > SaveManager.Instance.GetHighestDifficultyUnlocked())
+        {
+            // Set difficulty down to highest unlocked difficulty
+            SetSelectedDifficulty(SaveManager.Instance.GetHighestDifficultyUnlocked());
+        }
         
         if (doesResetModifiers)
         {

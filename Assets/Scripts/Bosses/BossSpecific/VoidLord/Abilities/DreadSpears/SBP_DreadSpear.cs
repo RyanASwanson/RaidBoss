@@ -9,6 +9,7 @@ public class SBP_DreadSpear : BossProjectileFramework
     [SerializeField] private float _enrageSpearDurationIncrease;
     [SerializeField] private float _spearImpactDecalDurationOffset;
     private WaitForSeconds _dreadSpearWait;
+    private bool _isRemovingSpear = false;
 
     [Space]
     [SerializeField] private Animator _spearAnimator;
@@ -31,9 +32,20 @@ public class SBP_DreadSpear : BossProjectileFramework
     private IEnumerator DreadSpearDuration()
     {
         yield return _dreadSpearWait;
+
+        DreadSpearDurationOver();
+    }
+
+    public void DreadSpearDurationOver()
+    {
+        if (_isRemovingSpear)
+        {
+            return;
+        }
+
+        _isRemovingSpear = true;
         _spawnedVFX.SetLoopOfParticleSystems(false);
         _spearAnimator.SetTrigger(DREAD_SPEAR_DURATION_ANIM_TRIGGER);
-        
     }
 
     private void CreateSpearVFX()

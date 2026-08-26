@@ -40,7 +40,6 @@ public class DebugScript : MonoBehaviour
     private bool _isSubscribeToGameplayEvents = false;
     
     
-    
     // Update is called once per frame
     void Update()
     {

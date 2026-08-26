@@ -6,6 +6,8 @@ using UnityEngine;
 public class SBP_DreadSpears : BossProjectileFramework
 {
     [SerializeField] private float _projectileInterval;
+    [SerializeField] private float _dreadSpearDuration;
+    [SerializeField] private float _enrageSpearDurationIncrease;
 
     [Space]
     [SerializeField] private float _initialProjectileDistance;
@@ -32,6 +34,8 @@ public class SBP_DreadSpears : BossProjectileFramework
     
     [Space]
     [SerializeField] private GameObject _dreadSpear;
+
+    private Queue<SBP_DreadSpear> _spawnedSpears = new Queue<SBP_DreadSpear>();
     
     private void StartSpearSpawningProcess()
     {
@@ -51,6 +55,28 @@ public class SBP_DreadSpears : BossProjectileFramework
             projectileCounter++;
             yield return _projectileWait;
         }
+        //StartCoroutine(SpikeDurationProcess());
+    }
+
+    /*private IEnumerator SpikeDurationProcess()
+    {
+        yield return new WaitForSeconds(3);
+        StartCoroutine(SpikeRemovalProcess());
+    }*/
+
+    private void StartEarlySpikeRemovalProcess()
+    {
+        StartCoroutine(EarlySpikeRemovalProcess());
+    }
+
+    private IEnumerator EarlySpikeRemovalProcess()
+    {
+        while (_spawnedSpears.Count > 0)
+        {
+            _spawnedSpears.Peek().DreadSpearDurationOver();
+            yield return _projectileWait;
+        }
+        
     }
 
     
@@ -64,6 +90,8 @@ public class SBP_DreadSpears : BossProjectileFramework
                                                (projectileCounter % 2 == 1 ? -1 : 1));
 
         dreadSpear.SetUpProjectile(_myBossBase,_abilityID, _wasBossEnragedOnAbilityActivation);
+        
+        _spawnedSpears.Enqueue(dreadSpear);
 
         PlayDreadSpearStabSpawnAudio();
         _projectileCounter++;
