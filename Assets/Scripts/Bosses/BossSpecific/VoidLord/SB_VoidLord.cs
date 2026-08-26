@@ -193,7 +193,7 @@ public class SB_VoidLord : SpecificBossFramework
     /// <returns> The next ability selected</returns>
     protected override SpecificBossAbilityFramework SelectNextAbility()
     {
-        if (_fadingHopeCounter >= _fadingHopeAttackFrequency)
+        if (IsFadingHopeReadyToUse())
         {
             return _fadingHope;
         }
@@ -236,6 +236,8 @@ public class SB_VoidLord : SpecificBossFramework
     #endregion
 
     #region Getters
+
+    public bool IsFadingHopeReadyToUse() => _fadingHopeCounter >= _fadingHopeAttackFrequency;
 
     public SBA_DespairHex GetDespairHex() => _despairHex;
     public SBA_FadingHope GetFadingHope() => _fadingHope;

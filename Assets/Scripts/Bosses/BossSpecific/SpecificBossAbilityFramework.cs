@@ -10,6 +10,7 @@ using UnityEngine;
 public abstract class SpecificBossAbilityFramework : MonoBehaviour
 {
     [SerializeField] protected int _abilityID;
+    //[SerializeField] protected bool _doesAbilityEnterCooldown;
     [SerializeField] protected EBossAbilityTargetMethod _targetMethod;
     [SerializeField] protected bool _doesBossFollowTarget;
 
@@ -490,6 +491,7 @@ public abstract class SpecificBossAbilityFramework : MonoBehaviour
 
     #region Getters
 
+    //public virtual bool DoesAbilityEnterCooldown() => _doesAbilityEnterCooldown;
     public virtual bool GetCanAbilityBeUsed() => true;
 
     public int GetAbilityID() => _abilityID;

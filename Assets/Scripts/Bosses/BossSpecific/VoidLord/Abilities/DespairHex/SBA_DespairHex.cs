@@ -174,8 +174,7 @@ public class SBA_DespairHex : SpecificBossAbilityFramework
         {
             return true;
         }
-
-        Debug.Log("Change");
+        
         // Has a chance to not allow the ability to be used if there is already a hex in use
         return Random.Range(0,2) == 0;
     }

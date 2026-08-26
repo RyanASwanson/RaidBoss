@@ -19,6 +19,7 @@ public class SBP_DreadSpear : BossProjectileFramework
     [SerializeField] private Transform _vfxSpawnPoint;
     [SerializeField] private GameObject _spearVFX;
     [SerializeField] private CurveProgression _impactDecalCurve;
+    [SerializeField] private Collider _spearCollider;
     private GeneralVFXFunctionality _spawnedVFX;
     
     private void StartDreadSpearDuration()
@@ -44,6 +45,8 @@ public class SBP_DreadSpear : BossProjectileFramework
         }
 
         _isRemovingSpear = true;
+        _spearCollider.enabled = false;
+        _spearCollider.gameObject.SetActive(false);
         _spawnedVFX.SetLoopOfParticleSystems(false);
         _spearAnimator.SetTrigger(DREAD_SPEAR_DURATION_ANIM_TRIGGER);
     }
@@ -79,5 +82,11 @@ public class SBP_DreadSpear : BossProjectileFramework
         
         StartDreadSpearDuration();
     }
+    #endregion
+
+    #region Getters
+
+    public WaitForSeconds GetDreadSpearDurationWait() => _dreadSpearWait;
+
     #endregion
 }

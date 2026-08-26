@@ -25,5 +25,7 @@ public class SBA_FadingHope : SpecificBossAbilityFramework
 
         base.AbilityStart();
     }
+    
+    public override bool GetCanAbilityBeUsed() { return SB_VoidLord.Instance.IsFadingHopeReadyToUse(); }
     #endregion
 }

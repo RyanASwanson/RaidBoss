@@ -59,10 +59,21 @@ public class SBA_VoidMaw : SpecificBossAbilityFramework
         base.AbilityStart();
         
         _newestTargetZone.StopVoidMawTargetTracking();
-        
+
+        CreateVoidMaw(_newestTargetZone.GetClosestCorner());
+
+        if (_wasBossEnragedOnAbilityActivation)
+        {
+            Vector3 oppositeCorner = new Vector3(-_newestTargetZone.GetClosestCorner().x,_newestTargetZone.GetClosestCorner().y,-_newestTargetZone.GetClosestCorner().z);
+            CreateVoidMaw(oppositeCorner);
+        }
+    }
+
+    private void CreateVoidMaw(Vector3 heroCorner)
+    {
         SBP_VoidMaw voidMaw = Instantiate(_voidMaw, _specificLookTarget, Quaternion.identity).GetComponent<SBP_VoidMaw>();
         voidMaw.SetUpProjectile(_myBossBase,_abilityID);
-        voidMaw.AdditionalSetUp(this, _newestTargetZone.GetClosestCorner(), _newestTargetZone.GetHeroDistance());
+        voidMaw.AdditionalSetUp(this, heroCorner, _newestTargetZone.GetHeroDistance());
     }
     
     protected override void AbilityDurationEnded()

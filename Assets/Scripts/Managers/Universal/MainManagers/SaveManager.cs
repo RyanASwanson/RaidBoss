@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -484,6 +485,14 @@ public class SaveManager : MainUniversalManagerFramework
             }
         }
     }
+
+    /*private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Plus) || Input.GetKeyDown(KeyCode.Equals))
+        {
+            UnlockNextMissions();
+        }
+    }*/
 
     public void UnlockNextMissions()
     {

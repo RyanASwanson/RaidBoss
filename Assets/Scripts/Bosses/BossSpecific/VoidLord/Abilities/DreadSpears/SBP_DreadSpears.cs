@@ -1,13 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using FMOD.Studio;
+using Unity.VisualScripting;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class SBP_DreadSpears : BossProjectileFramework
 {
     [SerializeField] private float _projectileInterval;
-    [SerializeField] private float _dreadSpearDuration;
-    [SerializeField] private float _enrageSpearDurationIncrease;
+    [SerializeField] private int _maxHitsBeforeEarlyRemoval;
 
     [Space]
     [SerializeField] private float _initialProjectileDistance;
@@ -28,6 +30,9 @@ public class SBP_DreadSpears : BossProjectileFramework
     private float _targetSpawnDistance;
     private float _edgeOfMapDistance;
     private int _projectileCounter = 0;
+    private int _spikeHits = 0;
+    private bool _hasStartedRemovingSpikes = false;
+    private Coroutine _earlySpikeRemovalProcess;
     
     [Space]
     [SerializeField] private GameObject _dreadSpearsHolder;
@@ -37,9 +42,17 @@ public class SBP_DreadSpears : BossProjectileFramework
 
     private Queue<SBP_DreadSpear> _spawnedSpears = new Queue<SBP_DreadSpear>();
     
+    [Space]
+    [SerializeField] private GeneralBossDamageArea _damageArea;
+    
     private void StartSpearSpawningProcess()
     {
         StartCoroutine(SpikeSpawningProcess());
+    }
+
+    private void OnDestroy()
+    {
+        UnsubscribeFromEvents();
     }
 
     // <summary>
@@ -52,33 +65,14 @@ public class SBP_DreadSpears : BossProjectileFramework
         while(_targetSpawnDistance < _edgeOfMapDistance)
         {
             SpawnProjectile(projectileCounter);
+            if (projectileCounter == 0)
+            {
+                StartFirstSpearTimer();
+            }
             projectileCounter++;
             yield return _projectileWait;
         }
-        //StartCoroutine(SpikeDurationProcess());
     }
-
-    /*private IEnumerator SpikeDurationProcess()
-    {
-        yield return new WaitForSeconds(3);
-        StartCoroutine(SpikeRemovalProcess());
-    }*/
-
-    private void StartEarlySpikeRemovalProcess()
-    {
-        StartCoroutine(EarlySpikeRemovalProcess());
-    }
-
-    private IEnumerator EarlySpikeRemovalProcess()
-    {
-        while (_spawnedSpears.Count > 0)
-        {
-            _spawnedSpears.Peek().DreadSpearDurationOver();
-            yield return _projectileWait;
-        }
-        
-    }
-
     
     private void SpawnProjectile(int projectileCounter)
     {
@@ -117,6 +111,57 @@ public class SBP_DreadSpears : BossProjectileFramework
         /*eventInstance.getVolume(out vol);
         Debug.Log(vol);*/
     }
+
+    private void StartFirstSpearTimer()
+    {
+        StartCoroutine(FirstSpikeTimer());
+    }
+
+    private IEnumerator FirstSpikeTimer()
+    {
+        yield return _spawnedSpears.Peek().GetDreadSpearDurationWait();
+        _hasStartedRemovingSpikes = true;
+    }
+
+    private void StartEarlySpikeRemovalProcess()
+    {
+        if (_hasStartedRemovingSpikes || !_earlySpikeRemovalProcess.IsUnityNull())
+        {
+            return;
+        }
+        
+        _hasStartedRemovingSpikes = true;
+        _earlySpikeRemovalProcess = StartCoroutine(EarlySpikeRemovalProcess());
+    }
+
+    private IEnumerator EarlySpikeRemovalProcess()
+    {
+        while (_spawnedSpears.Count > 0)
+        {
+            _spawnedSpears.Peek().DreadSpearDurationOver();
+            _spawnedSpears.Dequeue();
+            yield return _projectileWait;
+        }
+    }
+
+    private void SpikeHit(HeroBase heroBase)
+    {
+        _spikeHits++;
+        if (_spikeHits >= _maxHitsBeforeEarlyRemoval)
+        {
+            StartEarlySpikeRemovalProcess();
+        }
+    }
+
+    private void SubscribeToEvents()
+    {
+        _damageArea.GetGeneralDamageEvent().AddListener(SpikeHit);
+    }
+
+    private void UnsubscribeFromEvents()
+    {
+        _damageArea.GetGeneralDamageEvent().RemoveListener(SpikeHit);
+    }
     
     #region Base Ability
     public override void SetUpProjectile(BossBase bossBase, int newAbilityID)
@@ -130,6 +175,8 @@ public class SBP_DreadSpears : BossProjectileFramework
         _edgeOfMapDistance =  Vector3.Distance(Vector3.zero,
             EnvironmentManager.Instance.GetEdgeOfMapLoc(transform.position, transform.forward));
         _edgeOfMapDistance += _edgeOfMapOffset;
+
+        SubscribeToEvents();
         
         StartSpearSpawningProcess();
     }

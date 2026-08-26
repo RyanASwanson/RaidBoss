@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,8 +31,18 @@ public class GeneralBossDamageArea : GeneralAbilityAreaFramework
     [Space] 
     [Header("Hit")]
     [SerializeField] private UnityEvent<HeroBase> _generalHitEvent;
+    [SerializeField] private UnityEvent<HeroBase> _generalDamageEvent;
 
     private List<HeroBase> _heroesToIgnore = new();
+
+    private void OnDestroy()
+    {
+        _enterEvent?.RemoveAllListeners();
+        _stayEvent?.RemoveAllListeners();
+        _exitEvent?.RemoveAllListeners();
+        _generalHitEvent?.RemoveAllListeners();
+        _generalDamageEvent?.RemoveAllListeners();
+    }
 
     #region Collision
     /// <summary>
@@ -106,8 +117,13 @@ public class GeneralBossDamageArea : GeneralAbilityAreaFramework
                 StartCoroutine(IgnoreHeroForDuration(heroBase));
             }
 
-            //Deals damage to the hero
-            DealDamage(heroBase, abilityDamage);
+            if (abilityDamage > 0)
+            {
+                //Deals damage to the hero
+                DealDamage(heroBase, abilityDamage);
+                _generalDamageEvent?.Invoke(heroBase);
+            }
+            
 
             return true;
         }
@@ -145,6 +161,7 @@ public class GeneralBossDamageArea : GeneralAbilityAreaFramework
     public UnityEvent<Collider> GetExitEvent() => _exitEvent;
     
     public UnityEvent<HeroBase> GetGeneralHitEvent() => _generalHitEvent;
+    public UnityEvent<HeroBase> GetGeneralDamageEvent() => _generalDamageEvent;
 
     #endregion
     
