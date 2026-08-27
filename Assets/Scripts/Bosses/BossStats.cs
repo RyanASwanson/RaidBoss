@@ -186,8 +186,6 @@ public class BossStats : BossChildrenFunctionality
     {
         _isBossDead = true;
         
-        StopEnrageTimer();
-        
         GameStateManager.Instance.SetGameplayState(EGameplayStates.PostBattleWon);
     }
 
@@ -410,6 +408,8 @@ public class BossStats : BossChildrenFunctionality
         _myBossBase.GetBossDamagedEvent().AddListener(CheckBossIsUnderHalf);
 
         GameStateManager.Instance.GetStartOfBattleEvent().AddListener(StartEnrageTimer);
+        
+        GameStateManager.Instance.GetBattleWonOrLostEvent().AddListener(StopEnrageTimer);
     }
     #endregion
 

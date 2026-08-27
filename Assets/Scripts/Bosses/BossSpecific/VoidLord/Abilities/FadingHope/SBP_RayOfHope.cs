@@ -12,6 +12,8 @@ public class SBP_RayOfHope : BossProjectileFramework
     
     [Space]
     [SerializeField] private float _baseHealing;
+    [Range(0,2)][SerializeField] private float _healingMultiplierIncreasePerLivingHero;
+    private float _healingMultiplier = 1;
 
     [Space]
     [SerializeField] private float _rayDestructionRemovalMultiplier;
@@ -53,7 +55,9 @@ public class SBP_RayOfHope : BossProjectileFramework
              * Potentially implement more clear solution on basing healing on amount of living Heroes
              * Healing has to be reduced as Heroes die, or with only 1 hero alive the healing would be all going into 1 Hero.
              */
-            _bossBuffArea.DealHealing(heroBase, _baseHealing*HeroesManager.Instance.GetAmountOfLivingHeroes());
+            _healingMultiplier = 1 + ((HeroesManager.Instance.GetAmountOfLivingHeroes() - 1) *
+                                 _healingMultiplierIncreasePerLivingHero);
+            _bossBuffArea.DealHealing(heroBase, _baseHealing* _healingMultiplier);
         }
         
         RemoveRayOfHope(heroBase);

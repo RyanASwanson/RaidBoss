@@ -61,6 +61,9 @@ public class SBP_DespairHex : BossProjectileFramework
         _despairHex = despairHex;
         _currentTarget = followTarget;
         
+        _scaleCurve.SetCurveIncreaseTime(_moveOutFromHeroTime);
+        _scaleCurve.SetCurveDecreaseTime(_moveIntoHeroTime);
+        
         _moveInWait = new WaitForSeconds(_moveIntoHeroTime);
         _moveOutWait = new WaitForSeconds(_moveOutFromHeroTime);
         _moveOutColliderEnableWait = new WaitForSeconds(_moveOutColliderEnableDelay);
@@ -235,6 +238,7 @@ public class SBP_DespairHex : BossProjectileFramework
         }
         else
         {
+            _despairHex.RemoveHexedHero(_previousTarget);
             _despairHex.RemoveHexedHero(_currentTarget);
             Destroy(gameObject);
         }
@@ -343,6 +347,7 @@ public class SBP_DespairHex : BossProjectileFramework
 
     public void RemovalConcluded()
     {
+        _despairHex.RemoveHexedHero(_previousTarget);
         _despairHex.RemoveHexedHero(_currentTarget);
         Destroy(gameObject);
     }

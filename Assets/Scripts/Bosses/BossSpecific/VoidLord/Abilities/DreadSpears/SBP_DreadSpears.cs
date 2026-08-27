@@ -9,6 +9,7 @@ using Random = UnityEngine.Random;
 public class SBP_DreadSpears : BossProjectileFramework
 {
     [SerializeField] private float _projectileInterval;
+    [SerializeField] private int _minProjectilesForEarlyRemoval;
     [SerializeField] private int _maxHitsBeforeEarlyRemoval;
 
     [Space]
@@ -125,7 +126,7 @@ public class SBP_DreadSpears : BossProjectileFramework
 
     private void StartEarlySpikeRemovalProcess()
     {
-        if (_hasStartedRemovingSpikes || !_earlySpikeRemovalProcess.IsUnityNull())
+        if (_hasStartedRemovingSpikes || !_earlySpikeRemovalProcess.IsUnityNull() || _projectileCounter < _minProjectilesForEarlyRemoval)
         {
             return;
         }

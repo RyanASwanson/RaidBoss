@@ -52,6 +52,7 @@ MonoBehaviour:
   _rayLifetime: 22
   _rayLifetimeWarning: 17
   _baseHealing: 2.6
+  _healingMultiplierIncreasePerLivingHero: 0.85
   _rayDestructionRemovalMultiplier: 0.5
   _rayOfHopeDestructionVFX: {fileID: 218637467146270485, guid: 74a4e4a9bcf864748b0179ab6c9735cf, type: 3}
   _rayCrystal: {fileID: 849593612755710148}
@@ -78,8 +79,8 @@ MonoBehaviour:
   _lifetime: 0
   _hasColliderActivationDelay: 1
   _colliderActivationDelay: 0.2
-  _hasColliderLifetime: 1
-  _colliderLifetime: 20
+  _hasColliderLifetime: 0
+  _colliderLifetime: 0
   _doesHitCenteredVFXCopyRotation: 0
   _hitCenteredVFXCopyTarget: {fileID: 0}
   _hitCenteredVFX: {fileID: 0}

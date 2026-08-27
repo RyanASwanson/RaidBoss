@@ -80,6 +80,9 @@ MonoBehaviour:
   _generalHitEvent:
     m_PersistentCalls:
       m_Calls: []
+  _generalDamageEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!54 &2383926891044002492
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -176,6 +179,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _projectileInterval: 0.35
+  _minProjectilesForEarlyRemoval: 8
   _maxHitsBeforeEarlyRemoval: 7
   _initialProjectileDistance: 1.2
   _distancePerProjectile: 0.35

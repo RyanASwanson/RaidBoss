@@ -363,7 +363,19 @@ MonoBehaviour:
       m_Calls: []
   _onFollowObjectMissing:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6727255448673106038}
+        m_TargetAssemblyTypeName: SBP_DespairHex, Assembly-CSharp
+        m_MethodName: ForceEndDuration
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1408205557991143669
 GameObject:
   m_ObjectHideFlags: 0
@@ -446,6 +458,9 @@ MonoBehaviour:
   _generalHitEvent:
     m_PersistentCalls:
       m_Calls: []
+  _generalDamageEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!54 &8507975824041152793
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -526,8 +541,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _curveName: Scale
-  _curveIncreaseTime: 0.5
-  _curveDecreaseTime: 0.5
+  _curveIncreaseTime: 0
+  _curveDecreaseTime: 0
   _minCurveValue: 0
   _maxCurveValue: 1
   _hasDefaultValue: 0
@@ -550,12 +565,12 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: 2.1150935
+      outSlope: 2.1150935
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.056497186
     - serializedVersion: 3
       time: 1
       value: 1

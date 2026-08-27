@@ -36,7 +36,7 @@ public class SBA_DespairHex : SpecificBossAbilityFramework
         
         if (_hexedHeroes.Contains(hero))
         {
-            Debug.LogError("Attempted to apply hex to hexed hero");
+            Debug.LogError("Attempted to apply hex to hexed hero " + hero.GetHeroSO().GetHeroName());
             return;
         }
 
