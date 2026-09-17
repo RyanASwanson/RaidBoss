@@ -129,6 +129,11 @@ public class GlacialLord_FrostFiend : BossMinionBase
         DeathAnim();
     }
 
+    public void FightOver()
+    {
+        StopFreezeProcess();
+    }
+
     public void AddTargetZone(BossTargetZoneParent target)
     {
         _currentTargetZones.Add(target);

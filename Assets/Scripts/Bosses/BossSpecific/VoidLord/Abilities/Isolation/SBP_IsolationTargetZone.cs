@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SBP_IsolationTargetZone : BossProjectileFramework
@@ -41,8 +42,15 @@ public class SBP_IsolationTargetZone : BossProjectileFramework
 
     public void RemoveTargetZones()
     {
-        _storedSafeAndTargetZone.RemoveAllZones();
-        _rayBuffTargetZoneParent.RemoveBossTargetZones();
+        if (!_storedSafeAndTargetZone.IsUnityNull())
+        {
+            _storedSafeAndTargetZone.RemoveAllZones();
+        }
+
+        if (!_rayBuffTargetZoneParent.IsUnityNull())
+        {
+            _rayBuffTargetZoneParent.RemoveBossTargetZones();
+        }
     }
 
     public void HeroesInSafeZone()

@@ -486,15 +486,15 @@ public class SaveManager : MainUniversalManagerFramework
         }
     }
 
-
-    private void Update()
+#if UNITY_DEVELOPMENT_BUILD
+    /*private void Update()
     {
         if(Input.GetKeyDown(KeyCode.Plus) || Input.GetKeyDown(KeyCode.Equals))
         {
             UnlockNextMissions();
         }
-    }
-
+    }*/
+#endif
 
     public void UnlockNextMissions()
     {

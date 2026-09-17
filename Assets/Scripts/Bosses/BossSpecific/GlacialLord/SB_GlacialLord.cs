@@ -33,6 +33,14 @@ public class SB_GlacialLord : SpecificBossFramework
                                                  BossStats.Instance.GetMinutesSpentEnraged());
     }
     
+    private void FightOver()
+    {
+        foreach (GlacialLord_FrostFiend frostFiend in _allFrostFiends)
+        {
+            frostFiend.FightOver();
+        }
+    }
+    
     
     #region Frost Fiends
     private IEnumerator SpawnStartingFrostFiends()
@@ -121,6 +129,7 @@ public class SB_GlacialLord : SpecificBossFramework
     {
         base.SubscribeToEvents();
         GameStateManager.Instance.GetBattleWonEvent().AddListener(FrostFiendDeath);
+        GameStateManager.Instance.GetBattleWonOrLostEvent().AddListener(FightOver);
         _myBossBase.GetSecondPassedEnrageEvent().AddListener(CalculateEnrageUnfreezeMultiplier);
     }
 

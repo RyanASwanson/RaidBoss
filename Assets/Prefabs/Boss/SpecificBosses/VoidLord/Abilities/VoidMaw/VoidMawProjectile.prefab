@@ -51,8 +51,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2d80bebcd4ffd24295a42164b78c81e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minimumMoveTime: 1.2
-  _maximumMoveTime: 2.6
+  _minimumMoveTime: 0.9
+  _maximumMoveTime: 1.6
   _collisionEnableDistance: 1
   _minimumHeroDistance: 1
   _maximumHeroDistance: 6.5
@@ -432,8 +432,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _curveName: ScaleCurve
-  _curveIncreaseTime: 0.5
-  _curveDecreaseTime: 0.5
+  _curveIncreaseTime: 0.4
+  _curveDecreaseTime: 0.4
   _minCurveValue: 0
   _maxCurveValue: 1
   _hasDefaultValue: 0
@@ -463,7 +463,7 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.5
+      time: 0.45
       value: 0
       inSlope: 0
       outSlope: 0
@@ -715,7 +715,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 0.75, y: 1, z: 0.65}
+  m_Size: {x: 0.75, y: 1, z: 0.6}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3766593102812420017
 GameObject:

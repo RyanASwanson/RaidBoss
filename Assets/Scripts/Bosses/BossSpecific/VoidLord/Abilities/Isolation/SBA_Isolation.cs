@@ -51,16 +51,14 @@ public class SBA_Isolation : SpecificBossAbilityFramework
         _isolationTargetZone.AdditionalSetUp(_storedTarget);
 
         _currentTargetSafeZone = _isolationTargetZone.GetStoredSafeAndTargetZone();
-
-        /*//Spawns the target area
-        _newestTargetZone = Instantiate(_targetZone, _storedTargetLocation, Quaternion.identity).GetComponent<BossTargetZoneParent>();
-        //Adds the target area to the list of target areas
-        _currentTargetZones.Add(_newestTargetZone);*/
     }
 
     protected override void RemoveTargetZones()
     {
-        _isolationTargetZone.RemoveTargetZones();
+        if (!_isolationTargetZone.IsUnityNull())
+        {
+            _isolationTargetZone.RemoveTargetZones();
+        }
         base.RemoveTargetZones();
     }
 
